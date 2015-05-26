@@ -1,0 +1,46 @@
+<?php
+	$bannerCollection = $this->getCategoryCollection();
+	$count = count($bannerCollection);	
+	$width = '250';
+	$height = '212';	
+?>
+<?php if (count($bannerCollection)): ?>
+<div class="Slider">
+    <ul>	
+        <?php foreach ($bannerCollection as $banner):?>
+            <?php if(!$banner['content']) {?>
+                <li>
+                    <?php if ($banner['weblink']) {	?><a href="<?php echo $banner['weblink'];?>"><?php } ?>                                            
+                            <img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA) . $banner['filename']?>" title="<?php echo $banner['title']?>" alt="<?php echo $banner['title']?>" style="width:750px; height:286px;"/>                        
+                    <?php if ($banner['weblink']) { ?></a><?php	} ?>						
+                </li>
+            <?php }?>
+        <?php endforeach; ?>
+    </ul>
+<div class="clear"></div>
+</div>		
+<?php endif;?>
+
+<?php if (count($bannerCollection)): ?>
+<div class="Tab">
+    <ul>	
+    <?php foreach ($bannerCollection as $banner):?>
+		<?php if($banner['content']) { ?>
+            <li>
+            <?php if ($banner['weblink']) {	?><a href="<?php echo $banner['weblink'];?>"><?php } ?>
+            <div class="Slide1">
+                <span class="Tabimg"><img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA) . $banner['filename']?>" title="<?php echo $banner['title']?>" alt="<?php echo $banner['title']?>" style="width:<?php echo $width;?>px; height:<?php echo $height;?>px;"/></span>
+                <div class="ImageText sidebrdr">
+                <?php echo $banner['content']?>
+                <p class="sep"></p>
+                <p class="ShopNow">SHOP NOW <span><img src="<?php echo $this->getSkinUrl('images/arrow.png'); ?>" width="10" height="11" /></span></p>
+              </div>                 
+            </div>       
+            <?php if ($banner['weblink']) { ?></a><?php	} ?>						
+            </li>
+        <?php }?>
+    <?php endforeach; ?>
+    </ul>
+    <div class="clear"></div>
+</div>		
+<?php endif;?>

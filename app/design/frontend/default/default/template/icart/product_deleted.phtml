@@ -1,0 +1,65 @@
+<?php
+/**
+ * MageWorx
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the MageWorx EULA that is bundled with
+ * this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://www.mageworx.com/LICENSE-1.0.html
+ *
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@mageworx.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade the extension
+ * to newer versions in the future. If you wish to customize the extension
+ * for your needs please refer to http://www.mageworx.com/ for more information
+ * or send an email to sales@mageworx.com
+ *
+ * @category   design
+ * @package    default_default
+ * @copyright  Copyright (c) 2010 MageWorx (http://www.mageworx.com/)
+ * @license    http://www.mageworx.com/LICENSE-1.0.html
+ */
+
+/**
+ * Instant Cart extension
+ *
+ * @category   design
+ * @package    default_default
+ * @author     MageWorx Dev Team <dev@mageworx.com>
+ */
+$requestUrl = $this->getRequest()->getRequestString();
+$refererUrl = $this->getRequest()->getServer('HTTP_REFERER');
+?>
+<script type="text/javascript">
+//<![CDATA[
+<?php if (strpos($requestUrl, '/removeWishlist/')) { ?>
+    // wishlist
+    iCart.updateBlock($$('a.top-link-wishlist'), <?php echo Zend_Json::encode($this->getTopLinkWishlist())?>);
+    <?php Mage::unregister('wishlist'); Mage::unregister('shared_wishlist'); ?>
+    <?php if (preg_match('~/wishlist/~', $refererUrl)): ?>
+        iCart.updateBlock($$('div.my-account', 'div.my-wishlist'), <?php echo Zend_Json::encode($this->getChildHtml('customer.wishlist'))?>);
+    <?php else: ?>        
+        iCart.replaceBlock($$('div.block-wishlist', 'div.mini-wishlist'), <?php echo Zend_Json::encode($this->getChildHtml('wishlist_sidebar'))?>);
+    <?php endif ?>    
+<?php } elseif (strpos($requestUrl, '/removeCompare/') || strpos($requestUrl, '/clearCompare/')) {?>
+    // compare
+    iCart.replaceBlock($$('div.block-compare', 'div.mini-compare'), <?php echo Zend_Json::encode($this->getChildHtml('catalog.compare.sidebar'))?>);
+<?php } else {?>
+    // cart
+    iCart.updateBlock($$('a.top-link-cart'), <?php echo Zend_Json::encode($this->getTopLinkCart())?>);
+    <?php if (preg_match('~/checkout/cart/~', $refererUrl)): ?>
+        iCart.updateBlock($$('div.cart', 'div.layout-1column'), <?php echo Zend_Json::encode($this->getChildHtml('checkout.cart'))?>);
+    <?php else: ?>
+        iCart.replaceBlock($$('div.block-cart', 'div.mini-cart'), <?php echo Zend_Json::encode($this->getChildHtml('cart_sidebar'))?>);
+    <?php endif ?>
+<?php } ?>
+iCart.updateLinks();    
+
+//]]>
+</script>

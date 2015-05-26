@@ -1,0 +1,145 @@
+<?php
+$stateBlock = $this->getLayout()->getBlockSingleton('Mage_Catalog_Block_Layer_State');
+$_active_filters = $stateBlock->getActiveFilters();
+$arr_active_filters = array();
+foreach($_active_filters as $_active_filter) {
+    $arr_active_filters[$_active_filter->getValue()] = $_active_filter;
+}
+$requestUri = strstr($_SERVER['REQUEST_URI'], "?", true);
+if(!$requestUri) {
+	$requestUri = $_SERVER['REQUEST_URI'];
+}
+$gtmId = trim(str_replace(array("/","index.php",".html"," "),array("-","","",""),$requestUri), "--");
+?>
+<?php echo Mage::helper('mana_core')->getNamedHtml('mana_filters/markup', 'before_items', array('block' => $this)) ?>
+<ol class="m-filter-item-list <?php echo $this->getFilterOptions()->getIsReverse() ? 'm-reverse' : '' ?>">
+<?php if ($this->getName() == "Colors") : ?>
+    <?php foreach ($this->getItems() as $_item): ?>
+        <?php if ($_item->getMSelected()): ?>
+            <li id="f-<?php echo $gtmId; ?>-color-<?php echo strtolower(str_replace(" ", "_", $this->escapeHtml($_item->getLabel()))) ?>" onclick="location.href='<?php echo (isset($arr_active_filters[$_item->getValue()]) && !is_null($arr_active_filters[$_item->getValue()]) ? $arr_active_filters[$_item->getValue()]->getRemoveUrl() : $_item->getRemoveUrl()) ?>';"
+                style="cursor: pointer;" class="color_bucket_<?php echo strtolower(str_replace(" ", "_", $this->escapeHtml($_item->getLabel()))) ?> m-selected-ln-item m-selected-filter-item gtm-track"
+                title="<?php echo $this->escapeHtml($_item->getLabel()) ?><?php 
+                if (Mage::getStoreConfigFlag('mana_filters/display/count')) : ?> (<?php echo $_item->getCount() ?>)<?php endif; ?>"
+                onclick="location.href='<?php echo (isset($arr_active_filters[$_item->getValue()]) && !is_null($arr_active_filters[$_item->getValue()]) ? $arr_active_filters[$_item->getValue()]->getRemoveUrl() : $_item->getRemoveUrl()) ?>';"> &nbsp;
+            </li>
+        <?php elseif (!$this->getFilterOptions()->getDisableNoResultOptions() || $_item->getCount() > 0) : ?>
+                <li id="f-<?php echo $gtmId; ?>-color-<?php echo strtolower(str_replace(" ", "_", $this->escapeHtml($_item->getLabel()))) ?>" onclick="location.href='<?php echo $this->urlEscape($_item->getUrl()) ?>';"
+                    style="cursor: pointer;" class="color_bucket_<?php echo strtolower(str_replace(" ", "_", $this->escapeHtml($_item->getLabel()))) ?> gtm-track" 
+                    title="<?php echo $this->escapeHtml($_item->getLabel()) ?><?php 
+                    if (Mage::getStoreConfigFlag('mana_filters/display/count')) : ?> (<?php echo $_item->getCount() ?>)<?php endif; ?>
+                    " onclick="location.href='<?php echo $this->urlEscape($_item->getUrl()) ?>';">
+                    &nbsp;
+                </li>
+        <?php endif; ?>
+    <?php endforeach ?>
+<?php elseif ($this->getName() == "Size") : ?>
+    <?php
+    $arrSizeGroup = array();
+    $arrSizeGroup['Group1'] = array('XS', 'S', 'L', 'M', 'XL', 'XXL');
+    $arrSizeGroup['Group2'] = array('26','28','30','32','34','36', '38','40','42','44', '46');
+    $arrSizeGroup['Group3'] = array('4', '5', '6', '7','8','9','10','11');
+    $arrGrouped = array(
+        'Group1' => array('Name' => '', 'Sizes' => array()), 
+        'Group2' => array('Name' => '', 'Sizes' => array()), 
+        'Group3' => array('Name' => '', 'Sizes' => array()), 
+        'Group4' => array('Name' => '', 'Sizes' => array()));
+    foreach ($this->getItems() as $_item) { 
+        $size = $_item->getLabel();
+        if (in_array($size, $arrSizeGroup['Group1'], false)) {
+            $arrGrouped['Group1']['Sizes'][] = $_item;
+        } elseif (in_array($size, $arrSizeGroup['Group2'], false)) {
+            $arrGrouped['Group2']['Sizes'][] = $_item;
+        } elseif (in_array($size, $arrSizeGroup['Group3'], false)) {
+            $arrGrouped['Group3']['Sizes'][] = $_item;
+        } else {
+            $arrGrouped['Group4']['Sizes'][] = $_item;
+        }
+    }
+    ?>
+    <?php foreach ($arrGrouped as $group_item): ?>
+        <?php if (count($group_item['Sizes'])): ?>
+            <?php if ($group_item['Name'] != ""): ?>
+                <dt class="size-group-name"><?php echo $group_item['Name'] ?></dt>
+            <?php endif; ?>
+            <dd class="flt-lable2">
+                <ol>
+                    <?php foreach ($group_item['Sizes'] as $_item): ?>
+                            <?php if ($_item->getMSelected()): ?>
+                                <li onclick="location.href='<?php echo (isset($arr_active_filters[$_item->getValue()]) && !is_null($arr_active_filters[$_item->getValue()]) ? $arr_active_filters[$_item->getValue()]->getRemoveUrl() : $_item->getRemoveUrl()) ?>';"
+                                    title="<?php echo $this->escapeHtml($_item->getLabel()) ?>"
+                                    <?php if ($_item->getMShowSelected()): ?>class="m-selected-ln-item"<?php endif; ?>>
+                                    <a class="gtm-track" id="f-<?php echo $gtmId ?>-size-<?php echo strtolower($this->escapeHtml($_item->getLabel())) ?>" onclick="href="<?php echo (isset($arr_active_filters[$_item->getValue()]) && !is_null($arr_active_filters[$_item->getValue()]) ? $arr_active_filters[$_item->getValue()]->getRemoveUrl() : $_item->getRemoveUrl()) ?>" 
+                                           title="<?php echo $this->escapeHtml($_item->getLabel()) ?>"
+                                           class="m-selected-filter-item">
+                                    <?php echo $this->escapeHtml($_item->getLabel()) ?>
+                                    <?php if (Mage::getStoreConfigFlag('mana_filters/display/count')) : ?>
+                                            (<?php echo $_item->getCount() ?>)
+                                        <?php endif; ?>
+                                    </a>
+                                </li>
+                            <?php else : ?>
+                                    <li onclick="location.href='<?php echo $this->urlEscape($_item->getUrl()) ?>';" title="<?php echo $this->escapeHtml($_item->getLabel()) ?>"
+                                        <?php if ($_item->getMShowSelected()): ?>class="m-selected-ln-item"<?php endif; ?>>
+                                            <?php if (!$this->getFilterOptions()->getDisableNoResultOptions() 
+                                                    || $_item->getCount() > 0 || $_item->getMSelected()): ?>
+                                            <a class="gtm-track" id="f-<?php echo $gtmId ?>-size-<?php echo strtolower($this->escapeHtml($_item->getLabel())) ?>" href="<?php echo $this->urlEscape($_item->getUrl()) ?>" title="<?php echo $this->escapeHtml($_item->getLabel()) ?>">
+                                                <?php echo $this->escapeHtml($_item->getLabel()) ?>
+                                                <?php if (Mage::getStoreConfigFlag('mana_filters/display/count')) : ?>
+                                                    (<?php echo $_item->getCount() ?>)
+                                                <?php endif; ?>
+                                            </a>
+                                        <?php endif; ?>
+                                    </li>
+                            <?php endif; ?>
+                   <?php endforeach ?>
+                </ol>
+            </dd>
+        <?php endif; ?>
+    <?php endforeach ?>
+<?php else: ?>
+    <?php foreach ($this->getItems() as $_item):
+		// only for GTM : start
+		$labelTxt = strtolower($_item->getLabel());
+		$labelPrefix = "cat";
+		if($labelTxt == 'men' || $labelTxt == 'women' || $labelTxt == 'unisex') {
+			$labelPrefix = "gender";
+		}
+		else if(substr_count($labelTxt, 'rs')) {
+			$labelPrefix = "price";
+		}
+		else if(substr_count($labelTxt, 'discount')) {
+			$labelPrefix = "discount";
+		}
+		// only for GTM : end
+    ?>
+            <?php if ($_item->getMSelected()): ?>
+                    <li onclick="location.href='<?php echo (isset($arr_active_filters[$_item->getValue()]) && !is_null($arr_active_filters[$_item->getValue()]) ? $arr_active_filters[$_item->getValue()]->getRemoveUrl() : $_item->getRemoveUrl()) ?>';"
+                        title="<?php echo $this->escapeHtml($_item->getLabel()) ?>"
+                         <?php if ($_item->getMShowSelected()): ?>class="m-selected-ln-item"<?php endif; ?>>
+                        <a id="f-<?php echo $gtmId ?>-<?php echo $labelPrefix; ?>-<?php echo str_replace(array(" ","rs",","),"",$labelTxt) ?>" class="gtm-track" href="<?php echo (isset($arr_active_filters[$_item->getValue()]) && !is_null($arr_active_filters[$_item->getValue()]) ? $arr_active_filters[$_item->getValue()]->getRemoveUrl() : $_item->getRemoveUrl()) ?>" 
+                        title="<?php echo $this->escapeHtml($_item->getLabel()) ?>"
+                        class="m-selected-filter-item gtm-track">
+                            <?php echo $this->escapeHtml($_item->getLabel()) ?>
+                            <?php if (Mage::getStoreConfigFlag('mana_filters/display/count')) : ?>
+                                (<?php echo $_item->getCount() ?>)
+                            <?php endif; ?>
+                        </a>
+                    </li>
+            <?php else : ?>
+                    <?php if (!$this->getFilterOptions()->getDisableNoResultOptions() || $_item->getCount() > 0 || $_item->getMSelected()): ?>
+                    <li onclick="location.href='<?php echo $this->urlEscape($_item->getUrl()) ?>';"
+                        title="<?php echo $this->escapeHtml($_item->getLabel()) ?>"
+                         <?php if ($_item->getMShowSelected()): ?>class="m-selected-ln-item"<?php endif; ?>>
+                        <a id="f-<?php echo $gtmId ?>-<?php echo $labelPrefix; ?>-<?php echo str_replace(array(" ","rs",",","'",'"'),"",$labelTxt) ?>" class="gtm-track" href="<?php echo $this->urlEscape($_item->getUrl()) ?>" title="<?php echo $this->escapeHtml($_item->getLabel()) ?>">
+                            <?php echo $this->escapeHtml($_item->getLabel()) ?>
+                            <?php if (Mage::getStoreConfigFlag('mana_filters/display/count')) : ?>
+                                (<?php echo $_item->getCount() ?>)
+                            <?php endif; ?>
+                        </a>
+                    </li>
+                    <?php endif; ?>
+            <?php endif; ?>
+    <?php endforeach ?>
+<?php endif; ?>
+</ol>
+<?php echo Mage::helper('mana_core')->getNamedHtml('mana_filters/markup', 'after_items', array('block' => $this)) ?>

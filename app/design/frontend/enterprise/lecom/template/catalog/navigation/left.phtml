@@ -1,0 +1,130 @@
+<?php
+/**
+ * Magento Enterprise Edition
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Magento Enterprise Edition License
+ * that is bundled with this package in the file LICENSE_EE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://www.magentocommerce.com/license/enterprise-edition
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://www.magentocommerce.com/license/enterprise-edition
+ */
+
+/**
+ * Category left navigation
+ *
+ * @see Mage_Catalog_Block_Navigation
+ */
+?>
+<?php if (!Mage::registry('current_category')) return ?>
+<?php 
+	$showLook = false;
+	$catLevel = Mage::registry('current_category')->getLevel();
+	if ($catLevel == 2) {
+		$currentCatName = Mage::registry('current_category')->getName();
+		$currentCatKey = Mage::registry('current_category')->getUrlKey();
+	} else {
+		$catParentId = Mage::registry('current_category')->getParentId();
+		$parentCat = Mage::getModel('catalog/category')->load($catParentId);
+		
+		$currentCatName = $parentCat->getName();
+		$currentCatKey = $parentCat->getUrlKey();
+	}
+	
+	if ($currentCatKey == 'menswear' OR $currentCatKey == 'womenswear') {
+		$showLook = true;
+	}
+?>
+<?php 
+	$_categories = $this->getCurrentChildCategoriesCustom();
+	$_count = is_array($_categories)?count($_categories):$_categories->count();
+
+	if (!$_count) {
+		$current_category = Mage::registry('current_category')->getParentId();
+		$_categories = $this->getParentChildCategoriesCustom($current_category);
+		$_count = is_array($_categories)?count($_categories):$_categories->count();
+	}
+	
+?>
+<?php if($_count) { ?>
+	<?php
+		$shopcat = array();
+		foreach ($_categories as $_category) {
+			//$cturlKey = $_category->getUrlKey();
+			$cturlKey = strtolower($_category->getName());
+			
+			if(($cturlKey == 'get the look') OR ($cturlKey == 'new arrivals')) {
+				$ctr = str_replace(" ", "-", $cturlKey);
+				$shopcat[$ctr] = $_category;
+			}
+
+			if ($showLook and count($shopcat) == 2) {
+				break;
+			} else if (!$showLook and count($shopcat) == 1) {
+				break;
+			}
+		}
+	?>
+    <?php $showLook = false;?>
+	<?php if($showLook) : ?>
+	<div class="left-links">
+    	<h1>highlights</h1>
+		<ul>	
+			<?php
+				if (isset($shopcat['new-arrivals'])) :
+					$newarrcat = $shopcat['new-arrivals'];					
+					if ($newarrcat->getIsActive()) :
+			?>
+						<li>
+							<a href="<?php echo $this->getCategoryUrl($newarrcat) ?>"<?php if ($this->isCategoryActive($newarrcat)): ?> class="active"<?php endif; ?>><?php echo $this->htmlEscape($newarrcat->getName()) ?></a>
+						</li>
+			<?php
+					endif;
+				endif;
+			?>
+		</ul>
+	</div>
+	<?php endif; ?>
+	<?php 
+	$showCatPanel = false;
+	foreach ($_categories as $_category):
+	  if($_category->getIsActive()):
+		  $showCatPanel = true;
+		  break;
+	  endif;
+	endforeach 
+	?>
+	<?php if($showCatPanel) { ?>
+	<div class="left-links">
+		<h1>shop by categories</h1>
+		<ul>
+			<?php foreach ($_categories as $_category): ?>
+				<?php if((strtolower($_category->getName()) != 'get the look') AND (strtolower($_category->getName()) != 'new arrivals')) { ?>
+					<?php 
+					if($_category->getIsActive()): 
+					?>
+						<li>
+							<a href="<?php echo $this->getCategoryUrl($_category) ?>"<?php if ($this->isCategoryActive($_category)): ?> class="active"<?php endif; ?>><?php echo $this->htmlEscape($_category->getName()) ?></a>
+						</li>
+					<?php endif; ?>
+					<?php } ?>
+			<?php endforeach ?>
+		</ul>
+	</div>
+ <?php } ?>
+<?php } ?>
+<div class="clear"></div>

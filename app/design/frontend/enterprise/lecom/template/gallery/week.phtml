@@ -1,0 +1,234 @@
+<?php
+
+$item = $this->getWeek();
+
+$week_title = $item->getItemTitle();
+$week_arr = explode('~', $week_title);
+
+$weekArr = Mage::helper('gallery')->rangeWeek($week_arr[0]);
+$week_start_date = date('F jS', strtotime($weekArr['start']));
+$week_end_date = date('F jS', strtotime($weekArr['end']));
+
+$this_week_string = $week_start_date.' to ' .$week_end_date.', '.date('Y' , strtotime($weekArr['end']));
+
+if($item->getGalleryId()){
+    $model = $this->getCurrentWeek();
+    $looks = $model->getGallery($item->getGalleryId());
+}
+
+Mage::getStoreConfig('gallery/lookoftheweek/imagewidth') ? $width = Mage::getStoreConfig('gallery/lookoftheweek/imagewidth') : $width = 659;
+Mage::getStoreConfig('gallery/lookoftheweek/imageheight') ? $height = Mage::getStoreConfig('gallery/lookoftheweek/imageheight') : $height = 731;
+Mage::getStoreConfig('gallery/lookoftheweek/archivethumbwidth') ? $archiveWidth = Mage::getStoreConfig('gallery/lookoftheweek/archivethumbwidth') : $archiveWidth = 144;
+Mage::getStoreConfig('gallery/lookoftheweek/archivethumbheight') ? $archiveHeight = Mage::getStoreConfig('gallery/lookoftheweek/archivethumbheight') : $archiveHeight = 193;		
+?>
+
+<div class="pagi"><span><a href="<?php echo Mage::getUrl('gallery'); ?>"><?php echo Mage::helper('gallery')->__('Home'); ?></a></span>  Look of the week</div>
+<div align="center" class="Look_week">
+    <img alt="" width="250" height="37" src="<?php echo $this->getSkinUrl('images/trends/look_of_week.jpg') ?>">
+</div>
+<div class="clearfloat"></div>
+<script type="text/javascript">
+    jQuery(document).ready( function(){
+        jQuery("#slider2").responsiveSlides({
+            auto: false,
+            pager: true,
+            nav: true,
+            namespace: "callbacks",
+            maxwidth: <?php echo $width; ?>,
+            prevText: "&#8249;",
+            nextText: "&#8250;"
+        });
+
+        jQuery('#look_highlight').jcarousel({ horizontal: true, scroll: '<?php echo Mage::getStoreConfig('gallery/lookoftheweek/highlightsperweek'); ?>' });
+    });
+</script>
+
+
+<div id="messages_product_view"><?php echo $this->getMessagesBlock()->getGroupedHtml() ?></div>
+<div class="trendsBody">
+<?php if($item->getGalleryId()){ ?>
+    <?php if(count($looks)){ ?>
+        <div class="navleft trendslarge"><a href="javascript:void(0);" onclick="jQuery('.callbacks_nav.prev').click();"><img alt="" width="19" height="41" src="<?php echo $this->getSkinUrl('images/trends/left_arc.jpg'); ?>"></a></div>
+    <?php } ?>
+    <div class="trends_large_img">
+        <ul class="rslides" id="slider2">
+            <?php if($item->getGalleryId()){ ?>
+            <li>
+                <a href="<?php echo $this->getViewUrl($item->getGalleryId()); ?>"><img alt="" src="<?php echo $item->getLookImageUrl(); ?>" width="<?php echo $width; ?>" height="<?php echo $height; ?>"></a>
+                <div class="trends_detail_desc">
+                    <div class="heading"><?php echo $item->getHeading(); ?></div>
+                    <div class="date"><?php echo $this_week_string; ?></div>
+                    <p><?php echo $item->getDescription(); ?></p>
+                </div>
+            </li>
+            <?php } ?>
+            <?php if(count($looks)){ ?>
+            <?php foreach($looks as $look){ ?>
+            <li>
+                <a href="<?php echo $this->getViewUrl($look->getGalleryId()); ?>"><img alt="" src='<?php echo $look->getLookImageUrl(); ?>' width="<?php echo $width; ?>" height="<?php echo $height; ?>" /></a>
+                <div class="trends_detail_desc">
+                    <div class="heading"><?php echo $look->getHeading(); ?></div>
+                    <div class="date"><?php echo $this_week_string; ?></div>
+                    <p><?php echo $look->getDescription(); ?></p>
+                </div>
+            </li>
+            <?php } ?>
+            <?php } ?>
+        </ul>        
+    </div>
+    <?php if(count($looks)){ ?>
+        <div class="navright trendslarge"><a href="javascript:void(0);" onclick="jQuery('.callbacks_nav.next').click();"><img alt="" width="19" height="40" src="<?php echo $this->getSkinUrl('images/trends/right_arc.jpg') ?>"></a></div>
+    <?php } ?>
+    
+    <div class="sshare">
+        <?php echo $this->getLayout()->createBlock('evlike/like')->setTemplate('evlike/likebutton.phtml')->_toHtml(); ?>
+    </div>
+
+    <div class="pageBotm"></div>
+
+    <?php $highlights = $this->getHighlights(trim($week_arr['1'])); ?>
+    
+    <div class="look_highlight">
+        <?php if(count($highlights)){ ?>
+        <div class="navleft"></div>        
+        <div id="look_highlight_archive">
+            <h3>Look Highlights</h3>            
+            <ul class="jcarousel-skin-tango" id="look_highlight">
+                <?php  foreach($highlights as $highlight){ ?>
+                    <li>
+                        <div class="imgwrap"> <a href="<?php echo $this->getViewUrl($highlight->getGalleryId()); ?>"><img src="<?php echo $highlight->getArchiveThumbUrl(); ?>" width="<?php echo $archiveWidth; ?>" height="<?php echo $archiveHeight; ?>" /></a></div>
+                    </li>
+                <?php } ?>                
+            </ul>           
+        </div>        
+        <div class="navright"></div>
+        <?php } ?>     
+        <div class="clearfloat"></div>
+        <div class="tags"><span>TAG :</span> <?php if($item->getGalleryId()){ echo $item->getTags(); } ?></div>
+        <div class="clearfloat"></div>
+    </div>
+<?php }else{ ?>
+    <p>No look exists for this week.</p>
+<?php } ?>
+</div>
+
+<?php
+if($item->getGalleryId()){ 
+    if ($this->getCommentsEnabled()) {
+?>
+<?php
+$comments = $this->getComment($item);
+if (count($comments)) {
+    $DateFormat = 'jS F, Y'; $TimeFormat = 'h:i:s A';
+
+?>
+
+<div class="comments">
+    <h4><?php echo $this->getCommentTotalString($comments); ?></h4>
+    <?php foreach ($comments as $comment){ ?>
+        <div class="read_review">
+            <p class="dates"><?php echo $comment->getUser(); ?> <?php echo $this->__("posted on") ?> <?php echo Mage::getModel('core/date')->date($DateFormat, strtotime($comment->getCreatedTime()))."<br>".Mage::getModel('core/date')->date($TimeFormat, strtotime($comment->getCreatedTime())).", ". $comment->getPlace(); ?></p>
+            <p><?php echo nl2br($comment->getComment()); ?></p>
+        </div>
+    <?php } ?>
+        
+    <?php if ($this->getPageCount() > 1) : ?>
+        <div class="pagelist clearfix">
+            <a title="" class="page" href="javascript:void(0);"> <img src="<?php echo $this->getSkinUrl('images/blog_prev.jpg')?>" alt="previous" width="7" height="12"></a>
+            <?php for ($i = 1; $i <= $this->getPageCount(); $i++) : ?>
+                <?php if ($this->current($i)): ?>
+                    <span class="current"><?php echo $i ?></span>
+                <?php else: ?>
+                    <a href="<?php echo $this->getPageAddress($i) ?>" class="page"><?php echo $i ?></a>
+                <?php endif; ?>
+            <?php endfor ?>
+            <a title="" class="page" href="javascript:void(0);"><img src="<?php echo $this->getSkinUrl('images/blog_next.jpg')?>" width="7" alt="next" height="12"></a>
+        </div>
+    <?php endif ?>
+</div>
+
+<?php
+}
+?>
+<?php $data = $this->getRequest()->getPost(); ?>
+<?php if ($this->getLoginRequired()) { ?>
+    <?php if ($this->helper('customer')->isLoggedIn()) { ?>
+        <div id="comment_section">
+            <form action="<?php echo $this->getUrl('*/*/postComment') ?>" id="postComment" method="post" class="gallery-post-comment comment_form">
+                <h3><?php echo Mage::helper('gallery')->__('Leave a Comment') ?></h3>
+                <div class="fleft">
+                    <p><?php echo Mage::helper('gallery')->__('Your Comment') ?> *</p>
+                    <textarea name="comment" id="comment" title="<?php echo Mage::helper('gallery')->__('Comment') ?>" class="required-entry input-text commentfield" cols="15" rows="5" onkeyup="textLimit(this, 1500);" onkeydown="textLimit(this, 1500);"><?php echo $data['comment']; ?></textarea>
+                    <span class="characters lgrey small">You have <span id="charsLeft">1500</span> chars left.</span>
+                    <div class="notify small">
+                        <input name="notify_comment" type="checkbox" value="1"> <?php echo Mage::helper('gallery')->__('Notify me of follow-up comments by email.') ?><br><br>
+                        <input name="notify_trend" type="checkbox" value="1"> <?php echo Mage::helper('gallery')->__('Notify me of new posts by email.') ?>
+                    </div>
+                </div>
+                <div class="fright">
+                    <p><?php echo Mage::helper('gallery')->__('Place') ?></p>
+                    <input name="place" id="place" value="<?php echo $data['place']; ?>" title="<?php echo $this->__('Place') ?>" class="input-text validate-alpha-with-spaces" type="text" maxlength="250" /><br>
+                </div>
+                <div class="clearfloat"></div>
+                <input name="post_id" type="hidden" value="<?php echo $item->getGalleryId(); ?>" />
+                <input name="email" type="hidden" value="<?php echo $this->htmlEscape($this->helper('gallery')->getUserEmail()) ?>"/>
+                <input name="user" type="hidden" value="<?php echo $this->htmlEscape($this->helper('gallery')->getUserName()) ?>"/>
+                <div class="submit_commnt"><button class="btnsubmit" type="submit"><?php echo Mage::helper('gallery')->__('Submit Comment') ?></button></div>
+            </form>
+        </div>
+    <?php } else { ?>
+        <p><?php echo Mage::helper('gallery')->__('You must be logged in to post a comment.'); ?></p>
+        <p><a href="<?php echo Mage::helper('customer')->getLoginUrl(); ?>"><?php echo Mage::helper('gallery')->__('click here'); ?></a> <?php echo Mage::helper('gallery')->__('to log in'); ?></p>
+    <?php } ?>
+<?php } else { ?>
+        <div id="comment_section">
+            <form action="<?php echo $this->getUrl('*/*/postComment') ?>" id="postComment" method="post" class="gallery-post-comment comment_form">
+                <h3><?php echo Mage::helper('gallery')->__('Leave a Comment') ?></h3>
+                <div class="fleft">
+                    <p><?php echo Mage::helper('gallery')->__('Your Comment') ?> *</p>
+                    <textarea name="comment" id="comment" title="<?php echo Mage::helper('gallery')->__('Comment') ?>" class="required-entry input-text commentfield" cols="15" rows="5" onkeyup="textLimit(this, 1500);" onkeydown="textLimit(this, 1500);"><?php echo $data['comment']; ?></textarea>
+                    <span class="characters lgrey small">You have <span id="charsLeft">1500</span> chars left.</span>
+                    <div class="notify small">
+                        <input name="notify_comment" type="checkbox" value="1"> <?php echo Mage::helper('gallery')->__('Notify me of follow-up comments by email.') ?><br><br>
+                        <input name="notify_trend" type="checkbox" value="1"> <?php echo Mage::helper('gallery')->__('Notify me of new posts by email.') ?>
+                    </div>
+                </div>
+                <div class="fright">
+                    <p><?php echo Mage::helper('gallery')->__('Name') ?> <span class="mandatoryField">*</span></p>
+                    <input name="user" id="user" value="<?php echo $data['user']; ?>" title="<?php echo $this->__('Name') ?>" class="required-entry input-text" type="text" maxlength="250" /><br>
+                    <p><?php echo Mage::helper('gallery')->__('Email') ?> <span class="mandatoryField">*</span></p>
+                    <input name="email" id="email" value="<?php echo $data['email']; ?>" title="<?php echo $this->__('Email') ?>" class="required-entry input-text validate-email" type="text" maxlength="250" /><br>
+                    <p><?php echo Mage::helper('gallery')->__('Place') ?></p>
+                    <input name="place" id="place" value="<?php echo $data['place']; ?>" title="<?php echo $this->__('Place') ?>" class="input-text validate-alpha-with-spaces" type="text" maxlength="250" /><br>
+                </div>
+                <div class="clearfloat"></div>
+                <input name="post_id" type="hidden" value="<?php echo $item->getGalleryId(); ?>" />
+                <div class="submit_commnt"><button class="btnsubmit" type="submit"><?php echo Mage::helper('blog')->__('Submit Comment') ?></button></div>
+            </form>
+        </div>
+<?php } ?>
+
+<?php } } ?>
+<script type="text/javascript">
+    
+    var maxlen = 1500;
+    
+    function textLimit(field, maxlen) {
+        if (field.value.length > maxlen)
+            field.value = field.value.substring(0, maxlen);
+    }
+
+    Event.observe('comment', 'keyup', function (event) {
+        $('charsLeft').update((maxlen) - $('comment').value.length);
+    });
+        
+    var contactForm = new VarienForm('postComment', false);
+    
+    Event.observe(window, 'load', function() {
+        var remainedChars = (maxlen) - $('comment').value.length;
+        if(remainedChars < 0){
+            remainedChars = 0;
+        }
+        $('charsLeft').update(remainedChars);
+    });
+</script>

@@ -1,0 +1,40 @@
+<?php 	
+		$_items = array();
+		$_review = Mage::getModel('review/review')->getResourceCollection();
+		$_review->addStoreFilter( Mage::app()->getStore()->getId() )
+		->addEntityFilter('product', $this->getProductId())
+		->addStatusFilter( Mage_Review_Model_Review::STATUS_APPROVED )
+		->setDateOrder()
+		->addRateVotes();
+		$avg = 0;
+		$ratings = array();
+		$_items = $_review->getItems();
+?>
+		<a href="#pager" id="review_frame_main">
+			<div class="rating-box">
+				<div class="rating" style="width:<?php echo number_format($this->getCustomRatingAverage(
+$_items), 2 , '.', ''); ?>%">
+				</div>				
+            </div>
+		</a>
+			
+<?php if ($this->getReviewsCount()): ?>
+
+        <?php if ($this->getRatingSummary()):?>
+            
+        <?php endif;?>
+           
+		<span class="reviewcount">
+			<!-- <a href="javascript:void(0)" id="review_frame">
+			<?php // echo $this->__('%d', $this->getReviewsCount()) ?>
+			</a> -->
+			<?php echo $this->__('%d', $this->getReviewsCount()) ?>
+		</span>
+		
+			<a href="#pager" id="review_frame_add"><?php echo $this->__('Ratings / Reviews') ?></a>
+       
+		<?php elseif ($this->getDisplayIfEmpty()): ?>
+		    
+		<a href="#pager" id="review_frame_add_first"><?php echo $this->__('Ratings / Reviews') ?></a>
+		
+<?php endif; ?>

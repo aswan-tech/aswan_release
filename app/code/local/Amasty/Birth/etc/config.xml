@@ -1,0 +1,202 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Amasty_Birth>
+            <version>2.0.4</version>
+        </Amasty_Birth>
+    </modules>
+    
+    <global>
+        <models>
+            <ambirth>
+                <class>Amasty_Birth_Model</class>
+                <resourceModel>ambirth_mysql4</resourceModel>
+            </ambirth>
+            <ambirth_mysql4>
+                <class>Amasty_Birth_Model_Mysql4</class>
+				<entities>
+                    <log>
+                        <table>am_birth_log</table>
+                    </log> 
+                </entities>				
+            </ambirth_mysql4>
+            
+            <newsletter>
+                <rewrite>
+        			<subscriber>Amasty_Birth_Model_Newsletter_Subscriber</subscriber>
+        		</rewrite> 
+            </newsletter>            
+            
+        </models>
+        
+        <resources>
+            <ambirth_setup>
+                <setup>
+                    <module>Amasty_Birth</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </ambirth_setup>
+            
+            <ambirth_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </ambirth_write>
+            
+            <ambirth_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </ambirth_read>
+        </resources>
+        <helpers>
+            <ambirth>
+                <class>Amasty_Birth_Helper</class>
+            </ambirth>
+        </helpers>
+        
+        <template>
+            <email>
+               <ambirth_birth_template translate="label" module="ambirth">
+                   <label>Birthday Coupon</label>
+                   <file>amasty_birthday_coupon.html</file>
+                   <type>html</type>
+               </ambirth_birth_template>
+               <ambirth_reg_template translate="label" module="ambirth">
+                   <label>Registration Coupon</label>
+                   <file>amasty_registration_coupon.html</file>
+                   <type>html</type>
+               </ambirth_reg_template>
+               <ambirth_wishlist_template translate="label" module="ambirth">
+                   <label>Wishlist Created Coupon</label>
+                   <file>amasty_wishlist_coupon.html</file>
+                   <type>html</type>
+               </ambirth_wishlist_template> 
+               <ambirth_activity_template translate="label" module="ambirth">
+                   <label>Last Log-In Coupon</label>
+                   <file>amasty_activity_coupon.html</file>
+                   <type>html</type>
+               </ambirth_activity_template>                              
+            </email>
+        </template>         
+    </global>
+
+    <!--crontab>
+        <jobs>
+            <ambirth_send>
+                <schedule><cron_expr>3 * * * *</cron_expr></schedule>
+                <run><model>ambirth/observer::send</model></run>
+            </ambirth_send>
+        </jobs> 
+    </crontab-->
+    
+           
+   <adminhtml>
+		<acl>
+			<resources>
+				<all>
+					<title>Allow Everything</title>
+				</all>
+                <admin>
+                    <children>
+                        <system>
+                            <children>
+                                <config>
+                                    <children>
+                                        <ambirth translate="title" module="ambirth">
+                                            <title>Special Occasion Coupons</title>
+                                        </ambirth>
+                                    </children>
+                                </config>
+                            </children>
+                        </system> 
+                     </children>
+                </admin> 
+			</resources>
+		</acl>
+        <translate>
+            <modules>
+                <Amasty_Birth>
+                    <files>
+                        <default>Amasty_Birth.csv</default>
+                    </files>
+                </Amasty_Birth>
+            </modules>
+        </translate>
+    </adminhtml> 
+    
+    <default>
+        <ambirth>
+           <general>
+                <identity>general</identity>
+                <remove_days>30</remove_days>  
+           </general> 
+              
+           <birth>
+                <enabled>0</enabled>
+                <days>0</days> 
+                <template>ambirth_birth_template</template>
+           
+                <coupon_type>by_percent</coupon_type> 
+                <coupon_amount>5</coupon_amount> 
+                <coupon_days>1</coupon_days> 
+                <coupon_uses>1</coupon_uses> 
+                <uses_per_customer>1</uses_per_customer> 
+                <min_order>0</min_order> 
+           </birth> 
+            
+           <reg>
+                <enabled>0</enabled>
+                <days>0</days> 
+                <template>ambirth_reg_template</template>
+           
+                <coupon_type>by_percent</coupon_type> 
+                <coupon_amount>5</coupon_amount>
+                <coupon_days>1</coupon_days> 
+                <coupon_uses>1</coupon_uses>
+                <uses_per_customer>1</uses_per_customer> 
+                <min_order>0</min_order> 
+           </reg>
+           
+           <newsletter>
+                <enabled>0</enabled>
+                <template>ambirth_newsletter_template</template>
+           
+                <coupon_type>by_percent</coupon_type> 
+                <coupon_amount>5</coupon_amount> 
+                <coupon_days>1</coupon_days> 
+                <coupon_uses>1</coupon_uses> 
+                <uses_per_customer>1</uses_per_customer> 
+                <min_order>0</min_order>
+           </newsletter>
+           
+           <wishlist>
+                <enabled>0</enabled>
+                <template>ambirth_wishlist_template</template>
+           
+                <coupon_type>by_percent</coupon_type> 
+                <coupon_amount>5</coupon_amount>
+                <coupon_days>1</coupon_days> 
+                <coupon_uses>1</coupon_uses>
+                <uses_per_customer>1</uses_per_customer>  
+                <min_order>0</min_order>
+           </wishlist>           
+           
+           <activity>
+                <enabled>0</enabled>
+                <days>0</days> 
+                <template>ambirth_activity_template</template>
+           
+                <coupon_type>by_percent</coupon_type> 
+                <coupon_amount>5</coupon_amount>
+                <coupon_days>1</coupon_days> 
+                <coupon_uses>1</coupon_uses>
+                <uses_per_customer>1</uses_per_customer>  
+                <min_order>0</min_order>
+           </activity>
+
+        </ambirth>
+    </default>
+</config>

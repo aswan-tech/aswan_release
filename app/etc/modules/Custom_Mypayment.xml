@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Custom_Mypayment>
+            <active>true</active>
+            <codePool>local</codePool>
+        </Custom_Mypayment>
+    </modules>
+</config>

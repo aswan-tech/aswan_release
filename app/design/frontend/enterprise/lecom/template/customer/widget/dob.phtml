@@ -1,0 +1,138 @@
+<?php
+/**
+ * Magento Enterprise Edition
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Magento Enterprise Edition License
+ * that is bundled with this package in the file LICENSE_EE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://www.magentocommerce.com/license/enterprise-edition
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     enterprise_default
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://www.magentocommerce.com/license/enterprise-edition
+ */
+
+/**
+USAGE:
+
+Simple:
+
+<?php echo $this->getLayout()->createBlock('customer/widget_dob')
+   ->setDate($this->getCustomer()->getDob())
+   ->toHtml() ?>
+
+For checkout/onepage/billing.phtml:
+
+<?php echo $this->getLayout()->createBlock('customer/widget_dob')
+   ->setDate($this->getCustomer()->getDob())
+   ->setFieldIdFormat('billing:%s')
+   ->setFieldNameFormat('billing[%s]')
+   ->toHtml() ?>
+
+NOTE: Regarding styles - if we leave it this way, we'll move it to boxes.css
+      Alternatively we could calculate widths automatically using block input parameters.
+*/
+
+/**
+ * @see Mage_Customer_Block_Widget_Dob
+ */
+?>
+<tr>
+    <td class="dob acc-perdetail" id="customer-dob">
+<label style="display:block; clear:both;" for="<?php echo $this->getFieldId('month')?>">	
+	<?php echo $this->__('Date of Birth') ?>
+		<?php if ($this->isRequired()) echo '<span class="mandatoryField">*</span>' ?>
+	</label>
+
+<?php
+	$daySelect = "<select id='" . $this->getFieldId('day') . "' name='" . $this->getFieldName('day') . "' class='validate-custom' title='Day' " . $this->getFieldParams()  . " >";
+	$daySelect .= "<option value=''>Day</option>";
+	
+	$selday = "";
+	
+	for($i = 1; $i <= 31; $i++) {
+		if ($i == $this->getDay()) {
+			$selday = " selected='selected' ";
+		} else {
+			$selday = "";
+		}
+		$day_text = date("d", mktime(0, 0, 0, 0, $i, 0));
+		
+		$daySelect .= "<option value='". $day_text . "' ". $selday .">". $day_text ."</option>";
+	}
+	
+	$daySelect .= "</select>";
+
+
+    $this->setDateInput('d',
+        '<div class="dropfield">'. $daySelect .'</div>'
+    );
+
+	$monthSelect = "<select id='" . $this->getFieldId('month') . "' name='" . $this->getFieldName('month') . "'  title='Month'  class='validate-custom' " . $this->getFieldParams()  . " >";
+	$monthSelect .= "<option value=''>Month</option>";
+	
+	$selmonth = "";
+	
+	for($i = 1; $i <= 12; $i++) {
+		if ($i == $this->getMonth()) {
+			$selmonth = " selected='selected' ";
+		} else {
+			$selmonth = "";
+		}
+		$month_text = date("F", mktime(0, 0, 0, $i+1, 0, 0));
+		
+		$monthSelect .= "<option value='". str_pad ( $i, 2, '0', STR_PAD_LEFT) . "' ". $selmonth .">". $month_text ."</option>";
+	}
+	
+	$monthSelect .= "</select>";
+	
+    $this->setDateInput('m',
+        '<div class="dropfield">'. $monthSelect .'</div>'
+    );
+
+	$yearSelect = "<select id='" . $this->getFieldId('year') . "' name='" . $this->getFieldName('year') . "'  title='Year'  class='validate-custom' " . $this->getFieldParams()  . " >";
+	$yearSelect .= "<option value=''>Year</option>";
+	
+	$selYear = "";
+	
+	for($j=date('Y'); $j>=date('Y')-150; $j--) {
+			if ($j == $this->getYear()) {
+				$selYear = " selected='selected' ";
+			} else {
+				$selYear = "";
+			}
+	
+			$yearSelect .= "<option value='". $j . "' ". $selYear .">". $j ."</option>";
+	}
+	
+	$yearSelect .= "</select>";
+	
+    $this->setDateInput('y',
+        '<div class="dropfield">'. $yearSelect . '</div>'
+    );
+?>
+    <?php echo $this->getSortedDateInputs() ?>
+    <span class="dob-full" style="display:none;">
+        <input type="hidden" id="<?php echo $this->getFieldId('full')?>" name="<?php echo $this->getFieldName('dob')?>" />
+    </span>
+
+    <div class="validation-advice" id="<?php echo $this->getFieldId('date-advice')?>" style="display:none;"/>
+	</td>
+</tr>
+<script type="text/javascript">
+//<![CDATA[
+var customer_anniversary = new Varien.DateElement('id', '<?php echo $this->getFieldId('')?>', <?php echo ($this->isRequired() ? 'true' : 'false'); ?>, '<?php echo $this->getDateFormat() ?>');
+//]]>
+</script>

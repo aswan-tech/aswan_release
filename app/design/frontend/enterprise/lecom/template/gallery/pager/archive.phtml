@@ -1,0 +1,20 @@
+<?php if ($this->getCollection()->getSize()): ?>
+    <?php if ($this->getLastPageNum() > 1): ?>
+		<ul>
+            <?php if (!$this->isFirstPage()): ?>
+                <li><a href="<?php echo $this->getPreviousPageUrl() ?>">&#8249; </a></li>
+            <?php endif;?>
+			
+            <?php foreach ($this->getFramePages() as $_page): ?>
+                <?php if ($this->isPageCurrent($_page)): ?>
+                    <li><a href="javascript:void(0);"><?php echo $_page ?>/<?php echo $this->getLastPageNum() ?></a></li>
+                <?php endif; ?>
+            <?php endforeach; ?>
+			
+            <?php if (!$this->isLastPage()): ?>
+                <li><a href="<?php echo $this->getNextPageUrl() ?>">&#8250;</a></li>
+            <?php endif;?>
+            
+        </ul>
+    <?php endif; ?>
+<?php endif ?>

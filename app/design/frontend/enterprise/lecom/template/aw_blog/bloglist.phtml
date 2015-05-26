@@ -1,0 +1,37 @@
+<?php $posts = $this->getPosts(); ?>
+<div id="messages_product_view">
+    <?php Mage::app()->getLayout()->getMessagesBlock()->setMessages(Mage::getSingleton('customer/session')->getMessages(true)); ?> 
+    <?php echo Mage::app()->getLayout()->getMessagesBlock()->getGroupedHtml(); ?> 
+</div>
+<?php foreach ($posts as $post): ?>
+    <div class="blogwrapper">
+	<?php $postCats = $post->getCats(); ?>
+	<?php if (!empty($postCats)): ?>
+		<div class="category">
+		<?php foreach ($postCats as $title => $url): ?>
+			<a href="<?php echo $url; ?>"><?php echo $title; ?></a> 
+		<?php endforeach; ?> 
+		</div>
+	<?php endif; ?>
+  
+  <div class="heading"><a href="<?php echo $post->getAddress(); ?>" ><?php echo $post->getTitle(); ?></a></div>
+  <div class="date"><?php echo Mage::helper('blog')->__('Posted'); ?> <?php echo $post->getCreatedTime(); ?></div>
+  <?php $_catImage = $post->getCatPageImg(); ?>
+	<?php if($_catImage != ''): ?>
+		<div class="blog_img"> <img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA) .$_catImage; ?>"  /></div>
+	<?php else: ?>
+		<?php $_catImage = $post->getCatPageImg(); ?>
+		<div class="blog_img"><img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA) .$_catImage; ?>"  /></div>
+	<?php endif; ?>
+  <p><?php echo $post->getPostContent(); ?></p>
+  <div class="read"><a href="<?php echo $post->getAddress(); ?>">read more..</a></div>
+						
+  <div class="sshare">
+	<fb:like href="<?php echo $post->getAddress(); ?>" send="true" layout="button_count" width="450" show_faces="false"></fb:like>
+  </div>
+  <div class="clearfloat"></div>
+  
+  <?php echo $this->getTagsHtml($post) ?>
+</div>
+<?php endforeach; ?> 
+<?php echo $this->getPagerHtml(); ?>

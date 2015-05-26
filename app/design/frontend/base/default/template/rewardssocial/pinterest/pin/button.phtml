@@ -1,0 +1,63 @@
+
+<script type="text/javascript">
+    var checkPinterestUri = '<?php echo $this->getPinProcessingUri() ?>';
+</script>
+
+<a data-pin-config="beside" href="//pinterest.com/pin/create/button/?url=<?php echo $this->getRequestUriEncoded() ?>&media=<?php echo $this->getPinnableMediaUriEncoded() ?>&description=" data-pin-do="buttonPin"><img src="//assets.pinterest.com/images/pidgets/pin_it_button.png" /></a>
+<script type="text/javascript" src="//assets.pinterest.com/js/pinit.js"></script>
+<span class="_pin_it_button_count" id="_pin_count_0" style="display: none;"><i></i>0</span>
+
+<?php echo $this->getChildHtml('modal') ?>
+
+<script type="text/javascript">
+    Event.observe(document, 'dom:loaded', function() {
+        var rewardsPinterestKey = null,
+            rewardsPinterestObj = null;
+        for (var key in window) {
+            if (!window.hasOwnProperty(key)) {
+                continue;
+            }
+
+            if (key.indexOf('PIN_') == -1) {
+                continue;
+            }
+
+            rewardsPinterestKey = key;
+            rewardsPinterestObj = window[key];
+            break;
+        }
+
+        if (rewardsPinterestKey == null) {
+            return;
+        }
+
+        var hasPredictedPoints = <?php echo $this->getHasPredictedPoints() ? 'true' : 'false' ?>;
+        var rewardsPinItButton = $$('.' + rewardsPinterestKey + '_pin_it_button')[0];
+        var modal = $('rewards_pinterest_pinItButton_modal');
+        Event.observe(rewardsPinItButton, 'click', function(e) {
+            if (!hasPredictedPoints) {
+                return;
+            }
+
+            modal.style.display = '';
+            $('rewardssocial_pinterest_modal_username').focus();
+        });
+
+        // TODO: this is a hack to be able to show 0 counts
+        rewardsPinterestObj.f.call(rewardsPinterestObj.a.endpoint.count+"?url="+encodeURIComponent(window.location.href)+"&ref="+encodeURIComponent(rewardsPinterestObj.v.here)+"&source="+rewardsPinterestObj.a.countSource,
+            // callback after fetching pin count
+            function(response, someNumber) {
+                if (response.count > 0) {
+                    return;
+                }
+
+                var oldCount = $(rewardsPinterestKey + '_pin_count_0');
+                var newCount = $('_pin_count_0');
+                newCount.style.setProperty('display', 'block');
+                newCount.className = rewardsPinterestKey + '_pin_it_button_count';
+                newCount.id = rewardsPinterestKey + '_pin_count_0';
+                oldCount.parentNode.replaceChild(newCount, oldCount);
+            }
+        );
+    });
+</script>

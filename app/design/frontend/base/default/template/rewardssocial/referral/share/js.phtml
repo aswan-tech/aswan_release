@@ -1,0 +1,16 @@
+
+<script type="text/javascript">
+    var processReferralShareUri = "<?php echo $this->getUrl('rewardssocial/index/referralShare') ?>";
+
+    Event.observe(document, 'dom:loaded', function() {
+        var referralTweetButton = $$('.my_referrals-urlcode_group .social-widgets .twitter-share-button')[0];
+        if (typeof referralTweetButton != 'undefined') {
+            referralTweetButton.addClassName('rewardssocial-referral-rewardable');
+        }
+
+        referralTweetButton = $$('.rewardsref-sidebar-share .rewardsref-share-tweet .twitter-share-button')[0];
+        if (typeof referralTweetButton != 'undefined') {
+            referralTweetButton.addClassName('rewardssocial-referral-rewardable');
+        }
+    });
+</script>

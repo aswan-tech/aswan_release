@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<config>
+	<!--
+		plain or html
+        -->
+    <content>html</content>
+	<senderemail>gupta-amit@hcl.com</senderemail>
+	<sendername>Error Reporter</sendername>
+    <smtp>
+        <server>smtp.gmail.com</server>
+		<port>465</port>
+		<username>service@americanswan.com</username>
+		<password>Hold4Rain</password>
+		<!--
+			none, ssl, tls
+        -->
+		<security>ssl</security>
+		<!--
+		PLAIN, LOGIN and CRAM-MD5
+        -->
+		<auth>LOGIN</auth>		
+    </smtp>
+</config>

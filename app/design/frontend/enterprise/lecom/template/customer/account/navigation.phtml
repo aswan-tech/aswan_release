@@ -1,0 +1,44 @@
+<?php
+$controller = Mage::app()->getRequest()->getControllerName();
+$action = Mage::app()->getRequest()->getActionName();
+$router = Mage::app()->getRequest()->getRouteName();
+$module = Mage::app()->getRequest()->getModuleName();
+?>
+<div class="ams-per-l-sec f-bold f-lato"> 
+<ul>
+    <li  onclick="location.href='<?php echo $this->getUrl('customer/account/edit'); ?>';">
+        <a class="<?php if (($module == 'customer' && $controller == 'account' && $action == 'edit' && $router == 'customer')) { echo 'acc-active'; } ?>" href="javascript:void(0)">My Details</a></li>
+    <?php if (Mage::app()->getRequest()->getModuleName() == "customer" && Mage::app()->getRequest()->getControllerName() == "account" && Mage::app()->getRequest()->getActionName() == "edit"): ?>
+    <li  onclick="jQuery('#change_password').attr('checked','checked'); setPasswordForm(true);">
+        <a href="javascript:void(0)">Change Password</a></li>
+    <?php else: ?>
+    <li  onclick="location.href='<?php echo $this->getUrl('customer/account/edit') ?>#scroll-to-bottom'">
+        <a href="javascript:void(0)">Change Password</a></li>
+    <?php endif; ?>
+    <li  onclick="location.href='<?php echo $this->getUrl('customer/address') ?>'">
+        <a class="<?php if (($module == 'customer' && $controller == 'address' && $action == 'index' && $router == 'customer') || 
+                   ($module == 'customer' && $controller == 'address' && $action == 'form' && $router == 'customer')) { echo 'acc-active'; } ?>" href="javascript:void(0)">My Address</a></li>
+    <li  onclick="location.href='<?php echo $this->getUrl('customer/account/mypreferences'); ?>'">
+        <a class="<?php if ($module == 'customer' && $controller == 'account' && $action == 'mypreferences' && $router == 'customer') { echo 'acc-active'; } ?>" href="javascript:void(0)">My Preferences</a></li>
+    <li  onclick="location.href='<?php echo $this->getUrl('invitation'); ?>'">
+        <a class="<?php if ($module == 'invitation' && $controller == 'index' && $action == 'index' && $router == 'enterprise_invitation') { echo 'acc-active'; } ?>" href="javascript:void(0)">My Referrals</a></li>
+</ul>
+</div>
+<?php
+// My Coupons: aitloyalty/account/promostats/
+// Rewards Points: reward/customer/info/
+// Store Credits: storecredit/info/
+// Address: customer/address
+?>
+
+ <script>
+	jQuery(document).ready(function(e) {
+		
+	jQuery('a.inactive').click(function(){
+	jQuery(".ams-per-l-sec ul li a.acc-active").removeClass("acc-active")
+	.addClass("inactive");		 
+	jQuery(this).removeClass('inactive')
+	.addClass('acc-active')
+	jQuery(this).prev().removeClass('inactive')});
+	});
+</script>			

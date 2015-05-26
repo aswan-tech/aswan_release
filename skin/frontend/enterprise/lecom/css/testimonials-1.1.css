@@ -1,0 +1,261 @@
+/*
+
+#carousel-wrapper {
+    width: 188px;
+    overflow: hidden;
+}
+#carousel-content {
+    width: 1880px;
+}
+#carousel-content .slide {
+    float: left;
+    width: 188px;
+}
+.block-testimonials .block-title strong 
+{
+	background-image:url(../images/icon-testi.png);
+	background-position:0 0;
+	background-repeat:no-repeat;
+	padding-left:21px;
+}
+.block-testimonials .block-content {
+	 background:#F8F7F5;
+	 padding:5px;
+}
+.testimonials .client
+{
+	margin:20px 0;
+}
+.testimonials .client .name {
+	font-weight:bold;
+}
+.testimonials .client p {
+	margin:0;
+}
+.testimonials .submit { text-align:right; }
+.com-jextn { text-align:right; padding-top:5px; font-size:8px; }
+*/
+
+#testimonials{ float:left; margin: 20px 0 30px -3px;}
+#testimonials h3{  font-size: 24px; line-height:30px; font-weight:normal; font-family:'avenir_lt_std_35_lightregular',Verdana, Geneva, sans-serif; text-transform: uppercase; text-align:center;}
+.testimonial_head{ width:980px ; margin:0 auto; border-bottom:1px solid #DD3848; height:34px;}
+.testimonial_body p { font:italic 12px/18px Verdana,Geneva,sans-serif; color:#666; 
+background:url(../images/quote.jpg) no-repeat left top; padding-left:30px; text-align:left;}
+.testimonial_body .tname{ color:#dd3848; font-size:16px; font-style:italic; padding-left: 30px;}
+.testimonial_body .tplace{ color:#3f3f3f;font-style:italic; font-size:12px; }
+.roption{ float: left; width: 170px; color:#666; margin-top: 10px;}
+/*.radio_gp{  color: #666666; float: right; margin: 10px -33px 8px 0; width: 273px; }*/.req{float: right; font-size: 11px; color: #DD3848; }
+.radio_gp span{  display: block; float: left; padding-right: 20px;}
+.bottom_quote{ background:url(../images/quote_close.jpg) no-repeat; float:right; width:20px; height:16px;}
+.testigroup{ width:430px; padding: 0 25px ; margin:20px 0;}
+.testigrouprt {  width:430px; padding:0 25px ; margin:20px 0; border-left:1px solid #cfcfcf; }
+.block_t {float: left; margin-bottom: 30px;width:100%;}
+
+#testimonial_all .testigroup label {
+    color: #666666;
+    float: left;
+    font: 12px Verdana,Geneva,sans-serif;
+    margin-top:8px;
+    width: 146px;
+}
+#testimonial_all .testigroup .input-text {
+    background: none repeat scroll 0 0 transparent;
+    border: 1px solid #C2BEBE;
+    color: #494949;
+    margin:8px 0;
+    padding: 5px;
+    width: 232px;
+}
+#testimonial_all .testigroup textarea{
+    width: 272px !important;
+}
+#testimonial_all .testigroup .btnsubmit {
+    margin: -10px 0 0 145px;
+    width: 100px;
+}
+.submit_testimonial{  float: right;
+    margin-top: -10px;
+    width: 255px;
+}
+#testimonial_all .gridOptions .pagelist{ margin:20px 30px 20px 0;}
+.submit_testimonial button{ width:264px;}
+#testimonial_all .page_title{ width:300px; float:left;}
+#testimonials .jcarousel-skin-tango .jcarousel-container-horizontal {
+    padding: 20px 0;
+    width: 980px;
+}
+
+#testimonials .jcarousel-skin-tango .jcarousel-clip-horizontal {
+    height: auto;
+    width: 980px;
+}
+#testimonials .jcarousel-skin-tango .jcarousel-prev-horizontal {
+    background: url("../images/circle_sprite.png") no-repeat scroll 0 -45px transparent;
+    cursor: pointer;
+    height: 20px;
+    left: 932px;
+    position: absolute;
+    top: -34px;
+    width: 20px;
+}
+#testimonials .jcarousel-skin-tango .jcarousel-next-horizontal {
+    background: url("../images/circle_sprite.png") no-repeat scroll -24px -45px transparent;
+    cursor: pointer;
+    height: 19px;
+    position: absolute;
+    right: 5px;
+    top: -34px;
+    width: 20px;
+}
+
+#testimonials .jcarousel-skin-tango .jcarousel-next-horizontal:hover,
+#testimonials .jcarousel-skin-tango .jcarousel-next-horizontal:focus {
+    background-position: -24px -24px;
+}
+
+#testimonials .jcarousel-skin-tango .jcarousel-next-horizontal:active {
+    background-position: -24px -45px;
+}
+
+#testimonials .jcarousel-skin-tango .jcarousel-next-disabled-horizontal,
+#testimonials .jcarousel-skin-tango .jcarousel-next-disabled-horizontal:hover,
+#testimonials .jcarousel-skin-tango .jcarousel-next-disabled-horizontal:focus,
+#testimonials .jcarousel-skin-tango .jcarousel-next-disabled-horizontal:active {
+    cursor: default;
+    background-position: -24px 0px;
+}
+
+
+
+#testimonials .jcarousel-skin-tango .jcarousel-prev-horizontal:hover, 
+#testimonials .jcarousel-skin-tango .jcarousel-prev-horizontal:focus {
+    background-position: 0px -22px;
+}
+
+#testimonials .jcarousel-skin-tango .jcarousel-prev-horizontal:active {
+    background-position: 0 -45;
+}
+
+#testimonials .jcarousel-skin-tango .jcarousel-prev-disabled-horizontal,
+#testimonials .jcarousel-skin-tango .jcarousel-prev-disabled-horizontal:hover,
+#testimonials .jcarousel-skin-tango .jcarousel-prev-disabled-horizontal:focus,
+#testimonials .jcarousel-skin-tango .jcarousel-prev-disabled-horizontal:active {
+    cursor: default;
+    background-position:0 0;
+}
+
+.pagelist .num .active {
+	color: #353673;
+}
+.rating_gp { float:left; margin: 10px -15px 0 10px; color: #666666;}
+.rating_gp  span{     display: block;
+    float: left;
+    text-align: center;
+    width: 65px; }
+.rating1 {  color: #666666;
+    float: left;
+    padding: 15px 0 5px;
+    width: 458px;}
+.radio_gp{  color: #666666; float: right; }
+.radio_gp .r1{ width:63px; padding:0;}
+.rlast{ padding-bottom:15px;}
+
+
+/* Radio */
+
+div.radio {
+  position: relative;
+}
+
+div.radio span {
+  display: -moz-inline-box;
+  display: inline-block;
+  text-align: center;
+  height: 18px;
+  width: 18px;
+  background-position: -25px -42px;
+}
+
+div.radio:active span, 
+div.radio.active span {
+  background-position: -25px -42px;
+}
+
+div.radio.focus span, 
+div.radio:hover span {
+  background-position:-25px -42px;
+}
+
+div.radio.focus:active span,
+div.radio:active:hover span,
+div.radio.active:hover span,
+div.radio.active.focus span {
+  background-position:-25px -42px;
+}
+
+div.radio input {
+  opacity: 0;
+  filter: alpha(opacity:0);
+  text-align: center;
+  display: inline-block;
+  background-position: -25px -42px;
+}
+
+div.radio span.checked {
+  background-position:-25px -63px;
+}
+
+div.radio:active span.checked,
+div.radio.active span.checked {
+  background-position: -25px -63px;
+}
+
+div.radio.focus span.checked, div.radio:hover span.checked {
+  background-position:-25px -63px;
+}
+
+a[data-tooltip]:after {
+    background: none repeat scroll 0 0 #fff;
+	border:2px solid #53C5E3;
+	
+   /* border-radius: 5px 3px 5px 10px;*/
+    color: #494949;
+    content: attr(data-tooltip);
+    left: 10px;
+    padding: 5px 12px;
+    position: absolute;
+    top: 7px;
+    visibility: hidden;
+    /*white-space: nowrap;*/
+	max-width:180px;
+	width:160px;
+	overflow:hidden;
+	word-wrap: break-word;
+	z-index:9999;
+	
+}
+a[data-tooltip]:hover:before, a[data-tooltip]:hover:after {
+	visibility: visible;
+	-moz-transition: visibility 0s linear .3s;
+}
+.jcarousel-skin-tango #testimonial_carousel li span a, .jcarousel-skin-tango #testimonial_carousel li section a {color:#353673; font:normal 11px Arial;}
+.jcarousel-skin-tango #testimonial_carousel .jcarousel-item {
+    height: auto;
+	padding-left: 5px;
+    width: 315px;
+	text-align: left;
+}
+
+#numchars {
+	text-align: right;
+	color: #666666;
+}
+#testimonial_carousel li p {
+	height: 70px;
+	overflow:hidden;
+}
+#testimonialForm .validation-advice {
+    margin-left: 145px;
+    margin-top: -10px;
+    text-align: left;
+}

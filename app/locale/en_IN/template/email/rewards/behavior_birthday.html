@@ -1,0 +1,40 @@
+<body style="background:#e1e1e1; color:#717171;  font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif; font-size:15px; margin:0; padding:0;">
+	<div style="background:#e1e1e1; color:#717171; font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif; font-size:15px; margin:0; padding:0;">
+		<table cellspacing="0" cellpadding="0" border="0" height="100%" width="100%">
+			<tr>
+				<td align="right" valign="top" >
+					<table style="background:#f2f2f1 url(images/bg.jpg) repeat"  align="center" cellspacing="0" cellpadding="0" border="0" width="700">
+						<tr>
+							<td bgcolor="#F3F3F3">
+								<!-- [ header starts here] -->
+								{{block type="cms/block" block_id="transactional-email-header" }}              
+								<!-- [ header end here] -->               
+								<!-- [ middle starts here] -->              
+								<table width="700" border="0" cellspacing="0" cellpadding="0">
+									<tr>
+										<td align="left" valign="top" style="padding:10px 10px 5px;">
+											<h1 style="font-size:24px; color:#0a2654; font-weight:normal; line-height:22px; margin:0 0 11px 0; font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif">Dear {{var customer_name}},</h1>
+										</td>
+									</tr>
+									<tr>
+										<td align="left" style="padding:10px;">
+											<p style="font-size:15px; color:#717171;line-height:20px; margin:0 0 16px 0;"> <span style="color:#0A2654;">Happy birthday</span> from the team here at <span style="color:#0A2654;">{{var store_name}}!</span></p>										
+											<p style="font-size:15px; color:#717171;line-height:20px; margin:0 0 16px 0;"> Here are {{var points_transferred}} which you can spend at <a href="{{store url=""}}">{{var store_name}}.</p>																																																	
+										</td>
+									</tr>
+									<tr>
+										<td align="left" style="padding:10px;">
+											<p style="font-size:15px; color:#0A2654;line-height:20px; margin:0 0 16px 0;"> Happy Birthday!</p>										
+										</td>
+									</tr>									
+								</table>
+								<!-- footer start -->
+								{{block type="cms/block" block_id="transactional-email-footer" }}
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+		</table>
+	</div>
+</body>

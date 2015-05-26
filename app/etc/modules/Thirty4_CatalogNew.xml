@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Thirty4_CatalogNew>
+            <active>true</active>
+            <codePool>community</codePool>
+        </Thirty4_CatalogNew>
+    </modules>
+</config> 

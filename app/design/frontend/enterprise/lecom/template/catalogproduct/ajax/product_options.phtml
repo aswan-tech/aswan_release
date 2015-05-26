@@ -1,0 +1,147 @@
+<?php
+function getAddToCartUrl($product, $additional = array()) {
+    if (Mage::helper('icart')->isEnabled()) {
+        return Mage::helper('icart')->getAddUrl($product, $additional);
+    } else {
+        return parent::getAddToCartUrl($product, $additional);
+    }
+}
+$collection = $this->getCollection();
+$productId = $this->getProductid();
+$flag = 0;
+if (isset($_SERVER['REQUEST_URI'])) {
+    $_tempVar = $_SERVER['REQUEST_URI'];
+    if (strpos($_tempVar, "q=439ed537979d8e831561964dbbbd7413")) {
+        $flag = 1;
+    }
+}
+if (count($collection) > 0):
+?>
+<div class="pro-color-opts" style="margin-left: -60px;" onmouseover="jQuery(this).parent('li').children('.pro-color-opts').toggleClass('c-active');"> <span class="color-opts-aro"></span>
+<div class="color-op-show">
+<ul class="color-op-show">
+   <?php
+   $total_options = count($collection);
+   $pc = 0;
+   $pSizes = array();
+   $products = array();
+   foreach ($collection as $_product):
+       $pSizes[$_product->getData('entity_id')] = array();
+       if($_product->getTypeId() == "configurable"):
+            $conf = Mage::getModel('catalog/product_type_configurable')->setProduct($_product);
+            $simple_collection = $conf->getUsedProductCollection()->addAttributeToSelect('*')->addFilterByRequiredOptions();
+            foreach($simple_collection as $simple_product):
+                $stock = Mage::getModel('cataloginventory/stock_item')->loadByProduct($simple_product);
+                if($stock->getQty() <= 0) continue;
+                $pSizes[$_product->getData('entity_id')][] = $simple_product->getAttributeText('size');
+            endforeach;
+            if (count($pSizes[$_product->getData('entity_id')]) <= 0) {
+                //break;
+		continue;
+            }
+        endif;
+       $pc++;
+       if ($pc > 4) {
+           break;
+       }
+       $products[] = $_product;
+   endforeach;
+   if (count($products) > 1):
+        foreach ($products as $_product):
+            if($flag == 1){
+                $_productUrl = $_product->getProductUrl().'?sale=true';
+            } else {
+                $_productUrl = $_product->getProductUrl();
+            }
+    ?>
+    <li onmouseover="
+                    var cls = jQuery(this).prop('id');
+                    jQuery('#prd-'+cls).show().siblings('div').hide(); 
+                    jQuery('#prd-'+cls).css('z-index','11111');
+                    jQuery('#prd-img-<?php echo $productId ?>_<?php echo $_product->getData('entity_id') ?>').src = '<?php echo Mage::helper('catalog/image')->init($_product, 'small_image'); ?>';
+        ">
+        <a href="<?php echo $_productUrl ?>" onmousemove="jQuery('.itm-sizeInfo-holder, .QuickViewSection').hide();
+           " onmouseover="
+                    var cls = jQuery(this).prop('id');
+                    jQuery('#prd-'+cls).show().siblings('div').hide(); 
+                    jQuery('#prd-'+cls).css('z-index','11111');
+                    jQuery('#prd-img-<?php echo $productId ?>_<?php echo $_product->getData('entity_id') ?>').src = '<?php echo Mage::helper('catalog/image')->init($_product, 'small_image'); ?>';
+                   " id="<?php echo $productId ?>_<?php echo $_product->getData('entity_id') ?>" style="width: 52px; height: 54px; overflow: hidden">
+        <img alt="<?php echo $_product->getData('name') ?>" 
+             src="<?php echo Mage::helper('catalog/image')->init($_product, 'thumbnail')->resize(52, 54) ?>" 
+             style="width: 52px; height: 54px;" border="0"></a>
+    </li>
+    <?php endforeach; endif; ?>
+  </ul>
+</div>
+<div class="clear"></div>
+<?php if (false && ($total_options - $pc) > 0) : 
+    if($flag == 1){
+        $_productUrl = $_product->getProductUrl().'?sale=true';
+    } else {
+        $_productUrl = $_product->getProductUrl();
+    } ?>
+<div class="pro-color-heading"><a href="<?php echo $_productUrl ?>">+ <?php echo ($total_options - $pc) ?> More</a></div>
+<?php endif; ?>
+</div>
+<div class="prod-showimg" id="" onmouseover="jQuery(this).parent('li').find('.pro-color-opts').addClass('c-active');" onmouseout="jQuery(this).parent('li').find('.pro-color-opts').removeClass('c-active');">
+    <?php $pc = 0;
+    foreach ($collection as $_product):
+        $pc++;
+        if ($pc > 4) {
+            break;
+        }
+        $price = $_product->getPrice();
+        $special_price = $_product->getFinalPrice();
+        $discount = round((($price - $special_price) / $price) * 100);
+        if($flag == 1){
+            $_productUrl = $_product->getProductUrl().'?sale=true';
+        } else {
+            $_productUrl = $_product->getProductUrl();
+        }
+    ?>
+<div id="prd-<?php echo $productId ?>_<?php echo $_product->getData('entity_id') ?>" class="dpno">
+    <a href="<?php echo $_productUrl ?>">
+        <img id="prd-img-<?php echo $productId ?>_<?php echo $_product->getData('entity_id') ?>" alt="<?php echo $_product->getData('name') ?>"
+                    src="<?php echo Mage::helper('catalog/image')->init($_product, 'small_image') ?>" 
+                    style="width: 235px; height: 250px;"
+                    <?php if ($_product->getHoverImage()) : ?>
+                    onmouseover="this.src='<?php echo $this->helper('catalog/image')->init($_product, 'hover_image')->resize(235,250); ?>';"
+                    onmouseout="this.src='<?php echo Mage::helper('catalog/image')->init($_product, 'small_image'); ?>';"
+                    <?php endif; ?>>
+    </a>
+   <span class="prod-info">
+     <span class="qbtn-swt" onClick="setLocation('<?php echo getAddToCartUrl($_product);?>')">quick view</span>
+     <span class="prod-swname"><a href="<?php echo $_productUrl ?>"><?php
+     $_productname = $_product->getData('name');
+     if(strlen($_productname) > 30): $_productname = substr($_productname,0,30).'...';  endif;
+     echo $_productname; ?></a></span>
+     <span class="swt-price-box">
+    <?php if($discount > 0) : ?>
+     <span class="swt-old-pric"><?php echo Mage::helper('core')->currency($price,true,false); ?></span>
+     <?php endif; ?>
+     <span class="swt-new-pric"><?php echo Mage::helper('core')->currency($special_price,true,false); ?></span>
+     </span>
+     <span class="swt-disc-box">
+    <?php if($discount > 0) : ?>
+     <span class="swt-dis-tag"><?php echo $discount ?>% off</span>
+     <?php endif; ?>
+     </span>
+    <span class="swt-size-box">
+    <?php
+    if(isset($pSizes[$_product->getData('entity_id')]) && is_array($pSizes[$_product->getData('entity_id')])):
+        foreach($pSizes[$_product->getData('entity_id')] as $size):
+    ?>
+    <a href="<?php echo $_productUrl ?>"><?php echo $size ?></a>
+    <?php
+        endforeach;
+    endif;
+    ?>
+     </span>
+
+     </span>
+</div>
+    <?php endforeach; ?>
+</div>
+<?php endif; ?>
+

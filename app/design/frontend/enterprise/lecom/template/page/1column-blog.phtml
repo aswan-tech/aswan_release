@@ -1,0 +1,49 @@
+<!doctype html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" xmlns:fb="http://ogp.me/ns/fb#" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" xmlns:fb="http://ogp.me/ns/fb#" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9" xmlns:fb="http://ogp.me/ns/fb#" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" xmlns:fb="http://ogp.me/ns/fb#"> <!--<![endif]-->
+<head>
+<?php echo $this->getChildHtml('head') ?>
+<?php echo $this->getChildHtml('after_body_start') ?>
+</head>
+<body <?php echo $this->getBodyClass()?' class="'.$this->getBodyClass().'"':'' ?>>
+<?php echo $this->getChildHtml('global_notices') ?>
+	
+<header>
+	<?php echo $this->getChildHtml('header') ?>
+</header>
+
+<div class="container">
+	<?php echo $this->getChildHtml('global_messages') ?>
+	<?php echo $this->getChildHtml('content') ?>
+</div>
+
+<div class="clearfloat"/></div>
+
+<div id="toTop">Back to Top</div>
+
+<script type="text/javascript">
+jQuery(document).ready(function(){
+	jQuery(window).scroll(function() {
+		if(jQuery(this).scrollTop() != 0) {
+			jQuery('#toTop').fadeIn();	
+		} else {
+			jQuery('#toTop').fadeOut();
+		}
+	});
+ 
+	jQuery('#toTop').click(function() {
+		jQuery('body,html').animate({scrollTop:0},800);
+	});	
+});
+</script>
+<footer>
+	<?php echo $this->getChildHtml('footer_before') ?>
+	<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('blog-footer')->toHtml(); ?>
+	<?php echo $this->getChildHtml('before_body_end') ?>
+</footer>
+<?php echo Mage::helper('common')->getGTMCode(); ?>
+<?php echo $this->getAbsoluteFooter() ?>
+</body>
+</html>

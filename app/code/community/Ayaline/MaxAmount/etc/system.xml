@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * created : 11/04/2012
+ * 
+ * @category Ayaline
+ * @package Ayaline_MaxAmount
+ * @author aYaline
+ * @copyright Ayaline - 2012 - http://magento-shop.ayaline.com
+ * @license http://shop.ayaline.com/magento/fr/conditions-generales-de-vente.html
+ */
+-->
+<config>
+	<sections>
+		<ayalinemaxamount translate="label" module="ayalinemaxamount">
+			<label>Order Max Amount</label>
+			<tab>ayaline</tab>
+			<header_css>ayaline-header</header_css>
+			<frontend_type>text</frontend_type>
+			<sort_order>200</sort_order>
+			<show_in_default>1</show_in_default>
+			<show_in_website>1</show_in_website>
+			<show_in_store>1</show_in_store>
+			<groups>
+				<cart translate="label" module="ayalinemaxamount">
+					<label>On Cart</label>
+					<frontend_type>text</frontend_type>
+					<sort_order>10</sort_order>
+					<show_in_default>1</show_in_default>
+					<show_in_website>1</show_in_website>
+					<show_in_store>1</show_in_store>
+					<fields>
+						<enable translate="label" module="ayalinemaxamount">
+							<label>Enable Max Amount</label>
+							<frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>10</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</enable>
+						<maxamount translate="label" module="ayalinemaxamount">
+							<label>Max Amount Allow In Cart</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>20</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<depends><enable>1</enable></depends>
+						</maxamount>
+						<message translate="label" module="ayalinemaxamount">
+							<label>Information Message</label>
+							<frontend_type>textarea</frontend_type>
+							<sort_order>40</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<depends><enable>1</enable></depends>
+							<tooltip>You can use the keyword {{var amount}}, it will be replaced by the amount entered previously.</tooltip>
+						</message>
+					</fields>
+				</cart>
+				<product translate="label" module="ayalinemaxamount">
+					<label>On Product</label>
+					<frontend_type>text</frontend_type>
+					<sort_order>20</sort_order>
+					<show_in_default>1</show_in_default>
+					<show_in_website>1</show_in_website>
+					<show_in_store>1</show_in_store>
+					<fields>
+						<enable translate="label comment tooltip" module="ayalinemaxamount">
+							<label>Enable Max Amount</label>
+							<frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>10</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment>If the option is activated, the check will be made before the addition in the cart</comment>
+							<tooltip><![CDATA[<span style="color: red; font-weight: bold;">Attention</span> This feature will be activated only if <em style="white-space: nowrap;">"On Cart"</em> is enabled.]]></tooltip>
+						</enable>
+						<message translate="label" module="ayalinemaxamount">
+							<label>Information Message</label>
+							<frontend_type>textarea</frontend_type>
+							<sort_order>20</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<depends><enable>1</enable></depends>
+							<tooltip>You can use the keyword {{var amount}}, it will be replaced by the amount entered previously.</tooltip>
+						</message>
+					</fields>
+				</product>
+			</groups>
+		</ayalinemaxamount>
+	</sections>
+</config>

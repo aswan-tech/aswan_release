@@ -1,0 +1,46 @@
+<!--@subject Happy Birthday Points from {{var store_name}}!@-->
+<!-- 
+<pre>
+[[ help ]]
+logo : {{var logo_url}}
+logo alt : {{var logo_alt}}
+store url : {{store url}}
+customer_name : {{var customer_name}}
+customer_email : {{var customer_email}}
+store_name : {{var store_name}}
+points_transferred : {{var points_transferred}}
+points_balance : {{var points_balance}}
+</pre>
+-->
+<style type="text/css">
+    body,td { color:#2f2f2f; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif; }
+</style>
+
+<div style="font:11px/1.35em Verdana, Arial, Helvetica, sans-serif;">
+    <table cellspacing="0" cellpadding="0" border="0" width="98%" style="margin-top:10px; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif; margin-bottom:10px;">
+        <tr>
+            <td align="center" valign="top">
+                <table cellspacing="0" cellpadding="0" border="0" width="650">
+                    <tr>
+                        <td valign="top">
+                            <a href="{{store url=""}}">
+                               <img src="{{var logo_url}}" alt="{{var logo_alt}}"  
+                                 style="margin-bottom:10px;" border="0"/>
+                            </a>
+                        </td>
+                    </tr>
+                </table>
+                <table cellspacing="0" cellpadding="0" border="0" width="650">
+                    <tr>
+                        <td valign="top">
+                            <p>Dear {{var customer_name}},</p>
+                            <p>Happy birthday from the team here at {{var store_name}}!</p>
+                            <p>Here are {{var points_transferred}} which you can spend at <a href="{{store url=""}}">{{var store_name}}.</a>.</p>
+                            <p>Happy Birthday!</p>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</div>

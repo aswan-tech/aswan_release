@@ -1,0 +1,327 @@
+<?php
+$_currentUrl = $this->helper('core/url')->getCurrentUrl();
+$_pos = strpos($_currentUrl,"/icart");
+if($_pos !== false) {
+    $_temp = explode("icart",$_currentUrl);
+    $_currentUrl = $_temp[0].'cart/';
+}
+
+$_pos = strpos($_currentUrl,"/indexajax");
+if($_pos !== false){
+    $_temp = explode("indexajax",$_currentUrl);
+    $_currentUrl = $_temp[0].'';
+}
+$_currentUrl = str_replace(":8080", "", $_currentUrl);
+$_currentUrlenc = Mage::helper('core')->urlEncode($_currentUrl);
+$count = count($this->getItems());
+$itemArr = Mage::helper('common')->getItemByType();
+
+// continue shopping link
+$redirectURL = Mage::getSingleton('core/session')->getContinueShoppingURL();
+if(isset($redirectURL) && !empty($redirectURL)) {
+	$continueShopping = $redirectURL;
+}
+else {
+	$continueShopping = $this->getCustomContinueShoppingUrl();
+}
+?>
+<div class="cart ck-wrapp" id="cart">
+     <p>&nbsp;</p>
+   <?php  $customerinfo = Mage::getSingleton('customer/session');
+   if($customerinfo->isLoggedIn())
+   echo  $this->getLayout()->createBlock('cms/block')->setBlockId('checkout_coupon_for_loginuser')->toHtml();
+    else
+     echo  $this->getLayout()->createBlock('cms/block')->setBlockId('checkout_coupon_for_not_loginuser')->toHtml();?>
+   <p>&nbsp;</p>
+        <?php $msg = $this->getMessagesBlock()->getGroupedHtml(); ?>
+        <?php if(isset($msg) && $msg != ''): ?>
+            <?php $msg = str_replace('Rs. ', '<span class="WebRupee">` </span>', $msg); echo $msg; ?>
+        <?php else: ?>
+            <?php if(count($this->getQuote()->getErrors()) > 0): ?>
+                <ul class="messages"><li class="error-msg"><ul>
+                <?php foreach($this->getQuote()->getErrors() as $messages): ?>
+                    <?php $_messageformat = $messages->getCode(); ?>
+                    <?php $_message = str_replace('Rs. ', '<span class="WebRupee">` </span>',$_messageformat); ?>
+                    <li><span><?php echo $_message; ?></span></li>
+                <?php endforeach; ?>
+                </ul></li></ul>
+            <?php endif; ?>
+        <?php endif; ?>
+        <?php
+			$msg = $this->getRequest()->getParam('c');
+        	 if(isset($msg) && $msg == 'f') {
+		?>
+			<ul class="messages">
+				<li class="error-msg" style="display:block;">
+					<ul>
+						<li>Hey! You can only purchase evoucher or product at a time.</li>
+					</ul>
+				</li>
+			</ul>
+		<?php
+			 }
+        ?>
+        <?php $mergedCells = ($this->helper('tax')->displayCartBothPrices() ? 2 : 1); ?>
+        
+        <?php if (1 || !$this->hasError()): ?>
+			<div class="ck-subt-wrapp">
+			<?php foreach ($this->getMethods('top_methods') as $method): ?>
+				<?php if ($methodHtml = $this->getMethodHtml($method)): ?>
+					<?php echo $methodHtml; ?>
+				<?php endif; ?>
+			<?php endforeach; ?>
+			</div>
+		<?php endif; ?>
+              <div class="clear"></div>      
+        <div class="shopping_list mt20">
+        
+        
+            <div class="prd-head-wrapp">
+                <span ><?php echo $this->__('Product Detail') ?></span>
+                <p class="hide-crt"><?php echo $this->__('Discount') ?></p>
+                <p class="hide-crt"><?php echo $this->__('Price <span>(Incl. Tax)</span>') ?></p>               
+                <p><?php echo $this->__('Subtotal') ?></p>
+            </div>
+            
+            <?php echo $this->getChildHtml('form_before') ?>
+            <form action="<?php echo $this->getUrl('checkout/cart/updatePost') ?>" id="update-cart" method="post">
+                <?php foreach ($this->getItems() as $_item) { echo $this->getItemHtml($_item); } ?>
+                <br class="clear"/>
+           </form>
+            <?php //echo $this->getLayout()->createBlock('cms/block')->setBlockId('cart-content')->toHtml(); ?>
+            <div class="prd-item-wrapp prd-item-wrapp-bor">
+                <table width="865" border="0" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td width="330" align="left" valign="middle">	
+												
+						<?php if(!in_array('giftcard', $itemArr) && (in_array('configurable', $itemArr) || in_array('simple', $itemArr) )) { 
+							 echo $this->getChildHtml('coupon') ?><br /><br />
+						<?php } ?>
+						
+						<?php //echo $this->getChildHtml('giftcards') ?>
+						</td>
+                        <td>
+                        <!-- Gift card html start-->	
+							<div class="giftcard">
+							<p class="ck-promo-txt gft-msg-icon fl mar-b5"><?php echo $this->__('E-Voucher Code') ?></p>
+								<div class="clear"></div>
+								<div id="giftcard_balance_lookup"></div>
+								<span id="gc-please-wait" class="please-wait" style="display:none;">
+									<img src="<?php echo $this->getSkinUrl('images/opc-ajax-loader.gif') ?>" alt="" class="v-middle" /> <?php echo $this->__('Please wait, loading...') ?>
+								</span>
+								<form id="giftcard-form" action="<?php echo $this->getUrl('enterprise_giftcardaccount/cart/add') ?>" method="post">
+									<fieldset>
+									  
+										<div class="v-fix"><input class="ck-promo-fld mar-none  fl" id="giftcard_code" name="giftcard_code" value="Enter the e-voucher code" onblur="javascript:onBlurText(this,'Enter the e-voucher code');" onclick="javascript:onClickText(this,'Enter the e-voucher code');"/></div>
+										<button id="cart-e-voucher-add" class="addGiftBtn continue-btn apply-btn mar mar-none fl gtm-track" onclick="validateEvoucher();"  type="button" value="<?php echo $this->__('Add') ?>"><span><span><?php echo $this->__('Add') ?></span></span></button>
+										<div id="gvc-loading" style="display:none;"><img src="<?php echo $this->getSkinUrl('images/ajax-loader.gif'); ?>"></div>
+										<br /><br /><br />
+										<a id="cart-check-for-balance" style="font-weight:bold;" class="gtm-track" onclick="checkGiftCardStatus();" type="button"  value="<?php echo $this->__('Check Balance') ?>"><?php echo $this->__('Check Balance') ?></a>
+										<div class="clear"></div>
+										<div id="error_reg_gvc" class="sgn-error notification-msg fl" style="display: block;"> 
+										<span class="fl" id="error-gvc">Please redeem your e-voucher code here.</span>
+										</div>
+							
+									</fieldset>
+								</form>
+								
+								<script type="text/javascript">
+									
+								jQuery('#cart-check-for-balance').css({
+									position:'relative',
+									left:'2px',
+									top:'-14px'
+									});
+								//<![CDATA[
+								var giftcardForm = new VarienForm('giftcard-form');
+								function checkGiftCardStatus()
+								{
+									if (giftcardForm.validator && !giftcardForm.validator.validate()) {
+										return false;
+									}
+									new Ajax.Updater(
+										'giftcard_balance_lookup',
+										'<?php echo Mage::getUrl('enterprise_giftcardaccount/cart/quickCheck') ?>',
+										{
+											onCreate: function() { $('gc-please-wait').show(); },
+											onComplete: function() { $('gc-please-wait').hide(); },
+											parameters : {giftcard_code : $('giftcard_code').value}
+										}
+									);
+								}
+								
+								function validateEvoucher() {
+									var gcval = jQuery("#giftcard_code").val();
+									if(gcval == '' || gcval == 'Enter the e-voucher code'){
+										jQuery("#error-gvc").show().addClass("error-msg-redtxt").html('Please enter valid e-voucher code.');
+										return false;
+									}
+									else{
+										jQuery("#gvc-loading").show();
+										jQuery("#error_reg_gvc").hide();
+										giftcardForm.submit();
+									}									
+								}	
+								
+								//]]>
+								</script>
+							</div>
+							<!-- Gift card html end-->
+                        </td>
+                        <td width="221" rowspan="3" align="right" valign="top"><?php echo $this->getChildHtml('totals'); ?></td>
+                    </tr>
+                </table>
+            </div> 
+            <div class="prd-item-wrapp prd-item-wrapp-bor mar-none">
+				<div class="gastotal mar-b5 fr">
+					<div class="ck-dsc-txt mar-r45 fl"><strong class="ck-dsc-txt-large">TOTAL</strong> </div>
+					<div class="ck-dsc-txt dsc-txtad fr mar-l10 bold red-link ck-dsc-txt-large">
+					<?php 
+						echo $this->helper('checkout')->formatPrice(Mage::getSingleton('checkout/cart')->getQuote()->collectTotals()->getGrandTotal());
+					?> 
+					</div>
+              </div>
+              <div class="clear"></div>
+                <div class="perd-disc-wrapp ck-promo-coup mar-b10">
+					
+                	<?php if ($this->getCustomContinueShoppingUrl()): ?>
+                		<button id="cart-continue-shopping" type="button" title="<?php echo $this->__('Continue Shopping') ?>" class="continue-btn shop-cont-btn fl gtm-track" onclick="window.location='<?php echo $continueShopping; ?>'"><?php echo $this->__('CONTINUE SHOPPING') ?></button>
+                        <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('more-shopping-v2')->toHtml(); ?>               
+                        
+                    <?php endif; ?>
+					<?php if (1 || !$this->hasError()): ?>
+                        <div class="ck-subt-wrapp">
+                        <?php foreach ($this->getMethods('top_methods') as $method): ?>
+							<?php if ($methodHtml = $this->getMethodHtml($method)): ?>
+                            	<?php echo $methodHtml; ?>
+                            <?php endif; ?>
+                        <?php endforeach; ?>
+                        </div>
+                    <?php endif; ?>
+                </div>
+            </div>
+        </div>
+    <div class="clear"></div>
+</div>
+</div>
+<script type="text/javascript">
+    jQuery('#recommend-cart').jcarousel({ vertical: false, scroll: 1,wrap: 'circular'});
+    if(jQuery('#uniform-agreement-1').length == 0){
+        jQuery(function(){jQuery("input[type=checkbox]").uniform();});
+        jQuery(function(){jQuery("select").not("#currency_switcher").uniform();});
+    }
+    jQuery(".prodImgCart").hover( function(){ jQuery(".quick-shop-button",this).show(); }, function(){ jQuery(".quick-shop-button",this).hide(); });
+    var cartvarienform = new VarienForm('update-cart');
+
+    function ajaxUpdate(){
+        var aaaa = jQuery("#update-cart").serialize();
+        jQuery(".cart_qty input").each(function() { jQuery(this).attr("disabled","true"); });
+        jQuery.fn.serializeObject = function() {
+           var o = {}; var a = jQuery("#update-cart").serialize();
+           jQuery.each(a, function() {
+               if (o[this.name]) {
+                   if (!o[this.name].push) {o[this.name] = [o[this.name]]; }
+                   o[this.name].push(this.value || '');
+               } else {
+                   o[this.name] = this.value || '';
+               }
+           });
+           return o;
+        };
+        var xhr = jQuery.ajax({
+            url: "<?php echo $this->getUrl('checkout/cart/updatePost') ?>",
+            data:aaaa, dataType:'json', type:'POST',
+            beforeSend: function() { jQuery('.cart-loader').show(); },
+            success: function(){
+                jQuery.ajax({ url: "<?php echo $this->getUrl('common/index/ajaxCartUpdate') ?>", cache: false,success: function(result){ jQuery('#my-bag-qty').html(result); jQuery('#my-bag-qty-mobile').html(result);} });
+                jQuery.ajax({ url: "<?php echo $this->getUrl('checkout/cart/indexajax') ?>",
+                    cache:false,
+                    success: function(msg){
+                        jQuery('#cart').replaceWith(msg); if(typeof showSlider == 'function'){ showSlider();}
+                        jQuery('.cart-loader').hide();
+                    }
+                });
+            }
+        });
+    }
+    
+    function updatecart(){
+        var productnames = '';
+        var numberofproducts = 0;
+        
+        if(cartvarienform.validator.validate()){
+            jQuery("#update-cart .cart_qty input").each(function() {
+                var qty = jQuery(this).val();
+                if(qty == 0){
+                    if(productnames == "") {
+                        productnames = jQuery(this).attr('rel');
+                    } else {
+                        productnames = productnames+","+jQuery(this).attr('rel');
+                    }
+                    numberofproducts = numberofproducts + 1;
+                }
+            });
+                
+            if(numberofproducts > 0){
+                var elem = jQuery(this).closest('.item');
+                jQuery.confirm({
+                    'title'     : 'Delete Confirmation',
+                    'message'   : 'Are you sure you want to remove item(s) '+productnames+' from your shopping bag.',
+                    'buttons'   : {
+                            'Yes'   : { 'class' : 'blue', 'action': function(){ ajaxUpdate();} },
+                            'No'    : { 'class' : 'gray', 'action': function(){ window.location.reload(); } }
+                    }
+                });
+            }else{
+                ajaxUpdate();
+            }
+        }else{
+            jQuery(".proceed_checkout .btnsubmit").hide();
+        }
+    }
+        
+    function removeProduct(param,name){
+        var delUrl = '<?php echo $this->getUrl("checkout/cart/delete") ?>id/'+param+'/uenc/'+'<?php echo $_currentUrlenc ?>';
+        var elem = jQuery(this).closest('.item');
+        jQuery("#ajax-loading-"+param).show();
+        window.location = delUrl;
+        /*
+        jQuery.confirm({
+            'title': 'Delete Confirmation',
+            'message': 'Are you sure you want to remove item(s) '+name+' from your shopping bag.',
+            'buttons': {'Yes'   : { 'class' : 'blue', 'action': function(){ jQuery("#ajax-loading-"+param).show(); window.location = delUrl; } },
+                        'No'    : { 'class' : 'gray', 'action': function(){} } }
+        });*/
+    }
+    
+    function myFunction(obj){
+        alert(obj.value);
+    }
+</script>
+
+<script type="text/javascript" class="microad_blade_track">
+    var microad_blade_gl = microad_blade_gl || { 'params' : new Array(), 'complete_map' : new Object() };
+    (function() {
+        var param = {'co_account_id' : '4720', 'group_id' : 'convtrack15456', 'country_id' : '4', 'ver' : '2.1.0'};
+        microad_blade_gl.params.push(param);
+        var src = '//d-cache.microadinc.com/js/blade_track_gl.js'; var bs = document.createElement('script');
+        bs.type = 'text/javascript'; bs.async = true; bs.charset = 'utf-8'; bs.src = src;
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(bs, s);
+    })();
+</script>
+<?php
+$items = Mage::getSingleton('checkout/session')->getQuote()->getAllItems();
+foreach($items as $item) {
+if($item->getProductType() == "configurable") continue;
+$product = Mage::getModel('catalog/product')->load($item->getProductId());
+$sku[] = $product->getSku();
+}
+?>
+<script type="text/javascript">
+dataLayer.push(
+{'PAGE_TYPE': 'CART'},
+{'PRODUCT_LIST_CART': '<?php echo implode( ',', $sku );?>'},
+{'ORDER_VALUE': '<?php echo Mage::getSingleton('checkout/cart')->getQuote()->collectTotals()->getGrandTotal()?>'},
+{'ORDER_COUNT':'<?php echo Mage::getModel('checkout/cart')->getQuote()->getItemsQty(); ?>'}
+);
+</script>

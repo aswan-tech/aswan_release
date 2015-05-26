@@ -1,0 +1,71 @@
+<!--@subject {{var store.getFrontendName()}}: {{if coupon_code}}Followup (and savings){{else}}Followup{{/if}} @-->
+<!--@vars
+{"store url=\"\"":"Store Url",
+"skin url=\"images/logo_email.gif\" _area='frontend'":"Email Logo Image",
+"var customer_name":"Customer Name",
+"var reminder_num":"Reminder Number",
+"var product_list":"Product List",
+"products":"Product Collection",
+"var product_count":"Product Count",
+"var quote_id":"Quote ID",
+"var coupon_code":"Coupon Code",
+"var coupon_expiry_magnitude":"Coupon Expiry Magnitude",
+"var coupon_expiry_period":"Coupon Expiry Period",
+"var recovery_url":"Recovery URL"}
+@-->
+<!--@styles
+body,td { color:#2f2f2f; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif; }
+@-->
+
+<body style="background:#F6F6F6; font-family:Verdana, Arial, Helvetica, sans-serif; font-size:12px; margin:0; padding:0;">
+<div style="background:#F6F6F6; font-family:Verdana, Arial, Helvetica, sans-serif; font-size:12px; margin:0; padding:0;">
+<table cellspacing="0" cellpadding="0" border="0" width="100%">
+<tr>
+    <td align="center" valign="top" style="padding:20px 0 20px 0">
+        <table bgcolor="#FFFFFF" cellspacing="0" cellpadding="10" border="0" width="650" style="border:1px solid #E0E0E0;">
+            <!-- [ header starts here] -->
+            <tr>
+                <td valign="top"><a href="{{var store_url}}"><img src="{{skin url="images/logo_email.gif" _area='frontend'}}" alt="{{var store.getFrontendName()}}"  style="margin-bottom:10px;" border="0"/></a></td>
+            </tr>
+            <!-- [ middle starts here] -->
+            <tr>
+                <td valign="top">
+                    <h1 style="font-size:22px; font-weight:normal; line-height:22px; margin:0 0 11px 0;"">Hello {{var customer_name}},</h1>
+<p>Thank you for stopping by {{var store.getFrontendName()}}! We noticed that you placed the following product(s) in your shopping cart, but did not complete your order.</p>
+{{depend product_count}}
+<p><b>Shopping Cart Contents: </b></p>
+
+<table cellspacing="0" cellpadding="0" border="0" width="100%">
+{{foreach products as item}}
+<tr>
+	<td width="100" align="left"><a href="{{var item.getUrl()}}"><img src="{{var item.getImageUrl()}}" width="75" height="75" style="padding-right: 10px"></a></td>
+	<td><a href="{{var item.getUrl()}}">{{var item.getName()}}</a></td>
+</tr>
+{{/foreach}}
+</table>
+{{/depend}}
+{{depend coupon_code}}
+
+<p>To show you how much we value your business, we are giving you a special discount on your order <u>if you order within {{var coupon_expiry_magnitude}} day(s)</u>:</p>
+
+<p><b>Coupon code:</b> {{var coupon_code}}</p>
+
+{{/depend}} 
+{{depend quote_id}}
+
+<p>To restore your shopping cart, just follow the url:</p>
+
+<p><a href="{{var recovery_url}}">{{var recovery_url}}</a></p>
+{{/depend}} 
+
+<p>If you encounter(ed) any problems when trying to place your order or have a general concern or suggestion, then please let us know. Here at {{var store.getFrontendName()}} we want you to have the best shopping experience possible.</p>
+
+<p>Thank you again,<br /><br /><strong><a href="{{store url=""}}">{{var store.getFrontendName()}}</a></strong></p>
+				</td>
+            </tr>
+        </table>
+    </td>
+</tr>
+</table>
+</div>
+</body>

@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <default>
+    </default>
+    <tracker_index_index>
+		<reference name="root">
+            <action method="setTemplate"><template>page/3columns.phtml</template></action>
+        </reference>
+        <reference name="content">
+            <block type="tracker/tracker" name="tracker" template="tracker/tracker.phtml" />
+        </reference>
+    </tracker_index_index>
+	<tracker_index_loginpost>
+		<reference name="root">
+            <action method="setTemplate"><template>page/1column.phtml</template></action>
+        </reference>
+        <reference name="content">
+           <block type="tracker/tracker" name="tracker" template="tracker/history.phtml">
+		   <block type="core/text_list" name="sales.order.history.info" as="info" translate="label">
+                    <label>Order History Info</label>
+           </block>
+		</block>
+        </reference>
+    </tracker_index_loginpost>
+</layout> 

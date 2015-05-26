@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <modules>
+        <FCM_Fedex>
+            <version>0.1.0</version>
+        </FCM_Fedex>
+    </modules>
+    <frontend>
+        <routers>
+            <fedex>
+                <use>standard</use>
+                <args>
+                    <module>FCM_Fedex</module>
+                    <frontName>fedex</frontName>
+                </args>
+            </fedex>
+        </routers>
+        <layout>
+            <updates>
+                <fedex>
+                    <file>fedex.xml</file>
+                </fedex>
+            </updates>
+        </layout>
+    </frontend>
+    <global>
+        <models>
+            <fedex>
+                <class>FCM_Fedex_Model</class>
+            </fedex>
+            <usa>
+                <rewrite>
+                    <shipping_carrier_fedex>FCM_Fedex_Model_Shipping_Carrier_Fedex</shipping_carrier_fedex>
+                </rewrite>
+            </usa>
+        </models>
+    </global>
+</config>

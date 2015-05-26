@@ -1,0 +1,182 @@
+<?php
+
+function getAddToCartUrl($product, $additional = array()) {
+    if (Mage::helper('icart')->isEnabled()) {
+        return Mage::helper('icart')->getAddUrl($product, $additional);
+    } else {
+        return parent::getAddToCartUrl($product, $additional);
+    }
+}
+
+$bsCount = '0';
+$storeId = Mage::app()->getStore()->getId();
+$limit = Mage::getStoreConfig("sellerproducts/general/number_of_items_cat");
+$sort_order = Mage::getStoreConfig("sellerproducts/general/product_sort_by_cat");
+$products = Mage::getResourceModel('productreports/product_collection')
+                ->addOrderedQtyCustom()
+                ->addAttributeToSelect('*')
+                ->setStoreId($storeId)
+                ->addAttributeToFilter('type_id', 'configurable')
+                ->addStoreFilter($storeId)
+                ->addCategoryFilter(Mage::registry('current_category'))
+                ->setPageSize($limit)
+                ->setCurPage(1)
+                ->setOrder('ordered_qty', 'desc');
+
+$this->setProductCollection($products);
+
+if (($_products = $this->getProductCollection()) && $_products->getSize()):
+?>
+
+<?php
+    $currentCategory = Mage::registry('current_category');
+
+    if (isset($currentCategory)) {
+        $categoryname = ucwords(strtolower($currentCategory->getName()));
+    } else {
+        $categoryname = '';
+    }
+
+    $_helper = $this->helper('catalog/output');
+?>
+
+<div class="Bestsellers">
+<h2 class="BestTitle">Best sellers</h2>	
+<div class="prodRow">
+<ul id="mycarousel-phz" class="jcarousel-skin-tango">
+<?php
+$bestsellers = $_products->getItems();
+if($sort_order == '0'){
+	shuffle($bestsellers);
+}                    
+$bsCount = count($bestsellers);
+foreach ($bestsellers as $_product): ?>
+<?php
+	$product = Mage::getModel('catalog/product')->load($_product->getId());
+	$_productNameStripped = $this->stripTags($_product->getName(), null, true);
+?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+<div class="prodPanel BestPro">
+
+<div class="prodImg">
+<?php //echo '<button type="submit" onClick="setLocation(\''.getAddToCartUrl($_product).'\')" class="quick-view">Quick View</button>'; ?>
+<a href='<?php echo $_product->getProductUrl(); ?>' title="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>">
+<img src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(230, 230) ?>" width="230" height="230" alt="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" />	
+
+
+
+
+
+
+</a>
+</div>
+<div class="BestProDetails">
+<?php $name = $_helper->productAttribute($_product, $_product->getName(), 'name'); 
+
+if(strlen($name) > 20){ echo substr($name, 0, 20).'&hellip;'; } else { echo $name; } 
+
+
+
+
+
+
+
+?>
+</div>
+<div class="BestProDetailsPrice">												
+<?php echo $this->getPriceHtml($_product, true) ?>																	
+
+
+
+
+
+
+
+</div>
+<p class="ShopNow"><a href='<?php echo $_product->getProductUrl(); ?>'>SHOP NOW <span><img src="<?php echo $this->getSkinUrl('images/arrow.png'); ?>" width="10" height="11" /></span></a></p>
+</div>
+</li>	
+<?php endforeach; ?>
+
+
+
+
+
+</ul>
+</div>
+</div>
+<?php endif; ?>
+
+
+
+<?php 
+	$scroll_items = Mage::getStoreConfig("sellerproducts/general/number_of_items_slide");
+		if($scroll_items <=0 ) {
+
+
+			$items = 1;
+		} else {
+			$items = $scroll_items;
+
+		}
+if ($bsCount) {	
+
+
+?>
+<script type="text/javascript">
+	jQuery(document).ready(function(){
+		jQuery('#mycarousel-phz').jcarousel({ horizontal: true, scroll: <?php echo $items; ?>, initCallback: setcaroselFunction, });	
+
+
+		function setcaroselFunction(carousel, state) {
+			if(<?php echo $bsCount; ?> >= <?php echo $items; ?>){
+				carousel.options = jQuery.extend(carousel.options, {
+				  animation: 'slow',
+				  scroll: <?php echo $items; ?>,
+				  wrap: 'circular'
+				});
+			  } else {
+				carousel.options = jQuery.extend(carousel.options, {
+				  animation: 'slow',
+				  scroll: <?php echo $items; ?>,
+				  horizontal: true
+				});
+			  }
+		};
+
+		
+	});
+</script>
+
+
+
+<?php
+	}
+?>

@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <premiumalert_adminhtml_premiumalert_index>
+        <reference name="content">
+            <block type="premiumalert/adminhtml_premiumalert" name="premiumalert" />
+        </reference>
+    </premiumalert_adminhtml_premiumalert_index>
+</layout>

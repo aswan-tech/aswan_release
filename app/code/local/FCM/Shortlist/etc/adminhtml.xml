@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<config>
+	<acl>
+		<resources>
+			<all>
+				<title>Allow Everything</title>
+			</all>
+			<admin>
+				<children>
+					<system>
+						<children>
+							<config>
+								<children>
+									<shortlist translate="title">
+										<title>Shortlist Tooltip Texts</title>
+									</shortlist>
+									
+									<popupcookie translate="title">
+										<title>Registration Popup Cookie Settigns</title>
+									</popupcookie>
+									
+									<registercoupens translate="title">
+										<title>New Customers Coupon Settings</title>
+									</registercoupens>
+									<scratchcard translate="title">
+										<title>Scratch Card Settings</title>
+									</scratchcard>	
+								</children>
+							</config>
+						</children>
+					</system>
+				</children>
+			</admin>
+		</resources>   
+	</acl>
+</config>

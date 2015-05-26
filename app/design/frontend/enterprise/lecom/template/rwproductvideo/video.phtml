@@ -1,0 +1,93 @@
+<?php
+/**
+ * RocketWeb
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ *
+ * @category   RocketWeb
+ * @package    RocketWeb_ProductVideo
+ * @copyright  Copyright (c) 2011 RocketWeb (http://rocketweb.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @author     RocketWeb
+ */
+/**
+ * Product video data template
+ *
+ * @see RocketWeb_ProductVideo_Block_Media
+ */
+?>
+<?php
+$_product = $this->getProduct();
+$_helper = $this->helper('productvideo/data');
+$_productVideos = $this->_getProductVideos();
+?>
+    <?php $ctr = 0; foreach($_productVideos as $video) : ?>  
+    <?php
+        $rw_code = $this->getCode($video);
+        $rw_title = $this->getTitle($video);
+        // $rw_thumb_width = $this->getThumbWidth($video);
+        // $rw_thumb_height = $this->getThumbHeight($video);
+        $rw_thumb_width = 84;
+        $rw_thumb_height = 88;
+        $rw_width = $this->getWidth($video);
+        $rw_height = $this->getHeight($video);
+        if($ctr < 1) {
+    ?>
+        <li><a class="rw-product-video" title="<?php echo $this->htmlEscape($rw_title) ?>" href="http://www.youtube.com/v/<?php echo $rw_code?>?fs=1&amp;hl=en_US"><img width="<?php echo $rw_thumb_width?>" height="<?php echo $rw_thumb_height?>" src="<?php echo $this->getSkinUrl('images/play-video.jpg'); ?>" alt="<?php echo $this->htmlEscape($rw_title) ?>" /></a></li>
+   <?php } ?>
+   <?php $ctr++; endforeach; ?>
+<?php if (count($_productVideos) > 0) { ?>
+<script type="text/javascript">
+jQuery(document).ready(function($) {
+jQuery(".rw-product-video").click(function($) {
+    jQuery.fancybox({
+            'padding'              : <?php echo ((int) $_helper->getPadding())?>,
+            'margin'               : <?php echo ((int) $_helper->getMargin())?>,
+            'opacity'              : <?php echo ($_helper->getOpacity() ? 'true' : 'false')?>,
+            'modal'                : <?php echo ($_helper->getModal() ? 'true' : 'false')?>,
+            'cyclic'               : <?php echo ($_helper->getCyclic() ? 'true' : 'false')?>,
+            'scrolling'            : '<?php echo $_helper->getScrolling()?>',
+            'width'                : <?php echo $rw_width?>,
+            'height'               : <?php echo $rw_height?>,
+            'autoScale'            : <?php echo ($_helper->getAutoScale() ? 'true' : 'false')?>,
+            'autoDimensions'       : <?php echo ($_helper->getAutoDimensions() ? 'true' : 'false')?>,
+            'centerOnScroll'       : <?php echo ($_helper->getCenterOnScroll() ? 'true' : 'false')?>,
+            'hideOnOverlayClick'   : <?php echo ($_helper->getHideOnOverlayClick() ? 'true' : 'false')?>,
+            'hideOnContentClick'   : <?php echo ($_helper->getHideOnContentClick() ? 'true' : 'false')?>,
+            'overlayShow'          : <?php echo ($_helper->getOverlayShow() ? 'true' : 'false')?>,
+            'overlayOpacity'       : <?php echo $_helper->getOverlayOpacity()?>,
+            'overlayColor'         : '<?php echo $_helper->getOverlayColor()?>',
+            'titleShow'            : <?php echo ($_helper->getTitleShow() ? 'true' : 'false')?>,
+            //'titlePosition'        : '<?php echo $_helper->getTitlePosition()?>',
+            'titleFormat'          : <?php echo ($_helper->getTitleFormat() == "" ? 'null' : $_helper->getTitleFormat())?>,
+            'transitionIn'         : '<?php echo $_helper->getTransitionIn()?>',
+            'transitionOut'        : '<?php echo $_helper->getTransitionOut()?>',
+            'speedIn'              : <?php echo $_helper->getSpeedIn()?>,
+            'speedOut'             : <?php echo $_helper->getSpeedOut()?>,
+            'changeSpeed'          : <?php echo $_helper->getChangeSpeed()?>,
+            'changeFade'           : '<?php echo $_helper->getChangeFade()?>',
+            'easingIn'             : '<?php echo $_helper->getEasingIn()?>',
+            'easingOut'            : '<?php echo $_helper->getEasingOut()?>',
+            'showCloseButton'      : <?php echo ($_helper->getShowCloseButton() ? 'true' : 'false')?>,
+            'showNavArrows'        : <?php echo ($_helper->getShowNavArrows() ? 'true' : 'false')?>,
+            'enableEscapeButton'   : <?php echo ($_helper->getEnableEscapeButton() ? 'true' : 'false')?>,
+            'title'			: this.title,
+            'href'			: this.href.replace(new RegExp("watch\\?v=", "i"), 'v/'),
+            'type'			: 'swf',
+            'swf'			: {
+            'wmode'		: 'transparent',
+            'allowfullscreen'	: <?php echo ($_helper->getAllowFullScreen() ? 'true' : 'false')?>
+            }
+        });
+    return false;
+});
+});
+</script>
+<?php } ?>
+
+

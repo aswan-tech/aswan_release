@@ -1,0 +1,178 @@
+<?php
+$formErrors = $this->getParentBlock()->formErrors;
+$formErrors = (!empty($formErrors['shipping_errors'])) ? $formErrors['shipping_errors'] : array();
+
+$helper = Mage::helper('onestepcheckout/checkout');
+$dataHelper = Mage::helper('onestepcheckout');
+
+$_name = trim($this->getQuote()->getShippingAddress()->getFirstname().' '.$this->getQuote()->getShippingAddress()->getLastname());
+$shippingFields['firstname'] = '<div class="input-box input-address-short'.((in_array('firstname', $formErrors)) ? ' input-error' : '').'">
+            <span class="mar-t10">'.$this->__('Full Name').'*</span>
+            <input class="required-entry cklargefield-email validate-alpha-with-spaces" type="text" name="shipping[firstname]" id="shipping:firstname" value="'.$dataHelper->clearDash($_name).'" />
+        </div>';
+?>
+
+<?php if(!$this->settings['exclude_address']):?>
+    <?php if(Mage::getStoreConfig('onestepcheckout/exclude_fields/enable_address_fields')):?>
+        <?php
+        $addressFields = '';
+            for ($_i=1, $_n=$this->helper('customer/address')->getStreetLines(); $_i<=$_n; $_i++){
+
+                    $addressFields .= '<div class="input-box input-address-short'.((in_array('address', $formErrors)) ? ' input-error' : '').'">
+                    <span class="mar-t10">'.$this->__('Address Line'.$_i);
+					if($_i<$_n){
+						$addressFields .= '*</span>
+							<input type="text" maxlength="125" title="'.$this->__('Street Address '.$_i).'" name="shipping[street][]" id="shipping:street'.$_i.'" value="'.$this->htmlEscape($dataHelper->clearDash($this->getQuote()->getShippingAddress()->getStreet($_i))).'" class="required-entry cklargefield-email validate-address street'.$_i.'" />';
+					}else{
+					$addressFields .= '</span>
+							<input type="text" maxlength="125" title="'.$this->__('Street Address '.$_i).'" name="shipping[street][]" id="shipping:street'.$_i.'" value="'.$this->htmlEscape($dataHelper->clearDash($this->getQuote()->getShippingAddress()->getStreet($_i))).'" class="cklargefield-email validate-address street'.$_i.'" />';
+					}
+                    $addressFields .= '</div>';
+            }
+            $shippingFields['street'] = $addressFields;
+        ?>
+    <?php else:?>
+        <?php
+        $addressFields = '';
+            for ($_i=1, $_n=$this->helper('customer/address')->getStreetLines(); $_i<=$_n; $_i++){
+
+                    $addressFields .= '<input type="text" maxlength="125" title="'.$this->__('Street Address '.$_i).'" name="shipping[street][]" id="shipping:street'.$_i.'" value="'.$this->htmlEscape($dataHelper->clearDash($this->getQuote()->getShippingAddress()->getStreet($_i))).'" class="'.(($_i == 1)? 'required-entry ' : '').'input-text onestepcheckout-address-line validate-address" />';
+                    $addressFields .= (($_i != $this->helper('customer/address')->getStreetLines()) ? '<br/>': '');
+            }
+            $shippingFields['street'] = '
+                <div class="onestepcheckout-address-line input-box input-address'.((in_array('address', $formErrors)) ? ' input-error' : '').'">
+                    <label for="shipping:street1">'.$this->__('Address').'<span class="required"><em>*</em></span></label>
+                    '.$addressFields.'
+                </div>';
+        ?>
+    <?php endif; ?>
+<?php endif; ?>
+
+<?php if(!$this->settings['exclude_country_id']):?>
+<?php
+$shippingFields['country_id'] = '<div class="clear"></div><span class="mar-t10">'.$this->__('Country').'*</span>                  
+    <div class="cksmallfield-mob-wrap input-box input-country'.((in_array('country', $formErrors)) ? ' input-error' : '').'">        
+            '.$this->getCountryHtmlSelect('shipping').'
+    </div>';
+?>
+<?php else: ?>
+<?php $shippingFields['country_id'] = '
+    <input type="hidden" name="shipping[country_id]" id="shipping:country_id" value="'.$this->settings['default_country'].'" />';
+?>
+<?php endif; ?>
+<?php if(!$this->settings['exclude_region'] ): ?>
+    <?php $shippingFields['region_id'] = '<div class="clear"></div>
+                  <span class="mar-t10">'.$this->__('State').'*</span>
+        <div class="cksmallfield-mob-wrap input-box input-region'.((in_array('region', $formErrors)) ? ' input-error' : '').'">
+            <select style="background:none;" class="cksmallfield-mob pad-none" readonly="true" id="shipping:region_id" name="shipping[region_id]" title="'.$this->__('State/Province').'" class="validate-select" style="display:none">
+                <option value="">'.$this->__('Please select region, state or province').'</option>
+            </select>
+            <script type="text/javascript">
+                $("shipping:region_id").setAttribute("defaultValue",  "'.$dataHelper->clearDash($this->getQuote()->getShippingAddress()->getRegionId()).'");
+            </script>
+            <input type="text" id="shipping:region" onfocus="focus_to_telephone(this)" name="shipping[region]" value="'.$this->htmlEscape($dataHelper->clearDash($this->getQuote()->getShippingAddress()->getRegion())).'"  title="'.$this->__('State/Province').'" class="required-entry input-text" style="display:none" />
+        </div>';
+    ?>
+<?php endif; ?>
+<?php if(!$this->settings['exclude_city']):?>
+    <?php $shippingFields['city'] = '
+        <div class="fl input-box input-city'.((in_array('city', $formErrors)) ? ' input-error' : '').'">
+            <span class="mar-t10 mar-l10">'.$this->__('City').'*</span><div class=""> 
+            <input type="text" name="shipping[city]" onfocus="focus_to_telephone(this);" value="'.$this->htmlEscape($dataHelper->clearDash($this->getQuote()->getShippingAddress()->getCity())).'" title="'.$this->__('City').'" class="required-entry cklargefield-email" id="shipping:city" />
+        </div></div></div>';
+    ?>
+<?php endif; ?>
+<?php if(!$this->settings['exclude_zip']): ?>
+    <?php $shippingFields['postcode'] = '<div class="st-field-wrapp fl">
+        <div class=" fl input-box input-postcode'.((in_array('postcode', $formErrors)) ? ' input-error' : '').'" >
+            <span class="mar-t10">'.$this->__('Pin Code').'*</span>
+            <input type="text" title="'.$this->__('Zip/Postal Code').'" name="shipping[postcode]" maxlength="6" id="shipping:postcode" value="'.$this->htmlEscape($dataHelper->clearDash($this->getQuote()->getShippingAddress()->getPostcode())).'" class="shipping-zip required-entry validate-number cklargefield-email mb5 fl" /><div class="reg-success hide" id="ship_pincode_search"><input type="button" value="GO"></div>
+        </div><div class="clear"></div>';
+    ?>
+<?php endif; ?>
+<?php 
+if(!$this->settings['exclude_telephone']):?>
+    <?php $shippingFields['telephone'] = '
+        <div class="input-box input-telephone'.((in_array('telephone', $formErrors)) ? ' input-error' : '').'">
+            <span class="mar-t10">'.$this->__('Phone').'*</span>
+            <input type="text" name="shipping[telephone]" value="'.$this->htmlEscape($dataHelper->clearDash($this->getQuote()->getShippingAddress()->getTelephone())).'" title="'.$this->__('Telephone').'" class="cklargefield-email validate-mobile required-entry" id="shipping:telephone" />
+        </div>';
+    ?>
+<?php endif; ?>
+<?php if(!$this->settings['exclude_company']): ?>
+    <?php $shippingFields['company'] = '
+        <div class="input-box input-company'.((in_array('company', $formErrors)) ? ' input-error' : '').'">
+            <span class="mar-t10">'.$this->__('Company').'</span>
+            <input type="text" name="shipping[company]" value="'.$this->htmlEscape($dataHelper->clearDash($this->getQuote()->getShippingAddress()->getCompany())).'" title="'.$this->__('Company').'" class="input-text" id="shipping:company" />
+        </div>';
+    ?>
+<?php endif; ?>
+
+<?php if(!$this->settings['exclude_fax']): ?>
+    <?php $shippingFields['fax'] = '
+        <div class="input-box input-fax'.((in_array('fax', $formErrors)) ? ' input-error' : '').'">
+            <span class="mar-t10">'.$this->__('Fax').'</span>
+            <input type="text" name="shipping[fax]" value="'.$this->htmlEscape($dataHelper->clearDash($this->getQuote()->getShippingAddress()->getFax())).'" title="'.$this->__('Fax').'" class="input-text" id="shipping:fax" />
+        </div>';
+    ?>
+<?php endif; ?>
+
+<?php
+	/* DOB removed from Checkout as per BSC */
+    try {
+		$dobvalue = $this->getQuote()->getCustomerDob();
+		if(!isset($dobvalue)){
+			$_dob = $this->getLayout()->createBlock('customer/widget_dob');
+		}else{
+			$_dob = false;
+		}
+    } catch (Exception $e) {
+        $_dob = false;
+    }
+?>
+
+<?php if (is_object($_dob) && $_dob->isEnabled()): ?>
+    <?php $shippingFields['dob'] = '
+        <div class="field" style="display:none;"><table>
+            '.$_dob->setDate($this->getQuote()->getCustomerDob())->setFieldIdFormat('shipping:%s')->setFieldNameFormat('shipping[%s]')->toHtml().'
+        </table></div>';
+    ?>
+<?php endif; ?>
+
+ <?php if ($this->isCustomerLoggedIn() && $this->customerHasAddresses()):?>
+		<?php $shippingFields['save_in_address_book'] = '<input type="hidden" name="shipping[save_in_address_book]" class="shipping_save_address" value="0" />';
+		?>
+<?php else:?>
+    <?php $shippingFields['save_in_address_book'] = '
+        <input type="hidden" name="shipping[save_in_address_book]" value="1" />';
+    ?>
+<?php endif; ?>
+
+
+<?php $shippingFields = $this->getshippingFieldsOrder($shippingFields);?>
+<?php foreach($shippingFields as $key => $value):?>
+    <?php if(!empty($value['has_li'])):?>
+        <?php echo implode('',$value['fields']);?>
+    <?php else:?>
+        <?php echo implode('',$value['fields']);?>
+    <?php endif;?>
+<?php endforeach;?>
+<script type="text/javascript">
+jQuery(document).ready(function(){
+	if(jQuery("#shipping_address .dob-day select").length > 0){
+		 jQuery("#shipping_address .dob-day select").val('01');
+	}
+	if(jQuery("#shipping_address .dob-month select").length > 0){
+		 jQuery("#shipping_address .dob-month select").val('01');
+	}
+	if(jQuery("#shipping_address .dob-year select").length > 0){
+		 jQuery("#shipping_address .dob-year select").val('1902');
+	}
+	if(jQuery("#shipping_address .dob-full input").length > 0){
+		 jQuery("#shipping_address .dob-full input").val('01/01/1902');
+	}
+});
+function focus_to_telephone(obj) {
+    //jQuery("[name='shipping[telephone]']").focus();
+}
+</script>

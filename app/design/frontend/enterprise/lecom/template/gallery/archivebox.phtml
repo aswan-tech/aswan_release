@@ -1,0 +1,38 @@
+<script type="text/javascript">
+    function showhide(layer_ref) {
+        var state = jQuery("#"+layer_ref).css('display');
+        if (state == 'block') {
+            state = 'none';
+        }else {
+            state = 'block';
+        }
+        if (document.all) { //IS IE 4 or 5 (or 6 beta)
+            eval( "document.all." + layer_ref + ".style.display = state");
+        }
+        if (document.layers) { //IS NETSCAPE 4 or below
+            document.layers[layer_ref].display = state;
+        }
+        if (document.getElementById &&!document.all) {
+            hza = document.getElementById(layer_ref);
+            hza.style.display = state;
+        }
+    }
+    jQuery(document).ready(function() {
+        jQuery(".showLink").click(function(e) {
+            e.stopPropagation();
+        });
+        jQuery('body').click(function(){
+            jQuery("#monthArchive").hide();
+        });
+    });
+</script>
+
+<?php if ($archives = $this->getarchiveOptions()): ?>
+    <div class="archive">
+        <a href="javascript:void(0);" class="active showLink" onclick="showhide('monthArchive');"><img align="absolutemiddle" src="<?php echo $this->getSkinUrl('images/archive_arrow.jpg') ?>" alt="archive_arrow.jpg" />&nbsp;Archive</a>
+    </div>
+    <div id="monthArchive" class="moarch">
+        <?php echo $archives; ?>
+    </div>
+    <div class="clearfloat"></div>
+<?php endif; ?>

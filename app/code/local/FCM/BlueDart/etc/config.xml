@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <FCM_BlueDart>
+            <version>1.0.0</version>
+        </FCM_BlueDart>
+    </modules>
+    <global>
+        <models>
+            <bluedart>
+                <class>FCM_BlueDart_Model</class>
+            </bluedart>
+        </models>
+        <helpers>
+            <bluedart>
+                <class>FCM_BlueDart_Helper</class>
+            </bluedart>
+        </helpers>
+	</global>
+	
+	
+    <adminhtml>
+        <acl>
+            <resources>
+                <all>
+                    <title>Allow Everything</title>
+                </all>
+                <admin>
+                    <children>
+                        <system>
+                            <children>
+                                <config>
+                                    <children>
+                                        <bluedart>
+                                            <title>BlueDart Configurations</title>
+                                        </bluedart>
+                                    </children>
+                                </config>
+                            </children>
+                        </system>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
+    </adminhtml>
+	
+</config>
+
+
+
+
+
+
+
+
+

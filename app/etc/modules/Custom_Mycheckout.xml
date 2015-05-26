@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Custom_Mycheckout>
+            <active>true</active>
+            <codePool>local</codePool>
+        </Custom_Mycheckout>
+    </modules>
+</config> 

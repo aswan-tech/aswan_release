@@ -1,0 +1,38 @@
+<?php 
+$layer = Mage::getSingleton('catalog/layer');
+$category   = $layer->getCurrentCategory();
+?>
+<div class="left-links">
+<p class="cat-heading"><?php if($category->getparentCategory()->getName() && $category->getLevel() > 2){echo $category->getparentCategory()->getName();}else{ echo 'shop by categories';} ?></p>
+<ul>
+<?php foreach ($this->getItems() as $_item):?>
+    <?php
+	    $curCat = Mage::getModel('catalog/category')->load($_item->getCategoryId());
+		if($category->getLevel() > 2){
+			$excludeLink = array("get the look","men","women","footwear","accessories","beauty","home","collections","sale","valentine gift");
+		}else{
+			$excludeLink = array("get the look","collections","sale","valentine gift");
+		}
+      	
+		if(in_array(strtolower(trim($_item->getLabel())),$excludeLink)){ continue; }
+    ?>
+    <li>
+        <?php if ($_item->getIsCurrent()): ?>
+        <span class="adj-nav-category-current"><?php echo $_item->getLabel() ?></span>
+        <?php  else: ?>
+		<?php
+		if (Mage::getStoreConfig('design/adjnav/reload_categories'))
+		{		
+		?>
+        	<a id="cat-<?php echo $_item->getCategoryId()?>" href="<?php echo $curCat->getUrl()?>" <?php if($_item->getCategoryId() == $category->getId()) { ?> class="active" <?php } else { ?> class="adj-nav-pad<?php echo $_item->getLevel()?>" <?php } ?>><?php echo $_item->getLabel() ?></a>
+        <?php } else { ?>
+        	           <a onclick="return false;" id="cat-<?php echo $_item->getCategoryId()?>" href="<?php echo $this->htmlEscape($_item->getUri()) ?>" <?php if($_item->getCategoryId() == $category->getId()) { ?> class="active" <?php } else { ?> class="adj-nav-category adj-nav-pad<?php echo $_item->getLevel()?>" <?php } ?>><?php echo $_item->getLabel() ?></a>
+        <?php            
+		 }
+         ?>  
+        <?php endif ?>
+    </li>
+<?php endforeach ?>
+</ul>
+</div>
+<div class="clear"></div>

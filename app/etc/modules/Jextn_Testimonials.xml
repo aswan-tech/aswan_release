@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Jextn_Testimonials>
+            <active>true</active>
+            <codePool>community</codePool>
+        </Jextn_Testimonials>
+    </modules>
+</config> 

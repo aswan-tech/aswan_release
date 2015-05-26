@@ -1,0 +1,95 @@
+<?php
+/**
+ * Product:     Layered Navigation Pro for Enterprise Edition - 16/08/12
+ * Package:     AdjustWare_Nav_10.4.9_10.0.0_557110
+ * Purchase ID: hXgQU3oI8FOfJ8PDCk5s6h6XPM5oH2Kx0N6TCAPkqN
+ * Generated:   2013-04-22 06:59:44
+ * File path:   app/design/frontend/enterprise/default/template/adjnav/filter_price_slider.phtml
+ * Copyright:   (c) 2013 AITOC, Inc.
+ */
+?>
+<?php 
+//todo: move logic to the block
+    list($min,$max) = $this->_filter->getMinMaxPriceInt(); 
+    
+    list($from,$to) = explode($this->getDelimeter(), $this->_filter->getActiveState()); 
+    
+    $from = floor(max($from, $min));
+    
+    if ($to)
+    {
+        $to   = ceil(min($to, $max));
+    }
+    else 
+    {
+        $to = $max;
+    }
+    
+    if ($to<1 && $from<1)
+    {
+        $to = $max;
+    }
+
+    $width = 170;
+    
+    if ($max)
+    {
+        if ($max == $min)
+        {
+            $firstOffset = 0;
+            $secondOffset = $width;
+        }
+        else 
+        {
+        $firstOffset  = ($from-$min)*$width/($max-$min);
+        $secondOffset = ($to-$min)*$width/($max-$min);
+            
+        }
+    }
+    else 
+    {
+        $firstOffset  = 0;
+        $secondOffset = 0;
+    }
+    
+    // due to rounding values might change
+    //$from = $firstOffset*$max/$width;
+    // $to   = $secondOffset*$max/$width;
+?>
+<ol>
+	<li><?php echo $this->__('Price range selected')?></li>
+    <li style="overflow-y: visible;">
+	<?php if ($to != $from) :?> 
+<span class="prselect"> </span>
+	<span class="prRange">
+		<span class="WebRupee"><?php echo $this->getSymbol()?></span>
+		<span id="adj-nav-range-from<?php echo $this->_filter->getRequestVar()?>"><?php echo $from?></span>
+		-
+		<span class="WebRupee"><?php echo $this->getSymbol()?></span>
+		<span id="adj-nav-range-to<?php echo $this->_filter->getRequestVar()?>"><?php echo $to?></span>
+	</span>
+<br style="clear:both;" />
+
+
+<?php else:?>
+
+<?php echo $this->__('Value:')?> 
+<span class="WebRupee"><?php echo $this->getSymbol()?></span><span id="adj-nav-range-from<?php echo $this->_filter->getRequestVar()?>"><?php echo $from?></span>
+ 
+<?php endif;?>
+<?php if ($to != $from) :?> 
+<?php $lstan =  $firstOffset ; $rspan = $secondOffset; ?>
+<div id="adj-nav-price-slider<?php echo $this->_filter->getRequestVar()?>" class="adj-nav-slider">
+    <div id="leftselect" class="handle selected" style="left:<?php echo $firstOffset?>px"></div>
+	<span  style="left:0px; position:absolute;top:15px;"><span class="WebRupee"><?php echo $this->getSymbol()?></span> <?php echo $min ; ?></span>
+    <div id="rightselect" class="handle" style="left:<?php echo $secondOffset?>px"></div>
+	<span style="left:133px; position:absolute;top:15px;width:75px;"><span class="WebRupee"><?php echo $this->getSymbol()?></span> <?php echo $max ; ?></span>
+	<div id="selectedArea" style="background-color: #343E7A; position: absolute; height: 3px; top: 8px; width: 91%; left: 8px;">&nbsp;</div>
+</div>
+<br />
+  <script type="text/javascript">
+    var adj_slider = adj_nav_create_slider(<?php echo $width.', '.$firstOffset.', '.$secondOffset.', '.$min.', '.$max.',"'.$this->_filter->getRequestVar()?>");
+</script>
+<?php endif;?>  
+    </li>
+</ol>

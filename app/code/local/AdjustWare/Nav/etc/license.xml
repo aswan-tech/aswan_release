@@ -1,0 +1,2 @@
+<?xml version="1.0"?>
+<install><product id="113" key="AdjustWare_Nav" version="10.4.9" license_id="15908" link_id="557110" ent_hash="bd10"><![CDATA[Layered Navigation Pro for Enterprise Edition]]></product><serial>hXgQU3oI8FOfJ8PDCk5s6h6XPM5oH2Kx0N6TCAPkqN</serial><checkid>d58059b3f0b59e12a6187717d965c9ee</checkid><store_url><![CDATA[http://www.aitoc.com/en/]]></store_url><service><![CDATA[https://www.aitoc.com/api/xmlrpc/]]></service><constraint><product label="Number of products within one Magento Installation:"></product></constraint></install>

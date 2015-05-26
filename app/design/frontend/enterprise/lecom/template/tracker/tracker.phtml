@@ -1,0 +1,32 @@
+<div class="">
+
+<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+    <form action="<?php echo $this->getPostActionUrl() ?>" method="get" id="tracker-form">
+	<div class="fieldset">
+	<h2 class="legend"><?php echo $this->__('Track Order') ?></h2>
+		<ul class="form-list">
+            <li>
+                <label for="email"><em>*</em><?php echo $this->__('Email Address') ?></label>
+                <div class="input-box">
+                <input name="login[username]" value="<?php echo $this->htmlEscape($this->getUsername()) ?>" id="email" type="text" class="input-text validate-email" title="<?php echo $this->__('Email Address') ?>" />
+                </div>
+            </li><p style="font-size:25px;"><b>OR</b></p>
+			<li>
+                <label for="order"><em>*</em><?php echo $this->__('Order Id') ?></label>
+                <div class="input-box">
+                <input name="login[id]"  id="order" type="text" class="input-text" title="<?php echo $this->__('Store Id') ?>" />
+                </div>
+            </li>
+        </ul>
+		<div class="buttons-set">
+            <button type="submit" class="button"><span><span><?php echo $this->__('Submit') ?></span></span></button>
+        </div>
+	</div>
+</form>
+<script type="text/javascript">
+    //<![CDATA[
+        var dataForm = new VarienForm('tracker-form', true);
+    //]]>
+    </script>
+</div>
+            

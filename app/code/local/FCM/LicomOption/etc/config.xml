@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <FCM_LicomOption>
+            <version>1.0.0</version>
+        </FCM_LicomOption>
+    </modules>
+    <global>
+        <models>
+            <licomoption>
+                <class>FCM_LicomOption_Model</class>
+            </licomoption>
+        </models>
+        <helpers>
+            <licomoption>
+                <class>FCM_LicomOption_Helper</class>
+            </licomoption>
+        </helpers>
+		<events>
+		  <customer_login>
+			<observers>
+			  <clear_wishlist_observer>
+				<type>singleton</type>
+				<class>FCM_LicomOption_Model_Observer</class>
+				<method>removeWishlist</method>
+			  </clear_wishlist_observer>
+			</observers>
+		  </customer_login>     
+		</events>
+	</global>
+    <adminhtml>
+        <acl>
+            <resources>
+                <all>
+                    <title>Allow Everything</title>
+                </all>
+                <admin>
+                    <children>
+                        <system>
+                            <children>
+                                <config>
+                                    <children>
+                                        <licomoption>
+                                            <title>Report Export Module Section</title>
+                                        </licomoption>
+                                    </children>
+                                </config>
+                            </children>
+                        </system>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
+    </adminhtml>
+</config>
+
+
+
+
+
+
+
+
+

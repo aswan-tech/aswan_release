@@ -1,0 +1,76 @@
+<?php $_orders = $this->getOrders(); ?>
+<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+<?php echo $this->getChildHtml('info');?>
+
+<?php if($_orders->getSize()): ?>
+<table width="100%" cellpadding="5" cellspacing="0" border="0" class="listOrders mtord-h  fs14 f-lato">
+	<tr>
+		<td colspan="5" class="pagerNav">
+			<?php echo $this->getPagerHtml(); ?>
+		</td>
+	</tr>
+	<?php $_odd = 1; ?>
+    <?php foreach ($_orders as $_order): ?>
+        <tr class="evenRow">
+          
+            <td>ORDER NO: <?php echo $_order->getRealOrderId() ?></td>
+                <td style="padding-right: 5px;">Items: <?php echo $_order->getTotalItemCount() ?> Qty</td>
+                <td style="padding-right: 5px;"><?php echo (date('jS F,y', Mage::getModel('core/date')->timestamp($_order->getCreatedAt()))); ?></td>
+			<td>
+				<?php 
+				$status = $_order->getStatusLabel();
+				$order_id = $_order->getIncrementId();
+				$order = Mage::getModel('sales/order')->loadByIncrementId($order_id); 
+				$shipmentCollection = $order->getShipmentsCollection();
+				foreach($shipmentCollection as $shipment)
+				{
+					$shipmentIncrementId = $shipment->getIncrementId();
+					$shipment=Mage::getModel('sales/order_shipment')->loadByIncrementId($shipmentIncrementId);
+
+					foreach ($shipment->getAllTracks() as $track)
+					{
+						$track_number=$track->getnumber();
+						$track_title=$track->gettitle();
+					}
+
+				} 
+
+			$provider = Mage::getModel("provider/provider")->getCollection()
+						->addFilter('shippingprovider_name',$track_title);
+			 		foreach ($provider as $track_provider)
+			 		{
+						$shipping_url=$track_provider->getshippingprovider_action();
+					}
+
+					if($track_number != '')
+					{ 
+						echo "AWB No. : ".$track_number; ?>  
+						<a href="<?php echo $shipping_url;?>" target="_blank" title="Copy AWB No.">Track Order </a>
+						<?php
+					} 
+					 else 
+					 {
+					 	echo "In Processing";
+					 }
+
+				 ?>
+					
+                 </td>
+                <td style="text-align: right; padding-right: 5px;"><?php echo Mage::helper('core')->currency($_order->getGrandTotal(), true, false); ?></td>
+				<td style="text-align: right; padding-right: 5px;"><a href="<?php echo $this->getViewUrl($_order) ?>">Details</a></td>
+	</tr>
+        <tr calss='oddRow'><td colspan="4" style="height: 3px;"></td></tr>
+	<?php 
+		$_odd++;
+		endforeach; 
+	?>
+		<tr>
+			<td colspan="5" class="pagerNav">
+				<?php echo $this->getPagerHtml(); ?>
+			</td>
+		</tr>
+	</table>
+
+<?php else: ?>
+    <p><?php echo $this->__('You have placed no orders.'); ?></p>
+<?php endif ?>

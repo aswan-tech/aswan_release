@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Custom_Mysales>
+            <active>true</active>
+            <codePool>local</codePool>
+        </Custom_Mysales>
+    </modules>
+</config> 

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * created : 12/04/2011
+ * 
+ * @category Ayaline
+ * @package Ayaline_Core
+ * @author aYaline
+ * @copyright Ayaline - 2012 - http://magento-shop.ayaline.com
+ * @license http://shop.ayaline.com/magento/fr/conditions-generales-de-vente.html
+ */
+-->
+<config>
+
+	<modules>
+		<Ayaline_Core>
+			<version>1.1.4</version>
+		</Ayaline_Core>
+	</modules>
+	
+	<global>
+		<blocks>
+			<ayalinecore>
+				<class>Ayaline_Core_Block</class>
+			</ayalinecore>
+		</blocks>
+		<helpers>
+			<ayalinecore>
+				<class>Ayaline_Core_Helper</class>
+			</ayalinecore>
+		</helpers>
+		<models>
+			<ayalinecore>
+				<class>Ayaline_Core_Model</class>
+			</ayalinecore>
+		</models>
+	</global>
+	
+	<adminhtml>
+		<layout>
+			<updates>
+				<ayalinecore>
+					<file>ayaline/core.xml</file>
+				</ayalinecore>
+			</updates>
+		</layout>
+		<translate>
+			<modules>
+				<Ayaline_Core>
+					<files>
+						<default>Ayaline_Core.csv</default>
+					</files>
+				</Ayaline_Core>
+			</modules>
+		</translate>
+		<!--<events>
+			<controller_action_predispatch>
+				<observers>
+					<ayalinecore_check_update>
+						<class>ayalinecore/observer</class>
+						<method>checkUpdate</method>
+					</ayalinecore_check_update>
+				</observers>
+			</controller_action_predispatch>
+		</events>-->
+	</adminhtml>
+
+	<frontend>
+		<layout>
+			<updates>
+				<ayalinecore>
+					<file>ayaline/core.xml</file>
+				</ayalinecore>
+			</updates>
+		</layout>
+	</frontend>
+
+	<default>
+		<ayalinecore>
+			<adminnotification>
+				<feed_url>ayaline.com</feed_url>
+				<feed_en>notification_en.rss</feed_en>
+				<feed_fr>notification_fr.rss</feed_fr>
+				<use_https>0</use_https>
+				<frequency>1</frequency>
+			</adminnotification>
+		</ayalinecore>
+	</default>
+</config>

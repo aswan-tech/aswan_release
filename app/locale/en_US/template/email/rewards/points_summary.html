@@ -1,0 +1,52 @@
+<!--@subject Points Balance Summary from {{var store_name}}!@-->
+<!-- 
+<pre>
+[[ help ]]
+logo : {{var logo_url}}
+logo alt : {{var logo_alt}}
+store url : {{store url}}
+customer_name : {{var customer_name}}
+customer_email : {{var customer_email}}
+store_name : {{var store_name}}
+points_balance : {{var points_balance}}
+has_pending_points : {{var has_pending_points}}
+pending_points : {{var pending_points}}
+unsubscribe_url : {{var unsubscribe_url}}
+</pre>
+-->
+<style type="text/css">
+    body,td { color:#2f2f2f; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif; }
+    .small { font-size:9px }
+</style>
+
+<div style="font:11px/1.35em Verdana, Arial, Helvetica, sans-serif;">
+    <table cellspacing="0" cellpadding="0" border="0" width="98%" style="margin-top:10px; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif; margin-bottom:10px;">
+        <tr>
+            <td align="center" valign="top">
+                <table cellspacing="0" cellpadding="0" border="0" width="650">
+                    <tr>
+                        <td valign="top">
+                            <a href="{{store url=""}}">
+                               <img src="{{var logo_url}}" alt="{{var logo_alt}}"  
+                                 style="margin-bottom:10px;" border="0"/>
+                            </a>
+                        </td>
+                    </tr>
+                </table>
+                <table cellspacing="0" cellpadding="0" border="0" width="650">
+                    <tr>
+                        <td valign="top">
+                            <p>Dear {{var customer_name}},</p>
+                            <p>You currently have {{var points_balance}} in your account, which you can spend at <a href="{{store url=""}}">{{var store_name}}</a>.</p>
+                            {{if has_pending_points}}
+                                <p>{{var pending_points}} are on hold.</p>
+                            {{/if}}
+                            <p>Thank you for shopping with us!</p>
+                            <p class="small">If you would like to unsubscribe from this monthly update <a href="{{var unsubscribe_url}}">click here.</a></p>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</div>

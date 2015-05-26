@@ -1,0 +1,62 @@
+<?php 
+/**
+ * created : 12/04/2011
+ * 
+ * @category Ayaline
+ * @package Ayaline_Core
+ * @author aYaline
+ * @copyright Ayaline - 2012 - http://magento-shop.ayaline.com
+ * @license http://shop.ayaline.com/magento/fr/conditions-generales-de-vente.html
+ */
+?>
+<?php /* @var $this Ayaline_Core_Block_Adminhtml_System_Config_Fieldset_Hint */ ?>
+<!-- <div id="ayaline-encart" class="ayaline-notice">
+	<div id="ayaline-products" class="ayaline-product-1"></div>
+	<div class="ayaline-content">
+    	<h4><?php //echo Mage::helper('ayalinecore')->__('Welcome to aYaline!')?></h4>
+    	<p><a href="http://www.ayaline.com/" target="_blank" ><?php //echo Mage::helper('ayalinecore')->__('Visit our website'); ?></a></p>
+    </div>
+    <div style="clear:both;"></div>
+</div>-->
+<?php $modulesInfos = $this->getAyalineModules(); ?>
+<?php if($modulesInfos): ?>
+	<div id="ayaline-encart" class="ayaline-notice">
+		<?php $first = true; ?>
+		<?php foreach($modulesInfos as $key => $moduleInfos): ?>
+			<div class="<?php echo $key; ?>" <?php if(!$first): ?> style="display:none;" <?php endif; ?>>
+				<div id="ayaline-picture"><img src="<?php echo Mage::getDesign()->getSkinUrl($moduleInfos['picture']); ?>" alt="<?php echo $moduleInfos['title']; ?>" /></div>
+				<div class="ayaline-content">
+					<div id="ayaline-title"><h2><?php echo $moduleInfos['title']; ?></h2></div>
+					<div id="ayaline-description"><?php echo $moduleInfos['description']; ?></div>
+				</div>
+			</div>
+			<?php $first = false; ?>
+		<?php endforeach; ?>
+	</div>
+<?php endif; ?>
+
+
+<script type="text/javascript">
+	var index = 0;
+	var modulesKeys = <?php echo $this->getKeys(); ?>;
+	var totalProduct = (modulesKeys.length)-1;
+	//document.observe('dom:loaded', startSlide.bindAsEventListener(this, index));
+	document.observe('dom:loaded', function(){ setTimeout(function(){startSlide(index);}, 10000); });
+	function startSlide(index) {
+		//var elem = $('ayaline-products');
+		//elem.removeClassName('ayaline-product-'+index);
+		//elem.removeClassName(modulesKeys[index]);
+		//var div = elem.down('div.'+modulesKeys[index]);
+		//div.removeClassName(modulesKeys[index]);
+		$$('div.'+modulesKeys[index]).first().hide();
+		index++;
+		if(index > totalProduct) {
+			index = 0;
+		}
+		//elem.addClassName('ayaline-product-'+index);
+		//elem.addClassName(modulesKeys[index]);
+		//div.addClassName(modulesKeys[index]);
+		$$('div.'+modulesKeys[index]).first().show();
+		setTimeout(function(){startSlide(index);}, 10000);
+	}
+</script>

@@ -1,0 +1,58 @@
+@font-face {font-family: 'Rupee Foradian';src: url('../fonts/Rupee_Foradian.eot');src: url('../fonts/Rupee_Foradian.eot?#iefix') format('embedded-opentype'),url('../fonts/Rupee_Foradian.woff') format('woff'),url('../fonts/Rupee_Foradian.ttf') format('truetype'),url('../fonts/Rupee_Foradian.svg#Rupee Foradian') format('svg');font-weight: normal;font-style: normal;}
+
+/*@font-face{font-family: 'Rupee Foradian';src: url('../fonts/Rupee_Foradian.eot');src: local('Rupee Foradian'), url('../fonts/Rupee_Foradian.ttf') format('truetype'),  url('../fonts/Rupee_Foradian.woff') format('woff'), url('../fonts/Rupee_Foradian.svg') format('svg');font-weight: normal;font-style: normal;}*/
+
+@font-face {
+    font-family: 'avenir_lt_std_35_lightregular';
+    src: url('../fonts/avenirltstd-light-webfont.eot');
+    src: url('../fonts/avenirltstd-light-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/avenirltstd-light-webfont.woff') format('woff'),
+         url('../fonts/avenirltstd-light-webfont.ttf') format('truetype'),
+         url('../fonts/avenirltstd-light-webfont.svg#avenir_lt_std_35_lightregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'avenir_lt_std_65_mediumRg';
+    src: url('../fonts/avenirltstd-medium-webfont.eot');
+    src: url('../fonts/avenirltstd-medium-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/avenirltstd-medium-webfont.woff') format('woff'),
+         url('../fonts/avenirltstd-medium-webfont.ttf') format('truetype'),
+         url('../fonts/avenirltstd-medium-webfont.svg#avenir_lt_std_65_mediumRg') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'avenir_lt_std_45_bookregular';
+    src: url('../fonts/avenirltstd-book-webfont.eot');
+    src: url('../fonts/avenirltstd-book-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/avenirltstd-book-webfont.woff') format('woff'),
+         url('../fonts/avenirltstd-book-webfont.ttf') format('truetype'),
+         url('../fonts/avenirltstd-book-webfont.svg#avenir_lt_std_45_bookregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'avenir_lt_std_65_mediumbold';
+    src: url('../fonts/avenirltstd-black-webfont.eot');
+    src: url('../fonts/avenirltstd-black-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/avenirltstd-black-webfont.woff') format('woff'),
+         url('../fonts/avenirltstd-black-webfont.ttf') format('truetype'),
+         url('../fonts/avenirltstd-black-webfont.svg#avenir_lt_std_65_mediumbold') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'avenir_lt_std_55_romanregular';
+    src: url('../fonts/avenirltstd-roman-webfont.eot');
+    src: url('../fonts/avenirltstd-roman-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/avenirltstd-roman-webfont.woff') format('woff'),
+         url('../fonts/avenirltstd-roman-webfont.ttf') format('truetype'),
+         url('../fonts/avenirltstd-roman-webfont.svg#avenir_lt_std_55_romanregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}

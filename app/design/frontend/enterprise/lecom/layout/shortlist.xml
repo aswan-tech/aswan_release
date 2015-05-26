@@ -1,0 +1,183 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <default></default>
+    <shortlist_index_index translate="label">
+        <label>Catalog Category (Non-Anchor)</label>
+        <reference name="root">
+            <action method="setTemplate">
+                <template>page/1column.phtml</template>
+            </action>
+        </reference>
+        <reference name="head">
+            <action method="setTitle" translate="title">
+                <title>Short Listed Products</title>
+            </action>
+            <action method="addJs">
+                <script>jquery/jquery.colorbox.js</script>
+            </action>
+            <action method="addJs">
+                <script>jquery/jquery.alerts.js</script>
+            </action>
+            <action method="addJs">
+                <script>jquery/jquery.imageZoom.js</script>
+            </action>
+            <action method="addCss">
+                <stylesheet>css/website.css</stylesheet>
+            </action>
+            <action method="addCss">
+                <stylesheet>css/jquery.alerts.css</stylesheet>
+            </action>
+            <action method="addCss">
+                <stylesheet>css/jquery.alerts.css</stylesheet>
+            </action>
+            <action method="addCss">
+                <stylesheet>css/jquery.imageZoom.css</stylesheet>
+            </action>
+            <action method="addCss">
+                <stylesheet>css/colorbox.css</stylesheet>
+            </action>
+            <action method="addJs">
+                <script>varien/product.js</script>
+            </action>
+            <action method="addJs">
+                <script>varien/configurable.js</script>
+            </action>
+            <action method="removeItem">
+                <type>js_css</type>
+                <name>calendar/calendar-win2k-1.css</name>
+                <params/>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/print.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/widgets.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/website.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/rewards/skin.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/rewards/catalog.css
+                </name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/rewardssocial/facebook/like.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_js</type>
+                <name>js/bunble.js</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_js</type>
+                <name>js/wishlist.js</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_js</type>
+                <name>js/rewards.js</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_js</type>
+                <name>js/enterprise/wishlist.js</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_js</type>
+                <name>js/bundle.js</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_js</type>
+                <name>js/enterprise/catalogevent.js</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>jquery/jquery.zoom.js</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>tbt/rewardssocial/facebook/like/rewards.js</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>amasty/amstockstatus/configurable.js</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>calendar/calendar-setup.js</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>lib/ccard.js</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>lib/ccard.js</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>calendar/calendar-setup.js</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>jquery/jquery.zoom.js"></name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>jquery/jquery.alerts.js"></name>
+            </action>
+            <action method="removeItem">
+                <type>skin_js</type>
+                <name>js/bundle.js</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_js</type>
+                <name>js/enterprise/catalogevent.js</name>
+            </action>
+        </reference>
+        <reference name="content">
+            <block type="catalog/product_list" name="product_list" template="shortlist/list.phtml">
+                <!--<block type="catalog/product_list_toolbar" name="product_list_toolbar" template="catalog/product/list/toolbar.phtml">
+                    <block type="page/html_pager" name="product_list_toolbar_pager"/>
+                </block>
+                <action method="addColumnCountLayoutDepend">
+                    <layout>empty</layout>
+                    <count>4</count>
+                </action>
+                <action method="addColumnCountLayoutDepend">
+                    <layout>one_column</layout>
+                    <count>4</count>
+                </action>
+                <action method="addColumnCountLayoutDepend">
+                    <layout>two_columns_left</layout>
+                    <count>4</count>
+                </action>
+                <action method="addColumnCountLayoutDepend">
+                    <layout>two_columns_right</layout>
+                    <count>4</count>
+                </action>
+                <action method="addColumnCountLayoutDepend">
+                    <layout>three_columns</layout>
+                    <count>4</count>
+                </action>
+                <action method="setToolbarBlockName">
+                    <name>product_list_toolbar</name>
+                </action>-->
+            </block>
+        </reference>
+    </shortlist_index_index>
+	<common_index_success>
+		<reference name="root">
+			<action method="setTemplate"><template>page/1column.phtml</template></action>
+		</reference>
+		<reference name="content">
+			<block type="core/template" name="common_success" template="shortlist/success.phtml"/>
+		</reference>
+	</common_index_success>
+</layout>

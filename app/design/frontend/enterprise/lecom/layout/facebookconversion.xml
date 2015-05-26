@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+
+<layout version="0.1.0">
+	<checkout_onepage_success>
+        <reference name="head">
+            <block type="core/template" as="fbconversionsocde" name="fbconversionsocde" template="facebookconversion/conversioncode.phtml">
+				<action method="setData">
+					<name>page_code</name>
+					<value>checkoutsuccess</value>
+				</action>
+			</block>
+        </reference>
+    </checkout_onepage_success>
+	<checkout_onepage_successccavenue translate="label">
+        <reference name="head">
+            <block type="core/template" as="fbconversionsocde" name="fbconversionsocde" template="facebookconversion/conversioncode.phtml">
+				<action method="setData">
+					<name>page_code</name>
+					<value>checkoutsuccess</value>
+				</action>
+			</block>
+        </reference>
+    </checkout_onepage_successccavenue>
+	
+	<checkout_onepage_successzaakpay translate="label">
+        <reference name="head">
+            <block type="core/template" as="fbconversionsocde" name="fbconversionsocde" template="facebookconversion/conversioncode.phtml">
+				<action method="setData">
+					<name>page_code</name>
+					<value>checkoutsuccess</value>
+				</action>
+			</block>
+        </reference>
+    </checkout_onepage_successzaakpay>
+	
+	<checkout_onepage_successpayseal translate="label">
+       <reference name="head">
+            <block type="core/template" as="fbconversionsocde" name="fbconversionsocde" template="facebookconversion/conversioncode.phtml">
+				<action method="setData">
+					<name>page_code</name>
+					<value>checkoutsuccess</value>
+				</action>
+			</block>
+        </reference>
+    </checkout_onepage_successpayseal>
+	
+	<checkout_onepage_successcitrus translate="label">
+       <reference name="head">
+            <block type="core/template" as="fbconversionsocde" name="fbconversionsocde" template="facebookconversion/conversioncode.phtml">
+				<action method="setData">
+					<name>page_code</name>
+					<value>checkoutsuccess</value>
+				</action>
+			</block>
+        </reference>
+    </checkout_onepage_successcitrus>
+</layout>

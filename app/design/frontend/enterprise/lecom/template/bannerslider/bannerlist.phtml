@@ -1,0 +1,31 @@
+<div id="slider-panel">			
+		<div id="favLinksContainer">
+			<div class="close-cross">
+				<a id="close-img-cross" href="javascript:void(0);">
+					<img src="<?php echo $this->getSkinUrl('images/closecross.png'); ?>" alt="Close" />
+				</a>
+			</div>
+			<div id="loading-fav" style="display:none;"><img src="<?php echo $this->getSkinUrl('images/loading_small.gif'); ?>" /></div>
+		</div>
+		<div id="fav">
+				<a href="javascript:void(0);" id="close-btn" title=""></a>
+			</div>
+	</div>
+<script type="text/javascript">
+jQuery.noConflict();
+jq("#favLinksContainer").css('height', '2px');
+jq(".top-panel, .bottom-panel").css('height', '2px');
+
+jq("#fav").one("click", function() {
+	var xhr = jq.ajax({
+			url: '<?php echo Mage::getBaseUrl().'common/index/favpanelload'?>',
+			beforeSend: function (){ 
+				jQuery('#loading-fav').show();
+			},
+			success: function(msg){
+				jQuery('#loading-fav').hide	();
+				jQuery('.close-cross').after(msg);
+			}
+		});
+	});
+</script>

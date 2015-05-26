@@ -1,0 +1,27 @@
+<!doctype html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+<?php echo $this->getChildHtml('head') ?>
+<?php echo $this->getChildHtml('after_body_start') ?>
+</head>
+<body <?php echo $this->getBodyClass()?' class="'.$this->getBodyClass().'"':'' ?>>
+      <div class="top-info-bar"></div>
+      <div class="as-menu-wrap "></div>
+      <div class="as-info-cont">
+        <header class=" pos-a">
+            <?php echo $this->getChildHtml('header') ?>
+       </header>
+      </div>
+
+                <?php echo $this->getChildHtml('content') ?>
+		<footer>
+			<?php echo $this->getChildHtml('footer_before') ?>
+			<?php echo $this->getChildHtml('footer') ?>
+			<?php echo $this->getChildHtml('before_body_end') ?>
+		</footer>
+
+</body>
+</html>

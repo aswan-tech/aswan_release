@@ -1,0 +1,138 @@
+<?xml version="1.0"?>
+<!-- 
+/**
+ * MageWorx
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the MageWorx EULA that is bundled with
+ * this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://www.mageworx.com/LICENSE-1.0.html
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade the extension
+ * to newer versions in the future. If you wish to customize the extension
+ * for your needs please refer to http://www.mageworx.com/ for more information
+ *
+ * @category   MageWorx
+ * @package    MageWorx_InstantCart
+ * @copyright  Copyright (c) 2012 MageWorx (http://www.mageworx.com/)
+ * @license    http://www.mageworx.com/LICENSE-1.0.html
+ */
+
+/**
+ * Instant Cart extension
+ *
+ * @category   MageWorx
+ * @package    MageWorx_InstantCart
+ * @author     MageWorx Dev Team
+ */
+-->
+<config>
+    <modules>
+        <MageWorx_InstantCart>
+            <version>1.3.11</version>
+        </MageWorx_InstantCart>
+    </modules>
+    
+    <frontend>
+        <routers>
+            <icart>
+                <use>standard</use>
+                <args>
+                    <module>MageWorx_InstantCart</module>
+                    <frontName>icart</frontName>
+                </args>
+            </icart>
+        </routers>
+        <translate>
+            <modules>
+                <MageWorx_InstantCart>
+                    <files>
+                        <default>MageWorx_InstantCart.csv</default>
+                    </files>
+                </MageWorx_InstantCart>
+            </modules>
+        </translate>
+        <layout>
+            <updates>
+                <icart>
+                    <file>icart.xml</file>
+                </icart>
+            </updates>
+        </layout>
+    </frontend>
+    
+    <global>
+        <rewrite>
+            <icart>
+                <from><![CDATA[#^/checkout/icart/#]]></from>
+                <to>/icart/index/</to>
+            </icart>
+        </rewrite>
+        <blocks>
+            <icart>
+                <class>MageWorx_InstantCart_Block</class>
+            </icart>
+            <catalog>
+                <rewrite>
+                    <product_list>MageWorx_InstantCart_Block_Catalog_Product_List</product_list>
+                </rewrite>
+            </catalog>
+        </blocks>
+        <helpers>
+            <icart>
+                <class>MageWorx_InstantCart_Helper</class>
+            </icart>
+        </helpers>
+        
+        <models>            
+            <icart>
+                <class>MageWorx_InstantCart_Model</class>
+                <resourceModel>instantcart_mysql4</resourceModel>
+            </icart>                        
+        </models>
+    </global>
+    
+    <adminhtml>
+        <acl>
+            <resources>
+                <all>
+                    <title>Allow Everything</title>
+                </all>
+                <admin>
+                    <children>
+                        <system>
+                            <children>
+                                <config>
+                                    <children>
+                                        <mageworx_customers translate="title" module="mageworx">
+                                        <title>MageWorx &gt; Customers</title>
+                                        <sort_order>1</sort_order> 
+                                            <children>
+                                                <icart translate="title" module="icart">
+                                                    <title>Instant Cart</title>
+                                                </icart>
+                                            </children>
+                                        </mageworx_customers>
+                                    </children>
+                                </config>
+                            </children>
+                        </system>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
+    </adminhtml>    
+    <default>
+        <mageworx_customers>
+            <icart>
+                <enabled>1</enabled>
+                <auto_hide>10</auto_hide>
+                <show_products_block>0</show_products_block>
+            </icart>
+        </mageworx_customers>
+    </default>
+</config>

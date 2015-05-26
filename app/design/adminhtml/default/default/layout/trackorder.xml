@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <trackorder_adminhtml_trackorder_index>
+        <reference name="content">
+            <block type="trackorder/adminhtml_trackorder" name="trackorder" />
+        </reference>
+    </trackorder_adminhtml_trackorder_index>
+</layout>

@@ -1,0 +1,335 @@
+<div class="topoffers"><?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('header-top-offer-v3')->toHtml() ?></div>
+<div class=" cust-call pos-r fr">
+<div class="fl f-Proxnova c-fff pl30"><span class="call-icon pos-a"></span> <?php echo Mage::getStoreConfig('general/store_information/phone');     ?>
+</div>
+
+<div class="fr cat-linktop">
+<?php
+$rememberData = Mage::getModel('core/cookie')->get('urme');
+if($rememberData)
+	$rememberDataArr = explode("|", $rememberData);
+
+$customerinfo = Mage::getSingleton('customer/session');
+$cart_qty = $this->helper('checkout/cart')->getSummaryCount();
+if($cart_qty ==NULL)
+	$cart_qty = 0;
+if($customerinfo->isLoggedIn())
+{ 
+echo '<a href="'.$this->getUrl('customer/account').'" id="gtm-my-account" class="tt-u fs12 c-fff td-n pl10 gtm-track">My Account</a>';
+echo '<a href="'.$this->getUrl('customer/account/logout').'" id="gtm-logout" class="tt-u fs12 c-fff td-n pl10 gtm-track">Log Out</a>';?>
+
+<?php 
+    }
+else
+{
+echo '<a href="javascript:void(0)" id="sign-in-popup" class="tt-u fs12 c-fff td-n pl10 customer-login f-bold gtm-track">Sign In</a>';
+echo '<a href="javascript:void(0)" id="register-popup" class="tt-u fs12 c-fff td-n pl10 custom-register f-bold gtm-track">Register</a>';
+//signup popup
+
+?>
+<div style="" class="signup-wrap-box">
+	<div class="signup-cont-box">
+			<a href="javascript:void(0)"  id="gtm-signin-signup-popup-cross" class="cl-btn gtm-track">x</a>
+			<div class="tp-logo-w">
+				<div class="lgowrap">
+					<img alt="" src="<?php echo $this->getSkinUrl('images-v3/signup-am-logo.jpg');?>">
+				</div> 
+			</div>
+			<div class="clear"></div>
+			<div class="" id="login-reg-div">
+					<div class="sign-left fl">
+						<p class="sign-tptxt">Existing user? <span>Login</span></p>
+						<div id="ajaxLoding" style="display:none;" class="redcolor"><img src="<?php echo $this->getSkinUrl('images-v3/ajax-loader.gif') ?>"></div>
+						<div id="ajaxLoginResp" style="display:none;" class="redcolor fl"></div>
+						<div class="clear"></div>
+						<span class="fieldinfo fl">Email Address<span class="redcolor">*</span></span>
+						<input name="login[username]" id="login_email" title="<?php echo $this->__('Email address') ?>" type="text" class="sign-text-field" value="<?php if(isset($rememberDataArr[0])) echo base64_decode($rememberDataArr[0]);?>" />
+						<div class="clear"></div>
+						<div class="sgn-error fl" id="error_login_email"> 
+						<span class="msgtop-arrowred"></span>
+						<span class="fl error-msg-redtxt ">Please enter valid email address.</span>
+						</div>
+						<div class="clear"></div>
+						<span class="fieldinfo fl">Password<span class="redcolor">*</span></span>
+						<input name="login[password]" id="login_pass" title="<?php echo $this->__('Password') ?>" type="password" class="sign-text-field" value="<?php if(isset($rememberDataArr[1])) echo base64_decode($rememberDataArr[1]);?>" />
+						<div class="clear"></div>
+						<div class="sgn-error fl" id="error_login_pass"> 
+						<span class="msgtop-arrowred"></span>
+						<span class="fl error-msg-redtxt ">Please enter password.</span>
+						</div>
+						<div class="clear"></div>
+						<span class="sig-forgt-text fr"><a class="gtm-track" id="gtm-forgot-pwd-on-signin-signup-popup" href="<?php echo $this->getUrl('customer/account/forgotpassword'); ?>">Forgot Password?</a>
+						</span>
+						<label class="sendemalibox fl">
+							<input type="checkbox" class="fl mar-r10"  id="is_remember" name="is_remember">Remember Me</label>
+						<div class="clear"></div>
+						<div class="snlogin-wrap">
+						<a href="javascript:void(0);" id="gtm-customer-sigin-popup" onclick="customerLogin('<?php echo $this->getBaseUrl() ?>common/index/ajaxlogin');" class="snlogin-btn gtm-track"></a>
+						</div>
+					</div>
+					<div class="sign-right fl">
+							<p class="sign-tptxt">New user?<span> Register Here</span></p>
+							<div id="ajaxSignupLoding" style="display:none;" class="redcolor"><img src="<?php echo $this->getSkinUrl('images-v3/ajax-loader.gif') ?>"></div>
+							<div id="ajaxSignupResp" style="display:none;" class="redcolor fl"></div>
+							<span class="fieldinfo fl">Email Address<span class="redcolor">*</span></span>
+							<input name="email" id="reg_email" type="text" class="sign-text-field" value="" />
+							<div class="clear"></div>
+							<div class="sgn-error fl" id="error_reg_email"> 
+								<span class="msgtop-arrowred"></span>
+								<span class="fl error-msg-redtxt ">Please enter valid email address.</span>
+							</div>
+							<span class="fieldinfo fl">Password<span class="redcolor">*</span></span>
+							<input name="password" id="reg_pass" type="password" class="sign-text-field" value="" />
+							<div class="clear"></div>
+							<div class="sgn-error fl" id="error_reg_pass"> 
+								<span class="msgtop-arrowred"></span>
+								<span class="fl error-msg-redtxt ">Please enter password.</span>
+							</div>
+							<div class="clear"></div>
+							<span class="fieldinfo fl">Mobile No<span class="redcolor">*</span></span>
+							<input name="mobile_no" id="mobile_no" type="text" class="sign-text-field" value="" />
+							<div class="clear"></div>
+							<div class="sgn-error fl" id="error_mobile_no"> 
+								<span class="msgtop-arrowred"></span>
+								<span class="fl error-msg-redtxt ">Valid Mobile no 10 digit.</span>
+							</div>
+							<div class="clear"></div>
+							<label class="sendemalibox fl">
+							<input type="checkbox" name="is_subscribed" id="is_subscribed" checked="checked" class="fl mar-r10" />Send me email updates.</label>
+							<div class="clear"></div>
+							<div class="snlogin-wrap fl">
+								<a href="javascript:signup(1, '<?php echo $this->getBaseUrl() ?>common/index/ajaxsignup');" id="gtm-m-register-poup" class="mlogin-btn gtm-track"></a>
+								<a href="javascript:signup(2, '<?php echo $this->getBaseUrl() ?>common/index/ajaxsignup');" id="gtm-f-register-poup" class="wlogin-btn gtm-track"></a>
+							</div>
+					</div>
+					<div class="clear"></div>
+					<div class="sig-fb-wrap">
+						<div class="sign-fbw-strip"></div>
+						<?php echo $this->getLayout()->createBlock('inchoo_googleconnect/button')->setTemplate('inchoo/googleconnect/button.phtml')->toHtml();?>
+						<a href="javascript:void(0);" onclick="return fblogin();" id="gtm-fb-signin-popup" class="fb-signin-btn gtm-track"></a>
+					</div>
+			</div>
+
+			<div class="otp-cont hide">
+					<input type="hidden" name="mobile" id="regenerate-mob" value="">
+					<div class="h1class">Yay! <span>Your Sweet Code is on the Way!</span></div>
+					<p>One Time Password (OTP) has been sent to your mobile number</p>
+					<div id="otp-ajaxloding" class="redcolor" style="display:none;" ><img src="<?php echo $this->getSkinUrl('images-v3/ajax-loader.gif') ?>"></div>
+					<div id="ajaxOtpResp" style="display:none;" class="redcolor fl"></div>
+					<div class="clear"></div>
+					<p class="top-line">Please enter your OTP</p>
+					<input name="register_otp" id="register-otp"  type="text" class="sign-text-field" value="" />
+					<div class="clear"></div>
+					<div class="sgn-error fl" id="error_register_otp"> 
+					<span class="msgtop-arrowred"></span>
+					<span class="fl error-msg-redtxt ">Please enter valid OTP Number.</span>
+					</div>
+					<div class="clear"></div>
+					<p><span>If you have not received the OTP. Please click to</span> <a class="gtm-track" id="gtm-otp-regenerate-popup" href="javascript:regenerateOtp('<?php echo $this->getBaseUrl() ?>common/index/regenerateOtp')">Regenerate</a></p>
+					<div class="clear"></div>
+					<div class="otp-btn-box">
+					<a class="otp-conf-btn gtm-track" id="gtm-otp-confim-popup" onclick="confirmRegister('<?php echo $this->getBaseUrl() ?>common/index/activateNewReg')" href="javascript:void(0)">Confirm</a>
+					
+					</div>
+					<p><span id="reg-mob"></span>
+						<!-- <a class="fr" href="javascript:againRegister();">&lt;&lt;Back</a> -->
+					</p>
+
+			</div>
+			<div id="new-reg-div" class="new-user-reg hide">
+                <div class="h1class" style="color:#3b589e; text-transform: capitalize;">Register & Get</div>
+           		<p style="text-align:center;font-size:18px; color:#d41c1c; width:auto;"><strong> Rs 200 Gift Voucher<br>
+           		 +<br> Rs 2500 Shopping Coupons</strong><br>
+           		 <span style="font-size:12px; color:#333; display:block; padding-top:10px;"><span style="color:#ff000;">*</span>Check your My Coupon section post signing up</span></p>
+                <div class="new-user-form fl">
+                   <div id="newajaxSignupLoding" style="display:none;" class="redcolor"><img src="http://static.americanswan.com/Lecom_Magento/skin/frontend/enterprise/lecom/images-v3/ajax-loader.gif">
+                   </div>
+                    <div id="newajaxSignupResp" style="display:none;" class="redcolor fl"></div>
+                    <input name="new_reg_email" id="new-reg-email" type="text" class="sign-text-field" value="" placeholder="Enter your email"/>
+                    <div class="clear"></div>
+                  	<div class="sgn-error fl" id="new-error-reg-email">
+                   		<span class="msgtop-arrowred"></span>
+                    	<span class="fl error-msg-redtxt ">Please enter valid email address.</span>
+                    </div>
+                    <input name="new_reg_pass" id="new-reg-pass" type="password" class="sign-text-field" value="" placeholder="Enter your password" />
+                    <div class="clear"></div>
+                    <div class="sgn-error fl" id="new-error-reg-pass">
+                    	<span class="msgtop-arrowred"></span>
+                    	<span class="fl error-msg-redtxt ">Please enter password.</span>
+                    </div>
+                    <div class="clear"></div>
+					<input name="new_mobile_no" id="new-mobile-no" type="text" class="sign-text-field" value="" placeholder="Enter your Mobile number" />
+                    <div class="clear"></div>
+                    <div class="sgn-error fl" id="new-error-mobile-no">
+                    	<span class="msgtop-arrowred"></span>
+                    	<span class="fl error-msg-redtxt ">Valid Mobile no 10 digit.</span>
+                    </div>
+                    <div class="clear"></div>
+                    <label class="sendemalibox fl">
+                    <input type="checkbox" name="new_is_subscribed" id="new-is-subscribed" checked="checked" class="fl mar-r10" />Send me email updates.</label>
+                    <div class="clear"></div>
+                    <div class="snlogin-wrap fl">
+                       <a href="javascript:void(0)" onclick="newsignup(1, '<?php echo $this->getBaseUrl() ?>common/index/ajaxsignup');"  class="mlogin-btn gtm-track"></a>
+                        <a href="javascript:void(0)" onclick="newsignup(2, '<?php echo $this->getBaseUrl() ?>common/index/ajaxsignup');" id="gtm-f-register-poup" class="wlogin-btn gtm-track"></a>
+                                                        </div>
+                   	</div>
+                    <div class="separator fl"><div>OR</div></div>
+                 	<div class="social"><button onclick="new_fblogin()" class="button fb" type="button">Connect with Facebook</button>
+                    	<?php echo $this->getLayout()->createBlock('inchoo_googleconnect/button')->setTemplate('inchoo/googleconnect/new_button.phtml')->toHtml();?>
+                    </div>
+                        </div>
+		
+	</div>
+</div>
+<?php 
+}
+?>
+
+</div>
+</div>
+
+<div class="as-logo fl">
+<a class="gtm-track" id="hp-logo" href="<?php echo $this->getBaseUrl() ?>" title="<?php echo $this->getLogoAlt() ?>"><img src="<?php echo $this->getLogoSrc() ?>" alt="<?php echo $this->getLogoAlt() ?>" width="220" height="66"></a>
+</div>
+
+<div id="head-right-panel">
+	 <div id="top-links"> 
+		<ul>
+			<li class="customer-register"> <a id="as-res" href="javascript:void(0);">Register</a></li> 
+		</ul>
+        <div class="mblogin pos-a f-bold">
+			<?php
+			if($customerinfo->isLoggedIn()){
+			?>             
+             <a href="<?php echo $this->getUrl('customer/account'); ?>" id="gtm-myaccount-mobile" class="fl ta-c bgc-purp gtm-track">My Account</a>
+             <a href="<?php echo $this->getUrl('customer/account/logout'); ?>" id="gtm-logout-mobile" class="fl ta-c bgc-red gtm-track">Logout</a>
+             <?php
+			}
+			else{
+             ?>
+             <a href="<?php echo $this->getUrl('customer/account/login'); ?>" id="gtm-sigin-mobile" class="fl ta-c bgc-purp gtm-track">Sign In</a>
+             <a href="<?php echo $this->getUrl('customer/account/create'); ?>" id="gtm-signup-mobile" class="fl ta-c bgc-purp gtm-track">Sign Up</a>
+			<?php } ?>
+		 </div>             
+             <script>
+             jQuery(document).ready(function(e) {
+                jQuery('#as-res').click(function(){
+					jQuery('.mblogin').slideToggle("fast");
+				}),jQuery('.mblogin').mouseleave(function(){
+					jQuery(this).hide();
+					});
+            });
+             </script>        
+	</div>
+	<div id="my-bag">
+		<div id="my-bag-txt">My Bag</div>
+		<div class="top-cart">
+			<div class="block-title no-items">
+				<div title="View Shopping Bag" class="shopping_beg" id="cartHeader">
+					<a href="<?php echo Mage::helper('checkout/cart')->getCartUrl(); ?>" class="gtm-track" id="gtm-mybag-header-mobile"><span id="my-bag-qty-mobile"><?php echo  $cart_qty;?></span></a>
+					<div class="bagholder" id="bagholder-mobile">
+					<p>item added to bag.</p>
+					<h3><a href="<?php echo Mage::helper('checkout/cart')->getCartUrl(); ?>">View Bag <b>&rsaquo;</b></a></h3>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>	
+</div>
+
+<!--Menu html start-->
+<div class="menu-nav menu-nav-active fl ">
+<div class="mini-h">
+<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('header-menu-v3')->toHtml() ?>
+
+<div class="fr mt5 search-soci-icon-wrap">
+<div class="fl sch-btn ">
+<div class="pos-a schbox-cont">
+<?php echo $this->getLayout()->createBlock('core/template')->setTemplate('catalogsearch/form.header.phtml')->toHtml(); ?>		
+</div>
+</div>
+</div>
+<a href="<?php echo Mage::helper('checkout/cart')->getCartUrl(); ?>" id="gtm-mybag-header-desktop" class="tt-u fs12 c-fff td-n pl10 mybag-icon gtm-track">My Bag<span class="ml5 ta-c call-icon"  id="my-bag-qty"><?php echo $cart_qty; ?></span></a>
+<div class="bagholder" id="bagholder">
+<p>item added to bag.</p>
+<h3><a href="<?php echo Mage::helper('checkout/cart')->getCartUrl(); ?>">View Bag <b>&rsaquo;</b></a></h3>
+</div>
+<!--Menu html END-->
+
+<script>
+	jQuery(document).ready(function(e) {
+		jQuery.ajax({ 
+			url: "<?php echo $this->getBaseUrl() ?>common/index/ajaxCartUpdate",
+			cache: false,
+		 	success: function(result){ 
+		 		jQuery('#my-bag-qty').html(result);
+		 		jQuery('#my-bag-qty-mobile').html(result); } 
+		 	});
+		jQuery("#login_email").keypress(function(event){
+			if(event.keyCode == 13){
+				event.preventDefault();
+				customerLogin('<?php echo $this->getBaseUrl() ?>common/index/ajaxlogin');
+			}
+		});
+		
+		jQuery("#login_pass").keypress(function(event){
+			if(event.keyCode == 13){
+				event.preventDefault();
+				customerLogin('<?php echo $this->getBaseUrl() ?>common/index/ajaxlogin');
+			}
+		});
+		jQuery('#my-bag,#cartHeader, #cartHeader a span').click(function(){
+			if(jQuery(window).width() < 768 ){ var root = "<?php echo Mage::helper('checkout/cart')->getCartUrl(); ?>"; window.location.href= root;
+			}
+		});	
+	});	
+
+
+	  jQuery(document).ready(function(e) {
+        var ck = getCookie('nw_user_summary');
+        if(ck=='2a1f00878413a8829eba6700df8afaf2'){
+            var ck_reg =getCookie('nw_user_reg');
+            if(ck_reg=='ap567es'){
+                jQuery.ajax({ 
+	            	url: "<?php echo $this->getBaseUrl();?>common/index/isUserLoggedIn",
+	                success: function(result){
+	                    if(result!='0'){
+	                        jQuery('.cat-linktop').append(result);
+	                        jQuery('.signup-wrap-box').fadeIn(400);
+	                        setCookie('nw_user_reg','ap567no',1); 
+	                        jQuery('.cl-btn').bind( "click", function() {
+	                        	jQuery('.signup-wrap-box').fadeOut(200,function(){
+					                jQuery('#login-reg-div').removeClass('hide');
+					                jQuery('#new-reg-div').addClass('hide');
+					                jQuery('.otp-cont').addClass('hide');
+					                jQuery('#post-user-div').addClass('hide');
+					                setCookie('nw_user_reg_up','ap56767no',1);
+        						});
+		 
+	                        });
+	                    }else{
+	                       setCookie('nw_user_reg','ap567no',1); 
+	                   	}
+	                   	setTimeout(function() {
+	                   		jQuery.ajax({ 
+	            				url: "<?php echo $this->getBaseUrl();?>common/index/unset",
+	                			success: function(result){} 
+               				 });
+						}, 7000); 
+	                } 
+                });
+            }
+        	}else {
+                //new pop up for new users
+                jQuery('#new-reg-div').removeClass('hide');
+                jQuery('#login-reg-div').addClass('hide');
+                jQuery('.signup-wrap-box').fadeIn(400);
+                setCookie('nw_user_summary','2a1f00878413a8829eba6700df8afaf2',7);
+                //setCookie('nw_user_cmpn','yes',1);
+
+        }
+        
+	});     
+
+</script>
+</div>

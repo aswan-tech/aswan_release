@@ -1,0 +1,61 @@
+<div id="ajax-loader" style="display:none;" class="giftCardloader">
+	<div class="giftCardconf-Boxloader">
+		<span style="text-align:center;" class="fl"><img src="<?php echo $this->getSkinUrl('images-v3/adj-nav-progress-v1.gif'); ?>"></span>
+	</div>
+</div>
+
+<?php $itemArr = Mage::helper('common')->getItemByType(); ?>
+<?php if ($this->isPossibleOnepageCheckout()):?>
+	<?php if(!$this->isDisabled()): ?>
+	<?php if(in_array('giftcard', $itemArr) && (in_array('configurable', $itemArr) || in_array('simple', $itemArr) )) { ?>
+		<button type="button" title="<?php echo $this->__('Proceed to Checkout') ?>" class="clear ord-now-btn fr gtm-track" id="cart-order-now" onclick="orderNow();"><?php echo $this->__('ORDER NOW') ?></button>
+	<?php }else{ ?>	
+		<button type="button" title="<?php echo $this->__('Proceed to Checkout') ?>" class="clear ord-now-btn fr gtm-track" id="cart-order-now" onclick="window.location='<?php echo $this->getCheckoutUrl() ?>';"><?php echo $this->__('ORDER NOW') ?></button>
+	<?php } ?>
+	<button type="button" title="<?php echo $this->__('Refresh Cart') ?>" class="clear ord-now-btn gtm-track fr hide" id="refresh-cart" onclick="window.location='<?php echo Mage::helper('checkout/cart')->getCartUrl(); ?>';">Refresh Cart</button>	
+	<?php endif; ?>
+<?php endif?>
+<script>
+function orderNow() {
+	jQuery(".giftCard").show();
+	jQuery(".gc-closebtn").click(function(){
+		jQuery(".giftCard").fadeOut();
+		});
+}
+// only for opera mini
+if (navigator.userAgent.indexOf('Opera Mini') > -1){
+	jQuery("#refresh-cart").show();
+}
+</script>
+
+<div class="giftCard" style="display: none;">
+<div class="giftCardconf-Box">
+<a class="gc-closebtn crossbtn" href="javascript:void(0);"></a>
+<p class="giftCard-text"><span style="font:bold 25px Arial, Helvetica, sans-serif; color:#dd3848; padding:0 0 0 10px;">Hey!</span> <span style="font:bold 14px Arial, Helvetica, sans-serif; color:#122957;">You can only purchase</span> <span style="font:14px Arial, Helvetica, sans-serif; color:#dd3848;"> evoucher or product </span> <span style="font:14px Arial, Helvetica, sans-serif; color:#122957;">at a time.</span></p>
+<div class="clear"></div>
+<a href="javascript:void(0);" onclick="buyEvoucher('giftcard');" class="redbg redbtnlink ">Buy E-voucher</a>
+<a href="javascript:void(0);" onclick="buyEvoucher('normalproduct');" class="bluebg bluebtnlink ">Buy Product</a>
+</div>
+</div>
+
+<script type="text/javascript">
+
+//<![CDATA[
+function buyEvoucher(buyparams)
+{
+	new Ajax.Updater(
+		'giftcard_balance_lookup',
+		'<?php echo $this->getUrl('checkout/cart/removeitemfromcart') ?>',
+		{
+			onCreate: function() { jQuery("#ajax-loader").show();jQuery(".giftCard").fadeOut(); },
+			onComplete: function() { jQuery("#ajax-loader").show();jQuery(".giftCard").fadeOut(); },
+			parameters : {buyparams : buyparams},
+			onSuccess: function(response) { 
+				//alert(response.responseText);
+			location.reload();
+		  }
+		}
+	);
+}
+//]]>
+</script>

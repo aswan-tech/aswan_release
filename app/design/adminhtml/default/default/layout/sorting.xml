@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+  <sorting_adminhtml_sortingbackend_index>
+	<reference name="content">
+	  <block type="sorting/adminhtml_sortingbackend" name="sortingbackend" template="sorting/sortingbackend.phtml"/>
+	</reference>
+  </sorting_adminhtml_sortingbackend_index>
+</layout>

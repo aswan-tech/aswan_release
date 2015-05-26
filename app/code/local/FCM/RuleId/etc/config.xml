@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <FCM_RuleId>
+            <version>1.0.0</version>
+        </FCM_RuleId>
+    </modules>
+    <global>
+        <models>
+            <ruleid>
+                <class>FCM_RuleId_Model</class>
+            </ruleid>
+        </models>
+        <helpers>
+            <ruleid>
+                <class>FCM_RuleId_Helper</class>
+            </ruleid>
+        </helpers>
+		<events>
+		  <customer_login>
+			<observers>
+			  <clear_wishlist_observer>
+				<type>singleton</type>
+				<class>FCM_RuleId_Model_Observer</class>
+				<method>removeWishlist</method>
+			  </clear_wishlist_observer>
+			</observers>
+		  </customer_login>     
+		</events>
+	</global>
+    <adminhtml>
+        <acl>
+            <resources>
+                <all>
+                    <title>Allow Everything</title>
+                </all>
+                <admin>
+                    <children>
+                        <system>
+                            <children>
+                                <config>
+                                    <children>
+                                        <ruleid>
+                                            <title>Report Export Module Section</title>
+                                        </ruleid>
+                                    </children>
+                                </config>
+                            </children>
+                        </system>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
+    </adminhtml>
+</config>
+
+
+
+
+
+
+
+
+

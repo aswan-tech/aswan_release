@@ -1,0 +1,53 @@
+<?php
+$collection = $this->archivedPosts();
+$page = $collection->getCurPage();
+?>
+
+<div class="pagi archieve">
+    <span><a href="<?php echo $this->getBaseUrl() . 'gallery'; ?>">Home</a></span>
+    <span><a href="<?php echo $this->getBaseUrl() . 'gallery/index/archive'; ?>">Archive</a></span>
+    <?php echo $this->getBreadcrumbHeading(); ?>
+</div>
+<div class="archive_month nobg"><?php echo $this->getBreadcrumbHeading(); ?></div>
+<div class="container season_trends">
+    <?php
+    if (!$collection->getSize()) {
+        print 'No record found.';
+    } else {
+        ?>
+        <div class="navleft">
+            <?php echo $this->getBackPagerHtml(); ?>
+        </div>
+
+        <div id="archiveblock">
+            <?php
+            $i = 1;
+            foreach ($collection as $item) {
+                $thumbUrl = Mage::helper('gallery')->getArchiveThumbUrl($item->getFilename(), 'trends');
+                ?>
+                <div class="imgwrap">
+                    <a href="<?php echo $this->getViewUrl($item->item_title); ?>id/<?php echo $item->parent_id ?>/status/3/"><img src="<?php echo $thumbUrl ?>" width="175" height="243" /></a>
+                    <h3><?php echo $item->heading; ?></h3>
+                </div>
+                <?php
+                if ($i == 4) {
+                    ?>
+                    <div class="clearfloat"></div>
+                    <?php
+                }
+                $i++;
+            }
+            ?>
+        </div>
+
+        <div class="navright">
+            <?php echo $this->getFwdPagerHtml(); ?>
+        </div>
+
+        <div class="clearfloat"></div>
+
+        <div class="pageBotm">
+            <?php echo $this->getPagerHtml(); ?>
+        </div>
+    <?php } ?>
+</div>

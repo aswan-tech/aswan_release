@@ -1,0 +1,47 @@
+<p class="ck-promo-txt procode-gft-msg fl mar-b5"><?php echo $this->__('Promotional Coupon') ?></p>
+<div class="clear"></div>
+<form id="discount-coupon-form" action="<?php echo $this->getUrl('checkout/cart/couponPost') ?>" method="post">
+<input type="hidden" name="remove" id="remove-coupone" value="0" />
+<?php if(!strlen($this->getCouponCode())): ?>
+<input class="ck-promo-fld mar-none  fl" id="coupon_code" name="coupon_code" onclick="javascript:onClickText(this,'Enter Coupon Code');" onblur="javascript:onBlurText(this,'Enter Coupon Code');" title="Enter Coupon Code" type="text" value="Enter Coupon Code" />
+<button class="continue-btn apply-btn mar mar-none fl gtm-track" id="cart-promotion-apply" onclick="discountForm.submit(false)" type="button" value="<?php echo $this->__('Apply Coupon') ?>"><?php echo $this->__('Apply') ?></button>
+<?php else: ?>
+<input class="ck-promo-fld mar-none  fl" id="coupon_code" name="coupon_code" value="<?php echo $this->htmlEscape($this->getCouponCode()) ?>" />
+<div class="fl">
+<button type="button" class="apply-btn gtm-track" id="cart-promotion-apply" onclick="discountForm.submit(false)" value="<?php echo $this->__('Apply Coupon') ?>"><?php echo $this->__('Apply') ?></button>
+</div>
+<div class="clear"></div>
+<div class="c-clear-btn fl"> 
+    <span class="fl c-sucss-msg ">Coupon Successfully Applied</span>
+    <a href="javascript:void(0)"onclick="discountForm.submit(true)" class="fl">Clear</a>
+</div>
+<?php endif;?>
+</form>
+<div id="ajax-loading" style="display:none;"><img src="<?php echo $this->getSkinUrl('images/ajax-loader.gif'); ?>"></div>
+<div id="error-add-to-cart" class="msg-error"></div>
+<script type="text/javascript">
+//<![CDATA[
+var discountForm = new VarienForm('discount-coupon-form');
+discountForm.submit = function (isRemove) {
+	if (isRemove) {
+		$('coupon_code').removeClassName('required-entry');
+		$('remove-coupone').value = "1";
+	} else {
+		$('coupon_code').addClassName('required-entry');
+		$('remove-coupone').value = "0";
+	}
+	if(isRemove || (jQuery("#coupon_code").val() != "" && jQuery("#coupon_code").val() != "Enter Coupon Code") ){
+		jQuery("#ajax-loading").fadeIn("slow");
+		return VarienForm.prototype.submit.bind(discountForm)();
+	}
+	else{ 
+		//alert("Please enter a coupon code.");
+		jQuery("#error-add-to-cart").fadeIn("slow");
+		jQuery("#error-add-to-cart").text( 'Please enter a coupon code.');
+		setTimeout(function() { jQuery('#error-add-to-cart').hide();}, 5000);		
+	}
+}
+function onBlurText(object,value){ if(object.value == ''){ object.value = value; } }
+function onClickText(object,value){ if(object.value == value){ object.value = ''; } }
+//]]>
+</script>

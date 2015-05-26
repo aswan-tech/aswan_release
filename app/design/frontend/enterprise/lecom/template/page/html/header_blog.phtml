@@ -1,0 +1,13 @@
+<a href="<?php echo $this->getUrl(Mage::helper('blog')->getRoute()); ?>"><?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('blog-logo')->toHtml() ?></a>
+<div class="back"><a href="<?php echo Mage::helper('core/url')->getHomeUrl() ?>"><img src="<?php echo $this->getSkinUrl('images/back_to_shop.jpg') ?>" width="107" height="18" alt="Back to Shop"/></a></div>
+
+<div class="menu">
+	<?php
+		echo $this->getChildHtml('top.blog.menu');		
+		echo $this->getChildHtml('topSearch');
+	?>
+</div>
+<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('blog-social-pages')->toHtml() ?>
+<?php
+	echo $this->getChildHtml('top.blog.archive');	
+?>

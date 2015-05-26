@@ -1,0 +1,83 @@
+<?xml version="1.0"?>
+<config>
+  <modules>
+    <Custom_Sequencing>
+      <version>0.1.0</version>
+    </Custom_Sequencing>
+  </modules>
+  <global>
+    <helpers>
+      <sequencing>
+        <class>Custom_Sequencing_Helper</class>
+      </sequencing>
+    </helpers>
+    <blocks>
+      <sequencing>
+            <class>Custom_Sequencing_Block</class>
+      </sequencing>
+    </blocks>
+    <models>
+        <sequencing>
+            <class>Custom_Sequencing_Model</class>
+        </sequencing>
+    </models>
+  </global>
+  <admin>
+	<routers>
+	  <sequencing>
+	    <use>admin</use>
+		<args>
+		  <module>Custom_Sequencing</module>
+		  <frontName>sequencing</frontName>
+		</args>
+	  </sequencing>
+	</routers>
+  </admin>
+  <adminhtml>
+	<menu>
+	  <catalog module="catalog">
+		<children>
+		  <sequencing module="sequencing">
+			<title>Custom Sequencing</title>
+			<sort_order>0</sort_order>
+			<action>sequencing/adminhtml_index</action>
+		  </sequencing>
+		</children>
+	  </catalog>
+	</menu>
+	<acl>
+			<resources>
+				<all>
+					<title>Allow Everything</title>
+				</all>
+				<admin>
+					<children>
+						<Custom_Sequencing>
+							<title>SizeGuide Module</title>
+							<sort_order>10</sort_order>
+						</Custom_Sequencing>
+						<system>
+							<children>
+								<config>
+									<children>
+										<sequencing translate="title" module="sequencing"> 
+											<title>Custom Sequencing</title>
+											<sort_order>0</sort_order>
+										</sequencing>
+									</children>							
+								</config>
+							</children>
+						</system>
+					</children>
+				</admin>
+			</resources>
+		</acl>
+	<layout>
+			<updates>
+				<sequencing>
+					<file>sequencing.xml</file>
+				</sequencing>
+			</updates>
+		</layout>
+  </adminhtml>
+</config> 

@@ -1,0 +1,62 @@
+<?php
+/**
+ *
+ * @category    design
+ * @package     default_default
+ * @author     Fsite
+ */
+?>
+<div class="content-header">
+   <h3 class="icon-head head-newsletter-list"><?php echo $this->getHeaderText() ?></h3>
+   <p class="content-buttons form-buttons">
+                <?php echo $this->getBackButtonHtml(); ?>
+                <?php echo $this->getResetButtonHtml(); ?>
+                <?php if($this->getEditMode()): ?>
+                <?php echo $this->getDeleteButtonHtml(); ?>
+                <?php endif ?>
+                <?php if($this->getEditMode()): ?>
+                <?php echo $this->getSaveAsButtonHtml(); ?>
+                <?php endif ?>
+                <?php echo $this->getSaveButtonHtml(); ?>
+    </p>
+</div>
+<form action="<?php echo $this->getSaveUrl() ?>" method="post" id="newsletter_group_edit_form">
+    <?php echo $this->getBlockHtml('formkey')?>
+    <?php echo $this->getForm() ?>
+</form>
+
+<script type="text/javascript">
+//<![CDATA[
+    var groupForm = new varienForm('newsletter_group_edit_form');
+    var groupControl = {
+
+        unconvertedText: '',
+        typeChange: false,
+        templateName: false,
+        id: 'text',
+
+        init: function () {
+            if ($('convert_button_back')) {
+                $('convert_button_back').hide();
+            }
+        },
+
+        save: function() {
+            if (this.typeChange) {
+                $('change_flag_element').value = '1';
+            }
+            groupForm.submit();
+            return false;
+        },
+
+        deleteGroup: function() {
+            if(window.confirm("<?php echo Mage::helper('newslettergroup')->__('Are you sure that you want to delete this group?') ?>")) {
+                   window.location.href = '<?php echo $this->getDeleteUrl() ?>';
+            }
+        }
+    };
+
+    groupControl.init();
+    groupControl.groupName = "<?php echo $this->getJsTemplateName() ?>";
+//]]>
+</script>

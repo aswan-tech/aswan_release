@@ -1,0 +1,10 @@
+<?php
+	$session = Mage::getSingleton('customer/session'); 
+	if($session->isLoggedIn()){
+?>
+	<ul class="afterlinks">
+		<li><a href="<?php echo $this->helper('wishlist')->getListUrl(); ?>" title="<?php echo ucwords(strtolower($this->__('My Wishlist'))) ?>"><?php echo $this->__('My Wishlist') ?> </a></li>
+	</ul>
+<?php
+}
+?>

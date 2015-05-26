@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * created : 12/04/2011
+ * 
+ * @category Ayaline
+ * @package Ayaline_Core
+ * @author aYaline
+ * @copyright Ayaline - 2012 - http://magento-shop.ayaline.com
+ * @license http://shop.ayaline.com/magento/fr/conditions-generales-de-vente.html
+ */
+-->
+<config>
+	<tabs>
+		<ayaline>
+			<label>Order Max Amount</label>
+			<sort_order>170</sort_order>
+			<class>ayaline-tab</class>
+		</ayaline>
+	</tabs>
+</config>

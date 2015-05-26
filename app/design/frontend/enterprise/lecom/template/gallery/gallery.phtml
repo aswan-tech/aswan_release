@@ -1,0 +1,83 @@
+<?php
+Mage::getStoreConfig('gallery/trendsettings/imagewidth') ? $width = Mage::getStoreConfig('gallery/trendsettings/imagewidth') : $width = 898;
+Mage::getStoreConfig('gallery/trendsettings/imageheight') ? $height = Mage::getStoreConfig('gallery/trendsettings/imageheight') : $height = 901;
+?>
+<script  type="text/javascript">
+    function changeImg(img) {
+        jQuery('.trend_large_img > img').attr('src', img);
+        //jQuery('.trend_large_img > img').attr('width', <?php echo $width; ?>);
+        //jQuery('.trend_large_img > img').attr('height', <?php echo $height; ?>);
+    }
+</script>
+<div class="trend_home">
+    <div class="circle">
+        <?php
+        $c = count($this->getGallery());
+
+        if (!empty($c) and $c > 25) {
+            $c = 25;
+        }
+        ?>
+        <?php
+                $maps = array();
+                $maps[1] = "218,68,217,12,266,18,255,73,221,68,253,74";
+                $maps[2] = "257,76,269,20,312,38,285,88";
+                $maps[3] = "290,90,315,39,355,68,315,110";
+                $maps[4] = "317,110,357,68,388,104,339,135";
+                $maps[5] = "339,137,387,107,407,151,352,170,354,174";
+                $maps[6] = "354,172,409,153,418,200,360,202";
+                $maps[7] = "359,204,417,204,414,248,357,238";
+                $maps[8] = "356,242,413,254,399,302,347,276";
+                $maps[9] = "346,278,397,302,372,342,329,306";
+                $maps[10] = "328,310,371,344,335,379,302,333";
+                $maps[11] = "301,338,333,383,291,406,270,353";
+                $maps[12] = "269,357,289,407,244,421,236,363";
+                $maps[13] = "233,366,243,422,191,422,199,365";
+                $maps[14] = "198,364,189,419,145,408,166,353";
+                $maps[15] = "163,355,143,406,97,384,130,336";
+                $maps[16] = "104,311,126,335,96,379,59,350";
+                $maps[17] = "100,311,58,345,31,306,83,283";
+                $maps[18] = "81,281,30,305,15,257,69,245";
+                $maps[19] = "67,243,15,255,11,207,68,210";
+                $maps[20] = "66,206,11,204,20,154,74,170";
+                $maps[21] = "75,169,22,153,41,110,89,139";
+                $maps[22] = "90,136,42,107,72,68,112,110";
+                $maps[23] = "114,106,74,67,114,36,142,85";
+                $maps[24] = "145,82,116,36,160,18,177,72";
+                $maps[25] = "181,69,164,17,216,11,216,67";
+        ?>
+        <div class="your_guide"><span><?php echo $c; ?></span></div>
+        <?php
+        if (!empty($c)) {
+            ?>
+            <img src="<?php echo $this->getSkinUrl('images/trends/wheel/active' . $c . '.png'); ?>" width="431" height="431" border="0" usemap="#MapTrends">
+            <map name="MapTrends">
+                <?php
+                $i = 0;
+                foreach ($this->getGallery()->getItems() as $item) {
+                    $i++;
+                    $titleArr = explode(" ", $item['item_title']);
+                    $img = $item->getLookImageUrl();
+                    ?>
+                    <area shape="poly" coords="<?php echo $maps[$i]; ?>" href="<?php echo $this->getUrl('gallery/index/view/', array('season' => $item['item_title'],'id' => $item['parent_id'])) . '?p=' . $i; ?>" alt="Trend<?php echo $i; ?>" onmouseover="changeImg('<?php echo $img; ?>')">	
+                    <?php
+                    if ($i == 25) {
+                        break;
+                    }
+                }
+                ?>
+            </map>
+                <?php
+            } else {
+                ?>
+            <img src="<?php echo $this->getSkinUrl('images/trends/wheel/inactive_all.png'); ?>" width="431" height="431" border="0">
+            <?php
+        }
+        ?>
+    </div>
+        <?php
+        if ($trendsImg = Mage::getStoreConfig('gallery/trendsettings/backgroundimage')) {
+            echo $this->getLayout()->createBlock('cms/block')->setBlockId($trendsImg)->toHtml();
+        }
+        ?>
+</div>

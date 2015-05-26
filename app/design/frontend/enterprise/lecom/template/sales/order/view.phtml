@@ -1,0 +1,9 @@
+<div class="order-items order-details">
+    <?php $_order = $this->getOrder() ?>
+	<div class="clear"></div>
+	<div class="order_info">        
+            <div style="float: left; width: auto;"><a href="<?php echo $this->getUrl('sales/order/history/') ?>" >&lt;&lt; Back To Order History</a></div><h3 class=" fs18 f-bold tt-u f-lato mb20" style="text-align: center;"><?php echo $this->__('TRACK YOUR ORDER') ?></h3>
+    <?php echo $this->getChildHtml('order_items') ?>
+	</div>
+	<div class="clear"></div>
+</div>

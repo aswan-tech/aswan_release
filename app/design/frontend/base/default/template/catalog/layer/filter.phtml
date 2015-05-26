@@ -1,0 +1,102 @@
+<?php
+/**
+ * Magento Enterprise Edition
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Magento Enterprise Edition License
+ * that is bundled with this package in the file LICENSE_EE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://www.magentocommerce.com/license/enterprise-edition
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://www.magentocommerce.com/license/enterprise-edition
+ */
+?>
+<?php
+/**
+ * Template for filter items block
+ *
+ * @see Mage_Catalog_Block_Layer_Filter
+ */
+?>
+
+<ol>
+<?php if ($this->getName() == "Colors") : ?>
+    <?php foreach ($this->getItems() as $_item): ?>
+            <li class="color_bucket_<?php echo strtolower(str_replace(" ", "_", $_item->getLabel())) ?>" 
+                onclick="<?php echo ($_item->getCount() > 0 ? 'location.href=\'' . $this->urlEscape($_item->getUrl()) . '\';' : '') ?>"
+                title="<?php echo $_item->getLabel() . ($this->shouldDisplayProductCount() ? ' ('.$_item->getCount().')' : '') ?>">
+                &nbsp;
+            </li>
+    <?php endforeach ?>
+<?php elseif ($this->getName() == "Size") : ?>
+    <?php
+    $arrSizeGroup = array();
+    $arrSizeGroup['Knits Topwear'] = array('XS','S','M','L','XL','XXL');
+    $arrSizeGroup['Bottomwear'] = array('28','30','32','34','36','38','40');
+    $arrSizeGroup['Woven Topwear'] = array('38','40','42','44','46');
+    $arrSizeGroup['Footwear'] = array('7','8','9','10','11');
+    $arrGrouped = array('Knits Topwear' => array(), 'Bottomwear' => array(), 'Woven Topwear' => array(), 'Footwear' => array(), 'Others' => array());
+    foreach ($this->getItems() as $_item) { 
+        $size = $_item->getLabel();
+        if (in_array($size, $arrSizeGroup['Knits Topwear'], false)) {
+            $arrGrouped['Knits Topwear'][] = $_item;
+        } elseif (in_array($size, $arrSizeGroup['Bottomwear'], false)) {
+            $arrGrouped['Bottomwear'][] = $_item;
+        } elseif (in_array($size, $arrSizeGroup['Woven Topwear'], false)) {
+            $arrGrouped['Woven Topwear'][] = $_item;
+        } elseif (in_array($size, $arrSizeGroup['Footwear'], false)) {
+            $arrGrouped['Footwear'][] = $_item;
+        } else {
+            $arrGrouped['Others'][] = $_item;
+        }
+    }
+    ?>
+    <li>
+        <?php foreach ($arrGrouped as $group_name => $group_item): ?>
+        <?php if (count($group_item)): ?>
+        <dt class="size-group-name"><?php echo $group_name ?></dt>
+        <dd>
+            <ol>
+                <?php foreach ($group_item as $_item): ?>
+                <li>
+                    <?php if ($_item->getCount() > 0): ?>
+                    <a href="<?php echo $this->urlEscape($_item->getUrl()) ?>"><?php echo $_item->getLabel() ?></a>
+                    <?php else: echo $_item->getLabel() ?>
+                    <?php endif; ?>
+                    <?php if ($this->shouldDisplayProductCount()): ?>
+                    (<?php echo $_item->getCount() ?>)
+                    <?php endif; ?>
+                </li>
+                <?php endforeach ?>
+            </ol>
+        </dd>
+        <?php endif; ?>
+        <?php endforeach ?>
+    </li>
+<?php else: ?>
+    <?php foreach ($this->getItems() as $_item): ?>
+            <li>
+                <?php if ($_item->getCount() > 0): ?>
+                <a href="<?php echo $this->urlEscape($_item->getUrl()) ?>"><?php echo $_item->getLabel() ?></a>
+                <?php else: echo $_item->getLabel() ?>
+                <?php endif; ?>
+                <?php if ($this->shouldDisplayProductCount()): ?>
+                (<?php echo $_item->getCount() ?>)
+                <?php endif; ?>
+            </li>
+    <?php endforeach ?>
+<?php endif; ?>
+</ol>

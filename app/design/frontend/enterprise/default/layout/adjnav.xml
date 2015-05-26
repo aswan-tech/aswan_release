@@ -1,0 +1,130 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+
+<adjnav_ajax_search>
+    <remove name="right"/>
+    <remove name="left"/>
+    
+    <block type="adjnav/catalogsearch_layer" name="layer"  template="adjnav/layer.phtml"/>
+    
+    <!-- check compatibility with gift registry -->
+   
+    <block type="adjnav/list" name="products">
+        <block type="catalog/product_list" name="product_list" template="catalog/product/list.phtml">
+            <action ifconfig="adjgiftreg/general/active" method="setTemplate"><template>aitcommonfiles/design--frontend--base--default--template--catalog--product--list.phtml</template></action>
+            <block type="catalog/product_list_toolbar" name="product_list_toolbar" template="catalog/product/list/toolbar.phtml">
+                <block type="page/html_pager" name="product_list_toolbar_pager"/>
+            </block>
+            <action method="addColumnCountLayoutDepend"><layout>empty</layout><count>6</count></action>
+            <action method="addColumnCountLayoutDepend"><layout>one_column</layout><count>5</count></action>
+            <action method="addColumnCountLayoutDepend"><layout>two_columns_left</layout><count>4</count></action>
+            <action method="addColumnCountLayoutDepend"><layout>two_columns_right</layout><count>4</count></action>
+            <action method="addColumnCountLayoutDepend"><layout>three_columns</layout><count>3</count></action>
+            <action method="setToolbarBlockName"><name>product_list_toolbar</name></action>
+        </block>
+    </block>
+    
+</adjnav_ajax_search>
+
+<adjnav_ajax_category>
+    <remove name="right"/>
+    <remove name="left"/>
+
+    <block type="adjnav/catalog_layer_view" name="layer"  template="adjnav/layer.phtml"/>
+    
+    <block type="adjnav/list" name="products">
+        <block type="catalog/product_list" name="product_list" template="catalog/product/list.phtml">
+            <action ifconfig="adjgiftreg/general/active" method="setTemplate"><template>aitcommonfiles/design--frontend--base--default--template--catalog--product--list.phtml</template></action>
+            <block type="catalog/product_list_toolbar" name="product_list_toolbar" template="catalog/product/list/toolbar.phtml">
+                <block type="page/html_pager" name="product_list_toolbar_pager"/>
+            </block>
+            <action method="addColumnCountLayoutDepend"><layout>empty</layout><count>6</count></action>
+            <action method="addColumnCountLayoutDepend"><layout>one_column</layout><count>5</count></action>
+            <action method="addColumnCountLayoutDepend"><layout>two_columns_left</layout><count>4</count></action>
+            <action method="addColumnCountLayoutDepend"><layout>two_columns_right</layout><count>4</count></action>
+            <action method="addColumnCountLayoutDepend"><layout>three_columns</layout><count>3</count></action>
+            <action method="setToolbarBlockName"><name>product_list_toolbar</name></action>
+        </block>
+    </block>
+</adjnav_ajax_category>
+
+
+<catalog_category_layered> 
+    <reference name="head">
+        <action method="addCss"><stylesheet>css/adjnav.css</stylesheet></action> 
+        <action method="addJs"><script>jquery/jquery.min.js</script></action>
+        <action method="addJs"><script>jquery/aitoc.js</script></action>
+        <action method="addJs"><script>jquery/jquery.ba-bbq.min.js</script></action>
+		<block type="adjnav/seoHead" name="catalog.adjnav.seohead" />				
+    </reference>
+    
+    <reference name="left">
+        <remove name="enterprisecatalog.leftnav"/>
+        <block type="adjnav/catalog_layer_view" name="catalog.adjnav" before="-" template="adjnav/layer.phtml"/>
+    </reference>
+</catalog_category_layered> 
+
+<catalog_category_default>
+    <reference name="head">
+		<block type="adjnav/seoHead" name="catalog.adjnav.seohead" />	
+	</reference>	
+</catalog_category_default>
+
+<catalogsearch_default>
+    <remove name="right"/>
+    <remove name="left"/>
+    
+    <block type="adjnav/catalogsearch_layer" name="layer"  template="adjnav/layer.phtml"/>
+    
+    <!-- check compatibility with gift registry -->
+   
+    <block type="adjnav/list" name="products">
+        <block type="catalog/product_list" name="product_list" template="catalog/product/list.phtml">
+            <action ifconfig="adjgiftreg/general/active" method="setTemplate"><template>aitcommonfiles/design--frontend--base--default--template--catalog--product--list.phtml</template></action>
+            <block type="catalog/product_list_toolbar" name="product_list_toolbar" template="catalog/product/list/toolbar.phtml">
+                <block type="page/html_pager" name="product_list_toolbar_pager"/>
+            </block>
+            <action method="addColumnCountLayoutDepend"><layout>empty</layout><count>6</count></action>
+            <action method="addColumnCountLayoutDepend"><layout>one_column</layout><count>5</count></action>
+            <action method="addColumnCountLayoutDepend"><layout>two_columns_left</layout><count>4</count></action>
+            <action method="addColumnCountLayoutDepend"><layout>two_columns_right</layout><count>4</count></action>
+            <action method="addColumnCountLayoutDepend"><layout>three_columns</layout><count>3</count></action>
+            <action method="setToolbarBlockName"><name>product_list_toolbar</name></action>
+        </block>
+    </block>
+    
+</catalogsearch_default>
+
+<catalogsearch_result_index> 
+    <reference name="head">
+        <action method="addCss"><stylesheet>css/adjnav.css</stylesheet></action> 
+        <action method="addJs"><script>jquery/jquery.min.js</script></action>
+        <action method="addJs"><script>jquery/aitoc.js</script></action>
+        <action method="addJs"><script>jquery/jquery.ba-bbq.min.js</script></action>
+    </reference>
+    <reference name="footer">
+            <block type="core/template" name="catalogsearch.adjnav.pager" template="adjnav/layer_pager.phtml"/>
+    </reference>
+    <reference name="left">
+        <remove name="enterprisesearch.leftnav"/>
+        <block type="adjnav/catalogsearch_layer" name="catalogsearch.adjnav" before="-" template="adjnav/layer.phtml"/>
+    </reference>
+</catalogsearch_result_index> 
+
+<aitmanufacturers_index_view>
+    <reference name="content">
+        <block type="core/template" name="shopbyjs" template="adjnav/shopbyjs.phtml"/>
+    </reference>
+</aitmanufacturers_index_view>
+
+</layout>
+<!--
+/**
+ * Product:     Layered Navigation Pro for Enterprise Edition - 16/08/12
+ * Package:     AdjustWare_Nav_10.4.9_10.0.0_557110
+ * Purchase ID: hXgQU3oI8FOfJ8PDCk5s6h6XPM5oH2Kx0N6TCAPkqN
+ * Generated:   2013-04-22 06:59:44
+ * File path:   app/design/frontend/enterprise/default/layout/adjnav.xml
+ * Copyright:   (c) 2013 AITOC, Inc.
+ */
+-->

@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Custom_Myinvitation>
+            <version>1.11.0.0</version>
+        </Custom_Myinvitation>
+    </modules>
+    <frontend>
+        <routers>
+            <myinvitation>
+                <use>standard</use>
+                <args>
+                    <module>Custom_Myinvitation</module>
+                    <frontName>myinvitation</frontName>
+                </args>
+            </myinvitation>
+			
+			<enterprise_invitation>
+                <args>
+                    <modules>
+                        <Custom_Myinvitation before="Enterprise_Invitation">Custom_Myinvitation</Custom_Myinvitation>
+                    </modules>
+                </args>
+            </enterprise_invitation>
+			
+        </routers>
+    </frontend>     
+    <global>
+      <!--blocks>
+        <customer>
+          <rewrite>
+            <address_book>Custom_Mycustomer_Block_Address_Book</address_book>
+          </rewrite>
+        </customer>
+      </blocks-->
+
+		<!-- Rewrite rule for customer address
+        <rewrite>
+            <override_mycustomer_address>
+                <from><![CDATA[#^/customer/address/#]]></from>
+                <to>/mycustomer/address/</to>
+            </override_mycustomer_address>			
+        </rewrite>
+		-->
+		 
+		<!-- Rewrite rule for customer account
+        <rewrite>
+            <override_mycustomer_account>
+                <from><![CDATA[#^/customer/account/#]]></from>
+                <to>/mycustomer/account/</to>
+            </override_mycustomer_account>
+		</rewrite>
+		-->
+
+    </global>
+</config>

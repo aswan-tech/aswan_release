@@ -1,0 +1,44 @@
+<config>
+    <modules>
+        <CommerceExtensions_Productcrosssellupsellimportexport>
+            <version>0.1.0</version>
+        </CommerceExtensions_Productcrosssellupsellimportexport>
+    </modules>   
+    <global>
+        <blocks>
+            <commerceextensions_productcrosssellupsellimportexport>
+                <class>CommerceExtensions_Productcrosssellupsellimportexport_Block</class>
+            </commerceextensions_productcrosssellupsellimportexport>
+        </blocks>
+        <models>
+            <commerceextensions_productcrosssellupsellimportexport>
+                <class>CommerceExtensions_Productcrosssellupsellimportexport_Model</class>
+            </commerceextensions_productcrosssellupsellimportexport>
+        </models>
+		<helpers>
+            <commerceextensions_productcrosssellupsellimportexport>
+                <class>CommerceExtensions_Productcrosssellupsellimportexport_Helper</class>
+            </commerceextensions_productcrosssellupsellimportexport>
+        </helpers>
+        <resources><!--
+            <productcrosssellupsellimportexport_setup>
+                <setup>
+                    <module>CommerceExtensions_Productcrosssellupsellimportexport</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </productcrosssellupsellimportexport_setup> -->
+            <productcrosssellupsellimportexport_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </productcrosssellupsellimportexport_write>
+            <productcrosssellupsellimportexport_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </productcrosssellupsellimportexport_read>
+        </resources>
+    </global>
+</config>

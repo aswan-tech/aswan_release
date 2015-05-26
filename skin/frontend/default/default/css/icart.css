@@ -1,0 +1,60 @@
+.icart-product-view .product-shop { float: none; }
+
+	.icart-product-view .product-img-box {
+	float: left;
+	width: 80px;
+}
+.icart-product-view .product-details {
+    float: left;
+    width: 400px;
+}
+
+.icart-controls { text-align: center; }
+
+.icart-product-view .clearer:after { display:block; content:"."; clear:both; font-size:0; line-height:0; height:0; overflow:hidden; }
+
+.icart-collaterals {
+	margin: 20px auto;
+    width: 90%;
+}
+
+.icart-collaterals .crosssell h2 {
+	font-size:12px;
+	font-weight:bold;
+}
+
+.icart-collaterals .upsell {
+    background: #FAFAEC none repeat scroll 0 0;
+    border: 1px solid #CEC3B6;
+    padding: 12px 15px;
+}
+
+.icart-collaterals .crosssell {
+	background: #F7F7F7 none repeat scroll 0 0;
+	border: 1px solid #DDDDDD;
+	padding: 10px;
+}
+
+.icart-collaterals .crosssell li.item {
+	border-bottom: 1px solid #DDDDDD;
+	margin: 0 0 8px;
+	padding-bottom: 5px;
+}
+
+.icart-collaterals .upsell .product-image, .icart-collaterals .crosssell .product-image {
+	border: 1px solid #D0CDC9;
+	float: left;
+	width: 75px;
+}
+
+.icart-collaterals .upsell .product-shop, .icart-collaterals .crosssell .product-shop {
+    width: 290px;
+}
+
+.icart-collaterals .crosssell .product-details {
+    margin-left: 85px;
+}
+
+.icart-collaterals .upsell .product-shop h5, .icart-collaterals .crosssell h5 {
+    font-size:1em;
+}

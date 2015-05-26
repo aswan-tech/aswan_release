@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Aitoc_Aitloyalty>
+            <active>false</active>
+            <codePool>local</codePool>
+            <self_name>Loyalty Program</self_name>
+            <priority>80000</priority>
+        </Aitoc_Aitloyalty>
+    </modules>
+</config>
+<!--
+/**
+ * Product:     Loyalty Program for Enterprise Edition
+ * Package:     Aitoc_Aitloyalty_10.0.10_574534
+ * Purchase ID: INzRIwyyaNoeOLERhAgt4U28qVKIeEa3dfPrgaAN3C
+ * Generated:   2013-05-13 06:36:55
+ * File path:   app/etc/modules/Aitoc_Aitloyalty.xml
+ * Copyright:   (c) 2013 AITOC, Inc.
+ */
+-->

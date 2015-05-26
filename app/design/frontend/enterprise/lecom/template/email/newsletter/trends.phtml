@@ -1,0 +1,47 @@
+<?php
+
+$block = new MLogix_Gallery_Block_Day();
+$item = $block->getDay();
+
+if (!($item->getGalleryId())) {
+    Mage::log('No posts for today ' . $todays_date, Zend_Log::DEBUG, 'trends.log');
+    return;
+}
+
+$static_block = $this->getLayout()->createBlock('cms/block')->setBlockId('daily_trends_newsletter')->toHtml();
+$content = array();
+
+
+$image = '<img align="right" src="' . $item->getLookImageUrl() . '" width="260" height="260" />';
+
+$search = array('{{image}}', '{{item_title}}', '{{heading}}', '{{description}}');
+$replace = array($image, $item->getItemTitle(), $item->getHeading(), $item->getDescription());
+$single_post = str_replace($search, $replace, $static_block);
+$content[] = $single_post;
+
+
+if ($item->getGalleryId()) {
+    $model = $block->getCurrentDay();
+    $looks = $model->getGallery($item->getGalleryId());
+
+    foreach ($looks as $look) {
+
+        $processor = Mage::getModel('core/email_template_filter');
+
+        $title = $processor->filter($look->getItemTitle());
+        $heading = $processor->filter($look->getHeading());
+        $description = $processor->filter($look->getDescription());
+
+        $image = '<img align="right" src="' . $look->getLookImageUrl() . '" width="260" height="260" />';
+        $image = $processor->filter($image);
+
+        $search = array('{{image}}', '{{item_title}}', '{{heading}}', '{{description}}');
+        $replace = array($image, $title, $heading, $description);
+        $single_post = str_replace($search, $replace, $static_block);
+        $content[] = $single_post;
+    }
+}
+
+$content = implode('<br><br>', $content);
+echo $content;
+?>

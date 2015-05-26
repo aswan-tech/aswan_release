@@ -1,0 +1,195 @@
+<?xml version="1.0"?>
+<config>
+    <sections>
+        <design>
+            <groups>
+                <adjnav translate="label comment" module="adjnav">
+                    <label>Layered Navigation Pro</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>800</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <cat_style translate="label">
+                            <label>Categories Filter</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adjnav/system_config_source_category</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </cat_style>
+                        <price_style translate="label">
+                            <label>Price Filter</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adjnav/system_config_source_price</source_model>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </price_style>
+                        <remove_links translate="label">
+                            <label>Remove Links from the Navigation</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[This prevents `Duplicate content` penalty from search engines, however customers with disabled JavaScript won't be able to use the filters]]></comment>
+                        </remove_links>
+                        <reset_filters translate="label">
+                            <label>Reset Filters while Click on Another Category</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </reset_filters>                       
+                        <reload_categories translate="label">
+                            <label>Reload page while Click on Another Category</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>70</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </reload_categories>
+                        <scroll_to_top translate="label">
+                            <label>Scroll to Top when Clicking on a New Parameter</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>90</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </scroll_to_top>
+						
+                        <rel_prev_next translate="label">
+                            <label>Add rel=next and rel=prev on category pages</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>100</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </rel_prev_next>						
+						
+                        <!-- <filtering_logic translate="label">
+                            <label>Defines filtering logic</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adjnav/system_config_source_filtering</source_model>
+                            <sort_order>80</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </filtering_logic> -->
+                    </fields>
+                </adjnav>
+                <adjnav_featured translate="label comment" module="adjnav">
+                    <label>Layered Navigation Pro - Ranging Filters</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>801</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <use_ranges_attr translate="label">
+                            <label>Automatic ranging for Attributes</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>70</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </use_ranges_attr>
+                        <use_ranges_val translate="label">
+                            <label>Automatic ranging for Values</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>70</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </use_ranges_val>
+                        <featured_attrs_limit translate="label">
+                            <label>Featured Attributes Limit</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[Set to 0 to show all attributes]]></comment>
+                        </featured_attrs_limit>
+                        <featured_vals_limit translate="label">
+                            <label>Featured Values Limit in Attributes</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[Set to 0 to show all attribute values]]></comment>
+                        </featured_vals_limit>
+                        <collect_period translate="label">
+                            <label>Attributes and Values usage refreshing period</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>4</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <comment><![CDATA[Period in hours]]></comment>
+                        </collect_period>
+                    </fields>
+                </adjnav_featured>
+                <adjnav_endless_page translate="label comment" module="adjnav">
+                    <label>Layered Navigation Pro - Endless Page</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>802</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <enable_page_autoload translate="label comment">
+                            <label>Endless Page Enabled</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>100</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[Page autoload when scroll to bottom]]></comment>
+                        </enable_page_autoload>
+                        <products_on_list_page translate="label">
+                            <label>Number of Products per List View</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>101</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends><enable_page_autoload>1</enable_page_autoload></depends>
+                        </products_on_list_page>
+                        <products_on_grid_page translate="label">
+                            <label>Number of Products per Grid View</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>102</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends><enable_page_autoload>1</enable_page_autoload></depends>
+                        </products_on_grid_page>
+                    </fields>
+                </adjnav_endless_page>
+            </groups>
+        </design>
+    </sections>
+</config>
+<!--
+/**
+ * Product:     Layered Navigation Pro for Enterprise Edition - 16/08/12
+ * Package:     AdjustWare_Nav_10.4.9_10.0.0_557110
+ * Purchase ID: hXgQU3oI8FOfJ8PDCk5s6h6XPM5oH2Kx0N6TCAPkqN
+ * Generated:   2013-04-22 06:59:44
+ * File path:   app/code/local/AdjustWare/Nav/etc/system.xml
+ * Copyright:   (c) 2013 AITOC, Inc.
+ */
+-->

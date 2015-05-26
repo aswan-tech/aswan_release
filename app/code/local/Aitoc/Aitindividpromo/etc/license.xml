@@ -1,0 +1,2 @@
+<?xml version="1.0"?>
+<install><product id="129" key="Aitoc_Aitindividpromo" version="10.0.7" license_id="16179" link_id="574525" ent_hash="342e"><![CDATA[Individual Promotions for Enterprise Edition]]></product><serial>UjgdLvjpFE0u1HHQEOk2KNCXazbZ9kQjUnTtO4dMb0</serial><checkid>aa5df6c96d243521cdf02d139f6cb12a</checkid><store_url><![CDATA[http://www.aitoc.com/en/]]></store_url><service><![CDATA[https://www.aitoc.com/api/xmlrpc/]]></service><constraint><store label="Number of stores within one Magento Installation:">1</store></constraint></install>

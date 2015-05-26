@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    Document   : system.xml
+    Created on : September 24th, 2012, 3:11 PM
+    Author     : shikha.r
+    Description: Purpose of the document follows.
+-->
+
+<config>
+    <tabs>
+        <fcmfulfillment module="seo" translate="label">
+            <label>My Configuration Tab</label>
+            <sort_order>285</sort_order>
+        </fcmfulfillment>
+    </tabs>
+    <sections>
+        <seo module="seo" translate="label">
+            <label>Seo Settings</label>
+            <sort_order>2000</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <tab>fcmfulfillment</tab>
+            <groups>
+                
+                <product_setting translate="label">
+                    <label>Product Page Settings</label>
+                    <sort_order>10</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <meta_description translate="label comment">
+                            <label>Meta Description</label>
+                            <comment>Enter in the format eg: Buy [Product Name] Online in India. Select from the best products in [Sub-Category] [Department] collections at AmericanSwan.com. Unique gifting, packaging and  delivery options.</comment>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <frontend_type>textarea</frontend_type>
+                        </meta_description>
+                        <meta_keywords translate="label comment">
+                            <label>Meta Keywords</label>
+                            <comment>Enter in the format eg: [Product Name], [Product Name] online in India, [Product Name] [Sub-Category], Buy [Product Name] in India, [Department] in India, Online Shopping [Product Name] India, Designer [Product Name] in India, Shop [Product Name] in India</comment>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <frontend_type>textarea</frontend_type>
+                        </meta_keywords>
+                        <meta_title translate="label comment">
+                            <label>Meta Title</label>
+                            <comment>Enter in the format eg: [Product Name] - Buy [Department] Online in India at AmericanSwan.com</comment>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <frontend_type>textarea</frontend_type>
+                        </meta_title>
+                    </fields>
+                </product_setting>
+                <category_setting translate="label">
+                    <label>Category Page Settings</label>
+                    <sort_order>10</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <meta_description translate="label comment">
+                            <label>Meta Description</label>
+                            <comment>Enter in the format eg: Buy [Sub-Category] Online in India. Select from the best products in [Department] collections at AmericanSwan.com. International quality at affordable prices.</comment>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <frontend_type>textarea</frontend_type>
+                        </meta_description>
+                        <meta_keywords translate="label comment">
+                            <label>Meta Keywords</label>
+                            <comment>Enter in the format eg: [Sub-Category], [Sub-Category] online in India, [Sub-Category] [Department], Buy [Sub-Category] in India, [Department] in India, Designer [Sub-Category] in India, Shop [Sub-Category] in India, Online [Sub-Category], Online Shopping [Sub-Category] India</comment>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <frontend_type>textarea</frontend_type>
+                        </meta_keywords>
+                        <meta_title translate="label comment">
+                            <label>Meta Title</label>
+                            <comment>Enter in the format eg: [Sub-Category] - [Department] Shopping Online in India | AmericanSwan.com</comment>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <frontend_type>textarea</frontend_type>
+                        </meta_title>
+                    </fields>
+                </category_setting>
+            </groups>
+        </seo>
+    </sections>
+</config>

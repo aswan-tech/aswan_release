@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<config>
+	<tabs>
+		<sizeguide translate="label">
+			<label>Size Guide</label>
+			<sort_order>400</sort_order>
+		</sizeguide>
+	</tabs>
+	<sections>
+		<sizeguide translate="label" module="sizeguide">
+			<label>Product Size Guide</label>
+			<tab>catalog</tab>
+			<frontend_type>text</frontend_type>
+			<sort_order>999</sort_order>
+			<show_in_default>1</show_in_default>
+			<show_in_website>1</show_in_website>
+			<show_in_store>1</show_in_store>
+			<groups>
+				<sizetabs translate="label">
+				<label>Product Size Guide</label>
+				<frontend_type>text</frontend_type>
+				<sort_order>1</sort_order>
+				<show_in_default>1</show_in_default>
+				<show_in_website>1</show_in_website>
+				<show_in_store>1</show_in_store>
+					<fields>
+						<tabs_display translate="label, comment">
+							<label>Number of Tabs to displayed</label>
+							<comment><![CDATA[No of tabs to be displayed]]></comment>
+							<frontend_type>text</frontend_type>
+							<sort_order>1</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</tabs_display>						
+					</fields>
+				</sizetabs>
+			</groups>
+		</sizeguide>
+	</sections>
+</config>

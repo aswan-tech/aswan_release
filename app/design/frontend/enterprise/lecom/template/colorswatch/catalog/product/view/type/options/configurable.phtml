@@ -1,0 +1,293 @@
+<?php
+/*
+ * Inner DIV.popup-info is available var like
+ * #{image}		- will find base-image under Li tag and will
+ * #{price}		- will show different in price, simlar like in label under select option
+ * 
+ */
+
+$_product    = $this->getProduct();
+$_attributes = Mage::helper('core')->decorateArray($this->getAllowAttributes());
+?>
+
+<script>
+function selectOption(prodId,colorId,sizeId,skinUrl)
+{
+  if(jQuery("#"+prodId+"_color_attribute_id").val()!="" && jQuery("#"+prodId+"_size_attribute_id").val() != "")
+    {
+	  var cid = jQuery("#"+prodId+"_color_attribute_id").val();
+	  var sid = jQuery("#"+prodId+"_size_attribute_id").val();
+	  var selectedOption = prodId+'_'+cid+'_'+sid+"_opt";
+      jQuery("#"+selectedOption).attr("src", skinUrl+"/available_1.jpg");
+	}
+	jQuery("#"+prodId+"_color_attribute_id").val(colorId);
+	jQuery("#"+prodId+"_size_attribute_id").val(sizeId);
+	var newSelectedOption = prodId+'_'+colorId+'_'+sizeId+"_opt";
+	jQuery("#"+newSelectedOption).attr("src", skinUrl+"/selected.jpg");
+}
+function changeImage(prodId,smallImg,bigImg,uribig,finalPrice,price)
+{
+	if(finalPrice!=price)
+	{
+		finalPriceHtml = '<span class="WebRupee">`</span> '+finalPrice+' ';
+		jQuery('#product-price-'+prodId).html(finalPriceHtml);
+		priceHtml = '<span class="WebRupee">`</span> '+price+'';
+		jQuery('#old-price-'+prodId).html(priceHtml);
+	}else{
+		priceHtml = '<span class="WebRupee">`</span> '+finalPrice+'';
+		jQuery('#product-price-'+prodId).html(priceHtml);
+	}
+  if(bigImg=="")
+    return;
+  jQuery("#image").attr("src", bigImg);
+  jQuery("#imageClick").attr("src", uribig);
+}
+function changeColorImg(prodId,colorId)
+{
+  bigImg = jQuery("#"+prodId+"_"+colorId+"_color_img_main_image").val();
+  uribig = jQuery("#"+prodId+"_"+colorId+"_color_img_lightbox_image").val();
+  if(bigImg=="")
+    return;
+   jQuery("#image").attr("src", bigImg);
+   jQuery("#imageClick").attr("src", uribig);
+}
+</script>
+<?php
+	if(Mage::getStoreConfig('progallery/resizeImage/main_image_resize_width')) {
+		$main_image_resize_width = Mage::getStoreConfig('progallery/resizeImage/main_image_resize_width');
+	} else {
+		$main_image_resize_width = 395;	
+	}
+	   
+	if(Mage::getStoreConfig('progallery/resizeImage/main_image_resize_height')) {
+		$main_image_resize_height = Mage::getStoreConfig('progallery/resizeImage/main_image_resize_height');
+	} else {
+		$main_image_resize_height = 413;	
+	}
+	   
+	if(Mage::getStoreConfig('progallery/resizeImage/lightbox_image_resize_width')) {
+	   $lightbox_image_resize_width = Mage::getStoreConfig('progallery/resizeImage/lightbox_image_resize_width');
+	} else {
+	   $lightbox_image_resize_width = 1100;	
+	}
+	   
+	if(Mage::getStoreConfig('progallery/resizeImage/lightbox_image_resize_height')) {
+	  $lightbox_image_resize_height = Mage::getStoreConfig('progallery/resizeImage/lightbox_image_resize_height');
+	} else {
+	  $lightbox_image_resize_height = 1150;	
+	}
+	   
+$_product    = $this->getProduct();
+$confProd = Mage::getModel('catalog/product_type_configurable');
+
+// Get all attributes of configurable product
+$confAtts = $confProd->getConfigurableAttributesAsArray($_product);
+$isColorAvailable = false;
+$isSizeAvailable = false;
+
+
+$confCategory = Mage::getModel('catalog/category');
+$swatchData = $confCategory->getSwatchImagesData();
+// get all color and sizes in the form of array
+$returnArray = $confCategory->getSwatchColorSizeDataArray($confAtts,$swatchData);
+$color = $returnArray['color'];
+$colorData = $returnArray['colorData']; 
+$colorDataRootPath = $returnArray['colorDataRootPath'];
+$superAtt = $returnArray['superAtt'];
+$size = $returnArray['size']; 
+$sortedSize = $returnArray['sortedSize']; 
+$sortedSizeAbbr = $returnArray['sortedSizeAbbr'];
+$isColorAvailable = $returnArray['isColorAvailable'];
+$isSizeAvailable =  $returnArray['isSizeAvailable'];	
+
+// get all associated product ids
+$childIds = $confProd->getUsedProductIds($_product);
+$price = $_product->getPrice();
+$finalPrice = $_product->getFinalPrice();
+$priceDiff=0;
+if($finalPrice!=$price)
+	$priceDiff = $price-$finalPrice;
+$optData = $confCategory->getSwatchOptData($childIds,$size,$priceDiff);
+  foreach($color['color'] as $ck=>$cv)
+  {
+	foreach($sortedSize as $sk=>$sv)
+	 {
+	   if(!isset($optData[$ck][$sk]))
+	   {
+	     $sortedOptData[$ck][$sk]['image'] = 0;
+		 $sortedOptData[$ck][$sk]['small_image'] = 0;
+		 $sortedOptData[$ck][$sk]['size_label'] = $sv;
+		 $sortedOptData[$ck][$sk]['stock'] = 0;
+	   }
+	   else
+	   {
+	     $sortedOptData[$ck][$sk] = $optData[$ck][$sk];
+	   }
+	   
+	 }
+	
+  }
+$_attributes = Mage::helper('core')->decorateArray($this->getAllowAttributes());
+$cats = $_product->getCategoryIds();
+if(!$confCategory->removeSizeGuide($cats)){
+?>
+<span class="size-guide-new"><a class="show_popup" href="javascript:void(0);"><?php echo $this->__('Size Guide') ?></a></span>
+<?php } ?>
+<?php $i = 0; if ($_product->isSaleable() && count($_attributes)):?>
+ <?php if($isColorAvailable && $isSizeAvailable) { ?>
+    <div class="sizeColor">
+	 <span><?php echo $this->__('Select color and size') ?></span></div>
+	<?php 
+	 foreach($superAtt as $sAttKey=>$sAttVal)
+	 {
+	?>
+	<input type="hidden" id="<?php  echo $_product->getId() ?>_<?php echo $sAttKey; ?>" name="super_attribute[<?php echo $sAttVal; ?>]" value="" >
+	<?php } ?>
+	<div class="color-swatch-table">
+	<table id="swatches">
+	<tr>
+	<td>&nbsp;</td>
+	<?php foreach($sortedSize as $sk=>$sz) { ?>
+	 <td style="padding-right:10px;" title="<?php echo $sz; ?>"><span style="cursor: help;"><?php echo $sortedSizeAbbr[$sk]; ?></span></td>
+	 <?php } ?>
+	</tr>
+	<?php foreach($sortedOptData as $optKey=>$optVal) { ?>	
+	<tr>
+	 <td style="padding-right:10px; padding-top:10px;cursor: help;">
+	  <a href="javascript:void(0);" title="<?php echo $color['color'][$optKey]; ?>" class="colorswatchProd" onclick="changeColorImg('<?php  echo $_product->getId() ?>','<?php echo $optKey; ?>');changeMoreView('<?php  echo $_product->getId() ?>','<?php echo $optKey; ?>');">
+	    <?php if(is_file($colorDataRootPath[$optKey]['image_root_path'])) { ?>
+		<div style="width:24px;height:24px;">
+		<img style="width:24px;height:24px;" src="<?php echo $colorData[$optKey]['image']; ?>">
+		</div>
+		<?php } ?>
+	  </a>
+	 </td> 
+	 <?php foreach($optVal as $optionKey=>$optionVal) { ?>
+	 
+	 <?php
+		$thumbProduct = Mage::getModel('catalog/product')->load($optionVal['simple_prod_id']);
+		$baseImageUrl = Mage::helper('catalog/image')->init($thumbProduct, 'image');
+	 ?>
+	 
+	 <td style="padding-right:10px; padding-top:10px;" id="<?php echo $optionVal['simple_prod_id']; ?>">
+	 <?php 
+	    if($optionVal['stock'])
+		{
+	 ?>
+	   <a href="javascript:void(0);" class="swatchProd" id="<?php echo $_product->getId() ?>_<?php echo $optKey; ?>_<?php echo $optionKey; ?>" onclick="selectOption('<?php  echo $_product->getId() ?>','<?php echo $optKey; ?>','<?php echo $optionKey; ?>','<?php echo $this->getSkinUrl('images') ?>');changeImage('<?php  echo $_product->getId() ?>','<?php echo $optionVal['small_image']; ?>','<?php echo $baseImageUrl->resize($main_image_resize_width,$main_image_resize_height)?>','<?php echo $baseImageUrl->resize(
+		$lightbox_image_resize_width, $lightbox_image_resize_height); ?>','<?php echo number_format($optionVal['finalPrice'],2); ?>','<?php echo number_format($optionVal['price'],2); ?>');changeMoreView(<?php echo $optionVal['simple_prod_id']; ?>,'');"><img alt="Available" title="Available" id="<?php  echo $_product->getId() ?>_<?php echo $optKey; ?>_<?php echo $optionKey; ?>_opt" src="<?php echo $this->getSkinUrl('images/available_1.jpg'); ?>" /></a>
+	 <?php
+	}
+		else
+		{
+	  ?>
+	   <img alt="Out of stock" title="Out of stock" src="<?php echo $this->getSkinUrl('images/not_available.jpg'); ?>" />
+	  <?php
+	   }
+	   $assigned = true;
+	   if($optionVal['image'] && $optionVal['small_image'] && $assigned)
+	   {
+	       $assigned = false;
+	  ?>
+		  <?php /* ?>
+		  <input type="hidden" id="<?php  echo $_product->getId() ?>_<?php echo $optKey; ?>_color_img" name="<?php echo $optKey; ?>_color" value="<?php echo $optionVal['image']; ?>" >
+		  <input type="hidden" id="<?php  echo $_product->getId() ?>_<?php echo $optKey; ?>_color_small_img" name="<?php echo $optKey; ?>_small_color" value="<?php echo $optionVal['small_image']; ?>" >
+		  <?php */ ?>
+		  <input type="hidden" id="<?php  echo $_product->getId() ?>_<?php echo $optKey; ?>_color_img_main_image" name="<?php echo $optKey; ?>_color" value="<?php echo $baseImageUrl->resize($main_image_resize_width,$main_image_resize_height)?>" >
+		  
+		  <input type="hidden" id="<?php  echo $_product->getId() ?>_<?php echo $optKey; ?>_color_img_lightbox_image" name="<?php echo $optKey; ?>_color_lightbox" value="<?php echo $baseImageUrl->resize($lightbox_image_resize_width, $lightbox_image_resize_height); ?>" >
+		  
+		  <input type="hidden" id="<?php  echo $_product->getId() ?>_<?php echo $optKey; ?>_color_small_img" name="<?php echo $optKey; ?>_small_color" value="<?php echo $optionVal['small_image']; ?>" >
+		  
+		  <input type="hidden" id="<?php  echo $_product->getId() ?>_<?php echo $optKey; ?>_moreviewId" name="moreviewId" value="<?php echo $optionVal['simple_prod_id']; ?>" >
+	 </td>
+	 <?php 
+	    }
+	   } 
+	 ?>
+	</tr>
+	
+	<?php } ?>
+	
+	</table>
+	</div>
+    <div class="helper-images">
+	   <span>
+	         <img width="15" height="15" src="<?php echo $this->getSkinUrl('images/selected.jpg') ?>" /> Selected
+	   </span>
+	         <img width="15" height="15" src="<?php echo $this->getSkinUrl('images/available_1.jpg') ?>" /> In stock
+	   </span>
+	         <img width="15" height="15" src="<?php echo $this->getSkinUrl('images/not_available.jpg') ?>" /> Out of stock
+	   </span>
+	</div>
+	<?php } else { ?>
+	<!-- Default View ----->
+	<div class="sizeColor">Select color and size</div>
+	 <dl>
+    <?php foreach($_attributes as $_attribute): ?>
+        <!--<dt><?php //echo $_attribute->getLabel() ?></label></dt>-->
+        <dd id="<?php  echo $_product->getId() ?>_item_<?php echo ++$i; ?>" <?php if ($_attribute->decoratedIsLast){?> class="last"<?php }?>>
+            <div class="input-box" style="background:none !important;">
+                <select  name="super_attribute[<?php echo $_attribute->getAttributeId() ?>]" id="attribute<?php echo $_attribute->getAttributeId() ?>" class="super-attribute-select_<?php echo $_product->getId()?> " onchange="resetOption('<?php  echo $_product->getId() ?>','<?php echo $i; ?>');">
+                    <option>
+					  <?php 
+					      if(stristr($_attribute->getLabel(),"color")) 
+						      echo $this->__('Select Colour'); 
+						  elseif(stristr($_attribute->getLabel(), "size")) 
+						      echo $this->__('Select Size'); 
+						  else 
+						      echo $this->__('Select Option'); 
+					  ?>
+					</option>
+                  </select>
+				 <?php if ($_attribute->decoratedIsLast){
+				 
+				//$sizeGuideCat = Mage::getModel('catalog/category');
+				$cats = $_product->getCategoryIds();
+				if(!$confCategory->removeSizeGuide($cats)){				
+				?> <a class="show_popup" href="javascript:void(0);"><?php echo $this->__('Size Guide') ?></a> <?php }}				
+				?>
+              </div>
+			  
+        </dd>
+    <?php endforeach; ?>
+	
+    </dl>
+    <script type="text/javascript">
+        var spConfig_<?php echo $_product->getId()?> = new FCM_Product.Config(<?php echo $this->getJsonConfig() ?>);
+		var selectedAssocProducts_<?php echo $_product->getId()?> = {}; // Added by dhananjay for image change on get a look
+    </script>
+ <?php } ?>
+<?php endif;?>
+<script type="text/javascript">
+	function changeMoreView(prod,opt)
+	{
+		if(opt == '') {
+			var prodId = prod;
+		} else {
+			var prodId = jQuery("#"+prod+'_'+opt+'_moreviewId').val();
+		}
+		var page = '';
+		if(typeof product_id != 'undefined')
+			page = '1';
+		else
+			page = '0';
+		jQuery.ajax({
+			url:"<?php echo Mage::getBaseUrl(); ?>common/index/moreImages?id="+prodId+"&page="+page,
+			beforeSend: function() {
+				jQuery('#more-views-loader').show();
+			},
+			success:function(result){
+				jQuery('#zoomId').val(prodId);
+				jQuery('#more-views-loader').hide();
+				jQuery(".more-views-list").html("");
+				jQuery(".more-views-list").html(result);
+				jQuery(".caroufredsel_wrapper").css({'width':'395px'});
+				jQuery(".more-views-list li img").each(function(){
+					if(jQuery(this).attr('src').split('/').pop() == jQuery('#image').attr('src').split('/').pop())
+						jQuery(this).addClass('viewable');
+				});
+			}
+		});
+	}
+</script>

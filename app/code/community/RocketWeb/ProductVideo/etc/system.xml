@@ -1,0 +1,403 @@
+<?xml version="1.0"?>
+<config>
+	<tabs>
+        <rocketweb_tab>
+            <label>RocketWeb Extensions</label>
+            <sort_order>1005001</sort_order>
+        </rocketweb_tab>
+    </tabs>
+    <sections>
+        <rocketweb_productvideo translate="label" module="productvideo">
+        	<label>ProductVideo</label>
+            <tab>rocketweb_tab</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>200</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <settings translate="label">
+                	<comment><![CDATA[For more info about fancybox please visit <a target="_blank" href="http://fancybox.net/">fancybox website</a><br /><br />]]></comment>
+                    <label>Settings</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>10</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <default_thumb_width translate="label">
+                            <label>Default Thumbnail Width</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>10</sort_order>
+		                    <show_in_default>1</show_in_default>
+		                    <show_in_website>1</show_in_website>
+		                    <show_in_store>1</show_in_store>
+                        </default_thumb_width>
+                        <default_thumb_height translate="label">
+                            <label>Default Thumbnail Height</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>30</sort_order>
+		                    <show_in_default>1</show_in_default>
+		                    <show_in_website>1</show_in_website>
+		                    <show_in_store>1</show_in_store>
+                        </default_thumb_height>
+                        <default_width translate="label">
+                            <label>Default Width</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>40</sort_order>
+		                    <show_in_default>1</show_in_default>
+		                    <show_in_website>1</show_in_website>
+		                    <show_in_store>1</show_in_store>
+                        </default_width>
+                        <default_height translate="label">
+                            <label>Default Height</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>40</sort_order>
+		                    <show_in_default>1</show_in_default>
+		                    <show_in_website>1</show_in_website>
+		                    <show_in_store>1</show_in_store>
+                        </default_height>
+                        <fancybox_config>
+							<label>Fancybox Options</label>
+							<sort_order>45</sort_order>
+							<frontend_model>adminhtml/system_config_form_field_heading</frontend_model>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</fancybox_config>
+                        
+                        <jquery translate="label comment">
+                            <label>jQuery Enabled</label>
+                            <comment><![CDATA[]]></comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>46</sort_order>
+		                    <show_in_default>1</show_in_default>
+		                    <show_in_website>1</show_in_website>
+		                    <show_in_store>1</show_in_store>
+                        </jquery>
+                        <fancybox translate="label comment">
+                            <label>Fancybox Script Enabled</label>
+                            <comment><![CDATA[]]></comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>47</sort_order>
+		                    <show_in_default>1</show_in_default>
+		                    <show_in_website>1</show_in_website>
+		                    <show_in_store>1</show_in_store>
+                        </fancybox>
+                        
+                        <padding translate="label comment">
+                            <label>Padding</label>
+                            <comment><![CDATA[Space between FancyBox wrapper and content]]></comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>50</sort_order>
+		                    <show_in_default>1</show_in_default>
+		                    <show_in_website>1</show_in_website>
+		                    <show_in_store>1</show_in_store>
+                        </padding>
+                        <margin translate="label comment">
+                            <label>Margin</label>
+                            <comment><![CDATA[Space between viewport and FancyBox wrapper]]></comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>60</sort_order>
+		                    <show_in_default>1</show_in_default>
+		                    <show_in_website>1</show_in_website>
+		                    <show_in_store>1</show_in_store>
+                        </margin>
+                        <opacity translate="label comment">
+                            <label>Opacity</label>
+                            <comment><![CDATA[When true, transparency of content is changed for elastic transitions]]></comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>70</sort_order>
+		                    <show_in_default>1</show_in_default>
+		                    <show_in_website>1</show_in_website>
+		                    <show_in_store>1</show_in_store>
+                        </opacity>
+                        <modal translate="label comment">
+                            <label>Modal</label>
+                            <comment><![CDATA[When true, 'overlayShow' is set to 'true' and 'hideOnOverlayClick', 'hideOnContentClick', 'enableEscapeButton', 'showCloseButton' are set to 'false']]></comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>80</sort_order>
+		                    <show_in_default>1</show_in_default>
+		                    <show_in_website>1</show_in_website>
+		                    <show_in_store>1</show_in_store>
+                        </modal>
+                        <cyclic translate="label comment">
+                            <label>Cyclic</label>
+                            <comment><![CDATA[When true, galleries will be cyclic, allowing you to keep pressing next/back.]]></comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>90</sort_order>
+		                    <show_in_default>1</show_in_default>
+		                    <show_in_website>1</show_in_website>
+		                    <show_in_store>1</show_in_store>
+                        </cyclic>
+                        <scrolling translate="label comment">
+                            <label>Scrolling</label>
+                            <comment><![CDATA[Set the overflow CSS property to create or hide scrollbars. Can be set to 'auto', 'yes', or 'no']]></comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>productvideo/config_source_scrolling</source_model>
+                            <sort_order>100</sort_order>
+		                    <show_in_default>1</show_in_default>
+		                    <show_in_website>1</show_in_website>
+		                    <show_in_store>1</show_in_store>
+                        </scrolling>
+                        <auto_scale translate="label comment">
+                            <label>Auto Scale</label>
+                            <comment><![CDATA[If true, FancyBox is scaled to fit in viewport ]]></comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>110</sort_order>
+		                    <show_in_default>1</show_in_default>
+		                    <show_in_website>1</show_in_website>
+		                    <show_in_store>1</show_in_store>
+                        </auto_scale>
+                        <auto_dimensions translate="label comment">
+                            <label>Auto Dimensions</label>
+                            <comment><![CDATA[For inline and ajax views, resizes the view to the element recieves. Make sure it has dimensions otherwise this will give unexpected results]]></comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>120</sort_order>
+		                    <show_in_default>1</show_in_default>
+		                    <show_in_website>1</show_in_website>
+		                    <show_in_store>1</show_in_store>
+                        </auto_dimensions>
+                        <center_on_scroll translate="label comment">
+                            <label>Center On Scroll</label>
+                            <comment><![CDATA[When true, FancyBox is centered while scrolling page]]></comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>130</sort_order>
+		                    <show_in_default>1</show_in_default>
+		                    <show_in_website>1</show_in_website>
+		                    <show_in_store>1</show_in_store>
+                        </center_on_scroll>
+                        <hide_on_overlay_click translate="label comment">
+                            <label>Hide On Overlay Click</label>
+                            <comment><![CDATA[Toggle if clicking the overlay should close FancyBox]]></comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>140</sort_order>
+		                    <show_in_default>1</show_in_default>
+		                    <show_in_website>1</show_in_website>
+		                    <show_in_store>1</show_in_store>
+                        </hide_on_overlay_click>
+                        <hide_on_content_click translate="label comment">
+                            <label>Hide On Content Click</label>
+                            <comment><![CDATA[Toggle if clicking the content should close FancyBox]]></comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>140</sort_order>
+		                    <show_in_default>1</show_in_default>
+		                    <show_in_website>1</show_in_website>
+		                    <show_in_store>1</show_in_store>
+                        </hide_on_content_click>
+                        <overlay_show translate="label comment">
+                            <label>Overlay Show</label>
+                            <comment><![CDATA[Toggle overlay]]></comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>150</sort_order>
+		                    <show_in_default>1</show_in_default>
+		                    <show_in_website>1</show_in_website>
+		                    <show_in_store>1</show_in_store>
+                        </overlay_show>
+                        <overlay_opacity translate="label comment">
+                        	<comment><![CDATA[Opacity of the overlay (from 0 to 1; default - 0.3)]]></comment>
+                            <label>Overlay Opacity</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>160</sort_order>
+		                    <show_in_default>1</show_in_default>
+		                    <show_in_website>1</show_in_website>
+		                    <show_in_store>1</show_in_store>
+                        </overlay_opacity>
+                        <overlay_color translate="label comment">
+                            <label>Overlay Color</label>
+                            <comment><![CDATA[Color of the overlay]]></comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>170</sort_order>
+		                    <show_in_default>1</show_in_default>
+		                    <show_in_website>1</show_in_website>
+		                    <show_in_store>1</show_in_store>
+                        </overlay_color>
+                        <title_show translate="label comment">
+                            <label>Title Show</label>
+                            <comment><![CDATA[Toggle title]]></comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>180</sort_order>
+		                    <show_in_default>1</show_in_default>
+		                    <show_in_website>1</show_in_website>
+		                    <show_in_store>1</show_in_store>
+                        </title_show>
+                        <title_position translate="label comment">
+                            <label>Title Position</label>
+                            <comment><![CDATA[The position of title. Can be set to 'outside', 'inside' or 'over']]></comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>productvideo/config_source_titleposition</source_model>
+                            <sort_order>190</sort_order>
+		                    <show_in_default>1</show_in_default>
+		                    <show_in_website>1</show_in_website>
+		                    <show_in_store>1</show_in_store>
+                        </title_position>
+                        <title_format translate="label comment">
+                            <label>Title Format</label>
+                            <comment><![CDATA[Callback to customize title area. You can set any html - custom image counter or even custom navigation]]></comment>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>200</sort_order>
+		                    <show_in_default>1</show_in_default>
+		                    <show_in_website>1</show_in_website>
+		                    <show_in_store>1</show_in_store>
+                        </title_format>
+                        <transition_in translate="label comment">
+                            <label>Transition In</label>
+                            <comment><![CDATA[The transition in type. Can be set to 'elastic', 'fade' or 'none']]></comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>productvideo/config_source_transition</source_model>
+                            <sort_order>210</sort_order>
+		                    <show_in_default>1</show_in_default>
+		                    <show_in_website>1</show_in_website>
+		                    <show_in_store>1</show_in_store>
+                        </transition_in>
+                        <transition_out translate="label comment">
+                            <label>Transition Out</label>
+                            <comment><![CDATA[The transition out type. Can be set to 'elastic', 'fade' or 'none']]></comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>productvideo/config_source_transition</source_model>
+                            <sort_order>220</sort_order>
+		                    <show_in_default>1</show_in_default>
+		                    <show_in_website>1</show_in_website>
+		                    <show_in_store>1</show_in_store>
+                        </transition_out>
+                        <speed_in translate="label comment">
+                            <label>Speed In</label>
+                            <comment><![CDATA[Speed in of the fade and elastic transitions, in milliseconds]]></comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>230</sort_order>
+		                    <show_in_default>1</show_in_default>
+		                    <show_in_website>1</show_in_website>
+		                    <show_in_store>1</show_in_store>
+                        </speed_in>
+                        <speed_out translate="label comment">
+                            <label>Speed Out</label>
+                            <comment><![CDATA[Speed out of the fade and elastic transitions, in milliseconds]]></comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>240</sort_order>
+		                    <show_in_default>1</show_in_default>
+		                    <show_in_website>1</show_in_website>
+		                    <show_in_store>1</show_in_store>
+                        </speed_out>
+                        <change_speed translate="label comment">
+                            <label>Change Speed</label>
+                            <comment><![CDATA[Speed of resizing when changing gallery items, in milliseconds]]></comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>250</sort_order>
+		                    <show_in_default>1</show_in_default>
+		                    <show_in_website>1</show_in_website>
+		                    <show_in_store>1</show_in_store>
+                        </change_speed>
+                        <show_close_button translate="label comment">
+                            <label>Show Close Button</label>
+                            <comment><![CDATA[Toggle close button]]></comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>260</sort_order>
+		                    <show_in_default>1</show_in_default>
+		                    <show_in_website>1</show_in_website>
+		                    <show_in_store>1</show_in_store>
+                        </show_close_button>
+                        <show_nav_arrows translate="label comment">
+                            <label>Show Nav Arrows</label>
+                            <comment><![CDATA[Toggle navigation arrows]]></comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>270</sort_order>
+		                    <show_in_default>1</show_in_default>
+		                    <show_in_website>1</show_in_website>
+		                    <show_in_store>1</show_in_store>
+                        </show_nav_arrows>
+                        <enable_escape_button translate="label comment">
+                            <label>Enable Escape Button</label>
+                            <comment><![CDATA[Toggle if pressing Esc button closes FancyBox]]></comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>280</sort_order>
+		                    <show_in_default>1</show_in_default>
+		                    <show_in_website>1</show_in_website>
+		                    <show_in_store>1</show_in_store>
+                        </enable_escape_button>
+                        <allow_fullscreen translate="label">
+                            <label>Allow Fullscreen</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>290</sort_order>
+		                    <show_in_default>1</show_in_default>
+		                    <show_in_website>1</show_in_website>
+		                    <show_in_store>1</show_in_store>
+                        </allow_fullscreen>
+                    </fields>
+                </settings>
+				
+				<uploadcsv translate="label">
+                    <label>Upload Product Video CSV</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>11</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+						<bannerfile translate="label">
+                            <label>File</label>
+                            <frontend_type>file</frontend_type>
+                            <backend_model>RocketWeb_ProductVideo_Model_System_Config_Backend_File</backend_model>
+							<!--It will pick media folder path form config setting -->
+                            <upload_dir config="system/filesystem/media" scope_info="1">productvideos</upload_dir>
+                            <base_url type="media" scope_info="1">productvideos</base_url>
+                            <!--validate>required-entry</validate-->
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>upload CSV file format</comment>
+							<validate>required-file</validate>
+                        </bannerfile>
+						<!--On Clicking this upload button, the above browse file will be uploaded in productvideos folder under media folder  -->
+                        <upload translate="label">
+                            <label>Upload</label>
+                            <frontend_type>button</frontend_type>
+							<frontend_model>RocketWeb_ProductVideo_Block_Adminhtml_System_Config_Form_Field_Upload</frontend_model>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </upload>
+					</fields>
+                </uploadcsv>
+				
+				<runcsv translate="label">
+                    <label>Manual Import - Product Videos</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>21</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+						<!--This run buttom will dump all csv data into  rw_youtube_videos table in database -->
+                        <partial_run translate="label">
+                            <label>Import Product Videos</label>
+                            <frontend_type>button</frontend_type>
+                            <frontend_model>RocketWeb_ProductVideo_Block_Adminhtml_System_Config_Form_Field_Button</frontend_model>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </partial_run>
+                    </fields>
+                </runcsv>
+            </groups>
+        </rocketweb_productvideo>
+    </sections>
+</config>

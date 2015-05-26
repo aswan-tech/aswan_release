@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * created : 12/04/2011
+ * 
+ * @category Ayaline
+ * @package Ayaline_Core
+ * @author aYaline
+ * @copyright Ayaline - 2012 - http://magento-shop.ayaline.com
+ * @license http://shop.ayaline.com/magento/fr/conditions-generales-de-vente.html
+ */
+-->
+<config>
+	<modules>
+		<Ayaline_Core>
+			<active>true</active>
+			<codePool>community</codePool>
+		</Ayaline_Core>
+	</modules>
+</config>

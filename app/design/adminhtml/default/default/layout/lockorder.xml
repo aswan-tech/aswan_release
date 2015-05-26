@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <lockorder_adminhtml_lockorder_index>
+        <reference name="content">
+            <block type="lockorder/adminhtml_lockorder" name="lockorder" />
+        </reference>
+    </lockorder_adminhtml_lockorder_index>
+</layout>

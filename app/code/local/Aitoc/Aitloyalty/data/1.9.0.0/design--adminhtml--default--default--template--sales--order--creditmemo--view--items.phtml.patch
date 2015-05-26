@@ -1,0 +1,14 @@
+diff -aurBb /home/httpd/htdocs/users/vashkevich/magento-prepare/var/ait_patch_orig/compare54412415976674a0146e3c55e4 /home/httpd/htdocs/users/vashkevich/magento-prepare/var/ait_patch_modif/compare54412415976674a0146e3c55e4
+--- /home/httpd/htdocs/users/vashkevich/magento-prepare/var/ait_patch_orig/compare54412415976674a0146e3c55e4	2009-05-06 11:14:27 +0300
++++ /home/httpd/htdocs/users/vashkevich/magento-prepare/var/ait_patch_modif/compare54412415976674a0146e3c55e4	2009-05-06 11:14:27 +0300
+@@ -42,7 +42,10 @@
+                 <th class="a-center"><?php echo $this->helper('sales')->__('Qty') ?></th>
+                 <th><?php echo $this->helper('sales')->__('Subtotal') ?></th>
+                 <th><span class="nobr"><?php echo $this->helper('sales')->__('Tax Amount') ?></span></th>
++                <?php /* 
+                 <th><span class="nobr"><?php echo $this->helper('sales')->__('Discount Amount') ?></span></th>
++                */ ?>
++                <th><span class="nobr"><?php echo $this->helper('sales')->__('Discount(-)/Surcharge(+) Amount') ?></span></th>
+                 <th class="last"><span class="nobr"><?php echo $this->helper('sales')->__('Row Total') ?></span></th>
+             </tr>
+         </thead>

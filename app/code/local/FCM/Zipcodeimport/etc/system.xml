@@ -1,0 +1,276 @@
+<?xml version="1.0"?>
+<!--
+/**
+* FCM Zipcodeimport Module
+*
+* Module for importing zip code, city and state for address verification.
+*
+* @category    FCM
+* @package     FCM_Zipcodeimport
+* @author	Vikrant Kumar Mishra
+* @author_id	51402601
+* @company	HCL Technologies
+* @created Thursday, June 07, 2012
+*/
+-->
+<config>
+    <tabs>
+        <fcmfulfillment translate="label" module="fulfillment">
+            <label>FCM Fulfillment</label>
+            <sort_order>280</sort_order>
+        </fcmfulfillment>
+    </tabs>
+    <sections>
+<!--Zip Code Import Tab is visible under FCM Fulfillment tab -->
+        <zipcodeimport translate="label" module="zipcodeimport">
+            <label>Zip Code Import</label>
+            <tab>fcmfulfillment</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>1002</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <paths translate="label">
+                    <label>Inbound / Outbound path settings</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>9</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+<!--It will display browse field for file upload in admin section -->
+                        <zipcodeIn translate="label comment">
+                            <label>Zipcode Feed (Inbound)</label>
+                            <comment>
+<![CDATA[<span>Enter the path to the folder where the zipcode feed files will be generated e.g. /home/ordersfulfill/ </span>]]>
+                            </comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <validate>required-entry</validate>
+                        </zipcodeIn>
+                        <zipcodeOut translate="label comment">
+                            <label>Zipcode Feed Archive Folder</label>
+                            <comment>
+<![CDATA[<span>Enter the path to the folder where the zipcode feed files will be moved in case of success or error e.g. /home/ordersfulfill/ </span>]]>
+                            </comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>11</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <validate>required-entry</validate>
+                        </zipcodeOut>
+                        <carriersIn translate="label comment">
+                            <label>Blinke Carrier Feed (Inbound)</label>
+                            <comment>
+<![CDATA[<span>Enter the path to the folder where the blinke carrier feed files will be generated e.g. /home/ordersfulfill/ </span>]]>
+                            </comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>12</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <validate>required-entry</validate>
+                        </carriersIn>
+                        <carriersOut translate="label comment">
+                            <label>Blinke Carrier Feed Archive Folder</label>
+                            <comment>
+<![CDATA[<span>Enter the path to the folder where the blinke carrier feed files will be moved in case of success or error e.g. /home/ordersfulfill/ </span>]]>
+                            </comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>13</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <validate>required-entry</validate>
+                        </carriersOut>
+<!--On Clicking this download button, the list of zip codes will be downloaded in csv format  -->
+                    </fields>
+                </paths>
+
+<!--It will add another tab called General under Zip Code Import -->
+                <general translate="label">
+                    <label>General</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>10</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+<!--It will display browse field for file upload in admin section -->
+                        <bannerfile translate="label">
+                            <label>File</label>
+                            <frontend_type>file</frontend_type>
+                            <backend_model>FCM_Zipcodeimport_Model_System_Config_Backend_File</backend_model>
+<!--It will pick media folder path form config setting -->
+                            <upload_dir config="system/filesystem/media" scope_info="1">zipcode</upload_dir>
+                            <base_url type="media" scope_info="1">zipcode</base_url>
+<!--validate>required-entry</validate-->
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>upload CSV file format</comment>
+                        </bannerfile>
+<!--On Clicking this upload button, the above browse file will be uploaded on zip code folder under media folder  -->
+                        <upload translate="label">
+                            <label>Upload</label>
+                            <frontend_type>button</frontend_type>
+                            <frontend_model>FCM_Zipcodeimport_Block_Adminhtml_System_Config_Form_Field_Upload</frontend_model>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </upload>
+<!--On Clicking this download button, the list of zip codes will be downloaded in csv format  -->
+                    </fields>
+                </general>
+<!--It will add another tab called manual Import under Zip Code Import -->
+                <run translate="label">
+                    <label>Manual Import - Zip Codes</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>40</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+<!--This run buttom will dump all csv data into fcm_zipcodeimport table in database -->
+                        <partial_run translate="label">
+                            <label>Import Zip Code</label>
+                            <frontend_type>button</frontend_type>
+                            <frontend_model>FCM_Zipcodeimport_Block_Adminhtml_System_Config_Form_Field_Button</frontend_model>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </partial_run>
+                    </fields>
+                </run>
+
+<!--It will add another tab called manual Import under Zip Code Import -->
+                <download translate="label">
+                    <label>Download Zip Code CSV</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>41</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+<!--This download buttom will download all data from fcm_zipcodeimport table to CSV file format -->
+                        <partial_run translate="label">
+                            <label>Download Zip Code</label>
+                            <frontend_type>button</frontend_type>
+                            <frontend_model>FCM_Zipcodeimport_Block_Adminhtml_System_Config_Form_Field_Download</frontend_model>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </partial_run>
+                    </fields>
+                </download>
+
+<!--It will add another tab called manual Import under Zip Code Import -->
+                <import_carriers translate="label">
+                    <label>Import Shipping Carriers</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>42</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+<!--This download buttom will download all data from fcm_zipcodeimport table to CSV file format -->
+                        <partial_run translate="label">
+                            <label>Shipping Carriers Master Data</label>
+                            <frontend_type>button</frontend_type>
+                            <frontend_model>FCM_Zipcodeimport_Block_Adminhtml_System_Config_Form_Field_Importcarriers</frontend_model>
+                            <sort_order>22</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </partial_run>
+                    </fields>
+                </import_carriers>
+
+                <cod translate="label">
+                    <label>COD Availability</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>10</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+						<zipcodelength translate="label">
+                            <label>Allowed Zip-Code Length</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+							<validate>validate-not-negative-number validate-greater-than-zero</validate>
+                        </zipcodelength>
+                        <availabile_msg translate="label">
+                            <label>Availability Message</label>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[<span>Default Message: Cash on Delivery is available for your PIN CODE. Use X and Y in message to replace minimum amount and maximum amount.</span>]]></comment>
+                        </availabile_msg>
+
+                        <not_availabile_msg translate="label">
+                            <label>Non Availability Message</label>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </not_availabile_msg>
+						
+						<wrong_pincode_msg translate="label">
+                            <label>Wrong Pincode Message</label>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>4</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </wrong_pincode_msg>
+
+                        <min_amount translate="label">
+                            <label>Minimum Amount Value</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>5</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </min_amount>
+
+                        <max_amount translate="label">
+                            <label>Maximum Amount Value</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>6</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </max_amount>
+
+                        <checkout_not_availabile_msg translate="label">
+                            <label>Checkout Non Availability Message</label>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>7</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </checkout_not_availabile_msg>
+
+                    </fields>
+                </cod>
+            </groups>
+        </zipcodeimport>
+
+    </sections>
+</config>

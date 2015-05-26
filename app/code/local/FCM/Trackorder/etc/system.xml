@@ -1,0 +1,153 @@
+<?xml version="1.0"?>
+<config>
+	<tabs>
+	   <fcmtrackorder translate="label" module="trackorder">
+		   <label>Tracking Configurations</label>
+		   <sort_order>280</sort_order>
+	  </fcmtrackorder>
+   </tabs>
+    <sections>
+		<trackorder translate="label" module="trackorder">
+			<label>Update Details</label>
+			<tab>fcmtrackorder</tab>
+			<frontend_type>text</frontend_type>
+			<sort_order>1000</sort_order>
+			<show_in_default>1</show_in_default>
+			<show_in_website>1</show_in_website>
+			<show_in_store>1</show_in_store>
+			<groups>
+				<trackorderdtls translate="label">
+					<label>BlueDart - Client Information</label>
+					<frontend_type>text</frontend_type>
+					<sort_order>10</sort_order>
+					<show_in_default>1</show_in_default>
+					<show_in_website>1</show_in_website>
+					<show_in_store>1</show_in_store>
+					<fields>
+						<user_id translate="label">
+							<label>User ID</label>
+							<frontend_type>text</frontend_type>
+							<validate>required-entry</validate>
+							<sort_order>8</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment>Enter your blue dart user id</comment>
+						</user_id>
+						<license_key translate="label">
+							<label>License Key</label>
+							<frontend_type>text</frontend_type>
+							<validate>required-entry</validate>
+							<sort_order>10</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment>Enter your blue dart license key</comment>
+						</license_key>
+						<code_type translate="label">
+							<label>Type of Code</label>
+							<frontend_type>text</frontend_type>
+							<validate>required-entry</validate>
+							<sort_order>11</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment>Like 'ref' or 'awb'</comment>
+						</code_type>
+						<api_version translate="label">
+							<label>Version</label>
+							<frontend_type>text</frontend_type>
+							<validate>required-entry</validate>
+							<sort_order>12</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment>Enter your API version number here</comment>
+						</api_version>
+					</fields>
+				</trackorderdtls>
+				
+				
+				<aramexsettings translate="label">
+					<label>Aramex - Client Information</label>
+					<frontend_type>text</frontend_type>
+					<sort_order>11</sort_order>
+					<show_in_default>1</show_in_default>
+					<show_in_website>1</show_in_website>
+					<show_in_store>1</show_in_store>
+					<fields>
+						<account_country_code>
+							<label>Account Country Code</label>
+							<frontend_type>text</frontend_type>
+							<validate>required-entry</validate>
+							<sort_order>1</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment>Two Letter Code Identifying the Country</comment>
+						</account_country_code>
+						<account_entity>
+							<label>Account Entity</label>
+							<frontend_type>text</frontend_type>
+							<validate>required-entry</validate>
+							<sort_order>1</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment>Identification Code for Transmitting Party (Provided by Aramex)</comment>
+						</account_entity>
+						<account_number>
+							<label>Account Number</label>
+							<frontend_type>text</frontend_type>
+							<validate>required-entry validate-number</validate>
+							<sort_order>1</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment>Customer's Account number provided by Aramex when the contract is signed</comment>
+						</account_number>
+						<account_pin>
+							<label>Account Pin</label>
+							<frontend_type>text</frontend_type>
+							<validate>required-entry validate-number</validate>
+							<sort_order>1</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment>A key that is associated with the account number</comment>
+						</account_pin>
+						<user_name>
+							<label>Username</label>
+							<frontend_type>text</frontend_type>
+							<validate>required-entry</validate>
+							<sort_order>1</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment>Registered with Aramex</comment>
+						</user_name>
+						<password>
+							<label>Password</label>
+							<frontend_type>Password</frontend_type>
+							<validate>required-entry</validate>
+							<sort_order>1</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</password>
+						<api_version translate="label">
+							<label>Version</label>
+							<frontend_type>text</frontend_type>
+							<validate>required-entry</validate>
+							<sort_order>12</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment>Enter your Soap API version (your wsdl file is using)</comment>
+						</api_version>
+					</fields>
+				</aramexsettings>
+			</groups>
+		</trackorder>
+    </sections>
+</config>

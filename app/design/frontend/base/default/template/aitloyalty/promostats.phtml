@@ -1,0 +1,121 @@
+<?php
+/**
+ * Product:     Loyalty Program for Enterprise Edition
+ * Package:     Aitoc_Aitloyalty_10.0.10_574534
+ * Purchase ID: INzRIwyyaNoeOLERhAgt4U28qVKIeEa3dfPrgaAN3C
+ * Generated:   2013-05-13 06:36:55
+ * File path:   app/design/frontend/base/default/template/aitloyalty/promostats.phtml
+ * Copyright:   (c) 2013 AITOC, Inc.
+ */
+?>
+<?php
+/**
+* @copyright  Copyright (c) 2009 AITOC, Inc. 
+*/
+?>
+
+
+<?php //$aLoyaltyRules = $this->myTestQry(); ?>
+
+
+<?php $aLoyaltyRules = $this->getLoyaltyRulesCustom(); ?>
+
+<?php //pr($aLoyaltyRules->getData()); ?>
+
+
+<h2 class="title"><?php echo $this->helper('sales')->__('My Coupons') ?></h2>
+<?php $iCount = 0;?>
+
+<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+<?php echo $this->getChildHtml('info');?>
+
+<?php //if($aLoyaltyRules->getSize()): ?>
+	<!--<p class="text">You have <strong><?php //echo $aLoyaltyRules->getSize(); ?></strong> coupons</p>-->
+
+<?php if(count($aLoyaltyRules)): ?>
+	<p class="text">You have <strong><?php echo count($aLoyaltyRules); ?></strong> coupons</p>
+	<p class="underline"></p>
+
+	<table width="100%" cellpadding="5" cellspacing="0" border="0" class="listCoupons">
+		<tr>
+			<td colspan="6" class="pagerNav">
+				<?php echo $this->getPagerHtml(); ?>
+			</td>
+		</tr>
+		<tr>
+			<th class="couponNo"><?php echo $this->__('Coupon Code') ?></th>
+			<th class="couponDesc"><?php echo $this->__('Description') ?></th>
+			<th class="couponDt"><?php echo $this->__('Expiry Date') ?></th>
+			<!--<th class="couponStatus"><?php echo $this->__('Status') ?></th>-->
+			<th class="couponStatus"><?php echo $this->__('Can Be Used') ?></th>
+			<th class="timesused"><?php echo $this->__('Times Used') ?></th>
+		</tr>
+
+		<?php $_odd = 1; ?>
+		
+		<?php
+			//print count($aLoyaltyRules);
+			foreach ($aLoyaltyRules as $_rule):
+				$actUsed = 0;
+				//print $_rule->getRuleId().'@@@@@@@'.$_rule->getUsesPerCoupon().'====>>';
+				if(!is_null($_rule->getActUsed())){
+					$actUsed = $_rule->getActUsed();
+				}
+		?>
+		<?php 	$iCount++;	?>
+				<tr class="<?php if ($_odd %2 == 0) { echo 'evenRow'; } else { echo 'oddRow';} ?>">
+					<td><?php echo wordwrap($_rule->getCode(), 25, "<br>", true); ?></td>
+					<td>
+						<?php
+							if($_rule->getValue()!=''){
+								$content = trim($_rule->getValue());
+							}else{
+								$content = trim($_rule->getName());
+							}
+							print Mage::helper('aitloyalty')->getRuleDescription($content);
+						?>
+					</td>
+					<td>
+						<?php
+							if(is_null($_rule->getExpirationDate())){
+								echo 'N/A';
+							}else{
+								echo $this->formatDate($_rule->getExpirationDate(), 'medium');
+							}
+						?>
+					</td>
+					<td>
+						<?php
+							//print $_rule->getUsesPerCustomer().'======'.$actUsed;
+							print $_rule->getUsesPerCustomer();
+							/*
+							if(is_null($_rule->getExpirationDate()) || (date('Y-m-d') <= $_rule->getExpirationDate()) || ($_rule->getUsesPerCustomer() > $actUsed)){
+								echo "Valid";
+							}else{
+								echo "Invalid";
+							}
+							*/
+						?>
+					</td>
+					<td><?php echo $actUsed;?></td>
+				</tr>
+		<?php
+			$_odd++;
+			endforeach; 
+		?>
+	
+		<tr>
+			<td colspan="6" class="heightmgr">
+			</td>
+		</tr>
+		<tr>
+			<td colspan="6" class="pagerNav">
+				<?php echo $this->getPagerHtml(); ?>
+			</td>
+		</tr>
+	</table>
+<?php endif; ?>
+
+<?php if (!$iCount): ?>
+    <?php echo $this->helper('sales')->__('No specials currently available') ?>
+<?php endif; ?>

@@ -1,0 +1,29 @@
+<?php if($this->getCollection()->getSize()): ?>
+
+    <?php if($this->getLastPageNum()>1): ?>
+    <div class="pageBotm">
+        
+	   <ul>
+	   
+		   <?php if (!$this->isFirstPage()): ?>
+					<li>
+						<a href="<?php echo $this->getPreviousPageUrl() ?>">&#8249; </a> 
+					</li>
+			<?php else : ?>
+					<li><a>&#8249; </a></li>
+			<?php endif;?>
+
+			<li><a><?php echo $this->getCurrentPage() ?>/<?php echo $this->getTotalNum() ?></a></li>
+	  	
+			<?php if (!$this->isLastPage()): ?>
+			<li>
+			   <a href="<?php echo $this->getNextPageUrl() ?>">&#8250;</a>
+			</li>
+			<?php else : ?>
+				<li><a>&#8250; </a></li>
+			<?php endif;?>
+		</ul>
+    </div>
+    <?php endif; ?>
+
+<?php endif ?>

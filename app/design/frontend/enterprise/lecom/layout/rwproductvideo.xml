@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * RocketWeb
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ *
+ * @category   RocketWeb
+ * @package    RocketWeb_ProductVideo
+ * @copyright  Copyright (c) 2011 RocketWeb (http://rocketweb.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @author     RocketWeb
+ */
+
+Supported layout update handles (action):
+- catalog_product_view
+-->
+<layout version="0.1.0">
+
+<!--
+Adds video after thumbs
+-->
+	<default>
+		<reference name="head">
+			
+		</reference>		
+    </default>
+    
+    <catalog_product_view translate="label">
+		<reference name="head">
+			<action method="addCss" ifconfig="rocketweb_productvideo/settings/fancybox"><stylesheet>css/fancybox/fancybox.css</stylesheet></action>
+			
+			<!--<action method="addJs" ifconfig="rocketweb_productvideo/settings/jquery"><script>rocketweb/jquery/jquery-1.4.4.min.js</script></action>-->
+			<action method="addJs" ifconfig="rocketweb_productvideo/settings/fancybox"><script>rocketweb/jquery/jquery.noconflict.js</script></action>
+			<action method="addJs" ifconfig="rocketweb_productvideo/settings/fancybox"><script>rocketweb/jquery/jquery.easing-1.3.pack.js</script></action>
+			<action method="addJs" ifconfig="rocketweb_productvideo/settings/fancybox"><script>rocketweb/jquery/jquery.mousewheel-3.0.4.pack.js</script></action>
+			<action method="addJs" ifconfig="rocketweb_productvideo/settings/fancybox"><script>rocketweb/jquery/fancybox/jquery.fancybox-1.3.4.pack.js</script></action>
+		</reference>
+    	<reference name="content">
+    		<reference name="product.info">
+    			<reference name="product.info.media">
+    				<!--block type="productvideo/video" name="product.info.media.video" as="media_video" template="rwproductvideo/video.phtml"/-->
+    			</reference>
+    		</reference>
+    	</reference>
+    </catalog_product_view>
+
+</layout>

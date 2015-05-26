@@ -1,0 +1,26 @@
+<!doctype html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+    <?php echo $this->getChildHtml('head') ?>
+    <?php echo $this->getChildHtml('after_body_start') ?>
+</head>
+<body <?php echo $this->getBodyClass() ? ' class="' . $this->getBodyClass() . '"' : '' ?>>
+    <div id="container">
+        <div role="main">
+            <section>
+                <div class="clearfix" id="bodycontainer">
+                    <div class="mainTop"></div>
+                    <div class="mainbody">                        
+                        <?php echo $this->getChildHtml('content') ?>                        
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <?php echo $this->getAbsoluteFooter() ?>
+</body>
+</html>

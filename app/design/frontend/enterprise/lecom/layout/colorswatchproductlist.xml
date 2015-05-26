@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+	<catalog_category_default>
+		<reference name="product_list">
+			<action method="setTemplate" ifconfig="smdesign_colorswatch/product_list/enabled"><template>colorswatch/product/list.phtml</template></action>
+		</reference>
+	</catalog_category_default>
+	<catalog_category_layered>
+		<reference name="product_list">
+			<action method="setTemplate" ifconfig="smdesign_colorswatch/product_list/enabled"><template>colorswatch/product/list.phtml</template></action>
+		</reference>
+	</catalog_category_layered>
+</layout>

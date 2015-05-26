@@ -1,0 +1,68 @@
+<?php $_order = $this->getOrder() ?>
+<style>
+    .details_block { width: 990px; }
+    .details_block .details_block_top { display: none; }
+    .details_block .details_block_bottom { display: none; }
+    .details_block .details_block_bg { background: none; }
+    .order-detail-item-head { margin: 0px;  font-size: small; padding: 16px 5px 15px;
+	 background-color: #fcfcfc; }
+    .details_block .details_block_bg { width: 990px; }
+    .tracker {font-size: medium; width: 400px !important; line-height: 2; overflow: hidden; margin-top: 5px; float: left;}
+</style>
+
+                        <?php  
+                         $status = $this->getOrder()->getStatusLabel();
+                         $order_id = $this->getOrder()->getIncrementId();
+                            $order = Mage::getModel('sales/order')->loadByIncrementId($order_id); 
+                            $shipmentCollection = $order->getShipmentsCollection();
+                            foreach($shipmentCollection as $shipment){
+
+                             $shipmentIncrementId = $shipment->getIncrementId();
+                            $shipment=Mage::getModel('sales/order_shipment')->loadByIncrementId($shipmentIncrementId);
+
+                            foreach ($shipment->getAllTracks() as $track) 
+                            {
+                               $track_number=$track->getnumber();
+                               $track_title=$track->gettitle();
+
+                            }
+                           
+                            } 
+
+                        $provider = Mage::getModel("provider/provider")->getCollection()
+                                    ->addFilter('shippingprovider_name',$track_title);
+
+                            foreach ($provider as $track_provider){
+                            $shipping_url=$track_provider->getshippingprovider_action();
+                            }  ?>
+
+                            <?php //$sentToErp = $this->getOrder()->getData('sent_to_erp');
+                               // $blinke_status= Mage::getModel('fulfillment/process')->getDcStatus($sentToErp); ?>
+
+<div class="order-detail-item-head"><strong>ORDER NO: <?php echo $_order->getRealOrderId(); ?></strong> &nbsp; &nbsp; &nbsp; Total Item: 
+    <?php echo $_order->getTotalItemCount(); ?> Qty <span  class="fr fs18 c-pantone  ">
+        <?php if($track_number != ''){ 
+                echo "AWB No.: ".$track_number;
+            ?>  
+        <a href="<?php echo $shipping_url;?>" class="trackbut" target="_blank" title="Copy AWB No.">Track Order </a>
+        <?php } else { echo "In Processing"; }?>
+&nbsp; 
+        <?php echo Mage::helper('core')->currency($_order->getGrandTotal(), true, false); ?></span></div>
+<?php $_items = $_order->getItemsCollection(); ?>
+
+<?php $_index = 0; ?>
+<?php $_count = $_items->count(); ?>
+<?php foreach ($_items as $_item): ?>
+<?php if ($_item->getParentItem())
+        continue; ?>
+<?php echo $this->getItemHtml($_item) ?>
+<?php endforeach; ?>
+<?php if (0) { ?>
+<div class="total_block">
+    <div class="subtotal">
+        <form action="" method="post">
+            <?php echo $this->getChildHtml('order_totals') ?>
+        </form>
+    </div>
+</div>
+<?php } ?>

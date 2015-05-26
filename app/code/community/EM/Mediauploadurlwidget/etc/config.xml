@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magento
+ *
+ *  
+ *
+ * @package     EM_MediaUploadUrlWidget
+ * @copyright   Copyright (c) 2009 Quick Solution LT
+ * 
+ */
+-->
+<config>
+    <modules>
+        <EM_Mediauploadurlwidget>
+            <version>0.0.1</version>
+        </EM_Mediauploadurlwidget>
+    </modules>
+    <global>
+        <helpers>
+            <mediauploadurlwidget>
+                <class>EM_Mediauploadurlwidget_Helper</class>
+            </mediauploadurlwidget>
+        </helpers>
+        <blocks>
+             <mediauploadurlwidget>
+                <class>EM_Mediauploadurlwidget_Block</class>
+             </mediauploadurlwidget>
+        </blocks>
+<!--        <models>
+             <mediawidget>
+                <class>EM_MediaWidget_Model</class>
+             </mediawidget>
+        </models>
+-->
+    </global>
+</config>

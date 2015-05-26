@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <adminhtml_report_product_workflow>
+        <reference name="content">
+            <block type="productreports/adminhtml_report_workflow" template="report/grid/container.phtml" name="productreports.workflow.grid.container">
+                <block type="productreports/adminhtml_report_workflow_filter_form" name="grid.filter.form" />
+            </block>
+        </reference>
+    </adminhtml_report_product_workflow>
+    <adminhtml_report_product_stockprice>
+        <reference name="content">
+            <block type="productreports/adminhtml_report_stockprice" template="report/grid/container.phtml" name="productreports.stockprice.grid.container">
+                <block type="productreports/adminhtml_report_stockprice_filter_form" name="grid.filter.form" />
+            </block>
+        </reference>
+    </adminhtml_report_product_stockprice>
+    <adminhtml_report_product_stock>
+        <reference name="content">
+            <block type="productreports/adminhtml_report_stock" template="report/grid/container.phtml" name="productreports.stock.grid.container">
+                <block type="productreports/adminhtml_report_stock_filter_form" name="grid.filter.form" />
+            </block>
+        </reference>
+    </adminhtml_report_product_stock>
+    <adminhtml_report_sales_detailedorders>
+        <reference name="content">
+            <block type="productreports/adminhtml_report_ordersdetailed" template="report/grid/container.phtml" name="productreports.ordersdetailed.grid.container">
+                <block type="productreports/adminhtml_report_ordersdetailed_filter_form" name="grid.filter.form" />
+            </block>
+        </reference>
+    </adminhtml_report_sales_detailedorders>
+</layout>

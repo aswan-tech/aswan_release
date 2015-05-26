@@ -1,0 +1,9 @@
+@font-face {
+    font-family: 'LatoRegular';
+    src: url('lato-regular.eot');
+    src: url('lato-regular.eot') format('embedded-opentype'),
+         url('lato-regular.woff2') format('woff2'),
+         url('lato-regular.woff') format('woff'),
+         url('lato-regular.ttf') format('truetype'),
+         url('lato-regular.svg#LatoRegular') format('svg');
+}

@@ -1,0 +1,336 @@
+<script type="text/javascript">
+
+    function getSwatch(prod_id){
+        jQuery.ajax({
+            url: "<?php echo Mage::getBaseUrl() ?>common/index/swatchesHtml?product="+prod_id+"&page=shortlist",
+            success: function(msg){
+                jQuery("#swatch_div_"+prod_id).html(msg);
+            }
+        });
+    }
+
+    function selectOption(prodId,colorId,sizeId,skinUrl)
+    {
+        if(jQuery("#"+prodId+"_color_attribute_id").val()!="" && jQuery("#"+prodId+"_size_attribute_id").val() != "")
+        {
+            var cid = jQuery("#"+prodId+"_color_attribute_id").val();
+            var sid = jQuery("#"+prodId+"_size_attribute_id").val();
+            var selectedOption = prodId+'_'+cid+'_'+sid+"_opt";
+            jQuery("#"+selectedOption).attr("src", skinUrl+"/available_1.jpg");
+        }
+        jQuery("#"+prodId+"_color_attribute_id").val(colorId);
+        jQuery("#"+prodId+"_size_attribute_id").val(sizeId);
+        var newSelectedOption = prodId+'_'+colorId+'_'+sizeId+"_opt";
+        jQuery("#"+newSelectedOption).attr("src", skinUrl+"/selected.jpg");
+    }
+
+    function changeImage(prodId,simpleProdId,finalPrice,price)
+    {
+        jQuery.ajax({
+            url:"<?php echo Mage::getBaseUrl(); ?>common/index/mainImages?id="+simpleProdId,
+            //dataType:json,
+			beforeSend: function() {
+                //jQuery('.cart-loader').show();
+            },
+            success:function(result){
+                result = jQuery.parseJSON(result);
+                if(result.bigImg=="")
+                    return;
+                //jQuery('.cart-loader').hide();
+				
+                //jQuery("#image").attr("src", result.bigImg);///////////	edit here ////////////get first li and change image
+                //jQuery("#imageClick").attr("src", result.uribig);
+                jQuery(".main-image-changed").attr("value",result.bigImg);
+            }
+        });
+    }
+
+    function changeImageHovercolor(obj){
+        var idtoplay = jQuery(obj).attr("id");
+        simpleProdimg = jQuery("#"+idtoplay+"_color_img_main_image").attr("rel");
+        jQuery("#image").attr("src",simpleProdimg);
+    }
+
+    function restoreImagecolor(){
+        var newImagetoreplace =jQuery(".main-image-changed").attr("value");
+        jQuery("#image").attr("src",newImagetoreplace);
+    }
+
+    function changeImageHover(obj){
+        var idtoplay = jQuery(obj).attr("id");
+        var newImagetoreplace = jQuery("#"+idtoplay+"_image").attr("rel");
+        jQuery("#image").attr("src",newImagetoreplace);
+    }
+
+    function restoreImage(obj){
+        var idtoplay = jQuery(obj).attr("id");
+        var newImagetoreplace = jQuery("#"+idtoplay+"_image").attr("value");
+        jQuery("#image").attr("src",newImagetoreplace);
+    }
+	
+	function changeMoreView(prod,parent)
+    {
+		var this_UL_ID = 'div-prodImg-' + parent;
+		
+        jQuery.ajax({
+            url:"<?php echo Mage::getBaseUrl(); ?>common/index/shortListMoreImages?id="+prod+"&page=1",
+            beforeSend: function() {
+				//Clear Cart add notification message if any
+				jQuery("#addedToCart").html('');
+                jQuery('.cart-loader').show();
+            },
+            success:function(result){
+                jQuery('.cart-loader').hide();
+				
+                jQuery("#"+this_UL_ID+"").html(result);
+                //jQuery(".more-views .caroufredsel_wrapper").css({'width':'395px'});///////////	edit here ////////////
+                
+				
+				/////////	not sure for this	///////////////
+				//jQuery("#more-views-list-ajax li img").each(function(){
+                    //if(jQuery(this).attr('src').split('/').pop() == jQuery('#image').attr('src').split('/').pop())
+                        //jQuery(this).addClass('viewable');
+                //});
+            }
+        });
+    }
+</script>
+
+<?php
+
+$_productCollection = array();
+$shortlistedProducts = array();
+
+// Shortlisted products saved in the customer session
+$session = Mage::getSingleton('customer/session', array("name" => "frontend"));
+$shortlistedProducts = @unserialize($session->getData("shortlistedProducts"));
+
+function getAddToCartUrl($product, $additional = array()) {
+    if (Mage::helper('icart')->isEnabled()) {
+        return Mage::helper('icart')->getAddUrl($product, $additional);
+    } else {
+        return parent::getAddToCartUrl($product, $additional);
+    }
+}
+
+//print_r($session->getData("shortlistedProducts"));
+//print_r($shortlistedProducts);
+
+if(is_array($shortlistedProducts) && count($shortlistedProducts)){
+//if($session->getData("shortlistedProducts") != ''){print __LINE__;die;
+	$_productCollection = Mage::getModel('catalog/product')->getCollection()->addAttributeToSelect('*')->addAttributeToFilter('entity_id', array('in' => $shortlistedProducts));
+	$ids = implode(',', $shortlistedProducts);
+	$_productCollection->getSelect()->order("FIELD(`entity_id`, ".$ids.")");
+	//print $_productCollection->getSelect();
+}
+
+$_helper = Mage::helper('catalog/output');
+?>
+
+
+<?php if (!count($_productCollection)): ?>
+                    <p class="note-msg"><?php echo $this->__('There are no products matching the selection.') ?></p>
+<?php else: ?>
+	<?php //echo $this->getToolbarHtml() ?>
+	<?php //echo $this->getAdditionalHtml() ?>
+
+<!--BREADCRUMB WITH SORT BEGINS-->
+    <section class="gridSection">
+        <div class="clearfix rightGrid">
+            <div class="breadcrumb">
+                <ul class="clearfix">
+                    <li><a href="<?php echo $this->getBaseUrl() ?>">Home</a></li>
+                    <li class="brsep"></li>
+                    <li>View all shortlisted products</li>
+                </ul>
+            </div>
+            <div class="shortlist_top_btn">
+                <!--<button onclick="setLocation('<?php echo $this->getBaseUrl() ?>')" type="button" class="btnsubmit">Continue Shopping</button>-->
+				<button onclick="history.go(-1);" type="button" class="continue_s">Continue Shopping</button>
+                <button onclick="setLocation('<?php echo $this->getBaseUrl() ?>checkout/cart/')" type="button" class="view_bag_s">View BAG</button>
+            </div>
+        </div>
+    </section>
+    <!--ENDS HERE-->
+
+    <!--SORTING OPTIONS GRID BEGINS-->
+    <section class="gridSection">
+        <div class="clearfix rightGrid">
+            <div class="prodCategoryTitle" id="totalCount">My Shortlist of <?php echo isset($shortlistedProducts) ? count($shortlistedProducts) : 0 ; ?> Products</div>
+        </div>
+    </section>
+    <!--ENDS HERE-->
+	
+	
+	<ul class="messages" id='addedToCart'></ul>
+	<?php //$msg = $this->getMessagesBlock()->getGroupedHtml(); ?>
+	<?php //if(isset($msg) && $msg != ''): ?>
+		<?php //echo $msg; ?>
+	<?php //else: ?>
+		<?php //echo "ELSE"; ?>
+	<?php //endif; ?>
+	
+	
+    <section id="prodPanel">
+        <div class="category-products clearfix productGrid">
+        <?php $_collectionSize = $_productCollection->count() ?>
+        <?php $_columnCount = 4; ?>
+        <section class="prodGridRow">
+            <div class="clearfix shortListRow" id='shortList'>
+                <ul class="">
+                    <?php foreach ($_productCollection as $_product): ?>
+                    <?php $_productNameStripped = $this->stripTags($_product->getName(), null, true); ?>
+                        <li class="prodPanel proditem" id="prodPanel_<?php echo $_product->getId() ?>">
+						<div class="shortlist-more-views-loader" style="display:none;"></div>
+						<!--<div class="hidden">-->
+						<div>
+                            <a href="javascript:void(0);" class="remove_product" title="<?php echo Mage::getStoreConfig('shortlist/myshortlist/hoverdeletethis');?>" onclick="shortlistDelete(<?php echo $_product->getId(); ?>, '<?php echo $_product->getName(); ?>');">X</a>
+                            <form action="<?php echo Mage::getBaseUrl(); ?>checkout/cart/add"method="post" id="product_shortlist_form_<?php echo $_product->getId() ?>">
+                                <?php $_productUrl = $_product->getProductUrl(); ?>
+								
+                                <div class="prodImg" id="div-prodImg-<?php echo $_product->getId(); ?>">
+                                    <?php echo '<button type="button" onClick="setLocation(\'' . getAddToCartUrl($_product) . '\')" class="quick-view">Quick View</button>'; ?>
+                                    <?php $_gallery = Mage::getModel('catalog/product')->load($_product->getId())->getMediaGalleryImages();  ?>
+                                   <div class="caroufredsel_wrapper">
+										<ul class="product-more jcarousel-skin-tango more-views-list" id="more-views-list-<?php echo $_product->getId(); ?>">
+										   <li>
+												<a id="imagehighlight" href="<?php echo $_productUrl; ?>" title="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" class="product-image">
+													<img class="lazy" id="prodImg-<?php echo $_product->getEntityId(); ?>" data-original="<?php echo Mage::helper('catalog/image')->init($_product, 'small_image')->resize(230, 230); ?>" src="<?php echo $this->getSkinUrl('images/grey.gif') ?>" width="230" height="230" alt="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" />
+												</a>
+										   </li>
+										<?php foreach ($_gallery as $_image ):  ?>
+											<li>
+												 <a href="#"><img src="<?php echo $this->helper('catalog/image')->init($_product, 'thumbnail', $_image->getFile())->resize(230, 230); ?>" alt="<?php echo $this->htmlEscape($_image->getLabel()) ?>" title="<?php echo $this->htmlEscape($_image->getLabel()) ?>" /></a>
+											</li>
+										 <?php endforeach;  ?>
+										</ul>
+                                   </div>
+                                </div>
+
+                                <div class="prodDetails">
+                                    <h2 class="product-name">
+                                        <?php $_productname = $_helper->productAttribute($_product, $_product->getName(), 'name'); ?>
+                                        <?php if (strlen($_productname) > 30): ?>
+                                            <?php $_productname = substr($_productname, 0, 30) . '...'; ?>
+                                        <?php endif; ?>
+                                        <a href="<?php echo $_productUrl; ?>" title="<?php echo $this->stripTags($_product->getName(), null, true) ?>"><?php echo $_productname; ?></a>
+                                    </h2>
+                                    <div class="priceOpt">
+                                        <div class="cost">
+                                            <?php echo $this->getPriceHtml($_product, true) ?>
+                                        </div>
+
+                                        <div id="swatch_div_<?php echo $_product->getId(); ?>">
+											<img src='<?php echo $this->getSkinUrl('images/opc-ajax-loader.gif') ?>'/>
+										</div>
+                                        <script type="text/javascript">getSwatch('<?php echo $_product->getId(); ?>');</script>
+                                        <input name="product" value="<?php echo($_product->getId()); ?>" type="hidden">
+                                    </div>
+									
+									<?php if($_product->isSaleable()): ?>
+										<button type="button" title="<?php echo $this->__('Add to Cart') ?>" class="addtoBag" onclick="shortListAddToCartForm('<?php echo $_product->getId(); ?>', '<?php echo $_product->getName(); ?>');"><span><?php echo $this->__('Add to Cart') ?></span></button>
+									<?php endif; ?>
+									
+                                </div>
+                            </form>
+                        </div>
+						</li>
+                    <?php endforeach ?>
+                </ul>
+            </div>
+        </section>
+        <script type="text/javascript">decorateGeneric($$('ul.products-grid'), ['odd','even','first','last'])</script>
+        </div>
+    </section>
+    <!--<div class="toolbar-bottom">
+        <?php //echo $this->getToolbarBlock()->setTemplate('catalog/product/list/toolbarfooter.phtml')->toHtml(); ?>
+    </div>-->
+<?php endif; ?>
+
+<script type="text/javascript">
+
+jQuery.noConflict();
+
+    function shortListAddToCartForm(prod_id, prod_name){
+		var escProdName = escape(prod_name);
+		var unEscProdName = unescape(escProdName);
+		
+        var form_url = jQuery('#product_shortlist_form_'+prod_id).attr('action');
+        form_url = form_url.replace("checkout/cart","ajax/index"); // call addAction of custom module FCM_Ajax
+
+        var form_data = jQuery('#product_shortlist_form_'+prod_id).serialize();
+        form_data += '&isAjax=1';
+		
+        jQuery.ajax({
+            url: form_url,
+            type: 'post',
+            data: form_data,
+            dataType: 'json',
+			beforeSend: function() {
+				//Clear Cart add notification message if any
+				jQuery("#addedToCart").html('');
+                jQuery('.cart-loader').show();
+            },
+            success: function(data){
+				var returnStatus = data.status;
+                if(jQuery('.block-cart') && returnStatus!='ERROR'){
+					jQuery("#prodPanel_"+prod_id).remove();
+					
+                    jQuery('.top-cart').replaceWith(data.sidebar);
+                    truncateOptions();
+					
+					jQuery.ajax({
+						url:"<?php echo Mage::getBaseUrl(); ?>shortlist/index/shortlistDelete?prodId="+prod_id,
+						success:function(result){
+							jQuery('.cart-loader').hide();
+							if(jQuery("#totalCount").length > 0){
+								var totalCnt = jQuery("[id^='more-views-list-']").size();
+								jQuery("#totalCount").html('My Shortlist of '+totalCnt+' Products');
+								
+								//Cart add notification  message
+								jQuery("#addedToCart").html('<li class="success-msg"><ul><li><span>'+unEscProdName+' product is now a proud part of your shopping cart.</span></li></ul></li>');
+							}
+							jQuery("#shortlisted-prods-container").html(result);
+						}
+					});
+                }
+                if(returnStatus=='ERROR'){
+					jQuery('.cart-loader').hide();
+                    jQuery( function() {
+                        jAlert(returnStatus + ": " + data.message.replace("Some of the products are currently out of stock",''));
+                    });
+                }
+            }
+        });
+
+    }
+
+    jQuery("#products-list li a").hover(
+        function () {
+            jQuery(this).children().css("border","solid 1px #CCCCCC");
+        },
+        function () {
+            jQuery(this).children().css("border","0");
+        }
+    );
+
+    jQuery(".products-grid li a").hover(
+        function () {
+            jQuery(this).children().css("border","solid 1px #CCCCCC");
+        },
+        function () {
+            jQuery(this).children().css("border","0");
+        }
+    );
+
+    jQuery(document).ready(function(){
+        if(jQuery("#catimage").length == 0){
+            jQuery(".rightPanel").css("background","none repeat scroll 0% 0% transparent");
+        }
+
+        jQuery('.more-views-list').jcarousel({ horizontal: true, scroll: 1 });
+    });
+    jQuery(".prodPanel img.lazy").lazyload({
+        effect:"fadeIn"
+    });
+</script>

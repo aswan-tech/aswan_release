@@ -1,0 +1,91 @@
+"Using the form below you can enable, disable and configure display of the rule in customers' account","Usando la forma qui sotto puoi attivare, disattivare e configurare visualizzazione della regola nel account del cliente"
+"Display the rule in customers' account","Visualizzare la regola nel account del cliente"
+Yes,Si`
+No,No
+"Display the coupon code in customers' account (if applicable)"," Mostrare il codice del coupon nel account del cliente (se applicabile)"
+"Please describe the rule conditions","Si prega di descrivere le condizioni della regola"
+"Update prices using the following information","Aggiornare i prezzi usando l'informazione seguente"
+Apply,Applicare
+"Percent of product price discount","Percentuale dello sconto sul prezzo del prodotto"
+"Fixed amount discount","Importo fisso dello sconto"
+"Percent of product price surcharge","Percentuale del sovrapprezzo del prodotto"
+"Fixed amount surcharge","Importo fisso del sovrapprezzo"
+"Fixed amount discount for whole cart","Importo fisso dello sconto per tutto il carrello"
+"Fixed amount surcharge for whole cart","Importo fisso del sovrapprezzo per tutto il carrello"
+"Buy X get Y free (discount amount is Y)","Compra X ricevi Y gratis (sconto e` Y)"
+"Discount/Surcharge amount",Sconto/Sovrapprezzo
+"Maximum Qty Discount is Applied to","Sconto Massimale e` applicabile a"
+"Discount Qty Step (Buy X)","Sconto Quantita` Passo (Compra X)"
+"Free shipping","Spedizione gratis"
+"For matching items only","Solo per articoli corrispondenti"
+"For shipment with matching items","Per spedizione con articoli corrispondenti"
+"Stop further rules processing","Smettere di compilare regole"
+"Apply the rule only to cart items matching the following conditions (leave blank for all items)","Applicare regola solo agli articoli del carrello che corrispondono alle condizioni seguenti (lasciare vuoto per tutti gli articoli)"
+"Apply to","Applicare a"
+"Rule Information","Informazione su Regola"
+Conditions,Condizioni
+Actions,Azioni
+"Display Options","Opzioni di Display"
+Period,Periodo
+Total,Totale
+Subtotal,"Totale parziale"
+"Coupon Code","Codice del Coupon"
+"Number of Uses","Numero di Utenti"
+"Subtotal Amount","Importo Totale Parziale"
+"Discount(+)/Surcharge(-) Amount","Sconto(+)/Sovrapprezzo(-) Importo"
+"Total Amount","Importo Totale"
+"Number of Use","Numero degli usi"
+CSV,CSV
+Excel,Excel
+"Number of Orders","Numero degli Ordini"
+"Items Ordered","Articoli Ordinati"
+Tax,Tassa
+Shipping,Spedizione
+Discounts(+)/Surcharges(-),Sconti(+)/Sovrapprezzi(-)
+Invoiced,Fatturato
+Refunded,Restituito
+Discount,Sconto
+Discount/Surcharge,Sconto/Sovraprezzo
+"Available Specials","Prezzi Speciali Disponibili"
+"Qty to Refund","Quantita` da restituire"
+"Tax Amount","Importo di Tasse"
+"Discount Amount",Sconto
+"Row Total","Riga Totale"
+Qty,Quantita`
+"Qty to Invoice","Quantita` in Fattura"
+"Discount (%s)","Sconto (%s)"
+"Discount(+)/Surcharge(-) (%s)","Sconto(+)/Sovrapprezzo(-) (%s)"
+Discount(+)/Surcharge(-),Sconto(+)/Sovrapprezzo(-)
+"Tax Percent","Percento di Tasse"
+"Aitoc Loyalty Program","Aitoc Programma di Fedeltà"
+"Aitoc Loyalty Program functionality is disabled for some websites you specified","Funzionamento di Aitoc Programma di Fedeltà e` disattivato per alcuni siti web indicati"
+Surcharge,Sovrapprezzo
+"Surcharge (%s)","Sovrapprezzo (%s)"
+"Customer data subselection","Sottoselezione di dati del cliente"
+"Test Atrr","Testo Atrr"
+"Conditions Combination","Condizioni di Combinazione"
+"Customer Data","Dati del Cliente"
+"Amount spent during period","Importo speso entro un periodo"
+"Period of membership","Periodo di appartenenza ai membri"
+"Average order amount during period","Importo di ordini medio durante il periodo"
+Customer,Cliente
+suits,conviene
+"If a %s %s %s of these conditions:","Se %s %s %s di queste condizioni:"
+is,e`
+"is not","non e`"
+"equals or greater than","e` uguale o piu` di"
+"equals or less than","e` uguale o meno di"
+"greater than","piu` di"
+"less than","meno di"
+contains,contiene
+"does not contain","non contiene"
+"is one of","e` uno di"
+"is not one of","non e` uno di"
+"Amount spent during last","Somma spesa durante ultimi"
+"Customer's membership period","Periodo di appartenenza ai membri del cliente"
+"Average order during last","Ordine medio durante ultimi"
+"Aitoc Loyalty Program functionality has been disabled for the following store(s):","Funzionamento di Aitoc Programma di Fedeltà e` disattivato per seguente(i) negozio(i):"
+"Aitoc Loyalty Program functionality is disabled for some stores in websites you specified","Funzionamento di Aitoc Programma di Fedeltà e` disattivato per alcuni negozi in siti web indicati:"
+"Surcharge Amount","Importo dei Sovrapprezzi"
+available,disponibile
+"No specials currently available","Non ci sono prezzi speciali attualmente disponibili"

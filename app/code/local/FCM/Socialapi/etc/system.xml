@@ -1,0 +1,361 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <tabs>
+        <fcmfulfillment module="socialapi" translate="label">
+            <label>Configuration Tab</label>
+            <sort_order>280</sort_order>
+        </fcmfulfillment>
+    </tabs>
+    <sections>
+        <socialapi translate="label" module="socialapi">
+            <label>Social API Settings</label>
+            <tab>fcmfulfillment</tab>
+            <sort_order>1000</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <facebook translate="label">
+                    <label>Facebook API Keys</label>
+                    <sort_order>101</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <appid translate="label">
+                            <label>Application ID</label>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <frontend_type>text</frontend_type>
+                        </appid>
+                        <redirecturi translate="label">
+                            <label>Redirect URL</label>
+                            <sort_order>21</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <frontend_type>text</frontend_type>
+                        </redirecturi>
+                        <invitemsg_1 translate="label">
+                            <label>Message to be sent 1</label>
+                            <comment>
+                                <![CDATA[<span class="notice">Please ensure message length not to be more than 255 characters.</span>]]>
+                            </comment>
+                            <sort_order>22</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <frontend_type>textarea</frontend_type>
+                            <validate>validate-length maximum-length-255</validate>
+                        </invitemsg_1>
+                        <invitemsg_2 translate="label">
+                            <label>Message to be sent 2</label>
+                            <comment>
+                                <![CDATA[<span class="notice">Please ensure message length not to be more than 255 characters.</span>]]>
+                            </comment>
+                            <sort_order>23</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <frontend_type>textarea</frontend_type>
+                            <validate>validate-length maximum-length-255</validate>
+                        </invitemsg_2>
+                        <invitemsg_3 translate="label">
+                            <label>Message to be sent 3</label>
+                            <comment>
+                                <![CDATA[<span class="notice">Please ensure message length not to be more than 255 characters.</span>]]>
+                            </comment>
+                            <sort_order>24</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <frontend_type>textarea</frontend_type>
+                            <validate>validate-length maximum-length-255</validate>
+                        </invitemsg_3>
+                        <invitemsg_4 translate="label">
+                            <label>Message to be sent 4</label>
+                            <comment>
+                                <![CDATA[<span class="notice">Please ensure message length not to be more than 255 characters.</span>]]>
+                            </comment>
+                            <sort_order>25</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <frontend_type>textarea</frontend_type>
+                            <validate>validate-length maximum-length-255</validate>
+                        </invitemsg_4>
+                        <invitemsg_5 translate="label">
+                            <label>Message to be sent 5</label>
+                            <comment>
+                                <![CDATA[<span class="notice">Please ensure message length not to be more than 255 characters.</span>]]>
+                            </comment>
+                            <sort_order>26</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <frontend_type>textarea</frontend_type>
+                            <validate>validate-length maximum-length-255</validate>
+                        </invitemsg_5>
+                    </fields>
+                </facebook>
+                <gmail translate="label">
+                    <label>Gmail API Keys</label>
+                    <sort_order>102</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <clientid translate="label">
+                            <label>Client ID</label>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <frontend_type>text</frontend_type>
+                        </clientid>
+                        <clientsecret translate="label">
+                            <label>Client Secret Key</label>
+                            <sort_order>21</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <frontend_type>text</frontend_type>
+                        </clientsecret>
+                        <redirecturi translate="label">
+                            <label>Redirect URL</label>
+                            <sort_order>22</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <frontend_type>text</frontend_type>
+                        </redirecturi>
+                        <invitesubject translate="label">
+                            <label>Subject for mail</label>
+                            <sort_order>23</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <frontend_type>text</frontend_type>
+                        </invitesubject>
+                        <invitemsg_1 translate="label">
+                            <label>Message to be sent 1</label>
+                            <sort_order>24</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <frontend_type>textarea</frontend_type>
+                        </invitemsg_1>
+                        <invitemsg_2 translate="label">
+                            <label>Message to be sent 2</label>
+                            <sort_order>25</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <frontend_type>textarea</frontend_type>
+                        </invitemsg_2>
+                        <invitemsg_3 translate="label">
+                            <label>Message to be sent 3</label>
+                            <sort_order>26</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <frontend_type>textarea</frontend_type>
+                        </invitemsg_3>
+                        <invitemsg_4 translate="label">
+                            <label>Message to be sent 4</label>
+                            <sort_order>27</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <frontend_type>textarea</frontend_type>
+                        </invitemsg_4>
+                        <invitemsg_5 translate="label">
+                            <label>Message to be sent 5</label>
+                            <sort_order>28</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <frontend_type>textarea</frontend_type>
+                        </invitemsg_5>
+                    </fields>
+                </gmail>
+                <yahoo translate="label">
+                    <label>Yahoo API Keys</label>
+                    <sort_order>103</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <oauthconsumerkey translate="label">
+                            <label>Oauth Consumer Key</label>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <frontend_type>text</frontend_type>
+                        </oauthconsumerkey>
+                        <oauthconsumersecret translate="label">
+                            <label>Oauth Consumer Secret</label>
+                            <sort_order>21</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <frontend_type>text</frontend_type>
+                        </oauthconsumersecret>
+                        <callbackurl translate="label">
+                            <label>Callback URL</label>
+                            <sort_order>22</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <frontend_type>text</frontend_type>
+                        </callbackurl>
+                        <invitesubject translate="label">
+                            <label>Subject for mail</label>
+                            <sort_order>23</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <frontend_type>text</frontend_type>
+                        </invitesubject>
+                        <invitemsg_1 translate="label">
+                            <label>Message to be sent 1</label>
+                            <sort_order>24</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <frontend_type>textarea</frontend_type>
+                        </invitemsg_1>
+                        <invitemsg_2 translate="label">
+                            <label>Message to be sent 2</label>
+                            <sort_order>25</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <frontend_type>textarea</frontend_type>
+                        </invitemsg_2>
+                        <invitemsg_3 translate="label">
+                            <label>Message to be sent 3</label>
+                            <sort_order>26</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <frontend_type>textarea</frontend_type>
+                        </invitemsg_3>
+                        <invitemsg_4 translate="label">
+                            <label>Message to be sent 4</label>
+                            <sort_order>27</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <frontend_type>textarea</frontend_type>
+                        </invitemsg_4>
+                        <invitemsg_5 translate="label">
+                            <label>Message to be sent 5</label>
+                            <sort_order>28</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <frontend_type>textarea</frontend_type>
+                        </invitemsg_5>
+                    </fields>
+                </yahoo>
+                <twitter translate="label">
+                    <label>Twitter API Keys</label>
+                    <sort_order>104</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <consumerkey translate="label">
+                            <label>Consumer Key</label>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <frontend_type>text</frontend_type>
+                        </consumerkey>
+                        <consumersecret translate="label">
+                            <label>Consumer Secret</label>
+                            <sort_order>21</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <frontend_type>text</frontend_type>
+                        </consumersecret>
+                        <oauthcallback translate="label">
+                            <label>Oauth Callback</label>
+                            <sort_order>22</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <frontend_type>text</frontend_type>
+                        </oauthcallback>
+                        <invitemsg_1 translate="label">
+                            <label>Message to be sent 1</label>
+                            <comment>
+                                <![CDATA[<span class="notice">Please ensure message length not to be more than 140 characters.</span>]]>
+                            </comment>
+                            <sort_order>23</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <frontend_type>textarea</frontend_type>
+                            <validate>validate-length maximum-length-140</validate>
+                        </invitemsg_1>
+                        <invitemsg_2 translate="label">
+                            <label>Message to be sent 2</label>
+                            <comment>
+                                <![CDATA[<span class="notice">Please ensure message length not to be more than 140 characters.</span>]]>
+                            </comment>
+                            <sort_order>24</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <frontend_type>textarea</frontend_type>
+                            <validate>validate-length maximum-length-140</validate>
+                        </invitemsg_2>
+                        <invitemsg_3 translate="label">
+                            <label>Message to be sent 3</label>
+                            <comment>
+                                <![CDATA[<span class="notice">Please ensure message length not to be more than 140 characters.</span>]]>
+                            </comment>
+                            <sort_order>25</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <frontend_type>textarea</frontend_type>
+                            <validate>validate-length maximum-length-140</validate>
+                        </invitemsg_3>
+                        <invitemsg_4 translate="label">
+                            <label>Message to be sent 4</label>
+                            <comment>
+                                <![CDATA[<span class="notice">Please ensure message length not to be more than 140 characters.</span>]]>
+                            </comment>
+                            <sort_order>26</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <frontend_type>textarea</frontend_type>
+                            <validate>validate-length maximum-length-140</validate>
+                        </invitemsg_4>
+                        <invitemsg_5 translate="label">
+                            <label>Message to be sent 5</label>
+                            <comment>
+                                <![CDATA[<span class="notice">Please ensure message length not to be more than 140 characters.</span>]]>
+                            </comment>
+                            <sort_order>27</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <frontend_type>textarea</frontend_type>
+                            <validate>validate-length maximum-length-140</validate>
+                        </invitemsg_5>
+                    </fields>
+                </twitter>
+            </groups>
+        </socialapi>
+    </sections>
+</config>

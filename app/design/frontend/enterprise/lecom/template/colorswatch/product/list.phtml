@@ -1,0 +1,297 @@
+<?php
+/**
+ * Product list template
+ *
+ * @see Mage_Catalog_Block_Product_List
+ */
+?>
+<?php
+	
+	$_productCollection=$this->getLoadedProductCollection();
+	$_helper = $this->helper('catalog/output');
+	$flag=0;
+	if(isset($_SERVER['REQUEST_URI'])){
+		$_tempVar = $_SERVER['REQUEST_URI'];
+		if(strpos($_tempVar,"q=439ed537979d8e831561964dbbbd7413")){
+			$flag=1;
+		}
+	}
+	$listHelper = Mage::helper('colorswatchproductlist');
+
+?>
+<?php $word = $this->helper('catalogsearch')->getEscapedQueryText(); ?>
+<?php if(!Mage::registry('current_category') && $word == '439ed537979d8e831561964dbbbd7413'): ?>
+		<?php $param = $_GET['cat']; ?>
+		<?php $_catName = Mage::getModel('catalog/category')->load($param)->getName(); ?>
+		<?php if(isset($_catName)): ?>
+			<div class="prodCategoryTitle"><?php echo $_catName; ?></div>
+		<?php else: ?>
+			<div class="prodCategoryTitle"></div>
+		<?php endif; ?>
+<?php endif; ?>
+<?php if(!$_productCollection->count()): ?>
+<p class="note-msg"><?php echo $this->__('There are no products matching the selection.') ?></p>
+<?php else: ?>
+
+    <?php echo $this->getToolbarHtml() ?>
+<?php echo $this->getAdditionalHtml() ?>
+<section id="prodPanel">
+<div class="category-products clearfix productGrid">
+    <?php // List mode ?>
+    <?php if($this->getMode()!='grid'): ?>
+    <?php $listHelper->setZoomType(0);?>
+    <?php $productListConfig = $listHelper->productListConfig();?>
+    <?php $_iterator = 0; ?>
+    <ol class="products-list" id="products-list">
+    <?php foreach ($_productCollection as $_product): ?>
+        <li class="item<?php if( ++$_iterator == sizeof($_productCollection) ): ?> last<?php endif; ?> item-<?php echo $_product->getId()?>">
+            <?php // Product Image ?>
+           	<?php if ($productListConfig['use_zoom']) : ?>
+            <a id="image-zoom-<?php echo $_product->getId();?>" href="<?php echo $_product->getProductUrl() ?>" rel="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize($productListConfig['upscale_image_width'],$productListConfig['upscale_image_height']);?>" class="product-image">
+            	<img id="image-<?php echo $_product->getId();?>" src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize($productListConfig['list_image_width'],$productListConfig['list_image_height']); ?>"  alt="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" />
+            </a>
+            <?php else : ?>
+           	<a style="overflow:hidden;display:block;width:<?php echo $productListConfig['list_image_width'];?>px;height:<?php echo $productListConfig['list_image_height'];?>px;position:relative;" href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" class="product-image">
+            	<img id="image-<?php echo $_product->getId();?>" src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize($productListConfig['list_image_width'],$productListConfig['list_image_height']); ?>"  alt="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" />
+            </a>
+            <?php endif; ?>
+            <?php // Product description ?>
+            <div class="product-shop">
+                <div class="f-fix">
+                    <?php $_productNameStripped = $this->stripTags($_product->getName(), null, true); ?>
+                    <h2 class="product-name">
+						<?php $_productname = $_helper->productAttribute($_product, $_product->getName(), 'name'); ?>
+						<?php if(strlen($_productname) > 30): ?>
+							<?php $_productname = substr($_productname,0,30).'...'; ?>
+						<?php endif; ?>
+						<a href="<?php echo $_productUrl; ?>" title="<?php echo $this->stripTags($_product->getName(), null, true) ?>"><?php echo $_productname; ?>
+						</a>
+					</h2>
+
+					<?php if ( $_product->getData('smd_colorswatch_product_list') && Mage_Catalog_Model_Product_Type::TYPE_CONFIGURABLE == $_product->getTypeId() ) : ?>
+					
+						<?php $listHelper->showSwatches($_product); ?>
+
+						<?php if($_product->getRatingSummary()): ?>
+						<?php echo $this->getReviewsSummaryHtml($_product) ?>
+						<?php endif; ?>
+						<?php echo $this->getPriceHtml($_product, true) ?>
+
+						<?php $usedAttributes = $_product->getTypeInstance(true)->getUsedProductAttributes($_product); ?>
+						<?php if($_product->isSaleable() && count($usedAttributes) == 0): ?>
+							<p><button type="button" title="<?php echo $this->__('Add to Cart') ?>" class="button btn-cart" onclick="setLocation('<?php echo $this->getAddToCartUrl($_product) ?>')"><span><span><?php echo $this->__('Add to Cart') ?></span></span></button></p>
+						<?php elseif ($_product->isSaleable() && count($usedAttributes) <= 1): ?>
+							 <p><button type="button" title="<?php echo $this->__('Add to Cart') ?>" class="button btn-cart" onclick="validateAttributeSelection(this);"><span><span><?php echo $this->__('Add to Cart') ?></span></span></button></p>
+						<?php elseif ($_product->isSaleable() && count($usedAttributes) > 1): ?>
+							<p><button type="button" title="<?php echo $this->__('Confiugre Product') ?>" class="button btn-configure" onclick="setLocation('<?php echo $_product->getProductUrl() ?>')"><span><span><?php echo $this->__('Confiugre Product') ?></span></span></button></p>
+						<?php else: ?>
+							<p class="availability out-of-stock"><span><?php echo $this->__('Out of stock') ?></span></p>
+						<?php endif; ?>
+					<?php elseif (!$_product->getData('smd_colorswatch_product_list') && Mage_Catalog_Model_Product_Type::TYPE_CONFIGURABLE == $_product->getTypeId()) : ?>		
+						<?php if($_product->isSaleable()): ?>
+							<p><button type="button" title="<?php echo $this->__('Confiugre Product') ?>" class="button btn-configure" onclick="setLocation('<?php echo $_product->getProductUrl() ?>')"><span><span><?php echo $this->__('Confiugre Product') ?></span></span></button></p>
+						<?php else: ?>
+							<p class="availability out-of-stock"><span><?php echo $this->__('Out of stock') ?></span></p>
+						<?php endif; ?>
+					<?php else : ?>
+						<?php if( $_product->isSaleable() ) : ?>
+							<p><button type="button" title="<?php echo $this->__('Add to Cart') ?>" class="button btn-cart" onclick="setLocation('<?php echo $this->getAddToCartUrl($_product) ?>')"><span><span><?php echo $this->__('Add to Cart') ?></span></span></button></p>
+						<?php else: ?>
+							<p class="availability out-of-stock"><span><?php echo $this->__('Out of stock') ?></span></p>
+						<?php endif; ?>
+					<?php endif; ?>	
+						
+                    <div class="desc std">
+                        <?php echo $_helper->productAttribute($_product, $_product->getShortDescription(), 'short_description') ?>
+                        <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $_productNameStripped ?>" class="link-learn"><?php echo $this->__('Learn More') ?></a>
+                    </div>
+                    <ul class="add-to-links">
+                        <?php if ($this->helper('wishlist')->isAllow()) : ?>
+                            <li><a href="<?php echo $this->helper('wishlist')->getAddUrl($_product) ?>" class="link-wishlist"><?php echo $this->__('Add to Wishlist') ?></a></li>
+                        <?php endif; ?>
+                        <?php if($_compareUrl=$this->getAddToCompareUrl($_product)): ?>
+                            <li><span class="separator">|</span> <a href="<?php echo $_compareUrl ?>" class="link-compare"><?php echo $this->__('Add to Compare') ?></a></li>
+                        <?php endif; ?>
+                    </ul>
+                </div>
+            </div>
+        </li>
+    <?php endforeach; ?>
+    </ol>
+    <script type="text/javascript">decorateList('products-list', 'none-recursive')</script>
+    <?php else: ?>
+    <?php  // Grid Mode ?>
+    <?php $listHelper->setZoomType(2);?>
+    <?php $productListConfig = $listHelper->productListConfig();?>
+    
+    <?php $_collectionSize = $_productCollection->count() ?>
+    <?php $_columnCount = $this->getColumnCount(); ?>
+    <?php $i=0; foreach ($_productCollection as $_product): ?>
+        <?php if ($i++%$_columnCount==0): ?>
+		<section class="prodGridRow">
+		<div class="clearfix prodRow">
+        <ul class="">
+        
+		<?php endif ?>
+		<?php $_productNameStripped = $this->stripTags($_product->getName(), null, true); ?>
+			<li class="proditem item<?php if(($i-1)%$_columnCount==0): ?> first<?php elseif($i%$_columnCount==0): ?> last<?php endif; ?> item-<?php echo $_product->getId()?>">
+            <div class="prodPanel"> 
+				<?php if($flag == 1): ?>
+					<?php $_productUrl = $_product->getProductUrl().'?sale=true'; ?>
+
+
+				<?php else: ?>
+					<?php  $_productUrl = $_product->getProductUrl(); ?>
+				<?php endif; ?>
+	           	<a style="position:relative;" href="<?php echo $_productUrl; ?>" title="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" class="product-image">
+					<div class="prodImg" id="prodImg-swatch">
+						<img id="image-<?php echo $_product->getId();?>" src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(230,230); ?>"  alt="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" />
+					</div>
+	            </a>
+				<div class="prodDetails">
+					<h2 class="name product-name">
+						<?php $_productname = $_helper->productAttribute($_product, $_product->getName(), 'name'); ?>
+						<?php if(strlen($_productname) > 30): ?>
+							<?php $_productname = substr($_productname,0,30).'...'; ?>
+						<?php endif; ?>
+						<a href="<?php echo $_productUrl; ?>" title="<?php echo $this->stripTags($_product->getName(), null, true) ?>"><?php echo $_productname; ?>
+						</a>
+						</a>
+					</h2>
+							
+				<?php if($_product->getRatingSummary()): ?>
+					<?php //echo $this->getReviewsSummaryHtml($_product) ?>
+				<?php endif; ?>
+				<div class="priceOpt">
+					<span class="cost">
+						<?php echo $this->getPriceHtml($_product, true) ?>
+					</span>
+				</div>
+			
+				<div class="color-swatches">
+				<?php if ( $_product->getData('smd_colorswatch_product_list') && Mage_Catalog_Model_Product_Type::TYPE_CONFIGURABLE == $_product->getTypeId() ) : ?>
+					<?php $listHelper->showSwatches($_product,true); ?>
+				<?php endif; ?>
+
+				</div>
+			
+			</div>
+				
+				
+				
+				
+		</div>
+     </li>
+        <?php if ($i%$_columnCount==0 || $i==$_collectionSize): ?>
+        </ul>
+		</div>
+		</section>
+        <?php endif ?>
+        <?php endforeach ?>
+        <script type="text/javascript">decorateGeneric($$('ul.products-grid'), ['odd','even','first','last'])</script>
+    <?php endif; ?>
+	</div>
+</section>
+		
+	<?php
+		if ($this->helper('colorswatch')->hasError()) {
+			echo '<p class="error">' . $this->helper('colorswatch')->getError() . '</p>';
+		}
+	?>
+		
+    <div class="toolbar-bottom">
+		<?php echo $this->getToolbarBlock()->setTemplate('catalog/product/list/toolbarfooter.phtml')->toHtml(); ?> 
+   
+</div>
+<?php endif; ?>
+<script type="text/javascript">
+jQuery(function(){jQuery("select,input[type=checkbox]").uniform();});
+
+			
+$$('.category-products .item').each( function(elementLi, index) {
+
+	productIdExec = /item-([\d]+)/g.exec(elementLi.className);
+	productId = productIdExec[1] ? productIdExec[1] : -1;
+
+	<?php if ($productListConfig['use_zoom']) : ?>
+	if (productId > 0) {;
+		new SMDZoom('image-'+productId, {
+			useParentNode: true,
+			useRel: true,
+			zoomRatio: <?php echo $listHelper->config['zoom_ratio']; ?>,
+			errorReport: <?php echo $listHelper->config['show_info_error'] ? 'true' :  'false'; ?>,
+			width: <?php echo $listHelper->config['wrapper_width']; ?>,
+			height: <?php echo $listHelper->config['wrapper_height']; ?>,
+			offsetLeft: <?php echo $listHelper->config['wrapper_offset_left']; ?>,
+			offsetTop: <?php echo $listHelper->config['wrapper_offset_top']; ?>,
+			onclick: function(zoomClass) { },
+			dblclick: function(zoomClass) { },
+			insideZoom: <?php echo $listHelper->config['zoom_type'] != 0  ? 'true' :  'false'; ?>,
+			insideZoomFull: <?php echo $listHelper->config['zoom_type'] ? 'true' :  'false'; ?>
+		});
+	}
+	<?php endif; ?>
+
+	elementLi.select('ul.colorswatch-attribute li').each( function(swatchElementLi, index) {
+
+		swatchElementLiExec = /colorswatch-([\d]+)-([\d]+)/g.exec(swatchElementLi.className);
+		attributeId = swatchElementLiExec[1];
+		optionId = swatchElementLiExec[2];
+
+		Event.observe(swatchElementLi, 'click', function() {
+			swatchElementLiExec = /colorswatch-([\d]+)-([\d]+)/g.exec(this.className);
+			attributeId = swatchElementLiExec[1];
+			optionId = swatchElementLiExec[2];
+
+			itemElement = this.up('li.item');
+			productIdExec = /item-([\d]+)/g.exec(itemElement.className);
+			productId = productIdExec[1] ? productIdExec[1] : -1;
+
+			<?php /* adding pre load element if not exsist */ ?>
+			if (typeof(itemElement.preloadElement) == 'undefined') {
+				itemElement.preloadElement = document.createElement('DIV');
+				Element.setStyle(itemElement, { position:'relative' });
+				Element.setStyle(itemElement.preloadElement, { background:'#111', position:'absolute', top: 0, left: 0, opacity:.4, width:'100%', height:'100%' });
+				itemElement.loadingIMG = document.createElement('IMG');
+				Element.setStyle(itemElement.loadingIMG, { top:'45%', left:'45%', position:'absolute', opacity:1 });
+				itemElement.loadingIMG.src = '<?php echo $this->getSkinUrl(); ?>/images/colorswatch/colorswatch_loading.gif';
+			}
+			var newitemElement = document.getElementById('prodImg-swatch');
+			
+			var newitemElement = $('image-'+productId).up('div');
+			
+			newitemElement.appendChild(itemElement.preloadElement);
+			newitemElement.appendChild(itemElement.loadingIMG);
+
+			$('hidden-attribute-'+productId+'-'+attributeId).value = optionId;
+
+			selection = {};
+			itemElement.select('.hidden-super-attribute-select').each( function(element, index) {
+				attributeIdExec = /hidden-attribute-([\d]+)-([\d]+)/.exec(element.id);
+				selection[attributeIdExec[2]] = element.value ? element.value : false ;
+			} );
+
+			itemElement.ajaxRequest = new Ajax.Request("<?php echo Mage::getUrl('colorswatchproductlist/get/image') ?>", {
+				method:'post',
+				parameters:'attribute_id='+attributeId+'&option_id='+optionId+'&product_id='+productId+'&selection='+Object.toJSON(selection),
+				onComplete: function(attributeId, optionId, transport) {
+					itemElement = this.up('li.item');
+					itemElement.ajaxRequest = null;
+					newitemElement.removeChild(itemElement.loadingIMG);
+					newitemElement.removeChild(itemElement.preloadElement);
+					eval(transport.responseText);
+				}.bind(this, attributeId, optionId)
+			});
+
+		} );
+
+	} );
+
+});
+function validateAttributeSelection(element) {
+	element.up('li.item').select('.hidden-super-attribute-select').each( function(element, index) {
+		Validation.validate(element);
+	} );
+	return false; 
+}
+</script>

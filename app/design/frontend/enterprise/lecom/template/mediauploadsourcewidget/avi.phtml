@@ -1,0 +1,26 @@
+<?php
+/**
+ * Magento
+ *
+ *  
+ *
+ * @package     EM_MediaUploadSourceWidget
+ * @copyright   Copyright (c) 2009 Quick Solution LT
+ * 
+ */
+?>
+<div id="<?php echo $id; ?>" class="<?php echo $class; ?>" <?php echo $attrs; ?>>
+    <object classid="clsid:6BF52A52-394A-11d3-B153-00C04F79FAA6"
+            width="<?php echo $width; ?>" height="<?php echo $height; ?>">
+        <param name="URL" VALUE="<?php echo $media; ?>">
+        <param name="VOLUME" VALUE="100">
+        <param name="PLAYCOUNT" VALUE="10">
+        <param name="ENABLECONTEXTMENU" VALUE="0">
+        <embed type="application/x-mplayer2"
+               src="<?php echo $media; ?>"
+               width="<?php echo $width; ?>" height="<?php echo $height; ?>"
+               volume="0" showstatusbar="1" enablecontextmenu="0" playcount="10">
+        </embed>
+    </object>
+</div>
+

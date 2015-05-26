@@ -1,0 +1,98 @@
+<?php
+/**
+ * Product:     Layered Navigation Pro for Enterprise Edition - 16/08/12
+ * Package:     AdjustWare_Nav_10.4.9_10.0.0_557110
+ * Purchase ID: hXgQU3oI8FOfJ8PDCk5s6h6XPM5oH2Kx0N6TCAPkqN
+ * Generated:   2013-04-22 06:59:44
+ * File path:   app/design/frontend/enterprise/default/template/adjnav/filter_attribute.phtml
+ * Copyright:   (c) 2013 AITOC, Inc.
+ */
+?>
+<?php 
+$items        = $this->getItemsArray();
+$displayStyle = $this->getColumnsNum(); 
+?>
+<ol>
+<?php if ($displayStyle <=1): // one column ?>
+    <?php if ($this->getName() == "Colors") : //Color bucket attribute name ?>
+    <div class="fcolor-option">
+        <ul>
+            <?php foreach ($items as $_key => $_item): ?>
+            <li><div class="color_<?php echo str_replace(" ", "_", strtolower($_key)) ?>"><?php echo $_item ?></div></li>
+            <?php endforeach; ?>
+        </ul>
+    </div>
+    <?php elseif ($this->getName() == "Size") :?>
+    <?php
+    $arrSizeGroup = array();
+    $arrSizeGroup['Knits Topwear'] = array('XS','S','M','L','XL','XXL');
+    $arrSizeGroup['Bottomwear'] = array('28','30','32','34','36','38','40');
+    $arrSizeGroup['Woven Topwear'] = array('38','40','42','44','46');
+    $arrSizeGroup['Footwear'] = array('7','8','9','10','11');
+    $arrGrouped = array('Knits Topwear' => array(), 'Bottomwear' => array(), 'Woven Topwear' => array(), 'Footwear' => array(), 'Others' => array());
+    foreach ($this->getItems() as $_item) { 
+        $size = $_item->getLabel();
+        if (in_array($size, $arrSizeGroup['Knits Topwear'], false)) {
+            $arrGrouped['Knits Topwear'][] = $_item;
+        } elseif (in_array($size, $arrSizeGroup['Bottomwear'], false)) {
+            $arrGrouped['Bottomwear'][] = $_item;
+        } elseif (in_array($size, $arrSizeGroup['Woven Topwear'], false)) {
+            $arrGrouped['Woven Topwear'][] = $_item;
+        } elseif (in_array($size, $arrSizeGroup['Footwear'], false)) {
+            $arrGrouped['Footwear'][] = $_item;
+        } else {
+            $arrGrouped['Others'][] = $_item;
+        }
+    }
+    ?>
+    <li>
+        <?php foreach ($arrGrouped as $group_name => $group_item): ?>
+        <?php if (count($group_item)): ?>
+        <dt class="size-group-name"><?php echo $group_name ?></dt>
+        <dd>
+            <ol>
+                <?php foreach ($group_item as $_item): ?>
+                <li class="<?php echo $this->getFeaturedItemStyle($_key) ?>">
+                    <?php if ($_item->getCount() > 0): ?>
+                    <a href="<?php echo $this->urlEscape($_item->getUrl()) ?>"><?php echo $_item->getLabel() ?></a>
+                    <?php else: echo $_item->getLabel() ?>
+                    <?php endif; ?>
+                </li>
+                <?php endforeach ?>
+            </ol>
+        </dd>
+        <?php endif; ?>
+        <?php endforeach ?>
+    </li>
+    <?php else: ?>
+        <?php foreach ($items as $_key => $_item): ?>
+            <li class="<?php echo $this->getFeaturedItemStyle($_key) ?>"><?php echo $_item ?></li>
+        <?php endforeach ?>
+    <?php endif; ?>
+<?php elseif (3 == $displayStyle): // only images ?>
+<li>
+    <div class="adj-icons-filter-one-column">
+    <?php foreach ($items as $_item) echo $_item ?>
+    </div>
+</li>
+<?php else: $n = count($items); $middle = ceil($n/2); //two columns ?>
+<li>
+    <div class="adj-icons-filter-two-column">
+        <?php for ($i = 0; $i < $middle; ++$i) : ?>
+            <div class="<?php echo $this->getFeaturedItemStyle($i) ?>"><?php echo $items[$i] ?></div> 
+        <?php endfor ?>
+    </div>
+    <div class="adj-icons-filter-two-column">
+        <?php for ($i = $middle; $i < $n; ++$i) : ?>
+            <div class="<?php echo $this->getFeaturedItemStyle($i) ?>"><?php echo $items[$i] ?></div>
+        <?php endfor ?>
+    </div>
+</li>
+<?php endif ?>
+
+<?php if ($this->isShowMoreButton()) : ?>
+<li class="attr-val-more-li-<?php echo $this->getVar() ?>">
+    <a href="javascript:void(0);" class="attr-val-more" rel="<?php echo $this->getVar() ?>"><?php echo $this->__('Show more') ?></a>
+</li>
+<?php endif ?>
+</ol>

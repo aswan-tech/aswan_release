@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <catalog_product_view>
+    	<reference name="head">
+    	    
+    		
+			<!-- <action method="addJs">
+				<js>progallery/jquery.easing.js</js>
+			</action>
+			
+			<action method="addJs">
+				<js>progallery/jquery.carouFredSel-3.1.0-packed.js</js>
+			</action>
+
+			  <action method="addJs">
+				<js>progallery/jquery.progallery.thumbs_jso.js</js>
+			</action>
+			
+			<action method="addJs">
+				<js>progallery/jquery.progallery_jso.js</js>
+			</action>
+
+			
+			
+		   <action method="addCss">
+				<stylesheet>progallery/css/progallery.mage.classic.css</stylesheet>
+			</action> -->
+			
+		<action method="addCss">
+				<stylesheet>progallery/css/progallery-1.0.css</stylesheet>
+		</action>
+			
+    	</reference>
+		<reference name="product.info.media">
+            <action method="setTemplate" ifconfig="progallery/progalleryconfig/switch">
+                <template>progallery/product_view_media.phtml</template>
+            </action>
+        </reference>
+    </catalog_product_view>
+    <progallery_ajax_get_product_view>
+		<reference name="content">
+			<block output="toHtml" type="progallery/ajax" name="get_view_image" as="get_view_image" template="progallery/progallery.phtml" />
+		</reference>
+	 </progallery_ajax_get_product_view>
+</layout>  

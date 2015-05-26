@@ -1,0 +1,144 @@
+<?php
+/**
+ * Magento Enterprise Edition
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Magento Enterprise Edition License
+ * that is bundled with this package in the file LICENSE_EE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://www.magentocommerce.com/license/enterprise-edition
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     enterprise_default
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://www.magentocommerce.com/license/enterprise-edition
+ */
+
+/**
+ * Shoping cart sidebar
+ *
+ * @see Mage_Checkout_Block_Cart_Sidebar
+ */
+?>
+
+<div class="top-cart">
+
+<?php // $_cartQty = $this->getSummaryCount() ?>
+
+<?php $_cartQty = Mage::getSingleton('checkout/cart')->getSummaryQty(); ?>
+
+<?php if ($_cartQty > 0): ?>
+    <?php // $_myCart = $this->__('Shopping Bag (%s)', '<span>' . $_cartQty . '</span>') ?>
+	<?php $_myCart = $this->__('<span>' . $_cartQty . '</span>') ?>
+<?php else: ?>
+    <?php $_myCart = $this->__('<span>0</span>') ?>
+<?php endif ?>
+
+<?php if ($this->getIsLinkMode() || !$this->getIsNeedToDisplaySideBar()):?>
+    <div class="block-title no-items" id="displaycart">
+        <ul class="links cart-link">
+            <li><a href="<?php echo $this->getUrl('checkout/cart'); ?>" title="<?php echo $this->__('View 
+			Shopping Bag'); ?>"><?php echo $_myCart ?></a></li>
+        </ul>
+    </div>
+<?php else:?>
+    <div class="block-title<?php if(!$_cartQty) { echo (' no-items'); } ?>">
+        <div id="cartHeader" class="shopping_beg" title="<?php echo $this->__('View Shopping Bag'); ?>">
+			<a href="javascript:void(0)"><?php echo $_myCart ?></a>
+		</div>
+    </div>
+    <div id="topCartContent" class="block-content" style="display:none">
+        <div class="inner-wrapper"><?php // extra div to smooth slideUp and slideDown ?>
+			<p class="block-subtitle">
+				<span class="close-btn" onclick="Enterprise.TopCart.hideCart()"><?php echo $this->__('Close'); ?></span>
+			</p>
+			
+			<div id="mini-cart" class="mini-products-list">
+				<?php $_items = $this->getRecentItems() ?>
+				<?php if(count($_items)): ?>
+				<?php $promotion = trim($this->getLayout()->createBlock('cms/block')->setBlockId('mini-cart-banner')->toHTML()); ?>
+				<?php if (!empty($promotion)) : ?>
+					<div class="espot">
+						<?php echo $promotion; ?>
+					</div>
+				<?php endif; ?>
+				<?php ?>
+				<?php endif; ?>
+				<div class="cart_item">	
+					
+					<?php if(count($_items)): ?>
+					
+						<?php foreach($_items as $_item): ?>
+							<?php echo $this->getItemHtml($_item) ?>
+						<?php endforeach; ?>
+
+					<?php else: ?>
+						
+						<p class="cart-empty">
+							<?php echo $this->__('You have no items in your shopping cart.') ?>
+						</p>
+						<?php if ($this->getCartEmptyMessage()): ?>
+							<p class="cart-empty cart-empty-message"><?php echo $this->getCartEmptyMessage(); ?></p>
+						<?php endif; ?>
+						
+					<?php endif ?>
+					
+					<div class="clear"></div>
+						
+							<div class="subtotal">
+								<?php if ($this->canApplyMsrp()): ?>
+									<span class="map-cart-sidebar-total"><?php echo $this->__('ORDER TOTAL WILL BE DISPLAYED BEFORE YOU SUBMIT THE ORDER'); ?></span>
+								<?php else: ?>
+									<?php echo $this->__('SUB-TOTAL:') ?> <span class="price"><?php echo Mage::helper('checkout')->formatPrice($this->getSubtotal()) ?><?php if ($_subtotalInclTax = $this->getSubtotalInclTax()): ?> / <?php echo Mage::helper('checkout')->formatPrice($_subtotalInclTax) ?> <?php echo Mage::helper('tax')->getIncExcText(true) ?><?php endif; ?></span>
+								<?php endif; ?>
+							</div>
+						
+					<?php if ($_cartQty || $this->getAllowCartLink()): ?>
+						<?php $isPossibleOnepageCheckout = $_cartQty && $this->isPossibleOnepageCheckout() && Mage::getSingleton('checkout/session')->getQuote()->validateMinimumAmount() ?>
+						<div class="checkout_btn">
+							<button class="btnsubmit" type="button" onclick="setLocation('<?php echo $this->getUrl('checkout/cart'); ?>')"><?php echo $this->__('View BAG') ?></button>
+							
+							<?php if ($isPossibleOnepageCheckout): ?>
+								<?php echo $this->getChildHtml('extra_actions') ?>
+								<button class="btnsubmit" type="button" onclick="setLocation('<?php echo $this->getCheckoutUrl().'?cart=true' ?>')"><?php echo $this->__('Checkout Now') ?></button>
+							<?php endif ?>
+						</div>
+					<?php endif ?>
+					
+					
+				</div>	
+			</div>		
+        </div>
+    </div>
+<script type="text/javascript">
+	jQuery(document).ready(function(){
+		jQuery('.cart_item .product_list:last').removeClass('tborder').addClass('last');
+	});
+</script>
+<?php endif;?>
+</div>
+<script type="text/javascript">
+	jQuery("#displaycart").click(function() {
+		if (jQuery("#topCartContent").is(":visible")) {
+			jQuery("#topCartContent").slideUp(200);
+		} else {
+			jQuery("#topCartContent").slideDown(200);
+		} 		
+	});
+	
+	jQuery(document).ready(function(){
+		if (jQuery('.espot').length == 0) {
+			jQuery('.top-cart .block-content').css('width', '369px');
+		}
+	});
+</script>

@@ -1,0 +1,56 @@
+<?php 
+	$product = Mage::registry('current_product');
+	$catIds = $product->getCategoryIds();
+
+		$idS =array();
+			foreach($catIds as $id):
+				$Category = Mage::getModel('catalog/category')->load($id);
+				
+					if (strtolower($Category->getParentCategory()->getName())== 'get the look' || $Category->getUrlKey()=='get-the-look' && 
+					$Category->getIsActive() && $Category->getLevel() > 3) {
+						$idS[]  = $Category->getId();
+					}
+			endforeach;
+	
+				if(count($idS) > 0 ):
+?>	
+					<h3><?php echo $this->__('Associated Look') ?></h3>
+					
+					<section id="asLook">
+						<div class="asLook">
+							<ul id="mycarousel-asLook" class="jcarousel-skin-tango">
+								<?php 
+									foreach($idS as $catVal):
+										$_Category = Mage::getModel('catalog/category')->load($catVal);
+						
+										if($_Category->getThumbnail()) {											
+											$imageUrl = $_Category->getResizedImage(70,100);
+										} else {
+											$imageUrl = $this->getSkinUrl('images/looks_noimage.jpg');
+										}
+				?>
+			
+										<li>
+					<a href="<?php echo $_Category->getParentCategory()->getUrl(); ?>?lookCatId=<?php echo $_Category->getId(); ?>">
+												<img data-original="<?php echo $imageUrl; ?>" alt="<?php echo $_Category->getName(); ?>" class="looks-resize lazy" src="<?php echo $this->getSkinUrl('images/grey.gif'); ?>" />
+											</a>
+										</li>
+								<?php endforeach; ?>
+							</ul>
+						</div>
+					</section>
+		
+		<?php
+			else :
+		
+			echo $this->getLayout()->createBlock('cms/block')->setBlockId('associated_look_block')->toHtml();
+		
+			endif;
+		?>
+	
+   <!--ASSOCIATED LOOK SECTION ENDS HERE-->
+   <?php if(count($idS) > 0 ): ?>
+	   <script type="text/javascript">
+			jQuery('#mycarousel-asLook').jcarousel({ horizontal: true, scroll: 4 });
+	   </script>
+   <?php endif; ?>

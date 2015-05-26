@@ -1,0 +1,153 @@
+<script type="text/javascript">
+		jQuery(document).ready(function(){
+			jQuery('#mycarousel-getLook').jcarousel({ horizontal: true, scroll: 4});
+		});
+
+ function getDetailPage(URL)
+		{
+		  jQuery.ajax({
+              url: URL,
+			  beforeSend: function (){ 
+               jQuery('#loading').show();
+               },
+			  success: function(data) {
+			    jQuery.colorbox.remove();
+				var result = data.split(/<body[^>]*>|<\/body>/gi);
+                if(result.length==3) //body detected
+                data = result[1];
+			    data = data.replace('main col1-layout','col1-layout');
+				data = data.replace('mainbody','');
+				data = data.replace('mainTop','');
+				data = data.replace('mainBot','');
+				data = data.replace('col-main','col-main_details');
+				data = data.replace('category-image','catImage');
+				data = data.replace('slider-auto','slider-auto_new');
+				data = data.replace('page-title','page-title_new');
+				jQuery('#loading').hide();
+				jQuery('#getlook').hide();
+				jQuery('#catDetail').html(data);
+				jQuery('#catDetail').show();
+			     }
+               });
+		} 
+function showHide()
+ {  
+	jQuery('#catDetail').hide();
+	jQuery('#getlook').show();	
+ } 
+</script>	
+<style type="text/css">
+.prodCategoryTitle {
+    /*font-family: "Myriad Pro";
+    font-size: 28px;*/
+	font:normal 28px 'avenir_lt_std_35_lightregular';
+    text-align: center;
+    color: #dd3848;
+    letter-spacing: 0px;
+    margin-bottom: 15px;
+    margin-left: 23px;
+    text-transform: uppercase;
+}
+.prodCategoryTitle h1 {
+    font:normal 28px 'avenir_lt_std_35_lightregular';
+}
+#catimage {display:none;}
+.category-description{display:none;}
+#loading {opacity:.5; filter:progid:DXImageTransform.Microsoft.Alpha(Opacity=50); *filter: alpha(opacity=50); display:block; background:#ccc; height: 343px; margin-top: 18px;
+	padding-left: 203px;  position: absolute; width: 778px; z-index: 1;}
+.category-view {position:relative !important;}
+span.backLink {position:absolute; right:20px; top:-25px; font-weight:bold;}
+#blck div.cell .cellDetail {font:bold 23px/30px 'avenir_lt_std_65_mediumbold';}
+</style>
+<br />
+<p class="getLookInfo"><?php echo Mage::registry('current_category')->getDescription(); ?></p>
+<div id="catDetail"></div>
+
+<div id="loading" style="display:none;">
+  <img  src="<?php echo $this->getSkinUrl('images/loading1.gif'); ?>" />
+ </div>
+ 
+ 
+ <?php 
+				$showcarousel = false;
+				if(isset($_GET['lookCatId']))
+		         {
+				   $catId = $_GET['lookCatId'];
+				 }
+				 else
+				 {
+				   $catId = NULL;
+				 }
+				 $subCatList = $this->getSubcategories($catId);
+				foreach ($subCatList as $_category1): 
+				//$cur_category1 = Mage::getModel('catalog/category')->load($_category1['entity_id']);
+				$cur_category1 = Mage::getModel('catalog/category')->load($_category1);
+				$layer1 = Mage::getSingleton('catalog/layer');
+				$layer1->setCurrentCategory($cur_category1);
+					$productCollection1 = $layer1->getProductCollection(); // returns only in-stock products (in case of configrable, at least one option must be in-stock)
+				if($productCollection1->count())
+				{
+				  $showcarousel = true;
+				  break;
+				}
+               endforeach;
+ ?>
+ 
+ 
+ 
+ 
+ 
+	<section id="getlook">
+	 <?php if($showcarousel) { ?>
+		 <div class="clearfix getLookBody">
+		
+			<ul id="mycarousel-getLook" class="jcarousel-skin-tango">
+				<?php 
+				foreach($subCatList as $_category): 
+				?>
+				<?php
+				//$cur_category = Mage::getModel('catalog/category')->load($_category['entity_id']);
+				$cur_category = Mage::getModel('catalog/category')->load($_category);
+				$layer = Mage::getSingleton('catalog/layer');
+				$layer->setCurrentCategory($cur_category);
+					$productCollection = $layer->getProductCollection(); // returns only in-stock products (in case of configrable, at least one option must be in-stock)
+				if(!$productCollection->count())
+				  continue;
+				if ($cur_category->getThumbnail()):
+				    $immagine = $cur_category->getResizedImage(225,320);
+				?>     
+					<li>
+					<a onclick="getDetailPage('<?php echo $cur_category->getUrl();?>')" href="javascript:void(0);">
+					 <div class="getLookgrid glGrid">
+					   <img  src="<?php echo $immagine ?>" alt="<?php echo $this->htmlEscape($cur_category->getName()) ?>" />
+					   <div class="prodImg">
+						 <div id="blck">
+							<div class="cell">
+								<div class="cellDetail">
+					             <p style ="text-align: center;" ><?php echo $this->htmlEscape($cur_category->getName()); ?></p>
+								</div>
+							</div>
+						</div>
+					 </div>
+					 </div>
+					</a>
+					</li>
+							 
+				<?php endif; ?>
+				<?php endforeach; ?> 
+            </ul>
+         </div>
+		 <?php } else { echo "<div style='font-size:20px;font-weight:bold;padding-top:50px;text-align:center;' >Looks Coming Soon...</div>"; } ?>
+	</section>
+	<?php 
+	     if(isset($_GET['lookCatId']))
+		 {
+		   $currCategory = Mage::getModel('catalog/category')->load($_GET['lookCatId']);
+		   $catUrl =  $currCategory->getUrl();
+	?>
+	   <script>
+	      getDetailPage('<?php echo $catUrl;?>');
+	   </script>
+	<?php
+		 }
+	?>

@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+
+
+<config>
+    <global>
+        <models>
+            <ccavenuepay>
+                <class>Mage_Ccavenuepay_Model</class>
+            </ccavenuepay>
+        </models>
+    </global>
+    <frontend>        
+        <routers>
+            <ccavenuepay>
+                <use>standard</use>
+                <args>
+                    <module>Mage_Ccavenuepay</module>
+                    <frontName>ccavenuepay</frontName>
+                </args>
+            </ccavenuepay>
+        </routers>
+	<translate>
+            <modules>
+                <Mage_Ccavenuepay>
+                    <files>
+                        <default>Mage_Ccavenuepay.csv</default>
+                    </files>
+                </Mage_Ccavenuepay>
+            </modules>
+        </translate>        
+    </frontend>
+ 
+    <default>
+        <payment>
+            <ccavenuepay>
+                <active>1</active>
+                <model>ccavenuepay/method_ccavenuepay</model>
+                <order_status>1</order_status>
+		<payment_success_status>2</payment_success_status>
+                <title>Ccavenuepay Payment</title>
+				<allowspecific>0</allowspecific>
+            </ccavenuepay>
+         </payment>
+    </default>
+</config>

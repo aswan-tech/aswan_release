@@ -1,0 +1,245 @@
+<?php 
+$top_categories = $this->getAllTopLevelCategories();
+$size_action_array = $this->_size_actions;
+$type_action_array = $this->_type_actions;
+$cat_attr_array = $this->_cat_attr_array;
+?>
+
+<div class="" id="anchor-content">
+    <div id="page:main-container">
+        <div class="main-col" id="content" style="margin-left:0px !important;" >
+           <div class="main-col-inner">
+            	<div id="messages"></div>
+                    <div class="content-header">
+    					<h3 class="icon-head head-adminhtml-zipcodeimport">Category Sequencing</h3>    <p class="form-buttons"><button  onclick="submit()" title="Save Ctegories" type="button" class="scalable save" style=""><span><span><span>Save Sequencing</span></span></span></button></p>
+					</div>
+					
+       
+					<div class="entry-edit">
+					    <form id="category_sequencing_form" action="" >
+					    			<div class="entry-edit">
+							    		<div class="entry-edit-head">
+										    <h4 class="icon-head head-edit-form fieldset-legend">Sequencing information</h4>
+										    <div class="form-buttons"></div>
+										</div>
+									    <div class="fieldset ">
+									    	<div class="hor-scroll">
+									            <table cellspacing="0" class="form-list">
+									            	<tbody>
+										                <tr>
+											        		<td class="label"><label>Select Category <span class="required">*</span></label></td>
+											    			<td class="value">
+																<select id="root-category" name="root_category" class=" select">
+																	<option value="">Please select...</option>
+																<?php foreach ($top_categories as $top_category) {
+																	$name = $top_category->getName();?>
+																
+																<option value="<?php echo $top_category->getId();?>"><?php echo ucfirst(strtolower($name));?></option>
+																
+																<?php } ?>
+																</select>            
+																</td>
+
+										    			</tr>
+										    			<tr>
+											        		<td class="label"><label >Select SubCategory <span class="required">*</span></label></td>
+											    			<td class="value">
+																<select id="sub-category" name="sub_category" class=" select">
+																	<option value="">Please select...</option>
+																</select>            
+															</td>
+															
+															
+										    			</tr>
+										    			<tr>
+											        		<td class="label"><label >Select Category(Attribute) <span class="required">*</span></label></td>
+											    			<td class="value">
+																<select id="category-attr" name="category_attr" class=" select">
+																	<?php foreach($cat_attr_array as $k_t=>$cat_attr){?>
+																	<option value="<?php echo $k_t; ?>"><?php echo $cat_attr; ?></option>
+																	<?php } ?>
+																</select>            
+															</td>
+															
+															
+										    			</tr>
+										    			<tr>
+											        		<td class="label"><label >Select Gender(Attribute) <span class="required"></span></label></td>
+											    			<td class="value">
+																<select id="gender-attr" name="gender_attr" class=" select">
+																	<?php foreach($this->_gender_attr_array as $g_t=>$gender_attr){?>
+																	<option value="<?php echo $g_t; ?>"><?php echo $gender_attr; ?></option>
+																	<?php } ?>
+																</select>            
+															</td>
+															
+															
+										    			</tr>
+										    			<tr>
+										    				<td class="label"><label>No. Of Products <span class="required">*</span></label></td>
+											    			<td class="value">
+																<input id="products-total" name="p_total" value=""  type="text" class=" input-text required-entry">           
+															</td>
+										    			</tr>
+										    			<tr>
+										    				<td class="label"><label>Broken Size <span class="required">*</span></label></td>
+											    			<td class="value">
+																<select id="size-action" name="size_action" class=" select" style="width:138px !important;" >
+																<?php foreach($size_action_array as $k=>$s_action){?>
+																	<option value="<?php echo $k; ?>"><?php echo $s_action; ?></option>
+																	<?php } ?>
+																</select>
+																<input id="size-total" style="width:138px !important;" name="s_total" value=""  type="text" class=" input-text required-entry">
+																</select>             
+															</td>
+										    			</tr>
+										    			<tr>
+										    				<td class="label"><label>Type<span class="required">*</span></label></td>
+											    			<td class="value">
+																<select id="sorting-type" name="sorting_type" class="required-entry required-entry select">
+																<?php foreach($type_action_array as $k1=>$t_action){?>
+																	<option value="<?php echo $k1; ?>"><?php echo $t_action; ?></option>
+																	<?php } ?>
+																</select>             
+															</td>
+										    			</tr>
+
+										    			<tr>
+										    				<td class="label"><label><span class="required"></span></label></td>
+											    			<td class="value">
+																  <button  title="Save Ctegories" type="button" class="scalable save" onclick="addRow()">Add Row</button>          
+															</td>
+										    			</tr>	
+									    			</tbody>
+							        			</table>
+							            	</div>
+							        	</div>
+									</div>
+							</form>
+							 <form id="category_sequencing_info_form" action="<?php echo $this->getBaseUrl();?>sequencing/adminhtml_index/setPosition/" method="POST">
+							 	<input type="hidden" name="form_key" value="<?php echo Mage::getSingleton('core/session')->getFormKey(); ?>" />
+							 	<div class="grid">
+									    	<div class="hor-scroll">
+							 					<table cellspacing="0" id="sequencing-row-table" class="form-list">
+													<thead>
+														<tr id="0" class="headings">
+															<th>Category</th>
+															<th>Sub Category</th>
+															<th>Category Attr</th>
+															<th>Gender Attr</th>
+															<th>Products Total</th>
+															<th>Size Action</th>
+															<th>Size</th>
+															<th>Sorting</th>
+															<th>Action</th>
+														</tr>	
+													</thead>	
+													<tbody>
+													</tbody>
+													
+											</table>
+									</div>
+								</div>						
+							 </form>	
+					</div>
+            </div>
+        </div>
+    </div>
+
+</div>
+ <div id="loading-mask" style="display:none">
+    <p class="loader" id="loading_mask_loader"><img src="http://www.narender.com/swan/skin/adminhtml/default/enterprise/images/ajax-loader-tr.gif" alt="Loading..."/><br/>Please wait...</p></div>
+<script type="text/javascript">
+
+ jQuery(document).ready(function(e) {
+ 		jQuery("#root-category").change(function() {
+		    var root_cat = jQuery(this).attr('value');
+		    if(root_cat!=''){
+		    	jQuery('#loading-mask').css('display','block');
+		    	jQuery.ajax({ 
+	            	url: "<?php echo $this->getBaseUrl();?>sequencing/adminhtml_index/getSubcategory",
+	            	data:{'category':root_cat},
+	            	dataType: 'json',
+	                success: function(result){
+	                	var html = '';
+	                	jQuery.each(result, function( index, data ) {
+  							html += '<option value="'+data.id+'">'+data.name+'</option>';
+						});
+						jQuery('#sub-category').html(html);
+	                	jQuery('#loading-mask').css('display','none');
+	                	jQuery('#sequencing-row-table tbody').html('');
+	                } 
+                });
+		    }
+		});
+        
+	});
+    function addRow(){
+    	var result = validateFields();
+    	if(result=='true'){
+    		var id = parseInt(jQuery('#sequencing-row-table tr:last').attr('id'));
+    		var new_id = id+1;
+    		var html ='';
+    		var root_cat = jQuery('#root-category option:selected').val();
+    		var sub_cat = jQuery('#sub-category option:selected').val();
+    		var cat_attr = jQuery('#category-attr option:selected').val();
+    		var gender_attr = jQuery('#gender-attr option:selected').val();
+    		var p_total = jQuery('#products-total').val();
+    		var size_action = jQuery('#size-action option:selected').val();
+    		var size_total = jQuery('#size-total').val();
+    		var sorting_type = jQuery('#sorting-type option:selected').val();
+    		html += '<tr id="'+new_id+'">'+
+    					'<td><input type="hidden" name=root_category['+new_id+'] value="'+
+    					root_cat+'">'+jQuery('#root-category option:selected').text()+'</td>'+
+    					'<td><input type="hidden" name=sub_category['+new_id+'] value="'+
+    					sub_cat+'">'+jQuery('#sub-category option:selected').text()+'</td>'+
+    					'<td><input type="hidden" name=category_attr['+new_id+'] value="'+
+    					cat_attr+'">'+jQuery('#category-attr option:selected').text()+'</td>'+
+						'<td><input type="hidden" name=gender_attr['+new_id+'] value="'+
+    					gender_attr+'">'+jQuery('#gender-attr option:selected').text()+'</td>'+
+						'<td><input type="hidden" name=p_total['+new_id+'] value="'+
+    					p_total+'">'+p_total+'</td>'+
+    					'<td><input type="hidden" name=size_action['+new_id+'] value="'+
+    					size_action+'">'+jQuery('#size-action option:selected').text()+'</td>'+
+    					'<td><input type="hidden" name=size_total['+new_id+'] value="'+
+    					size_total+'">'+size_total+'</td>'+
+    					'<td><input type="hidden" name=sorting_type['+new_id+'] value="'+
+    					sorting_type+'">'+jQuery('#sorting-type option:selected').text()+'</td>'+
+    					'<td><a href="javascript:void(0)" onclick="deleteRow('+new_id+
+    						')" >Delete</a>'+'</td>'+
+    				'</tr>';
+
+    	    jQuery('#sequencing-row-table tbody').append(html);
+    	}
+    	else {
+    		jQuery('#messages').html('<ul class="messages"><li class="error-msg"><ul><li><span>'+result+'</span></li></ul></li></ul>');
+    	}
+    		
+    }
+    function validateFields(){
+    		jQuery('.messages').remove();
+    		var root_cat = jQuery('#root-category option:selected').val();
+    		var sub_cat = jQuery('#sub-category option:selected').val();
+    		var p_total = parseInt(jQuery('#products-total').val());
+    		if(root_cat==null || root_cat==''){
+    			return 'Please select the root category';
+			}
+			else if(sub_cat==null || sub_cat==''){
+    			return 'Please select the sub category';
+			}
+			else if(p_total==null || p_total=='' || !jQuery.isNumeric(p_total)){
+    			return 'Please insert the total no of products(numeric)';
+			}
+			else{
+				return 'true';
+			}
+
+    }
+    function deleteRow(id){
+    	jQuery('#sequencing-row-table tbody').children('#'+id).remove();
+    }
+
+    function submit(){
+    	jQuery('#category_sequencing_info_form').submit();
+    }
+</script>

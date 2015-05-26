@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <modules>
+        <FCM_Socialapi>
+            <version>0.1.0</version>
+        </FCM_Socialapi>
+    </modules>
+    <frontend>
+        <routers>
+            <socialapi>
+                <use>standard</use>
+                <args>
+                    <module>FCM_Socialapi</module>
+                    <frontName>socialapi</frontName>
+                </args>
+            </socialapi>
+        </routers>
+        <layout>
+            <updates>
+                <socialapi>
+                    <file>socialapi.xml</file>
+                </socialapi>
+            </updates>
+        </layout>
+    </frontend>
+    <global>
+        <blocks>
+            <socialapi>
+                <class>FCM_Socialapi_Block</class>
+            </socialapi>
+        </blocks>
+        <helpers>
+            <socialapi>
+                <class>FCM_Socialapi_Helper</class>
+            </socialapi>
+        </helpers>
+    </global>
+</config>

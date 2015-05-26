@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+
+<config>
+    <modules>
+        <FCM_Catalogproduct>
+            <version>0.1.0</version>
+        </FCM_Catalogproduct>
+    </modules>
+        <frontend>
+            <routers>
+                <catalogproduct>
+                    <use>standard</use>
+                    <args>
+                        <module>FCM_Catalogproduct</module>
+                        <frontName>catalogproduct</frontName>
+                    </args>
+                </catalogproduct>
+            </routers>
+        </frontend>
+	<global> 
+        <blocks>
+            <catalogproduct>
+                <class>FCM_Catalogproduct_Block</class>
+            </catalogproduct>
+			<adminhtml>
+				<rewrite>
+					<catalog_product_grid>FCM_Catalogproduct_Block_Adminhtml_Catalog_Product_Grid</catalog_product_grid>
+				</rewrite>
+			</adminhtml>
+        </blocks>
+        <helpers>
+            <catalogproduct>
+                <class>FCM_Catalogproduct_Helper</class>
+            </catalogproduct>
+        </helpers>
+    </global>
+</config>

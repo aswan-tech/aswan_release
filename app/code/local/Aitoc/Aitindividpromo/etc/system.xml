@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <sections>
+        <aitsys>
+          <groups>
+             <modules>
+               <fields>
+                  <Aitoc_Aitindividpromo translate="label comment">
+                    <label>Aitoc Individual Promotions</label>
+                    <frontend_type>multiselect</frontend_type>
+                    <source_model>aitsys/system_config_source_stores</source_model>
+                    <backend_model>aitsys/system_config_backend_stores</backend_model>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>0</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <can_be_empty>1</can_be_empty>
+                  </Aitoc_Aitindividpromo>
+               </fields>
+             </modules>
+          </groups>
+        </aitsys>
+    </sections>
+</config>
+<!--
+/**
+ * Product:     Individual Promotions for Magento Enterpise Edition
+ * Package:     Aitoc_Aitindividpromo_10.0.7_574525
+ * Purchase ID: UjgdLvjpFE0u1HHQEOk2KNCXazbZ9kQjUnTtO4dMb0
+ * Generated:   2013-05-13 06:35:45
+ * File path:   app/code/local/Aitoc/Aitindividpromo/etc/system.xml
+ * Copyright:   (c) 2013 AITOC, Inc.
+ */
+-->

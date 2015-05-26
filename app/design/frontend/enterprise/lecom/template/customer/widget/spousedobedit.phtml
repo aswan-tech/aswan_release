@@ -1,0 +1,89 @@
+<tr>
+    <td class="dob">
+<label for="<?php echo $this->getFieldId('month')?>">	
+	<?php echo $this->__('Partner\'s Date of Birth') ?>
+		<?php if ($this->isRequired()) echo '<span class="mandatoryField">*</span>' ?>
+	</label>
+
+<?php
+	$daySelect = "<select id='" . $this->getFieldId('spouse_day') . "' name='" . $this->getFieldName('spouse_day') . "' class='input-text' title='Day' " . $this->getFieldParams()  . " >";
+	$daySelect .= "<option value=''>Day</option>";
+	
+	$selday = "";
+	
+	for($i = 1; $i <= 31; $i++) {
+		if ($i == $this->getDay()) {
+			$selday = " selected='selected' ";
+		} else {
+			$selday = "";
+		}
+		$day_text = @date("d", mktime(0, 0, 0, 0, $i, 0, 0));
+		
+		$daySelect .= "<option value='". $day_text . "' ". $selday .">". $day_text ."</option>";
+	}
+	
+	$daySelect .= "</select>";
+
+
+    $this->setDateInput('d',
+        '<span class="dob-day">'. $daySelect .'</span>'
+    );
+
+	$monthSelect = "<select id='" . $this->getFieldId('spouse_month') . "' name='" . $this->getFieldName('spouse_month') . "'  title='Month'  class='input-text' " . $this->getFieldParams()  . " >";
+	$monthSelect .= "<option value=''>Month</option>";
+	
+	$selmonth = "";
+	
+	for($i = 1; $i <= 12; $i++) {
+		if ($i == $this->getMonth()) {
+			$selmonth = " selected='selected' ";
+		} else {
+			$selmonth = "";
+		}
+		$month_text = @date("F", mktime(0, 0, 0, $i+1, 0, 0, 0));
+		
+		$monthSelect .= "<option value='". str_pad ( $i, 2, '0', STR_PAD_LEFT) . "' ". $selmonth .">". $month_text ."</option>";
+	}
+	
+	$monthSelect .= "</select>";
+	
+    $this->setDateInput('m',
+        '<span class="dob-month">'. $monthSelect .'</span>'
+    );
+
+	$yearSelect = "<select id='" . $this->getFieldId('spouse_year') . "' name='" . $this->getFieldName('spouse_year') . "'  title='Year'  class='input-text' " . $this->getFieldParams()  . " >";
+	$yearSelect .= "<option value=''>Year</option>";
+	
+	$selYear = "";
+	
+	for($j=date('Y'); $j>=date('Y')-150; $j--) {
+			if ($j == $this->getYear()) {
+				$selYear = " selected='selected' ";
+			} else {
+				$selYear = "";
+			}
+	
+			$yearSelect .= "<option value='". $j . "' ". $selYear .">". $j ."</option>";
+	}
+	
+	$yearSelect .= "</select>";
+	
+    $this->setDateInput('y',
+        '<span class="dob-year">'. $yearSelect . '</span>'
+    );
+?>
+    <?php echo $this->getSortedDateInputs() ?>
+    <span class="dob-full" style="display:none;">
+        <input type="hidden" id="<?php echo $this->getFieldId('full')?>" name="<?php echo $this->getFieldName('spouse_dob')?>" />
+    </span>
+
+    <div class="validation-advice" id="<?php echo $this->getFieldId('date-advice')?>" style="display:none;"></div>
+
+	</td>
+</tr>
+
+<script type="text/javascript">
+//<![CDATA[
+var customer_spousedob = new Varien.DateElement('id', '<?php echo $this->getFieldId('')?>', <?php echo ($this->isRequired() ? 'true' : 'false'); ?>, '<?php echo $this->getDateFormat() ?>');
+//]]>
+</script>

@@ -1,0 +1,134 @@
+<div id="testimonial_all" class="clearfix itemMain">
+
+<div class="clearfix itemMain">
+          <div class="page_title cartHead"><?php echo Mage::helper('testimonials')->__('Testimonials') ?></div>
+		<div class="submit_testimonial">
+			<button type="button" onClick="location.href='<?php echo $this->getUrl('testimonials'); ?>'" >
+				<?php echo $this->__('View All Testimonials') ?>		   
+			</button>		
+		</div>
+         <br class="clear"/>
+
+	<div id="messages_testimonials"><?php echo $this->getMessagesBlock()->getGroupedHtml() ?></div>
+	
+	<div class="left testigroup">	
+		<form action="<?php echo $this->getFormAction(); ?>" id="testimonialForm" method="post">
+			   <p>
+					<label for="name"><?php echo Mage::helper('testimonials')->__('Name') ?><span class="mandatoryField">*</span></label>
+					<input name="name" id="name" title="<?php echo Mage::helper('testimonials')->__('Name') ?>" class="input-text required-entry" type="text"  value="<?php echo $this->getRequest()->getParam('name'); ?>" />
+			   </p>
+			   <p>
+					<label for="email"><?php echo Mage::helper('testimonials')->__('Email') ?><span class="mandatoryField">*</span></label>
+					<input name="email" id="email" title="<?php echo Mage::helper('testimonials')->__('Email') ?>" class="input-text required-entry validate-email" type="text" value="<?php echo $this->getRequest()->getParam('email'); ?>" />
+			   </p>
+			   <p>
+					<label for="url"><?php echo Mage::helper('testimonials')->__('Place') ?><span class="mandatoryField">*</span></label>
+					<input name="place" id="place" title="<?php echo Mage::helper('testimonials')->__('Place') ?>"  class="input-text  required-entry" type="text" value="<?php echo $this->getRequest()->getParam('place'); ?>"  />
+					
+			   </p>
+			   
+			   <p class="roption"><?php echo Mage::helper('testimonials')->__('Would you like to rate us ?') ?></p>
+                    <div class="rating_gp">
+						<span><?php echo Mage::helper('testimonials')->__('Poor') ?></span>
+						<span><?php echo Mage::helper('testimonials')->__('Average') ?></span>
+						<span><?php echo Mage::helper('testimonials')->__('Good') ?></span>
+						<span><?php echo Mage::helper('testimonials')->__('Excellent') ?></span>
+                    </div>
+					
+					<?php
+						$productTooltip = trim(Mage::getStoreConfig('testimonials/testimonialstooltip/product'));
+						$serviceTooltip = trim(Mage::getStoreConfig('testimonials/testimonialstooltip/service'));
+						$brandTooltip = trim(Mage::getStoreConfig('testimonials/testimonialstooltip/brand'));
+						$websiteTooltip = trim(Mage::getStoreConfig('testimonials/testimonialstooltip/website'));
+						
+						$charLimit = trim(Mage::getStoreConfig('testimonials/testimonials/testimonialsize'));
+					?>
+					
+                    <div class="rating1">
+                    1. <?php echo Mage::helper('testimonials')->__('Product') ?> <?php if (!empty($productTooltip)) { ?><a href="javascript:void(0);" data-tooltip="<?php echo $productTooltip; ?>"><img height="13" width="13" src="<?php echo $this->getSkinUrl('images/info_img.jpg'); ?>"></a><?php } ?>
+                    
+						<div class="radio_gp">
+							<span class="r1"><input type="radio" value="1" name="rating_product" class="radio"></span>
+							<span class="r1"><input type="radio" value="2" name="rating_product" class="radio"></span>
+							<span class="r1"><input type="radio" value="3" name="rating_product" class="radio"></span>
+							<span class="r1"><input type="radio" value="4" name="rating_product" class="radio"></span>
+						</div>
+                    </div>
+                    
+                    <div class="rating1">
+                  2. <?php echo Mage::helper('testimonials')->__('Customer service') ?> <?php if (!empty($serviceTooltip)) { ?><a href="javascript:void(0);" data-tooltip="<?php echo $serviceTooltip; ?>"><img height="13" width="13" src="<?php echo $this->getSkinUrl('images/info_img.jpg'); ?>"></a><?php } ?>
+                    
+						<div class="radio_gp">
+							<span class="r1"><input type="radio" value="1" name="rating_service" class="radio"></span>
+							<span class="r1"><input type="radio" value="2" name="rating_service" class="radio"></span>
+							<span class="r1"><input type="radio" value="3" name="rating_service" class="radio"></span>
+							<span class="r1"><input type="radio" value="4" name="rating_service" class="radio"></span>						
+						</div>
+					</div>
+                    
+                    <div class="rating1">
+                  3. <?php echo Mage::helper('testimonials')->__('Brand experience') ?> <?php if (!empty($brandTooltip)) { ?><a href="javascript:void(0);" data-tooltip="<?php echo $brandTooltip; ?>"><img height="13" width="13" src="<?php echo $this->getSkinUrl('images/info_img.jpg'); ?>"></a><?php } ?>
+                    
+						<div class="radio_gp">
+							<span class="r1"><input type="radio" value="1" name="rating_brand" class="radio"></span>
+							<span class="r1"><input type="radio" value="2" name="rating_brand" class="radio"></span>
+							<span class="r1"><input type="radio" value="3" name="rating_brand" class="radio"></span>
+							<span class="r1"><input type="radio" value="4" name="rating_brand" class="radio"></span>
+						</div>
+					</div>
+                    
+                    <div class="rating1 rlast">
+                  4. <?php echo Mage::helper('testimonials')->__('Online experience') ?> <?php if (!empty($websiteTooltip)) { ?><a href="javascript:void(0);" data-tooltip="<?php echo $websiteTooltip; ?>"><img height="13" width="13" src="<?php echo $this->getSkinUrl('images/info_img.jpg'); ?>"></a><?php } ?>
+                    
+						<div class="radio_gp">
+							<span class="r1"><input type="radio" value="1" name="rating_website" class="radio"></span>
+							<span class="r1"><input type="radio" value="2" name="rating_website" class="radio"></span>
+							<span class="r1"><input type="radio" value="3" name="rating_website" class="radio"></span>
+							<span class="r1"><input type="radio" value="4" name="rating_website" class="radio"></span>
+						</div>
+					</div>
+                               
+               <br class="clear"/>
+			   
+			   <p>
+					<label for="content"><?php echo Mage::helper('testimonials')->__('Your Testimonial') ?><span class="mandatoryField">*</span></label>
+					<textarea name="content" id="content" title="<?php echo Mage::helper('testimonials')->__('Your Testimonial') ?>" class="required-entry input-text" rows="5" cols="15"><?php echo $this->getRequest()->getParam('content'); ?></textarea>
+					<?php
+						if (!empty($charLimit)) {
+					?>
+						<div id="numchars">You have <span id="charsLeft"></span> chars left.</div>
+					<?php
+						}
+					?>
+			   </p>
+			   
+			   <br class="clear">
+				<input type="text" name="status" id="status" value="<?php echo Mage::helper('testimonials')->getAutoApproved(); ?>" style="display:none !important;" />
+                <button type="submit"  title="<?php echo Mage::helper('testimonials')->__('Submit') ?>" class="btnsubmit"><?php echo Mage::helper('testimonials')->__('Submit') ?></button>		
+			
+		</form>
+		
+		<script type="text/javascript">
+		//<![CDATA[
+			var testimonialForm = new VarienForm('testimonialForm', true);
+			
+			jQuery(document).ready(function(){
+				//jQuery("input[type=radio]").uniform();	
+				<?php
+					if (!empty($charLimit)) {
+				?>
+					jQuery('#content').limit('<?php echo $charLimit; ?>','#charsLeft');
+				<?php
+					}
+				?>
+			});
+	
+		//]]>
+		</script>
+	</div>
+	<?php
+		echo $this->getChildHtml('testimonials-sidebar');
+	?>
+	<br class="clear"/>
+</div> 
+</div>

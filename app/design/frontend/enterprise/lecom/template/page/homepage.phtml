@@ -1,0 +1,106 @@
+<!doctype html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+<?php echo $this->getChildHtml('head') ?>
+<script src="<?php echo $this->getSkinUrl('js/homepage.js')?> "></script>
+<script type="text/javascript">
+dataLayer.push({'PAGE_TYPE': 'HOMEPAGE'});
+</script>
+<?php echo $this->getChildHtml('after_body_start') ?>
+</head>
+<body <?php echo $this->getBodyClass()?' class="'.$this->getBodyClass().'"':'' ?>>
+<script type="application/ld+json">
+{
+   "@context": "http://schema.org",
+   "@type": "WebSite",
+   "url": "<?php echo $this->getBaseUrl(); ?>",
+   "potentialAction": {
+     "@type": "SearchAction",
+     "target": "<?php echo $this->getBaseUrl(); ?>catalogsearch/result/?q={search_term_string}",
+     "query-input": "required name=search_term_string"
+   }
+}
+</script>
+  
+    <div class="top-info-bar"></div>
+      <div class="as-menu-wrap "></div>
+      <div class="as-info-cont">
+        <header class=" pos-a">
+	    <?php echo $this->getChildHtml('header', false) ?>
+       </header>
+        <?php echo $this->getChildHtml('global_messages') ?>
+      </div>
+
+    <!-- Slides Container -->
+   <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('top-offer-banner-v3')->toHtml() ?>
+      <div class="slider-img-wrap" style="text-align:center;">	  
+  <div class="top-banner p-rel">
+    <div id="slider1_container" class=" asslide-cont-area">
+      <div u="slides" class="asslide-img">
+        <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('homepage-slider-v3')->toHtml() ?>
+      </div>
+            <!-- bullet navigator container -->
+            <div u="navigator" class="jssorb21" style="position: absolute; bottom: 26px; left: 6px;">
+              <!-- bullet navigator item prototype -->
+              <div u="prototype" style="POSITION: absolute; WIDTH: 19px; HEIGHT: 19px; text-align:center; line-height:19px; color:White; font-size:12px;"></div>
+            </div>
+            <span u="arrowleft" class="jssora21l"> </span>
+            <!-- Arrow Right -->
+            <span u="arrowright" class="jssora21r"> </span>
+
+          </div>
+        </div>
+      </div>
+      <!-- Slides Container END -->
+
+
+      
+      <div class="home-cont-wrap">
+	<div class="mb-img"> <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('mobile-main-banner')->toHtml() ?></div>
+        <div class="cont-wrap">
+	   <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('homepage-sb-one-v3')->toHtml() ?>
+          <div class="clear"></div>
+	   <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('homepage-sb-two-v3')->toHtml() ?>
+          <div class="clear"></div>
+	   <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('homepage-sb-three-v3')->toHtml() ?>
+          <div class="clear"></div>
+	   <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('homepage-sb-four-v3')->toHtml() ?>
+          <div class="clear"></div>
+
+          <div class="ml30 mr15">
+            <div class="media-top-sept pt10 pb10">Media Coverage </div>
+          </div>
+          <div class="clear"></div>
+          <div class="newlook-wrap ml30 mr15 mb30"> 
+            <!--New looks slider html start here-->
+            <div class="fl newlooktxt-wrap mb30 mt25">
+              <p class="fs18 mb5 tt-u">Loving</p>
+              <span class="c-pantone fs15 ">your new look?</span>
+              <div class="fs14 mr10 ml10 mt15 mb30 c-pantone f-lato">Show us how
+                you wear the
+                limited </div>
+              <a href="<?php echo $this->getBaseUrl().'media-coverage' ?>" id="gtm-media-coverage-view-all" class="c-pantone fs14 bgc-purp c-fff viewallbtn mt10 gtm-track">view all >></a> </div>
+            <div>
+	   <div class="slider" style="width: 180px; height: 150px;">
+	 <span class="control_next"></span>
+	<span class="control_prev"></span>	
+	   <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('homepage-media-coverage-v3')->toHtml() ?>	   
+	  </div>
+	  <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('homepage-seo-content-v3')->toHtml() ?>  
+            </div>
+            <!--New looks slider html END--> 
+          </div>
+        </div>
+      </div>
+     
+
+      <footer>
+	   <?php echo $this->getChildHtml('footer_before') ?>
+           <?php echo $this->getChildHtml('footer') ?>
+           <?php echo $this->getChildHtml('before_body_end') ?>
+      </footer>
+</body>
+</html>

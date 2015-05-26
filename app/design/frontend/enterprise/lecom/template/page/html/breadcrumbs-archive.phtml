@@ -1,0 +1,87 @@
+<?php
+/**
+ * Magento Enterprise Edition
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Magento Enterprise Edition License
+ * that is bundled with this package in the file LICENSE_EE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://www.magentocommerce.com/license/enterprise-edition
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://www.magentocommerce.com/license/enterprise-edition
+ */
+/**
+ * get Controller name
+ */
+$controller = $this->getRequest()->getControllerName();
+ 
+/**
+ * get Action name, i.e. the function inside the controller
+ */
+$action = $this->getRequest()->getActionName();
+ 
+/**
+ * get module name
+ */
+$module = $this->getRequest()->getModuleName();
+
+$var = '';
+
+?>
+<?php
+	if($crumbs && is_array($crumbs)) {
+		
+		?>
+		<div class="breadcrumb arch">
+			<ul class="clearfix">
+				<?php                   
+					foreach($crumbs as $_crumbName=>$_crumbInfo) {					
+							if($controller=='account' && $action=='create' && $module=='customer') {
+								if($this->htmlEscape(trim($_crumbInfo['label'] == 'Create an Account'))) {
+									$_crumbInfo['label'] = 'Register / Create account';
+								}
+							}
+						?>			
+						<?php   $_crumbInfo['label'] = ucfirst(strtolower($_crumbInfo['label'])); ?>
+						<li>
+							<?php if($_crumbInfo['link']): ?>
+							
+						<a href="<?php echo $_crumbInfo['link'] ?>" title="<?php echo $this->htmlEscape(
+						$_crumbInfo['title']) ?>">
+						<?php echo ucwords(strtolower($this->htmlEscape($_crumbInfo['label']))) ?>
+						</a>
+						
+							<?php elseif($_crumbInfo['last']):  ?>
+							<?php $temp = explode(':',$_crumbInfo['label']);
+									if(isset($temp[1]) && trim($temp[1]) == "'439ed537979d8e831561964dbbbd7413'"): ?>
+									<?php else: ?>
+									<?php echo ucwords(strtolower($this->htmlEscape($_crumbInfo['label']))); ?>
+									<?php endif; ?>
+							<?php else: ?>
+							<?php echo ucwords(strtolower($this->htmlEscape($_crumbInfo['label']))); ?>
+							<?php endif; ?>
+							</li>
+						
+							<?php if(!$_crumbInfo['last']) { ?>
+								<li class="brsep"></li>
+							<?php } // end if last
+					} //end for foreach loop
+			?>
+		</ul>
+	</div>
+<?php 
+		}
+?>

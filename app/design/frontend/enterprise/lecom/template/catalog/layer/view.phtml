@@ -1,0 +1,92 @@
+<?php
+$department = Mage::app()->getRequest()->getQuery('department');
+$shopByHTML = "";
+if ($department != "") {
+    $shopByHTML = $this->getLayout()->createBlock('cms/block')->setBlockId($department.'_v3')->toHtml();
+}
+if ($shopByHTML == "") {
+    $_category = Mage::registry("CurrentCategory");
+    if (isset($_category) && !is_null($_category)) {
+        $shopByHTML = $this->getLayout()->createBlock('cms/block')->setBlockId($_category->getData('url_key').'_v3')->toHtml();
+        while ($_category->getLevel() > 1 && trim($shopByHTML) == "") {
+            $_category = $_category->getparentCategory();
+            $shopByHTML = $this->getLayout()->createBlock('cms/block')->setBlockId($_category->getUrlKey().'_v3')->toHtml();
+        }
+    }
+}
+//echo("<p>" . $_category->getName() . " (".$_category->getLevel().")" . "</p>");
+?>
+<div id="FiltersShopBy" class="left-links"><div class="left-links">
+<p class="cat-heading">Shop By</p>
+<?php if($this->canShowBlock()): ?>
+<?php if ($this->getLayer()->getState()->getFilters()): ?>
+    <div class="actions clear-all-filters fr"><a href="<?php echo $this->getClearUrl() ?>"><?php echo $this->__('Clear All Filters') ?></a></div>
+<?php endif; ?>
+    <?php if ($shopByHTML != ""): ?><?php echo $shopByHTML; ?><?php endif; ?>
+</div></div>
+<?php endif; ?>
+<div class="clear"></div>
+<?php if($this->canShowBlock()): ?>
+<div class="shopByPanel">
+    <?php echo $this->getStateHtml() ?>
+    <a href="javascript:void()" class="well">Filter</a>
+    <div class="block-content">
+    <?php if($this->canShowOptions()): ?>
+            <!--<p class="block-subtitle"><?php echo $this->__('Shopping Options') ?></p>-->
+            <dl id="narrow-by-list">
+                <?php $filters = $this->getFilters() ?>
+                <?php
+                $_filters = array(
+                    'gender' => null, 
+                    'category' => null,
+                    'categories' => null, 
+                    'product_category' => null,
+                    'department' => null,
+                    'offers' => null, 
+                    'discount' => null, 
+                    'price' => null, 
+                    'size' => null, 
+                    'color' => null
+                );
+                foreach ($filters as $filter) {
+                    $_filters[$filter->getCode()] = $filter;
+                }
+                ?>  
+                <?php foreach ($_filters as $_filter): ?>
+                <?php if(!is_null($_filter) && $_filter->getItemsCount() > 1): ?>
+                <dt class="labelTxt">By <?php echo $this->__($_filter->getName()) ?>
+                   <?php if ($_filter->getClearUrl()) : ?>
+                <div class="actions clear-all-filters clkall-flt"><a  href="<?php echo $_filter->getClearUrl(); ?>">Clear</a></div>
+                    <?php endif; ?>
+                </dt>
+                 
+                    
+                    <dd class="flt-lable1"><?php echo $_filter->getHtml() ?></dd>
+                <?php endif; ?>
+                <?php endforeach; ?>
+            </dl>
+            <script type="text/javascript">decorateDataList('narrow-by-list')</script>
+    <?php endif; ?>
+    </div>
+</div>
+<?php endif; ?>
+<script>
+jQuery(document).ready(function() {
+	//jQuery('dd.flt-lable1').css('display' , 'none');
+	jQuery('#narrow-by-list dt').click(function(){
+		jQuery(this).next('dd.flt-lable1').slideToggle('fast');
+		jQuery(this).toggleClass('m-filter-selected');
+		
+	});
+});
+</script>
+<script>
+jQuery(document).ready(function () {
+
+	jQuery('.well').click(function(){
+			jQuery('.block-content').slideToggle(600);
+			jQuery('.block-content').toggleClass('mf-active');
+		
+		});
+});
+</script>

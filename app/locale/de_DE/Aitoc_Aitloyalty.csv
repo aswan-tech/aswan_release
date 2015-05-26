@@ -1,0 +1,91 @@
+"Using the form below you can enable, disable and configure display of the rule in customers' account","Durch die Verwendung der Form unten Sie koennen Abbildung der Regeln in Kundenkonto einschalten, ausschalten und bearbeiten"
+"Display the rule in customers' account","Regel in Kundenkonto abbilden"
+Yes,Ja
+No,Nein
+"Display the coupon code in customers' account (if applicable)","Kuponkode in Kundenkonto (wenn verwendbar) abbilden"
+"Please describe the rule conditions","Bitte beschreiben Sie Regelbedingungen "
+"Update prices using the following information","Erneuern Sie die Preise. Verwenden Sie dabei folgende Information."
+Apply,Verwenden
+"Percent of product price discount","Prozent von Produktpreisrabatt"
+"Fixed amount discount","Fixierter Rabatt"
+"Percent of product price surcharge","Prozent von Produktpreisaufschlag"
+"Fixed amount surcharge","Fixierter Produktpreisaufschlag"
+"Fixed amount discount for whole cart","Fixierter Rabatt fuer die ganze Bestellung"
+"Fixed amount surcharge for whole cart","Fixierter Preisaufschlag fuer die ganze Bestellung"
+"Buy X get Y free (discount amount is Y)","Kaufen Sie X und bekommen Sie Y kostenlos (Rabatt ist Y)"
+"Discount/Surcharge amount",Rabatt/Aufschlag
+"Maximum Qty Discount is Applied to","Maximaler Qty Rabatt ist fuer"
+"Discount Qty Step (Buy X)","Rabatt Qty Schritt (Kaufen Sie X)"
+"Free shipping","Kostenloser Transport"
+"For matching items only","Nur fuer Auswahl der Posten"
+"For shipment with matching items","Fuer Transport mit der Auswahl der Posten"
+"Stop further rules processing","Weiterer Regelprozess stoppen"
+"Apply the rule only to cart items matching the following conditions (leave blank for all items)","Regel nur fuer Gesamtposten verwenden, wenn man folgende Bedingungen auswaehlt (lassen Sie alle Posten frei)"
+"Apply to",Verwenden
+"Rule Information",Regelinformation
+Conditions,Bedingungen
+Actions,Aktionen
+"Display Options",Bildschirmoptionen
+Period,Periode
+Total,Zusammen
+Subtotal,Untersumme
+"Coupon Code",Kuponkode
+"Number of Uses",Kundenzahl
+"Subtotal Amount",Summe
+"Discount(+)/Surcharge(-) Amount",Rabatt(+)/Aufschlag(-)
+"Total Amount","Gemeinsame Summe"
+"Number of Use","Die Zahl der Verwendungen"
+CSV,CSV
+Excel,Excel
+"Number of Orders","Zahl der Bestellungen"
+"Items Ordered","Posten bestellt"
+Tax,Steuer
+Shipping,Transport
+Discounts(+)/Surcharges(-),Rabatt(+)/Aufschlag(-)
+Invoiced,Bezahlt
+Refunded,Kompensiert
+Discount,Rabatt
+Discount/Surcharge,Rabatt/Aufschlag
+"Available Specials","Zugaengliche spezielle Preise"
+"Qty to Refund","Qty fuer Ersatz"
+"Tax Amount",Steuerbetrag
+"Discount Amount",Preisrabatt
+"Row Total","Reihe zusammen"
+Qty,Qty
+"Qty to Invoice","Qty zu Invoice"
+"Discount (%s)","Rabatt (%s)"
+"Discount(+)/Surcharge(-) (%s)","Rabatt(+)/Aufschlag(-) (%s)"
+Discount(+)/Surcharge(-),Rabatt(+)/Aufschlag(-)
+"Tax Percent",Steuerprozent
+"Aitoc Loyalty Program","Aitoc Loyalty Program"
+"Aitoc Loyalty Program functionality is disabled for some websites you specified","Funkzionalitaet Aitoc Loyalty Program ist ausgeschaltet fuer einige der Webseiten, die Sie ausgewaehlt haben"
+Surcharge,Aufschlag
+"Surcharge (%s)","Aufschlag (%s)"
+"Customer data subselection","Subauswahl der Kundendaten"
+"Test Atrr",Testattribute
+"Conditions Combination",Bedingungenkombination
+"Customer Data",Kundendaten
+"Amount spent during period","Summe ausgezahlt waehrend der Periode"
+"Period of membership","Periode des Teilnehmens"
+"Average order amount during period","Durchschnittbestellungsumme waehrend der Periode"
+Customer,Kunde
+suits,Passt
+"If a %s %s %s of these conditions:","Wenn %s %s %s aus diesen Bedingungen:"
+is,ist
+"is not","ist nicht"
+"equals or greater than","gleicht oder mehr als"
+"equals or less than","gleicht oder weniger als"
+"greater than","mehr als"
+"less than","weniger als"
+contains,enthaelt
+"does not contain","enthaelt nicht"
+"is one of","ist ein der"
+"is not one of","ist kein der"
+"Amount spent during last","Summe ausgezahlt waehrend letzten"
+"Customer's membership period","Beteiligungperiode des Kunden"
+"Average order during last","Durchschnittbestellung waehrend der letzten"
+"Aitoc Loyalty Program functionality has been disabled for the following store(s):","Funktionalitaet Aitoc Loyalty Program war erfolgreich geloescht fuer folgende Geschaefte:"
+"Aitoc Loyalty Program functionality is disabled for some stores in websites you specified","Funktionalitaet Aitoc Loyalty Program war erfolgreich geloescht fuer einige Geschaefte auf den Seiten, die Sie gewaehlt haben"
+"Surcharge Amount",Aufschlagsumme
+available,zugaenglich
+"No specials currently available","Jetzt sind keine spezielle Preise zugaenglich"

@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <testimonials_adminhtml_testimonials_index>
+        <reference name="content">
+            <block type="testimonials/adminhtml_testimonials" name="testimonials" />
+        </reference>
+    </testimonials_adminhtml_testimonials_index>
+</layout>

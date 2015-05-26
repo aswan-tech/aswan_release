@@ -1,0 +1,156 @@
+<?php
+/**
+ * Magento Enterprise Edition
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Magento Enterprise Edition License
+ * that is bundled with this package in the file LICENSE_EE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://www.magentocommerce.com/license/enterprise-edition
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     enterprise_default
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://www.magentocommerce.com/license/enterprise-edition
+ */
+?>
+<?php
+/**
+ * Category view template
+ *
+ * @see Mage_Catalog_Block_Category_View
+ */
+?>
+<?php
+    $_helper    = $this->helper('catalog/output');
+    $_category  = $this->getCurrentCategory();
+	$_categoryLevel  = $_category->getLevel();
+	
+	//pr($_category->getData(),0);
+	
+    $_imgHtml   = '';
+	
+	$mapName = '';
+	$weblink = $_category->getCategoryContentWeburl();
+	$imagemap = $_category->getCategoryContentImagemap();
+	$hasMap	 = false;
+	$hasLink = false;
+	$useMap	 = '';
+	
+    if ($_imgUrl = $_category->getImageUrl()) {
+		
+		if($imagemap != ''){
+			$dom = new DOMDocument();
+			$dom->preserveWhiteSpace = false;
+			$dom->loadHtml($imagemap);
+			$children = $dom->getElementsByTagName('map');
+			for ($i = 0; $i < $children->length; $i++) {
+				$el = $children->item($i);
+				$mapName = $el->getAttribute('name');
+			}
+		
+			$hasMap	 = true;
+			$useMap	 = 'usemap="#'.$mapName.'"';
+		}
+		
+		if($weblink != ''){
+			$hasLink = true;
+		}
+		
+		if($hasLink && $hasMap){
+			//both are present, only link will be used
+			$hasMap	 = false;
+		}
+		
+        $_imgHtml = '<div id="catimage">';
+		if ($hasLink) {
+			$_imgHtml .= '<a href="'.$weblink.'" target="_blank">';
+		}
+		$_imgHtml .= '<img style="max-width:750px;max-height:250px;" src="'.$_imgUrl.'" alt="'.$this->htmlEscape($_category->getName()).'" title="'.$this->htmlEscape($_category->getName()).'" '.$useMap.' />';
+		//$_imgHtml .= '<img src="'.$_imgUrl.'" alt="'.$this->htmlEscape($_category->getName()).'" title="'.$this->htmlEscape($_category->getName()).'" '.$useMap.' />';
+		if ($hasMap) {
+			echo $imagemap;
+		}
+		if ($hasLink) {
+			$_imgHtml .= '</a>';
+		}
+		$_imgHtml .= '</div>';
+        
+		$_imgHtml = $_helper->categoryAttribute($_category, $_imgHtml, 'image');
+    }
+?>
+<?php echo $this->getMessagesBlock()->toHtml() ?>
+
+<div class="clearfix rightGrid">
+	<?php echo $this->getLayout()->getBlock("breadcrumbs")->toHtml(); ?>
+</div>
+
+    <?php 
+		if($_imgUrl && $_categoryLevel > 2) {
+			echo $_imgHtml;
+		} elseif ($_categoryLevel == 2) {
+			echo $this->getChildHtml('catslider'); 
+		}
+		
+	?>	
+	<?php if ($_categoryLevel > 2) { ?>
+
+		<div class="CatTitle"><h2><?php echo $_category->getName(); ?></h2></div>
+	<?php } ?>
+
+ <?php if($this->isContentMode()): ?>
+        <?php  echo $this->getCmsBlockHtml() ?>
+
+    <?php elseif($this->isMixedMode()): ?>
+
+
+        <?php  echo $this->getCmsBlockHtml() ?>		
+        <?php  if ($_categoryLevel > 2) { echo $this->getProductListHtml(); } ?>
+
+    <?php else: ?>
+        <?php  if ($_categoryLevel > 2) { echo $this->getProductListHtml(); } ?>
+    <?php endif; ?>	
+	
+
+
+	<?php if ($_categoryLevel == 2) {  echo $this->getChildHtml('sellers'); } ?>
+	
+	<?php
+		/* Category Content Begins */
+			$_heading = $this->getCurrentCategory()->getCategoryContentHeading();
+			$_subheading = $this->getCurrentCategory()->getCategoryContentSubHeading();
+			$_description = $this->getCurrentCategory()->getDescription();
+		/* Category Content Ends */
+		
+		if ((!empty($_heading) OR !empty($_subheading) OR !empty($_description)) && $_categoryLevel != 2) {
+	?>
+			<div class="custom_message <?php if ($_categoryLevel > 2) { ?> custom_message_product <?php } ?>">
+				<?php if(!empty($_heading)): ?>
+					<p class="cmhead">
+						<?php echo $_helper->categoryAttribute($_category, $_heading, 'category_content_heading') ?>
+					</p>
+				<?php endif; ?>
+				<?php if(!empty($_subheading)): ?>
+					<p class="subhead">
+						<?php echo $_helper->categoryAttribute($_category, $_subheading, 'category_content_sub_heading') ?>
+					</p>
+				<?php endif; ?>
+				<?php if(!empty($_description)): ?>
+					<p class="cmdesc">
+						<?php echo $_helper->categoryAttribute($_category, $_description, 'description') ?>
+					</p>
+				<?php endif; ?>
+			</div>
+	<?php
+		}
+	?>

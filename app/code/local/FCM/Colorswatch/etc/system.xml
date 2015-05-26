@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<config>
+	<tabs>
+		<fcmfulfillment translate="label" module="colorswatch">
+            <label>FCM Fulfillment</label>
+            <sort_order>280</sort_order>
+        </fcmfulfillment>
+	</tabs>
+	<sections>
+		<colorswatch translate="label">
+			<label>ColorSwatch Settings</label>
+			<tab>fcmfulfillment</tab>
+			<frontend_type>text</frontend_type>
+			<sort_order>1000</sort_order>
+			<show_in_default>1</show_in_default>
+			<show_in_website>1</show_in_website>
+			<show_in_store>1</show_in_store>
+			<groups>
+					<general translate="label">
+						<label>General Settings</label>
+						<frontend_type>text</frontend_type>
+						<sort_order>10</sort_order>
+						<show_in_default>1</show_in_default>
+						<show_in_website>1</show_in_website>
+						<show_in_store>1</show_in_store>
+						<fields>
+							<!-- show_options_configurable_block - ColorswatchProductView - sort order 20 -->
+							<swatch_image_width>
+								<label>Swatch image width</label>
+								<frontend_type>text</frontend_type>
+								<sort_order>50</sort_order>
+								<show_in_default>1</show_in_default>
+								<show_in_website>1</show_in_website>
+								<show_in_store>1</show_in_store>
+								<comment>Swatch image width (in pixels), set to "null" for auto</comment>
+							</swatch_image_width>
+							<swatch_image_height>
+								<label>Swatch image height</label>
+								<frontend_type>text</frontend_type>
+								<sort_order>51</sort_order>
+								<show_in_default>1</show_in_default>
+								<show_in_website>1</show_in_website>
+								<show_in_store>1</show_in_store>
+								<comment>Swatch image height (in pixels), set to "null" for auto</comment>
+							</swatch_image_height>
+						</fields>	
+					</general>
+				</groups>
+		</colorswatch>
+	</sections>
+</config>

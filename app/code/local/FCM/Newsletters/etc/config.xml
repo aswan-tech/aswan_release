@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <modules>
+        <FCM_Newsletters>
+            <version>0.1.0</version>
+        </FCM_Newsletters>
+    </modules>
+	
+	<global>
+		<blocks>
+			<newsletters>
+				<class>FCM_newsletters_Block</class>
+				<!--<rewrite>
+					<myemail>FCM_newsletterss_Block_Myemail</myemail>
+				</rewrite>-->
+			</newsletters>
+			
+			<adminhtml>
+				<rewrite>
+					<newsletter_queue_edit_form>FCM_Newsletters_Block_Adminhtml_Newsletter_Queue_Edit_Form</newsletter_queue_edit_form>
+					<newsletter_queue_grid_renderer_action>FCM_Newsletters_Block_Adminhtml_Newsletter_Queue_Grid_Renderer_Action</newsletter_queue_grid_renderer_action>
+				</rewrite>
+			</adminhtml>
+			
+		</blocks>
+	</global>
+	
+    <frontend>
+        <routers>
+            <newsletter>
+                <args>
+                    <modules>
+                        <FCM_Newsletters before="Mage_Newsletter_ManageController">FCM_Newsletters</FCM_Newsletters>
+                        <FCM_Newsletters before="Mage_Newsletter_SubscriberController">FCM_Newsletters</FCM_Newsletters>
+                    </modules>
+                </args>
+            </newsletter>
+			
+			<myemail>
+                <use>standard</use>
+                <args>
+                    <module>FCM_newsletters</module>
+                    <frontName>myemail</frontName>
+                </args>
+            </myemail>
+        </routers>
+		
+		<layout>
+            <updates>
+                <newsletters>
+                    <file>myemail.xml</file>
+                </newsletters>
+            </updates>
+        </layout>
+    </frontend>
+	
+	<crontab>
+        <jobs>
+            <newsletter_send_all>
+                <schedule>
+                    <cron_expr />
+                </schedule>
+                <run>
+                    <model>newsletter/observer::scheduledSend</model>
+                </run>
+            </newsletter_send_all>
+        </jobs>
+    </crontab>
+</config> 

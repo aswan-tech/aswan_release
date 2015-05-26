@@ -1,0 +1,91 @@
+"Using the form below you can enable, disable and configure display of the rule in customers' account","Via het formulier hieronder kan je inschakelen, uitschakelen en configureren het weergave van de regel in klanten rekening"
+"Display the rule in customers' account","Toon de regel in klanten rekening"
+Yes,Ja
+No,Nee
+"Display the coupon code in customers' account (if applicable)","Toon de coupon code in klanten rekening (indien van toepassing)"
+"Please describe the rule conditions","Geef alstublieft een beschrijving van de regel voorwaarden"
+"Update prices using the following information","Update prijzen met behulp van de volgende informatie"
+Apply,Toepassen
+"Percent of product price discount","Procent van het product prijs korting"
+"Fixed amount discount","Vaste bedrag korting"
+"Percent of product price surcharge","Procent van het product prijs toeslag"
+"Fixed amount surcharge","Vaste bedrag toeslag"
+"Fixed amount discount for whole cart","Vaste bedrag korting voor hele winkelwagen"
+"Fixed amount surcharge for whole cart","Vaste bedrag toeslag voor hele winkelwagen"
+"Buy X get Y free (discount amount is Y)","Koop X krijg Y gratis (kortingsbedrag is Y)"
+"Discount/Surcharge amount","Korting / Toeslag bedrag"
+"Maximum Qty Discount is Applied to","Aantal maximale korting wordt toegepast aan"
+"Discount Qty Step (Buy X)","Aantal korting stap (Koop X)"
+"Free shipping","Gratis verzending"
+"For matching items only","Alleen voor overeenkomende items"
+"For shipment with matching items","Voor verzending met overeenkomende items"
+"Stop further rules processing","Stop nader regels verwerking"
+"Apply the rule only to cart items matching the following conditions (leave blank for all items)","Toepassing van de regel alleen aan winkelwagen items die aan de volgende voorwaarden voldoen (laat leeg voor alle items)"
+"Apply to","Van toepassing bij"
+"Rule Information","Regel Informatie"
+Conditions,Voorwaarden
+Actions,Acties
+"Display Options","Toon Opties"
+Period,Termijn
+Total,Totaal
+Subtotal,Subtotaal
+"Coupon Code","Coupon Code"
+"Number of Uses","Aantal Keer Gebruikt"
+"Subtotal Amount","Subtotaal Bedrag"
+"Discount(+)/Surcharge(-) Amount","Korting(+)/Toeslag(-) Bedrag"
+"Total Amount","Totaal Bedrag"
+"Number of Use","Aantal Gebruik"
+CSV,CSV
+Excel,Excel
+"Number of Orders","Aantal Bestellingen"
+"Items Ordered","Bestelde Artikelen"
+Tax,Belasting
+Shipping,Verzendkosten
+Discounts(+)/Surcharges(-),Kortingen(+)/Toeslagen(-)
+Invoiced,Gefactureerd
+Refunded,Terugbetaald
+Discount," Korting"
+Discount/Surcharge,Korting/Toeslag
+"Available Specials","Beschikbaar Specials"
+"Qty to Refund","Hoeveelheid terug te betalen"
+"Tax Amount",Belastingbedrag
+"Discount Amount",Kortingsbedrag
+"Row Total","Rij Totaal"
+Qty,Hoeveelheid
+"Qty to Invoice","Hoeveelheid te factureren"
+"Discount (%s)"," Korting (%s)"
+"Discount(+)/Surcharge(-) (%s)","Korting(+)/Toeslag(-) (%s)"
+Discount(+)/Surcharge(-),Korting(+)/Toeslag(-)
+"Tax Percent","Belasting Procent"
+"Aitoc Loyalty Program","Aitoc Loyalty Program"
+"Aitoc Loyalty Program functionality is disabled for some websites you specified","Aitoc Loyalty Program functionaliteit is uitgeschakeld voor een aantal websites die u hebt opgegeven"
+Surcharge,Toeslag
+"Surcharge (%s)","Toeslag (%s)"
+"Customer data subselection","Klantinformatie subselectie"
+"Test Atrr","Test Atrr"
+"Conditions Combination","Voorwaarden Combinatie"
+"Customer Data","Klant Gegevens"
+"Amount spent during period","Bestede bedrag tijdens de periode"
+"Period of membership","Periode van het lidmaatschap"
+"Average order amount during period","Gemiddelde bestelling bedrag tijdens de periode"
+Customer,Klant
+suits,past
+"If a %s %s %s of these conditions:","Als een %s %s %s van deze voorwaarden"
+is,is
+"is not","is niet"
+"equals or greater than","is gelijk aan of groter dan"
+"equals or less than","is gelijk aan of minder dan"
+"greater than","groter dan"
+"less than","minder dan"
+contains,bevat
+"does not contain","bevat geen"
+"is one of","is een van de"
+"is not one of","is niet een van de"
+"Amount spent during last","Bestede bedrag gedurende de laatste"
+"Customer's membership period","Lidmaatschap periode van de klant"
+"Average order during last","Gemiddelde bestelling gedurende de laatste"
+"Aitoc Loyalty Program functionality has been disabled for the following store(s):","Aitoc Loyalty Program functionaliteit is uitgeschakeld voor de volgende winkel(s)"
+"Aitoc Loyalty Program functionality is disabled for some stores in websites you specified","Aitoc Loyalty Program functionaliteit is uitgeschakeld voor een aantal winkels op de websites die u hebt opgegeven"
+"Surcharge Amount","Surcharge Amount"
+available,beschikbaar
+"No specials currently available","Geen specials momenteel beschikbaar"

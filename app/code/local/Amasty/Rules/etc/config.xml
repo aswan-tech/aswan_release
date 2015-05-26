@@ -1,0 +1,170 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @copyright   Copyright (c) 2009-11 Amasty
+ */
+-->
+<config>
+    <modules>
+        <Amasty_Rules>
+            <version>1.3.5</version>
+        </Amasty_Rules>
+    </modules>
+
+    <adminhtml>
+        <translate>
+            <modules>
+                <Amasty_Rules>
+                    <files>
+                        <default>Amasty_Rules.csv</default>
+                    </files>
+                </Amasty_Rules>
+            </modules>
+        </translate>
+        <acl>
+            <resources>
+                <all>
+                    <title>Allow Everything</title>
+                </all>
+                <admin>
+                    <children>
+                        <system>
+                            <children>
+                                <config>
+                                    <children>
+                                        <amrules translate="title" module="amrules">
+                                            <title>Special Promotions</title>
+                                        </amrules>
+                                    </children>
+                                </config>
+                            </children>
+                        </system>
+                     </children>
+                </admin>
+            </resources>
+        </acl>
+    </adminhtml>
+
+    <global>
+        <resources>
+            <amrules_setup>
+                <setup>
+                    <module>Amasty_Rules</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </amrules_setup>
+
+            <amrules_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </amrules_write>
+
+            <amrules_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </amrules_read>
+        </resources>
+
+        <models>
+            <amrules>
+                <class>Amasty_Rules_Model</class>
+            </amrules>
+            <salesrule>
+                <rewrite>
+                    <quote_discount>Amasty_Rules_Model_SalesRule_Quote_Discount</quote_discount>
+                </rewrite>
+            </salesrule>
+
+            <enterprise_customersegment>
+                <rewrite>
+                    <observer>Amasty_Rules_Model_Customersegment_Observer</observer>
+        	    </rewrite>
+            </enterprise_customersegment>
+
+        </models>
+
+        <blocks>
+            <amrules>
+                <class>Amasty_Rules_Block</class>
+            </amrules>
+
+            <adminhtml>
+                <rewrite>
+                    <promo_quote_edit>Amasty_Rules_Block_Adminhtml_Promo_Quote_Edit</promo_quote_edit>
+                </rewrite>
+            </adminhtml>
+        </blocks>
+
+        <helpers>
+            <amrules>
+                <class>Amasty_Rules_Helper</class>
+            </amrules>
+        </helpers>
+
+        <events>
+            <salesrule_validator_process>
+                <observers>
+                    <amasty_rules_model_observer>
+                        <type>singleton</type>
+                        <class>amrules/observer</class>
+                        <method>handleValidation</method>
+                    </amasty_rules_model_observer>
+                </observers>
+          </salesrule_validator_process>
+          <adminhtml_block_salesrule_actions_prepareform>
+                <observers>
+                    <amasty_rules_model_observer>
+                        <type>singleton</type>
+                        <class>amrules/observer</class>
+                        <method>handleFormCreation</method>
+                    </amasty_rules_model_observer>
+                </observers>
+          </adminhtml_block_salesrule_actions_prepareform>
+          <salesrule_rule_condition_combine>
+                <observers>
+                    <amasty_rules_model_observer>
+                        <type>singleton</type>
+                        <class>amrules/observer</class>
+                        <method>handleNewConditions</method>
+                    </amasty_rules_model_observer>
+                </observers>
+          </salesrule_rule_condition_combine>
+        </events>
+        <sales>
+            <quote>
+                <totals>
+                    <discount>
+                        <renderer>amrules/checkout_discount</renderer>
+                    </discount>
+                </totals>
+            </quote>
+        </sales>
+    </global>
+
+    <frontend>
+        <translate>
+            <modules>
+                <Amasty_Rules>
+                    <files>
+                        <default>Amasty_Rules.csv</default>
+                    </files>
+                </Amasty_Rules>
+            </modules>
+        </translate>
+    </frontend>
+
+    <default>
+        <amrules>
+           <general>
+                <skip_special_price>0</skip_special_price>
+                <breakdown>1</breakdown>
+                <breakdown_products>0</breakdown_products>
+           </general>
+        </amrules>
+    </default>
+
+</config>

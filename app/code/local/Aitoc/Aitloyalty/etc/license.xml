@@ -1,0 +1,2 @@
+<?xml version="1.0"?>
+<install><product id="131" key="Aitoc_Aitloyalty" version="10.0.10" license_id="16180" link_id="574534" ent_hash="d69a"><![CDATA[Loyalty Program for Enterprise Edition]]></product><serial>INzRIwyyaNoeOLERhAgt4U28qVKIeEa3dfPrgaAN3C</serial><checkid>78047b959f84795652e09a84fb9ecf40</checkid><store_url><![CDATA[http://www.aitoc.com/en/]]></store_url><service><![CDATA[https://www.aitoc.com/api/xmlrpc/]]></service><constraint><store label="Number of stores within one Magento Installation:">1</store></constraint></install>

@@ -1,0 +1,94 @@
+<?php if ($this->showSendReferralForm()): ?>
+<div class="rewardsref_myreferrals_multireferral_section">
+    <form action="<?php echo $this->getUrl('rewardsref/customer/invites/') ?>" method="post" id="form-validates">
+        <?php if ($this->hasPredictedSignupPoints()): ?>
+    		<div class="rewardsref_myreferrals_multireferral_predictpoints rewardsref_myreferrals_multireferral_predictpoints_signup">
+                <?php echo $this->__("You could earn up to %s when your referral signs up.", $this->getPredictedSignupPoints()); ?>
+            </div>
+        <?php endif; ?>
+        <?php if ($this->hasPredictedFirstOrderPoints()): ?>
+    		<div class="rewardsref_myreferrals_multireferral_predictpoints rewardsref_myreferrals_multireferral_predictpoints_firstorder">
+                <?php echo $this->__("You could earn up to %s when your referral makes their first order.", $this->getPredictedFirstOrderPoints()); ?>
+            </div>
+        <?php endif; ?>
+
+        <fieldset class="group-select" style="margin-bottom: 0px;">
+            <h4 class="legend"><?php echo $this->__('Send Invitations') ?></h4>
+            <div class="input-box" >
+                <label for="to"><?php echo $this->__('To') ?> 
+					<span class="mandatoryField">*</span>
+				</label>
+                <table>
+                    <tbody>
+                        <tr>
+                            <td style="width: 50%">
+                                <textarea name="contacts" id="recipient_list" class="required-entry 
+								rewardsref_recipient_list" rows="7"></textarea>
+								
+								<div style="display:none" id="recipient_id" class="validation-advice">
+									<?php echo $this->__('Oops! This field is required.'); ?>
+								</div>
+								
+								<br />
+								
+								<div class="rewardsref_invite_field_format">
+                                    <p class="comment">
+                                        <?php echo $this->__('To reduce the chance that your message is marked as spam, please follow this format:'); ?>
+                                        <br /><b>&quot;contact name&quot; &lt;email@address.com&gt;</b>
+                                    </p>
+                                    <p class="comment">
+                                        <strong>
+											<?php echo $this->__('Example contact list:'); ?>
+										</strong>
+										<br />
+                                        &quot;fullname&quot; &lt;email@email.com&gt;, my@friend.com
+										<br />
+                                        email@address.com, another@friend.com
+                                    </p>
+                                </div>
+								
+                               <!-- <br/>
+                                <?php // echo $this->getChildHtml('plaxo_contact_chooser'); ?>
+							   -->
+                            </td>
+                            
+                        </tr>	
+                            
+                    </tbody>
+                </table>
+                <br/>
+            </div>
+
+            <div class="input-box" style="display:none;" >
+                <label for="subject"><?php echo $this->__('Subject (Optional)') ?></label>
+                <textarea name="subject" id="subject" class="required-entry textarea" style="width:100%;" rows="1" cols="80" title="<?php echo $this->__('Subject') ?>"></textarea>
+            </div>
+
+            <div class="input-box">
+                <label for="message"><?php echo $this->__('Message (Optional)') ?> </label>
+                <textarea name="message" id="message" class="required-entry textarea" style="width:100%;" rows="4" cols="80" title="<?php echo $this->__('Short Message') ?>"  ></textarea>
+            </div>
+
+            <div class="button-set" style="margin-top:0px">
+                <!--<a href="<?php echo $this->getBackUrl() ?>" class="left">&laquo; <?php echo $this->__('Back') ?></a>-->
+                <button id="send_invite" type="submit" title="<?php echo $this->__('Send Invitation(s)') ?>" class="btnsubmit "><?php echo $this->__('Send Invitation (s)') ?></button>
+            </div>
+            
+        </fieldset>
+    </form>
+
+    <script type="text/javascript">
+        var dataForm = new VarienForm('form-validate', true);		
+		jQuery('#send_invite').click(function() {			
+			if(!jQuery('#recipient_list').val()) {
+				jQuery('#recipient_id').show();
+				return false;
+			} else {
+				jQuery('#recipient_id').hide();
+				return true;
+			}
+		});
+    </script>
+
+</div>
+<?php endif; ?>

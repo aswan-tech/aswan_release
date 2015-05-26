@@ -1,0 +1,24 @@
+<?php
+    $url = "";
+    
+    $pr = "http://";
+    
+    $url = $pr . $_SERVER[HTTP_HOST];
+
+    $d = dirname($_SERVER['SCRIPT_NAME']);
+    
+    if (!empty($d)) {
+        $url = $url . "/" . $d;      
+    }
+?>
+
+<div role="main">
+    <section id="errorbody">
+        <div class="errorbody">
+            <p class="em">Thank you for visiting us.</p>
+            <p>We are currently experiencing high volumes of traffic.</p>
+            <p>Please try again later.</p>
+            <p><br /><a href="<?php echo $url;?>">Click here to visit the site again</a></p>
+        </div>
+    </section>
+</div>

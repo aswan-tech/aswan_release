@@ -1,0 +1,40 @@
+<?php foreach ($this->getTotals() as $_code => $_total): ?>
+    <?php if ($_total->getBlockName()): ?>
+        <?php echo $this->getChildHtml($_total->getBlockName(), false); ?>
+    <?php else:?>
+	
+    <ul class="clearfix subtotal_s">
+        <li>
+			<div class="clearfix field-item">
+				<?php if ($_total->getStrong()): ?>				
+				<label for="ordNo">
+				<?php if(strtolower(trim($_total->getLabel()))=='grand total') { ?>
+					<strong><?php echo $this->escapeHtml(strtoupper($_total->getLabel())); ?></strong>
+				<?php } else { ?>
+					<?php echo $this->escapeHtml(strtoupper($_total->getLabel())); ?>
+				<?php } ?>
+				</label>
+				<?php else:?>
+				<label for="ordNo">
+				<?php if(strtolower(trim($_total->getLabel()))=='grand total') { ?>
+					<strong><?php echo $this->escapeHtml(strtoupper($_total->getLabel())); ?></strong>
+				<?php } else { ?>
+					<?php echo $this->escapeHtml(strtoupper($_total->getLabel())); ?>
+				<?php } ?>
+				</label>
+				<?php endif?>
+			
+				<?php if ($_total->getStrong()):?>
+				<div class="input-box input-value">
+					<?php echo $this->formatValue($_total) ?>
+				</div>
+				<?php else:?>
+				<div class="input-box input-value">
+					<?php echo $this->formatValue($_total) ?>
+				</div>	
+				<?php endif?>
+			</div>
+        </li>
+    </ul>
+    <?php endif?>
+<?php endforeach?>

@@ -1,0 +1,20 @@
+<a href="<?php echo Mage::getUrl('gallery'); ?>">
+	<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('trends-header')->toHtml() ?>
+</a>
+<div class="back">
+	<a href="<?php echo Mage::helper('core/url')->getHomeUrl() ?>"><img src="<?php echo $this->getSkinUrl('images/back_to_shop.jpg') ?>" width="107" height="18" alt="Back to Shop"/></a>
+</div> 
+<!--<div class="menu">
+	<ul class="nav_menu">
+	<li class="first"><a href="<?php //echo Mage::getUrl('gallery/week'); ?>">Look of The Week</a></li>
+                    <li><a href="<?php //echo Mage::getUrl('gallery/month'); ?>">Look of The Month</a></li>
+		
+	</ul>
+</div>-->
+<div class="header_bottom">
+	<?php echo $this->getChildHtml('topTitle'); ?>
+	<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('trends-social-pages')->toHtml() ?>
+	<?php echo $this->getChildHtml('top.gallery.archive'); ?>
+	<div class="clearfloat"></div>
+	<div class="dashed"></div>
+</div>

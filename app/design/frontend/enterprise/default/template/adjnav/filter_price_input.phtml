@@ -1,0 +1,45 @@
+<?php
+/**
+ * Product:     Layered Navigation Pro for Enterprise Edition - 16/08/12
+ * Package:     AdjustWare_Nav_10.4.9_10.0.0_557110
+ * Purchase ID: hXgQU3oI8FOfJ8PDCk5s6h6XPM5oH2Kx0N6TCAPkqN
+ * Generated:   2013-04-22 06:59:44
+ * File path:   app/design/frontend/enterprise/default/template/adjnav/filter_price_input.phtml
+ * Copyright:   (c) 2013 AITOC, Inc.
+ */
+?>
+<ol>
+<?php 
+    $items = $this->getItems(); 
+    list($from, $to) = explode($this->getDelimeter(), $items[0]->getValueString());
+   
+    if ($from < 0.01)
+    {
+        $from = $this->__('From');
+    }
+    else 
+    {
+        $from = round($from,2);    
+    }
+       
+    if ($to < 0.01)
+    {
+        $to = $this->__('To');
+    }
+    else 
+    {
+        $to = round($to,2);    
+    }
+    
+?>
+<li>
+<input class="input-text" type="text" maxlength="12" size="2" id="adj-nav-price-from---<?php echo $this->_filter->getRequestVar()?>" value="<?php echo $from?>"
+onclick="if(this.value==this.name) this.value='';"  name="<?php echo $this->__('From')?>"/>
+<span class="adj-nav-separator">-</span>
+<input class="input-text" type="text" maxlength="12" size="2" id="adj-nav-price-to---<?php echo $this->_filter->getRequestVar()?>" value="<?php echo $to?>"
+onclick="if(this.value==this.name) this.value='';" name="<?php echo $this->__('To')?>"/>
+<button type="button" class="button" id="adj-nav-price-go---<?php echo $this->_filter->getRequestVar()?>"><span><span><?php echo $this->__('Go')?></span></span></button>
+</li>
+</ol>
+
+<input type="hidden" value="<?php echo $this->_filter->getRequestVar()?>" class="adj-nav-price-input-id">

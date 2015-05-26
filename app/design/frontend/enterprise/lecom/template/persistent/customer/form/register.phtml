@@ -1,0 +1,294 @@
+<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+<div id="sign-regi-wrapp" class="mar-b10 fl">
+    <ul id="tabslogin">
+        <li ><a id="tab1"  href="javascript:void(0)" class="inactive">Sign In </a></li>
+        <li ><a id="tab2"  href="javascript:void(0)">Sign up</a></li>
+    </ul>
+    <div class="container sec1" id="tab1C">
+        <div class="login-main-cont fl">
+            <div class="sign-wrapp fl">
+                <h2>Sign In</h2>
+                <p>to access your account</p>
+                <?php echo $this->getLayout()->createBlock('inchoo_googleconnect/button')->setTemplate('inchoo/googleconnect/button.phtml')->toHtml();?>
+                <a href="#"  class="mar-b10" onclick="return fblogin();"><img src="<?php echo $this->helper('facebookfree/active')->getLoginImg() ?>" width="167" height="23" alt="<?php echo $this->__('facebook connect') ?>"></a>
+                
+                <div class="sin-txt mar-t10">Why sign in with Facebook?</div>
+                <div class="sin-txtsamll mar-t10">Easily share with your friends</div>
+                <div class="sin-txtsamll mar-t10">We never post without your permission</div>
+            </div>
+            <div class="sign-r-wrapp fr">
+                <form action="<?php echo Mage::getBaseUrl().'customer/account/loginPost' ?>" method="post" id="login-form">
+                    <p>I'M already registered</p>
+                    <label class="fl">Email Address*</label>
+                    <div class="clear"></div>
+                    <input type="text" name="login[username]" value="<?php echo $this->htmlEscape($this->getUsername()) ?>" id="email" class="input-text required-entry validate-email" title="<?php echo $this->__('Email address') ?>" placeholder="Email address" onblur="javascript:onBlurText(this,'Email address');jQuery('#pass').val('');" onclick="javascript:onClickText(this,'Email address');"/>
+                    <label class="fl">Password*</label>
+                    <div class="clear"></div>
+                    <input type="password" name="login[password]" class="input-text required-entry validate-password" id="pass" title="<?php echo $this->__('Password') ?>" value="Password" onblur="javascript:onBlurText(this,'Password');" onclick="javascript:onClickText(this,'Password');" />
+                    <div class="forgot-pass"><a href="<?php echo $this->getUrl('customer/account/forgotpassword'); ?>"><?php echo $this->__('Forgot Password?') ?></a></div>
+                    <div class="mar-t10">
+                    <label>
+                      <input type="checkbox" class="signIn fl" name="login[remember]" title="<?php echo $this->__('Next time, automatically sign me in') ?>" />	
+                      <span class="fl">Next time, automatically sign me in</span></label>
+                    </div>
+                    <div class="clear"></div>
+                    <button type="submit" class="btnsubmit signInbtn nsignin-btn fl" title="<?php echo $this->__('Sign In') ?>" name="send" id="send2"><?php echo $this->__('Sign In') ?></button>
+                    <div class="clear"></div>
+                    <div class="forgot-pass mar-t10">Don't have an account? <a href="javascript:void(0)" id="ntab1">Create one!</a></div>
+                </form>
+				<script type="text/javascript">
+                //<![CDATA[
+                var dataForm = new VarienForm('login-form', true);
+                //]]>
+                jq(function(){jq("input[type=checkbox],input[type=radio]").uniform();});
+                jq(function(){jq("select").not("#currency_switcher").uniform();});                
+                function onBlurText(object,value){
+					if(object.value == ''){
+						object.value = value;
+					}
+                }                
+                function onClickText(object,value){
+					if(object.value == value){
+						object.value = '';
+					}
+                }
+                </script>
+            </div>
+        </div>    
+    </div>
+          
+          
+          <div class="container sec2" id="tab2C">
+          <div class="login-main-cont fl">
+          <div class="fl ">
+        <!--img src="<?php echo $this->getSkinUrl('images/start-strip.gif');?>"  border="0" /-->
+        <div class="offerbanner">
+          <h3>Register & Get</h3>
+              <p><strong> Rs 200 Gift Voucher<br>
+               +<br> Rs 2500 Shopping Coupons</strong>
+             </p>
+               <span><b>*</b>Check your My Coupon section post signing up</span>
+
+        </div>
+
+          </div>
+          <div class="sign-r-wrapp fr">
+          <h2>Sign up</h2>
+          <form  id="reg-form-validate" name="reg-form-validate" class="frm-regis">
+
+              <div id="ajaxSignupRespM" style="display:none;" class="redcolor fl"></div>
+              <div id="ajaxSignupLodingM" style="display:none; font-size:13px;" class="redcolor"><img src="<?php echo $this->getSkinUrl('images-v3/ajax-loader.gif') ?>"></div>
+              <label class="fl">Email Address*</label>
+              <div class="clear"></div>
+              <input type="text" name="email" class="input-text required-entry validate-email" value="" />
+              <label class="fl">Password*</label>
+              <input type="password" name="password" class="input-text required-entry validate-password" />
+               <div class="clear"></div>
+              <label class="fl">Mobile*</label>
+              <div class="clear"></div>
+              <input type="text" name="mobile" class="input-text validate-mobile required-entry" id="mobile_no_m" />
+              <div id="show-time" style="display:none;" class="">
+              	<img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA);?>v3/loader-signup.gif"  border="0" />
+              </div>               
+              <div id="show-mobile" style="display:none;" class="validation-advice"></div>
+ <!-- OW start-->             
+            
+
+			<div class="fieldrow4">						
+			<p style="margin:0px; font-size:11px;  text-transform:none;"><input style="width: 14px!important;" type="checkbox" name="is_subscribed" value="1" checked="true"> I would like to receive emails and updates.</p>
+			<!--p><input type="checkbox" class="signIn fl" name="login[remember]" title="<?php //echo $this->__('Next time, automatically sign me in') ?>" /> Next time, automatically sign me in</p-->
+			</div> 
+
+            <!-- <button id="sign-up" class="registernbtn nregist-btn fl" title="Register" type="submit">REGISTER</button>-->
+            <div style="clear:both; padding:10px 0px;">
+              <input type="submit" id="m-r-btn" title="<?php echo $this->__('Male') ?>" class="mbutton gtm-track" name="gender" value="1">
+              <input type="submit" id="f-r-btn" title="<?php echo $this->__('Female') ?>" class="fbutton gtm-track" name="gender" value="2">
+              </div>
+              <!-- OW end-->            
+          </form> 
+
+          <div class="otp-cont hide sign-right" id="otp-cont-m">
+                <input type="hidden" name="mobile" id="regenerate-mob" value="">
+                <h1>Yay! <span>Your Sweet Code is on the Way!</span></h1>
+                <p>One Time Password (OTP) has been sent to your mobile number</p>
+                <div id="otp-ajaxloding-m" class="redcolor" style="display:none;" ><img src="<?php echo $this->getSkinUrl('images-v3/ajax-loader.gif') ?>"></div>
+                <div id="ajaxOtpRespM" style="display:none; font-size:13px;" class="redcolor fl"></div>
+                <div class="clear"></div>
+                <p class="top-line">Please enter your OTP</p>
+                <input name="register_otp_m" id="register-otp-m"  type="text" class="sign-text-field" value="" />
+                <div class="clear"></div>
+                <div class="sgn-error fl" id="error_register_otp_m"> 
+                <span class="msgtop-arrowred"></span>
+                <span class="fl error-msg-redtxt ">Please enter valid OTP Number.</span>
+                </div>
+                <div class="clear"></div>
+                <p><span>If you have not received the OTP. Please click to</span> <a href="javascript:regenerateOtpM('<?php echo $this->getBaseUrl() ?>common/index/regenerateOtp')">Regenerate</a></p>
+                <div class="clear"></div>
+                <div class="otp-btn-box">
+                <a class="otp-conf-btn" href="javascript:void(0)" onclick="confirmRegisterM('<?php echo $this->getBaseUrl() ?>common/index/activateNewReg')">Confirm</a>
+                <a class="fr" href="javascript:againRegisterM();">&lt;&lt;Back</a>
+                </div>
+                <p><span id="reg-mob-m"></span>
+                  <!-- <a class="fr" href="javascript:againRegister();">&lt;&lt;Back</a> -->
+                </p>
+
+        </div>             
+<script type="text/javascript">	//var registerForm = new VarienForm('form-validate');</script>
+           <div class="clear"></div>
+          </div>
+          </div>
+          <div class="clear"></div>
+          
+          </div>
+         
+   </div>
+<script type="text/javascript">
+jQuery('#sign-up').click(function(e){	
+var mobile = jQuery('#mobile').val();
+	if(mobile){		
+		e.preventDefault();
+		jQuery('#show-time').show();
+		jQuery.post("<?php echo $this->getUrl() ?>nosql/index/mobile/", { mobile: mobile }, function(data){			                    
+			if(data){				
+				jQuery('#show-mobile').html(data);
+				jQuery('#show-mobile').show();
+				jQuery('#show-time').hide();
+				return false;
+			}else{
+				jQuery('#show-time').hide();
+				jQuery('#show-mobile').hide();
+				jQuery("#form-validate").submit();
+			}		
+		});
+	}
+});
+</script>          
+<script>
+jQuery('#tabslogin li a:first').addClass('inactive');
+jQuery('.container').hide();
+jQuery('.container:not(:first)').show();
+
+jQuery('#tabslogin li a').click(function(){
+var t = jQuery(this).attr('id');
+if(jQuery(this).hasClass('inactive')){ 
+jQuery('#tabslogin li a').addClass('inactive');           
+jQuery(this).removeClass('inactive');
+jQuery('#tabslogin').find('#tab1').removeClass('atabActive');    
+jQuery('.container').hide();
+jQuery('#'+ t + 'C').fadeIn('fast');
+}
+});
+jQuery('#ntab1').click(function(){
+	jQuery('#tab1').addClass('inactive');           
+	jQuery('#tab2').removeClass('inactive');
+	jQuery('#tab1C').hide();
+	jQuery('#tab2C').show();
+});
+jQuery('#ntab2').click(function(){
+	jQuery('#tab1').removeClass('inactive');           
+	jQuery('#tab2').addClass('inactive');
+	jQuery('#tab2C').hide();
+	jQuery('#tab1C').show();
+});
+</script>
+<script type="text/javascript">
+    //var dataForm = new VarienForm('lowest-form-validate', true);
+    //<![CDATA[
+    var formId = 'reg-form-validate';
+    var myForm = new VarienForm(formId, true);
+    //var postUrl = '<?php echo Mage::getBaseUrl()."modulename/controller/method" ?>';
+    var postUrl = '<?php echo $this->getBaseUrl() ?>common/index/ajaxsignup';
+    function doAjax(gender) {
+        if (myForm.validator.validate()) {
+            var mobile_no = jQuery('#mobile_no_m').val();
+            jQuery('#ajaxSignupLodingM').show();
+            jQuery.ajax({
+              url : postUrl,
+              type: "POST",
+              data : jQuery('#'+formId).serialize(true)+'&gender='+gender,
+              success: function(data, textStatus, jqXHR)
+              {
+                  jQuery('#ajaxSignupLodingM').hide();
+                 if(data == '1' || data =='2') {
+                  jQuery('#reg-form-validate').addClass('hide');
+                  jQuery('#otp-cont-m').removeClass('hide');
+                  jQuery('#reg-mob-m').html('Your contact number +91'+mobile_no);
+                  jQuery("#ajaxOtpRespM").html('');
+                }
+                else {
+                    jQuery("#ajaxSignupRespM").show();
+                    jQuery("#ajaxSignupRespM").html(data);
+                }
+              }
+            });
+        }
+    }
+    jQuery('')
+    new Event.observe('m-r-btn', 'click', function(e){
+        e.stop();
+        doAjax(1);
+    });
+    new Event.observe('f-r-btn', 'click', function(e){
+        e.stop();
+        doAjax(2);
+    });
+
+    function confirmRegisterM(ajaxUrl){
+          var register_otp = jQuery('#register-otp-m').val();
+          jQuery("#register-otp-m").removeClass('sign-error');
+          jQuery('#error_register_otp_m').hide();
+          jQuery("#ajaxOtpRespM").hide();
+          if(isNaN(register_otp) == true || register_otp.length!=6){
+            jQuery("#register-otp-m").addClass('sign-error');
+            jQuery('#error_register_otp_m').show();
+            return false;
+          }
+          jQuery("#otp-ajaxloding-m").show();
+          jQuery.ajax({
+            url : ajaxUrl,
+                type: "POST",
+                data : {register_otp:register_otp,redirect_url:'url'},
+                success: function(data, textStatus, jqXHR)
+                {
+                  jQuery("#otp-ajaxloding-m").hide();
+                  var response = jQuery.parseJSON(data);
+                  if(response.message == '1') {
+                    jQuery("#ajaxOtpRespM").removeClass('redcolor').addClass('bluecolor').show();
+                    jQuery("#ajaxOtpRespM").html('You have been logged in successfully. You are being redirected…');
+                    window.setTimeout(function () {
+                      window.location = response.url;
+                    }, 2000);
+                  }
+                  else {
+                    jQuery("#ajaxOtpRespM").show();
+                    jQuery("#ajaxOtpRespM").html(response.message);
+                  }
+                }
+          });
+}
+ 
+ function regenerateOtpM(ajaxUrl){
+  jQuery("#otp-ajaxloding-m").show();
+  jQuery.ajax({
+        url : ajaxUrl,
+        success: function(data, textStatus, jqXHR)
+        {
+          jQuery("#otp-ajaxloding-m").hide();
+          if(data == '1') {
+            jQuery("#ajaxOtpRespM").removeClass('redcolor').addClass('bluecolor').show();
+            jQuery("#ajaxOtpRespM").html('OTP has been sent again.');
+          }
+          else {
+            jQuery("#ajaxOtpRespM").show();
+            jQuery("#ajaxOtpRespM").html(data);
+          }
+        }
+    });
+}
+
+function againRegisterM(){
+    jQuery('#reg-form-validate').removeClass('hide');
+    jQuery('#otp-cont-m').addClass('hide');
+}
+//end of javascript code
+</script>

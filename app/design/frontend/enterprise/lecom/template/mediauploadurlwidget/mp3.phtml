@@ -1,0 +1,22 @@
+<?php
+/**
+ * Magento
+ *
+ *  
+ *
+ * @package     EM_MediaUploadUrlWidget
+ * @copyright   Copyright (c) 2009 Quick Solution LT
+ * 
+ */
+?>
+<div id="<?php echo $id; ?>" class="<?php echo $class; ?>" <?php echo $attrs; ?>>
+    <object type="application/x-shockwave-flash"
+            data="http://cdn.techknowl.com/wp-content/uploads/2010/03/player.swf"
+            id="audioplayer1" height="<?php echo $height;?>" width="<?php echo $width ;?>">
+        <param name="movie" value="http://www.techknowl.com/wp-content/uploads/2010/03/player.swf">
+        <param name="FlashVars" value="playerID=1&amp;soundFile=<?php echo $media; ?>">
+        <param name="quality" value="high">
+        <param name="menu" value="false">
+        <param name="wmode" value="<?php echo $wmode; ?>">
+    </object>
+</div>

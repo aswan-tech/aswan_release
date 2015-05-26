@@ -1,0 +1,174 @@
+<script type="text/javascript">    
+    jQuery(function(){jQuery("#itemrightQickview select,#itemrightQickview input[type=checkbox],#itemrightQickview input[type=radio]").uniform();});
+</script>
+<?php
+    $_helper = $this->helper('catalog/output');
+    $_product = $this->getProduct();
+	$requestUrl=$this->getRequest()->getRequestString();
+	$_wishlistSubmitUrl = $this->helper('wishlist')->getAddUrl($_product);
+?>
+<?php
+    if ($_product->getTypeId() == "configurable") {
+        $associated_products = $_product->loadByAttribute('sku', $_product->getSku())->getTypeInstance()->getUsedProducts();
+        foreach ($associated_products as $assoc){
+			$moreImg = array();
+			$assocImg = Mage::getModel('catalog/product')->load($assoc->getId())->getMediaGalleryImages();
+			$img = (string)$this->helper('catalog/image')->init($assoc, 'image', $assoc->image)->resize(300,300);
+			foreach($assocImg as $key=>$value){
+				$moreImg[] = $value->getData();
+			} 
+            $dados[$assoc->getId()]['main_image'] = $img;
+			$dados[$assoc->getId()]['more_image'] = $moreImg;
+			unset($img);
+			unset($moreImg);
+		}
+    }else{
+		$dados[] =  "''";
+	}
+	$jsonString = json_encode($dados);
+    ?>
+<script type="text/javascript">
+    var optionsPrice = new Product.OptionsPrice(<?php echo $this->getJsonConfig() ?>);
+	var assocIMG = <?php echo $jsonString; ?> // Added  - Removed { here, causes issues with other scripts when not working with a configurable product.
+</script>
+<div id="itemdetails" class="QuickPopViewBox1">    
+    <?php echo $this->getChildHtml('global_messages') ?>    
+<div id="messages_product_view"><?php echo $this->getMessagesBlock()->getGroupedHtml() ?></div>
+<div class="" id="icart-product-view">
+    <form action="<?php if (strpos($requestUrl, '/edit/')) echo $this->getUrl('checkout/icart/edit', array('id' => $this->getRequest()->getParam('id'))); else echo Mage::helper('icart')->getAddUrl($_product) ?>" method="post" id="product_addtocart_form_icart"<?php if($_product->getOptions()): ?> enctype="multipart/form-data"<?php endif; ?> onsubmit="productAddToCartFormIcart.submit(this);">
+		<div class="no-display">
+			<input type="hidden" name="product" value="<?php echo $_product->getId() ?>" />
+			<input type="hidden" name="related_product" id="related-products-field" value="" />
+		</div>
+		<div class="fl QuickPopContent"><?php echo $this->getChildHtml('media') ?></div>
+		<div class="pdp-r-cont fl" id="itemrightQickview">
+			<p><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></p>
+            <div class="clear"></div>
+            <div class="Q-price-tag">
+                <div class="Q-price-value-cont">
+                	<span class="old-price-tag"><?php echo $this->getChildHtml('customprice') ?></span>
+                </div>
+            </div>
+			<div class="chosesizeboxWrapp chosesizeboxWrappnew">
+				<?php if ($_product->isSaleable() && $this->hasOptions() && $this->getChildChildHtml('container2')): ?>
+					<?php echo $this->getChildChildHtml('container2', '', true, true) ?>
+					<div class="clear"></div>
+    				<div class="pdpbutton-wrapp">
+						<?php $buttonTitle = $this->__('SHOP NOW'); ?>
+							<button id="cart-add-to-bag" type="button" title="<?php echo $buttonTitle ?>" class="ShopNowButton addtobag-btn gtm-track" onclick="javascript:ValidateIcart(this,<?php echo $_product->getId() ?>,'<?php echo addslashes($_product->getName()) ?>'); return false;">ADD TO BAG +</button>
+					</div>
+					<div class="clear"></div>
+					<div id="error-add-to-cart" class="msg-error"></div>
+				<?php else: ?>
+					<?php echo $this->getChildHtml('product_options_wrapper') ?>
+				<?php endif; ?>
+			</div>
+
+			<div class="itemAddtobeg">
+				<?php if (!$this->hasOptions()): ?>
+					<div class="add-to-box">
+						<?php if ($_product->isSaleable()): ?>
+							<?php echo $this->getChildHtml('addtocart') ?>
+						<?php endif; ?>
+                    <?php echo $this->getChildHtml('addto') ?>
+					</div>
+				<?php else: ?>
+					<?php if ($_product->isSaleable()): ?>
+						<div class="options-container-small">
+							<?php echo $this->getChildChildHtml('container1', '', true, true) ?>
+						</div>
+					<?php endif; ?>
+				<?php endif; ?>
+			</div>        
+            <div class="clear"></div>
+            <div class="instock-txt ">&nbsp;</div>
+            <!--<div class="viewpdp-link-w"><a href="<?php //echo $_product->getProductUrl(); ?>">View full product details</a></div>-->
+    </div>
+    	<div class="cb"></div>
+    	<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('quick-static-content')->toHtml(); ?>
+        <div class="no-display">
+            <input type="hidden" name="product" value="<?php echo $_product->getId() ?>" />
+            <input type="hidden" name="related_product" id="related-products-field" value="" />
+            <input type="hidden" name="is_input_file" id="is_input_file" value="0" />
+            <input type="hidden" name="referer_url" value="<?php echo $this->getRequest()->getServer('HTTP_REFERER') ?>" />
+        </div>
+    </form>
+    <script type="text/javascript">
+    //<![CDATA[
+        var productAddToCartFormIcart = new VarienForm('product_addtocart_form_icart');
+        if ($$('input[type="file"]').length==0) {
+            productAddToCartFormIcart.submit = function(){
+                    if (this.validator.validate()) {
+							//updateShortlists(<?php //echo $_product->getId() ?>,'<?php //echo addslashes($_product->getName()) ?>');
+                            iCart.submitForm(this.form, 'post');
+                }
+            }.bind(productAddToCartFormIcart);
+         } else {
+            $('is_input_file').value = 1;
+         }
+		
+		function ValidateIcart(obj,id,name){
+			var sizeicart = jQuery("#icart-product-view #"+id+"_size_attribute_id");
+			var coloricart = jQuery("#icart-product-view #"+id+"_color_attribute_id");
+			
+			if(sizeicart.val() == "" || coloricart.val() == ""){
+				//jQuery("#error-add-to-cart").fadeIn("slow");
+				//jQuery("#error-add-to-cart").text( 'Uh-oh! Please select the Size of the Product you want to Add to Bag.');
+				//setTimeout(function() { jQuery('#error-add-to-cart').hide();}, 5000);
+				jQuery("#cart-add-to-bag").hide();
+				jQuery('.size-info-close').show();
+				jQuery('.ajax-color-swatch').addClass('color-swatch-active');
+				jQuery('.info-dialog').addClass('info-dialog-active');
+				jQuery('.size-info-close').addClass('size-close-btn');	
+				jQuery('.size-info-close').show();			
+			}else{
+				productAddToCartFormIcart.submit(obj);
+			}
+		}
+		
+    //]]>
+    </script>
+    <script type="text/javascript">
+	jQuery('.size-info-close').click(function(){
+		jQuery(this).hide();
+		jQuery('.ajax-color-swatch').removeClass('color-swatch-active');
+		jQuery('#cart-add-to-bag').css({ display: "block" });
+		jQuery('.info-dialog').removeClass('info-dialog-active');
+		jQuery('.size-info-close').hide();
+	});			
+</script>
+</div>
+</div>
+<script type="text/javascript">
+jQuery(document).ready(function(){
+
+        FB.XFBML.parse();
+        
+        jQuery(".show_popup").click(function() {
+            jQuery('#fancybox-outer1').css({
+                top:20
+            }).show()
+
+            jQuery('#fancybox-overlay1')
+            jQuery('#fancybox-wrap1,#fancybox-overlay1').fadeIn(500);
+        });
+
+        jQuery("#fancybox-close1").click(function() {
+            jQuery('#fancybox-wrap1,#fancybox-overlay1').fadeOut(300);
+        });
+
+        jQuery("#fancybox-overlay1").click(function() {
+            jQuery('#fancybox-wrap1,#fancybox-overlay1').fadeOut(300);
+        });
+
+        jQuery(document).bind('keydown.fancybox-wrap1', function(e) {
+            if (e.keyCode == 27) {
+                jQuery('#fancybox-wrap1,#fancybox-overlay1').fadeOut(300);
+            }
+        });
+		if(typeof(window.addthis) != 'undefined'){
+			window.addthis.ost = 0;
+			window.addthis.toolbox('.addthis_toolbox');
+		}
+	});
+</script>

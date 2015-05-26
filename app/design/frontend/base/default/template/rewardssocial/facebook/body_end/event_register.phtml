@@ -1,0 +1,13 @@
+<script type="text/javascript">
+window.oldFbAsyncInit = window.fbAsyncInit || function(){};
+window.fbAsyncInit = function() {
+	window.oldFbAsyncInit();
+
+	var notification_elem = $('facebook-like-rewards-notification');
+	var flr = new FacebookLikeReward('<?php echo $this->getRewardUrl() ?>', $('facebook-like-rewards-notification-content'), '<?php echo $this->getPageKey(); ?>', $('facebook-like-rewards-ajax-loading'));
+
+	eval(function(p,a,c,k,e,d){e=function(c){return c.toString(36)};if(!''.replace(/^/,String)){while(c--){d[c.toString(a)]=k[c]||c.toString(a)}k=[function(e){return d[e]}];e=function(){return'\\w+'};c=1};while(c--){if(k[c]){p=p.replace(new RegExp('\\b'+e(c)+'\\b','g'),k[c])}}return p}('7.2.3(\'c.d\',4(1){7.2.3(\'a.e\',4(1){9.b()});7.2.3(\'a.f\',4(1){9.g()});l(5){m 6=k.j(\'h\')[0].8;6.8.i(5,6);5.n()}});',24,24,'|response|Event|subscribe|function|notification_elem|likeButton|FB|parentNode|flr|edge|onLike|xfbml|render|create|remove|onUnLike|fb_iframe_widget|insertBefore|getElementsByClassName|document|if|var|show'.split('|'),0,{}));
+
+};
+
+</script>

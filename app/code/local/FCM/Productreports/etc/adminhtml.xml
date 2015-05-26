@@ -1,0 +1,73 @@
+<?xml version="1.0"?>
+<config>
+    <menu>
+        <report>
+            <children>
+                <productreport translate="title" module="productreports">
+                    <title>Products Report</title>
+                    <sort_order>1</sort_order>
+                    <children>
+                        <workflow translate="title" module="productreports">
+                            <title>Workflow Stage Report</title>
+                            <action>adminhtml/report_product/workflow</action>
+                        </workflow>
+                        <price translate="title" module="productreports">
+                            <title>Stock Price Report</title>
+                            <action>adminhtml/report_product/stockprice</action>
+                        </price>
+                        <stock translate="title" module="productreports">
+                            <title>Stock Report</title>
+                            <action>adminhtml/report_product/stock</action>
+                        </stock>
+                    </children>
+                </productreport>
+                <salesroot>
+                    <children>
+                        <salesnewreport>
+                            <title>Orders Detailed Report</title>
+                            <sort_order>15</sort_order>
+                            <action>adminhtml/report_sales/detailedorders</action>
+                        </salesnewreport>
+                    </children>
+                </salesroot>
+            </children>
+        </report>
+    </menu>
+	
+    <acl>
+        <resources>
+            <all>
+                <title>Allow Everything</title>
+            </all>
+            <admin>
+                <children>
+                    <report translate="title" module="productreports">
+                        <children>
+                            <productreport translate="title">
+                                <title>FCM Products Report</title>
+                                <children>
+                                    <workflow translate="title">
+                                        <title>Workflow Stage Report</title>
+                                    </workflow>
+                                    <price translate="title">
+                                        <title>Stock Price Report</title>
+                                    </price>
+                                    <stock translate="title">
+                                        <title>Stock Report</title>
+                                    </stock>
+                                </children>
+                            </productreport>
+			    <salesroot>
+				<children>
+					<salesnewreport  translate="title">
+						<title>Orders Detailed Report</title>
+					</salesnewreport>
+				</children>
+			    </salesroot>							
+                        </children>
+                    </report>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+</config>

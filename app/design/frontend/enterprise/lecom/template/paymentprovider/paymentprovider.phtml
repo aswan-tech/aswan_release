@@ -1,0 +1,15 @@
+<h4><?php echo $this->__("Module List") ?></h4>
+
+<?php
+/*
+  This will load one record from your database table.
+  load(payment_id) will load whatever ID number you give it.
+ */
+$payment = Mage::getModel("paymentprovider/paymentprovider")->load(1);
+?>
+<ul>
+    <li><?php echo $payment->getPaymentId(); ?></li>
+    <li><?php echo $payment->getTitle(); ?></li>
+    <li><?php echo $payment->getContent(); ?></li>
+    <li><?php echo $payment->getStatus(); ?></li>
+</ul>

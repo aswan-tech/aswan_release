@@ -1,0 +1,25 @@
+#scratch1 {margin:0 auto!important; box-shadow:none!important; display:inline-block; vertical-align:middle;}
+.scratch-cursor {cursor:none; width:97px; height:137px; position:absolute; display:none; top:0; left:0; z-index:10000; pointer-events:none;}
+
+#catimage {position:relative; width:750px;}
+#catimage img {width:100%; height:auto;}
+
+#scratch-holder {position:absolute; top:0px; left:0px; width:100%; height:100%; text-align:center; box-sizing:border-box; padding:7% 0 0 0;}
+#scratch-holder #couponcode {width:100%; font-family:Arial, Helvetica, sans-serif; text-align:center; top:30%; position:absolute; font-size:16px; font-weight:bold;}
+#scratch-holder #couponcode.static {position:relative!important; top:0px;}
+#scratch-holder #couponcode p {margin:0px; color:#1e0f46;}
+#scratch-holder #couponcode p b {color:#ee0032;}
+#scratch-holder #couponcode p span {font-size:11px; display:block; clear:both;}
+#scratch-holder #resetplay {width:100%; display:none;}
+#scratch-holder #resetplay p {margin:0px; color:#1e0f46; font-weight:bold; font-family:Arial, Helvetica, sans-serif;}
+#scratch-holder #resetplay p a {display:inline-block; font-size:14px; color:#1e0f46; text-decoration:none; background:url(../images/play-button.png) no-repeat; padding:0px 0px 0px 22px; margin-top:12px;}
+@media only screen and (max-width:1024px){
+#catimage {width:100%;}
+	}
+@media only screen and (max-width:640px){
+#scratch-holder {padding:0px; background:#fff;  border:1px solid #CCC; padding:5% 0 0 0;}	
+#catimage img {display:none;}
+#scratch-holder {padding:3% 0; position:relative;}
+#scratch-holder #couponcode {top:17%;}
+#scratch-holder #couponcode.static {position:relative!important;}
+}

@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<config>
+    <template>
+        <adminhtml>
+            <file path="design--adminhtml--default--default--template--sales--order--creditmemo--create--items"></file>
+            <file path="design--adminhtml--default--default--template--sales--order--invoice--create--items"></file>
+            <file path="design--adminhtml--default--default--template--sales--order--invoice--view--items"></file>
+            <file path="design--adminhtml--default--default--template--sales--order--invoice--create--items--renderer--default"></file>
+            <file path="design--adminhtml--default--default--template--sales--order--invoice--view--items--renderer--default"></file>
+            <file path="design--adminhtml--default--default--template--sales--order--totals--discount"></file>
+            <file path="design--adminhtml--default--default--template--sales--order--view--items"></file>
+            <file path="design--adminhtml--default--default--template--sales--order--creditmemo--view--items"></file>
+            <file path="design--adminhtml--default--default--template--sales--order--view--items--renderer--default"></file>
+        </adminhtml>
+    </template>
+</config>
+<!--
+/**
+ * Product:     Loyalty Program for Enterprise Edition
+ * Package:     Aitoc_Aitloyalty_10.0.10_574534
+ * Purchase ID: INzRIwyyaNoeOLERhAgt4U28qVKIeEa3dfPrgaAN3C
+ * Generated:   2013-05-13 06:36:55
+ * File path:   app/code/local/Aitoc/Aitloyalty/etc/custom.data.xml
+ * Copyright:   (c) 2013 AITOC, Inc.
+ */
+-->

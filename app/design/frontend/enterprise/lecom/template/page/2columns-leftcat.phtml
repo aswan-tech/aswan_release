@@ -1,0 +1,104 @@
+<!doctype html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+	<?php echo $this->getChildHtml('head') ?>
+	<?php echo $this->getChildHtml('after_body_start') ?>
+</head>
+<body <?php echo $this->getBodyClass()?' class="'.$this->getBodyClass().'"':'' ?>>
+		    <div class="top-info-bar"></div>
+      <div class="as-menu-wrap "></div>
+      <div class="as-info-cont">
+        <header class=" pos-a">
+            <?php echo $this->getChildHtml('header') ?>
+       </header>
+      </div>
+
+	<?php $_checkenable = Mage::getStoreConfig("bannerlist/fav_settings/display"); ?>
+	<?php if($_checkenable == 1): ?>
+		<div class="slider-auto"><?php echo $this->getChildHtml('slider'); ?></div>
+	<?php endif; ?>
+	
+	<?php echo $this->getChildHtml('global_notices') ?>
+	<div id="container">
+		<div role="main">
+			<div id="bodycontainer" class="clearfix">
+				<?php echo $this->getChildHtml('global_messages') ?>
+				<div class="mainbody collLanding">
+					<div class="catalogue">
+                        <div class="clearfix rightGrid">
+                        	<?php echo $this->getLayout()->getBlock("breadcrumbs")->toHtml(); ?>
+                        </div>
+                       <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId( Mage::registry('current_category')->getLandingPage() )->toHtml(); ?>
+						<div class="clearfix sidepanels">
+							<div class="leftPanel stickyFilter">
+								<?php echo $this->getChildHtml('left') ?>
+							</div>
+							<script type="text/javascript">
+								var sidebarTop = 0;
+								var winHeight = jQuery(window).height();
+								var height = 0;
+								jQuery(function() {
+								var a = jQuery.browser == "msie" && jQuery.browser.version < 7;
+								if (!a && jQuery(".stickyFilter").offset() != null && jQuery("#footer_start").offset().top - jQuery(".stickyFilter").height() > 200) {
+									jQuery("#adj-nav-container").css('min-height', jQuery("#footer_start").offset().top + 'px');
+									var b = jQuery(".stickyFilter").offset().top - parseFloat(jQuery(".stickyFilter").css("margin-top").replace(/auto/, 0));
+									height = jQuery(".stickyFilter").height();
+									var d = 7;
+									var c = 0;
+									jQuery(window).scroll(function() {
+									height = jQuery(".stickyFilter").height();
+									var e = jQuery("#footer_start").offset().top - parseFloat(jQuery("#footer_start").css("margin-top").replace(/auto/, 0));
+									var f = jQuery(this).scrollTop();
+									if (f == c) {} else {
+										if (f > c && f > b && jQuery("#footer_start").offset().top - jQuery(".stickyFilter").height() > 200) {
+											if (f + winHeight >= b + height + d && f + winHeight <= e) {
+												sidebarTop = winHeight - height - d;
+											if (winHeight > height) {
+												sidebarTop = 0
+											}
+												jQuery(".stickyFilter").addClass("leftsidebarfixed").css("top", sidebarTop + "px")
+											} else {
+											if (f + winHeight > e) {
+												jQuery(".stickyFilter").addClass("leftsidebarfixed").css("top", sidebarTop + c - f + "px");
+												sidebarTop = sidebarTop + c - f
+											} else {
+												jQuery(".stickyFilter").removeClass("leftsidebarfixed").css("top", "0px")
+											}
+											}
+										} else {
+											if (f < c && f > b && jQuery("#footer_start").offset().top - jQuery(".stickyFilter").height() > 200) {
+											if (sidebarTop + c - f < 0) {
+												jQuery(".stickyFilter").css("top", sidebarTop + c - f + "px");
+												sidebarTop = sidebarTop + c - f
+											}
+											} else {
+												jQuery(".stickyFilter").removeClass("leftsidebarfixed").css("top", "0px")
+											}
+										}
+									}
+									c = f
+									})
+								}
+							});
+							</script>
+							<div class="rightPanel">
+								<?php echo $this->getChildHtml('content') ?>
+							</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	</div>
+	<div id="footer_start"></div>
+	<footer>	
+			<?php echo $this->getChildHtml('footer_before') ?>
+			<?php echo $this->getChildHtml('footer') ?>
+			<?php echo $this->getChildHtml('before_body_end') ?>
+		</footer>
+
+</body>
+</html>

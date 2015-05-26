@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <departmentimages_adminhtml_departmentimages_index>
+        <reference name="content">
+            <block type="departmentimages/adminhtml_departmentimages" name="departmentimages" />
+        </reference>
+    </departmentimages_adminhtml_departmentimages_index>
+</layout>

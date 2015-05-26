@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Aitoc_Aitindividpromo>
+            <active>false</active>
+            <codePool>local</codePool>
+            <self_name>Individual Promotions</self_name>
+            <priority>2000</priority>
+        </Aitoc_Aitindividpromo>
+    </modules>
+</config>
+<!--
+/**
+ * Product:     Individual Promotions for Magento Enterpise Edition
+ * Package:     Aitoc_Aitindividpromo_10.0.7_574525
+ * Purchase ID: UjgdLvjpFE0u1HHQEOk2KNCXazbZ9kQjUnTtO4dMb0
+ * Generated:   2013-05-13 06:35:45
+ * File path:   app/etc/modules/Aitoc_Aitindividpromo.xml
+ * Copyright:   (c) 2013 AITOC, Inc.
+ */
+-->

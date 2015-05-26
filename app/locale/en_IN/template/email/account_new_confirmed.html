@@ -1,0 +1,79 @@
+<!--@subject Welcome, {{var customer.name}}! @-->
+<!--@vars
+{"store url=\"\"":"Store Url",
+"var logo_url":"Email Logo Image Url",
+"var logo_alt":"Email Logo Image Alt",
+"htmlescape var=$customer.name":"Customer Name",
+"store url=\"customer/account/\"":"Customer Account Url"}
+@-->
+
+<!--@styles
+body,td { color:#2f2f2f; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif; }
+@-->
+
+<body style="background:#e1e1e1; color:#373738; font-family:Verdana, Arial, Helvetica, sans-serif; font-size:12px; margin:0; padding:0;">
+<div style="background:#e1e1e1; color:#373738; font-family:Verdana, Arial, Helvetica, sans-serif; font-size:12px; margin:0; padding:0;">
+<table cellspacing="0" cellpadding="0" border="0" height="100%" width="100%">
+        <tr>
+            <td align="center" valign="top" >
+                <!-- [ header starts here] -->
+                <table bgcolor="FFFFFF" cellspacing="0" cellpadding="0" border="0" width="650">
+               <tr>
+               <td bgcolor="#F3F3F3">
+               <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                     <tr>
+                        <td valign="top" background="#f3f3f3" style="font-size:9px; color:#7d7d7d; font-family:Verdana, Geneva, sans-serif;border-bottom:1px dashed #c6c6c6;  padding:5px 10px;">
+                        
+    You're receiving this email because you signed up for <a href="" style="color:#353673; text-decoration:none">{{var store.getFrontendName()}}</a></td>
+	<td style="font-size:9px; color:#7d7d7d; font-family:Verdana, Geneva, sans-serif; border-bottom:1px dashed #c6c6c6; padding:5px 10px;">
+	<!--Can't see images? <a href="" style="color:#353673; text-decoration:none">Click Here </a>-->
+	</td>
+                    </tr> 
+               </table>
+               </td>
+               
+               </tr>  
+<tr><td bgcolor="#F3F3F3" style="font-size:9px; color:#7d7d7d; font-family:Verdana, Geneva, sans-serif;border-bottom:1px dashed #c6c6c6;  padding:5px 10px;">
+To get the {{var store.getFrontendName()}} Newsletter in your inbox add <a href="mailto:service@americanswan.com" style="color:#353673; text-decoration:none;">service@americanswan.com</a> to your address book
+</td></tr>		
+<tr><td bgcolor="#F3F3F3">
+<table>  <tr>
+                        <td valign="top" width="300" style="padding:25px 15px;">
+                            <a href="{{store url=""}}" style="color:#353673; text-decoration:none;"><img src="{{var logo_url}}" alt="{{var logo_alt}}" style="margin-bottom:10px;" border="0"/></a></td>
+                            <td><img src="{{skin url="images/gurantee.png"}}" width="117" height="37"></td>
+                            <td><img src="{{skin url="images/money-back.png"}}" width="117" height="37"></td>
+                            <td><img src="{{skin url="images/assured_quality.png"}}" width="117" height="37"></td>
+                    </tr>
+                   
+                    </table>
+</td>
+
+</tr>	
+ <tr>
+  <td colspan="4"><img src="{{skin url="images/dotted_line2.png"}}" align="line" width="652" height="5">	</td></tr>	
+                    <!-- [ middle starts here] -->
+                    <tr>
+                        <td valign="top" style="margin:8px 0 0 7px;">
+                            <h1 style="font-size:22px; font-weight:normal; line-height:22px; margin:0 0 11px 0;"">Dear {{htmlescape var=$customer.name}},</h1>
+                            <p style="font-size:12px; line-height:16px; margin:0 0 16px 0;">Welcome to {{var store.getFrontendName()}}. To log in when visiting our site just click <a href="{{store url="customer/account/"}}" style="color:#1E7EC8;">Login</a> or <a href="{{store url="customer/account/"}}" style="color:#1E7EC8;">My Account</a> at the top of every page, and then enter your e-mail address and password.</p>
+                            <p style="font-size:12px; line-height:16px; margin:0 0 8px 0;">When you log in to your account, you will be able to do the following:</p>
+                            <ul style="font-size:12px; line-height:16px; margin:0 0 16px 0; padding:0;">
+                                <li style="list-style:none inside; padding:0 0 0 10px;">&ndash; Proceed through checkout faster when making a purchase</li>
+                                <li style="list-style:none inside; padding:0 0 0 10px;">&ndash; Check the status of orders</li>
+                                <li style="list-style:none inside; padding:0 0 0 10px;">&ndash; View past orders</li>
+                                <li style="list-style:none inside; padding:0 0 0 10px;">&ndash; Make changes to your account information</li>
+                                <li style="list-style:none inside; padding:0 0 0 10px;">&ndash; Change your password</li>
+                                <li style="list-style:none inside; padding:0 0 0 10px;">&ndash; Store alternative addresses (for shipping to multiple family members and friends!)</li>
+                            </ul>
+                            <p style="font-size:12px; line-height:16px; margin:0;">If you have any questions about your account or any other matter, please feel free to contact us at <a href="mailto:{{config path='trans_email/ident_support/email'}}" style="color:#1E7EC8;">{{config path='trans_email/ident_support/email'}}</a> or by phone at {{config path='general/store_information/phone'}}.</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td bgcolor="#EAEAEA" align="center" style="background:#EAEAEA; text-align:center;"><center><p style="font-size:12px; margin:0;">Thank you again, <strong>{{var store.getFrontendName()}}</strong></p></center></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</div>
+</body>

@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <FCM_Shortlist>
+            <version>0.1.0</version>
+        </FCM_Shortlist>
+    </modules>
+    <frontend>
+        <routers>
+            <shortlist>
+                <use>standard</use>
+                <args>
+                    <module>FCM_Shortlist</module>
+                    <frontName>shortlist</frontName>
+                </args>
+            </shortlist>
+        </routers>
+        <layout>
+            <updates>
+                <shortlist>
+                    <file>shortlist.xml</file>
+                </shortlist>
+            </updates>
+        </layout>
+    </frontend>
+                
+    <global>
+        <blocks>
+            <shortlist>
+                <class>FCM_Shortlist_Block</class>
+            </shortlist>
+        </blocks>
+        <helpers>
+            <shortlist>
+                <class>FCM_Shortlist_Helper</class>
+            </shortlist>
+        </helpers>
+        <models>
+            <shortlist>
+                <class>FCM_Shortlist_Model</class>
+            </shortlist>
+        </models>
+    </global>
+</config>

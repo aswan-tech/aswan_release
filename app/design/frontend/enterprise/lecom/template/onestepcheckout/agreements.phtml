@@ -1,0 +1,88 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<?php
+/**
+ * @see Mage_Checkout_Block_Agreements
+ */
+?>
+
+<?php if (!$this->getAgreements()) return; ?>
+<ol class="checkout-agreements">
+<?php foreach ($this->getAgreements() as $_a): ?>
+    <li>
+        <!--div class="agreement-content"<?php /* echo ($_a->getContentHeight() ? ' style="height:' . $_a->getContentHeight() . '"' : '')?>>
+            <?php if ($_a->getIsHtml()):?>
+                <?php echo $_a->getContent() ?>
+            <?php else:?>
+                <?php echo nl2br($this->htmlEscape($_a->getContent())) ?>
+            <?php endif; */ ?>
+        </div-->
+        <p class="agree">
+            <input type="checkbox" id="agreement-1" name="agreement[<?php echo $_a->getId()?>]" value="1" title="<?php echo $this->htmlEscape($_a->getCheckboxText()) ?>" class="checkbox" /><label for="agreement-<?php echo $_a->getId()?>">I have read and accept the <a class="terms-condition" href="<?php echo Mage::getBaseUrl().'terms-n-conditions/' ?>" target="_new">Terms and Conditions</a></label>
+        </p>
+    </li>
+<?php endforeach ?>
+</ol>
+					<!--script type="text/javascript">
+
+							var termsmodals = new Object;
+
+							document.observe('dom:loaded', function() {
+								$$('.checkout-agreements li p input').each(
+									function(elem){
+										elem.addClassName('required-entry');
+									}
+								);
+							});
+							document.observe('dom:loaded', function() {
+								$$('.checkout-agreements li p label').each(
+									function(elem){
+									alert(elem.innerHTML);
+										elem.up().insert('<a href="javascript:void(0);" onclick="termsmodals[\'' + elem.htmlFor + '\'].open();">' + elem.innerHTML + '</a>');
+										elem.hide();
+									}
+								);
+								$$('div.agreement-content').each(
+									function(element){
+										element.id = 'agreement-div-' + element.up('li').down('input').id;
+										$$('body')[0].insert(element);
+									}
+								);
+								$$('.checkout-agreements li p input').each(
+									function(elem){
+										window.termsmodals[elem.id] = new Control.Modal($('agreement-div-' + elem.id),{
+											overlayOpacity: 0.75,
+											className: 'modal',
+											fade: true,
+											closeOnClick: true,
+											height: 400,
+											width: 700
+										});
+									}
+								);
+							});
+							</script-->

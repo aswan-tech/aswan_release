@@ -1,0 +1,12 @@
+<?php
+$jsCode = "";
+if (Mage::helper('facebookconversion')->isFacebookConversionAvailable()) {
+	if ($this->getPageCode() == 'checkoutsuccess') {
+		$jsCode = Mage::getStoreConfig(FCM_FacebookConversion_Helper_Data::XML_PATH_CHECKOUTSUCCESS);
+	}
+	
+	if (!empty($jsCode)) {
+		echo $jsCode;
+	}
+}
+?>

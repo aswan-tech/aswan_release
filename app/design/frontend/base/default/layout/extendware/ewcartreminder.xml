@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layout version="0.1.0">
+	<checkout_onepage_index>
+		<update handle="ewcartreminder_javascript_handle" ewifconfig="ewcartreminder/general/ajax_enabled" ewminify_inherit="1"/>
+	</checkout_onepage_index>
+
+	<!--integration with 3rd party-->
+	<onestepcheckout_index_index>
+		<update handle="ewcartreminder_javascript_handle" ewifconfig="ewcartreminder/general/ajax_enabled" ewminify_inherit="1"/>
+	</onestepcheckout_index_index>
+	
+	<ewcartreminder_javascript_handle>
+		<reference name="head">
+			<action method="addItem" ewminify_ignore_order="1"><type>ewgenerated_js</type><name>ewcartreminder/js_general</name></action>
+		</reference>
+	</ewcartreminder_javascript_handle>
+</layout>

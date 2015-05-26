@@ -1,0 +1,92 @@
+/**
+ * @category    Mana
+ * @package     Mana_Filters
+ * @copyright   Copyright (c) http://www.manadev.com
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+/*.m-filter-item-list .m-selected-filter-item { color: red; }*/
+
+.m-filter-popup .m-selected-ln-item > a { font-weight: bold; text-decoration: none; }
+.block-layered-nav .btn-remove { margin-top: 3px; }
+.block-layered-nav .currently li { position: relative; padding: 6px 24px 6px 10px; }
+.block-layered-nav .currently .btn-remove { margin-top: 0; position: absolute; right: 4px; top: 9px; margin-left: 0; }
+.block-layered-nav dt { position: relative; zoom: 1; left: 0; top: 0; }
+
+
+.block-content dd li.color_bucket_beige,
+.block-content dd li.color_bucket_black,
+.block-content dd li.color_bucket_blue,
+.block-content dd li.color_bucket_brown,
+.block-content dd li.color_bucket_green,
+.block-content dd li.color_bucket_grey,
+.block-content dd li.color_bucket_multi,
+.block-content dd li.color_bucket_orange,
+.block-content dd li.color_bucket_pink,
+.block-content dd li.color_bucket_purple,
+.block-content dd li.color_bucket_red,
+.block-content dd li.color_bucket_white,
+.block-content dd li.color_bucket_yellow,
+.block-content dd li.color_bucket_khaki,
+.block-content dd li.color_bucket_musturd,
+.block-content dd li.color_bucket_navy,
+.block-content dd li.color_bucket_olive,
+.block-content dd li.color_bucket_purple,
+.block-content dd li.color_bucket_silver,
+.block-content dd li.color_bucket_tan,
+.block-content dd li.color_bucket_turquoise
+ {display:inline-block; height: 20px;
+    margin-bottom: 10px;
+    margin-right: 12px; border-radius:3px; 
+border:1px solid #cccccc;cursor:pointer; 
+border-bottom:1px solid #cccccc !important;}
+.block-content dd li.color_bucket_beige:hover,
+.block-content dd li.color_bucket_black:hover,
+.block-content dd li.color_bucket_blue:hover,
+.block-content dd li.color_bucket_brown:hover,
+.block-content dd li.color_bucket_green:hover,
+.block-content dd li.color_bucket_grey:hover,
+.block-content dd li.color_bucket_multi:hover,
+.block-content dd li.color_bucket_orange:hover,
+.block-content dd li.color_bucket_pink:hover,
+.block-content dd li.color_bucket_purple:hover,
+.block-content dd li.color_bucket_red:hover,
+.block-content dd li.color_bucket_white:hover,
+.block-content dd li.color_bucket_yellow:hover,
+.block-content dd li.color_bucket_khaki:hover,
+.block-content dd li.color_bucket_musturd:hover,
+.block-content dd li.color_bucket_navy:hover,
+.block-content dd li.color_bucket_olive:hover,
+.block-content dd li.color_bucket_purple:hover,
+.block-content dd li.color_bucket_silver:hover,
+.block-content dd li.color_bucket_tan:hover,
+.block-content dd li.color_bucket_turquoise:hover,
+.block-content dd li.m-selected-filter-item { -moz-box-shadow:2px 4px 1px #999;
+-webkit-box-shadow: 2px 4px 1px #999;
+box-shadow: 2px 4px 1px #999; 
+/*background:url("../images/flt-sel-active.png") no-repeat 0 0  !important;  background-color: navy;*/}
+
+.color_bucket_beige{ background:#f5f1de !important;} /*beige*/
+.color_bucket_black{ background:#000 !important;}/*black*/
+.color_bucket_blue{ background:#2a82d7 !important;} /*blue*/
+.color_bucket_brown{ background:#964b00 !important;} /*brown*/
+.color_bucket_green{ background:#3aa03a !important;} /*green*/
+.color_bucket_grey{ background:#686868 !important;} /*gray*/
+.color_bucket_multi{background:url("../images/multicolor-box.jpg") 0 0 no-repeat !important;}
+
+
+.color_bucket_orange{ background:#fd7222 !important;} /*orange*/
+.color_bucket_pink{ background:#fc5ab8 !important;} /*pink*/
+.color_bucket_purple{ background:#af31f2 !important;} /*purple*/
+.color_bucket_red{ background:#fc0d1b !important;} /*red*/
+.color_bucket_white{ background:#fff !important;} /*white*/
+.color_bucket_yellow{ background:#feee35 !important;} /*yellow*/
+
+.color_bucket_khaki{background:#F7BD51 !important;}
+.color_bucket_musturd{background:#FFDB57 !important;}
+.color_bucket_navy{background:#000080 !important;}
+.color_bucket_olive{background:#808000 !important;}
+.color_bucket_purple{background:#800080 !important;}
+.color_bucket_silver{background:#c0c0c0 !important;}
+.color_bucket_tan{background:#944E2C !important;}
+.color_bucket_turquoise{background:#76DEE7 !important;}
+

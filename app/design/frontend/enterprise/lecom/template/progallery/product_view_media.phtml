@@ -1,0 +1,422 @@
+<?php
+    $_product = $this->getProduct();
+    $_helper = $this->helper('catalog/output');
+    $lightboxEvent = $this->getLightboxConfig('open_event');
+    $lightboxEventString = $lightboxEvent == 'click' ? 'Click' : 'Double click';
+    $baseImageUrl = $this->helper('catalog/image')->init($_product, 'image');
+	$lightboxbaseImageUrl = $this->helper('catalog/image')->init($_product, 'image');
+    $baseImageFilename = $this->getImageFilename($baseImageUrl);
+	
+	if($this->getConfig('zoom_tooltip')){
+		$tooltip = $this->getConfig('zoom_tooltip');
+	} else {
+		$tooltip = 'Please click to<br/> Zoom Image';
+	}
+	
+	if($this->getResizeConfig('main_image_resize_width')) {
+		$main_image_resize_width = $this->getResizeConfig('main_image_resize_width');
+	} else {
+		$main_image_resize_width = 490;	
+	}	
+	
+	if($this->getResizeConfig('main_image_resize_height')) {
+		$main_image_resize_height = $this->getResizeConfig('main_image_resize_height');
+	} else {
+		$main_image_resize_height = 511;	
+	}
+	
+	if($this->getResizeConfig('lightbox_image_resize_width')) {
+		$lightbox_image_resize_width = $this->getResizeConfig('lightbox_image_resize_width');
+	} else {
+		$lightbox_image_resize_width = 1100;	
+	}
+	
+	if($this->getResizeConfig('lightbox_image_resize_height')) {
+		$lightbox_image_resize_height = $this->getResizeConfig('lightbox_image_resize_height');
+	} else {
+		$lightbox_image_resize_height = 1150;
+	}
+?>
+   <?php if ($_product->getImage() != 'no_selection' && $_product->getImage()): ?>
+   <?php if ($this->getConfig('mage_zoom')): ?>
+	<?php
+    $videoCount = 0;			
+    if(Mage::getConfig()->getModuleConfig('RocketWeb_ProductVideo')->is('active', 'true')) {
+    	$productVideo = Mage::getModel('productvideo/videos')->getCollection()->addFieldToFilter('product_id', $this->getProduct()->getId());					
+		$videoCount = count($productVideo);
+    }			
+    ?>
+		<div onMouseout="hideddrivetip()">
+		<div class="BigImage product-image">		   
+		<?php
+		$_imgClick = '<span class="zoomimage_css">
+		<img width="'.$lightbox_image_resize_width.'" height="'.$lightbox_image_resize_height.'" ondblclick="return false;" id="imageClick" src="'.$lightboxbaseImageUrl->resize($lightbox_image_resize_width, $lightbox_image_resize_height)->keepFrame(false).'" alt="'.$this->htmlEscape($this->getImageLabel()).'" title="'.$this->htmlEscape($this->getImageLabel()).'"/></span>'; 
+		
+		echo $_helper->productAttribute($_product, $_imgClick, 'image');
+
+		$_img = '<a style="display:block" href="'.$lightboxbaseImageUrl->resize($lightbox_image_resize_width, $lightbox_image_resize_height)->keepFrame(false).'" class="zoom" id="aszoom">
+		<img ondblclick="return false;" itemprop="image" id="image" src="'.$baseImageUrl->resize($main_image_resize_width, $main_image_resize_height)->keepFrame(false).'" alt="'.$this->htmlEscape($this->getImageLabel()).'" class="prdzoomImage callswatch"/></a>';
+        
+		echo $_helper->productAttribute($_product, $_img, 'image');		
+		?>		
+		</div>
+		</div>
+	
+<script type="text/javascript">
+jQuery(document).ready(function(e) {
+	if ( jQuery(window).width() > 769) {
+		jQuery('a.zoom').easyZoom();
+	}else {
+		jQuery('a.zoom').attr('href', "javascript:void(0)")
+	}
+});
+//<![CDATA[
+Event.observe(window, 'load', function() {
+  product_zoom = new Product.Zoom('image', 'track', 'handle', 'zoom_in', 'zoom_out', 'track_hint');
+});
+//]]>
+</script>
+	<?php else: ?>
+		<div onMouseout="hideddrivetip()">	   
+	<div class="BigImage product-image">	
+	<?php	
+		$_imgClick = '<span class="zoomimage_css">
+		<img width="'.$lightbox_image_resize_width.'" height="'.$lightbox_image_resize_height.'" ondblclick="return false;" id="imageClick" src="'.$lightboxbaseImageUrl->resize($lightbox_image_resize_width, $lightbox_image_resize_height)->keepFrame(false).'" alt="'.$this->htmlEscape($this->getImageLabel()).'" title="'.$this->htmlEscape($this->getImageLabel()).'"/></span>'; 
+		
+		echo $_helper->productAttribute($_product, $_imgClick, 'image');
+		
+        $_img = '<img ondblclick="return false;" id="image" src="'.$baseImageUrl->resize(
+		$main_image_resize_width, $main_image_resize_height)->keepFrame(false).'" 
+		alt="'.$this->htmlEscape($this->getImageLabel()).'" itemprop="image" class="prdzoomImage callswatch" />';        
+		echo $_helper->productAttribute($_product, $_img, 'image');
+    ?>
+	</div>
+	</div>
+
+   <script type="text/javascript">
+   //<![CDATA[
+       Event.observe(window, 'load', function() {
+           product_zoom = new Product.Zoom('image', 'track', 'handle', 'zoom_in', 'zoom_out', 'track_hint');
+       });
+   //]]>
+   </script>
+	<?php endif;?>
+	<!-- Product has no image -->
+   <?php else: ?>
+   <div onMouseout="hideddrivetip()">
+   <div class="product-image BigImage">
+       <?php	   
+	   $_imgClick = '<span class="zoomimage_css">
+		<img src="'.$this->getSkinUrl('images/loder-grey.gif').'" ondblclick="return false;" id="imageClick" src="'.$lightboxbaseImageUrl->resize(
+		$lightbox_image_resize_width, $lightbox_image_resize_height)->keepFrame(false).'" alt="'.$this
+		->htmlEscape($this->getImageLabel()).'" title="'.$this->htmlEscape($this->getImageLabel()).'"/></span>'; 
+		
+		echo $_helper->productAttribute($_product, $_imgClick, 'image');
+		
+        $_img = '<img ondblclick="return false;" itemprop="image" id="image" src="'.$baseImageUrl->resize($main_image_resize_width
+		, $main_image_resize_height)->keepFrame(false).'" alt="'.$this->htmlEscape($this->getImageLabel()).'" "
+		class="prdzoomImage callswatch" />';
+        
+		echo $_helper->productAttribute($_product, $_img, 'image');		
+    ?>
+   </div>
+   </div>
+   <?php endif; ?>
+   
+   <?php if (count($this->getGalleryImages()) > 0): ?>
+   <!-- <div class="more-views" style="position:relative;width:<?php // echo $this->getConfig('more_views_width')?>px;"> -->
+   	
+	<?php 
+		$countgal = count($this->getGalleryImages());
+		$GLOBALS['images_count'] = $countgal;
+		$has_after_paging = $this->getConfig('has_after_pagination');
+	?>
+	<div class="more-views Thumbnail">	
+   	
+	<?php if ($this->getCarouselConfig('has_prevandnext')):?>
+	<?php if ($countgal > $has_after_paging): ?>
+      <div id="thumbs-prev-and-next" style="display:none;">
+       	<span id="thumbs-prev" class="thumbs-carousel-navig">prev</span>
+       	<span id="thumbs-next" class="thumbs-carousel-navig">next</span>
+       	<div style="clear:both;float:none;"></div>
+      </div>
+	<?php endif; ?>
+    <?php endif;  ?>
+	
+   	<div id="thumbs-overflower" class="thumbsoverflowerNew">
+		<div id="more-views-loader" style="display:none;"></div>
+      	<ul class="product-more jcarousel-skin-tango more-views-list" id="more-views-list">
+        <?php if($videoCount > 0) {	 echo $this->getLayout()->createBlock('productvideo/video')->setTemplate('rwproductvideo/video.phtml')->_toHtml(); }  ?>
+       <?php foreach ($this->getGalleryImages() as $k => $_image): ?>
+       		<?php $thumbSrc = $this->helper('catalog/image')->init($this->getProduct(), 'thumbnail', $_image->getFile())?>
+       		<?php if ($this->getImageFilename($thumbSrc) == $baseImageFilename):?>
+				<li>
+               <a style="border:<?php echo $this->getConfig('thumbs_border')?>;width:<?php echo $this->getConfig('thumbs_width')?>px;height:<?php echo $this->getConfig('thumbs_height')?>px;" href="javascript:void(0);" title="<?php echo $this->htmlEscape($_image->getLabel()) ?>">
+               <img src="<?php echo $this->getSkinUrl('images/loder-grey.gif') ?>" class="lazy viewable" data-original="<?php echo $thumbSrc->resize($this->getConfig('thumbs_width'), $this->getConfig('thumbs_height')); ?>" width="<?php echo $this->getConfig('thumbs_width')?>" height="<?php echo $this->getConfig('thumbs_height')?>" alt="<?php echo $this->htmlEscape($_image->getLabel()) ?>" /></a>
+               <div style="display:none" class="i-i"><?php echo $k?></div>
+           </li>
+           <?php else:?>
+           <li>
+               <a style="border:<?php echo $this->getConfig('thumbs_border')?>;width:<?php echo $this->getConfig('thumbs_width')?>px;height:<?php echo $this->getConfig('thumbs_height')?>px;" href="javascript:void(0);" title="<?php echo $this->htmlEscape($_image->getLabel()) ?>">
+               <img src="<?php echo $thumbSrc->resize($this->getConfig('thumbs_width'), $this->getConfig('thumbs_height')); ?>" width="<?php echo $this->getConfig('thumbs_width')?>" height="<?php echo $this->getConfig('thumbs_height')?>" alt="<?php echo $this->htmlEscape($_image->getLabel()) ?>" /></a>
+               <div style="display:none" class="i-i"><?php echo $k?></div>
+           </li>
+       		<?php endif;?>
+           
+       <?php endforeach; ?>
+       </ul>
+	   
+	   <?php
+			$countgallery = count($this->getGalleryImages());
+			$has_after_pagination = $this->getConfig('has_after_pagination');
+				if($has_after_pagination) {
+					$has_after_pagination = $has_after_pagination;
+				} else {
+					$has_after_pagination = 5;
+				}
+	   ?>
+	   
+       <ul id="more-views-list-clone" style="display:none;">
+       <?php foreach ($this->getGalleryImages() as $k => $_image): ?>
+           <li>
+               <a style="border:<?php echo $this->getLightboxConfig('thumbs_border')?>;width:<?php echo $this->getLightboxConfig('thumbs_width')?>px;height:<?php echo $this->getLightboxConfig('thumbs_height')?>px;" href="javascript:void(0);" title="<?php echo $this->htmlEscape($_image->getLabel()) ?>"><img src="<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'thumbnail', $_image->getFile())->resize($this->getLightboxConfig('thumbs_width'), $this->getLightboxConfig('thumbs_height')); ?>" width="<?php echo $this->getLightboxConfig('thumbs_width')?>" height="<?php echo $this->getLightboxConfig('thumbs_height')?>" alt="<?php echo $this->htmlEscape($_image->getLabel()) ?>" /></a>
+               <div style="display:none" class="i-i"><?php echo $k?></div>
+           </li>
+       <?php endforeach; ?>
+       </ul>
+    </div>
+	
+    <?php if ($this->getCarouselConfig('has_pagination')): ?>
+		<?php if ($countgallery > $has_after_pagination): ?>
+			<div class="pagination" id="thumbs-pagination"></div>
+		<?php endif;?>
+    <?php endif;?>
+   </div>
+   <?php else: ?>	
+	<br class="clear/">
+	<br class="clear/">	
+   <?php endif; ?>
+   
+   <input value="" id="zoomId" type="hidden"/>
+
+<p id="current_url" style="display:none;"><?php echo  $this->helper('core/url')->getCurrentUrl(); ?></p>
+<script language="javascript">
+
+		var product_id                 = '<?php echo $_product->getId()?>';
+		var mage_baseurl               = '<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB); ?>';
+		var mage_zoom                  = '<?php echo $this->getConfig('mage_zoom')?>';
+		var resize_width               = '<?php echo $this->getConfig('no_zoom_view_width')?>';
+		var resize_height              = '<?php echo $this->getConfig('no_zoom_view_height')?>';
+		var carouselCircular           = '<?php echo $this->getCarouselConfig('circular') ? 'true' : 'false'?>';
+		var carouselInfinite           = '<?php echo $this->getCarouselConfig('infinite') ? 'true' : 'false'?>';
+		var carouselDirection          = '<?php echo $this->getCarouselConfig('direction')?>';
+		var carouselItems              = '<?php echo $this->getCarouselConfig('items')?>';
+		var carouselScrollItems        = '<?php echo $this->getCarouselConfig('scrollitems')?>';
+		var carouselScrollEffect       = '<?php echo $this->getCarouselConfig('scrolleffect')?>';
+		var carouselScrollDuration     = '<?php echo $this->getCarouselConfig('scrollduration')?>';
+		var carouselPauseOnHover       = '<?php echo $this->getCarouselConfig('scrollhoverpause') ? 'true' : 'false'?>';
+		var carouselPlay               = '<?php echo $this->getCarouselConfig('play') ? 'true' : 'false'?>';
+		var carouselPlayDelay          = '<?php echo $this->getCarouselConfig('playdelay')?>';
+		var carouselHasPrevAndNext     = '<?php echo $this->getCarouselConfig('has_prevandnext') ? 'true' : 'false'?>';
+		var carouselHasPagination      = '<?php echo $this->getCarouselConfig('has_pagination') ? 'true' : 'false'?>';
+		var carouselPrevButton         = '<?php echo $this->getCarouselConfig('prev') ?>';
+		var carouselNextButton         = '<?php echo $this->getCarouselConfig('next')?>';
+		var carouselPagination         = '<?php echo $this->getCarouselConfig('pagination')?>';
+		var debug                      = 'false';
+		var productViewWidth               = '<?php echo $this->getConfig('no_zoom_view_width')?>';
+		var defaultContainerWidth          = '<?php echo $this->getLightboxConfig('lightboxwidth')?>';
+		var defaultImageWidth              = '<?php echo $this->getConfig('default_image_width')?>';
+		var lightboxOriginSelector         = '.product-img-box';
+		var lightboxOpeningEvent           = '<?php echo $this->getLightboxConfig('open_event')?>';
+		var lightboxOpenEasing             = '<?php echo $this->getLightboxConfig('open_easing')?>';
+		var lightboxOpenAnimationTime      = '<?php echo $this->getLightboxConfig('open_easing_time')?>';
+		var lightboxImageOpenEasing        = '<?php echo $this->getLightboxConfig('open_img_easing')?>';
+		var lightboxImageOpenAnimationTime = '<?php echo $this->getLightboxConfig('open_img_easing_time')?>';
+		var lightboxTopMargin              = '<?php echo $this->getLightboxConfig('top_margin')?>';
+		var lightboxBottomMargin           = '<?php echo $this->getLightboxConfig('bottom_margin')?>';
+		var lightboxPanningMode            = '<?php echo $this->getLightboxConfig('panningmode')?>';
+		var lightboxClosingSpeed           = '<?php echo $this->getLightboxConfig('closing_speed')?>';
+		var thumbsWidth                    = '<?php echo $this->getLightboxConfig('thumbs_width')?>';
+		var lightboxThumbsBarTop           = '<?php echo $this->getLightboxThumbsBarConfig('top') ? $this->getLightboxThumbsBarConfig('top') : 'false'?>';
+		
+		var lightboxThumbsBarRight         = '<?php echo $this->getLightboxThumbsBarConfig('right') ? $this->getLightboxThumbsBarConfig('right') : 'false'?>';
+		
+		var lightboxThumbsBarBottom        = '<?php echo $this->getLightboxThumbsBarConfig('bottom') ? $this->getLightboxThumbsBarConfig('bottom') : 'false'?>';
+		
+		var lightboxThumbsBarLeft          = '<?php echo $this->getLightboxThumbsBarConfig('left') ? $this->getLightboxThumbsBarConfig('left') : 'false'?>';
+		
+		var lightboxThumbsBarZindex        = '<?php echo $this->getLightboxThumbsBarConfig('zindex') ? $this->getLightboxThumbsBarConfig('zindex') : '0'?>';
+		
+		var lightboxThumbsBarWidth         = <?php echo is_numeric($this->getLightboxThumbsBarConfig('width')) ? $this->getLightboxThumbsBarConfig('width') : "'" . $this->getLightboxThumbsBarConfig('width') . "'"  ?>;
+		
+		var lightboxThumbsBarHeight        = <?php echo is_numeric($this->getLightboxThumbsBarConfig('height')) ? $this->getLightboxThumbsBarConfig('height') : "'" . $this->getLightboxThumbsBarConfig('height') . "'"  ?>;
+		
+		var lightboxCarouselCircular       = '<?php echo $this->getLightboxCarouselConfig('circular') ? 'true' : 'false'?>';
+		
+		var lightboxCarouselInfinite       = '<?php echo $this->getLightboxCarouselConfig('infinite') ? 'true' : 'false'?>';
+		
+		var lightboxCarouselDirection      = '<?php echo $this->getLightboxCarouselConfig('direction')?>';
+		
+		var lightboxCarouselItems          = '<?php echo $this->getLightboxCarouselConfig('items')?>';
+		
+		var lightboxCarouselScrollItems    = '<?php echo $this->getLightboxCarouselConfig('scrollitems')?>';
+		
+		var lightboxCarouselScrollEffect   = '<?php echo $this->getLightboxCarouselConfig('scrolleffect')?>';
+		
+		var lightboxCarouselScrollDuration = '<?php echo $this->getLightboxCarouselConfig('scrollduration')?>';
+		
+		var lightboxCarouselPauseOnHover   = '<?php echo $this->getLightboxCarouselConfig('scrollhoverpause') ? 'true' : 'false'?>';
+		
+		var lightboxCarouselPlay           = '<?php echo $this->getLightboxCarouselConfig('play') ? 'true' : 'false'?>';
+		
+		var lightboxCarouselPlayDelay      = '<?php echo $this->getLightboxCarouselConfig('playdelay')?>';
+		
+		var lightboxCarouselPrevButton     = '<?php echo $this->getLightboxCarouselConfig('prev') ?>';
+		
+		var lightboxCarouselPrevEasing     = '<?php echo $this->getLightboxCarouselConfig('prev_easing') ?>';
+		
+		var lightboxCarouselNextEasing     = '<?php echo $this->getLightboxCarouselConfig('next_easing') ?>';
+		
+		var lightboxCarouselNextButton     = '<?php echo $this->getLightboxCarouselConfig('next')?>';
+
+</script>
+
+<script type="text/javascript" src="<?php echo $this->getSkinUrl('progallery/js/jquery.carouFredSel-3.1.0-packed.js'); ?>"></script>
+
+<script type="text/javascript" src="<?php echo $this->getSkinUrl('progallery/js/jquery.progallery.thumbs_jso-2.js'); ?>"></script>
+
+<script type="text/javascript" src="<?php echo $this->getSkinUrl('progallery/js/jquery.progallery_jso-1.0.js'); ?>"></script>
+
+<script type="text/javascript" src="<?php echo $this->getSkinUrl('progallery/js/jquery.easing.js'); ?>"></script>
+
+<?php
+	if(Mage::getStoreConfig('progallery/lightboxconfig/lightboxheight')) {
+		$lightbox_height = Mage::getStoreConfig('progallery/lightboxconfig/lightboxheight');
+?>
+<style type="text/css">
+	#progallery-lightbox { height:<?php echo $lightbox_height; ?>px !important; }
+	#panning-wrap{ height:<?php echo $lightbox_height; ?>px; }
+</style>
+<?php
+	}
+?>
+
+<script type="text/javascript">
+		jQuery(".callswatch").bind('click', function() {		
+			var prodId = '';			
+			prodId = jQuery('#zoomId').val();			
+			
+			if(prodId) {			
+				jQuery.ajax({
+					url:"<?php echo Mage::getBaseUrl(); ?>common/index/moreImagesZoom?id="+prodId,
+					beforeSend: function() {
+						jQuery('#lightbox-overlay').show();
+						jQuery('#lightbox-image-spinner').hide();
+						jQuery('#zoom_loader').show();					
+    		},
+			success:function(result) {
+						jQuery('#lightbox-overlay').hide();
+						jQuery('#lightbox-image-spinner').hide();
+						jQuery('#zoom_loader').hide();
+				if(result) {
+						jQuery("#lightbox-more-views-list").html(result);
+				}
+			}
+			});
+			}
+		});
+		</script>
+		
+		<?php 
+		$countgal = count($this->getGalleryImages());
+		$has_after_paging = $this->getConfig('has_after_pagination');
+		if ($this->getCarouselConfig('scrollitems')):
+			$items = $this->getCarouselConfig('scrollitems');
+		else:
+			$items = '1';
+		endif;
+		if ($this->getCarouselConfig('has_prevandnext')):
+		if ($countgal > $has_after_paging): 
+		?>
+			<script type="text/javascript">
+				jQuery('#more-views-list').jcarousel({ horizontal: true, scroll: <?php echo $items; ?> });
+			</script>
+		<?php 
+		else:
+		?>
+		<style type="text/css">
+			#more-views-list {
+				margin-left:20px;
+			}
+			</style>
+		<?php
+		endif;
+		endif;
+		?>
+		<!-- PRODUCT ZOOM  -->
+<div id="dhtmltooltip"></div>
+
+<script type="text/javascript">
+var offsetxpoint=-260 //Customize x offset of tooltip
+var offsetypoint=-220 //Customize y offset of tooltip
+var ie=document.all
+var ns6=document.getElementById && !document.all
+var enabletip=false
+if (ie||ns6)
+var tipobj=document.all? document.all["dhtmltooltip"] : document.getElementById? document.getElementById("dhtmltooltip") : ""
+
+function ietruebody(){
+return (document.compatMode && document.compatMode!="BackCompat")? document.documentElement : document.body
+}
+
+function ddrivetip(thetext, thecolor, thewidth){
+if (ns6||ie){
+if(jQuery(window).width() < 768 ){ return true;  } 
+if (typeof thewidth!="undefined") tipobj.style.width=thewidth+"px"
+if (typeof thecolor!="undefined" && thecolor!="") tipobj.style.backgroundColor=thecolor
+tipobj.innerHTML=thetext
+enabletip=true
+return false
+}
+}
+
+function positiontip(e){
+if (enabletip){
+var curX=(ns6)?e.pageX : event.clientX+ietruebody().scrollLeft;
+var curY=(ns6)?e.pageY : event.clientY+ietruebody().scrollTop;
+//Find out how close the mouse is to the corner of the window
+var rightedge=ie&&!window.opera? ietruebody().clientWidth-event.clientX-offsetxpoint : window.innerWidth-e.clientX-offsetxpoint-20
+var bottomedge=ie&&!window.opera? ietruebody().clientHeight-event.clientY-offsetypoint : window.innerHeight-e.clientY-offsetypoint-20
+
+var leftedge=(offsetxpoint<0)? offsetxpoint*(-1) : -1000
+
+//if the horizontal distance isn't enough to accomodate the width of the context menu
+if (rightedge<tipobj.offsetWidth)
+//move the horizontal position of the menu to the left by it's width
+tipobj.style.left=ie? ietruebody().scrollLeft+event.clientX-tipobj.offsetWidth+"px" : window.pageXOffset+e.clientX-tipobj.offsetWidth+"px"
+else if (curX<leftedge)
+tipobj.style.left="5px"
+else
+//position the horizontal position of the menu where the mouse is positioned
+tipobj.style.left=curX+offsetxpoint+"px"
+
+//same concept with the vertical position
+if (bottomedge<tipobj.offsetHeight)
+tipobj.style.top=ie? ietruebody().scrollTop+event.clientY-tipobj.offsetHeight-offsetypoint+"px" : window.pageYOffset+e.clientY-tipobj.offsetHeight-offsetypoint+"px"
+else
+tipobj.style.top=curY+offsetypoint+"px"
+tipobj.style.visibility="visible"
+}
+}
+
+function hideddrivetip(){
+if (ns6||ie){
+enabletip=false
+tipobj.style.visibility="hidden"
+tipobj.style.left="-1000px"
+tipobj.style.backgroundColor=''
+tipobj.style.width=''
+}
+}
+document.onmousemove=positiontip;
+</script>

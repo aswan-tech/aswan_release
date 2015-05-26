@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * created : 12/04/2011
+ * 
+ * @category Ayaline
+ * @package Ayaline_Core
+ * @author aYaline
+ * @copyright Ayaline - 2012 - http://magento-shop.ayaline.com
+ * @license http://shop.ayaline.com/magento/fr/conditions-generales-de-vente.html
+ */
+-->
+<layout>
+	
+    <default>
+        <reference name="head">
+            <action method="addCss"><name>ayaline.css</name></action>
+        </reference>
+    </default>
+    
+    <!-- Product tabs initializer -->
+    <adminhtml_catalog_product_new>
+       	<block type="ayalinecore/adminhtml_catalog_product_edit_tabsInitializer" name="ayaline.core.adminhtml.catalog.product.edit.tabs_initializer" />
+    </adminhtml_catalog_product_new>
+    
+    <adminhtml_catalog_product_edit>
+       	<block type="ayalinecore/adminhtml_catalog_product_edit_tabsInitializer" name="ayaline.core.adminhtml.catalog.product.edit.tabs_initializer" />
+    </adminhtml_catalog_product_edit>
+    
+</layout>

@@ -1,0 +1,163 @@
+<?php
+/**
+ * Magento Enterprise Edition
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Magento Enterprise Edition License
+ * that is bundled with this package in the file LICENSE_EE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://www.magentocommerce.com/license/enterprise-edition
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     enterprise_default
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://www.magentocommerce.com/license/enterprise-edition
+ */
+?>
+<div class="myacc">
+    <h2 class="addressTitle">
+        <?php echo $this->__('Personal Information') ?>
+    </h2>
+
+    <div class="edit_btn">
+        <a href="<?php echo $this->getUrl('customer/account/edit') ?>">
+            <?php echo $this->__('Edit') ?>
+        </a>
+    </div>
+
+    <form method="post" action="">
+        <ul class="clearfix personalinfo">
+            <li>
+                <div class="clearfix field-item">
+                    <label for="ordNo">
+                        <?php echo $this->__('First Name') ?>
+                    </label>
+                    <div class="input-box input-value">
+                        <?php echo $this->htmlEscape($this->getCustomer()->getFirstname()) ?>
+                    </div>
+                </div>
+            </li>
+
+            <li>
+                <div class="clearfix field-item">
+                    <label for="wbNo">
+                        <?php echo $this->__('Last Name') ?>
+                    </label>
+                    <div class="input-box input-value">
+                        <?php echo $this->htmlEscape($this->getCustomer()->getLastname()) ?>
+                    </div>
+                </div>
+            </li>
+
+            <li>
+                <div class="clearfix field-item">
+                    <label for="expDev">
+                        <?php echo $this->__('Email') ?>
+                    </label>
+                    <div class="input-box input-value">
+                        <?php echo $this->htmlEscape($this->getCustomer()->getEmail()) ?>
+                    </div>
+                </div>
+            </li>
+					<?php 
+                    $date= date('d/m/Y', strtotime($this->htmlEscape($this->getCustomer()->getDob())));
+                    if($date!='01/01/1970')
+                    { ?>
+                    <li>
+                    <div class="clearfix field-item">
+                    <label for="expDev">
+                    <?php echo $this->__('Date Of Birth') ?>
+                    </label>
+                    <div class="input-box input-value">
+                    <?php echo $date; ?>
+                    </div>
+                    </div>
+                    </li>
+                    <?php }?>
+
+            <li>
+                <div class="clearfix field-item">
+                    <label for="expDev">
+                        <?php echo $this->__('Gender') ?>
+                    </label>
+                    <div class="input-box input-value">
+                        <?php
+                        if ($this->htmlEscape($this->getCustomer()->getGender()) == '1') {
+                            $gender = 'Male';
+                        } elseif ($this->htmlEscape($this->getCustomer()->getGender()) == '2') {
+                            $gender = 'Female';
+                        } else {
+                            $gender = '';
+                        }
+                        echo $gender;
+                        ?>
+                    </div>
+                </div>
+            </li>
+
+            <li>
+                <div class="clearfix field-item">
+                    <label for="expDev">
+                        <?php echo $this->__('Password') ?>
+                    </label>
+                    <div class="input-box input-value">
+                        <?php echo $this->__('********') ?>
+                    </div>
+                </div>
+            </li>
+
+            <?php if ($this->isNewsletterEnabled()): ?>
+            <li>
+                <div class="clearfix field-item">
+                    <label for="expDev"><?php echo $this->__('Newsletter') ?></label>
+                    <?php if ($this->getIsSubscribed()): ?>
+                        <?php
+                            $val = 'checked="checked"';
+                            $class = 'style="background-position: 0 0px"';
+                        ?>
+                    <?php else: ?>
+                        <?php
+                            $val = '';
+                            $class = 'style="background-position: 0 -16px"';
+                        ?>
+                    <?php endif; ?>
+                    
+                    <?php
+                        $_subscribersGroupIds = $this->getSubscriptionObject()->getNewsletterGroupId();
+                        $_groupIds = explode( ',', $_subscribersGroupIds );
+                        $_groups = $this->getSubscriptionObject()->getGroups();
+                    ?>
+                    
+                    
+                    <?php foreach ($_groups as $_group): ?>
+                        <?php if (in_array($_group->getId(), $_groupIds)):?>
+                            <div class="input-box input-value dashboard-newsletter">
+                                <input disabled="disabled" class="checkbox" type="checkbox" value="" <?php echo $val; ?> <?php echo $class; ?>>
+                            </div>
+                        <label><?php echo $_group->getGroupName(); ?></label>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+                                     
+                    
+                </div>
+            </li>
+            <?php /* Extensions placeholder */ ?>
+            <?php // echo $this->getChildHtml('customer.account.dashboard.info.extra')?>
+
+            <?php endif; ?>
+        </ul>
+
+    </form>
+</div>
+
+<div class="clear"></div>

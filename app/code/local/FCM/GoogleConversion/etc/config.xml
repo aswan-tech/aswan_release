@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+
+<config>
+    <modules>
+        <FCM_GoogleConversion>
+            <version>0.1.0</version>
+        </FCM_GoogleConversion>
+    </modules>
+	<global>
+		<blocks>
+            <googleconversion>
+                <class>FCM_GoogleConversion_Block</class>
+            </googleconversion>
+        </blocks>
+        <helpers>
+            <googleconversion>
+                <class>FCM_GoogleConversion_Helper</class>
+            </googleconversion>
+        </helpers>
+    </global>
+	<frontend>
+		<layout>
+            <updates>
+                <googleconversion>
+                    <file>googleconversion.xml</file>
+                </googleconversion>
+            </updates>
+        </layout>
+    </frontend>
+</config>

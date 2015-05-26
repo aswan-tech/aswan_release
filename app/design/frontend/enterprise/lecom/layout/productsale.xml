@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <default>
+    </default>
+    <productsale_index_index>
+		<reference name="root">
+            <action method="setTemplate"><template>page/1column.phtml</template></action>
+        </reference>
+		 <reference name="breadcrumbs.container">
+            <block type="catalog/category_view" name="category.title" after="breadcrumbs" template="catalog/category/title.phtml"/>
+        </reference>
+		<reference name="left">
+            <block type="productsale/navigation" name="productsale.leftnav" before="-" template="productsale/navigation/left.phtml"/>
+        </reference>
+        <reference name="content">
+		 <block type="productsale/productsale" name="productsale" template="productsale/productsale.phtml">
+		</block>
+        </reference>
+    </productsale_index_index>
+</layout> 

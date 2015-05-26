@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Custom_Mycustomer>
+            <version>0.1.0</version>
+        </Custom_Mycustomer>
+    </modules>
+    <frontend>
+        <routers>
+            <mycustomer>
+                <use>standard</use>
+                <args>
+                    <module>Custom_Mycustomer</module>
+                    <frontName>mycustomer</frontName>
+                </args>
+            </mycustomer>
+			
+			<customer>
+                <args>
+                    <modules>
+                        <custom_mycustomer before="Mage_Customer">Custom_Mycustomer</custom_mycustomer>
+                    </modules>
+                </args>
+            </customer>
+			
+        </routers>
+    </frontend>
+       
+    <global>
+        <blocks>
+            <customcustomer>
+                <class>Custom_Mycustomer_Block</class>
+            </customcustomer>
+        </blocks>
+      <!--blocks>
+        <customer>
+          <rewrite>
+            <address_book>Custom_Mycustomer_Block_Address_Book</address_book>
+          </rewrite>
+        </customer>
+      </blocks-->
+
+		<!-- Rewrite rule for customer address
+        <rewrite>
+            <override_mycustomer_address>
+                <from><![CDATA[#^/customer/address/#]]></from>
+                <to>/mycustomer/address/</to>
+            </override_mycustomer_address>			
+        </rewrite>
+		-->
+		 
+		<!-- Rewrite rule for customer account
+        <rewrite>
+            <override_mycustomer_account>
+                <from><![CDATA[#^/customer/account/#]]></from>
+                <to>/mycustomer/account/</to>
+            </override_mycustomer_account>
+		</rewrite>
+		-->
+
+    </global>
+</config>

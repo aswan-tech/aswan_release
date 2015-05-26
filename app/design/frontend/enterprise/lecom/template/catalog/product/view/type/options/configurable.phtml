@@ -1,0 +1,513 @@
+<?php
+/*
+ * Inner DIV.popup-info is available var like
+ * #{image}		- will find base-image under Li tag and will
+ * #{price}		- will show different in price, simlar like in label under select option
+ * 
+ */
+$_product = $this->getProduct();
+$_attributes = Mage::helper('core')->decorateArray($this->getAllowAttributes());
+
+/*
+ * Array for ignore size selection
+ * Size ID
+ * 
+ * 92 - STD
+ * 167- Kingsize(240 Cms X 260 Cms)
+ * 168- 6seater (140 Cms X 200 Cms)
+ * 140- Circular (140 Cms Dia)
+ * 144- L(120 Cms)
+ * 145- M (115 Cms)
+ * 147- Singlebed (150 Cms X 260 Cms)
+ * 148- Singlebed (180 Cms X 260 Cms)
+ * 149- Small (30 Cms X 30 Cms)
+ * 150- Square (140 Cms X 140 Cms)
+ * 183- Std(35 Cms X 45 Cms)
+ * 184- Std(50 Cms X 80 Cms)
+ * 156- Std(60 Cms X 90 Cms)
+ * 245- Std(40 Cms X 40 Cms)
+ * 249- 50ml
+ * 250- 150ml
+ * 251- 100ml
+ * 252- 15ml
+ * 254- 200ml
+ * 496 - 42cmsx21cmsx31cms
+ * 497 - 25cmsx3.5cmsx28cms
+ * 498 - 53cmsx15cmsx33cms
+ * 500 - 45cmsx12cmsx36cms
+ * 501 - 50cmsx24cmsx30cms
+ */
+$removeSizeArr = array(92, 167, 168, 140, 144, 145, 147, 148, 149, 150, 183, 184, 156, 245, 249, 250, 251, 252, 254,
+						496, 497, 498, 500, 501);
+
+/*
+ * TARGETING MANTRA PIXCEL
+ */ 
+$_taxHelper  = Mage::helper('tax');
+$_finalPrice = $_taxHelper->getPrice($_product, $_product->getFinalPrice());
+$customerId = null;
+if(Mage::getSingleton('customer/session')->isLoggedIn()) {
+	$customerData = Mage::getSingleton('customer/session')->getCustomer();
+	$customerId = $customerData->getId();
+}
+						
+?>
+
+<script type="text/javascript">
+	var valOpt = 0;
+    function selectOption(prodId,colorId,sizeId,skinUrl)
+    {
+        if(jQuery("#"+prodId+"_color_attribute_id").val()!="" && jQuery("#"+prodId+"_size_attribute_id").val() != "")
+        {
+            var cid = jQuery("#"+prodId+"_color_attribute_id").val();
+            var sid = jQuery("#"+prodId+"_size_attribute_id").val();
+            var selectedOption = prodId+'_'+cid+'_'+sid+"_opt";
+            jQuery("#"+selectedOption).attr("src", skinUrl+"/available_1.jpg");
+        }
+        jQuery("#"+prodId+"_color_attribute_id").val(colorId);
+        jQuery("#"+prodId+"_size_attribute_id").val(sizeId);
+	valOpt = 1;
+        var newSelectedOption = prodId+'_'+colorId+'_'+sizeId;
+		jQuery(".pdp-sel-size-Wrapp .swatchProd").removeClass("active");
+		jQuery("#"+newSelectedOption).addClass(" active");
+        //jQuery("#"+newSelectedOption).attr("src", skinUrl+"/selected.jpg");
+        
+        // get and set simple sku for targeting mantra pixcel
+        
+        if(jQuery(".ajax-color-swatch").hasClass("color-swatch-active")) {
+			jQuery('#cart-add-to-bag').css({ display: "none" });			
+			jQuery('#ajax-loading').show();
+			if(jQuery(".swatchProd").hasClass("MB_focusable")){				
+				ValidateIcart(this,prodId,'My Product');
+			}
+			else{
+				addToCartByAjax('<?php echo Mage::getStoreConfig('checkout/cart/redirect_to_cart'); ?>');
+			}			
+		}	
+		
+		jQuery('.ajax-color-swatch').removeClass('color-swatch-active');		
+		jQuery('.info-dialog').removeClass('info-dialog-active');
+		jQuery('.size-info-close').removeClass('size-close-btn');
+		jQuery('.size-info-close').hide();
+    }
+	
+	function changeImage(prodId,simpleProdId,finalPrice,price,finalCurrencyPrice,currencyPrice)
+    {
+        if(finalPrice != '' && price != '')
+        {
+            if(finalPrice!=price)
+            {
+				finalPriceHtml = finalCurrencyPrice;
+                jQuery('#product-price-'+prodId).html(finalPriceHtml);
+                priceHtml = currencyPrice;
+                jQuery('#old-price-'+prodId).html(priceHtml);
+            }else{
+				priceHtml = finalCurrencyPrice;
+                jQuery('#product-price-'+prodId).html(priceHtml);
+            }
+        }
+        jQuery.ajax({
+            url:"<?php echo Mage::getBaseUrl(); ?>common/index/mainImages?id="+simpleProdId,
+            //dataType:json,
+            beforeSend: function() {
+                jQuery('#more-views-loader').show();
+                jQuery('#onpage-image-spinner').show();
+            },
+            success:function(result){
+                result = jQuery.parseJSON(result);
+                if(result.bigImg=="")
+                    return;
+                jQuery('#more-views-loader').hide();
+                jQuery('#onpage-image-spinner').hide();
+                jQuery("#image").attr("src", result.bigImg);
+                jQuery("#imageClick").attr("src", result.uribig);
+                jQuery(".main-image-changed").attr("value",result.bigImg);
+			 
+                if(jQuery(".catwalk").length > 0){
+                    if(jQuery('.video-views').length > 0){
+                        // configurable has vedio associated so vedio section present only need to replace href
+                        if(result.videocode != null){
+                            //video found hence will replace the main video url
+                            var videourl = "http://www.youtube.com/v/"+result.videocode+"?fs=1&amp;hl=en_US";
+                            jQuery(".video-views .rw-product-video").attr("href",videourl);
+                            if(result.videotitle != null){
+                                //title put in video field
+                                jQuery(".video-views .rw-product-video").attr("title",result.videotitle);
+                            }
+                        }else{
+                            //nothing would be done as it will show configurable video as simple has no associated video
+                        }
+                    }else{
+                        // configurable has no vedio associated so vedio section will be created
+                        if(result.videocode != null){
+                            //video found hence will create the main video section
+                            jQuery.ajax({
+                                url:"<?php echo Mage::getBaseUrl(); ?>common/index/generateVedioSection?id="+simpleProdId,
+                                //dataType:json,
+                                beforeSend: function() {
+                                    jQuery('#onpage-image-spinner').show();
+                                },
+                                success:function(html){
+                                    jQuery("p.catwalk").replaceWith(html);
+                                    jQuery('#onpage-image-spinner').hide();
+                                }
+                            });
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    function changeImagebyColor(prodId,simpleProdId,finalPrice,price)
+    {
+
+        if(finalPrice != '' && price != '')
+        {
+            if(finalPrice!=price)
+            {
+                finalPriceHtml = '<span class="WebRupee">`</span> '+finalPrice+' ';
+                jQuery('#product-price-'+prodId).html(finalPriceHtml);
+                priceHtml = '<span class="WebRupee">`</span> '+price+'';
+                jQuery('#old-price-'+prodId).html(priceHtml);
+            }else{
+                priceHtml = '<span class="WebRupee">`</span> '+finalPrice+'';
+                jQuery('#product-price-'+prodId).html(priceHtml);
+            }
+        }
+        jQuery.ajax({
+            url:"<?php echo Mage::getBaseUrl(); ?>common/index/mainImages?id="+simpleProdId,
+            //dataType:json,
+            beforeSend: function() {
+                jQuery('#more-views-loader').show();
+            },
+            success:function(result){
+                result = jQuery.parseJSON(result);
+                if(result.bigImg=="")
+                    return;
+                jQuery('#more-views-loader').hide();
+                jQuery("#image").attr("src", result.bigImg);
+                jQuery("#imageClick").attr("src", result.uribig);
+                //jQuery(".main-image-changed").attr("value",result.bigImg);
+            }
+        });
+
+    }
+
+    function changeImageHovercolor(obj){
+        var idtoplay = jQuery(obj).attr("id");
+        simpleProdimg = jQuery("#"+idtoplay+"_color_img_main_image").attr("rel");
+        jQuery("#image").attr("src",simpleProdimg);
+    }
+
+    function restoreImagecolor(){
+        var newImagetoreplace =jQuery(".main-image-changed").attr("value");
+        jQuery("#image").attr("src",newImagetoreplace);
+    }
+
+    function changeImageHover(obj){
+        var idtoplay = jQuery(obj).attr("id");
+        var newImagetoreplace = jQuery("#"+idtoplay+"_image").attr("rel");
+        jQuery("#image").attr("src",newImagetoreplace);
+    }
+
+    function restoreImage(obj){
+        var idtoplay = jQuery(obj).attr("id");
+        var newImagetoreplace = jQuery("#"+idtoplay+"_image").attr("value");
+        jQuery("#image").attr("src",newImagetoreplace);
+    }
+
+    function changeColorImg(prodId,colorId)
+    {
+        simpleProd = jQuery("#"+prodId+"_"+colorId+"_color_img_main_image").val();
+        changeImagebyColor(prodId,simpleProd,'','');
+    }
+</script>
+<script type="text/javascript">
+    function changeMoreView(prod,opt)
+    {
+        var newUrl = '<?php echo Mage::getBaseUrl(); ?>wishlist/index/add/product/'+<?php echo $_product->getId() ?>+'/simple/'+prod+'/';
+        if(opt == '') {
+            var prodId = prod;
+        } else {
+            var prodId = jQuery("#"+prod+'_'+opt+'_moreviewId').val();
+        }
+        var page = '';
+        if(typeof product_id != 'undefined'){
+            jQuery(".wishlistLink").attr('href', newUrl);
+            page = '1';
+        }else{
+            jQuery(".link-wishlist").attr('href', newUrl);
+            page = '0';
+        }
+        jQuery.ajax({
+            url:"<?php echo Mage::getBaseUrl(); ?>common/index/moreImages?id="+prodId+"&page="+page,
+            beforeSend: function() {
+                jQuery('#more-views-loader').show();
+            },
+            success:function(result){
+                jQuery('#zoomId').val(prodId);
+                jQuery('#more-views-loader').hide();
+                jQuery(".more-views .jcarousel-skin-tango").html(result);
+                jQuery(".more-views .caroufredsel_wrapper").css({'width':'395px'});
+                jQuery("#more-views-list-ajax li img").each(function(){
+                    if(jQuery(this).attr('src').split('/').pop() == jQuery('#image').attr('src').split('/').pop())
+                        jQuery(this).addClass('viewable');
+                });
+            }
+        });
+    }
+</script>
+<div class="ajax-color-swatch">
+	<div class="info-dialog">Select a size to add to bag</div>
+	<span style="display:none;" class="size-info-close">X</span>
+<?php
+		if($this->getRequest()->getParam('sProd')){
+			$_smpproductId = $this->getRequest()->getParam('sProd');
+		}else{
+			$_smpproductId = 0;
+		}
+		
+		if(Mage::getStoreConfig('progallery/resizeImage/main_image_resize_width')) {
+			$main_image_resize_width = Mage::getStoreConfig('progallery/resizeImage/main_image_resize_width');
+		} else {
+			$main_image_resize_width = 331;	
+		}
+ 	   
+		if(Mage::getStoreConfig('progallery/resizeImage/main_image_resize_height')) {
+			$main_image_resize_height = Mage::getStoreConfig('progallery/resizeImage/main_image_resize_height');
+		} else {
+			$main_image_resize_height = 365;	
+		}
+		   
+		if(Mage::getStoreConfig('progallery/resizeImage/lightbox_image_resize_width')) {
+		   $lightbox_image_resize_width = Mage::getStoreConfig('progallery/resizeImage/lightbox_image_resize_width');
+		} else {
+		   $lightbox_image_resize_width = 1100;	
+		}
+		   
+		if(Mage::getStoreConfig('progallery/resizeImage/lightbox_image_resize_height')) {
+		  $lightbox_image_resize_height = Mage::getStoreConfig('progallery/resizeImage/lightbox_image_resize_height');
+		} else {
+		  $lightbox_image_resize_height = 1150;	
+		}
+		
+		$confProd = Mage::getModel('catalog/product_type_configurable');
+		// Get all attributes of configurable product
+		$confAtts = $confProd->getConfigurableAttributesAsArray($_product);
+
+		$isColorAvailable = false;
+		$isSizeAvailable = false;
+		
+		$confCategory = Mage::getModel('catalog/category');
+		
+		$returnArray = $confCategory->getSwatchColorSizeDataArray($confAtts);
+		
+		$color = $returnArray['color'];
+		//$colorData = $returnArray['colorData']; 
+		$colorDataRootPath = $returnArray['colorDataRootPath'];
+		$superAtt = $returnArray['superAtt'];
+		$size = $returnArray['size']; 
+		$sortedSize = $returnArray['sortedSize']; 
+		$sortedSizeAbbr = $returnArray['sortedSizeAbbr'];
+		$isColorAvailable = $returnArray['isColorAvailable'];
+		$isSizeAvailable =  $returnArray['isSizeAvailable'];	
+
+		// get all associated product ids
+		$childIds = $confProd->getUsedProductIds($_product);
+		$price = $_product->getPrice();
+		$finalPrice = $_product->getFinalPrice();
+		$priceDiff=0;
+		
+		if($finalPrice!=$price){
+			$priceDiff = $price-$finalPrice;
+		}
+		
+		$optData = $confCategory->getSwatchOptData($childIds,$size,$priceDiff);
+		
+		foreach($color['color'] as $ck=>$cv)
+		{
+			foreach($sortedSize as $sk=>$sv)
+			 {
+			   if(!isset($optData[$ck][$sk]))
+			   {
+				 $sortedOptData[$ck][$sk]['image'] = 0;
+				 $sortedOptData[$ck][$sk]['small_image'] = 0;
+				 $sortedOptData[$ck][$sk]['size_label'] = $sv;
+				 $sortedOptData[$ck][$sk]['stock'] = 0;
+			   }
+			   else
+			   {
+				 $sortedOptData[$ck][$sk] = $optData[$ck][$sk];
+			   }
+			   
+			 }
+			
+		}
+		$cats = $_product->getCategoryIds();
+		if(!$confCategory->removeSizeGuide($cats)){ 
+			$sizeGuide = '<div class="size-chart fl show_popup">Size Guide : <span></span> </div>';
+        }
+		$i = 0;
+		if ($_product->isSaleable()){
+			if($isColorAvailable && $isSizeAvailable) { ?>
+            <!--<p class="ProDes">Select color and size</p>-->
+				<?php foreach($superAtt as $sAttKey=>$sAttVal) { ?>
+					<input type="hidden" id="<?php echo $_product->getId() ?>_<?php echo $sAttKey ?>" name="super_attribute[<?php echo $sAttVal ?>]" value="" />
+				<?php }	?>
+				<div class="pdp-sel-size-Wrapp">
+				<?php foreach($sortedOptData as $optKey=>$optVal){ ?>
+					<?php
+					$swatchNotAvailable = true;
+					$colorSwatchImageUrl = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN).'frontend/enterprise/lecom/images/NA.jpg'; 
+					foreach($optVal as $optionKey=>$optionVal) {
+						$thumbProduct = Mage::getModel('catalog/product')->load($optionVal['simple_prod_id']);
+						if($swatchNotAvailable)
+						{
+						  $colorSwatchImage = $thumbProduct->getColorSwatchImage();
+						  if (!empty($colorSwatchImage) and ($colorSwatchImage != "no_selection") and file_exists(Mage :: getBaseDir('media') . DS . 'catalog/product' . $colorSwatchImage)) {
+							  $colorSwatchImageUrl = Mage::helper('catalog/image')->init($thumbProduct, 'color_swatch_image')->__toString();
+							  $swatchNotAvailable = false;
+							  break;
+							}
+						}
+					}
+					?>
+                    <ul>
+					<?php
+					foreach($optVal as $optionKey=>$optionVal) 
+					{
+						$thumbProduct = Mage::getModel('catalog/product')->load($optionVal['simple_prod_id']);
+						$baseImageUrl = Mage::helper('catalog/image')->init($thumbProduct, 'image');
+						$prod_fprice = Mage::helper('common')->currency($optionVal['finalPrice']);
+						$prod_fprice = str_replace('class="WebRupee"', 'class=WebRupee', $prod_fprice);
+						
+						$prod_price = Mage::helper('common')->currency($optionVal['price']);
+						$prod_price = str_replace('class="WebRupee"', 'class=WebRupee', $prod_price);?>
+						<li>
+						<?php
+                            if ($optionVal['stock']) {
+                                $url_image_1 = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN) . 'frontend/enterprise/lecom/images';
+                                $url_image_2 = $this->getSkinUrl('images/available_1.jpg');
+                                // modify by avi : start
+                                if (!in_array($optionKey, $removeSizeArr)) {
+                                    ?>
+                                        <a href="javascript:void(0);" class="swatchProd gtm-track" id="<?php echo $_product->getId() ?>_<?php echo $optKey ?>_<?php echo $optionKey ?>" onclick="selectOption('<?php echo $_product->getId() ?>', '<?php echo $optKey ?>', '<?php echo $optionKey ?>', '<?php echo $url_image_1 ?>');"><?php echo $optionVal['size_label'] ?></a>
+                                        <?php
+                                    } else {
+                                        ?>
+                                        <script type="text/javascript">selectOption('<?php echo $_product->getId() ?>','<?php echo $optKey ?>','<?php echo $optionKey ?>','<?php echo $url_image_3 ?>');changeImage('<?php echo $_product->getId() ?>','<?php echo $optionVal['simple_prod_id'] ?>','<?php echo number_format($optionVal['finalPrice'], 2) ?>',' <?php echo number_format($optionVal['price'], 2) ?>','<?php echo $prod_fprice; ?>','<?php echo $prod_price; ?>');changeMoreView('<?php echo $optionVal['simple_prod_id'] ?>','');</script>
+                                        <?php
+                                    }
+                                    // modify by avi : end
+                                } else if (!in_array($optionKey, $removeSizeArr)) {
+                                    ?>
+                                    <a href="javascript:void(0);" class="deactive-size"><?php echo $optionVal['size_label']; ?></a>
+                                    <div class="clear"></div>
+                                    <span>Sold Out</span> </li>
+						<?php } ?>
+						<?php if(isset($optionVal['simple_prod_id'])){
+							if($_smpproductId == $optionVal['simple_prod_id'])
+							{
+								$url_image_3 = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN).'frontend/enterprise/lecom/images';
+								// Select the same simple product on PDP when coming from wishlist
+								?>
+							<script type="text/javascript">
+								selectOption('<?php echo $_product->getId() ?>','<?php echo $optKey ?>','<?php echo $optionKey ?>','<?php echo $url_image_3 ?>');changeImage('<?php echo $_product->getId() ?>','<?php echo $optionVal['simple_prod_id'] ?>','<?php echo number_format($optionVal['finalPrice'],2) ?>',' <?php echo number_format($optionVal['price'],2) ?>','<?php echo $prod_fprice; ?>','<?php echo $prod_price; ?>');changeMoreView('<?php echo $optionVal['simple_prod_id'] ?>','');
+							</script>
+						<?php
+							}
+						}
+						$assigned = true;
+						if($optionVal['image'] && $optionVal['small_image'] && $assigned)
+						{
+							$assigned = false;
+							?>
+							
+<input type="hidden" class="main-image-changed" id="<?php echo $_product->getId() ?>_<?php echo $optKey ?>_<?php echo $optionKey ?>_image" rel="<?php echo $optionVal['image'] ?>" value="<?php echo Mage::helper('catalog/image')->init($_product,'image')->resize(395,413)->__toString() ?>" />
+
+<input type="hidden" id="<?php echo $_product->getId() ?>_<?php echo $optKey ?>_color_img_main_image" name="<?php echo $optKey ?>_color" value="<?php echo $optionVal['simple_prod_id'] ?>" rel="<?php echo $optionVal['image'] ?>" />
+
+<input type="hidden" id="<?php echo $_product->getId() ?>_<?php echo $optKey ?>_color_img_lightbox_image" name="<?php echo $optKey ?>_color_lightbox" value="<?php echo $baseImageUrl->resize($lightbox_image_resize_width, $lightbox_image_resize_height)->__toString() ?>" />
+
+<input type="hidden" id="<?php echo $_product->getId() ?>_<?php echo $optKey ?>_color_small_img" name="<?php echo $optKey ?>_small_color" value="<?php echo $optionVal['small_image'] ?>" />
+
+<input type="hidden" id="<?php echo $_product->getId() ?>_<?php echo $optKey ?>_moreviewId" name="moreviewId" value="<?php echo $optionVal['simple_prod_id'] ?>" />
+						<?php 
+						} ?>
+                        </li>
+					<?php 
+					} 
+					?>
+                    </ul>
+			<?php	
+				}
+				$url_image_4 = $this->getSkinUrl('images/selected.jpg');
+				$url_image_5 = $this->getSkinUrl('images/available_1.jpg');
+				$url_image_6 = $this->getSkinUrl('images/not_available.jpg');
+				?>
+				<div id="ajax-loading" style="display:none;"><img src="<?php echo $this->getSkinUrl('images/ajax-loader.gif'); ?>"></div>
+			</div>
+            <?php echo $sizeGuide; ?>
+			<?php
+			}
+			else
+			{
+				// Default view
+				?>
+            <!--<p class="ProDes">Select color and size</p>-->
+				<dl>
+				<?php 
+				foreach($_attributes as $_attribute){
+					if ($_attribute->decoratedIsLast){
+					?>
+						<dd id="<?php echo $_product->getId() ?>_item_<?php echo ++$i ?>" class="last">
+					<?php 
+					}else{
+					?>
+						<dd id="<?php echo $_product->getId() ?>_item_<?php echo ++$i ?>">
+					<?php
+					}
+					?>
+					<div class="input-box" style="background:none !important;">
+					<select  name="super_attribute['<?php echo $_attribute->getAttributeId() ?>']" id="attribute<?php echo $_attribute->getAttributeId() ?>" class="super-attribute-select_<?php echo $_product->getId() ?>" onchange="resetOption('<?php echo $_product->getId() ?>','<?php echo $i ?>');">
+					<option>
+						<?php if(stristr($_attribute->getLabel(),"color")){ ?>Select Colour <?php }elseif(stristr($_attribute->getLabel(), "size")) { ?>Select Size <?php }else{ ?>Select Option <?php } ?>
+					</option>
+					</select>';
+					
+					<?php
+					if ($_attribute->decoratedIsLast){
+						$cats = $_product->getCategoryIds();
+						if(!$confCategory->removeSizeGuide($cats)){
+					?>
+							<a class="show_popup" href="javascript:void(0);">Size Guide</a>
+						<?php
+						} 
+					}
+					?>
+					
+					</div>
+				</dd>
+				<?php
+				}
+				?>
+			</dl>
+		<script type="text/javascript">
+				var spConfig_<?php echo $_product->getId()?> = new FCM_Product.Config(<?php echo $this->getJsonConfig() ?>);
+				var selectedAssocProducts_<?php echo $_product->getId()?> = {}; // Added by dhananjay for image change on get a look
+		</script>
+			<?php
+			}
+			?>
+			<script type="text/javascript">
+				jQuery(".show_popup").click(function() {
+					jQuery("#fancybox-outer1").css({top:20}).show(); 
+					jQuery("#fancybox-overlay1")
+					jQuery("#fancybox-wrap1,#fancybox-overlay1").fadeIn(300);
+				});
+			</script>
+		<?php
+		}
+	?>
+</div>

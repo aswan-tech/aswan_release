@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+		<FCM_Nosql>
+            <active>true</active>
+            <codePool>local</codePool>
+        </FCM_Nosql>
+    </modules>
+</config>

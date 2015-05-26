@@ -1,0 +1,107 @@
+<!-- Popup Overlay -->
+<script>function closeBox() {
+		jQuery('#fancybox-wrap1,#fancybox-overlay1').fadeOut(300);
+	}	</script>
+<div class="fancy-overlay1" id="fancybox-overlay1"></div>
+
+	<div class="fancy-wrap1" id="fancybox-wrap1">
+		
+		<div id="fancybox-outer1">
+			
+			<?php
+				$_product = $this->getProduct();
+				$sizechart = $_product->getAttributeText('sizechart');
+				$counter = 0;
+				$collection = Mage::getModel('sizeguide/sizeguide')->getCollection();
+				if(isset($sizechart) && $sizechart != '') {	
+					$collection->getSelect()->where("sizeguide_id = ? ", (string) $sizechart);
+				}
+				else {
+					$collection->getSelect()->where("sizeguide_id IN (1,2) ");
+				}
+				//echo $collection->getSelect()->__toString();
+				$collection->getSelect()->where('status = 1')->order('order_id ASC');
+				$size_popup = sizeof($collection);
+				
+				if($size_popup <=0 ) {
+					$collection->getSelect()->where("sizeguide_id IN (1,2) ");
+					$collection->getSelect()->where('status = 1')->order('order_id ASC');
+					$size_popup = sizeof($collection);
+				}
+					
+				if($size_popup > 0)	{
+			?>
+				
+					
+						
+							
+        
+		
+		<?php
+		$imgUrl =  $this->getSkinUrl()."images/sizechart/";
+		foreach ($collection as $sizedata):
+			$SizeData = $sizedata->getData();
+			$content[] = str_replace("##IMG_URL##",$imgUrl,$SizeData['content_size']);
+			if(empty($sizechart)) {
+        ?>
+       
+		   <li id="divli<?php echo $counter;?>" class="size-tab"><a onclick="showMe('<?php 
+		   echo $counter; ?>');" href="javascript:void(0)"><span><b> 
+		   <?php echo $SizeData['title'];?> </b></span></a></li>
+		   <?php } ?>
+		   <?php $counter++; endforeach; ?>
+	
+							
+						
+
+		<?php for($i=0; $i<$size_popup; $i++) { ?>
+			<div id="tab<?php echo $i; ?>" class="" style="display:none;">
+				<?php echo $content[$i]; ?> 
+			</div>
+		<?php } ?>
+
+					
+				
+				<?php 
+				} else {				
+					echo '<h2>No Size Guide Available !</h2>';				
+				}
+				?>
+				
+			
+		<a style="display: inline;" id="fancybox-close1" onclick="closeBox();"></a>
+	</div>
+</div>
+
+    <script language="javascript">
+	
+	<?php if($size_popup > 0) { ?>
+		document.getElementById('tab0').show();	
+	<?php } ?>
+	
+	<?php if(empty($sizechart)) { ?>		
+		document.getElementById('divli0').className="active_tab size-tab";
+	<?php } ?>
+	
+	function showMe(tab) {       
+  	    for(var i=0; i<<?php echo $size_popup; ?>; i++) {
+		  var nact_tab = "tab"+i;
+		  var active_tab = "divli"+i;
+			if(tab==i) {
+				if(active_tab) {
+					document.getElementById(active_tab).className="active_tab size-tab";				   }
+				if(nact_tab) {
+					document.getElementById(nact_tab).style.display="block";
+				}
+			} else {
+		 
+				if(active_tab) {		
+						document.getElementById(active_tab).className="size-tab";
+				} 
+			    if(nact_tab) {
+					document.getElementById(nact_tab).style.display="none";
+				}
+			}
+		}
+	}	
+</script>

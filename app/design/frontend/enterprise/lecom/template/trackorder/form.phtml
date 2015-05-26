@@ -1,0 +1,160 @@
+<?php
+/**
+ * Magento phtml file used for Registered user
+ *
+ * Magento phtml file to create the form to enter the required data to track order status for Registered user
+ *
+ *
+ * @category    FCM
+ * @package     FCM_Trackorder
+ * @author		Vishal Verma
+ * @author_id	51427958
+ * @company		HCL Technologies
+ * @created 	Friday, August 10, 2012
+ * @copyright	Four cross media
+ */
+?>
+
+
+
+<h2 class="title"><?php echo $this->__('Track My Order'); ?></h2>
+<div id="messages"><?php echo $this->getMessagesBlock()->getGroupedHtml() ?></div>
+<p class="text">Simply enter the Order Number for  which you want to track the order.</p>
+<p class="text">Or, enter the Tracking Number provided to you in the email.</p>
+<form method="get" action="<?php echo $this->getPostUrl();?>" name="trackFrm" id="form-validate">
+	<ul class="clearfix formOrder">
+		<li class="mobile_hr">
+			<div class="clearfix field-item">
+				<label for="mobile"><?php echo $this->__('Billing Mobile'); ?><span class="mandatoryField">*</span></label>
+				<div class="input-box"><input type="text" class="input-text required-entry validate-mobile2" name="mobile" value="<?php echo $this->getRequest()->getParam('mobile'); ?>" /></div>
+			</div>
+		</li>
+		<li>
+			<div class="clearfix field-item">
+				<label for="trID"><?php echo $this->__('Tracking ID'); ?><span class="mandatoryField">*</span></label>
+				<div class="input-box">
+					<input type="text" class="input-text validate-either" name="trackID" id="trackID" onkeyup="return clearContent('ordNo');" onblur="return clearJsErrors('trackID', 'ordNo');" value="<?php echo $this->getRequest()->getParam('trackID'); ?>" />
+				</div>
+			</div>
+		</li>
+	   <li>
+			<div class="clearfix field-item">
+				<label>&nbsp;</label>
+				<div class="input-box" style="margin-left:74px;">----- OR -------</div>
+			</div>
+		</li>
+		<li>
+			<div class="clearfix field-item">
+				<label for="ordNo"><?php echo $this->__('Order Number'); ?><span class="mandatoryField">*</span></label>
+				<div class="input-box">
+					<input type="text" class="input-text validate-either" name="ordNo" id="ordNo" onkeyup="return clearContent('trackID');" onblur="return clearJsErrors('ordNo', 'trackID');" value="<?php echo $this->getRequest()->getParam('ordNo'); ?>" />
+				</div>
+			</div>
+		</li>
+		 <li>
+			<div class="clearfix field-item">
+				<div class="input-btn">
+					<button type="submit" name="btnSubmit" class="btnsubmit"><?php echo $this->__('Track Order'); ?></button>
+				</div>
+			</div>
+		</li>
+	</ul>
+</form>
+
+<script type="text/javascript">
+//<![CDATA[
+	function clearContent(divID){
+		/*var divVal = $(divID).getValue();
+		if(divVal != ''){
+			$(divID).value = '';
+		}*/
+	}
+	
+	function clearJsErrors(thisID, otherID){
+		var thisVal = $(thisID).getValue();
+		var otherVal = $(otherID).getValue();
+		
+		if((thisVal == '' && otherVal == '') || (thisVal != '' && otherVal != '')){
+			if(!$('advice-validate-either-'+thisID).visible()){
+				new Effect.Appear('advice-validate-either-'+thisID, { duration: 1 });
+				
+				$(thisID).addClassName('validation-failed');
+				$('advice-validate-either-'+thisID).setStyle({
+				  display: 'block',
+				  opacity: 1
+				});
+				
+			}
+			
+			if(!$('advice-validate-either-'+otherID).visible()){
+				new Effect.Appear('advice-validate-either-'+otherID, { duration: 1 });
+				
+				$(otherID).addClassName('validation-failed');
+				$('advice-validate-either-'+otherID).setStyle({
+				  display: 'block',
+				  opacity: 1
+				});
+				
+			}
+		}
+		
+		//One value is filled up so remove the error from the other textbox
+		if((thisVal != '' && otherVal == '') || (thisVal == '' && otherVal != '')){
+			if($('advice-validate-either-'+otherID).visible()){
+				Effect.Fade('advice-validate-either-'+otherID, { duration: 1 });
+				$(otherID).removeClassName('validation-failed');
+				$('advice-validate-either-'+otherID).setStyle({
+				  display: '',
+				  opacity: 0
+				});
+			}
+		}
+		
+		if($('advice-validate-either-'+thisID).visible()){
+			Effect.Fade('advice-validate-either-'+thisID, { duration: 1 });
+			$(thisID).removeClassName('validation-failed');
+			$('advice-validate-either-'+thisID).setStyle({
+			  display: '',
+			  opacity: 0
+			});
+		}
+	}
+	
+	Validation.addAllThese([
+		['validate-either', '<?php echo $this->__('Please enter any one, Tracking ID or Order Number.') ?>', 
+			function (v, elem) {
+				var trackID = $('trackID').getValue();
+				var ordNo = $('ordNo').getValue();
+				
+				//If both are empty, show error
+				if(Validation.get('IsEmpty').test(trackID) && Validation.get('IsEmpty').test(ordNo)) {
+					return false;
+				}
+				
+				//If both are NON empty, show error
+				if(!Validation.get('IsEmpty').test(trackID) && !Validation.get('IsEmpty').test(ordNo)) {
+					return false;
+				}
+				
+				/*
+				//alert(trackID+"=="+ordNo);
+				if(trackID != ''){
+					$('ordNo').setAttribute('disabled', true);
+				}else{
+					$('ordNo').setAttribute('disabled', false);
+				}
+				
+				if(ordNo != ''){
+					$('trackID').setAttribute('disabled', true);
+				}else{
+					$('trackID').setAttribute('disabled', false);
+				}
+				*/
+				
+				return true;
+			}]
+	]);
+	
+	var dataForm = new VarienForm('form-validate', true);
+//]]>
+</script>

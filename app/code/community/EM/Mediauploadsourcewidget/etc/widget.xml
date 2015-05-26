@@ -1,0 +1,91 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magento
+ *
+ *  
+ *
+ * @package     EM_MediaUploadSourceWidget
+ * @copyright   Copyright (c) 2009 Quick Solution LT
+ * 
+ */
+-->
+<widgets>
+    <mediauploadsourcewidget_upload type="mediauploadsourcewidget/upload" translate="name description" module="mediauploadsourcewidget">
+        <name>Upload media by source </name>
+        <description>Support type: flv, swf, wmv, avi, mp3</description>
+        <js>media/swfobject.js</js>
+        <parameters>
+            <media>
+                <label>Media</label>
+                <visible>1</visible>
+                <required>1</required>
+                <type>label</type>
+                 <helper_block>
+                    <type>mediauploadsourcewidget/chooser</type>
+                    <data>
+                        <button translate="open">
+                            <open>Select File...</open>
+                        </button>
+                    </data>
+                </helper_block>
+            </media>
+            <width>
+                <label>Width</label>
+                <visible>1</visible>
+                <required>0</required>
+                <type>text</type>
+            </width>
+            <height>
+                <label>Height</label>
+                <visible>1</visible>
+                <required>0</required>
+                <type>text</type>
+            </height>
+            <id>
+                <label>id</label>
+                <visible>1</visible>
+                <required>0</required>
+                <type>text</type>
+            </id>
+            <class>
+                <label>class</label>
+                <visible>1</visible>
+                <required>0</required>
+                <type>text</type>
+            </class>
+            <attrs>
+                <label>element attrs</label>
+                <visible>1</visible>
+                <required>0</required>
+                <type>text</type>
+            </attrs>
+            <!-- flashvars>
+                <label>flashvars</label>
+                <visible>1</visible>
+                <required>0</required>
+                <type>text</type>
+            </flashvars-->
+            <wmode>
+                <label>wmode</label>
+                <visible>1</visible>
+                <required>0</required>
+                <type>select</type>
+                <values>
+                    <transparent translate="label">
+                        <value>transparent</value>
+                        <label>transparent</label>
+                    </transparent>
+                    <window translate="label">
+                        <value>window</value>
+                        <label>window</label>
+                    </window>
+                    <opaque translate="label">
+                        <value>opaque</value>
+                        <label>opaque</label>
+                    </opaque>
+                </values>
+            </wmode>
+        </parameters>
+    </mediauploadsourcewidget_upload>
+</widgets>

@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+  <paymentprovider_adminhtml_paymentprovider_index>
+    <reference name="content">
+      <block type="paymentprovider/adminhtml_paymentprovider" name="paymentprovider"/>
+    </reference>
+  </paymentprovider_adminhtml_paymentprovider_index>
+</layout>

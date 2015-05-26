@@ -1,0 +1,91 @@
+<script type="text/javascript">
+amstockstatus_ranges_cnt = 0;
+function amstockstatus_addRange(from, to, status)
+{
+    if ('undefined' == typeof(from))
+    {
+        from = '';
+    }
+    if ('undefined' == typeof(to))
+    {
+        to = '';
+    }
+    if ('undefined' == typeof(status))
+    {
+        status = '';
+    }
+    tbd = $('ranges_table_body');
+    row = document.createElement('tr');
+    row.setAttribute('id', 'amstockstatus_range_row_' + amstockstatus_ranges_cnt);
+    tbd.appendChild(row);
+    
+    cell = document.createElement('td');
+    cell.innerHTML = '<input class="input-text" type="text" size="11" name="amstockstatus_range[' + amstockstatus_ranges_cnt +  '][from]" value="' + from + '" />';
+    row.appendChild(cell);
+    
+    cell = document.createElement('td');
+    cell.innerHTML = '<input class="input-text" type="text" size="11" name="amstockstatus_range[' + amstockstatus_ranges_cnt +  '][to]" value="' + to + '" />';
+    row.appendChild(cell);
+    
+    cell = document.createElement('td');
+    cell.innerHTML = '<select name="amstockstatus_range[' + amstockstatus_ranges_cnt +  '][status]">' 
+    <?php
+    foreach ($this->getOptionsCollection() as $option):
+    ?>
+     + '<option value="<?php echo $option->getData('option_id'); ?>" ' 
+                + ((status == <?php echo $option->getData('option_id'); ?>) ? 'selected="selected"' : '') 
+                                                            + '><?php echo $option->getData('value'); ?></option>'
+    <?php
+    endforeach;
+    ?>
+     + '</select>';
+    row.appendChild(cell);
+    
+    cell = document.createElement('td');
+    cell.innerHTML = '[ <a href="#" onclick="$(\'ranges_table_body\').removeChild($(\'amstockstatus_range_row_' + amstockstatus_ranges_cnt + '\'));"><?php echo $this->__('delete'); ?></a> ]';
+    row.appendChild(cell);
+    
+    amstockstatus_ranges_cnt++;
+}
+
+<?php 
+$rangesCollection = $this->getRanges();
+if ($rangesCollection->getSize() > 0)
+{
+    ?>
+    function amstockstatus_populateRanges()
+    {
+        <?php foreach ($rangesCollection as $range): ?>
+        amstockstatus_addRange(<?php echo $range->getData('qty_from'); ?>, <?php echo $range->getData('qty_to'); ?>, <?php echo $range->getData('status_id'); ?>);
+        <?php endforeach; ?>
+    }
+    
+    Event.observe(window, 'load', amstockstatus_populateRanges);
+    <?php
+}
+?>
+</script>
+
+
+<div class="entity-edit">
+    <div class="entry-edit-head">
+        <h4 class="icon-head head-edit-form fieldset-legend"><?php echo Mage::helper('amstockstatus')->__('Stock Status for Quantity Range') ?></h4>
+    </div>
+    <div class="box">
+            <div class="hor-scroll">
+                <table cellpadding="5" cellspacing="8" id="ranges_table">
+                    <thead>
+                        <th><?php echo $this->__('Quantity From'); ?></th>
+                        <th><?php echo $this->__('Quantity To'); ?></th>
+                        <th><?php echo $this->__('Custom Stock Status'); ?></th>
+                        <th></th>
+                    </thead>
+                    <tbody id="ranges_table_body">
+                        
+                    </tbody>
+                </table>
+                <br />
+                &nbsp;&nbsp;<a href="#" onclick="javascript: amstockstatus_addRange(); return false;"><?php echo $this->__('Add New Range Status'); ?></a>
+            </div>
+    </div>
+</div>

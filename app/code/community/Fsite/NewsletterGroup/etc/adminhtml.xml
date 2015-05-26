@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<config>
+    <menu>
+        <newsletter>
+            <children>
+                <group translate="title" module="newslettergroup">
+                    <title>Newsletter Groups</title>
+                    <sort_order>100</sort_order>
+                    <action>adminhtml/newslettergroup_group/</action>
+                </group>
+            </children>
+        </newsletter>
+    </menu>
+                  
+    <acl>
+        <resources>
+        <!--
+            <all>
+                 <title>Allow Everything</title>
+            </all>
+            -->
+            
+            <!-- This needs to be set so it'll be included in the menu for the specific user group -->
+            <admin>
+                <children>
+                    <newsletter>
+                        <children>
+                            <group>
+                                <title>Newsletter Groups</title>
+                            </group>
+                        </children>
+                    </newsletter>
+                </children>
+            </admin>
+            
+            <!-- This needs to match the url which is newslettergroup_group -->
+            <admin>
+                <children>
+                    <newslettergroup>
+                        <children>
+                            <group>
+                                <title>Newsletter Groups</title>
+                            </group>
+                        </children>
+                    </newslettergroup>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+</config>

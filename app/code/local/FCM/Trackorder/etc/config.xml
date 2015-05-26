@@ -1,0 +1,147 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <FCM_Trackorder>
+            <version>0.1.0</version>
+        </FCM_Trackorder>
+    </modules>
+    <frontend>
+        <routers>
+            <trackorder>
+                <use>standard</use>
+                <args>
+                    <module>FCM_Trackorder</module>
+                    <frontName>trackorder</frontName>
+                </args>
+            </trackorder>
+        </routers>
+        <layout>
+            <updates>
+                <trackorder>
+                    <file>trackorder.xml</file>
+                </trackorder>
+            </updates>
+        </layout>
+    </frontend>
+	
+	
+	
+	
+	<admin>
+        <routers>
+            <trackorder>
+                <use>admin</use>
+                <args>
+                    <module>FCM_Trackorder</module>
+                    <frontName>trackorder</frontName>
+                </args>
+            </trackorder>
+        </routers>
+    </admin>
+    <adminhtml>
+        <!--
+		<menu>
+            <trackorder module="trackorder">
+                <title>Trackorder</title>
+                <sort_order>71</sort_order>               
+                <children>
+                    <items module="trackorder">
+                        <title>Manage Items</title>
+                        <sort_order>0</sort_order>
+                        <action>trackorder/adminhtml_trackorder</action>
+                    </items>
+                </children>
+            </trackorder>
+        </menu>
+		-->
+        <acl>
+            <resources>
+                <all>
+                    <title>Allow Everything</title>
+                </all>
+                <admin>
+                    <children>
+						<system>
+                            <children>
+                                <config>
+                                    <children>
+                                        <trackorder>
+                                            <title>BlueDart Configurations</title>
+                                        </trackorder>
+                                    </children>
+                                </config>
+                            </children>
+                        </system>
+						<!--
+                        <trackorder>
+                            <title>Trackorder Module</title>
+                            <sort_order>200</sort_order>
+                        </trackorder>
+						-->
+                    </children>
+                </admin>
+            </resources>   
+        </acl>
+        <layout>
+            <updates>
+                <trackorder>
+                    <file>trackorder.xml</file>
+                </trackorder>
+            </updates>
+        </layout>
+    </adminhtml>
+	
+	
+	
+	
+	
+	
+	
+	
+    <global>
+        <models>
+            <trackorder>
+                <class>FCM_Trackorder_Model</class>
+                <resourceModel>trackorder_mysql4</resourceModel>
+            </trackorder>
+            <trackorder_mysql4>
+                <class>FCM_Trackorder_Model_Mysql4</class>
+                <entities>
+                    <trackorder>
+                        <table>trackorder</table>
+                    </trackorder>
+                </entities>
+            </trackorder_mysql4>
+        </models>
+        <resources>
+            <trackorder_setup>
+                <setup>
+                    <module>FCM_Trackorder</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </trackorder_setup>
+            <trackorder_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </trackorder_write>
+            <trackorder_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </trackorder_read>
+        </resources>
+        <blocks>
+            <trackorder>
+                <class>FCM_Trackorder_Block</class>
+            </trackorder>
+        </blocks>
+        <helpers>
+            <trackorder>
+                <class>FCM_Trackorder_Helper</class>
+            </trackorder>
+        </helpers>
+    </global>
+</config>

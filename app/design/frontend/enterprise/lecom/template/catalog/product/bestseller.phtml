@@ -1,0 +1,63 @@
+<?php
+$totalPerPage = ($this->show_total) ? $this->show_total : 10;
+$counter = 1;
+$visibility = array(
+                      Mage_Catalog_Model_Product_Visibility::VISIBILITY_BOTH,
+                      Mage_Catalog_Model_Product_Visibility::VISIBILITY_IN_CATALOG
+                  );
+
+$storeId = Mage::app()->getStore()->getId();
+$_productCollection = Mage::getResourceModel('reports/product_collection')
+                              ->addAttributeToSelect('*')
+                              ->addOrderedQty()
+                              ->addAttributeToFilter('visibility', $visibility)
+                              ->setOrder('ordered_qty', 'desc');							  
+?>
+
+<?php if (($_products = $_productCollection) && $_products->getSize()): ?>
+
+<div class="specialArea">
+<div class="scrWrapper">
+<div class="jcarousel-skin-tango">
+<div class="jcarousel-container jcarousel-container-horizontal">
+<div class="carousel-title"><?php echo $this->__('Best Sellers') ?></div>
+<div class="jcarousel-clip jcarousel-clip-horizontal">
+<ul id="mycarousel" class="jcarousel-list jcarousel-list-horizontal">
+
+<?php foreach($_productCollection as $product): ?>
+
+<?php if($counter <= $totalPerPage): ?>
+<li class="jcarousel-item jcarousel-item-horizontal">
+<span class="img">
+<?php $productUrl =  $product->getProductUrl() ?>
+
+<!-- <small><?php //echo $this->__('Total soled quantities') ?>: <?php // echo (int)$product->ordered_qty ?></small><br /> -->
+
+<a href="<?php echo $productUrl ?>" title="View <?php echo $product->name ?>">
+<img src="<?php echo $this->helper('catalog/image')->init($product, 'image')->resize(120); ?>" alt="Product image"  />
+</a> 
+<div class="clearbr">
+<a href="<?php echo $productUrl ?>" title="View <?php echo $product->name ?>">
+  <h4><?php echo $product->name ?></h4>
+</a>
+
+<div class="clearbr">
+
+<?php // echo $this->__('Categories: ') ?><?php // echo $categories ?>
+<p><?php echo Mage::helper('checkout')->formatPrice($product->Price); ?></p>
+</span> 
+</li>
+<?php endif; $counter++; ?>
+<?php endforeach; ?>
+
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<?php else: ?>
+<?php echo "<div class='clear'></div>" ?>
+<?php // echo "<div class='noresult';><h2>No BestSeller Products Found !</h2></div>"; ?> 
+<?php endif; ?>

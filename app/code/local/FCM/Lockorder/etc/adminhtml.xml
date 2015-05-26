@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    Document   : adminhtml.xml
+    Created on : July 3, 2012, 1:16 PM
+    Author     : shikha.r
+    Description: Purpose of the document follows.
+-->
+
+<config>
+    <acl>
+        <resources>
+            <admin>
+                <children>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <lockorder translate="title" module="lockorder">
+                                        <title>Lock Order</title>
+                                        <sort_order>2000</sort_order>
+                                    </lockorder>
+									<shipping_method translate="title" module="lockorder">
+                                        <title>Shipping Method Help Text</title>
+                                        <sort_order>3000</sort_order>
+                                    </shipping_method>
+                                </children>
+                            </config>
+                        </children>
+                    </system>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+</config>

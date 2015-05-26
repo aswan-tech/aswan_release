@@ -1,0 +1,78 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <sizeguide_adminhtml_sizeguide_index>
+        <reference name="content">
+            <block type="sizeguide/adminhtml_sizeguide" name="sizeguide" />
+        </reference>
+    </sizeguide_adminhtml_sizeguide_index>
+	
+    <sizeguide_adminhtml_sizeguide_edit>
+        <reference name="head">
+            <action method="addItem">
+                <type>js</type>
+                <name>tiny_mce/tiny_mce.js
+                </name>
+                <params/>
+            </action>
+            <action method="addItem">
+                <type>js</type>
+                <name>mage/adminhtml/wysiwyg/tiny_mce/setup.js</name>
+                <params/>
+            </action>
+            <action method="addItem">
+                <type>js</type>
+                <name>mage/adminhtml/wysiwyg/widget.js</name>
+                <params/>
+            </action>
+            <action method="addItem">
+                <type>js</type>
+                <name>mage/adminhtml/variables.js</name>
+                <params/>
+            </action>
+            <action method="addItem">
+                <type>js</type>
+                <name>lib/flex.js</name>
+                <params/>
+            </action>
+            <action method="addItem">
+                <type>js</type>
+                <name>lib/FABridge.js</name>
+                <params/>
+            </action>
+            <action method="addItem">
+                <type>js</type>
+                <name>mage/adminhtml/flexuploader.js</name>
+                <params/>
+            </action>
+            <action method="addItem">
+                <type>js</type>
+                <name>mage/adminhtml/browser.js</name>
+                <params/>
+            </action>
+            <action method="addItem">
+                <type>text/css</type>
+                <name>js/prototype/windows/themes/default.css</name>
+                <params/>
+            </action>
+            <action method="addItem">
+                <type>text/css</type>
+                <name>js/prototype/windows/themes/magento.css</name>
+                <params/>
+            </action>
+            <action method="addItem">
+                <type>js_css</type>
+                <name>prototype/windows/themes/default.css</name>
+                <params/>
+            </action>
+            <action method="addItem">
+                <type>js_css</type>
+                <name>prototype/windows/themes/magento.css</name>
+                <params/>
+            </action>
+        </reference>
+    </sizeguide_adminhtml_sizeguide_edit>
+    
+    <adminhtml_cms_wysiwyg_images_contents>
+        <block name="wysiwyg_images.files" type="adminhtml/cms_wysiwyg_images_content_files" template="cms/browser/content/files.phtml" output="toHtml" />
+    </adminhtml_cms_wysiwyg_images_contents>
+</layout>

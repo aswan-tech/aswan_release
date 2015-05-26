@@ -1,0 +1,13 @@
+/* css added for custom message */
+.custom_message{ 
+  border-top: 1px solid #dfdfdf;
+  text-align: center;
+}
+	
+.custom_message_product {
+	margin-top: 30px;
+}
+
+.custom_message .cmhead{ font-size:22px; font:26px/24px 'avenir_lt_std_35_lightregular',Verdana, Geneva, sans-serif ;  color: #DD3848;}
+.custom_message .subhead { font-size:16px; font:20px/30px 'avenir_lt_std_35_lightregular',Verdana, Geneva, sans-serif;  color: #343E7A; padding:5px 0 10px;}
+.custom_message .cmdesc{ font-size:14px; color:#666; font:12px/16px Verdana, Geneva, sans-serif;}

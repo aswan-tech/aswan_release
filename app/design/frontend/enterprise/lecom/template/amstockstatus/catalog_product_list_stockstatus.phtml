@@ -1,0 +1,23 @@
+<?php if ($this->getProduct()->isSaleable()):?>
+    <div class="<?php echo $this->getStyle() ?>" style="height: auto;">
+        <?php if (Mage::getStoreConfig('catalog/general/icononly')): ?>
+            <?php echo Mage::helper('amstockstatus')->getStatusIconImage($this->getProduct()); ?>
+        <?php else: ?>
+            <?php echo $this->getCustomStockStatus(); ?>
+        <?php endif; ?>
+    </div>
+    <div style="padding-bottom: 6px;"></div>
+    <button type="button" title="<?php echo $this->__('Add to Cart') ?>" class="button btn-cart" onclick="setLocation('<?php echo $this->getAddToCartUrl($this->getProduct()) ?>')"><span><span><?php echo $this->__('Add to Cart') ?></span></span></button>
+<?php else: ?>
+    <?php if ($this->getProduct()->getData('hide_default_stock_status')): ?>
+        <div class="<?php echo $this->getStyle() ?>" style="height: auto;">
+            <?php if (Mage::getStoreConfig('catalog/general/icononly')): ?>
+                <?php echo Mage::helper('amstockstatus')->getStatusIconImage($this->getProduct()); ?>
+            <?php else: ?>
+                <?php echo $this->getCustomStockStatus(); ?>
+            <?php endif; ?>
+        </div>
+    <?php else: ?>
+        <p class="availability out-of-stock"><span><?php echo $this->__('Out of stock') ?> <?php if ($this->getCustomStockStatus()): ?> - <?php echo $this->getCustomStockStatus(); ?><?php endif; ?></span></p>
+    <?php endif; ?>
+<?php endif; ?>

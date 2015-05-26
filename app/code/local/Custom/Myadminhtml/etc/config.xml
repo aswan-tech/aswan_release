@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Custom_Myadminhtml>
+            <version>0.1.0</version>
+        </Custom_Myadminhtml>
+    </modules>
+    <admin>
+        <routers>
+            <myadminhtml>
+                <use>standard</use>
+                <args>
+                    <module>Custom_Myadminhtml</module>
+                    <frontName>myadminhtml</frontName>
+                </args>
+            </myadminhtml>
+			
+			<adminhtml>
+                <args>
+                    <modules>
+                        <custom_myadminhtml before="Mage_Adminhtml">Custom_Myadminhtml</custom_myadminhtml>
+                    </modules>
+                </args>
+            </adminhtml>
+			
+        </routers>
+    </admin>
+    <global>
+		<resources>
+            <myadminhtml_setup>
+                <setup>
+                    <module>Custom_Myadminhtml</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </myadminhtml_setup>
+            <myadminhtml_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </myadminhtml_write>
+            <myadminhtml_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </myadminhtml_read>
+        </resources>
+	</global>
+</config>

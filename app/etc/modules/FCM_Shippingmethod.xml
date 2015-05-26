@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <FCM_Shippingmethod>
+            <active>true</active>
+            <codePool>local</codePool>
+        </FCM_Shippingmethod>
+    </modules>
+</config> 

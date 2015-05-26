@@ -1,0 +1,76 @@
+<?xml version="1.0"?>
+<config>
+  <modules>
+    <AmericanSwan_Sorting>
+      <version>0.1.0</version>
+    </AmericanSwan_Sorting>
+  </modules>
+  <global>
+    <helpers>
+      <sorting>
+        <class>AmericanSwan_Sorting_Helper</class>
+      </sorting>
+    </helpers>
+    <blocks>
+      <sorting>
+            <class>AmericanSwan_Sorting_Block</class>
+      </sorting>
+    </blocks>
+    <models>
+        <sorting>
+            <class>AmericanSwan_Sorting_Model</class>
+        </sorting>
+    </models>
+  </global>
+  <admin>
+	<routers>
+	  <sorting>
+	    <use>admin</use>
+		<args>
+		  <module>AmericanSwan_Sorting</module>
+		  <frontName>admin_sorting</frontName>
+		</args>
+	  </sorting>
+	</routers>
+  </admin>
+  <adminhtml>
+	<menu>
+	  <catalog module="catalog">
+		<children>
+		  <sortingbackend module="sorting">
+			<title>Product Sorting</title>
+			<sort_order>0</sort_order>
+			<action>admin_sorting/adminhtml_sortingbackend</action>
+		  </sortingbackend>
+		</children>
+	  </catalog>
+	</menu>
+	<acl>
+	  <resources>
+		<all>
+		  <title>Allow Everything</title>
+		</all>
+		<admin>
+		  <children>
+			<sorting translate="title" module="sorting">
+			  <title>Sorting</title>
+			  <sort_order>1000</sort_order>
+			  <children>
+		  <sortingbackend translate="title">
+			<title>Product Sorting</title>
+		  </sortingbackend>
+			  </children>
+			</sorting>
+		  </children>
+		</admin>
+	  </resources>
+	</acl>
+	<layout>
+	  <updates>
+		<sorting>
+		  <file>sorting.xml</file>
+		</sorting>
+	  </updates>
+	</layout>
+  </adminhtml>
+</config> 

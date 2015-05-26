@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <!--
+    /**
+     * @category     Inchoo
+     * @package     Inchoo Seller Products
+     * @author        Domagoj Potkoc, Inchoo Team <web@inchoo.net>
+     * @modified    Mladen Lotar <mladen.lotar@surgeworks.com>, Vedran Subotic <vedran.subotic@surgeworks.com>
+     */
+    -->
+    <modules>
+        <Inchoo_SellerProducts>
+            <version>1.0.1</version>
+        </Inchoo_SellerProducts>
+    </modules>
+
+    <global>
+        <blocks>
+            <sellerproducts>
+                <class>Inchoo_SellerProducts_Block</class>
+            </sellerproducts>
+        </blocks>
+
+        <helpers>
+            <sellerproducts>
+                <class>Inchoo_SellerProducts_Helper</class>
+            </sellerproducts>
+        </helpers>
+
+        <models>
+            <sellerproducts>
+                <class>Inchoo_SellerProducts_Model</class>
+            </sellerproducts>
+        </models>
+
+        <resources>
+            <sellerproducts_setup>
+                <setup>
+                    <module>Inchoo_SellerProducts</module>
+                    <class>Mage_Eav_Model_Entity_Setup</class>
+                </setup>
+
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </sellerproducts_setup>
+
+            <sellerproducts_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </sellerproducts_write>
+            <sellerproducts_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </sellerproducts_read>
+        </resources>
+    </global>
+
+    <frontend>
+        <routers>
+            <sellerproducts>
+                <use>standard</use>
+                <args>
+                    <module>Inchoo_SellerProducts</module>
+                    <frontName>seller-products</frontName>
+                </args>
+            </sellerproducts>
+        </routers>
+        <layout>
+            <updates>
+                <sellerproducts>
+                    <file>inchoosellerproducts.xml</file>
+                </sellerproducts>
+            </updates>
+        </layout>
+    </frontend>
+
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <sellerproducts before="Mage_Adminhtml">Inchoo_SellerProducts_Adminhtml</sellerproducts>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+
+    <default>
+        <sellerproducts>
+            <general>
+                <heading>BestSeller Products</heading>
+                <heading_block>BestSeller Products</heading_block>
+                <meta_title>BestSeller Products</meta_title>
+                <meta_description>Check out our great collection of BestSeller products</meta_description>
+                <meta_keywords>BestSeller, products</meta_keywords>
+                <product_sort_by>random</product_sort_by>
+                <number_of_items>5</number_of_items>
+                <number_of_items_per_row>2</number_of_items_per_row>
+                <layout>two_columns_right</layout>
+            </general>
+        </sellerproducts>
+    </default>
+</config>

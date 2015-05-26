@@ -1,0 +1,106 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * FCM Premium Packaging Module 
+ *
+ * Module for adding functionalites related to premium packaging.
+ *
+ * @category    FCM
+ * @package     FCM_Packaging
+ * @author	Pawan Prakash Gupta
+ * @author_id	51405591
+ * @company	HCL Technologies
+ * @created Tuesday, September 25, 2012
+ * @copyright	Four cross media
+ */
+-->
+<config>
+    <modules>
+        <FCM_Packaging>
+            <version>0.1.0</version>
+        </FCM_Packaging>
+    </modules> 
+    <global>
+		<models>
+            <packaging>
+                <class>FCM_Packaging_Model</class>
+            </packaging>
+			<sales>
+				<rewrite>
+					<service_order>FCM_Packaging_Model_Service_Order</service_order>
+				</rewrite>
+			</sales>
+			<sales>
+				<rewrite>
+					<order_creditmemo>FCM_Packaging_Model_Order_Creditmemo</order_creditmemo>
+				</rewrite>
+			</sales>
+			<sales>
+				<rewrite>
+					<order_creditmemo_item>FCM_Packaging_Model_Order_Creditmemo_Item</order_creditmemo_item>
+				</rewrite>
+			</sales>
+		</models>
+		<blocks>
+            <packaging>
+                <class>FCM_Packaging_Block</class>
+            </packaging>
+			<adminhtml>
+				<rewrite>
+					<sales_order_create_items_grid>FCM_Packaging_Block_Adminhtml_Sales_Order_Create_Items_Grid</sales_order_create_items_grid>
+				</rewrite>
+			</adminhtml>
+        </blocks>
+		<!--events>
+			<sales_convert_quote_item_to_order_item>
+				<observers>
+					<fcm_packaging_observer>
+						<type>singleton</type>
+						<class>packaging/observer</class>
+						<method>itemToOrderItem</method>
+					</fcm_packaging_observer>
+				</observers>
+			</sales_convert_quote_item_to_order_item>
+			<sales_convert_order_item_to_quote_item>
+				<observers>
+					<fcm_packaging_observer2>
+						<type>singleton</type>
+						<class>packaging/observer</class>
+						<method>itemToQuoteItem</method>
+					</fcm_packaging_observer2>
+				</observers>
+			</sales_convert_order_item_to_quote_item>		
+			<sales_convert_order_to_quote>
+				<observers>
+					<fcm_packaging_observer3>
+						<type>singleton</type>
+						<class>packaging/observer</class>
+						<method>orderToQuote</method>
+					</fcm_packaging_observer3>
+				</observers>
+			</sales_convert_order_to_quote>			
+			<adminhtml_sales_order_create_process_data_before>
+				<observers>
+					<fcm_packaging_observer2>
+						<type>singleton</type>
+						<class>packaging/observer</class>
+						<method>processData</method>
+					</fcm_packaging_observer2>
+				</observers>
+			</adminhtml_sales_order_create_process_data_before>
+		</events-->
+    </global>
+	<stores>
+        <admin>
+            <!-- default admin design package and theme -->
+            <design>
+                <package>
+                    <name>default</name>
+                </package>
+                <theme>
+                    <default>FCM</default>
+                </theme>
+            </design>
+        </admin>
+    </stores>
+</config>

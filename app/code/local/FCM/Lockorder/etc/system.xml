@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    Document   : system.xml
+    Created on : July 3, 2012, 1:15 PM
+    Author     : shikha.r
+    Description: Purpose of the document follows.
+-->
+
+<config>
+    <tabs>
+        <fcmfulfillment module="lockorder" translate="label">
+            <label>My Configuration Tab</label>
+            <sort_order>280</sort_order>
+        </fcmfulfillment>
+    </tabs>
+    <sections>
+        <lockorder module="lockorder" translate="label">
+            <label>Lock Order</label>
+            <sort_order>2000</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <tab>fcmfulfillment</tab>
+            <groups>
+                <time_setting translate="label">
+                    <label>Release Lock Settings</label>                    
+                    <sort_order>10</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <release_after translate="label comment">
+                            <label>Release After</label>
+                            <comment>Time in minutes</comment>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <frontend_type>text</frontend_type>
+                        </release_after>
+                    </fields>
+                </time_setting>
+            </groups>
+        </lockorder>
+		
+		<!--Shipping Method help under FCM Fulfillment tab -->	
+		<shipping_method translate="label" module="zipcodeimport">
+				<label>Shipping Method Help Icon Text</label>
+				<tab>fcmfulfillment</tab>
+				<frontend_type>text</frontend_type>
+				<sort_order>1009</sort_order>
+				<show_in_default>1</show_in_default>
+				<show_in_website>1</show_in_website>
+				<show_in_store>1</show_in_store>
+				<groups>
+				<!--It will add another tab called General under Zip Code Import -->
+				<shipping translate="label">
+                    <label>Shipping Method Help Icon Text</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>10</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+						<standard_standard translate="label">
+                            <label>Standard Shipping Method</label>
+                            <frontend_type>text</frontend_type>
+							<sort_order>11</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>                                                                          
+                        </standard_standard>
+						<express_express translate="label">
+                            <label>Express Shipping Method</label>
+                            <frontend_type>text</frontend_type>
+							<sort_order>12</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>                                                                          
+                        </express_express>
+						<overnite_overnite translate="label">
+                            <label>Overnite Shipping Method</label>
+                            <frontend_type>text</frontend_type>
+							<sort_order>13</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>                                                                          
+                        </overnite_overnite>
+						<appointment_appointment translate="label">
+                            <label>Appointment Shipping Method</label>
+                            <frontend_type>text</frontend_type>
+							<sort_order>14</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>                                                                          
+                        </appointment_appointment>
+					</fields>
+				</shipping>      
+            </groups>
+        </shipping_method>
+    </sections>
+</config>

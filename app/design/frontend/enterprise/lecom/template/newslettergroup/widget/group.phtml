@@ -1,0 +1,52 @@
+<?php
+/**
+ *
+ * @category    design
+ * @package     default_default
+ * @author     Fsite
+ */
+?>
+<ul class="form-list">
+<?php if( $this->hasGroups() ): ?>
+
+        <?php
+            $_groups       = $this->getGroups();
+            $_groupsCount  = count( $_groups );
+            $_counter = 0;
+            $_subscribersGroupIds = $this->getNewsletterGroupId();
+            $_groupIds = explode( ',', $_subscribersGroupIds );
+        ?>
+        <?php foreach ($_groups as $_group): $_id = $_group->getId(); $_counter++; ?>
+            <?php
+                // Do not display sub groups at this level
+                if ( $_group->getParentGroupId() > 0 ) :
+                        continue;
+                endif;
+            ?>
+                 <li class="control">
+
+                    <?php if ( $_group->getSubGroups() ): ?>
+                        <?php
+                            $_childCounter = $_counter;
+                        ?>
+                        <?php foreach ( $_group->getSubGroups() as $_child ): ?>
+                            <?php in_array($_child->getId(), $_groupIds) ? $_checked = true : $_checked = false; ?>
+                            <input id="is_subscribed_<?php echo $_child->getId() ?>" value="<?php echo $_child->getId() ?>" type="radio" name="is_subscribed[]" title="<?php echo $this->htmlEscape($_child->getGroupName()) ?>" <?php if($_checked): ?>checked="checked"<?php endif; ?> />
+                            <label for="is_subscribed_<?php echo $_child->getId() ?>"><?php echo $_child->getGroupName() ?></label>
+                            <?php  $_childCounter++; ?>
+                        <?php endforeach; ?>
+
+                    <?php else: ?>
+                        <?php if ($_groupsCount > 1): ?>
+                        <?php in_array($_id, $_groupIds) ? $_checked = true : $_checked = false; ?>
+                        <input id="is_subscribed_<?php echo $_id ?>" value="<?php echo $_id ?>" type="checkbox" name="is_subscribed[]" title="<?php echo $this->htmlEscape($_group->getGroupName()) ?>" <?php if($_checked): ?>checked="checked"<?php endif; ?> />
+                        <label for="is_subscribed_<?php echo $_id ?>"><?php echo $_group->getGroupName() ?></label>
+                        <?php endif;?>
+                    <?php endif;?>
+                </li>
+
+        <?php endforeach; ?>
+
+<?php endif; ?>
+
+</ul>

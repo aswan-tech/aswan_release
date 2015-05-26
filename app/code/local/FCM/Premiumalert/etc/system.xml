@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    Document   : system.xml
+    Created on : Nov 14, 2012, 10:00 AM
+    Author     : rahul.tyagi
+    Description: Provide section in Admin to configure Premium stock alert parameters.
+-->
+
+<config>
+    <tabs>
+        <fcmfulfillment module="premiumalert" translate="label">
+            <label>Premium Packages Stock Alert</label>
+            <sort_order>290</sort_order>
+        </fcmfulfillment>
+    </tabs>
+    <sections>
+        <premiumalert module="premiumalert" translate="label">
+            <label>Premium Packages Stock Alert</label>
+            <sort_order>3000</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <tab>fcmfulfillment</tab>
+            <groups>
+                <email_addr translate="label">
+                    <label>Email Address to be notified.</label>                    
+                    <sort_order>10</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <email_id1 translate="label">
+                            <label>Email Id 1</label>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <frontend_type>text</frontend_type>
+							<validate>validate-email</validate>
+							 <sort_order>1</sort_order>
+                        </email_id1>
+						<email_id2 translate="label">
+                            <label>Email Id 2</label>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <frontend_type>text</frontend_type>
+							<validate>validate-email</validate>
+							 <sort_order>2</sort_order>
+                        </email_id2>
+						<email_id3 translate="label">
+                            <label>Email Id 3</label>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <frontend_type>text</frontend_type>
+							<validate>validate-email</validate>
+							 <sort_order>3</sort_order>
+                        </email_id3>
+						<email_id4 translate="label">
+                            <label>Email Id 4</label>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <frontend_type>text</frontend_type>
+							<validate>validate-email</validate>
+							 <sort_order>4</sort_order>
+                        </email_id4>
+						<email_id5 translate="label">
+                            <label>Email Id 5</label>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <frontend_type>text</frontend_type>
+							<validate>validate-email</validate>
+							 <sort_order>5</sort_order>
+                        </email_id5>
+                    </fields>
+                </email_addr>
+				<threshold_limit translate="label">
+                    <label>Threshold Limit for Stock</label>                    
+                    <sort_order>11</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <stock_limit translate="label">
+                            <label>Threshold Limit</label>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <frontend_type>Select</frontend_type>
+							<source_model>FCM_Premiumalert_Model_Premiumalert</source_model>
+                        </stock_limit>
+                    </fields>
+                </threshold_limit>
+            </groups>
+        </premiumalert>
+    </sections>
+</config>

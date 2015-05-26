@@ -1,0 +1,28 @@
+<?php 
+$productDataArr = Mage::helper('common')->getTopProducts('catalog', $_SERVER['REQUEST_URI']);
+?>
+<div class=" mt10 fl">
+<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('department-slider-v3')->toHtml() ?>
+<div class="fl  dp-slider-wrap">
+<div id="slides">
+<div class="dpslides_container">
+	<?php foreach($productDataArr as $productArr) { ?>
+	<div class="slide">
+		<?php foreach($productArr as $productItem) { ?>
+		<div class="item"><a href="<?php echo $productItem['prdUrl'] ?>"><img width="235" height="250" src="<?php echo Mage::helper('catalog/image')->init($productItem['image'], 'small_image')->resize(235,250); ?>"></a></div>
+		<?php } ?>
+	</div>
+	<?php } ?>	
+</div>
+</div>
+<script type="text/javascript">// <![CDATA[
+	jQuery(document).ready(function(e) {
+        jQuery('#slides').slides({
+				preload: true,
+				play: 4500,
+				generateNextPrev: true
+			});
+    });
+// ]]></script>
+</div>
+</div>

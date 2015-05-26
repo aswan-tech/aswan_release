@@ -1,0 +1,31 @@
+<?php
+/**
+ * Product:     Layered Navigation Pro for Enterprise Edition - 16/08/12
+ * Package:     AdjustWare_Nav_10.4.9_10.0.0_557110
+ * Purchase ID: hXgQU3oI8FOfJ8PDCk5s6h6XPM5oH2Kx0N6TCAPkqN
+ * Generated:   2013-04-22 06:59:44
+ * File path:   app/design/frontend/enterprise/default/template/adjnav/layer_pager.phtml
+ * Copyright:   (c) 2013 AITOC, Inc.
+ */
+?>
+<?php
+/*
+ * Adding javascript include
+ */
+if ('ajax' != Mage::app()->getRequest()->getControllerName())
+{
+    if(Aitoc_Aitsys_Abstract_Service::get()->isMagentoVersion('1.4')):
+    else:
+    ?>
+    <script>adj_nav_toolbar_init()</script>
+    <?php if(Mage::helper('adjnav')->isPageAutoload()):?>
+
+    <script type="text/javascript">
+        adj_nav_page_autoload_init();
+    </script>
+
+    <?php endif; ?>
+    <?php
+    endif;
+}
+?>

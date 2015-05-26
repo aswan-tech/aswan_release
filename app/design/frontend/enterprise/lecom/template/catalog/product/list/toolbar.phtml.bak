@@ -1,0 +1,40 @@
+<?php if($this->getCollection()->getSize()): ?>
+<div class="">
+    <?php if( $this->isExpanded() ): ?>
+        <?php if( $this->isEnabledViewSwitcher() ): ?>
+        <p class="view-mode">
+            <?php $_modes = $this->getModes(); ?>
+            <?php if($_modes && count($_modes)>1): ?>
+            <label><?php echo $this->__('View as') ?>:</label>
+            <?php $_i=1; $_fix=''; foreach ($this->getModes() as $_code=>$_label): ?>
+                <?php if ($_i==1 && strtolower($_code)=='list') $_fix='-fix'; ?>
+                <?php if($this->isModeActive($_code)): ?>
+                    <strong class="<?php echo strtolower($_code); echo $_fix; ?>" title="<?php echo $_label ?>"><?php echo $_label ?></strong>
+                <?php else: ?>
+                    <a class="<?php echo strtolower($_code); echo $_fix; ?>" title="<?php echo $_label ?>" href="<?php echo $this->getModeUrl($_code) ?>"><?php echo $_label ?></a>
+                <?php endif; ?>
+            <?php $_i++; endforeach; ?>
+            <?php endif; ?>
+        </p>
+        <?php endif; ?>
+        <div class="sort-oprion">
+         <ul>
+         <label>Sort:</label>
+         <li onclick="setLocation('<?php echo $this->getOrderUrl('popularity', 'desc') ?>');">Popularity</li>
+         <li>|</li>
+         <li onclick="setLocation('<?php echo $this->getOrderUrl('updated_at', 'desc') ?>');">New Arrival</li>
+         <li>|</li>
+         <li onclick="setLocation('<?php echo $this->getOrderUrl('discount', 'desc') ?>');">Discount</li>
+         <li>|</li>
+         <label>Price:</label>
+         <li onclick="setLocation('<?php echo $this->getOrderUrl('price', 'asc') ?>');">Low</li>
+         <li onclick="setLocation('<?php echo $this->getOrderUrl('price', 'desc') ?>');">High</li>
+         </ul>        
+         </div>
+    <?php endif; ?>
+        <div class="CatTitleLeft">
+         <p><?php echo $this->__($this->getTotalNum()) ?> Products Found</p>
+         <div class="toolbar"><?php echo $this->getPagerHtml() ?></div>
+        </div>
+</div>
+<?php endif; ?>

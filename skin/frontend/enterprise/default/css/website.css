@@ -1,0 +1,21 @@
+#slider2 { height: 1%; overflow:hidden; position: relative; padding: 0 0 10px;   }
+#slider2 .viewport { float: left; width: 800px; height: 370px; overflow: hidden; position: relative; margin-left: 30px;}
+#slider2 .buttons { background:url("../images/buttons.png") no-repeat scroll 0 0 transparent; display: block; margin: 30px 10px 0 0; background-position: 0 -38px; text-indent: -999em; float: left; width: 39px; height: 37px; overflow: hidden; position: relative; }
+#slider2 .next { background-position: 0 0; margin: 30px 0 0 10px; }
+#slider2 .disable { visibility: hidden; }
+#slider2 .overview { list-style: none; position: absolute; width: 240px; left: 0 top: 0; }
+#slider2 .overview li{ float: left; margin: 0 20px 0 0; padding: 1px; height: 121px;  width: 180px;}
+
+
+
+
+#scrollbar2 { width: 251px; margin: 20px 0 10px; }
+#scrollbar2 .viewport { width: 236px; height: 125px; overflow: hidden; position: relative; }
+#scrollbar2 .overview { list-style: none; width: 1416px; padding: 0; margin: 0; position: absolute; left: 0; top: 0;  }
+#scrollbar2 .overview img{ float: left; }
+#scrollbar2 .scrollbar{ background: transparent url(../images/bg-scrollbar-track-x.png) no-repeat 0 0; position: relative; margin: 0 0 5px; clear: both; height: 15px; }
+#scrollbar2 .track { background: transparent url(../images/bg-scrollbar-trackend-x.png) no-repeat 100% 0; width: 100%; height:15px; position: relative; }
+#scrollbar2 .thumb { background: transparent url(../images/bg-scrollbar-thumb-x.png) no-repeat 100% 50%; height: 25px; cursor: pointer; overflow: hidden; position: absolute; left: 0; top: -5px; }
+#scrollbar2 .thumb .end{ background: transparent url(../images/bg-scrollbar-thumb-x.png) no-repeat 0 50%; overflow: hidden; height: 25px; width: 5px;}
+#scrollbar2 .disable { display: none; }
+

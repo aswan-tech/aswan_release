@@ -1,0 +1,298 @@
+<?xml version="1.0"?>
+	<config>
+		<tabs>
+			<customer translate="label" module="customer">
+				<label>Customers</label>
+				<sort_order>300</sort_order>
+			</customer>
+		</tabs>
+		<sections>
+			<shortlist translate="label" module="shortlist">
+				<label>Shortlist Settings</label>
+				<tab>customer</tab>
+				<frontend_type>text</frontend_type>
+				<sort_order>1000</sort_order>
+				<show_in_default>1</show_in_default>
+				<show_in_website>1</show_in_website>
+				<show_in_store>1</show_in_store>
+				<groups>
+					<productslisting translate="label">
+						<label>Product Listing</label>
+						<frontend_type>text</frontend_type>
+						<sort_order>100</sort_order>
+						<show_in_default>1</show_in_default>
+						<show_in_website>1</show_in_website>
+						<show_in_store>1</show_in_store>
+						<fields>
+							<hovernotadded translate="label comment">
+								<label>Icon hover text - Product Not Added</label>
+								<comment>
+									<![CDATA[Hover text to display on icon when product is not added to "My Shortlist"]]>
+								</comment>
+								<frontend_type>text</frontend_type>
+								<sort_order>10</sort_order>
+								<show_in_default>1</show_in_default>
+								<show_in_website>1</show_in_website>
+								<show_in_store>1</show_in_store>
+							</hovernotadded>
+							<hoveradded translate="label comment">
+								<label>Icon hover text - Product Added</label>
+								<comment>
+									<![CDATA[Hover text to display on icon when product has been added to "My Shortlist"]]>
+								</comment>
+								<frontend_type>text</frontend_type>
+								<sort_order>20</sort_order>
+								<show_in_default>1</show_in_default>
+								<show_in_website>1</show_in_website>
+								<show_in_store>1</show_in_store>
+							</hoveradded>
+						</fields>
+					</productslisting>
+					<myshortlist translate="label">
+						<label>My Shortlist</label>
+						<frontend_type>text</frontend_type>
+						<sort_order>120</sort_order>
+						<show_in_default>1</show_in_default>
+						<show_in_website>1</show_in_website>
+						<show_in_store>1</show_in_store>
+						<fields>
+							<noproducts translate="label comment">
+								<label>No Products Exist</label>
+								<comment>
+									<![CDATA[Text to display when "My Shortlist" contains no product]]>
+								</comment>
+								<frontend_type>textarea</frontend_type>
+								<sort_order>10</sort_order>
+								<show_in_default>1</show_in_default>
+								<show_in_website>1</show_in_website>
+								<show_in_store>1</show_in_store>
+							</noproducts>
+							<hoverdeletethis translate="label comment">
+								<label>Icon hover text - Delete Product</label>
+								<comment>
+									<![CDATA[Hover text on delete (x) icon in "My Shortlist"]]>
+								</comment>
+								<frontend_type>text</frontend_type>
+								<sort_order>15</sort_order>
+								<show_in_default>1</show_in_default>
+								<show_in_website>1</show_in_website>
+								<show_in_store>1</show_in_store>
+							</hoverdeletethis>
+							<hoverdeleteall translate="label comment">
+								<label>Icon hover text - Delete All Products</label>
+								<comment>
+									<![CDATA[Hover text on Clear List (x) link in "My Shortlist"]]>
+								</comment>
+								<frontend_type>text</frontend_type>
+								<sort_order>20</sort_order>
+								<show_in_default>1</show_in_default>
+								<show_in_website>1</show_in_website>
+								<show_in_store>1</show_in_store>
+							</hoverdeleteall>
+						</fields>
+					</myshortlist>
+				</groups>
+			</shortlist>
+			<popupcookie translate="label" module="shortlist">
+				<label>Popup Cookie Setting</label>
+				<tab>customer</tab>
+				<frontend_type>text</frontend_type>
+				<sort_order>1000</sort_order>
+				<show_in_default>1</show_in_default>
+				<show_in_website>1</show_in_website>
+				<show_in_store>1</show_in_store>
+				<groups>
+					<popupcookiesetting translate="label">
+						<label>Popup Cookie Setting</label>
+						<frontend_type>text</frontend_type>
+						<sort_order>100</sort_order>
+						<show_in_default>1</show_in_default>
+						<show_in_website>1</show_in_website>
+						<show_in_store>1</show_in_store>
+						<fields>
+							<cookieval translate="label comment">
+								<label>Enter Cookie Lifetime</label>
+								<comment>
+									<![CDATA[Popup shown once will be visible again after these much seconds on refreshing the page.]]>
+								</comment>
+								<frontend_type>text</frontend_type>
+								<sort_order>20</sort_order>
+								<show_in_default>1</show_in_default>
+								<show_in_website>1</show_in_website>
+								<show_in_store>1</show_in_store>
+							</cookieval>
+						</fields>
+					</popupcookiesetting>
+				</groups>
+			</popupcookie>
+			<scratchcard translate="label" module="shortlist">
+				<label>Scratch Card</label>
+				<tab>customer</tab>
+				<frontend_type>text</frontend_type>
+				<sort_order>920</sort_order>
+				<show_in_default>1</show_in_default>
+				<show_in_website>1</show_in_website>
+				<show_in_store>1</show_in_store>
+				<groups>
+					<scratchcardsetting translate="label">
+						<label>Scratch Card Setting</label>
+						<frontend_type>text</frontend_type>
+						<sort_order>10</sort_order>
+						<show_in_default>1</show_in_default>
+						<show_in_website>1</show_in_website>
+						<show_in_store>1</show_in_store>
+						<fields>
+							<scratch_enable translate="label">
+	                            <label>Scratch Card Functionality</label>
+	                            <comment>Sctarch Card Enable/Disable</comment>
+	                            <frontend_type>select</frontend_type>
+	                            <sort_order>10</sort_order>
+	                            <show_in_default>1</show_in_default>
+	                            <show_in_website>1</show_in_website>
+	                            <show_in_store>1</show_in_store>
+	                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                        	</scratch_enable>
+                        	<scratch_card_categories translate="label comment">
+	                            <label>Scratch Card Categories</label>
+	                            <comment>Visibility of Scratch card Categories(Multiselect)</comment>
+	                            <frontend_type>multiselect</frontend_type>
+	                            <source_model>shortlist/category_values</source_model>
+	                            <sort_order>20</sort_order>
+	                            <show_in_default>1</show_in_default>
+	                            <show_in_website>1</show_in_website>
+	                            <show_in_store>1</show_in_store>
+                        	</scratch_card_categories>
+                        	<scratch_card_coupons translate="label comment">
+	                            <label>Scratch Card Coupons</label>
+	                            <comment>Coupons of Scratch card Comma Seperated(,)</comment>
+	                           <frontend_type>text</frontend_type>
+								<sort_order>30</sort_order>
+								<show_in_default>1</show_in_default>
+								<show_in_website>1</show_in_website>
+								<show_in_store>1</show_in_store>
+                        	</scratch_card_coupons>
+						</fields>
+					</scratchcardsetting>
+				</groups>
+			</scratchcard>
+			<registercoupens translate="label" module="shortlist">
+				<label>New Customer Coupon</label>
+				<tab>customer</tab>
+				<frontend_type>text</frontend_type>
+				<sort_order>910</sort_order>
+				<show_in_default>1</show_in_default>
+				<show_in_website>1</show_in_website>
+				<show_in_store>1</show_in_store>
+				<groups>
+					<general translate="label comment">
+						<label>Coupon Settings for New Customers</label>
+						<frontend_type>text</frontend_type>
+						<sort_order>1</sort_order>
+						<show_in_default>1</show_in_default>
+						<show_in_website>1</show_in_website>
+						<show_in_store>1</show_in_store>
+						<fields>
+							<enable translate="label">
+								<label>Enable Coupon for New Customers</label>
+								<frontend_type>select</frontend_type>
+								<source_model>adminhtml/system_config_source_yesno</source_model>
+								<sort_order>10</sort_order>
+								<show_in_default>1</show_in_default>
+								<show_in_website>1</show_in_website>
+								<show_in_store>1</show_in_store>
+								<comment>If is set to No, New Registered customers will not get coupons via mail.</comment>
+							</enable>
+							<coupon_format translate="label">
+								<label>Format of coupon to be generated.</label>
+								<frontend_type>select</frontend_type>
+								<source_model>common/couponformat</source_model>
+								<sort_order>12</sort_order>
+								<show_in_default>1</show_in_default>
+								<show_in_website>1</show_in_website>
+								<show_in_store>1</show_in_store>
+								<validate>required-entry</validate>
+							</coupon_format>
+							<expiredays translate="label">
+								<label>Expire after Days</label>
+								<frontend_type>text</frontend_type>
+								<sort_order>12</sort_order>
+								<show_in_default>1</show_in_default>
+								<show_in_website>1</show_in_website>
+								<show_in_store>1</show_in_store>
+								<validate>required-entry validate-digits validate-greater-than-zero</validate>
+								<comment>Once generated, the coupon will be expired after these much days.</comment>
+							</expiredays>
+							<coupon_prefix translate="label">
+								<label>Prefix to be added.</label>
+								<frontend_type>text</frontend_type>
+								<sort_order>13</sort_order>
+								<show_in_default>1</show_in_default>
+								<show_in_website>1</show_in_website>
+								<show_in_store>1</show_in_store>
+								<comment>Any prefix to be added before coupon code.</comment>
+							</coupon_prefix>
+							<coupon_suffix translate="label">
+								<label>Suffix to be added.</label>
+								<frontend_type>text</frontend_type>
+								<sort_order>14</sort_order>
+								<show_in_default>1</show_in_default>
+								<show_in_website>1</show_in_website>
+								<show_in_store>1</show_in_store>
+								<comment>Any Suffix to be added after coupon code.</comment>
+							</coupon_suffix>
+							<coupon_length translate="label">
+								<label>Length of coupon to be generated.</label>
+								<frontend_type>text</frontend_type>
+								<sort_order>14</sort_order>
+								<show_in_default>1</show_in_default>
+								<show_in_website>1</show_in_website>
+								<show_in_store>1</show_in_store>
+								<validate>required-entry validate-digits validate-greater-than-zero</validate>
+								<comment>Length provided should be a non-negative number.</comment>
+							</coupon_length>
+							<ruleid translate="label">
+								<label>Promotion Rule Ids</label>
+								<frontend_type>text</frontend_type>
+								<sort_order>21</sort_order>
+								<show_in_default>1</show_in_default>
+								<show_in_website>1</show_in_website>
+								<show_in_store>1</show_in_store>
+								<validate>required-entry</validate>
+								<comment>The id's of promotions rules seperated by comma. example [1,2]</comment>
+							</ruleid>
+							<failure_email translate="label">
+								<label>Failure email to be sent to following email ids.</label>
+								<frontend_type>text</frontend_type>
+								<sort_order>22</sort_order>
+								<show_in_default>1</show_in_default>
+								<show_in_website>1</show_in_website>
+								<show_in_store>1</show_in_store>
+								<validate>required-entry</validate>
+								<comment>The email id's should seperated by comma, in case they are more than one. example[user1@example.com,user2@example.com]</comment>
+							</failure_email>
+						</fields>
+					</general>
+					<exisitng translate="label comment">
+						<label>Coupon Settings for Existing Customers</label>
+						<frontend_type>text</frontend_type>
+						<sort_order>2</sort_order>
+						<show_in_default>1</show_in_default>
+						<show_in_website>1</show_in_website>
+						<show_in_store>1</show_in_store>
+						<fields>
+							<mailtemplate translate="label">
+								<label>Choose Template</label>
+								<frontend_type>select</frontend_type>
+								<source_model>adminhtml/system_config_source_email_template</source_model>
+								<sort_order>10</sort_order>
+								<show_in_default>1</show_in_default>
+								<show_in_website>1</show_in_website>
+								<show_in_store>1</show_in_store>
+								<comment>Choose the template to send the coupons mail to existing customers.</comment>
+							</mailtemplate>
+						</fields>
+					</exisitng>
+				</groups>
+			</registercoupens>
+		</sections>
+	</config>

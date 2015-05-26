@@ -1,0 +1,149 @@
+<config>
+	<!--
+	<tabs>
+		<jextn translate="label" module="testimonials">
+            <label>Jextn Modules</label>
+            <sort_order>100</sort_order>
+        </jextn>
+    </tabs>
+	-->
+    <sections>
+        <testimonials translate="label" module="testimonials">
+            <label>Testimonials</label>
+            <tab>customer</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>800</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <testimonials translate="label">
+                    <label>Testimonials</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>10</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+						<title translate="label">
+                            <label>Testimonials Title</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </title>
+						<sidebar translate="label">
+                            <label>Sidebar Display</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+							<comment><![CDATA[Number of items to display]]></comment>
+                        </sidebar>
+						<footer translate="label">
+                            <label>Footer Display</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+							<comment><![CDATA[Number of items to display]]></comment>
+                        </footer>
+						<testimonialsize translate="label">
+                            <label>Maximum Characters</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+							<comment><![CDATA[Number of characters allowed in testimonial]]></comment>
+                        </testimonialsize>
+						<autoapproved translate="label">
+                            <label>Auto Approved</label>
+                            <frontend_type>select</frontend_type>
+							<source_model>testimonials/system_config_source_yesno</source_model>
+                            <sort_order>40</sort_order>
+                            <show_in_default>2</show_in_default>
+                            <show_in_website>2</show_in_website>
+                            <show_in_store>2</show_in_store>
+                        </autoapproved>						
+                    </fields>
+                </testimonials>
+				
+				<testimonialstooltip translate="label">
+                    <label>Tooltip</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>20</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+						<product translate="label">
+                            <label>Product</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </product>
+						<service translate="label">
+                            <label>Customer Service</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </service>
+						<brand translate="label">
+                            <label>Brand Experience</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </brand>
+						<website translate="label">
+                            <label>Online Experience</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </website>					
+                    </fields>
+                </testimonialstooltip>
+				<!--
+				<recaptcha translate="label">
+                    <label>Recaptcha</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>20</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+					<comment><![CDATA[<a href="http://www.google.com/recaptcha" target="_blank">Click here to sign up for recaptcha account</a>]]></comment>
+                    <fields>
+						<pubkey translate="label">
+                            <label>Public Key</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </pubkey>
+						<privkey translate="label">
+                            <label>Private Key</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>25</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </privkey>
+                    </fields>
+                </recaptcha>
+				-->
+            </groups>
+        </testimonials>
+    </sections>
+</config>

@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Fsite_NewsletterGroup>
+            <active>true</active>
+            <codePool>community</codePool>
+        </Fsite_NewsletterGroup>
+    </modules>
+</config>

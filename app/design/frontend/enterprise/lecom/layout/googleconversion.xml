@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+
+<layout version="0.1.0">
+	<checkout_onepage_loginpage>
+        <reference name="before_body_end">
+            <block type="core/template" as="conversionsocde" name="conversionsocde" template="googleconversion/conversioncode.phtml">
+				<action method="setData">
+					<name>page_code</name>
+					<value>checkoutlogin</value>
+				</action>
+			</block>
+        </reference>
+    </checkout_onepage_loginpage>
+	<checkout_onepage_success>
+        <reference name="before_body_end">
+            <block type="core/template" as="conversionsocde" name="conversionsocde" template="googleconversion/conversioncode.phtml">
+				<action method="setData">
+					<name>page_code</name>
+					<value>checkoutsuccess</value>
+				</action>
+			</block>
+        </reference>
+    </checkout_onepage_success>
+	
+	<checkout_onepage_successccavenue translate="label">
+        <reference name="before_body_end">
+            <block type="core/template" as="conversionsocde" name="conversionsocde" template="googleconversion/conversioncode.phtml">
+				<action method="setData">
+					<name>page_code</name>
+					<value>checkoutsuccess</value>
+				</action>
+			</block>
+        </reference>
+    </checkout_onepage_successccavenue>
+	
+	<checkout_onepage_successzaakpay translate="label">
+        <reference name="before_body_end">
+            <block type="core/template" as="conversionsocde" name="conversionsocde" template="googleconversion/conversioncode.phtml">
+				<action method="setData">
+					<name>page_code</name>
+					<value>checkoutsuccess</value>
+				</action>
+			</block>
+        </reference>
+    </checkout_onepage_successzaakpay>
+	
+	<checkout_onepage_successpayseal translate="label">
+       <reference name="before_body_end">
+            <block type="core/template" as="conversionsocde" name="conversionsocde" template="googleconversion/conversioncode.phtml">
+				<action method="setData">
+					<name>page_code</name>
+					<value>checkoutsuccess</value>
+				</action>
+			</block>
+        </reference>
+    </checkout_onepage_successpayseal>
+	
+	<checkout_onepage_successcitrus translate="label">
+       <reference name="before_body_end">
+            <block type="core/template" as="conversionsocde" name="conversionsocde" template="googleconversion/conversioncode.phtml">
+				<action method="setData">
+					<name>page_code</name>
+					<value>checkoutsuccess</value>
+				</action>
+			</block>
+        </reference>
+    </checkout_onepage_successcitrus>
+	
+</layout>

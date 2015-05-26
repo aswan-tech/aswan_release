@@ -1,0 +1,62 @@
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+
+<?php if ($this->showReferralUrl() || $this->showReferralShortCode() || $this->showReferralCode() || $this->showReferralEmail()): ?>
+    <div class="box-account my_referrals-urlcode_group">
+	    <div class="box-head">
+        	<h2 class="legend"><?php echo $this->__('Referral Codes and URL'); ?></h2>
+        </div>	
+        <ul>
+            <?php if ($this->showReferralUrl()): ?>
+                <li>
+                    <div class="urlcode-input-box">
+                        <label for="referral_url"><?php echo $this->__('Your Referral URL') ?></label><br />
+                        <input type="text" readonly name="referral_url" value="<?php echo $this->getReferralUrl(); ?>"
+                               title="<?php echo $this->__('Your Referral URL') ?>" class="input-text" id="referral_url" />
+                    </div>
+                    <br />
+                    <div class="urlcode_comment"><?php echo $this->__("Referrals that access this URL are connected as referrals once they signup or place an order."); ?></div>
+                    <div class="social-widgets">
+                        <?php if ($this->showSocialShareButtons()): ?>
+                                <a href="https://twitter.com/share" class="twitter-share-button" data-url="<?php echo $this->getReferralUrl(); ?>" data-text="<?php echo $this->__('WOW! Some amazing deals at %1$s! Check it out:', $this->getStoreTitle()); ?>" data-count="none">Tweet</a>
+                                <div class="fb-send" data-href="<?php echo $this->getReferralUrl(); ?>" style="vertical-align: top;"></div>
+                        <?php endif; ?>                            
+                    </div>
+                </li>
+            <?php endif; ?>
+            <?php if ($this->showReferralCode()): ?>
+                <li>
+                    <div class="urlcode-input-box">
+                        <label for="referral_url"><?php echo $this->__('Your Referral Code') ?></label><br />
+                        <input type="text" readonly name="referral_code"
+                        	   value="<?php echo ($this->showReferralShortCode() ? $this->getReferralShortCode() : $this->getReferralCode() ); ?>"
+                               title="<?php echo $this->__('Your Referral Code') ?>" class="input-text" id="referral_code" /> <BR />
+                    </div>
+                    <br />
+                    <div class="urlcode_comment"><?php echo $this->__("Referrals should enter the code at checkout or signup."); ?></div>
+                </li>
+            <?php endif; ?>
+
+            <?php if ($this->showReferralEmail()): ?>
+                <li>
+                    <div class="urlcode-input-box">
+                        <label for="referral_url"><?php echo $this->__('Your Referral Email') ?></label><br />
+                        <input type="text" readonly name="referral_email" value="<?php echo $this->getReferralEmail(); ?>"
+                               title="<?php echo $this->__('Your Referral Email') ?>" class="input-text" id="referral_email" /> <BR />
+                    </div>
+                    <br />
+                    <div class="urlcode_comment"><?php echo $this->__("Referrals can enter your e-mail address at checkout or signup."); ?></div>
+                </li>
+            <?php endif; ?>
+        </ul>
+    </div>
+<?php endif; ?>

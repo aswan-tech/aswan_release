@@ -1,0 +1,39 @@
+<!doctype html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+<?php echo $this->getChildHtml('head') ?>
+<?php echo $this->getChildHtml('after_body_start') ?>
+</head>
+<body <?php echo $this->getBodyClass()?' class="'.$this->getBodyClass().'"':'' ?>>
+<div id="top-line">
+</div>
+<div class="wrapper">
+    <?php echo $this->getChildHtml('global_notices') ?>
+	<?php $_checkenable = Mage::getStoreConfig("bannerlist/fav_settings/display"); ?>
+	<?php if($_checkenable == 1): ?>
+		<div class="slider-auto">
+			<?php echo $this->getChildHtml('slider'); ?>
+		</div>
+	<?php endif; ?>
+    <div class="page">
+        <?php echo $this->getChildHtml('header') ?>
+        <?php echo $this->getChildHtml('global_messages') ?>
+        <?php echo $this->getChildHtml('breadcrumbs') ?>
+        <div class="main col2-right-layout">
+            <div class="col-main">
+                <?php echo $this->getChildHtml('content') ?>
+            </div>
+            <div class="col-right sidebar"><?php echo $this->getChildHtml('right') ?></div>
+			<?php echo $this->getLayout()->createBlock('core/template')->setTemplate('newsletter/footer_subscribe.phtml')->toHtml() ?>
+        </div>
+        <?php echo $this->getChildHtml('footer_before') ?>
+        <?php echo $this->getChildHtml('footer') ?>
+        <?php echo $this->getChildHtml('before_body_end') ?>
+    </div>
+</div>
+<?php echo $this->getAbsoluteFooter() ?>
+</body>
+</html>

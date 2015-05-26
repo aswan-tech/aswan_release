@@ -1,0 +1,36 @@
+<!doctype html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+	<?php echo $this->getChildHtml('head') ?>
+</head>
+<body class="page-print<?php echo $this->getBodyClass()?$this->getBodyClass():'' ?>">
+<div id="container">
+	<header>
+		<div class="print-head">
+			<img src="<?php echo $this->getPrintLogoUrl() ? $this->getPrintLogoUrl() : $this->getSkinUrl('images/logo_print.gif') ?>" class="logo" alt="" />
+			<?php if ($this->getPrintLogoText()):?>
+				<address><?php echo nl2br($this->htmlEscape($this->getPrintLogoText())) ?></address>
+			<?php endif;?>
+		</div>
+	</header>
+	<div role="main">
+		<div class="mainTop"></div>
+		<div class="mainbody col1-layout">
+			<div class="col-main">
+				<?php echo $this->getChildHtml('content') ?>
+			</div>
+		</div>
+		<div class="mainBot"></div>
+	</div>
+	<footer>
+		<div class="buttons-print buttons-set">
+			<button type="button" title="<?php echo $this->__('Close Window') ?>" class="button" onclick="window.close();"><?php echo $this->__('Close Window') ?></button>
+		</div>
+	</footer>
+    <?php echo $this->getAbsoluteFooter() ?>
+</div>
+</body>
+</html>

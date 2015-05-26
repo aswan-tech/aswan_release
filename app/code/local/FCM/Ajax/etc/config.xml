@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <FCM_Ajax>
+            <version>0.1.0</version>
+        </FCM_Ajax>
+    </modules>
+    <frontend>
+        <routers>
+            <ajax>
+                <use>standard</use>
+                <args>
+                    <module>FCM_Ajax</module>
+                    <frontName>ajax</frontName>
+                </args>
+            </ajax>
+        </routers>
+    </frontend>
+    <global>
+        <models>
+            <ajax>
+                <class>FCM_Ajax_Model</class>    
+            </ajax>
+        </models>
+        <helpers>
+            <ajax>
+                <class>FCM_Ajax_Helper</class>
+            </ajax>
+        </helpers>
+    </global>
+</config>

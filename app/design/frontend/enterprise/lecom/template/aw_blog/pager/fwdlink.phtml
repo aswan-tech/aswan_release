@@ -1,0 +1,9 @@
+<?php if ($this->getCollection()->getSize()): ?>
+<?php if ($this->getLastPageNum() > 1): ?>
+<?php if (!$this->isFirstPage()): ?>
+    <a href="<?php echo $this->getPreviousPageUrl() ?>"><img alt="" src="<?php echo $this->getSkinUrl('images/archive/left_arc.jpg') ?>" width="19" height="41"></a>
+	<?php else : ?>
+		<a><img alt="" src="<?php echo $this->getSkinUrl('images/archive/left_disable.jpg') ?>" width="19" height="41"></a>
+<?php endif; ?>
+<?php endif; ?>
+<?php endif ?>

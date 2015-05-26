@@ -1,0 +1,183 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * RocketWeb
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ *
+ * @category   RocketWeb
+ * @package    RocketWeb_ProductVideo
+ * @copyright  Copyright (c) 2011 RocketWeb (http://rocketweb.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @author     RocketWeb
+ */
+-->
+<config>
+    <modules>
+        <RocketWeb_ProductVideo>
+            <version>0.2.0</version>
+        </RocketWeb_ProductVideo>
+    </modules>
+
+    <global>
+    	<models>
+            <productvideo>
+				<class>RocketWeb_ProductVideo_Model</class>
+                <resourceModel>productvideo_resource</resourceModel>
+			</productvideo>
+            <productvideo_resource>
+                <class>RocketWeb_ProductVideo_Model_Resource</class>
+                <entities>
+                    <videos>
+                        <table>rw_youtube_videos</table>
+                    </videos>
+                </entities>
+            </productvideo_resource>
+    	</models>
+    	
+        <resources>
+            <productvideo_setup>
+             	<setup>
+                    <module>RocketWeb_ProductVideo</module>
+					<class>RocketWeb_ProductVideo_Model_Resource_Eav_Mysql4_Setup</class>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </productvideo_setup>
+            <productvideo_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </productvideo_write>
+            <productvideo_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </productvideo_read>
+        </resources>
+        
+        <helpers>
+			<productvideo>
+				<class>RocketWeb_ProductVideo_Helper</class>
+			</productvideo>
+        </helpers>
+        
+        <blocks>
+            <productvideo>
+            	<class>RocketWeb_ProductVideo_Block</class>
+            </productvideo>
+            
+            <catalog>
+            	<rewrite>
+            		<product_view_media>RocketWeb_ProductVideo_Block_Product_View_Media</product_view_media>
+            	</rewrite>
+            </catalog>
+            <adminhtml>
+				<rewrite>
+					<catalog_product_edit_tabs>RocketWeb_ProductVideo_Block_Rewrite_AdminhtmlCatalogProductEditTabs</catalog_product_edit_tabs>
+				</rewrite>
+			</adminhtml>
+        </blocks>
+        
+        <events>
+			<catalog_product_save_after>
+				<observers>
+					<productvideo>
+						<type>singleton</type>
+						<class>productvideo/observer</class>
+						<method>catalog_product_save_after</method>
+					</productvideo>
+				</observers>
+			</catalog_product_save_after>
+        </events>
+    </global>
+    
+    <frontend>
+        <translate>
+            <modules>
+                <RocketWeb_ProductVideo>
+                    <files>
+                        <default>RocketWeb_ProductVideo.csv</default>
+                    </files>
+                </RocketWeb_ProductVideo>
+            </modules>
+        </translate>
+        <layout>
+			<updates>
+				<productvideo>
+					<file>rwproductvideo.xml</file>
+				</productvideo>
+			</updates>
+		</layout>
+    </frontend>
+    
+    <admin>
+        <routers>
+            <productvideo_admin>
+                <use>admin</use>
+                    <args>
+                        <module>RocketWeb_ProductVideo</module>
+                        <frontName>productvideo</frontName>
+                    </args>
+            </productvideo_admin>
+        </routers>
+    </admin>
+    
+    <adminhtml>
+		<layout>
+            <updates>
+                <productvideo>
+					<file>rwproductvideo.xml</file>
+				</productvideo>
+			</updates>
+		</layout>
+	</adminhtml>
+    
+    <default>
+    	<rocketweb_productvideo>
+        	<settings>
+				<default_thumb_width>185</default_thumb_width>
+				<default_thumb_height>150</default_thumb_height>
+				<default_width>680</default_width>
+				<default_height>495</default_height>
+                <jquery>1</jquery>
+                <fancybox>1</fancybox>
+				<padding>0</padding>
+				<margin>0</margin>
+				<opacity>0</opacity>
+				<modal>0</modal>
+				<cyclic>0</cyclic>
+				<scrolling><![CDATA[auto]]></scrolling>
+				<auto_scale>1</auto_scale>
+				<auto_dimensions>1</auto_dimensions>
+				<center_on_scroll>0</center_on_scroll>
+				<hide_on_overlay_click>1</hide_on_overlay_click>
+				<hide_on_content_click>0</hide_on_content_click>
+				<overlay_show>1</overlay_show>
+				<overlay_opacity><![CDATA[0.3]]></overlay_opacity>
+				<overlay_color><![CDATA[#666]]></overlay_color>
+				<title_show>1</title_show>
+				<title_position><![CDATA[outside]]></title_position>
+				<title_format></title_format>
+				<transition_in><![CDATA[none]]></transition_in>
+				<transition_out><![CDATA[none]]></transition_out>
+				<speed_in>300</speed_in>
+				<speed_out>300</speed_out>
+				<change_speed>300</change_speed>
+				<change_fade><![CDATA[fast]]></change_fade>
+				<easing_in><![CDATA[swing]]></easing_in>
+				<easing_out><![CDATA[swing]]></easing_out>
+				<show_close_button>1</show_close_button>
+				<show_nav_arrows>1</show_nav_arrows>
+				<enable_escape_button>1</enable_escape_button>
+				<allow_fullscreen>1</allow_fullscreen>
+        	</settings>
+        </rocketweb_productvideo>
+    </default>
+</config>

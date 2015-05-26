@@ -1,0 +1,23 @@
+﻿"Assign To",Beauftragen
+"Assign Type",Beauftragungstyp
+"Customer Groups",Kundengruppen
+"Individual Customers",Individualkunden
+"Add Customers","Kunden hinzufuegen"
+"Hide Customers Search","Verborgene Kundensuche"
+ID,ID
+"Rule Name",Regelname
+"Coupon Code",Kuponkode
+"Date Start",Startdatum
+"Date Expire",Enddatum
+Status,Status
+Groups,Gruppen
+Customers,Kunden
+Priority,Prioritaet
+Name,Name
+Email,Email
+Group,Gruppen
+Action,Aktion
+Add,Hinzufuegen
+"Manage Individual Promotions","Individualentwicklung bearbeiten"
+"Aitoc Individual Promotions","Aitoc Individual Promotions"
+"NOT LOGGED IN","Nicht eingeloggt"

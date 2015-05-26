@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * FCM Page Module 
+ *
+ * Module for new layout.
+ *
+ * @category    FCM
+ * @package     FCM_Fulfillment
+ * @author	Pawan Prakash Gupta
+ * @author_id	51405591
+ * @company	HCL Technologies
+ * @created Monday, August 20, 2012
+ * @copyright	Four cross media
+ */
+-->
+<config>
+    <modules>
+        <FCM_Page>
+            <version>0.1.0</version>
+        </FCM_Page>
+    </modules> 
+    <global>
+		<blocks>
+            <page>
+                <rewrite>
+                    <html_footer>FCM_Page_Block_Html_Footer</html_footer>
+                </rewrite>
+            </page>
+		</blocks>
+
+        <page>
+            <layouts>
+                <two_columns_left_header translate="label">
+					<label>2 columns with left bar and header</label>
+					<template>page/2columns-left-header.phtml</template>
+					<layout_handle>page_two_columns_left_header</layout_handle>
+				</two_columns_left_header>
+				<cms_page_layout translate="label">
+					<label>cms page layout</label>
+					<template>page/cms-page-layout.phtml</template>
+					<layout_handle>page_cms_page</layout_handle>
+				</cms_page_layout>
+				
+				<blog_landing_page_layout translate="label">
+					<label>Blog page layout</label>
+					<template>page/1column-blog.phtml</template>
+					<layout_handle>page_blog_landing</layout_handle>
+				</blog_landing_page_layout>
+                                <department_layout>
+                                        <label>Department Pages 1 Column</label>
+                                        <template>page/department_page.phtml</template>
+					<layout_handle>department_layout</layout_handle>
+                                </department_layout>
+
+            </layouts>
+        </page>
+	</global>
+</config>

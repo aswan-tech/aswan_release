@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<config>
+	<modules>
+		<FCM_Colorswatch>
+			<version>0.0.1</version>
+		</FCM_Colorswatch>
+	</modules>
+	 <global>
+        <helpers>
+            <colorswatch>
+                <class>FCM_Colorswatch_Helper</class>
+            </colorswatch>
+        </helpers>
+	</global>
+	<adminhtml>
+        <acl>
+            <resources>
+                <all>
+                    <title>Allow Everything</title>
+                </all>
+                <admin>
+                    <children>
+                        <system>
+                            <children>
+                                <config>
+                                    <children>
+                                        <colorswatch>
+                                            <title>Color swatch Section</title>
+                                        </colorswatch>
+                                    </children>
+                                </config>
+                            </children>
+                        </system>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
+    </adminhtml>
+</config>

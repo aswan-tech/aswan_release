@@ -1,0 +1,140 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * FCM Zip Code Import Module 
+ *
+ * Module for importing zip code, city and state for address verification.
+ *
+ * @category    FCM
+ * @package     FCM_Zipcodeimport
+ * @author	Vikrant Kumar Mishra
+ * @author_id	51402601
+ * @company	HCL Technologies
+ * @created Thursday, June 7, 2012
+ */
+-->
+<config>
+    <modules>
+        <FCM_Zipcodeimport>
+            <version>0.8.0</version>
+        </FCM_Zipcodeimport>
+    </modules>
+    <frontend>
+        <routers>
+            <zipcodeimport>
+                <use>standard</use>
+                <args>
+                    <module>FCM_Zipcodeimport</module>
+                    <frontName>zipcodeimport</frontName>
+                </args>
+            </zipcodeimport>
+        </routers>
+        <layout>
+            <updates>
+                <zipcodeimport>
+                    <file>zipcodeimport.xml</file>
+                </zipcodeimport>
+            </updates>
+        </layout>
+    </frontend>
+    <admin>
+        <routers>
+            <zipcodeimport>
+                <use>admin</use>
+                <args>
+                    <module>FCM_Zipcodeimport</module>
+                    <frontName>zipcodeimport</frontName>
+                </args>
+            </zipcodeimport>
+        </routers>
+    </admin>
+    <adminhtml>
+        <menu>
+            <system>
+                <children>
+                    <zipcodeimport>
+                        <title>Manage Zip Codes</title>
+                        <sort_order>2</sort_order>
+                        <action>zipcodeimport/adminhtml_zipcodeimport</action>
+                    </zipcodeimport>
+                </children>
+            </system>
+        </menu>  
+        <acl>
+            <resources>
+                <all>
+                    <title>Allow Everything</title>
+                </all>
+                <admin>
+                    <children>
+                        <system>
+                            <children>
+                                <config>
+                                    <children>
+                                        <zipcodeimport>
+                                            <title>Zipcodeimport Module</title>
+                                            <sort_order>10</sort_order>
+                                        </zipcodeimport>
+                                    </children>
+                                </config>
+                            </children>
+                        </system>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
+        <layout>
+            <updates>
+                <zipcodeimport>
+                    <file>zipcodeimport.xml</file>
+                </zipcodeimport>
+            </updates>
+        </layout>
+    </adminhtml>
+    <global>
+        <models>
+            <zipcodeimport>
+                <class>FCM_Zipcodeimport_Model</class>
+                <resourceModel>zipcodeimport_mysql4</resourceModel>
+            </zipcodeimport>
+            <zipcodeimport_mysql4>
+                <class>FCM_Zipcodeimport_Model_Mysql4</class>
+                <entities>
+                    <zipcodeimport>
+                        <table>fcm_zipcodeimport</table>
+                    </zipcodeimport>
+                </entities>
+            </zipcodeimport_mysql4>
+        </models>
+        <resources>
+            <zipcodeimport_setup>
+                <setup>
+                    <module>FCM_Zipcodeimport</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </zipcodeimport_setup>
+            <zipcodeimport_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </zipcodeimport_write>
+            <zipcodeimport_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </zipcodeimport_read>
+        </resources>
+        <blocks>
+            <zipcodeimport>
+                <class>FCM_Zipcodeimport_Block</class>
+            </zipcodeimport>
+        </blocks>
+        <helpers>
+            <zipcodeimport>
+                <class>FCM_Zipcodeimport_Helper</class>
+            </zipcodeimport>
+        </helpers>
+    </global>
+</config>

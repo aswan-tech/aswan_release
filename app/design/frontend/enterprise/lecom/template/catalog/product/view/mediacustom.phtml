@@ -1,0 +1,93 @@
+<?php
+$_product = $this->getProduct();
+$_helper = $this->helper('catalog/output');
+?>
+<div class="prd-thumb-cont fl"> 
+  <div class="mar-l10 prd-thumbview">
+    <?php if (count($this->getGalleryImages()) > 0): ?>
+    <ul class="simple thumb-slider fl">
+    <?php foreach ($this->getGalleryImages() as $_image): ?>
+        <li>
+            <a href="#" title="<?php echo $this->htmlEscape($_image->getLabel()) ?>">
+                <img src="<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'thumbnail', $_image->getFile())->resize(50, 60); ?>" width="50" height="60" alt="<?php echo $this->htmlEscape($_image->getLabel()) ?>" />
+            </a>
+        </li>
+    <?php endforeach; ?>        
+    </ul>
+    <?php endif; ?>
+  </div>      
+  <div class="clear"></div>
+</div>
+<div class="prd-imageview fl">
+  <ul class="simple imageview-slider fl">
+  	<?php $i = 0;?>
+  	<?php foreach ($this->getGalleryImages() as $_imagebig): ?>
+    <li><img <?php if($i == 0){ echo 'id="image"';}?> src="<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'image', $_imagebig->getFile())->resize(360, 377); ?>" width="360" height="377" alt="<?php echo $this->htmlEscape($_imagebig->getLabel()) ?>" /></li>
+    <?php $i++;?>
+    <?php endforeach; ?>    
+  </ul>
+  <a class="prev-arrow"></a> <a class="next-arrow inactive"></a>
+</div>
+<script type="text/javascript">
+var prdimgindex = jQuery('ul.imageview-slider li:first').index(); 
+var totalimgs = jQuery('ul.imageview-slider li:last').index();
+var prdimgw = 359;
+var firstthumb = jQuery('ul.thumb-slider li:first').index(); 
+var totalthumb = jQuery('ul.thumb-slider li:last').index();
+var thumbw = 81;
+var thumbno = 1;
+var thumbpos = (thumbw) * thumbno;
+var lastthumb = firstthumb + 4;		
+jQuery(document).ready(function(){
+jQuery('a.next-arrow').click(function(){
+	if (prdimgindex < totalimgs){
+		jQuery('a.prev-arrow').removeClass('inactive');
+		jQuery('ul.imageview-slider').animate({left: '-=' + prdimgw});
+		prdimgindex +=1;
+		jQuery('ul.thumb-slider').find('li').removeClass('selected');
+		jQuery('ul.thumb-slider').find('li').eq(prdimgindex).addClass('selected');		
+	}
+	else if(prdimgindex == totalimgs) { 
+		jQuery('a.next-arrow').addClass('inactive')
+	}
+});
+jQuery('a.prev-arrow').click(function(){
+	if (prdimgindex > 0){
+		jQuery('a.next-arrow').removeClass('inactive');
+		jQuery('ul.imageview-slider').animate({left: '+=' + prdimgw});
+		prdimgindex -=1;
+		jQuery('ul.thumb-slider').find('li').removeClass('selected');
+		jQuery('ul.thumb-slider').find('li').eq(prdimgindex).addClass('selected');		
+	}
+	else if(prdimgindex == 0) { 
+		jQuery('a.prev-arrow').addClass('inactive')
+	}
+});
+jQuery(document).keyup(function (e){ if(e.keyCode == 37){jQuery('a.prev-arrow').click();}else if(e.keyCode == 39){ jQuery('a.next-arrow').click();}});
+
+jQuery('ul.thumb-slider').find('li').hover(function(){
+	jQuery('ul.thumb-slider').find('li').removeClass('selected');
+	jQuery(this).addClass('selected');	
+	var thisimg = jQuery(this).index();			
+	jQuery('ul.imageview-slider').animate({left: '-' + prdimgw*thisimg});
+	prdimgindex = thisimg;
+});
+	
+});
+</script>	
+<?php 
+$countgal = count($this->getGalleryImages());
+$GLOBALS['images_count'] = $countgal;
+$has_after_paging = Mage::getStoreConfig('progallery/progalleryconfig/has_after_pagination');
+if (Mage::getStoreConfig('progallery/thumbscarouselconfig/scrollitems')):
+	$items = Mage::getStoreConfig('progallery/thumbscarouselconfig/scrollitems');
+else:
+	$items = '1';
+endif;
+if (Mage::getStoreConfig('progallery/thumbscarouselconfig/has_prevandnext')):
+if ($countgal > $has_after_paging): 
+?>
+<?php 
+endif;
+endif;
+?>

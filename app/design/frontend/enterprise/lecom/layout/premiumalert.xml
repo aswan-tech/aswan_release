@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <default>
+    </default>
+    <premiumalert_index_index>
+        <reference name="content">
+            <block type="premiumalert/premiumalert" name="premiumalert" template="premiumalert/premiumalert.phtml" />
+        </reference>
+    </premiumalert_index_index>
+</layout> 

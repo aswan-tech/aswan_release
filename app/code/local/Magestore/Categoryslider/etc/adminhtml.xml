@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<config>
+	<menu>
+			<bannerslider module="bannerslider">				               
+				<children>
+					<categoryslider module="categoryslider">
+						<title>Manage Department Banners</title>
+						<sort_order>3</sort_order>
+						<action>categoryslider/adminhtml_categoryslider</action>
+					</categoryslider>
+				</children>
+			</bannerslider>
+		</menu>
+		<acl>
+			<resources>
+				<all>
+					<title>Allow Everything</title>
+				</all>
+				<admin>
+					<children>
+						<Magestore_Categoryslider>
+							<title>Department Banner Module</title>
+							<sort_order>10</sort_order>
+						</Magestore_Categoryslider>
+						<system>
+							<children>
+								<config>
+									<children>
+										<categoryslider translate="title" module="categoryslider"> 
+											<title>Department Banner Settings</title>
+											<sort_order>50</sort_order>
+										</categoryslider>
+									</children>							
+								</config>
+							</children>
+						</system>
+					</children>
+				</admin>
+			</resources>
+		</acl>
+</config>

@@ -1,0 +1,90 @@
+<div class="page-title"><h1><?php echo $this->__('Your order has been received.') ?></h1></div>
+<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+<h2 class="sub-title"><?php echo $this->__('Thank you for your purchase!') ?></h2>
+
+<?php if ($this->getOrderId()):
+
+?>
+<?php if ($this->getCanViewOrder()) :?>
+    <p><?php echo $this->__('Your order # is: %s.', sprintf('<a href="%s">%s</a>', $this->escapeHtml($this->getViewOrderUrl()), $this->escapeHtml($this->getOrderId()))) ?></p>
+<?php  else :?>
+    <p><?php echo $this->__('Your order # is: %s.', $this->escapeHtml($this->getOrderId())) ?></p>
+<?php endif;?>
+    <p><?php echo $this->__('You will receive an order confirmation email with details of your order and a link to track its progress.') ?></p>
+<?php if ($this->getCanViewOrder() && $this->getCanPrintOrder()) :?>
+    <p>
+        <?php echo $this->__('Click <a href="%s" onclick="this.target=\'_blank\'">here to print</a> a copy of your order confirmation.', $this->getPrintUrl()) ?>
+        <?php echo $this->getChildHtml() ?>
+    </p>
+<?php endif;?>
+<?php endif;?>
+
+<?php if ($this->getAgreementRefId()): ?>
+    <p><?php echo $this->__('Your billing agreement # is: %s.', sprintf('<a href="%s">%s</a>', $this->escapeHtml($this->getAgreementUrl()), $this->escapeHtml($this->getAgreementRefId())))?></p>
+<?php endif;?>
+
+<?php if ($profiles = $this->getRecurringProfiles()):?>
+<p><?php echo $this->__('Your recurring payment profiles:'); ?></p>
+<ul class="disc">
+<?php foreach($profiles as $profile):?>
+<?php $profileIdHtml = ($this->getCanViewProfiles() ? sprintf('<a href="%s">%s</a>', $this->escapeHtml($this->getProfileUrl($profile)), $this->escapeHtml($this->getObjectData($profile, 'reference_id'))) : $this->escapeHtml($this->getObjectData($profile, 'reference_id')));?>
+    <li><?php echo $this->__('Payment profile # %s: "%s".', $profileIdHtml, $this->escapeHtml($this->getObjectData($profile, 'schedule_description')))?></li>
+<?php endforeach;?>
+</ul>
+<?php endif;?>
+
+<div class="buttons-set">
+    <button type="button" class="button" title="<?php echo $this->__('Continue Shopping') ?>" onclick="window.location='<?php echo $this->getUrl() ?>'"><?php echo $this->__('Continue Shopping') ?></button>
+</div>
+<?php
+    $lastOrderId = Mage::getSingleton('checkout/session')->getLastOrderId();
+    $order = Mage::getModel('sales/order')->load($lastOrderId);
+    $orderId = $this->getOrderId();
+    $paymentMethod = $order->getPayment()->getMethod();
+    $total = $order->getGrandTotal();
+	$items_total = $order->getTotalQtyOrdered();
+	$_pixelfound = false;
+	$_affiliateCode = '';
+	
+	if (isset($_COOKIE["pixelAffiliateCookie"])){
+		$_pixelfound = true;
+		$_affiliateCode = $_COOKIE["pixelAffiliateCookie"];
+	}
+?>
+<script type="text/javascript">
+dataLayer.push(
+    {'ORDER_ID': '<?php echo $this->getOrderId() ?>'}, 
+    {'ORDER_PAYMENT_METHOD': '<?php echo $paymentMethod ?>'},
+    {'ORDER_ITEM_COUNT': '<?php echo $items_total ?>'},
+    {'ORDER_AMOUNT': '<?php echo $total ?>'},
+    {'RANDOM_NUMBER' : '<?php echo rand(10000000, 999999999)?>'},
+    {'MYDALA_LEAD_ID': '<?php echo $_COOKIE['myDalaCookie']?>'},
+    {'TRAN_SUCCESS': '1'},
+    {'PAGE_TYPE': 'ORDER_SUCCESS'}
+);
+</script>
+<script type="text/javascript" class="microad_blade_track">
+    <!--
+    var microad_blade_gl = microad_blade_gl || { 'params' : new Array(), 'complete_map' : new Object() };
+    (function() {
+        var param = {'co_account_id' : '4720', 'group_id' : 'convtrack15455', 'country_id' : '4', 'ver' : '2.1.0'};
+        microad_blade_gl.params.push(param);
+        var src = '//d-cache.microadinc.com/js/blade_track_gl.js';
+        var bs = document.createElement('script');
+        bs.type = 'text/javascript'; bs.async = true;
+        bs.charset = 'utf-8'; bs.src = src;
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(bs, s);
+    })();
+    -->
+</script>
+<script type='text/javascript'>
+    //<![CDATA[
+    var p = '//adex.adchakra.net/adex/www/delivery/tjs.php';
+    var r=Math.floor(Math.random()*999999);
+    document.write ("<" + "script language='JavaScript' ");
+    document.write ("type='text/javascript' src='"+p);
+    document.write ("?trackerid=141&amp;append=0&amp;r="+r+"'><" + "\/script>");
+    //]]>
+</script>
+<noscript><div id='m3_tracker_141' style='position: absolute; left: 0px; top: 0px; visibility: hidden;'><img src='http://adex.adchakra.net/adex/www/delivery/ti.php?trackerid=141&amp;cb=%%<?php echo $orderId; ?>%%' width='0' height='0' alt='' /></div></noscript>

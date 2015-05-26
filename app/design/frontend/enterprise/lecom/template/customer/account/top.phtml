@@ -1,0 +1,30 @@
+<?php
+$controller = Mage::app()->getRequest()->getControllerName();
+$action = Mage::app()->getRequest()->getActionName();
+$router = Mage::app()->getRequest()->getRouteName();
+$module = Mage::app()->getRequest()->getModuleName();
+?>
+<div class="ams-acc-tplink fs14 f-bold tt-u mt20">
+       <ul>
+           <li><a class="<?php if (($module == 'customer' && $controller == 'account' && $action == 'edit' && $router == 'customer') || 
+                   ($module == 'customer' && $controller == 'address' && $action == 'index' && $router == 'customer') || 
+                   ($module == 'customer' && $controller == 'address' && $action == 'form' && $router == 'customer') || 
+                   ($module == 'invitation' && $controller == 'index' && $action == 'index' && $router == 'enterprise_invitation') || 
+                   ($module == 'customer' && $controller == 'account' && $action == 'mypreferences' && $router == 'customer')) { echo 'acc-tl-active'; } ?>" href="<?php echo $this->getUrl('customer/account/edit') ?>">Personal Details</a></li>
+         <li><a class="<?php if (($module == 'sales' && $controller == 'order' && $action == 'history' && $router == 'sales') ||
+                 ($module == 'sales' && $controller == 'order' && $action == 'view' && $router == 'sales')) { echo 'acc-tl-active'; } ?>" href="<?php echo $this->getUrl('sales/order/history') ?>">My Orders</a></li>
+         <li><a class="<?php if (($module == 'reward' && $controller == 'customer' && $action == 'info' && $router == 'enterprise_reward') ||
+                 ($module == 'aitloyalty' && $controller == 'account' && $action == 'promostats' && $router == 'aitloyalty') || 
+                 ($module == 'storecredit' && $controller == 'info' && $action == 'index' && $router == 'enterprise_customerbalance') || 
+                 ($module == 'customer' && $controller == 'account' && $action == 'wallet' && $router == 'customer') || 
+                 ($module == 'giftcard' && $controller == 'customer' && $action == 'index' && $router == 'enterprise_giftcardaccount')) { echo 'acc-tl-active'; } ?>" href="<?php echo $this->getUrl('customer/account/wallet/') ?>">My Wallet</a></li>
+         <?php if (0) { ?><li><a class="<?php if ($module == '' && $controller == '' && $action == '' && $router == '') { echo 'acc-tl-active'; } ?>" href="<?php echo $this->getUrl('/customer/account') ?>">My Customized Store</a></li><?php } ?>
+         </ul>
+</div>
+<div class="clear"></div>
+<?php
+// My Coupons: aitloyalty/account/promostats/
+// Rewards Points: reward/customer/info/
+// Store Credits: storecredit/info/
+// Address: customer/address
+?>

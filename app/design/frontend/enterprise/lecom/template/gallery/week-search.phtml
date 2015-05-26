@@ -1,0 +1,98 @@
+<?php
+	$search_helper = Mage::helper('catalogsearch')->getQueryText();
+	
+	$stringHelper = Mage::helper('core/string');
+		
+	$words = $stringHelper->splitWords($search_helper, true, 10);
+	
+	$results_found	=	$this->getResults($words);
+	
+?>
+	<div class="pagi">
+		<span><a href="<?php echo Mage::getBaseUrl().'gallery/'; ?>">Home</a></span>
+		<span><a href="<?php echo Mage::getBaseUrl().'gallery/week/'; ?>">Look of the Week</a></span>
+		Search result for : '<?php echo ucwords($search_helper); ?>'</div>
+<?php if(sizeof($results_found) == 0){ ?>
+		<div id="column1" class="no-results">
+			<p><?php echo("No Results Found!"); ?></p>
+		</div>
+	<?php 
+	
+	}else{
+		$_searchresult_count = $this->getResultsCount($words); 
+		$image_base_url = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA)."gallery/";
+		
+?>		
+		<div class="container">
+			<div class="Search_head">
+				<?php $search_text = Mage::helper('catalogsearch')->getQueryText(); ?>
+				<div class="searchterm">SEARCHED KEYWORD: <?php echo "\"$search_text\""; ?></div>
+				<span class="lgrey"><?php echo $_searchresult_count; ?> Look(s) Found</span>
+			</div>
+			
+			<div class="navleft">
+				<?php if($this->getLastPageNum()>1): ?>
+					<?php if (!$this->isFirstPage()): ?>
+						<a href="<?php echo $this->getPreviousPageUrl() ?>"><img src="<?php echo $this->getSkinUrl('images/trends/left_arc.jpg') ?>" width="19" height="41">
+					</a>
+					<?php else: ?>
+						<a><img src="<?php echo $this->getSkinUrl('images/trends/left_disable.jpg') ?>" width="19" height="41">
+					</a>
+					<?php endif; ?>
+				<?php endif; ?>
+			</div>
+			 <div id="look_archive">
+				<?php foreach($results_found as $look){ ?>
+					<div class="imgwrap"> 
+						<a href="<?php echo $this->getUrl('gallery/week/index', array('id' => $look['gallery_id'])); ?>"><img src="<?php echo $look['thumbnail']; ?>" width="<?php echo Mage::getStoreConfig('gallery/lookoftheweek/archivethumbwidth') ?>" height="<?php echo Mage::getStoreConfig('gallery/lookoftheweek/archivethumbheight') ?>" /></a>
+						<h3><?php echo date("F jS, Y", strtotime($look["created_time"])); ?></h3>
+					</div>
+				<?php } ?>
+			</div>
+			<div class="navright">
+				<?php if($this->getLastPageNum()>1): ?>
+					<?php if (!$this->isLastPage()): ?>
+						<a href="<?php echo $this->getNextPageUrl(); ?>"><img src="<?php echo $this->getSkinUrl('images/trends/right_arc.jpg') ?>" width="19" height="40"></a>
+					<?php else: ?>
+						<a><img src="<?php echo $this->getSkinUrl('images/trends/right_disable.jpg') ?>" width="19" height="41">
+					</a>
+					<?php endif; ?>
+				<?php endif; ?>
+			</div>
+			<div class="clearfloat"></div>
+		</div>
+<?php	}	?>
+
+<?php if($this->getCollection()->getSize()): ?>
+  <?php if($this->getLastPageNum()>1): ?>
+    <div class="pageBotm">
+        <ul class="num">
+			<?php if (!$this->isFirstPage()): ?>
+				<li>
+					<a class="previous<?php if(!$this->getAnchorTextForPrevious()): ?> i-previous<?php endif;?>" href="<?php echo $this->getPreviousPageUrl() ?>" title="<?php echo $this->__('Previous') ?>">&#8249;</a>
+				</li>
+			<?php else: ?>
+				<li>
+					<a>&#8249;</a>
+				</li>
+			<?php endif;?>
+			
+			<?php $currentpage = $this->getCurrentPage(); ?>
+			
+			<li>	
+				<a><?php echo $currentpage; ?>/<?php echo $this->getLastPageNum(); ?></a>
+			</li>
+			
+			<?php if (!$this->isLastPage()): ?>
+				<li>
+					<a class="next<?php if(!$this->getAnchorTextForNext()): ?> i-next<?php endif; ?>" href="<?php echo $this->getNextPageUrl(); ?>" title="<?php echo $this->__('Next') ?>">&#8250;</a>
+				</li>
+			<?php else: ?>
+				<li>
+					<a>&#8250;</a>
+				</li>
+			<?php endif;?>
+        </ul>
+    </div>
+    <?php endif; ?>
+ <?php endif ?>

@@ -1,0 +1,159 @@
+.jcarousel-skin-tango .jcarousel-container-horizontal {
+    padding: 20px 0;
+    width: 625px;
+}
+
+.jcarousel-skin-tango .jcarousel-clip-horizontal {
+    height: 193px;
+    width: 625px;
+}
+.jcarousel-skin-tango #look_highlight li span a, .jcarousel-skin-tango #look_highlight li section a {color:#353673; font:normal 11px Arial;}
+.jcarousel-skin-tango #look_highlight .jcarousel-item {
+    height: 219px;
+    margin-right: 10px;
+    padding: 0;
+    text-align: left;
+    width: 115px;
+}
+
+.jcarousel-skin-tango .jcarousel-prev-horizontal {
+    background: url("../images/trends/left_arc.jpg") no-repeat scroll 0 0 transparent;
+    cursor: pointer;
+    height: 40px;
+    left: -45px;
+    top: 75px;
+    width: 19px;
+    z-index: 1;
+	position: absolute;
+}
+
+.jcarousel-skin-tango .jcarousel-prev-horizontal,
+.jcarousel-skin-tango .jcarousel-prev-horizontal:hover,
+.jcarousel-skin-tango .jcarousel-prev-horizontal:focus,
+.jcarousel-skin-tango .jcarousel-prev-horizontal:active
+{
+    background: url("../images/trends/left_arc.jpg") no-repeat scroll 0 0 transparent;
+    cursor: pointer;
+    height: 40px;
+    left: -45px;
+    top: 75px;
+    width: 19px;
+    z-index: 1;
+	position: absolute;
+}
+
+.jcarousel-skin-tango .jcarousel-prev-disabled-horizontal,
+.jcarousel-skin-tango .jcarousel-prev-disabled-horizontal:hover,
+.jcarousel-skin-tango .jcarousel-prev-disabled-horizontal:focus,
+.jcarousel-skin-tango .jcarousel-prev-disabled-horizontal:active
+{
+    background: url("../images/trends/left_disable.jpg") no-repeat scroll 0 0 transparent;
+    cursor: pointer;
+    height: 40px;
+    left: -45px;
+    top: 75px;
+    width: 19px;
+    z-index: 1;
+	position: absolute;
+}
+
+.jcarousel-skin-tango .jcarousel-next-horizontal {
+    background: url("../images/trends/right_arc.jpg") no-repeat scroll 0 0 transparent;
+    cursor: pointer;
+    height: 40px;
+    right: -35px;
+    top: 75px;
+    width: 19px;
+    z-index: 1;
+	position: absolute;
+}
+
+.jcarousel-skin-tango .jcarousel-next-horizontal,
+.jcarousel-skin-tango .jcarousel-next-horizontal:hover,
+.jcarousel-skin-tango .jcarousel-next-horizontal:focus,
+.jcarousel-skin-tango .jcarousel-next-horizontal:active
+{
+    background: url("../images/trends/right_arc.jpg") no-repeat scroll 0 0 transparent;
+    cursor: pointer;
+    height: 40px;
+    right: -35px;
+    top: 75px;
+    width: 19px;
+    z-index: 1;
+	position: absolute;
+}
+
+.jcarousel-skin-tango .jcarousel-next-disabled-horizontal,
+.jcarousel-skin-tango .jcarousel-next-disabled-horizontal:hover,
+.jcarousel-skin-tango .jcarousel-next-disabled-horizontal:focus,
+.jcarousel-skin-tango .jcarousel-next-disabled-horizontal:active
+{
+    background: url("../images/trends/right_disable.jpg") no-repeat scroll 0 0 transparent;
+    cursor: pointer;
+    height: 40px;
+    right: -35px;
+    top: 75px;
+    width: 19px;
+    z-index: 1;
+	position: absolute;
+}
+
+
+.callbacks_tabs li {
+    display: none;
+}
+
+.callbacks_tabs li.callbacks_here, .callbacks_tabs li.callbacks_nav_links {
+    display: inline;
+}
+
+.callbacks_container {
+    margin-bottom: 50px;
+    position: relative;
+    float: left;
+    width: 100%;
+}
+
+.callbacks {
+    position: relative;
+    list-style: none;
+    overflow: hidden;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+.callbacks li {
+    position: absolute;
+    width: 100%;
+    left: 0;
+    top: 0;
+}
+
+/*
+.callbacks_nav {
+    position: absolute;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    top: 52%;
+    left: 0;
+    opacity: 0.7;
+    z-index: 3;
+    text-indent: -9999px;
+    overflow: hidden;
+    text-decoration: none;
+    height: 61px;
+    width: 38px;
+    background: transparent url("../images/themes.gif") no-repeat left top;
+    margin-top: -45px;
+}
+
+.callbacks_nav:active {
+    opacity: 1.0;
+}
+
+.callbacks_nav.next {
+    left: auto;
+    background-position: right top;
+    right: 0;
+}
+*/

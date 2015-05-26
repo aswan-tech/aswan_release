@@ -1,0 +1,249 @@
+<?php
+/**
+* aheadWorks Co.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://ecommerce.aheadworks.com/AW-LICENSE-ENTERPRISE.txt
+ *
+ * =================================================================
+ *                 MAGENTO EDITION USAGE NOTICE
+ * =================================================================
+ * This package designed for Magento ENTERPRISE edition
+ * aheadWorks does not guarantee correct work of this extension
+ * on any other Magento edition except Magento ENTERPRISE edition.
+ * aheadWorks does not provide extension support in case of
+ * incorrect edition usage.
+ * =================================================================
+ *
+ * @category   AW
+ * @package    AW_Blog
+ * @version    1.1.1
+ * @copyright  Copyright (c) 2010-2012 aheadWorks Co. (http://www.aheadworks.com)
+ * @license    http://ecommerce.aheadworks.com/AW-LICENSE-ENTERPRISE.txt
+ */
+?>
+<?php $getPrevNextLinks	=	$this->getPrevNextPosts($this->getRequest()->getParam('identifier')); //pr($getPrevNextLinks,0);?>
+<?php $post = $this->getPost(); ?>
+
+
+	<div class="blogwrapper blogdetails">
+		<div class="postlink_top">
+			<?php if($getPrevNextLinks['prev'] != ''){ ?>
+				<span class="previous">
+					<a href="<?php echo $getPrevNextLinks['prev']; ?>"><img src="<?php echo $this->getSkinUrl('images/prev_small.jpg') ?>" width="7" height="7" >Previous Post</a>
+				</span>
+			<?php } ?>
+			<?php if($getPrevNextLinks['next'] != ''){ ?>
+				<span class="next">
+					<a href="<?php echo $getPrevNextLinks['next']; ?>">Next Post<img src="<?php echo $this->getSkinUrl('images/next_small.jpg') ?>" width="7" height="7" ></a>
+				</span>
+			<?php } ?>
+		</div>
+		<div class="clearfloat"></div>
+		<div class="category">
+			<?php
+				$postCats = $post->getCats();
+				$catStr = '';
+				if(!empty($postCats)):
+					foreach ($postCats as $title => $url):
+						$catStr .= '<a href="'.$url.'">'.$title.'</a>,';
+					endforeach;
+					print trim($catStr, ',');
+				endif;
+			?>
+		</div>
+		<div class="heading">
+			<?php echo $post->getTitle(); ?>
+		</div>
+		<div class="date"><?php echo 'Posted '.$post->getCreatedTime(); ?></div>
+		<div class="clearfix postcontent"><?php echo $post->getPostContent(); ?></div>
+		<div class="sshare">
+			<fb:like href="<?php echo Mage::helper('core/url')->getCurrentUrl(); ?>" send="true" layout="button_count" width="450" show_faces="false"></fb:like>
+		</div>
+		<div class="postlink">
+			<?php if($getPrevNextLinks['prev'] != ''){ ?>
+				<span class="previous">
+					<a href="<?php echo $getPrevNextLinks['prev']; ?>"><img src="<?php echo $this->getSkinUrl('images/prev_small.jpg') ?>" width="7" height="7" >Previous Post</a>
+				</span>
+			<?php } ?>
+			<?php if($getPrevNextLinks['next'] != ''){ ?>
+				<span class="next">
+					<a href="<?php echo $getPrevNextLinks['next']; ?>">Next Post<img src="<?php echo $this->getSkinUrl('images/next_small.jpg') ?>" width="7" height="7" ></a>
+				</span>
+			<?php } ?>
+		</div>
+		<div class="clearfloat"></div>
+		<?php echo Mage::getBlockSingleton('blog/blog')->getTagsHtml($post) ?>
+	</div>
+	
+	<a href='#' name='comments'></a>
+	<?php
+		if ($this->getCommentsEnabled()){
+			$comments = $this->getComment();
+			if (count($comments)) {
+				$DateFormat = 'jS F, Y'; $TimeFormat = 'h:i:s A';
+	?>
+				<div class="comments">
+					<h4><?php echo $this->getCommentTotalString($comments); ?></h4>
+					<?php foreach ($comments as $comment){ ?>
+						<div class="read_review">
+							<p class="dates"><?php echo $comment->getUser(); ?> <?php echo $this->__("posted on") ?> <?php echo Mage::getModel('core/date')->date($DateFormat, strtotime($comment->getCreatedTime()))."<br>".Mage::getModel('core/date')->date($TimeFormat, strtotime($comment->getCreatedTime())).", ". $comment->getPlace(); ?></p>
+							<p><?php echo nl2br($comment->getComment()); ?></p>
+						</div>
+						<div class="dashed"></div>
+						<br />
+					<?php } ?>
+					<?php if ($this->getPageCount() > 1) : ?>
+						<div class="clearfix pagelist">
+							<a title="" class="page" href="javascript:void(0);"> <img src="<?php echo $this->getSkinUrl('images/blog_prev.jpg')?>" alt="previous" width="7" height="12"></a>
+							<?php for ($i = 1; $i <= $this->getPageCount(); $i++) : ?>
+								<?php if ($this->current($i)): ?>
+									<span class="current"><?php echo $i ?></span>
+								<?php else: ?>
+									<a href="<?php echo $this->getPageAddress($i) ?>#comments" class="page"><?php echo $i ?></a>
+								<?php endif; ?>
+							<?php endfor ?>
+							<a title="" class="page" href="javascript:void(0);"><img src="<?php echo $this->getSkinUrl('images/blog_next.jpg')?>" width="7" alt="next" height="12"></a>
+						</div>
+					<?php endif ?>
+				</div>
+
+			<?php } if ($post->getComments()){ ?>
+				<div class="postError"><?php echo Mage::helper('blog')->__('Comments are Closed for this post') ?></div>
+			<?php } else{
+				$data = $this->getRequest()->getPost();
+			?>
+			<br />
+			<div id="blog_comment_msg"><?php echo $this->getMessagesBlock()->getGroupedHtml() ?></div>
+				<?php if ($this->getLoginRequired()){ ?>
+					<?php if ($this->helper('customer')->isLoggedIn()){ ?>
+						
+						<div id="comment_section">
+							<form action="" id="postComment" method="post" class="aw-post-comment comment_form">
+								<h3><?php echo Mage::helper('blog')->__('Leave a Comment') ?></h3>
+								<div class="fleft">
+									<p><?php echo Mage::helper('blog')->__('Your Comment') ?> *</p>
+									<textarea name="comment" id="comment" title="<?php echo Mage::helper('blog')->__('Comment') ?>" class="required-entry input-text commentfield" cols="15" rows="5" onkeyup="textLimit(this, 1500);" onkeydown="textLimit(this, 1500);"><?php echo $data['comment'];//$this->getCommentText(); ?></textarea>
+									<div class="clearfloat"></div>
+									<span class="characters lgrey small">You have <span id="charsLeft">1500</span> chars left.</span>
+									<div class="notify small">
+										<input name="notify_comment" type="checkbox" value="1"> <?php echo Mage::helper('blog')->__('Notify me of follow-up comments by email.') ?><br>
+										<input name="notify_blog" type="checkbox" value="1"> <?php echo Mage::helper('blog')->__('Notify me of new posts by email.') ?>
+									</div>
+								</div>
+								<div class="fright">
+									<label for="place"><?php echo Mage::helper('blog')->__('Place') ?> <span class="mandatoryField">*</span></label>
+									<input name="place" id="place" value="<?php echo $data['place'];//$this->getCommentPlace(); ?>" title="<?php echo $this->__('Place') ?>" class="required-entry input-text validate-alpha-with-spaces" type="text" maxlength="250" />
+								</div>
+								<div class="clearfloat"></div>
+								<script type="text/javascript">
+									var maxlen = 1500;
+									function textLimit(field, maxlen) {
+										if (field.value.length > maxlen)
+											field.value = field.value.substring(0, maxlen);
+									}
+
+									Event.observe('comment', 'keyup', function (event) {
+										$('charsLeft').update((maxlen) - $('comment').value.length);
+									});
+								</script>
+								
+								<input name="post_id" type="hidden" value="<?php echo $post->getPostId(); ?>" />
+								<input name="email" type="hidden" value="<?php echo $this->htmlEscape($this->helper('blog')->getUserEmail()) ?>"/>
+								<input name="user" type="hidden" value="<?php echo $this->htmlEscape($this->helper('blog')->getUserName()) ?>"/>
+								<div class="submit_commnt">
+									<button class="btnsubmit" type="submit"><?php echo Mage::helper('blog')->__('Submit Comment') ?></button>
+								</div>
+							</form>
+						</div>
+					<?php } else{ ?>
+						<p><?php echo Mage::helper('blog')->__('You must be logged in to post a comment.'); ?></p>
+						<p><a href="<?php echo Mage::helper('customer')->getLoginUrl(); ?>"><?php echo Mage::helper('blog')->__('click here'); ?></a> <?php echo Mage::helper('blog')->__('to log in'); ?></p>
+					<?php } ?>
+				<?php } else {	?>
+					<div id="comment_section">
+						<form action="" id="postComment" method="post" class="aw-post-comment comment_form">
+							<h3><?php echo Mage::helper('blog')->__('Leave a Comment') ?></h3>
+							<div class="fleft">
+								<p><?php echo Mage::helper('blog')->__('Your Comment') ?> *</p>
+								<textarea name="comment" id="comment" title="<?php echo Mage::helper('blog')->__('Comment') ?>" class="required-entry input-text commentfield" cols="15" rows="5" onkeyup="textLimit(this, 1500);" onkeydown="textLimit(this, 1500);" onBlur="updateCharLeft(this, 1500);"><?php echo $data['comment'];//$this->getCommentText(); ?></textarea>
+								<div class="clearfloat"></div>
+								<span class="characters lgrey small">You have <span id="charsLeft">1500</span> chars left.</span>
+								<div class="notify small">
+									<input name="notify_comment" type="checkbox" value="1"> <?php echo Mage::helper('blog')->__('Notify me of follow-up comments by email.') ?><br>
+									<input name="notify_blog" type="checkbox" value="1"> <?php echo Mage::helper('blog')->__('Notify me of new posts by email.') ?>
+								</div>
+							</div>
+							<div class="fright">
+								<div class="clearfix">
+									<label for="name"><?php echo Mage::helper('blog')->__('Name') ?> <span class="mandatoryField">*</span></label>
+									<input name="user" id="user" value="<?php echo $data['user'];//$this->getCommentName(); ?>" title="<?php echo $this->__('Name') ?>" class="required-entry input-text validate-alpha-with-spaces" type="text" maxlength="250" />
+								</div>
+								<div class="clearfix">
+									<label for="email"><?php echo Mage::helper('blog')->__('E-mail') ?> <span class="mandatoryField">*</span></label>
+									<input name="email" id="email" value="<?php echo $data['email'];//$this->getCommentEmail(); ?>" title="<?php echo $this->__('Email Address') ?>" class="required-entry input-text validate-email" type="text" maxlength="250" />
+								</div>
+								<div class="clearfix">
+									<label for="place"><?php echo Mage::helper('blog')->__('Place') ?> </label>
+									<input name="place" id="place" value="<?php echo $data['place'];//$this->getCommentPlace(); ?>" title="<?php echo $this->__('Place') ?>" class="input-text validate-alphanum-with-spaces" type="text" maxlength="250" />
+								</div>
+							</div>
+							<div class="clearfloat"></div>
+							
+							<input name="post_id" type="hidden" value="<?php echo $post->getPostId(); ?>" />
+							<?php
+								if (Mage::getStoreConfig('blog/recaptcha/enabled') && !$this->helper('customer')->isLoggedIn()) {
+									require_once 'recaptcha/recaptchalib-aw.php';
+									$publickey = Mage::getStoreConfig('blog/recaptcha/publickey');
+									$privatekey = Mage::getStoreConfig('blog/recaptcha/privatekey');
+									$error = null;
+									echo recaptcha_get_html($publickey, $error);
+								}
+							?>
+							<script type="text/javascript">
+								var maxlen = 1500;
+								function textLimit(field, maxlen) {
+									if (field.value.length > maxlen)
+										field.value = field.value.substring(0, maxlen);
+								}
+								
+								function updateCharLeft(field, maxlen){
+									var moreChars = (maxlen) - $('comment').value.length;
+									if(moreChars < 0){
+										moreChars = 0;
+									}
+									$('charsLeft').update(moreChars);
+								}
+								
+								Event.observe('comment', 'keyup', function (event) {
+									$('charsLeft').update((maxlen) - $('comment').value.length);
+								});
+							</script>
+							<div class="submit_commnt">
+								<button class="btnsubmit" type="submit"><?php echo Mage::helper('blog')->__('Submit Comment') ?></button>
+							</div>
+						</form>
+					</div>
+			<?php 	} ?>
+					<script type="text/javascript">
+						jQuery(document).ready(function(){
+							jQuery(function(){jQuery('input[type="checkbox"]').uniform();});
+						});
+						
+						var contactForm = new VarienForm('postComment', false);
+						Event.observe(window, 'load', function() {
+							var remainedChars = (maxlen) - $('comment').value.length;
+							if(remainedChars < 0){
+								remainedChars = 0;
+							}
+							$('charsLeft').update(remainedChars);
+						});
+					</script>
+		<?php 	} ?>
+	<?php
+		}
+	?>

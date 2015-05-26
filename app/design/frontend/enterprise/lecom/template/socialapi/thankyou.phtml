@@ -1,0 +1,23 @@
+<style type="text/css">
+    .social-message{
+        padding: 10px;
+        margin: 10px;
+    }
+    p {
+        padding: 10px;
+    }
+    .addressTitle2{
+        border-bottom: 1px solid #C2BEBA;
+        color: #343E7A;
+        font: 20px 'avenir_lt_std_55_romanregular';
+        letter-spacing: 0;
+        padding-bottom: 3px;
+        padding-left: 5px;
+        text-transform: uppercase;
+    }
+</style>
+<div class="social-message">
+    <h2 class="addressTitle2">THANK YOU FOR INVITATION</h2>
+    <p><?php $messages = Mage::getSingleton('core/session')->getMessages(); echo $messages->getLastAddedMessage()->getCode(); ?></p>
+</div>
+

@@ -1,0 +1,66 @@
+<?php
+/**
+ * MageWorx
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the MageWorx EULA that is bundled with
+ * this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://www.mageworx.com/LICENSE-1.0.html
+ *
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@mageworx.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade the extension
+ * to newer versions in the future. If you wish to customize the extension
+ * for your needs please refer to http://www.mageworx.com/ for more information
+ * or send an email to sales@mageworx.com
+ *
+ * @category   design
+ * @package    default_default
+ * @copyright  Copyright (c) 2010 MageWorx (http://www.mageworx.com/)
+ * @license    http://www.mageworx.com/LICENSE-1.0.html
+ */
+
+/**
+ * Instant Cart extension
+ *
+ * @category   design
+ * @package    default_default
+ * @author     MageWorx Dev Team <dev@mageworx.com>
+ */
+
+if ($this->helper('icart')->isEnabled()) {
+?>
+<script type="text/javascript">
+//<![CDATA[
+
+iCart.init({
+    title: '<?php echo $this->jsQuoteEscape(Mage::helper('icart')->__('Add to')) ?>',
+    cart: '<?php echo $this->jsQuoteEscape(Mage::helper('icart')->__('Cart')) ?>',
+    cartEdit: '<?php echo $this->jsQuoteEscape(Mage::helper('icart')->__('Edit')) ?>',
+    wishlist: <?php if ((string)Mage::getConfig()->getModuleConfig('MageWorx_ShoppingList')->active == 'true') echo 'false'; else echo "'".$this->jsQuoteEscape(Mage::helper('icart')->__('Wishlist'))."'"; ?>,
+    compare: '<?php echo $this->jsQuoteEscape(Mage::helper('icart')->__('Compare')) ?>',
+    width: 500, 
+    confirmDeleteCart: '<?php echo $this->jsQuoteEscape(Mage::helper('checkout')->__('Are you sure you would like to remove this item from the shopping cart?')) ?>',
+    confirmDeleteWishlist: '<?php echo $this->jsQuoteEscape(Mage::helper('wishlist')->__('Are you sure you would like to remove this item from the wishlist?')) ?>',
+    confirmDeleteCompare: '<?php echo $this->jsQuoteEscape(Mage::helper('catalog')->__('Are you sure you would like to remove this item from the compare products?')) ?>',
+    confirmClearCompare: '<?php echo $this->jsQuoteEscape(Mage::helper('catalog')->__('Are you sure you would like to remove all products from your comparison?')) ?>'
+});
+<?php if (version_compare(Mage::getVersion(), '1.6.0', '>=') && Mage::helper('catalog')->isMsrpEnabled()) { ?>document.stopObserving('dom:loaded', Catalog.Map.bindProductForm);<?php } ?>
+document.observe('dom:loaded', function(){iCart.updateLinks()});
+try {
+    if (/MSIE (\d+\.\d+);/.test(navigator.userAgent)) { //ie8 fix
+        var ieVersion = new Number(RegExp.$1)
+        if (ieVersion >= 8) {
+            iCart.updateLinks()
+        }
+    }
+} catch (err) {}
+//]]>
+</script>
+<?php } ?>

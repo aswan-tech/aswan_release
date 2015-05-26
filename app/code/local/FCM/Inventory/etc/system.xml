@@ -1,0 +1,201 @@
+<?xml version="1.0"?>
+<config>
+    <tabs>
+        <fcmfulfillment translate="label" module="inventory">
+            <label>FCM Fulfillment</label>
+            <sort_order>280</sort_order>
+        </fcmfulfillment>
+    </tabs>
+    <sections>
+        <inventory translate="label" module="inventory">
+            <label>Inventory Master Cron Setting</label>
+            <tab>fcmfulfillment</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>1000</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <directories translate="label">
+                    <label>Inventory Update Directories</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>6</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <custom_csv_directory_inbound translate="label">
+                            <label>Inbound File Directory</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>8</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Use {{base_path}} to get the base directory path.</comment>
+                        </custom_csv_directory_inbound>
+                        <custom_csv_directory translate="label">
+                            <label>File Directory</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>9</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Use {{base_path}} to get the base directory path.</comment>
+                        </custom_csv_directory>
+                        <custom_csv_archive_directory translate="label">
+                            <label>Archive Directory</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Use {{base_path}} to get the base directory path.</comment>
+                        </custom_csv_archive_directory>
+                        <custom_csv_failure_directory translate="label">
+                            <label>Archive Failure Directory</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>11</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Use {{base_path}} to get the base directory path.</comment>
+                        </custom_csv_failure_directory>
+                    </fields>
+                </directories>				
+                <directories_priceupdate translate="label">
+                    <label>Price Update Directories</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>7</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <custom_csv_directory_inbound translate="label">
+                            <label>Inbound File Directory</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>8</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Use {{base_path}} to get the base directory path.</comment>
+                        </custom_csv_directory_inbound>
+                        <custom_csv_directory translate="label">
+                            <label>File Directory</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>9</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Use {{base_path}} to get the base directory path.</comment>
+                        </custom_csv_directory>
+                        <custom_csv_archive_directory translate="label">
+                            <label>Archive Directory</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Use {{base_path}} to get the base directory path.</comment>
+                        </custom_csv_archive_directory>
+                        <custom_csv_failure_directory translate="label">
+                            <label>Archive Failure Directory</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>11</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Use {{base_path}} to get the base directory path.</comment>
+                        </custom_csv_failure_directory>
+                    </fields>
+                </directories_priceupdate>				
+                <run translate="label">
+                    <label>Manual Import</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>9</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <inventory_now translate="label comment">
+                            <label>Import Inventory Master</label>
+                            <comment>
+								<![CDATA[<span>Run Import Inventory Master cron</span>]]>
+                            </comment>
+                            <frontend_type>Button</frontend_type>
+                            <frontend_model>inventory/adminhtml_system_config_form_field_inventory</frontend_model>
+                            <sort_order>17</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </inventory_now>
+                        <priceupdate_now translate="label comment">
+                            <label>Import Price update Master</label>
+                            <comment>
+								<![CDATA[<span>Run Import Price Master cron</span>]]>
+                            </comment>
+                            <frontend_type>Button</frontend_type>
+                            <frontend_model>inventory/adminhtml_system_config_form_field_priceupdate</frontend_model>
+                            <sort_order>18</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </priceupdate_now>
+                    </fields>
+                </run>
+                <notificationemail translate="label">
+                    <label>Failure Notification Email</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>8</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <notification_email_subject translate="label">
+                            <label>Notification Email Subject</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>8</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </notification_email_subject>
+                        <notification_email translate="label">
+                            <label>Notification Email</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>9</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>e.g. ajesh.prakash@hcl.com</comment>
+                        </notification_email>
+                        <notification_ccemail translate="label">
+                            <label>Notification CC Email</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>e.g. ajesh.prakash@hcl.com</comment>
+                        </notification_ccemail>
+                    </fields>
+                </notificationemail>
+                <date_setting translate="label">
+                    <label>New Arrival Date Settings</label>
+                    <sort_order>10</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <old_after translate="label comment">
+                            <label>Product New Till</label>
+                            <comment>No of Days.</comment>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <frontend_type>text</frontend_type>
+                        </old_after>
+                    </fields>
+                </date_setting>
+            </groups>
+        </inventory>
+    </sections>
+</config>

@@ -1,0 +1,432 @@
+<?php
+function getAddToCartUrl($product, $additional = array()) {
+    if (Mage::helper('icart')->isEnabled()) {
+        return Mage::helper('icart')->getAddUrl($product, $additional);
+    } else {
+        return parent::getAddToCartUrl($product, $additional);
+    }
+}
+?>
+<?php
+$session = Mage::getSingleton('customer/session', array("name" => "frontend"));
+$shortlistedProducts = array();
+$shortlistedProducts = @unserialize($session->getData("shortlistedProducts"));
+$catalogRedirectUrl = str_replace(array("?p=".$_GET['p'], "&p=".$_GET['p']), "", $this->getBaseUrl().ltrim($_SERVER['REQUEST_URI'], '/'));
+Mage::getSingleton('core/session')->setContinueShoppingURL($catalogRedirectUrl);
+?>
+<script type="text/javascript">
+    function shortlistAdd(prod)
+    {
+        jQuery.ajax({
+            url:"<?php echo Mage::getBaseUrl(); ?>shortlist/index/shortlistAdd?prodId="+prod,
+			beforeSend: function() {
+                jQuery('.cart-loader').show();
+            },
+            success:function(result){
+				jQuery('.cart-loader').hide();
+                jQuery("#shortlist_"+prod).html('<img alt="Already Added" title="<?php echo Mage::getStoreConfig('shortlist/productslisting/hoveradded');?>" src="<?php echo $this->getSkinUrl(); ?>/images/swanRatingAdded.png" />');                
+                jQuery("#shortlisted-prods-container").html(result);
+                jQuery("#floater_tab").slideToggle(1000);
+                changeArrow();
+                setTimeout(function(){
+                  jQuery("#floater_tab").slideToggle(1000);
+                  changeArrow();
+                }, 3000);                
+            }
+        });
+    }
+    
+    jQuery(document).ready(function() {
+        //color Options
+        jQuery('.proditem').mouseleave(function(){
+          jQuery('.prod-showimg').fadeOut();
+        });
+
+        jQuery('.proditem').mouseleave(function(){
+          jQuery('.prod-showimg').fadeOut();
+          jQuery('.dpno').css('display','none');
+          jQuery('.QuickViewSection').show();
+          jQuery('.color-op-show li').removeClass('activeswt');
+        });
+
+        jQuery('.productOptionWraper').mouseleave(function(){
+          jQuery('.prod-showimg').fadeOut();
+          jQuery('.dpno').css('display','none');
+          jQuery('.QuickViewSection').show();
+          jQuery('.color-op-show li').removeClass('activeswt');
+        });
+    });
+    
+    function loadProductOptions(prod) {
+	if (screen.width < 1024) {
+		return;
+	}
+        if (jQuery('#OptionsPreloader_' + prod).hasClass('optionPreloader') || jQuery('#ProductOptions_' + prod).hasClass('productOptionsWraper')){
+            if (jQuery('#ProductOptions_' + prod + ' .color-op-show').find('li').length > 1) {
+                jQuery('#ProductOptions_' + prod).show();
+            }
+            return;
+        }
+        jQuery.ajax({
+            url:"<?php echo Mage::getBaseUrl(); ?>catalogproduct/index/product_options/prodId/"+prod,
+            beforeSend: function() {
+                jQuery('#OptionsPreloader_' + prod).addClass('optionPreloader');
+                jQuery('#OptionsPreloader_' + prod).html('<img src="<?php echo $this->getSkinUrl(); ?>images-v3/adj-nav-progress-v1.gif" />');
+                jQuery('#OptionsPreloader_' + prod).show();
+            },
+            success:function(result){
+                jQuery('#OptionsPreloader_' + prod).hide();
+                jQuery('#ProductOptions_' + prod).show();
+                jQuery('#ProductOptions_' + prod).html(result);
+                jQuery('#ProductOptions_' + prod).addClass('productOptionsWraper');
+                jQuery('#ProductOptions_' + prod).find('.pro-color-opts').css('margin-left' , '-60px');
+                jQuery('#ProductOptions_' + prod).find('.pro-color-opts').css('z-index' , '10');
+                
+                jQuery('.prodctOverlay, .proditem').mousemove(function(){
+                    jQuery(this).find('.pro-color-opts').css('margin-left' , '-60px');
+                    jQuery(this).find('.pro-color-opts').css('z-index' , '10');
+                });
+
+                //Quick view fix
+                    jQuery('#div-prodImg-'+prod).bind('hover',function(){
+                         jQuery(this).parent('.ProdImg').siblings('.prodctOverlay').children('.QuickViewSection').show();
+                    });
+
+                //
+                 jQuery('.proditem').mouseleave(function(){
+                    jQuery(this).find('.pro-color-opts').css('margin-left' , '0px');
+                });
+                jQuery('.prodctOverlay, .proditem').mouseleave(function(){
+                    jQuery(this).find('.pro-color-opts').css('z-index' , '3');
+                });
+                jQuery(".color-op-show li").live("mouseover",function(){
+                     jQuery('.swt-act').removeClass('swt-act');
+                     jQuery(this).addClass('swt-act');
+                });	
+		jQuery(".color-op-show ul").mouseleave(function(){
+                     jQuery('.color-op-show ul li').removeClass('swt-act');
+                });
+                jQuery(".productOptionWraper").mouseleave(function(){
+                      jQuery(this).find('.dpno').css('display' , 'none');
+                });
+                
+                if (!jQuery('#div-prodImg-' + prod).is(':hover') || jQuery('#ProductOptions_' + prod + ' .color-op-show').find('li').length < 1) {
+                        jQuery('#ProductOptions_' + prod).hide();
+                }
+            },
+            error: function (request, status, error) {
+                jQuery('#OptionsPreloader_' + prod).removeClass('optionPreloader');
+                
+                jQuery('#OptionsPreloader_' + prod).hide();
+            }
+        });
+    }
+</script>
+<script type="text/javascript">
+    function setMainimage(productid,colorcode){
+        jQuery(".colorswatch-"+productid+" li").each(function(){
+            if(jQuery(this).hasClass("color-swatch-list-"+colorcode)){
+                jQuery(this).css("border","1px #dd3848 solid");
+            }else{
+                jQuery(this).css("border","1px solid white");
+            }
+        });
+
+        var newImageUrl = jQuery(".colorswatch-"+productid+" #swatch-"+colorcode+" a").attr("rel");
+        jQuery("#prodImg-"+productid).attr("src",newImageUrl);
+    }
+</script>
+
+<div class="loader">
+</div>
+<?php
+$_productCollection = $this->getLoadedProductCollection();
+$_helper = $this->helper('catalog/output');
+$flag = 0;
+if (isset($_SERVER['REQUEST_URI'])) {
+    $_tempVar = $_SERVER['REQUEST_URI'];
+    if (strpos($_tempVar, "q=439ed537979d8e831561964dbbbd7413")) {
+        $flag = 1;
+    }
+}
+$listHelper = Mage::helper('catalog');
+
+// get all color as array
+$attribute = Mage::getModel('catalog/product')->getResource()->getAttribute("color");
+foreach ($attribute->getSource()->getAllOptions(false) as $option) {
+    $_colornamearray[$option['value']] = $option['label'];
+}
+?>
+<?php $word = $this->helper('catalogsearch')->getEscapedQueryText(); ?>
+<?php if(!Mage::registry('current_category') && $word == '439ed537979d8e831561964dbbbd7413'): ?>
+		<?php if(isset($_GET['cat'])): ?>
+			<?php $param = $_GET['cat']; ?>
+			<?php $_catName = Mage::getModel('catalog/category')->load($param)->getName(); ?>
+				<?php if(isset($_catName)): ?>
+					<div class="prodCategoryTitle"><?php echo $_catName; ?></div>
+				<?php else: ?>
+					<div class="prodCategoryTitle"></div>
+				<?php endif; ?>
+		<?php endif; ?>
+<?php endif; ?>
+<?php if(!$_productCollection->count()): ?>
+<p class="note-msg"><?php echo $this->__('There are no products matching the selection.') ?></p>
+<?php else: ?>
+<?php echo $this->getToolbarHtml() ?>
+<?php echo $this->getAdditionalHtml() ?>
+<section id="prodPanel">
+<div class="category-products clearfix productGrid ProductsArea" id="cat_products">
+<div class="page_num"></div>
+<input type="hidden" value="<?php echo $_productCollection->getSize() ?>" id="col_count" />
+<?php $_collectionSize = $_productCollection->count() ?>
+<?php $_columnCount = $this->getColumnCount(); ?>
+<ul class="products-grid">
+<?php $i=0; foreach ($_productCollection as $_product): 
+$productSizes = Mage::helper('nosql/product')->getProductAllSizes(array($_product->getId()));
+$product_style = $_product->getStyle();?>
+<?php $reqProductId[] = $_product->getId();?>
+    <?php if ($i++%$_columnCount==0): ?>
+    <?php endif ?>
+        <?php if($flag == 1): ?>
+                <?php $_productUrl = $_product->getProductUrl().'?sale=true'; ?>
+        <?php else: ?>
+                <?php  $_productUrl = $_product->getProductUrl(); ?>
+        <?php endif; ?>
+	<?php 
+	$_productNameStripped = $this->stripTags($_product->getName(), null, true); 
+	$product_category = str_replace(" ", "", strtolower($_product->getAttributeText('product_category')));
+	?>
+        <li class="proditem <?php if (!($i%$_columnCount==0 || $i==$_collectionSize)){ echo 'brdr-right-bottom';} else if(isset($_GET['wth']) && ($_GET['wth']=='768' || $_GET['wth']=='1024')){echo "mbsize";} ?>" name="showsize" rel="<?php echo $_product->getId() ?>">
+        <?php $highlighters = $_product->getAttributeText('highlighters'); ?>
+        
+        <?php if($highlighters == 'new_arrivals') { ?>
+        <div class="i-new-tag pos-a tt-u">I am New</div> 
+        <?php } ?>
+        
+        <?php if($highlighters == 'trend_in') { ?>
+		<div style="display:none;" class="in-trend-tag pos-a tt-u">In Trend</div>
+		<?php } ?>
+		
+		<?php if($highlighters == 'exclusive') { ?>
+		<div class="exclusive-tag pos-a tt-u">exclusive</div>
+		<?php } ?>
+		
+		<?php if($highlighters == 'hot_seller') { ?>
+		<div class="hot-seller-tag pos-a tt-u">hot seller</div>
+		<?php } ?>
+		
+		<?php if($highlighters == 'editors_pick') { ?>
+		<div class="editors-pick-tag pos-a tt-u">editors pick</div>
+		<?php } ?>
+		
+        <?php if($highlighters == 'gsof') { ?>
+		<div class="pos-a tt-u" style="z-index:9999;"><img src="<?php echo $this->getSkinUrl() ?>images-v3/gosf.png"></div>
+		<?php } ?>
+		<?php $currentCatId = (Mage::registry('current_category')) ? Mage::registry('current_category')->getId() : 0;?>		
+        <?php if($currentCatId == '331'){ ?>
+        <div class="redtag-sale">&nbsp;</div>
+        <style>.redtag-sale {background: url("http://static.americanswan.com/Lecom_Magento/media/v2/red-tag-sale.gif") no-repeat scroll 0 0 rgba(0, 0, 0, 0);height: 33px;position: absolute;width: 25px;z-index: 10;}</style>
+        <?php }?>
+        
+		<?php if($_product->isSaleable() != 1): ?>
+        	<div class="Sold0utSection">Sold Out</div>
+		<?php else: ?>        
+        	<div class="prodctOverlay">
+            <div class="itm-sizeInfo">
+				<?php if ($_product->getTypeId() == 'configurable'): ?>
+                <div onclick="location.href='<?php echo $_productUrl ?>';" class="itm-sizeInfo-holder size gtm-track" id="size<?php echo $_product->getId() ?>" style="display:none;">
+                <?php if (isset($productSizes['sizes']) && is_array($productSizes['sizes'])): ?>
+                    <?php foreach($productSizes['sizes'] as $sizes): ?>
+                        <?php foreach($sizes as $size): ?>
+                            <?php echo $size ?>
+                        <?php endforeach; ?>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+                </div>
+                <?php endif; ?>
+            </div>
+            <div class="QuickViewSection gtm-track" id="cat-quick-view" onClick="setLocation('<?php echo $this->getAddToCartUrl($_product);?>')">Quick View</div>
+        </div>
+        <?php endif; ?>
+		<div onmouseover="<?php if ($product_style != ''): ?>
+                    setTimeout(function(){
+                        if (jQuery('#div-prodImg-<?php echo $_product->getId(); ?>').is(':hover')){
+                            loadProductOptions('<?php echo $_product->getId() ?>');
+                        }
+                    }, 1000);<?php endif; ?>" class="ProdImg<?php if($_product->isSaleable() != 1) echo ' soldout-dimmer';?>">
+                            <div class="prodImg gtm-track" id="div-prodImg-<?php echo $_product->getId(); ?>">
+                <a id="imagehighlight" href="<?php echo $_productUrl; 
+                ?>" title="<?php echo 
+                $this->stripTags($this->getImageLabel($_product, 
+                'small_image'), null, true) ?>" class="product-image gtm-track"><img id="prodImg-<?php echo $_product->getEntityId(); ?>" src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(235,250); ?>" width="235" height="250" alt="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" />
+				<?php if($_product->isSaleable() == 1 && $_product->getHoverImage()): ?>
+                <span class="prd-img-sec"><img width="235" alt="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" src="<?php echo $this->helper('catalog/image')->init($_product, 'hover_image')->resize(235,250); ?>"></span>
+                <?php endif; ?>
+                </a>
+               </div>
+
+            <div class="ProdDetail">
+			<p class="ProdDetail">
+				<a href="<?php echo $_productUrl ?>" id="cp-<?php echo trim($product_category); ?>-<?php echo $_product->getId(); ?>" class="gtm-track">
+				<?php $_productname = $_helper->productAttribute($_product, $_product->getName(), 'name'); ?>
+				<?php if(strlen($_productname) > 30): $_productname = substr($_productname,0,30).'...';  endif; ?>
+				<?php echo $_productname; ?>
+				</a>
+			</p>
+            <div class="ProdPrice-new"><?php echo $this->getPriceHtml($_product, true) ?></div>			
+
+            <?php /*WDCA CODE BEGINS*/ ?>
+              <?php if(!Mage::getStoreConfigFlag('advanced/modules_disable_output/TBT_Rewards') && Mage::getConfig()->getModuleConfig('TBT_Rewards')->is('active', 'true')) : ?>
+                <?php $predict_points_block = Mage::getBlockSingleton('rewards/product_predictpoints')?>
+                <?php $predict_points_block->setProduct($_product);?>
+                <?php echo $predict_points_block->toHtml()?>
+                <?php endif; ?>
+            <?php /*WDCA CODE ENDS*/ ?>
+	   </div>
+	 </div>
+     <?php
+     $all_categories = $_product->getCategoryIds();
+     if (in_array("417", $all_categories))
+         echo "<div class='hallmark-logo'></div>";
+    ?>
+
+<?php if ($product_style != '') : ?>
+<!-- Color Options -->
+            <div class="productOptionWraper" id="ProductOptions_<?php echo $_product->getId() ?>">
+                
+            </div>
+            <div style="display: none;" id="OptionsPreloader_<?php echo $_product->getId() ?>"></div>
+<!-- End Color Options --> 
+   <?php endif; ?>
+   </li> 
+    <?php if ($i%$_columnCount==0 || $i==$_collectionSize): ?>
+    <?php /*<div class="clear"></div>*/?>
+    <?php endif ?>
+    <?php endforeach ?>
+    <?php  
+    $asreqProductId = serialize($reqProductId); ?>
+    <div id="size_count-<?php echo Mage::getBlockSingleton('page/html_pager')->getCurrentPage();?>" style="display:none;"><?php echo $asreqProductId ?></div>
+	<script type="text/javascript">
+        var asbasenew = '<?php echo $this->getUrl()?>';
+    </script>
+</ul>
+<script type="text/javascript">decorateGeneric($$('ul.products-grid'), ['odd','even','first','last'])</script>
+</div>
+</section>
+<div class="shwmr">
+    <div class="toolbar-bottom">
+        <a style="display: none; cursor: pointer;" id="view_more_items" class="normal-text viewmore-Btn" onclick=" return adj_nav_page_more_autoload();">View more products <span id="view_more_items_count"></span></a>
+    </div>
+</div>
+
+
+
+<?php endif; ?>
+<?php  $reqProductId = serialize($reqProductId); ?>
+<script type="text/javascript" id="cat">
+var asbase = '<?php echo $this->getUrl()?>';
+/*var obj;var allProduct_id = '<?php echo $reqProductId ?>';
+jQuery(document).ready(function() {jQuery.post(asbase+"nosql/index/size/", { product_id: allProduct_id }, function(data){var json = data; obj = JSON.parse(json);
+jQuery('div#cat_products li').each(function() { var pid=jQuery(this).attr('rel'); 
+var showsize = obj.sizes[pid]; 
+if(showsize == undefined) showsize = "Out of Stock";
+if(jQuery('#size'+pid).html()=="") { 
+jQuery('#size'+pid).html(""+ showsize);
+var tabHtml = jQuery('#size'+pid).html();
+jQuery('#size'+pid).html(tabHtml.replace(/,/g , ''));
+ } });});});*/
+ 
+jQuery(document).on('hover', 'li.proditem', function(e) {jQuery(this).find('div.size').show(); });
+jQuery(document).on('mouseleave', 'li.proditem', function(e) {jQuery(this).find('div.size').hide();});
+jQuery.noConflict();
+jQuery("#products-list li a").hover(
+	 function () {
+   jQuery(this).children().css("border","solid 1px #CCCCCC"); 
+  },
+  function () {
+  jQuery(this).children().css("border","0");
+  }
+);
+jQuery(function(){jQuery("input[type=checkbox]").uniform();});
+
+jQuery(document).ready(function(){
+	if(jQuery("#catimage").length == 0){
+		jQuery(".rightPanel").css("background","none repeat scroll 0% 0% transparent");
+	}
+});
+jQuery(".catalogue .rightPanel img.lazy").lazyload({
+	effect:"fadeIn"
+});
+
+jQuery(document).ready(function() {
+        /*jQuery('.product-image').mouseenter(function(){
+                jQuery(this).find('.prd-img-sec').fadeIn(100);
+        }),
+        jQuery('.product-image').mouseleave(function(){
+                jQuery(this).find('.prd-img-sec').fadeOut(100);
+        });*/
+        jQuery('.product-image').live('mouseenter',function(){
+                jQuery(this).find('.prd-img-sec').fadeIn(100);
+                //new line added for quick view fix
+                jQuery(this).parent('.prodImg').parent('.ProdImg').siblings('.prodctOverlay').children('.QuickViewSection').show();
+
+        }),
+        jQuery('.product-image').live('mouseleave',function(){
+                jQuery(this).find('.prd-img-sec').fadeOut(100);
+        });
+});
+</script>
+<input type="hidden" id="window_height" value="0">
+<script type="text/javascript">
+jQuery(function(){
+    jQuery('.m-filter-item-list li').on('click',function(){
+        jQuery('.loader').show();
+
+    });
+ jQuery(window).resize(function(){
+   var width = jQuery(window).width();
+   if(width == 768 || width == 1024){
+       jQuery('.products-grid > li').addClass('mbsize');
+   }
+   else{
+       jQuery('.products-grid > li').removeClass('mbsize');
+   }
+})
+.resize();//trigger the resize event on page load.
+});
+// opera mini changes : start
+jQuery(document).ready(function() {
+    if (navigator.userAgent.indexOf('Opera Mini') > -1){
+        jQuery('.toolbar > .pagelist').css({
+            'display':'block',
+            'float':'none',
+            'clear':'both'
+        });
+        jQuery('.toolbar').css({
+            'margin-top':'30px',
+            'text-align':'center',
+            'height':'11px'
+        });
+        jQuery('.pagelist > .num').css({
+            'width':'100%'
+        });
+        jQuery('.pagelist > .num li').css({
+            'float':'none',
+            'display':'inline-block',
+            'font-size':'15px'
+        });
+        jQuery('#prodPanel').css({
+            'float':'none',
+            'clear':'both'
+        });
+        if(jQuery(window).width() < 920)
+        {
+             jQuery('.toolbar').css({
+                'margin-top':'60px'
+             });
+        }
+
+    }  
+});
+// opera mini changes : end
+</script>

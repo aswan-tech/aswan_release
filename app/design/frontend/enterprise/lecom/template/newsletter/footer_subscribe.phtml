@@ -1,0 +1,23 @@
+	 <form action="<?php echo $this->getBaseUrl() ?>newsletter/subscriber/new/" method="post" id="newsletter-validate-detail">
+              <div class="emailsnup-cont fl mr25">
+                <div class="fl"><img src="<?php echo $this->getSkinUrl('images-v3/sinup-emialer.jpg') ?>" width="205" height="182" border="0"></div>
+                <div class="flove-wrap fl ml5 mt40">
+                  <p class="fs18 c-032 tt-u">Fashion Love</p>
+                  <span class="c-pantone fs12">Be the first to hear about new arrivals, invitation-only sales and
+                  special events. Plus, receive a special offer just for joining us!</span>
+                  <div class="tt-u c-pantone fs15 mt5">Email Sign Up</div>                  
+                  <input name="email" type="text" id="newsletter" value="<?php echo $this->__('Your Email') ?>" size="34" onclick="this.value=='<?php echo $this->__('Your Email') ?>'?this.value='':''" onblur="this.value==''?this.value='<?php echo $this->__('Your Email') ?>':''" class="required-entry validate-email fl mt5 c-999 tt-u"  />                  			
+					<a href="javascript:void(0)" id="email-sign-up-men" class="tt-u bgc-red c-fff fl mt5 fs13 mr5 gtm-track" onclick="emailSignup(1, '<?php echo $this->getBaseUrl() ?>newsletter/subscriber/newbyajax');">Men</a> <a href="javascript:void(0)" class="tt-u bgc-purp c-fff fl mt5 fs13 gtm-track" id="email-sign-up-women" onclick="emailSignup(2, '<?php echo $this->getBaseUrl() ?>newsletter/subscriber/newbyajax');">Women</a>
+					<div id="loader-image" style="display:none;"><img src="<?php echo $this->getSkinUrl('images/ajax-loader.gif') ?>"></div>
+					<?php /*<a href="javascript:void(0)" onclick="newsletterSubscriberFormDetail.submit();" class="mt5 fl gobtn "></a>*/?> 
+              </div>
+              <div id="subscription-response" style="display:none;" class="c-032"></div>
+            </div>
+	</form>
+<?php /*
+<script type="text/javascript">
+    //<![CDATA[
+    var newsletterSubscriberFormDetail = new VarienForm('newsletter-validate-detail', true);
+    //]]>
+</script>
+*/?>

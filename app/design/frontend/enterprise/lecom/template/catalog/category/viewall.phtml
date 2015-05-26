@@ -1,0 +1,12 @@
+<?php 
+$layer = Mage::getSingleton('catalog/layer');
+$_category = $layer->getCurrentCategory();
+$currentUrl= $_category->getUrl();
+?>
+<div class="block block-list">
+    <div class="block-content">
+            <p class="empty">
+			   <a href="<?php echo $currentUrl."?limit=all" ?>">View all Products</a>
+			</p>
+    </div>
+</div>

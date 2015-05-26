@@ -1,0 +1,47 @@
+<?php
+    $collection = $this->weekarchivedPosts();
+    $page = $collection->getCurPage();
+	
+	//print $collection->getSelect();
+?>
+
+<div class="pagi"><span><a href="<?php echo Mage::getUrl('gallery'); ?>"><?php echo Mage::helper('gallery')->__('Home'); ?></a></span><span> <a href="<?php echo $this->getBaseUrl().'gallery/week';?>">Look of the Week</a></span> Archive</div>
+<div align="center" class="Look_week">
+    <img alt="" width="250" height="37" src="<?php echo $this->getSkinUrl('images/trends/look_of_week.jpg') ?>">
+</div>
+<div class="clearfloat"></div>
+
+<div class="archive_month"><?php echo $this->getArchiveMonthYear(); ?></div>
+<div class="container">
+	<?php
+		if(!$collection->getSize()){
+			print 'No record found.';
+		}else{
+	?>
+		<div class="navleft">
+			<?php echo $this->getBackPagerHtml(); ?>
+		</div>
+		
+		<div id="look_archive">
+			<?php
+				foreach($collection as $item) {
+					$thumbUrl	=	Mage::helper('gallery')->getArchiveThumbUrl($item->getFilename(), 'week');
+			?>
+				<div class="imgwrap">
+					<a href="<?php echo $this->getViewUrl($item->getId()); ?>"><img src="<?php echo $thumbUrl ?>" width="144" height="193" /></a>
+					<h3><?php echo date("F jS, Y", strtotime($item->getCreatedTime())); ?></h3>
+				</div>
+			<?php } ?>
+		</div>
+		
+		<div class="navright">
+			<?php echo $this->getFwdPagerHtml(); ?>
+		</div>
+		
+		<div class="clearfloat"></div>
+		
+		<div class="pageBotm">
+			<?php echo $this->getPagerHtml(); ?>
+		</div>
+	<?php } ?>
+</div>

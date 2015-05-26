@@ -1,0 +1,178 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * FCM Fulfillment Module 
+ *
+ * Module for order feed generation.
+ * The feeds include Orders feed, Order feed acknowledgement, Order confirmation, Order Shipment.
+ *
+ * @category    FCM
+ * @package     FCM_Fulfillment
+ * @author	Pawan Prakash Gupta
+ * @author_id	51405591
+ * @company	HCL Technologies
+ * @created Monday, June 4, 2012
+ * @copyright	Four cross media
+ */
+-->
+<config>
+    <modules>
+        <FCM_Fulfillment>
+            <version>0.1.0</version>
+        </FCM_Fulfillment>
+    </modules> 
+    <global>
+        <models>
+            <fulfillment>
+                <class>FCM_Fulfillment_Model</class>
+            </fulfillment>
+			<sales>
+				<rewrite>
+					<order>FCM_Fulfillment_Model_Orderoverride</order>
+				</rewrite>
+			</sales>
+			<sales>
+				<rewrite>
+					<order_payment>FCM_Fulfillment_Model_Salespayment</order_payment>
+				</rewrite>
+			</sales>			
+			<directory_resource>
+				<rewrite>
+					<country_collection>FCM_Fulfillment_Model_Resource_Country_Collection</country_collection>
+				</rewrite>
+			</directory_resource>
+			<core>
+				<rewrite>
+					<design_package>FCM_Fulfillment_Model_Design_Package</design_package>
+				</rewrite>
+			</core>			
+        </models>
+        <blocks>
+            <fulfillment>
+                <class>FCM_Fulfillment_Block</class>
+            </fulfillment>
+			<adminhtml>
+				<rewrite>
+					<sales_order_grid>FCM_Fulfillment_Block_Adminhtml_Sales_Order_Grid</sales_order_grid>
+				</rewrite>
+			</adminhtml>
+			<customer>
+				<rewrite>
+					<address_edit>FCM_Fulfillment_Block_Address_Edit</address_edit>
+				</rewrite>
+			</customer>
+			<googleanalytics>
+				<rewrite>
+					<ga>FCM_Fulfillment_Block_GoogleAnalytics_Ga</ga>
+				</rewrite>
+			</googleanalytics>
+        </blocks>
+		<helpers>
+            <fulfillment>
+                <class>FCM_Fulfillment_Helper</class>
+            </fulfillment>
+        </helpers>
+		<resources>
+			<fulfillment_setup>
+				<setup>
+					<module>FCM_Fulfillment</module>
+					<class>FCM_Fulfillment_Model_Mysql4_Setup</class>
+				</setup>
+			</fulfillment_setup>
+		</resources>
+		<locale>
+			<allow>
+				<codes><en_IN /></codes>
+			</allow>
+		</locale>
+		<events>
+			<order_cancel_after>
+				<observers>
+					<fcm_order_cancel_observer>
+						<type>singleton</type>
+						<class>fulfillment/observer</class>
+						<method>sendOrderCancelMail</method>
+					</fcm_order_cancel_observer>
+				</observers>
+			</order_cancel_after>
+			<sales_order_place_before>
+				<observers>
+					<fcm_shipping_provider_save_observer>
+						<type>singleton</type>
+						<class>fulfillment/observer</class>
+						<method>saveShippingProvider</method>
+					</fcm_shipping_provider_save_observer>
+				</observers>
+			</sales_order_place_before>
+			<sales_order_place_after>
+                <observers>
+                    <fcm_order_getit_conversion>
+                        <type>singleton</type>
+						<class>fulfillment/observer</class>
+                        <method>trackGetItConversion</method>
+                    </fcm_order_getit_conversion>
+                </observers>
+            </sales_order_place_after>
+		</events>
+    </global>
+	<admin>
+        <routers>
+			<fulfillment>
+				<use>admin</use>
+				<args>
+					<module>FCM_Fulfillment</module>
+					<frontName>fulfillment</frontName>
+				</args>
+			</fulfillment>
+			<adminhtml>
+                <args>
+                    <modules>
+                        <FCM_Fulfillment_Adminhtml before="Mage_Adminhtml">FCM_Fulfillment_Adminhtml</FCM_Fulfillment_Adminhtml>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+	<adminhtml>
+		<acl>
+			<resources>
+				<admin>
+					<children>
+						<system>
+							<children>
+							  <config>
+								<children>
+								  <fulfillment translate="title">
+									<title>SFTP Details</title>
+									<sort_order>10</sort_order>
+								  </fulfillment>
+								  <orders translate="title">
+									<title>Order Settings</title>
+									<sort_order>20</sort_order>
+								  </orders>
+								<promotion translate="title">
+									<title>promotion Settings</title>
+									<sort_order>100</sort_order>
+								</promotion>
+								<getitconversion translate="title">
+									<title>GetIt Tracking</title>
+									<sort_order>100</sort_order>
+								</getitconversion>
+								</children>
+							  </config>
+							</children>
+						  </system>
+					</children>
+				</admin>
+			</resources>
+		</acl>	
+	</adminhtml>
+	<default>
+		<fulfillment>
+			<sftp>
+				<port>22</port>
+				<timeout>90</timeout>
+			</sftp>
+		</fulfillment>
+	</default>
+</config>

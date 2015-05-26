@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <categoryslider_adminhtml_categoryslider_index>
+        <reference name="content">
+            <block type="categoryslider/adminhtml_categoryslider" name="categoryslider" />
+        </reference>
+    </categoryslider_adminhtml_categoryslider_index>
+</layout>

@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <logger_adminhtml_logger_index>
+        <reference name="content">
+            <block type="logger/adminhtml_logger" name="logger" />
+        </reference>
+    </logger_adminhtml_logger_index>
+	<logger_adminhtml_cron_index>
+        <reference name="content">
+            <block type="logger/adminhtml_cron" name="cron" />
+        </reference>
+    </logger_adminhtml_cron_index>
+</layout>

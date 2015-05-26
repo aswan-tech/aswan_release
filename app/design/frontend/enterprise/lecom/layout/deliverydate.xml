@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+
+<layout version="0.1.0">
+
+<checkout_onepage_index>
+	<reference name="head">	
+		<action method="addItem"><type>js_css</type><name>calendar/calendar-win2k-1.css</name><params/><!--<if/><condition>can_load_calendar_js</condition>--></action>
+		<action method="addItem"><type>js</type><name>calendar/calendar.js</name><!--<params/><if/><condition>can_load_calendar_js</condition>--></action>
+		<action method="addItem"><type>js</type><name>calendar/calendar-setup.js</name><!--<params/><if/><condition>can_load_calendar_js</condition>--></action>	
+	</reference>
+	
+	<block name="checkout.onepage.shipping_method">
+		<block type="core/template" name="checkout.onepage.shipping_method.deliverydate" as="deliverydate" template="deliverydate/onepage/deliverydate.phtml"/>
+	</block>
+</checkout_onepage_index>
+
+<checkout_onepage_shippingmethod>
+	<block type="core/html_calendar" name="head.calendar" as="calendar" output="toHtml" template="deliverydate/js/calendar.phtml"/>
+</checkout_onepage_shippingmethod>
+
+</layout>

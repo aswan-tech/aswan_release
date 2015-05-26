@@ -1,0 +1,481 @@
+<?xml version="1.0"?>
+<config>
+    <tabs>
+        <trends translate="label">
+            <label>Trends</label>
+            <sort_order>300</sort_order>
+        </trends>
+    </tabs>
+    <sections>
+        <gallery translate="label" module="gallery">
+            <label>Trends</label>
+            <tab>trends</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>110</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <trendsettings translate="label">
+                    <label>Trends Settings</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>10</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <backgroundimage translate="label">
+                            <label>CMS Static Block Identifier</label>
+                            <frontend_type>text</frontend_type>
+                            <comment><![CDATA[Background Image CMS Static Block Identifier]]>
+                            </comment>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </backgroundimage>
+                        <imagewidth translate="label">
+                            <label>Image Width</label>
+                            <frontend_type>text</frontend_type>
+                            <comment><![CDATA[Width of main image]]>
+                            </comment>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </imagewidth>
+                        <imageheight translate="label">
+                            <label>Image Height</label>
+                            <frontend_type>text</frontend_type>
+                            <comment><![CDATA[Height of main image]]>
+                            </comment>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </imageheight>
+                        <archivethumbwidth translate="label">
+                            <label>Thumbnail Image Width</label>
+                            <frontend_type>text</frontend_type>
+                            <comment><![CDATA[Width of archive & search thubmail image]]>
+                            </comment>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </archivethumbwidth>
+                        <archivethumbheight translate="label">
+                            <label>Thumbnail Image Height</label>
+                            <frontend_type>text</frontend_type>
+                            <comment><![CDATA[Height of archive & search thubmail image]]>
+                            </comment>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </archivethumbheight>
+                        <looksperpage translate="label">
+                            <label>Looks Per Page</label>
+                            <frontend_type>text</frontend_type>
+                            <comment><![CDATA[Trends to show per page in archive/search]]>
+                            </comment>
+                            <sort_order>60</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </looksperpage>
+                    </fields>
+                </trendsettings>
+                <lookoftheday translate="label">
+                    <label>Look of the day Settings</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>20</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <imagewidth translate="label">
+                            <label>Image Width</label>
+                            <frontend_type>text</frontend_type>
+                            <comment><![CDATA[Width of main image]]>
+                            </comment>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </imagewidth>
+                        <imageheight translate="label">
+                            <label>Image Height</label>
+                            <frontend_type>text</frontend_type>
+                            <comment><![CDATA[Height of main image]]>
+                            </comment>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </imageheight>
+                        <archivethumbwidth translate="label">
+                            <label>Thumbnail Image Width</label>
+                            <frontend_type>text</frontend_type>
+                            <comment><![CDATA[Width of archive & search thubmail image]]>
+                            </comment>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </archivethumbwidth>
+                        <archivethumbheight translate="label">
+                            <label>Thumbnail Image Height</label>
+                            <frontend_type>text</frontend_type>
+                            <comment><![CDATA[Height of archive & search thubmail image]]>
+                            </comment>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </archivethumbheight>
+                        <looksperpage translate="label">
+                            <label>Looks Per Page</label>
+                            <frontend_type>text</frontend_type>
+                            <comment><![CDATA[Looks to show per page in archive/search]]>
+                            </comment>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </looksperpage>
+                        <banner translate="label">
+                            <label>Static Block Identifier - Positon 1</label>
+                            <comment><![CDATA[Static Block Identifier to display the banner.]]>
+                            </comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>60</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </banner>
+                        <twitter translate="label">
+                            <label>Static Block Identifier - Positon 2</label>
+                            <comment><![CDATA[Static Block Identifier to display the twitter box.]]>
+                            </comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>70</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </twitter>
+                        <facebook translate="label">
+                            <label>Static Block Identifier - Positon 3</label>
+                            <comment><![CDATA[Static Block Identifier to display the facebook like box.]]>
+                            </comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>80</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </facebook>
+                        <highlightsperweek translate="label">
+                            <label>Highlights Per Week</label>
+                            <frontend_type>text</frontend_type>
+                            <comment><![CDATA[Highlights to show per Week in slider]]>
+                            </comment>
+                            <sort_order>90</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </highlightsperweek>
+                    </fields>
+                </lookoftheday>
+                <lookoftheweek translate="label">
+                    <label>Look of the week Settings</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>30</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <imagewidth translate="label">
+                            <label>Image Width</label>
+                            <frontend_type>text</frontend_type>
+                            <comment><![CDATA[Width of main image]]>
+                            </comment>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </imagewidth>
+                        <imageheight translate="label">
+                            <label>Image Height</label>
+                            <frontend_type>text</frontend_type>
+                            <comment><![CDATA[Height of main image]]>
+                            </comment>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </imageheight>
+                        <archivethumbwidth translate="label">
+                            <label>Thumbnail Image Width</label>
+                            <frontend_type>text</frontend_type>
+                            <comment><![CDATA[Width of archive thubmail & search image]]>
+                            </comment>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </archivethumbwidth>
+                        <archivethumbheight translate="label">
+                            <label>Thumbnail Image Height</label>
+                            <frontend_type>text</frontend_type>
+                            <comment><![CDATA[Height of archive & search thubmail image]]>
+                            </comment>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </archivethumbheight>
+                        <looksperpage translate="label">
+                            <label>Looks Per Page</label>
+                            <frontend_type>text</frontend_type>
+                            <comment><![CDATA[Looks to show per page in archive/search]]>
+                            </comment>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </looksperpage>
+                        <banner translate="label">
+                            <label>Static Block Identifier - Positon 1</label>
+                            <comment><![CDATA[Static Block Identifier to display the banner.]]>
+                            </comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>60</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </banner>
+                        <twitter translate="label">
+                            <label>Static Block Identifier - Positon 2</label>
+                            <comment><![CDATA[Static Block Identifier to display the twitter box.]]>
+                            </comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>70</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </twitter>
+                        <facebook translate="label">
+                            <label>Static Block Identifier - Positon 3</label>
+                            <comment><![CDATA[Static Block Identifier to display the facebook like box.]]>
+                            </comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>80</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </facebook>
+                        <highlightsperweek translate="label">
+                            <label>Highlights Per Week</label>
+                            <frontend_type>text</frontend_type>
+                            <comment><![CDATA[Highlights to show per Week in slider]]>
+                            </comment>
+                            <sort_order>90</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </highlightsperweek>
+                    </fields>
+                </lookoftheweek>
+                <weekcomments translate="label">
+                    <label>Look of the week comments section</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>40</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <enabled translate="label">
+                            <label>Enable Comments</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>24</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </enabled>
+                        <login translate="label">
+                            <label>Login Required to Comment</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>25</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </login>
+                        <approval translate="label">
+                            <label>Auto Approve Comments</label>
+                            <comment>All comments will appear immediately without the need for approval by admin.</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>26</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </approval>
+                        <loginauto translate="label">
+                            <label>Logged in Auto Approve Comments</label>
+                            <comment>Only comments made by users that are logged in will automaticlly be approved.</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </loginauto>
+                        <recipient_email translate="label">
+                            <label>Send Emails To</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </recipient_email>
+                        <sender_email_identity translate="label">
+                            <label>Email Sender</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_email_identity</source_model>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </sender_email_identity>
+                        <email_template translate="label">
+                            <label>Email Template</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_email_template</source_model>
+                            <sort_order>60</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </email_template>
+
+                        <email_comment_approve_notify translate="label">
+                            <label>Comment Approved Template</label>
+                            <comment>Mail template to send comment approval notification to the users.</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_email_template</source_model>
+                            <sort_order>65</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </email_comment_approve_notify>
+
+                        <page_count>
+                            <label>Comments per page</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>70</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </page_count>
+                    </fields>
+                </weekcomments>
+
+                <daycomments translate="label">
+                    <label>Look of the day comments section</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>40</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <enabled translate="label">
+                            <label>Enable Comments</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>24</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </enabled>
+                        <login translate="label">
+                            <label>Login Required to Comment</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>25</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </login>
+                        <approval translate="label">
+                            <label>Auto Approve Comments</label>
+                            <comment>All comments will appear immediately without the need for approval by admin.</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>26</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </approval>
+                        <loginauto translate="label">
+                            <label>Logged in Auto Approve Comments</label>
+                            <comment>Only comments made by users that are logged in will automaticlly be approved.</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </loginauto>
+                        <recipient_email translate="label">
+                            <label>Send Emails To</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </recipient_email>
+                        <sender_email_identity translate="label">
+                            <label>Email Sender</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_email_identity</source_model>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </sender_email_identity>
+                        <email_template translate="label">
+                            <label>Email Template</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_email_template</source_model>
+                            <sort_order>60</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </email_template>
+
+                        <email_comment_approve_notify translate="label">
+                            <label>Comment Approved Template</label>
+                            <comment>Mail template to send comment approval notification to the users.</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_email_template</source_model>
+                            <sort_order>65</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </email_comment_approve_notify>
+
+                        <page_count>
+                            <label>Comments per page</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>70</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </page_count>
+                    </fields>
+                </daycomments>
+            </groups>
+        </gallery>
+    </sections>
+</config>

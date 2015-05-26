@@ -1,0 +1,64 @@
+<div id="error_message"></div>
+<?php $gmail_contacts = $this->gmail(); ?>
+<div class="page_title p30">Select Contacts to Send Invite:</div>
+<?php if(!empty ($gmail_contacts)){ ?>
+<form action="<?php echo $this->getUrl('*/*/sendGmail') ?>" method="post" onsubmit="return validateForm()">
+<div class="addrssBook">    
+    <?php foreach ($gmail_contacts as $email => $name) { ?>
+    <span><input type="checkbox" name="gmail_contact[<?php echo $name; ?>]" value="<?php echo $email; ?>" class="social-contact" />
+        <label><?php echo $name; ?></label>
+    </span>
+    <?php } ?>
+</div>
+
+<div class="messageBox">
+    
+    <h3>Select Message:</h3>
+    <select name="gmail_message_select" class="select" onchange="javascript:changeMessage(this);" style="width:250px;">
+        <option value="1"><?php echo $this->limit_words(Mage::getStoreConfig('socialapi/gmail/invitemsg_1'), 10); ?></option>
+        <option value="2"><?php echo $this->limit_words(Mage::getStoreConfig('socialapi/gmail/invitemsg_2'), 10); ?></option>
+        <option value="3"><?php echo $this->limit_words(Mage::getStoreConfig('socialapi/gmail/invitemsg_3'), 10); ?></option>
+        <option value="4"><?php echo $this->limit_words(Mage::getStoreConfig('socialapi/gmail/invitemsg_4'), 10); ?></option>
+        <option value="5"><?php echo $this->limit_words(Mage::getStoreConfig('socialapi/gmail/invitemsg_5'), 10); ?></option>
+    </select>
+
+    <input type="hidden" name="invitemsg_1" value="<?php echo Mage::getStoreConfig('socialapi/gmail/invitemsg_1'); ?>" id="invitemsg_1" />
+    <input type="hidden" name="invitemsg_2" value="<?php echo Mage::getStoreConfig('socialapi/gmail/invitemsg_2'); ?>" id="invitemsg_2" />
+    <input type="hidden" name="invitemsg_3" value="<?php echo Mage::getStoreConfig('socialapi/gmail/invitemsg_3'); ?>" id="invitemsg_3" />
+    <input type="hidden" name="invitemsg_4" value="<?php echo Mage::getStoreConfig('socialapi/gmail/invitemsg_4'); ?>" id="invitemsg_4" />
+    <input type="hidden" name="invitemsg_5" value="<?php echo Mage::getStoreConfig('socialapi/gmail/invitemsg_5'); ?>" id="invitemsg_5" />
+    
+    <h3>Message:</h3>
+    <textarea name="gmail_message" readonly="true" cols="" rows="" id="gmail_message" ><?php echo Mage::getStoreConfig('socialapi/gmail/invitemsg_1'); ?></textarea>
+    <br clear="all"/>
+    <button type="submit" title="<?php echo $this->__('Send Invite') ?>" class="button invitesend"><?php echo $this->__('Send Invite') ?></button>
+</div>
+</form>
+<?php }else{ ?>
+<p class="error-msg">No contacts found</p>
+<?php } ?>
+<script type="text/javascript">
+    function validateForm(){
+        
+        var allChecked = true;
+        var length = jQuery("input.social-contact:checked").length;
+        if(length <= 0){
+            allChecked = false;
+            jQuery("#error_message").html('<p class="error-msg">Please select a contact to send invite to.</p>');
+        }
+
+        return allChecked;
+    }
+    function changeMessage(myselect){
+        var selectval = jQuery(myselect).val();
+        var message = jQuery("#invitemsg_"+selectval).val();
+        jQuery("#gmail_message").html(message);
+    }
+
+    jQuery(document).ready(function(){
+        jQuery(function(){jQuery("select").uniform();});
+    });
+</script>
+<style type="text/css">
+    div.selector span { width: 210px; }
+</style>

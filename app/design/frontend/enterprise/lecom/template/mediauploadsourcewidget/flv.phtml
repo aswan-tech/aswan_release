@@ -1,0 +1,20 @@
+<?php
+/**
+ * Magento
+ *
+ *  
+ *
+ * @package     EM_MediaUploadSourceWidget
+ * @copyright   Copyright (c) 2009 Quick Solution LT
+ * 
+ */
+?>
+<?php $string = str_replace("index.php","",$this->getBaseUrl());?>
+<?php $str= str_replace("index.php","",$this->getBaseUrl());?>
+<?php $srcString = $str."skin/frontend/base/default/media/OSplayer"?>
+<script type="text/javascript" language='javascript' src="<?php echo $string.'js/media/AC_RunActiveContent.js';?>"></script>
+<div id="<?php echo $id; ?>" class="<?php echo $class; ?>" <?php echo $attrs; ?>>
+<script language='javascript'>
+ AC_FL_RunContent('codebase', 'http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=9,0,0,0', 'width', '<?php echo $width;?>', 'height', '<?php echo $height;?>', 'src', ((!DetectFlashVer(9, 0, 0) && DetectFlashVer(8, 0, 0)) ? 'OSplayer' : 'OSplayer'), 'pluginspage', 'http://www.macromedia.com/go/getflashplayer', 'id', 'flvPlayer', 'allowFullScreen', 'true', 'allowScriptAccess', 'always', 'movie', '<?php echo $srcString;?>', 'FlashVars', 'movie=<?php echo $media;?>&btncolor=0x333333&accentcolor=0x31b8e9&txtcolor=0xdddddd&volume=30&autoload=on&autoplay=off&vTitle=Super Mario Brothers Lego Edition&showTitle=yes');
+</script> 
+</div>

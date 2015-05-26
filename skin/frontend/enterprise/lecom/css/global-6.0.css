@@ -1,0 +1,45 @@
+.WebRupee{font-family: 'Rupee Foradian' !important;}
+
+/* Mega menu CSS */
+.megamenu{display: none;left: 0;top: 0;background: #f4f4f4;z-index: 89 !important;height: auto; width:980px ; position:absolute;}
+.megamenu .column{float: left;width: 180px;margin-right: 5px;}
+.megamenu .column ul{margin: 0;padding: 0;list-style-type: none;}
+.megamenu .column ul li{padding-bottom: 5px;}
+.megamenu .column h3{background: #e0e0e0;font: bold 13px Arial;margin: 0 0 5px 0;}
+.megamenu .column ul li a{text-decoration: none;}
+.megamenu .column ul li a:hover{color:#1e0f46;}
+.Safari .megamenu{ margin-left:-0.9px;}
+
+/*=======GLOBAL FONT STYLE BEGINS HERE=========*/
+.slider_overlay .block1 .blue {font-size:20px; font-weight:bold;font-family: 'LatoRegular'; padding:9px 10px 8px;}
+.topnavigation li a {font-family: 'LatoRegular'; font-size:13px; padding:9px 12px 9px 13px;}
+#cat_top .menu_head {font-family: 'LatoRegular'; font-size:22px; width:175px;}
+.footer_search .blue, .fblock h3, .fblock3 h3, .fblock4 h3 {
+	font-family: 'LatoRegular'; color:#1e0f46;
+}
+.menu_head_blue {font-family: 'LatoRegular'; font-size:27px;}
+.top_links, .afterlinks, links, ul.links li.last, ul.links li.first, ul.links li.checkout {font-family:'avenir_lt_std_45_bookregular'; font-size:12px; font-weight:bold;}
+.header-panel .links { font-family: 'LatoRegular'; font-size: 12px;}
+.header-panel .phone {font-family: 'LatoRegular'; letter-spacing:1px; font-size:16px;}
+
+
+.page_title {font-size:32px;font-family: 'LatoRegular'; letter-spacing:0px;}
+.rightPanel h2.addressTitle, .rightPanel h2.title, .myaccount h2 {font-size:20px;font-family: 'LatoRegular'; letter-spacing:0px;}
+.shipping_add h3, .biling_add h3 {font-size:20px; line-height:28px;font-family: 'LatoRegular'; letter-spacing:0px;}
+#itemdetails .itempanel h3, #itemdetails .itemleftpanel h3 {font-size:20px;font-family: 'LatoRegular';}
+.catalog-product-view .itemleftpanel .catwalk {font-size:15px;font-family: 'LatoRegular';}
+#itemdetails .itemProduct h1 {font-size:28px; font-weight:bold;font-family: 'LatoRegular'; letter-spacing:0px;}
+#itemdetails .itemrightpanel h3, #itemdetails .itemSize .head {font-size:18px;font-family: 'LatoRegular';}
+#signIn h2 {position:relative; z-index:1; white-space:nowrap;font-family: 'LatoRegular';}
+#signIn2 h2 {position:relative; z-index:1; white-space:nowrap;font-family: 'LatoRegular';}
+.panel_title {font-size:20px;font-family: 'LatoRegular'; letter-spacing:0px;}
+.mainbody button.form-button-alt {width:150px;} 
+
+.myaccount h1.title {font-size:28px;font-family: 'LatoRegular'; letter-spacing:0px; text-transform: capitalize;}
+.pageRegister div.selector select, .pageRegister div.selector span {font:11px Verdana,Geneva,sans-serif; line-height:31px; text-transform: capitalize;}
+.sales-order-view .order_info h3.title {font-family: 'LatoRegular'; letter-spacing:0px;}
+#cart .shopping_list .update_bag .btn-update {width:210px; background-position:93% 9px;}
+.onestepcheckout-index-index p.onestepcheckout-numbers {font-size:14px; font-weight:bold;font-family: 'LatoRegular'; color:#1e0f46;}
+.onestepcheckout-giftcards {margin-top:10px;}
+.trends_main button, .trends_link {font-size:20px; font-family: 'LatoRegular';}
+.view .maskhead {font-size:24px; font-weight:bold;font-family: 'LatoRegular'; line-height:30px;}

@@ -1,0 +1,91 @@
+"Using the form below you can enable, disable and configure display of the rule in customers' account","Using the form below you can enable, disable and configure display of the rule in customers' account"
+"Display the rule in customers' account","Display the rule in customers' account"
+Yes,Yes
+No,No
+"Display the coupon code in customers' account (if applicable)","Display the coupon code in customers' account (if applicable)"
+"Please describe the rule conditions","Please describe the rule conditions"
+"Update prices using the following information","Update prices using the following information"
+Apply,Apply
+"Percent of product price discount","Percent of product price discount"
+"Fixed amount discount","Fixed amount discount"
+"Percent of product price surcharge","Percent of product price surcharge"
+"Fixed amount surcharge","Fixed amount surcharge"
+"Fixed amount discount for whole cart","Fixed amount discount for whole cart"
+"Fixed amount surcharge for whole cart","Fixed amount surcharge for whole cart"
+"Buy X get Y free (discount amount is Y)","Buy X get Y free (discount amount is Y)"
+"Discount/Surcharge amount","Discount/Surcharge amount"
+"Maximum Qty Discount is Applied to","Maximum Qty Discount is Applied to"
+"Discount Qty Step (Buy X)","Discount Qty Step (Buy X)"
+"Free shipping","Free shipping"
+"For matching items only","For matching items only"
+"For shipment with matching items","For shipment with matching items"
+"Stop further rules processing","Stop further rules processing"
+"Apply the rule only to cart items matching the following conditions (leave blank for all items)","Apply the rule only to cart items matching the following conditions (leave blank for all items)"
+"Apply to","Apply to"
+"Rule Information","Rule Information"
+Conditions,Conditions
+Actions,Actions
+"Display Options","Display Options"
+Period,Period
+Total,Total
+Subtotal,Subtotal
+"Coupon Code","Coupon Code"
+"Number of Uses","Number of Uses"
+"Subtotal Amount","Subtotal Amount"
+"Discount(+)/Surcharge(-) Amount","Discount(+)/Surcharge(-) Amount"
+"Total Amount","Total Amount"
+"Number of Use","Number of Use"
+CSV,CSV
+Excel,Excel
+"Number of Orders","Number of Orders"
+"Items Ordered","Items Ordered"
+Tax,Tax
+Shipping,Shipping
+Discounts(+)/Surcharges(-),Discounts(+)/Surcharges(-)
+Invoiced,Invoiced
+Refunded,Refunded
+Discount,Discount
+Discount/Surcharge,Discount/Surcharge
+"Available Specials","Available Specials"
+"Qty to Refund","Qty to Refund"
+"Tax Amount","Tax Amount"
+"Discount Amount","Discount Amount"
+"Row Total","Row Total"
+Qty,Qty
+"Qty to Invoice","Qty to Invoice"
+"Discount (%s)","Discount (%s)"
+"Discount(+)/Surcharge(-) (%s)","Discount(+)/Surcharge(-) (%s)"
+Discount(+)/Surcharge(-),Discount(+)/Surcharge(-)
+"Tax Percent","Tax Percent"
+"Aitoc Loyalty Program","Aitoc Loyalty Program"
+"Aitoc Loyalty Program functionality is disabled for some websites you specified","Aitoc Loyalty Program functionality is disabled for some websites you specified"
+Surcharge,Surcharge
+"Surcharge (%s)","Surcharge (%s)"
+"Customer data subselection","Customer data subselection"
+"Test Atrr","Test Atrr"
+"Conditions Combination","Conditions Combination"
+"Customer Data","Customer Data"
+"Amount spent during period","Amount spent during period"
+"Period of membership","Period of membership"
+"Average order amount during period","Average order amount during period"
+Customer,Customer
+suits,suits
+"If a %s %s %s of these conditions:","If a %s %s %s of these conditions:"
+is,is
+"is not","is not"
+"equals or greater than","equals or greater than"
+"equals or less than","equals or less than"
+"greater than","greater than"
+"less than","less than"
+contains,contains
+"does not contain","does not contain"
+"is one of","is one of"
+"is not one of","is not one of"
+"Amount spent during last","Amount spent during last"
+"Customer's membership period","Customer's membership period"
+"Average order during last","Average order during last"
+"Aitoc Loyalty Program functionality has been disabled for the following store(s):","Aitoc Loyalty Program functionality has been disabled for the following store(s):"
+"Aitoc Loyalty Program functionality is disabled for some stores in websites you specified","Aitoc Loyalty Program functionality is disabled for some stores in websites you specified"
+"Surcharge Amount","Surcharge Amount"
+available,available
+"No specials currently available","No specials currently available"

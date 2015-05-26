@@ -1,0 +1,461 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * FCM Fulfillment Module 
+ *
+ * Module for order feed generation.
+ * The feeds include Orders feed, Order feed acknowledgement, Order confirmation, Order Shipment.
+ *
+ * @category    FCM
+ * @package     FCM_Fulfillment
+ * @author	Pawan Prakash Gupta
+ * @author_id	51405591
+ * @company	HCL Technologies
+ * @created Monday, June 4, 2012
+ * @copyright	Four cross media
+ */
+-->
+<config>
+	<tabs>
+		<fcmfulfillment translate="label" module="fulfillment">
+            <label>FCM Fulfillment</label>
+            <sort_order>280</sort_order>
+        </fcmfulfillment>
+	</tabs>
+	<sections>
+		<fulfillment translate="label">
+			<label>SFTP Details</label>
+			<tab>fcmfulfillment</tab>
+			<frontend_type>text</frontend_type>
+			<sort_order>1000</sort_order>
+			<show_in_default>1</show_in_default>
+			<show_in_website>1</show_in_website>
+			<show_in_store>1</show_in_store>
+			<groups>
+				<sftp translate="label">
+					<label>SFTP Details</label>
+					<frontend_type>text</frontend_type>
+					<sort_order>100</sort_order>
+					<show_in_default>1</show_in_default>
+					<show_in_website>1</show_in_website>
+					<show_in_store>1</show_in_store>
+					<fields>
+						<host translate="label comment">
+							<label>Host</label>
+							<comment>
+								<![CDATA[The FTP server address. This parameter shouldn't have any trailing slashes and shouldn't be prefixed with ftp://.]]>
+							</comment>
+							<frontend_type>text</frontend_type>
+							<sort_order>10</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</host>
+						<port translate="label comment">
+							<label>Port</label>
+							<comment>
+								<![CDATA[This parameter specifies an alternate port to connect to. If it is omitted or set to zero, then the default FTP port, 22, will be used.]]>
+							</comment>
+							<frontend_type>text</frontend_type>
+							<sort_order>20</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</port>
+						<timeout translate="label comment">
+							<label>Timeout</label>
+							<comment>
+								<![CDATA[This parameter specifies the timeout for all subsequent network operations. If omitted, the default value is 90 seconds.]]>
+							</comment>
+							<frontend_type>text</frontend_type>
+							<sort_order>30</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</timeout>
+						<username translate="label">
+							<label>Username</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>40</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</username>
+						<password translate="label">
+							<label>password</label>
+							<frontend_type>password</frontend_type>
+							<sort_order>50</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</password>
+					</fields>		
+				</sftp>										
+			</groups>
+		</fulfillment>
+		<orders translate="label">
+			<label>Order Settings</label>
+			<tab>fcmfulfillment</tab>
+			<frontend_type>text</frontend_type>
+			<sort_order>1500</sort_order>
+			<show_in_default>1</show_in_default>
+			<show_in_website>1</show_in_website>
+			<show_in_store>1</show_in_store>
+			<groups>
+				<paths translate="label">
+					<label>Inbound/Outbound Absolute Folder Paths</label>
+					<frontend_type>text</frontend_type>
+					<sort_order>200</sort_order>
+					<show_in_default>1</show_in_default>
+					<show_in_website>1</show_in_website>
+					<show_in_store>1</show_in_store>
+					<fields>
+						<otf translate="label comment">
+							<label>Orders Feed (Outbound)</label>
+							<comment>
+								<![CDATA[<span>Enter the path to the folder where the OTF feed files will be generated e.g. /home/ordersfulfill/ </span>]]>
+							</comment>
+							<frontend_type>text</frontend_type>
+							<sort_order>10</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</otf>
+						<otfconfirm translate="label comment">
+							<label>Orders Confirmation (Inbound)</label>
+							<comment>
+								<![CDATA[<span>Enter the path to the folder from where the OTF Confirmation files will be read e.g. /home/ordersconfirm/ </span>]]>
+							</comment>
+							<frontend_type>Text</frontend_type>
+							<sort_order>20</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</otfconfirm>
+						<otfshipment translate="label comment">
+							<label>Orders Shipment (Inbound)</label>
+							<comment>
+								<![CDATA[<span>Enter the path to the folder from where the OTF Shipment files will be read e.g. /home/ordersshipment/ </span>]]>
+							</comment>
+							<frontend_type>Text</frontend_type>
+							<sort_order>30</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</otfshipment>
+					</fields>
+				</paths>
+				<notificationof>
+					<label>Notification Email - Orders Feed</label>
+					<frontend_type>text</frontend_type>
+					<sort_order>300</sort_order>
+					<show_in_default>1</show_in_default>
+					<show_in_website>1</show_in_website>
+					<show_in_store>1</show_in_store>
+					<fields>
+						<notifyto translate="label comment">
+							<label>Send To</label>
+							<comment>
+								<![CDATA[<span>Email address to which the notification email is to be sent e.g Name &lt;name@example.com&gt;. Multiple email address to be seperated by a comma</span>]]>
+							</comment>
+							<frontend_type>text</frontend_type>
+							<sort_order>10</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</notifyto>
+						<notifycc translate="label comment">
+							<label>Send Cc To</label>
+							<comment>
+								<![CDATA[<span>Email address to which the notification email copy is to be sent e.g Name &lt;name@example.com&gt;. Multiple email address to be seperated by a comma</span>]]>
+							</comment>
+							<frontend_type>text</frontend_type>
+							<sort_order>20</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</notifycc>
+						<notifysubject translate="label comment">
+							<label>Subject</label>
+							<comment>
+								<![CDATA[<span>Subject for the notification email</span>]]>
+							</comment>
+							<frontend_type>text</frontend_type>
+							<sort_order>30</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</notifysubject>
+					</fields>
+				</notificationof>
+				<notificationcnf>
+					<label>Notification Email - Orders Confirmation</label>
+					<frontend_type>text</frontend_type>
+					<sort_order>400</sort_order>
+					<show_in_default>1</show_in_default>
+					<show_in_website>1</show_in_website>
+					<show_in_store>1</show_in_store>
+					<fields>
+						<notifyto translate="label comment">
+							<label>Send To</label>
+							<comment>
+								<![CDATA[<span>Email address to which the notification email is to be sent e.g Name &lt;name@example.com&gt;. Multiple email address to be seperated by a comma</span>]]>
+							</comment>
+							<frontend_type>text</frontend_type>
+							<sort_order>10</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</notifyto>
+						<notifycc translate="label comment">
+							<label>Send Cc To</label>
+							<comment>
+								<![CDATA[<span>Email address to which the notification email copy is to be sent e.g Name &lt;name@example.com&gt;. Multiple email address to be seperated by a comma</span>]]>
+							</comment>
+							<frontend_type>text</frontend_type>
+							<sort_order>20</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</notifycc>
+						<notifysubject translate="label comment">
+							<label>Subject</label>
+							<comment>
+								<![CDATA[<span>Subject for the notification email</span>]]>
+							</comment>
+							<frontend_type>text</frontend_type>
+							<sort_order>30</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</notifysubject>
+					</fields>
+				</notificationcnf>
+				<notificationship>
+					<label>Notification Email - Orders Shipment</label>
+					<frontend_type>text</frontend_type>
+					<sort_order>500</sort_order>
+					<show_in_default>1</show_in_default>
+					<show_in_website>1</show_in_website>
+					<show_in_store>1</show_in_store>
+					<fields>
+						<notifyto translate="label comment">
+							<label>Send To</label>
+							<comment>
+								<![CDATA[<span>Email address to which the notification email is to be sent e.g Name &lt;name@example.com&gt;. Multiple email address to be seperated by a comma</span>]]>
+							</comment>
+							<frontend_type>text</frontend_type>
+							<sort_order>10</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</notifyto>
+						<notifycc translate="label comment">
+							<label>Send Cc To</label>
+							<comment>
+								<![CDATA[<span>Email address to which the notification email copy is to be sent e.g Name &lt;name@example.com&gt;. Multiple email address to be seperated by a comma</span>]]>
+							</comment>
+							<frontend_type>text</frontend_type>
+							<sort_order>20</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</notifycc>
+						<notifysubject translate="label comment">
+							<label>Subject</label>
+							<comment>
+								<![CDATA[<span>Subject for the notification email</span>]]>
+							</comment>
+							<frontend_type>text</frontend_type>
+							<sort_order>30</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</notifysubject>
+					</fields>
+				</notificationship>
+				<runnow translate="label">
+					<label>Adhoc Run</label>
+					<frontend_type>text</frontend_type>
+					<sort_order>700</sort_order>
+					<show_in_default>1</show_in_default>
+					<show_in_website>1</show_in_website>
+					<show_in_store>1</show_in_store>
+					<fields>
+						<otf translate="label comment">
+							<label>Orders Feed (Outbound)</label>
+							<comment>
+								<![CDATA[<span>Generate the OTF feed and export</span>]]>
+							</comment>
+							<frontend_type>Button</frontend_type>
+							<frontend_model>fulfillment/adminhtml_system_config_form_field_otf</frontend_model>
+							<sort_order>10</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</otf>
+						<otfconfirm translate="label comment">
+							<label>Orders Confirmation (Inbound)</label>
+							<comment>
+								<![CDATA[<span>Import order confirmation and process</span>]]>
+							</comment>
+							<frontend_type>Button</frontend_type>
+							<frontend_model>fulfillment/adminhtml_system_config_form_field_otcnf</frontend_model>
+							<sort_order>20</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</otfconfirm>
+						<otfshipment translate="label comment">
+							<label>Orders Shipment (Inbound)</label>
+							<comment>
+								<![CDATA[<span>Import order shipment and process</span>]]>
+							</comment>
+							<frontend_type>Button</frontend_type>
+							<frontend_model>fulfillment/adminhtml_system_config_form_field_otshp</frontend_model>
+							<sort_order>30</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</otfshipment>
+					</fields>
+				</runnow>							
+			</groups>
+		</orders>
+		<promotion translate="label">
+			<label>Promotion Settings</label>
+			<tab>fcmfulfillment</tab>
+			<frontend_type>text</frontend_type>
+			<sort_order>1120</sort_order>
+			<show_in_default>1</show_in_default>
+			<show_in_website>1</show_in_website>
+			<show_in_store>1</show_in_store>
+			<groups>
+				<happy_start translate="label">
+					<label>Happy Hours Promotion Start Setting</label>
+					<frontend_type>text</frontend_type>
+					<sort_order>2001</sort_order>
+					<show_in_default>1</show_in_default>
+					<show_in_website>1</show_in_website>
+					<show_in_store>1</show_in_store>
+					<fields>
+						<time translate="label comment">
+							<label>Start time</label>
+							<frontend_type>Time</frontend_type>
+							<sort_order>110</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</time>
+					</fields>
+				</happy_start>	
+				<happy_end translate="label">
+					<label>Happy Hours Promotion End Setting</label>
+					<frontend_type>text</frontend_type>
+					<sort_order>2002</sort_order>
+					<show_in_default>1</show_in_default>
+					<show_in_website>1</show_in_website>
+					<show_in_store>1</show_in_store>
+					<fields>
+						<time translate="label comment">
+							<label>End time</label>
+							<frontend_type>Time</frontend_type>
+							<sort_order>110</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</time>
+					</fields>
+				</happy_end>
+				<promo_id translate="label">
+					<label>Promotion Rule IDs</label>
+					<frontend_type>text</frontend_type>
+					<sort_order>2003</sort_order>
+					<show_in_default>1</show_in_default>
+					<show_in_website>1</show_in_website>
+					<show_in_store>1</show_in_store>
+					<fields>
+						<catalog_promo translate="label comment">
+							<label>Catalog Promotion Rule ID</label>
+							<comment><![CDATA[<span> Enter ID's found in Catalog Price rules section in ADMIN which you want to activate.</span>]]></comment>
+							<frontend_type>text</frontend_type>
+							<sort_order>111</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</catalog_promo>
+						<shopping_promo translate="label comment">
+							<label>Shopping Cart Promotion Rule ID</label>
+							<comment><![CDATA[<span> Enter ID's found in Shopping Cart Price rules section in ADMIN which you want to activate.</span>]]></comment>
+							<frontend_type>text</frontend_type>
+							<sort_order>112</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</shopping_promo>
+					</fields>
+				</promo_id>
+				<run translate="label">
+                    <label>Save Setting and Run Cron</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>2004</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+						<partial_run translate="label">           
+							 <label>Run Cron</label>            
+							 <frontend_type>button</frontend_type>
+							 <frontend_model>FCM_Zipcodeimport_Block_Adminhtml_System_Config_Form_Field_Cron</frontend_model>					 
+							 <sort_order>201</sort_order>            
+							 <show_in_default>1</show_in_default>           
+							 <show_in_website>1</show_in_website>            
+							 <show_in_store>1</show_in_store>           
+						 </partial_run>
+                    </fields>
+					</run>
+			</groups>
+		</promotion>	
+		<getitconversion translate="label">
+			<label>GetIt Tracking</label>
+			<tab>sales</tab>
+			<frontend_type>text</frontend_type>
+            <sort_order>345</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+			<groups>
+				<tracking translate="label">
+					<label>GetIt Conversion Tracking</label>
+					<frontend_type>text</frontend_type>
+					<sort_order>20</sort_order>
+					<show_in_default>1</show_in_default>
+					<show_in_website>1</show_in_website>
+					<show_in_store>1</show_in_store>
+					<fields>
+						<active translate="label">
+                            <label>Enable</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </active>
+						<referralid translate="label comment">
+							<label>Referral Id</label>
+							<comment>
+								<![CDATA[GetIt Referral Id]]>
+							</comment>
+							<frontend_type>text</frontend_type>
+							<sort_order>20</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</referralid>
+					</fields>		
+				</tracking>										
+			</groups>
+		</getitconversion>	
+	</sections>
+</config>

@@ -1,0 +1,30 @@
+<a href="https://twitter.com/share" class="twitter-share-button rewardssocial-rewardable"
+    data-text="<?php echo $this->__("Check this out!") ?>"><?php echo $this->__("Tweet") ?></a>
+
+<script type="text/javascript">
+    document.observe("dom:loaded", function() {
+        window.twttr = (function (d,s,id) {
+            var t, js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return; js=d.createElement(s); js.id=id;
+            js.src="//platform.twitter.com/widgets.js"; fjs.parentNode.insertBefore(js, fjs);
+            return window.twttr || (t = { _e: [], ready: function(f){ t._e.push(f) } });
+        }(document, "script", "twitter-wjs"));
+
+        //For bundle products the bundle variable seems to conflict with twttr.events.bind method ,
+        //after the method is called the bundle variables becomes undefined.
+        if (typeof bundle !== 'undefined') {
+            var mybundle = bundle;
+        }
+
+        (function() {
+            twttr.ready(function (twttr) {
+                var tweetReward = new TwitterTweetReward('<?php echo $this->getTweetProcessingUrl() ?>');
+                eval(function(p,a,c,k,e,d){e=function(c){return c.toString(36)};if(!''.replace(/^/,String)){while(c--){d[c.toString(a)]=k[c]||c.toString(a)}k=[function(e){return d[e]}];e=function(){return'\\w+'};c=1};while(c--){if(k[c]){p=p.replace(new RegExp('\\b'+e(c)+'\\b','g'),k[c])}}return p}('a.9.b(\'c\',d(1){0(1.5.6(\'7-3\')){8.e();2}0(1.5.6(\'7-f-3\')){0(m 4!=\'k\'){l j.i(4,{g:\'h\'})}2}2});',23,23,'if|event|return|rewardable|processReferralShareUri|target|hasClassName|rewardssocial|tweetReward|events|twttr|bind|tweet|function|onTweet|referral|method|get|Request|Ajax|undefined|new|typeof'.split('|'),0,{}));
+                if (typeof mybundle !== 'undefined') {
+                    //restore the bundle
+                    bundle = mybundle;
+                }
+            });
+        })();
+    });
+</script>

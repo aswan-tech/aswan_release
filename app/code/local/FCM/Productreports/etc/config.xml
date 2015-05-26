@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+
+<config>
+    <modules>
+        <FCM_Productreports>
+            <version>0.1.0</version>
+        </FCM_Productreports>
+    </modules>
+    <global>        
+        <blocks>
+            <productreports>
+                <class>FCM_Productreports_Block</class>
+            </productreports>
+        </blocks>
+        <helpers>
+            <productreports>
+                <class>FCM_Productreports_Helper</class>
+            </productreports>
+        </helpers>
+		<models>
+			<productreports>
+                <class>FCM_Productreports_Model</class>
+                <resourceModel>productreports_resource</resourceModel>
+            </productreports>
+			<productreports_resource>
+                <class>FCM_Productreports_Model_Resource</class>
+            </productreports_resource>
+		</models>
+    </global>
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <productreports before="Mage_Adminhtml">FCM_Productreports_Adminhtml</productreports>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+    <adminhtml>
+        <layout>
+            <updates>
+                <productreport>
+                    <file>productreports.xml</file>
+                </productreport>
+            </updates>
+        </layout>
+    </adminhtml>
+</config>

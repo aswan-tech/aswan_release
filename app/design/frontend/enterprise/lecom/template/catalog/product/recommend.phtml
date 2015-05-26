@@ -1,0 +1,26 @@
+<div id="weRecommend"></div>
+
+<script type="text/javascript">
+jQuery(window).load(function(){
+	jQuery.ajax({
+		url:"<?php echo Mage::getBaseUrl(); ?>common/index/weRecommend",
+		beforeSend: function() {
+		},
+		success:function(result) {					
+			if(result) {
+				jQuery("#weRecommend").html(result);
+			}
+			jQuery.ajax({
+				url:"<?php echo Mage::getBaseUrl(); ?>common/index/recentlyViewed",
+				beforeSend: function() {
+				},
+				success:function(result) {					
+					if(result) {
+						jQuery("#recentlyViewed").html(result);
+					}
+				}
+			});
+		}
+	});	
+});
+</script>

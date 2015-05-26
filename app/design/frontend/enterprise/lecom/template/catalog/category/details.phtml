@@ -1,0 +1,306 @@
+<script type="text/javascript">
+    jQuery(document).ready(function(){
+        jQuery(".show_popup").click(function() {
+		jQuery('#fancybox-outer1').css({
+			top:20
+		}).show()
+	  
+		jQuery('#fancybox-overlay1')
+          jQuery('#fancybox-wrap1,#fancybox-overlay1').fadeIn(500);
+      });
+        
+	  jQuery("#fancybox-close1").click(function() {
+          jQuery('#fancybox-wrap1,#fancybox-overlay1').fadeOut(300);
+      });
+		
+	  jQuery("#fancybox-overlay1").click(function() {
+          jQuery('#fancybox-wrap1,#fancybox-overlay1').fadeOut(300);
+      });
+		
+	  jQuery(document).bind('keydown.fancybox-wrap1', function(e) {
+       if (e.keyCode == 27) {
+		  jQuery('#fancybox-wrap1,#fancybox-overlay1').fadeOut(300);		  
+	   }
+      });	
+	});  
+	
+	
+jQuery(document).ready(function(){
+	jQuery('.lbImg').colorbox();
+	jQuery(".group1").colorbox({rel:'group1'});
+	jQuery(function(){jQuery("input[type=checkbox]").uniform();});
+	jQuery(function(){jQuery("select").not("#currency_switcher").uniform();});
+});
+		
+		   
+ 
+  
+  function showZoom(id)
+  {
+    jQuery('#zoom_'+id).zoom();		
+  }
+  
+
+</script>
+
+<style>
+.col-main .breadcrumb {display:none;}
+.col-main .col-main_details .breadcrumb {display:block;}
+
+.prodCategoryTitle {text-align:center !important; display:none;}
+.getLookInfo { display:none; }
+.catImage{ display:none;}
+.slider-auto_new{ display:none;}
+.page-title_new{ display:none;}
+
+		/* styles unrelated to zoom */
+
+		/* optional icon style */
+		.zoomIcon { 
+			width:33px; 
+			height:33px; 
+			position:absolute; 
+			top:0;
+			right:0;
+			background:url(icon.png);
+		}
+
+		/* these styles are for the demo, and are not required for the plugin */
+		.zoom {
+			display:inline-block;
+			position:relative;
+			float:left;
+		}
+
+		.zoom img {
+			display: block;
+		}
+
+		.zoom img::selection { background-color: transparent; }
+
+		#ex2 img:hover { cursor: url(grab.cur), default; }
+		#ex2 img:active { cursor: url(grabbed.cur), default; }
+		.input-box.validation-passed {padding-right:0px;}
+		.col-main_details .detailGrid button {background-position:93% 9px; padding:6px 90px 6px 10px;}
+	</style>	
+<?php
+    $_productCollection=$this->getLoadedProductCollection();
+    $_helper = Mage::helper('catalog/output');
+	 $_category  = $this->getCurrentCategory();
+	 if ($_category->getThumbnail()) {
+	     $catImg = '';
+	     $_thumbimgUrl = Mage::getBaseUrl('media').'catalog/category/'.$_category->getThumbnail();
+	     $catImg = $_category->getImageUrl();
+         $_imgHtml = '<p class="category-image_new" style="float:left;width:200px;"><img class="catImage_new" src="'.$_thumbimgUrl.'" alt="'.$this->htmlEscape($_category->getName()).'" title="'.$this->htmlEscape($_category->getName()).'" /></p>';
+         $_imgHtml = "<img src='".$_category->getResizedImage(225,320)."' />";
+		 //if($catImg !='')
+		   //echo $_imgHtml .= '<div style="width:100px; position:absolute; left:30px; top:355px;"><ul><li><a class="group1" href="'.$catImg.'">Zoom</a></li></ul></div>';
+    }
+	echo '<section id="detailPanel"><div class="clearfix detailGrid"><div class="leftArea"><a class="group1" href="'.$catImg.'">'.$_imgHtml."</a></div>";
+?>
+<script type="text/javascript">
+       // var optionsPrice = new Product.OptionsPrice(<?php echo $this->getJsonConfig() ?>);
+</script>
+<?php if(!$_productCollection->count()): ?>
+<p class="note-msg"><?php echo $this->__('There are no products matching the selection.') ?></p>
+<span class="backLink"><a href="javascript:void(0)" onclick="showHide();">Back</a></span>
+<?php else: ?>
+<span class="backLink"><a href="javascript:void(0)" onclick="showHide();">Back</a></span>
+<div class="rightArea">
+ <ul class="products-list" id="products-list">
+    <?php foreach ($_productCollection as $_product): ?>
+        <li class="clearfix item<?php if( ++$_iterator == sizeof($_productCollection) ): ?> last<?php endif; ?>">
+            <?php // Product Image 
+			 $ProdDetais = Mage::getModel('catalog/product')->load($_product->getId());
+			?>
+            <span  class='zoom' id='zoom_<?php echo $_product->getId() ?>'>
+			<a id="prod_Img_<?php echo $_product->getId() ?>" class="lbImg" href="<?php echo $this->helper('catalog/image')->init($ProdDetais, 'image');  ?>" >
+			  <img id="prod_<?php echo $_product->getId() ?>" src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(110,115); ?>" style="max-width:110px; max-height:115px;" alt="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" />
+			</a>
+			</span>
+            <?php // Product description ?>
+            <div class="product-shop">
+                <div class="f-fix" style="text-align:left;">
+				 <h2 class="product-name"><a href="<?php echo $_product->getProductUrl().'?gtl=true' ?>" title="<?php echo $_productNameStripped; ?>"><?php echo $_helper->productAttribute($_product, $_product->getName() , 'name'); ?></a></h2>
+                    <?php if($_product->getRatingSummary()): ?>
+                    <?php echo $this->getReviewsSummaryHtml($_product) ?>
+                    <?php endif; ?>
+                    <?php echo $this->getPriceHtml($_product, true) ?>
+			</div>
+            </div>			
+				<div class="form-area">	
+                      <?php if($_product->isSaleable()): ?>
+							<form action="<?php echo Mage::getBaseUrl(); ?>checkout/cart/add/� method="post" id="product_addtocart_form_<?php echo $_product->getId() ?>"<?php if($_product->getOptions()): ?> enctype="multipart/form-data"<?php endif; ?>>
+								<fieldset class="no-display">
+									<input type="hidden" name="product" value="<?php echo $_product->getId() ?>" />
+									<input type="hidden" name="related_product" id="related-products-field" value="" />
+								</fieldset>
+
+						<?php // Product options ?>
+
+							<?php $product = Mage::getModel('catalog/product'); ?>
+							<?php $product->load($_product->getId()); ?>
+
+						<?php // Configurable products ?>
+
+							<?php if($product->getTypeId() == "configurable"): ?>
+							
+							   							    
+							<?php
+							   echo Mage::helper("catalog")->getProductOptionsHtml(Mage::getModel("catalog/product")->load($_product->getId()));
+
+							?>
+							
+                            
+								
+							<?php endif; ?>
+
+						<?php // Custom options  - tested but not fully implemented ?>
+
+						<?php // Product quantity and add  ?>
+
+							<?php if(!$_product->isGrouped()): ?>    
+                              <p class="addtocart">	
+                          						  
+								
+								<input name="qty" type="hidden" id="qty" maxlength="12" value="<?php echo $this->getMinimalQty($_product)==null?1:$this->getMinimalQty($_product) ?>"/>
+								<button type="button" id="addtocart<?php echo $_product->getId() ?>" title="Add to Bag" class="button btn-cart" onclick="productAddToCartForm<?php echo $_product->getId() ?>.submit(this)">Add to Bag</button>
+                                <span id='ajax_loader<?php echo $_product->getId() ?>' style='display:none; position: absolute;right: -20px;top: 8px;'><img src='<?php echo $this->getSkinUrl('images/opc-ajax-loader.gif')?>'/></span>
+							  </p>
+							<?php endif; 
+							 echo $this->getChildHtml('popuphtml') 
+							?> 
+                            
+
+							</form>
+							<!--<script type="text/javascript">
+									var productAddToCartForm<?php echo $_product->getId() ?> = new VarienForm('product_addtocart_form_<?php echo $_product->getId() ?>');
+									productAddToCartForm<?php echo $_product->getId() ?>.submit = function(){
+											if (this.validator.validate()) {
+													this.form.submit();
+											}
+									}.bind(productAddToCartForm<?php echo $_product->getId() ?>);
+							</script>-->
+							
+							<script type="text/javascript">
+							               var productAddToCartForm<?php echo $_product->getId() ?> = new VarienForm('product_addtocart_form_<?php echo $_product->getId() ?>');
+											productAddToCartForm<?php echo $_product->getId() ?>.submit = function(button, url) {
+											if (this.validator.validate()) {
+												var form = this.form;
+												var oldUrl = form.action;
+								 
+												if (url) {
+												   form.action = url;
+												}
+												var e = null;
+								//Start of our new ajax code
+												if(!url){
+													url = jQuery('#product_addtocart_form_<?php echo $_product->getId() ?>').attr('action');
+												}
+												 url = url.replace("checkout/cart","ajax/index"); // call addAction of custom module FCM_Ajax
+												var data = jQuery('#product_addtocart_form_<?php echo $_product->getId() ?>').serialize();
+												data += '&isAjax=1';
+												//jQuery('#MB_window').show();
+												//jQuery('#success-msg').removeClass('success-msg');
+												//jQuery('#ajaxmsg').html("<img src='<?php echo $this->getSkinUrl('images/spinner.gif')?>'/>");
+												//jQuery('#extra-button').hide();
+												jQuery('#ajax_loader<?php echo $_product->getId() ?>').show();
+												try {
+													jQuery.ajax({
+																  url: url,
+																  dataType: 'json',
+																  type : 'post',
+																  data: data,
+																  success: function(data){
+																		jQuery('#ajax_loader<?php echo $_product->getId() ?>').hide();
+																		if(jQuery('.block-cart') && data.status!='ERROR'){
+																			jQuery('.top-cart').replaceWith(data.sidebar);
+																			truncateOptions();
+																			jQuery("html, body").animate({ scrollTop: 0 }, "slow");
+																			Enterprise.TopCart.showCart(10);
+																			
+																		}
+																		if(data.status=='ERROR'){
+																			jQuery( function() {
+					                                                       jAlert(data.status + ": " + data.message.replace("Some of the products are currently out of stock",''));
+				                                                           });
+																		}
+																		
+																		/*jQuery( function() {
+					                                                       jAlert(data.status + ": " + data.message);
+				                                                           });*/
+																		   //jQuery('#extra-button').show();
+																		   //jQuery('#success-msg').addClass('success-msg');
+																		  // jQuery('#ajaxmsg').html(data.message);
+																		   
+																		     // to activate the "view details" on top link "My Cart"
+																			
+																  }
+															});
+												} catch (e) {
+												}
+								//End of our new ajax code
+												this.form.action = oldUrl;
+												if (e) {
+													throw e;
+												}
+											}
+										}.bind(productAddToCartForm<?php echo $_product->getId() ?>);
+								</script>
+							
+						<?php else: ?>
+							<div class="out-of-stock"><?php echo $this->__('Out of stock') ?></div>
+						<?php endif; ?> 
+            </div>
+        </li>
+    <?php endforeach; ?>
+    </ul>
+   <div>
+  </div>
+</div>
+</section>
+<?php endif; ?>
+<div id="MB_window" style="width: 500px; height: auto; left: 424.5px; display:none;">
+  <div id="MB_frame">
+     <div id="MB_header">
+       <div id="MB_caption">Add to Cart</div>
+       <a id="MB_close" title="Close window" href="#"><span onclick="jQuery('#MB_window').slideToggle('slow');">x</span></a>
+	</div>
+	<div id="MB_content" style="height: auto;">
+	<div style="">
+	<ul class="messages">
+	  <li id="success-msg" class="" style="text-align:center">
+		  <ul>
+			<li>
+			   <span id="ajaxmsg"></span>
+			</li>
+		  </ul>
+	   </li>
+	</ul>
+	<div style="text-align: center;" id="extra-button">
+		<button type="button" title="Continue Shopping" class="button MB_focusable" onclick="jQuery('#MB_window').slideToggle('slow');"><span><span>Continue Shopping</span></span></button>
+		&nbsp;&nbsp;    
+		 <button type="button" title="Go to Shopping Cart" class="button MB_focusable" onclick="location.href='<?php echo $this->getUrl('checkout/cart')?>'">
+		  <span><span>Go to Shopping Cart</span></span>
+		</button>
+    </div>
+   </div>
+  </div>
+ </div>
+</div>
+<?php echo  Mage::getSingleton('core/layout')->createBlock("catalog/product_popup")->setTemplate('catalog/product/popup.phtml')->toHtml(); ?>
+<script type="text/javascript">
+function resetOption(prodId,counter)
+{
+  if(counter==1)
+   {
+     var selct = 'dd[id='+prodId+'_item_'+counter+'] select';
+    
+	var spn = 'dd[id='+prodId+'_item_2'+'] span';
+     jQuery(selct).change(function(){ 
+	 jQuery(spn).html('Select Size');
+	 });
+	 
+   }
+}
+</script>

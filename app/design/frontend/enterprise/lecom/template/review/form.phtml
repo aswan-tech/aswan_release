@@ -1,0 +1,235 @@
+<?php
+/**
+ * Magento Enterprise Edition
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Magento Enterprise Edition License
+ * that is bundled with this package in the file LICENSE_EE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://www.magentocommerce.com/license/enterprise-edition
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     enterprise_default
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://www.magentocommerce.com/license/enterprise-edition
+ */
+?>
+
+<?php 
+		$val='none'; 
+			if(isset($_REQUEST['p']) || isset($_REQUEST['limit'])) {
+				$val='block';
+			} else { 
+				$val='block'; 
+			}
+?>
+
+<script type="text/javascript">
+	jQuery(function(){jQuery("input[type=checkbox]").uniform();});
+</script>
+
+<div id="reviewBoxDiv" style="display:<?php echo $val; ?>">
+
+<div class="bottom_shadow"></div>
+
+<div class="review_left">
+
+    <h3><?php echo $this->__('Write a Review') ?></h3>
+
+	<?php if ($this->getAllowWriteReviewFlag()): ?>
+	
+	<form action="<?php echo $this->getAction() ?>" method="post" id="review-form">
+	
+	<?php // echo $this->getChildHtml('form_fields_before')?>
+    
+			<div class="rating_block">	
+			<label for="title" class="rate"><?php echo $this->__("Rating"); ?></label>
+                <div class="review-rating-box">
+					<span class="review-rating  nobr">
+						<?php if ($this->getRatings() && $this->getRatings()->getSize()): ?>
+		
+                            <?php foreach ($this->getRatings() as $_rating): ?>
+                                <?php foreach ($_rating->getOptions() as $_option): ?>                                    
+									<input type="checkbox" name="ratings[<?php echo $_rating->getId() ?>]" id="<?php echo $this->escapeHtml($_rating->getRatingCode()) ?>_<?php echo $_option->getValue() ?>" value="<?php echo $_option->getId() ?>" title="<?php echo $_option->getValue() ?> stars" />
+								<?php endforeach; ?>                                
+                            <?php endforeach; ?>
+					</span>
+				</div>   
+                        <?php echo $this->__("Please, click to rate product"); ?>
+            </div> 
+                  <br class="clear"/>
+				   <!-- <input type="hidden" name="validate_rating" class="validate-rating" value="" /> -->
+                     
+        <?php endif  ?>
+		
+        <!-- <h3 class="product-name">
+			<?php // echo $this->__("You're reviewing:"); ?> 
+		<span>
+			<?php // echo $this->htmlEscape($this->getProductInfo()->getName()) ?>
+		</span>
+		</h3> -->
+        <?php /* if ($this->getRatings() && $this->getRatings()->getSize()): ?>
+            <span id="input-message-box"></span>
+            <ul class="form-list">
+                <li>
+                    <label class="required"><em>*</em><?php echo $this->__('How do you rate this product?') ?></label>
+                    <div class="input-box">
+                        <table class="data-table review-summary-table" id="product-review-table">
+                            <col />
+                            <col width="1" />
+                            <col width="1" />
+                            <col width="1" />
+                            <col width="1" />
+                            <col width="1" />
+                            <thead>
+                                <tr>
+                                    <th>&nbsp;</th>
+                                    <th><div class="rating-box"><span class="rating nobr" style="width:20%" title="<?php echo $this->__('1 star') ?>"><?php echo $this->__('1 star') ?></span></div></th>
+                                    <th><div class="rating-box"><span class="rating nobr" style="width:40%" title="<?php echo $this->__('2 stars') ?>"><?php echo $this->__('2 stars') ?></span></div></th>
+                                    <th><div class="rating-box"><span class="rating nobr" style="width:60%" title="<?php echo $this->__('3 stars') ?>"><?php echo $this->__('3 stars') ?></span></div></th>
+                                    <th><div class="rating-box"><span class="rating nobr" style="width:80%" title="<?php echo $this->__('4 stars') ?>"><?php echo $this->__('4 stars') ?></span></div></th>
+                                    <th><div class="rating-box"><span class="rating nobr" style="width:100%" title="<?php echo $this->__('5 stars') ?>"><?php echo $this->__('5 stars') ?></span></div></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            <?php foreach ($this->getRatings() as $_rating): ?>
+                                <tr>
+                                    <td class="label"><?php echo $this->escapeHtml($_rating->getRatingCode()) ?></td>
+                                <?php foreach ($_rating->getOptions() as $_option): ?>
+                                    <td class="value"><input type="radio" name="ratings[<?php echo $_rating->getId() ?>]" id="<?php echo $this->escapeHtml($_rating->getRatingCode()) ?>_<?php echo $_option->getValue() ?>" value="<?php echo $_option->getId() ?>" class="radio" /></td>
+                                <?php endforeach; ?>
+                                </tr>
+                            <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                        <input type="hidden" name="validate_rating" class="validate-rating" value="" />
+                        <script type="text/javascript">decorateTable('product-review-table')</script>
+                    </div>
+                </li>
+            </ul>
+        <?php endif */ ?>
+		
+		
+		
+			<p>
+                    <label for="title"><?php echo $this->__('Name') ?>
+					<span class="mandatoryField">*</span></label>
+                   <input type="text" name="nickname" id="nickname_field" class="input-text required-entry" value
+				   ="<?php echo $this->htmlEscape($data->getNickname()) ?>" />
+                 
+            </p>
+			
+            <p>
+                    <label for="title"><?php echo $this->__('Your Location') ?>
+						<span class="mandatoryField">*</span>
+					</label>
+                   <input type="text" name="location" id="location_field" class="input-text required-entry" value
+				   ="<?php echo $this->htmlEscape($data->getLocation()) ?>" />
+                 
+            </p>
+				  
+			<p>
+                    <label for="title"><?php echo $this->__('Review Title') ?>
+					<span class="mandatoryField">*</span></label>
+					<input type="text" value="<?php echo $this->htmlEscape($data->getTitle()) ?>" class=
+					"input-text required-entry" id="summary_field" name="title">
+			</p>      
+                      	  
+			<div class="review_comment">			
+				<ul>
+				<li>Review comment:</li>
+				<li class="idot"><?php echo $this->__('How you use the product') ?></li>
+				<li class="idot"><?php echo $this->__('Things that are
+				great about it') ?></li>
+				<li class="idot"><?php echo $this->__("Things that aren't great about it") ?></li>
+				</ul>
+				
+				<textarea name="detail" id="review_field" class="input-text" cols="15" rows="5"><?php echo $this
+				->htmlEscape($data->getDetail()) ?></textarea>
+				
+			</div>
+			
+			<br class="clear"/>
+			
+			<p>
+				<label for="title"><?php echo $this->__('Email address') ?>
+					<span class="mandatoryField">*</span>
+				</label>
+                <input type="text" name="email" id="email_field" class="input-text required-entry validate-email"
+				value="<?php echo $this->htmlEscape($data->getEmail()) ?>" />
+			</p>			
+			
+			<br class="clear"/>
+			
+			<button type="submit" class="btnsubmit">
+				<?php echo $this->__('Submit') ?>
+			</button>
+        
+        
+    
+</form>
+
+</div>
+
+<script type="text/javascript">
+
+jQuery('#General_5').click(function() {
+	jQuery('#uniform-General_4 span').addClass('checked');
+	jQuery('#uniform-General_3 span').addClass('checked');
+	jQuery('#uniform-General_2 span').addClass('checked');
+	jQuery('#uniform-General_1 span').addClass('checked');
+	jQuery('#uniform-General_5 span').addClass('checked');
+	jQuery('#uniform-General_5 span input').attr('checked','checked');
+});
+
+jQuery('#General_4').click(function() {
+	jQuery('#uniform-General_3 span').addClass('checked');
+	jQuery('#uniform-General_2 span').addClass('checked');
+	jQuery('#uniform-General_1 span').addClass('checked');
+	jQuery('#uniform-General_5 span').removeClass('checked');
+	jQuery('#uniform-General_4 span input').attr('checked','checked');
+});
+
+jQuery('#General_3').click(function() {
+	jQuery('#uniform-General_2 span').addClass('checked');
+	jQuery('#uniform-General_1 span').addClass('checked');
+	jQuery('#uniform-General_4 span').removeClass('checked');
+	jQuery('#uniform-General_5 span').removeClass('checked');
+	jQuery('#uniform-General_3 span input').attr('checked','checked');
+});
+
+jQuery('#General_2').click(function() {
+	jQuery('#uniform-General_1 span').addClass('checked');
+	jQuery('#uniform-General_3 span').removeClass('checked');
+	jQuery('#uniform-General_4 span').removeClass('checked');
+	jQuery('#uniform-General_5 span').removeClass('checked');
+	jQuery('#uniform-General_2 span input').attr('checked','checked');
+});
+
+jQuery('#General_1').click(function() {
+	jQuery('#uniform-General_2 span').removeClass('checked');
+	jQuery('#uniform-General_3 span').removeClass('checked');
+	jQuery('#uniform-General_4 span').removeClass('checked');
+	jQuery('#uniform-General_5 span').removeClass('checked');	
+});
+
+	var dataForm = new VarienForm('review-form');    
+
+</script>
+<?php else: ?>
+<div class="box-content">
+    <p class="review-nologged" id="review-form">
+        <?php echo $this->__('Only registered users can write reviews. Please, <a href="%s">log in</a> or <a href="%s">register</a>', $this->getLoginLink(), Mage::helper('customer')->getRegisterUrl()) ?>
+    </p>
+</div>
+<?php endif ?>

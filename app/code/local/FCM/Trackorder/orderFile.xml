@@ -1,0 +1,135 @@
+<?xml version="1.0" ?> 
+<ShipmentData>
+	<Shipment WaybillNo="12080726965" RefNo="90608">
+		<Service>Domestic Priority</Service> 
+		<PickUpDate>16 June 2008</PickUpDate> 
+		<Origin>LUCKNOW</Origin> 
+		<Destination>LUCKNOW</Destination> 
+		<ProductType>Non Documents</ProductType> 
+		<CustomerName>INTERMESH SHOPPING NETWORK PVT</CustomerName> 
+		<SenderName>INTERMESH SHOPPING N</SenderName> 
+		<ToAttention>FARRUKH NAQVI AZMI</ToAttention> 
+		<Consignee>FARRUKH NAQVI AZMI</Consignee> 
+		<ConsigneeAddress1>LCK</ConsigneeAddress1> 
+		<ConsigneePincode>226022</ConsigneePincode> 
+		<Weight>0.5</Weight> 
+		<Status>Shipment delivered</Status> 
+		<StatusType>DL</StatusType> 
+		<StatusDate>17 June 2008</StatusDate> 
+		<StatusTime>14:25</StatusTime> 
+		<ReceivedBy>F N AZMI</ReceivedBy> 
+		<Scans>
+			<ScanDetail>
+				<Scan>Shipment delivered</Scan> 
+				<ScanType>DL</ScanType> 
+				<ScanDate>17-Jun-2008</ScanDate> 
+				<ScanTime>14:25</ScanTime> 
+			</ScanDetail>
+			<ScanDetail>
+				<Scan>Shipment Outscan</Scan> 
+				<ScanType>UD</ScanType> 
+				<ScanDate>17-Jun-2008</ScanDate> 
+				<ScanTime>12:33</ScanTime> 
+			</ScanDetail>
+			<ScanDetail>
+				<Scan>Shipment Inscan</Scan> 
+				<ScanType>UD</ScanType> 
+				<ScanDate>17-Jun-2008</ScanDate> 
+				<ScanTime>12:33</ScanTime> 
+			</ScanDetail>
+			<ScanDetail>
+				<Scan>SHIPMENT OUTSCANNED TO NETWORK</Scan> 
+				<ScanType>UD</ScanType> 
+				<ScanDate>16-Jun-2008</ScanDate> 
+				<ScanTime>22:13</ScanTime> 
+			</ScanDetail>
+			<ScanDetail>
+				<Scan>Shipment Inscan</Scan> 
+				<ScanType>UD</ScanType> 
+				<ScanDate>16-Jun-2008</ScanDate> 
+				<ScanTime>21:17</ScanTime> 
+			</ScanDetail>
+		</Scans>
+	</Shipment>
+	<Shipment WaybillNo="12080726976" RefNo="90205">
+		<Service>Domestic Priority</Service> 
+		<PickUpDate>16 June 2008</PickUpDate> 
+		<Origin>LUCKNOW</Origin> 
+		<Destination>AHMEDABAD</Destination> 
+		<ProductType>Non Documents</ProductType> 
+		<CustomerName>INTERMESH SHOPPING NETWORK PVT</CustomerName> 
+		<SenderName>INTERMESH SHOPPING N</SenderName> 
+		<ToAttention>HEREN PATEL</ToAttention> 
+		<Consignee>HEREN PATEL</Consignee> 
+		<ConsigneeAddress1>AHD</ConsigneeAddress1> 
+		<ConsigneePincode>380051</ConsigneePincode> 
+		<Weight>0.5</Weight>
+		<Status>Shipment Redirected</Status> 
+		<StatusType>RD</StatusType> 
+		<StatusDate>17 June 2008</StatusDate>
+		<StatusTime>13:43</StatusTime> 
+		<Instructions>SD:Buffalo Just Store 500</Instructions> 
+		<NewWaybillNo>43740995675</NewWaybillNo>
+		<Scans>
+			<ScanDetail>
+				<Scan>Shipment Outscan</Scan> 
+				<ScanType>UD</ScanType> 
+				<ScanDate>18-Jun-2008</ScanDate> 
+				<ScanTime>09:58</ScanTime> 
+			</ScanDetail>
+			<ScanDetail>
+				<Scan>Shipment Inscan</Scan> 
+				<ScanType>UD</ScanType> 
+				<ScanDate>18-Jun-2008</ScanDate> 
+				<ScanTime>06:57</ScanTime> 
+			</ScanDetail>
+			<ScanDetail>
+				<Scan>SHIPMENT OUTSCANNED TO NETWORK</Scan> 
+				<ScanType>UD</ScanType> 
+				<ScanDate>18-Jun-2008</ScanDate> 
+				<ScanTime>03:35</ScanTime> 
+				<ScannedLocation>AHMEDABAD HUB</ScannedLocation> 
+			</ScanDetail>
+			<ScanDetail>
+				<Scan>Canvas Bag Consolidated Scan</Scan> 
+				<ScanType>UD</ScanType> 
+				<ScanDate>18-Jun-2008</ScanDate> 
+				<ScanTime>03:33</ScanTime> 
+				<ScannedLocation>AHMEDABAD HUB</ScannedLocation> 
+			</ScanDetail>
+			<ScanDetail>
+				<Scan>SHIPMENT OUTSCANNED TO NETWORK</Scan> 
+				<ScanType>UD</ScanType> 
+				<ScanDate>18-Jun-2008</ScanDate> 
+				<ScanTime>02:38</ScanTime> 
+				<ScannedLocation>DELHI HUB</ScannedLocation> 
+			</ScanDetail>
+			<ScanDetail>
+				<Scan>FLIGHT DELAY/CANCELLED</Scan> 
+				<ScanType>UD</ScanType> 
+				<ScanDate>17-Jun-2008</ScanDate> 
+				<ScanTime>13:43</ScanTime> 
+				<ScannedLocation>DELHI HUB</ScannedLocation> 
+			</ScanDetail>
+			<ScanDetail>
+				<Scan>Plastic Bag Inscan</Scan> 
+				<ScanType>UD</ScanType> 
+				<ScanDate>17-Jun-2008</ScanDate> 
+				<ScanTime>13:26</ScanTime> 
+				<ScannedLocation>DELHI HUB</ScannedLocation> 
+			</ScanDetail>
+			<ScanDetail>
+				<Scan>SHIPMENT OUTSCANNED TO NETWORK</Scan> 
+				<ScanType>UD</ScanType> 
+				<ScanDate>16-Jun-2008</ScanDate> 
+				<ScanTime>22:13</ScanTime> 
+			</ScanDetail>
+			<ScanDetail>
+				<Scan>Shipment Inscan</Scan> 
+				<ScanType>UD</ScanType> 
+				<ScanDate>16-Jun-2008</ScanDate> 
+				<ScanTime>21:17</ScanTime> 
+			</ScanDetail>
+		</Scans>
+	</Shipment>
+</ShipmentData>

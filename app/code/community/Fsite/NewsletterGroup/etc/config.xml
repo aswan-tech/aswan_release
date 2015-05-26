@@ -1,0 +1,117 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Fsite_NewsletterGroup>
+            <version>0.1.3</version>
+        </Fsite_NewsletterGroup>
+    </modules>
+
+    <global>
+        <helpers>
+            <newslettergroup>
+                <class>Fsite_NewsletterGroup_Helper</class>
+            </newslettergroup>
+        </helpers>
+
+        <blocks>
+            <newslettergroup>
+                <class>Fsite_NewsletterGroup_Block</class>
+            </newslettergroup>
+
+            <adminhtml>
+                <rewrite>
+                    <newsletter_subscriber_grid>Fsite_NewsletterGroup_Block_Adminhtml_Subscriber_Grid</newsletter_subscriber_grid>
+                </rewrite>
+
+                <rewrite>
+                    <newsletter_template_grid>Fsite_NewsletterGroup_Block_Adminhtml_Template_Grid</newsletter_template_grid>
+                </rewrite>
+
+                <rewrite>
+                    <newsletter_template_edit_form>Fsite_NewsletterGroup_Block_Adminhtml_Template_Edit_Form</newsletter_template_edit_form>
+                </rewrite>
+            </adminhtml>
+
+            <newsletter>
+                <rewrite>
+                    <subscribe>Fsite_NewsletterGroup_Block_Subscribe</subscribe>
+                </rewrite>
+            </newsletter>
+        </blocks>
+        
+        <models>
+            <newslettergroup>
+                <class>Fsite_NewsletterGroup_Model</class>
+                <resourceModel>newslettergroup_mysql4</resourceModel>
+            </newslettergroup>
+
+            <newslettergroup_mysql4>
+                <class>Fsite_NewsletterGroup_Model_Mysql4</class>
+                <entities>
+                    <group>
+                        <table>newsletter_group</table>
+                    </group>
+                </entities>
+            </newslettergroup_mysql4>
+
+            <newsletter_mysql4>
+                <rewrite>
+                    <template_collection>Fsite_NewsletterGroup_Model_Mysql4_Template_Collection</template_collection>
+                </rewrite>
+
+                <rewrite>
+                    <subscriber_collection>Fsite_NewsletterGroup_Model_Mysql4_Subscriber_Collection</subscriber_collection>
+                </rewrite>
+            </newsletter_mysql4>
+            
+            <newsletter>
+                <rewrite>
+                    <queue>Fsite_NewsletterGroup_Model_Queue</queue>
+                </rewrite>
+
+                <rewrite>
+                    <subscriber>Fsite_NewsletterGroup_Model_Subscriber</subscriber>
+                </rewrite>
+            </newsletter>
+        </models>
+
+        <resources>
+            <newslettergroup_setup>
+                <setup>
+                    <module>Fsite_NewsletterGroup</module>
+                </setup>
+            </newslettergroup_setup>
+        </resources>
+
+        <rewrite>
+            <fsite_newslettergroup_subscriber>
+                <from><![CDATA[#^/newsletter/subscriber/#]]></from>
+                <to>/newslettergroup/subscriber/</to>
+            </fsite_newslettergroup_subscriber>
+        </rewrite>
+    </global>
+    
+    <frontend>
+        <routers>
+            <newslettergroup>
+                <use>standard</use>
+                <args>
+                    <module>Fsite_NewsletterGroup</module>
+                    <frontName>newslettergroup</frontName>
+                </args>
+            </newslettergroup>
+        </routers>
+    </frontend>
+
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <newslettergroup before="Mage_Adminhtml">Fsite_NewsletterGroup_Adminhtml</newslettergroup>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+</config>

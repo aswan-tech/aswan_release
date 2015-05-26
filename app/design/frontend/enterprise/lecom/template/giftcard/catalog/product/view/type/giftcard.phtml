@@ -1,0 +1,208 @@
+<?php /* @var $this Enterprise_GiftCard_Block_Catalog_Product_View_Type_Giftcard */?>
+<?php $_product = $this->getProduct(); ?>
+<?php $_id = $_product->getId(); ?>
+<div class="gfc-wrap">
+<script>
+jQuery(document).ready(function() {
+	jQuery("#gfctabs li > a").click(function(){
+			var s = jQuery(this).attr('id');
+			var n = '#' +s + '-gfc-cont';
+			jQuery(".gfc-cont").hide();
+			jQuery(n).show();
+			jQuery("#gfctabs li > a").removeClass('gfc-active');
+			jQuery(this).addClass('gfc-active');
+	}),jQuery('.gfc-msg-tab').click(function(){
+		jQuery('.gfc-msb-box').toggle();
+		jQuery(this).toggleClass('tabactive');
+	});
+
+	});
+var productAddToCartForm = new VarienForm('product_addtocart_form');
+</script>				
+<h3>E-Gift Voucher</h3>
+<p>Is it too late to purchase a gift? Let your loved ones choose for themselves.</p>
+<div class="clear"></div>
+<ul class="fl gfctoplnk" id="gfctabs">
+<li><a href="javascript:void(0)"  id="tab1" class="gfc-active">Buy an Amswan E-Gift Voucher</a></li>
+<li><a href="javascript:void(0)"  id="tab2">Check Balance</a></li>
+<li><a href="javascript:void(0)"  id="tab3">Terms & Conditions</a></li>
+</ul>
+<div class="clear"></div>
+<div class="gfc-grp-sec">
+<span class="fl mt40 pt10 c-fff pl10 fs14 fst-i">Is it too late to purchase a gift? Let your loved ones choose for themselves.</span>
+<span class="gfc-ident"></span>
+</div>
+<div class="gfc-cont fl" id="tab1-gfc-cont" style="display:block;">
+<div id="gfctab1">
+<div class="gfc-cont-wrap">
+<div class="gfchedtop">Enter E-Gift Voucher Details</div>
+<p> E-Gift Vouchers can be sent to anybody you wish to surprise with a special gift.</p>
+<div class="fl gfcform-wrap">
+<span class="fl">Sender's Name *</span>
+<input type="text" id="giftcard_sender_name" name="giftcard_sender_name" class="required-entry fl" value="<?php echo $this->escapeHtml($this->getDefaultSenderName()) ?>" />
+<div class="clear"></div>
+<span class="fl">Sender's Email *</span>
+<input name="giftcard_sender_email" id="giftcard_sender_email"  type="text" class="validate-email required-entry fl" value="<?php echo $this->escapeHtml($this->getDefaultSenderEmail()) ?>" />
+<div class="clear"></div>
+
+<span class="fl">Receiver's Name *</span>
+<input type="text" id="giftcard_recipient_name" name="giftcard_recipient_name" class="required-entry fl" value="<?php echo $this->escapeHtml($this->getDefaultValue('giftcard_recipient_name')) ?>" />
+<div class="clear"></div>
+<span class="fl">Receiver's Email *</span>
+<input type="text" id="giftcard_recipient_email" name="giftcard_recipient_email" class="validate-email required-entry fl" value="<?php echo $this->escapeHtml($this->getDefaultValue('giftcard_recipient_email')) ?>" />
+<div class="clear"></div>
+<span class="fl">Receiver's Mobile *</span>
+<input type="text" id="giftcard_recipient_mobile" name="giftcard_recipient_mobile" class="validate-mobile required-entry fl" value="<?php echo $this->escapeHtml($this->getDefaultValue('giftcard_recipient_mobile')) ?>" />
+</div>
+<div class="fl gfcform-wrap gfmls">
+<span class="fl">Value of Voucher (<?php echo Mage::app()->getLocale()->currency( $currency_code )->getSymbol(); ?>)</span>
+  <select name="giftcard_amount" id="giftcard_amount" class="listgfc" onchange="toggleAmount();">
+    <?php foreach ($this->getAmounts($_product) as $value) { ?>
+    <option value="<?php echo $value; ?>"><?php echo $value; ?></option>
+    <?php } ?>
+  </select>
+<div class="clear"></div>
+<span class="fl">Number of E-Gift Vouchers</span>
+  <select name="qty" id="giftcard_qty" class="listgfc" onchange="toggleAmount()">
+	<?php for($q=1; $q<=100; $q++){ ?>  
+    <option value="<?php echo $q; ?>"><?php echo $q; ?></option>
+    <?php } ?>
+  </select>
+<div class="clear"></div>
+<div class="fr gfc-bulktxt">Bulk sales enquiries can be sent to sales@americanswan.com</div>
+</div>
+<div class="clear"></div>
+<div class="gfc-msg-tab">Enter your custom message here (150 Words)</div>
+<div class="gfc-msb-box">
+	<textarea rows="" cols="" name="giftcard_message" id="giftcard_message"><?php echo $this->escapeHtml($this->getDefaultValue('giftcard_message')) ?></textarea>	
+</div>
+<div class="gfcamt-wrap fr">
+<div id="amsloader" style="display:none;" class="giftCardloader">
+	<div class="giftCardconf-Boxloader">
+		<span style="text-align:center;" class="fl"><img src="<?php echo $this->getSkinUrl() ?>images-v3/adj-nav-progress-v1.gif"></span>
+	</div>
+</div>
+
+<span class="fl">Amount Payable:</span>
+<span class="f-smalltxt fl" id="gift_amount">Rs 500</span>
+<a href="javascript:productAddToCartForm.submit(this);" class="fl">BUY E-GIFT VOUCHER</a>
+</div>
+</div>
+</div>
+</div>
+
+<div class="gfc-cont fl" id="tab2-gfc-cont" >
+<div id="gfctab1">
+<div class="gfc-cont-wrap">
+<div class="gfchedtop">View your E-Gift Voucher Details</div>
+<p> Check your voucher balance and validity.</p>
+</div>
+
+<div class="fl gfcform-wrap" id="view-voucher" >
+<span class="fl">E-Gift Voucher Number *</span>
+<input type="text" class="fl" name="giftcard_code" id="giftcard_code">
+<div class="clear"></div>
+<div class="error-msg-new fl" id="error-msg-div"></div>
+<div class="clear"></div>
+<div class="gfcamt-wrap fl">
+<a class="gdetail-btn fl" href="javascript:void(0);" onclick="checkGiftCardStatus();">GET DETAILS</a>
+</div>
+</div>
+
+
+
+
+
+
+<div class="clear"></div>
+<div class="gfc-msg fr" id="ajax-response" style="display:none;">
+	
+	<span class="bigftxt">Hey!</span> You have <span class="f-smalltxt"><span id="giftcard_balance_lookup"></span> <br />value in your evoucher.<br/>
+	<div class="fl gfcform-wrap" id="view-voucher-new" >
+	<div class="gfccheck-wrap fl">
+			<a class="chkagain-btn fl" href="javascript:void(0);" onclick="hideShow();">CHECK AGAIN</a>
+		</div>
+	</div>
+</div>
+
+</div>
+</div>
+
+
+<div class="gfc-cont fl" id="tab3-gfc-cont" >
+<div id="gfctab1">
+<div class="gfc-cont-wrap">
+<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('giftcard-terms')->toHtml(); ?> 
+</div>
+</div>
+</div>
+
+
+</div>
+
+
+<script type="text/javascript">
+
+//<![CDATA[
+var giftcardFormNew = new VarienForm('giftcard-form-new');
+function checkGiftCardStatus()
+{
+	var gvcode = jQuery('#giftcard_code').val();	
+	if (gvcode == '') {
+		jQuery("#error-msg-div").show();
+		jQuery("#error-msg-div").html("Please enter valid gift voucher code.");
+		return false;
+	}
+	else {
+		new Ajax.Updater(
+			'giftcard_balance_lookup',
+			'<?php echo Mage::getUrl('enterprise_giftcardaccount/cart/getgiftamount') ?>',
+			{
+				onCreate: function() { jQuery('#error-msg-div').show(); 
+										jQuery('#error-msg-div').html('<img src="<?php echo $this->getSkinUrl('images/ajax-loader.gif'); ?>">'); 
+									},
+				onComplete: function() { },
+				parameters : {giftcard_code : jQuery('#giftcard_code').val()},
+				onSuccess: function(response) { 
+					if(response.responseText != '-1') {
+						jQuery("#ajax-response").show();
+						jQuery("#error-msg-div").hide();
+						jQuery("#view-voucher").hide();
+					}
+					else {
+						jQuery("#ajax-response").hide();						
+						jQuery("#error-msg-div").html('Wrong gift voucher code');						
+						jQuery("#error-msg-div").css("display", "block");
+					}
+			  }
+			}
+		);
+	}
+}
+//]]>
+</script>
+
+<script>
+
+function hideShow() {
+	jQuery('#view-voucher').show();
+	jQuery("#ajax-response").hide();
+}
+
+
+jQuery('#giftcard_message').on('keyup', function(event) {
+   var len = jQuery(this).val().length;
+   if (len >= 150) {
+      jQuery(this).val(jQuery(this).val().substring(0, len-1));
+   }
+});
+	
+	
+function toggleAmount() {
+	var amt = parseFloat(jQuery("#giftcard_amount").val());
+	var qty = parseInt(jQuery("#giftcard_qty").val());
+	var amount = (amt * qty);
+	jQuery("#gift_amount").html('<?php echo Mage::app()->getLocale()->currency( $currency_code )->getSymbol(); ?>'+amount);
+}
+toggleAmount();	
+</script>

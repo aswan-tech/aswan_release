@@ -1,0 +1,60 @@
+<?php
+	$departmentCollection = $this->getDepartmentCollection();
+	$count = count($departmentCollection);
+	if(!$count) {	
+		return false;
+	}
+	
+	
+?>
+
+<?php $showdesc = $this->isShowDescription() ?>
+<?php $listStyle = $this->getListStyle() ?>
+<?php $imagewidth = $this->getImageWidth() ?>
+<?php $imageheight = $this->getImageHeight() ?>
+
+<?php
+$width = '230';
+$height = '95';
+
+if($imagewidth >  $width) {
+	// $imagewidth = $width;
+	
+}
+
+if($imageheight >  $height) {
+	// $imageheight = $height;
+}
+?>
+
+
+<?php /* Manually done */ ?>
+
+		<div class="slider_overlay" id="movers-row">
+			<?php 
+				$i=1; 
+				foreach ($departmentCollection as $banner):
+					$category = Mage::getModel('catalog/category')->load($banner['category']); 		
+					$hoverImage = $banner['filename'];
+					if(trim($banner['filename_hover']) != ''){						
+						$hoverImage = $banner['filename_hover'];					
+					}
+			?>			
+				<div class="block1">
+					<a href="#<?php echo $i;?>" id="link<?php echo $i;?>" >					
+						<img class="nav-thumb inactive" src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA) . $banner['filename']?>"	alt="<?php echo $banner['title']?>" style="width:<?php echo $imagewidth;?>px; height:<?php echo $imageheight;?>px;"/>
+					
+						<img class="nav-thumb active" src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA) . $hoverImage ?>" alt="<?php echo $banner['title']?>" style="width:<?php echo $imagewidth;?>px; height:<?php echo $imageheight;?>px;"/>
+					</a>			
+				</div>			
+			<?php 
+				$i++;
+				endforeach; 
+			?>
+		</div>
+		  
+		</div> <!-- End for slide-container-->
+		
+		<!-- Slider Ends -->
+		
+       </section> <!-- End for section -->

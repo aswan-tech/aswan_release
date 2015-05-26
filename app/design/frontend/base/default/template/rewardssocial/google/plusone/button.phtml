@@ -1,0 +1,43 @@
+<script type="text/javascript">
+    // Callback handler for GooglePlus; allows multiple callbacks to be set at any time.
+    rewardsPlusOne = (function() {
+        var _callbacks = [];
+        return {
+            addCallback: function(fn)
+            {
+                _callbacks.push(fn);
+                return this;
+            },
+            emit: function(event)
+            {
+                for (var i = 0; i < _callbacks.length; i += 1) {
+                    _callbacks[i](event);
+                }
+                return this;
+            }
+        };
+    })();
+
+    // Silly Google+ apparently can't call an object method, so we have to create this global function.
+    rewardsPlusOneEmit = function(event) {
+        rewardsPlusOne.emit(event);
+        return;
+    };
+
+    (function() {
+        var gplusReward = new GooglePlusoneReward('<?php echo $this->getPlusOneProcessingUrl() ?>');
+        eval(function(p,a,c,k,e,d){e=function(c){return c.toString(36)};if(!''.replace(/^/,String)){while(c--){d[c.toString(a)]=k[c]||c.toString(a)}k=[function(e){return d[e]}];e=function(){return'\\w+'};c=1};while(c--){if(k[c]){p=p.replace(new RegExp('\\b'+e(c)+'\\b','g'),k[c])}}return p}('6.5(4(0){2(0.1==\'7\'){3.8()}a 2(0.1==\'b\'){3.9()}});',12,12,'event|state|if|gplusReward|function|addCallback|rewardsPlusOne|on|onPlus|onUnPlus|else|off'.split('|'),0,{}));
+    })();
+</script>
+
+<!-- Place this tag where you want the +1 button to render. -->
+<div class="g-plusone" data-size="medium" data-callback="rewardsPlusOneEmit"></div>
+
+<!-- Place this tag after the last +1 button tag. -->
+<script type="text/javascript">
+  (function() {
+    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+    po.src = 'https://apis.google.com/js/plusone.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+  })();
+</script>

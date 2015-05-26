@@ -1,0 +1,10 @@
+@charset "utf-8";
+/* CSS Document */
+
+*{margin:0; padding:0;}
+#errorpage {margin:0 auto; width:100%; text-align:center; font-family:Verdana, Geneva, sans-serif; color:#343E7A;}
+#errorHeader {margin:20px 0 50px;}
+.errorbody p {margin-bottom:8px; font-weight:bold; font-size:14px; line-height:20px;}
+.errorbody p.em {margin-bottom:30px; font-size:16px; font-style:italic;}
+.errorbody p a {color:#343E7A; text-decoration:underline; font-size:12px; margin-top:20px;}
+.errorbody p a:hover {color:#dd3848;}

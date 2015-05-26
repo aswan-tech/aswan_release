@@ -1,0 +1,72 @@
+<?php
+$controller = $this->getRequest()->getControllerName();
+$action = $this->getRequest()->getActionName();
+$module = $this->getRequest()->getModuleName();
+?>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta http-equiv="Content-Type" content="<?php echo $this->getContentType() ?>" />
+<?php if($controller == 'customer' && $module == 'rewardsref' || $module == 'rewards') { ?> 
+	<title><?php echo $this->__('Customer Rewards') ?></title>
+<?php } else { ?>
+	<title><?php echo $this->getTitle() ?></title>
+<?php } ?>
+<meta name="description" content="<?php echo htmlspecialchars($this->getDescription()) ?>" />
+<meta name="keywords" content="<?php echo htmlspecialchars($this->getKeywords()) ?>" />
+<meta name="robots" content="<?php echo htmlspecialchars($this->getRobots()) ?>" />
+<meta name="msvalidate.01" content="45AA5B26493CAAAFABE7BEDD924DF25F" />
+<meta name="google-site-verification" content="g6KgTtkmyHq3KC-dp3DgziOZpgJ5DYA5XyACvAN56QU" />
+<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0">
+<meta property="fb:app_id" content="323522714412740" />
+<?php if($controller == 'index') { echo '<link rel="canonical" href="'.rtrim($this->getBaseUrl() , '/').'"/>'; } ?>
+<link rel="shortcut icon" href="<?php echo $this->getFaviconFile(); ?>" type="image/x-icon" />
+<script type="text/javascript">
+//<![CDATA[
+    var globalInstance, productCountForScroll;
+    var allowedValues = '<?php echo Mage::getStoreConfig('catalog/frontend/grid_per_page');?>';
+//]]>
+</script>
+
+<!--[if lt IE 7]>
+<script type="text/javascript">
+//<![CDATA[
+    var BLANK_URL = '<?php echo $this->helper('core/js')->getJsUrl('blank.html') ?>';
+    var BLANK_IMG = '<?php echo $this->helper('core/js')->getJsUrl('spacer.gif') ?>';    
+//]]>
+</script>
+<![endif]-->
+<script type="text/javascript">var SKIN_URL = '<?php echo $this->getSkinUrl() ?>';</script>
+<?php echo $this->getCssJsHtml() ?>
+<?php echo $this->getChildHtml() ?>
+<?php echo $this->helper('core/js')->getTranslatorScript() ?>
+<?php echo $this->getIncludes() ?>
+<script type="text/javascript">var pcatid = ''; dataLayer = [{}];</script>
+<?php $gaCookies = Mage::getModel( 'nosql/parse_ga' )->getCookies(); ?>
+<?php $_curUrl = Mage::helper('core/url')->getCurrentUrl();?>
+<?php $_curUrl = str_replace(":8080", "", $_curUrl);?>
+<?php 
+$utm = Mage::getSingleton('core/app')->getRequest()->getParam('utm_source');
+if($utm){ Mage::getSingleton('core/session')->setUtmData($utm); }
+?>
+
+<?php
+if(Mage::getSingleton('customer/session')->isLoggedIn()) {
+     $customerData = Mage::getSingleton('customer/session')->getCustomer();
+     $cId =  $customerData->getId();
+}
+else
+{ $cId = 0; }
+?>
+
+<script type="text/javascript">
+dataLayer.push(
+    {'UTM_SOURCE': '<?php echo strtolower($gaCookies['campaign']['source'])?>'}, 
+    {'UTM_NAME': '<?php echo strtolower($gaCookies['campaign']['name'])?>'}, 
+    {'UTM_MEDIUM': '<?php echo strtolower($gaCookies['campaign']['medium'])?>'}, 
+    {'UTM_TERM': '<?php echo strtolower($gaCookies['campaign']['term'])?>'}, 
+    {'UTM_CONTENT': '<?php echo strtolower($gaCookies['campaign']['content'])?>'},
+    {'PAGE_URL': '<?php echo $_curUrl?>'},
+    {'CUSTOMER_ID': '<?php echo $cId ?>'}
+
+);
+</script>
+<script src="<?php echo $this->getSkinUrl('js/flaunt.js') ?>"></script>

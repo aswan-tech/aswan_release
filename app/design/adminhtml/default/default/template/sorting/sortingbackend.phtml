@@ -1,0 +1,45 @@
+<div style="text-align: center;">
+<h2>Product Sorting</h2>
+<form method="post" action="<?php echo $this->getUrl("*/*/sort") ?>">
+    <input type="hidden" name="form_key" value="<?php echo Mage::getSingleton('core/session')->getFormKey(); ?>" />
+    <table width="200" border="0" cellpadding="8" align="center" style="margin: 21px auto 0; border: 1px solid #CCC; padding: 34px 20px;">
+    <tr>
+      <td rowspan="3" nowrap="nowrap">Category Ids</td>
+      <td rowspan="3" nowrap="nowrap"><textarea name="category_ids" id="category_ids" cols="47" rows="5"></textarea></td>
+      <td rowspan="5" align="center" nowrap="nowrap">&nbsp;&nbsp;&nbsp;&nbsp;</td>
+      <td align="center" nowrap="nowrap"><strong>Weightage</strong></td>
+    </tr>
+    <tr>
+      <td nowrap="nowrap">Category Priority:    
+          <input name="category_weightage" style="text-align: right;" type="text" id="category_weightage" value="50" size="5" maxlength="3" />
+      %</td>
+    </tr>
+    <tr>
+      <td align="right" nowrap="nowrap">Launch Date:
+          <input name="time_weightage" type="text" id="time_weightage" style="text-align: right;" value="30" size="5" maxlength="3" />
+  %</td>
+    </tr>
+    <tr>
+      <td rowspan="2" nowrap="nowrap">Priority (Category Ids)</td>
+      <td rowspan="2" nowrap="nowrap">Heighest <input name="category_priority" type="text" id="category_priority" size="40" /> Lowest</td>
+      <td align="right" nowrap="nowrap">Product Sizes:
+          <input name="simple_weightage" type="text" id="simple_weightage" style="text-align: right;" value="15" size="5" maxlength="3" />
+  %</td>
+    </tr>
+    <tr>
+      <td align="right" nowrap="nowrap">Orders (24 Hrs):
+          <input name="order_weightage" type="text" id="order_weightage" style="text-align: right;" value="5" size="5" maxlength="3" />
+  %</td>
+    </tr>
+    <tr>
+      <td colspan="2" align="right">Weightage Total</td>
+      <td align="center">:</td>
+      <td align="right"><input readonly="readonly" disabled="disabled" name="total_weightage" type="text" id="total_weightage" style="text-align: right;" value="100" size="5" maxlength="3" />
+  %</td>
+    </tr>
+    <tr>
+      <td colspan="4" align="center"><button type="submit">Sort</button></td>
+    </tr>
+  </table>
+</form>
+</div>

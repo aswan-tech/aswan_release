@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+/**
+ * created : 11/04/2012
+ * 
+ * @category Ayaline
+ * @package Ayaline_MaxAmount
+ * @author aYaline
+ * @copyright Ayaline - 2012 - http://magento-shop.ayaline.com
+ * @license http://shop.ayaline.com/magento/fr/conditions-generales-de-vente.html
+ */
+-->
+<config>
+
+	<modules>
+		<Ayaline_MaxAmount>
+			<version>1.1.1</version>
+		</Ayaline_MaxAmount>
+	</modules>
+	
+	<global>
+		<helpers>
+			<ayalinemaxamount>
+				<class>Ayaline_MaxAmount_Helper</class>
+			</ayalinemaxamount>
+		</helpers>
+		<models>
+			<ayalinemaxamount>
+				<class>Ayaline_MaxAmount_Model</class>
+			</ayalinemaxamount>
+		</models>
+	</global>
+	
+	<frontend>
+		<translate>
+			<modules>
+				<Ayaline_MaxAmount>
+					<files>
+						<default>Ayaline_MaxAmount.csv</default>
+					</files>
+				</Ayaline_MaxAmount>
+			</modules>
+		</translate>
+		<events>
+			<sales_quote_load_after>
+				<observers>
+					<ayalinemaxamount_check_maxamount>
+						<class>ayalinemaxamount/observer</class>
+						<method>checkCartMaxAmount</method>
+					</ayalinemaxamount_check_maxamount>
+				</observers>
+			</sales_quote_load_after>
+			<checkout_cart_product_add_after>
+				<observers>
+					<ayalinemaxamount_check_maxamount>
+						<class>ayalinemaxamount/observer</class>
+						<method>checkProductMaxAmount</method>
+					</ayalinemaxamount_check_maxamount>
+				</observers>
+			</checkout_cart_product_add_after>
+		</events>
+	</frontend>
+	
+	<adminhtml>
+		<translate>
+			<modules>
+				<Ayaline_MaxAmount>
+					<files>
+						<default>Ayaline_MaxAmount.csv</default>
+					</files>
+				</Ayaline_MaxAmount>
+			</modules>
+		</translate>
+	</adminhtml>
+	
+</config>

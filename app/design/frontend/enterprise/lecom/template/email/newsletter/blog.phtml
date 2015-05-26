@@ -1,0 +1,32 @@
+<?php
+
+$blogModel = Mage::getModel('blog/blog');
+$collection = $blogModel->getTodaysPost();
+$postsdata = $collection->getData();
+
+if (empty($postsdata)) {
+    Mage::log('No posts for today ' . $todays_date, Zend_Log::DEBUG, 'blog.log');
+    return;
+}
+
+$static_block = $this->getLayout()->createBlock('cms/block')->setBlockId('daily_blog_newsletter')->toHtml();
+$content = array();
+foreach ($postsdata as $postdata) {   
+    
+    $processor = Mage::getModel('core/email_template_filter');
+    
+    $image = $processor->filter($postdata['short_content_img']);
+    $title = $processor->filter($postdata['title']);
+    $short_content = $processor->filter($postdata['short_content']);
+
+    $image = '<img align="right" src="'.Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA).'/blog_short_content_img/resized/'.$image.'" width="260" height="260" />';
+    
+    $search = array('{{image}}', '{{title}}', '{{short_content}}');
+    $replace = array($image, $title, $short_content);
+    $single_post = str_replace($search, $replace, $static_block);
+    $content[] = $single_post;
+}
+
+$content = implode('<br><br>', $content);
+echo $content;
+?>

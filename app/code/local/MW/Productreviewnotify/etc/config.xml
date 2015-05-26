@@ -1,0 +1,93 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <MW_Productreviewnotify>
+            <version>0.1.0</version>
+        </MW_Productreviewnotify>
+    </modules>
+    <frontend>
+        <routers>
+            <productreviewnotify>
+                <use>standard</use>
+                <args>
+                    <module>MW_Productreviewnotify</module>
+                    <frontName>productreviewnotify</frontName>
+                </args>
+            </productreviewnotify>
+        </routers>
+    </frontend>
+    <admin>
+        <routers>
+			<productreviewnotify>
+				<use>admin</use>
+				<args>
+					<module>MW_Productreviewnotify</module>
+					<frontName>productreviewnotify</frontName>
+				</args>
+			</productreviewnotify>
+        </routers>
+    </admin>
+    <adminhtml>		
+		<acl>
+            <resources>
+                <all>
+                    <title>Allow Everything</title>
+                </all>
+                 <admin>
+                    <children>                    	
+                        <system>
+                            <children>
+                                <config>
+                                    <children>
+                                        <mw_mageworld_productreviewnotify>
+                                            <title>Feature Category(s)</title>
+                                        </mw_mageworld_productreviewnotify>
+                                    </children>
+                                </config>
+                            </children>
+                        </system>
+                    </children>
+                </admin> 
+            </resources>
+        </acl>		
+    </adminhtml>   
+    <global>
+        <models>
+            <productreviewnotify>
+                <class>MW_Productreviewnotify_Model</class>                
+            </productreviewnotify>            
+        </models>
+       
+        <rewrite>
+			<productreviewnotify_control>
+				<from><![CDATA[#^/review/product/post#]]></from>
+                <to>/productreviewnotify/product/post</to>
+			</productreviewnotify_control>
+		</rewrite>
+        
+        <helpers>
+            <productreviewnotify>
+                <class>MW_Productreviewnotify_Helper</class>
+            </productreviewnotify>
+        </helpers>
+        <template>
+            <email>
+                <mw_mageworld_productreviewnotify_mgoptions_mgemail_template translate="label">
+                    <label>Ratings and Reviews Notify</label>
+                    <file>review_new_notify.html</file>
+                    <type>html</type>
+                </mw_mageworld_productreviewnotify_mgoptions_mgemail_template>				
+            </email>
+        </template>
+    </global>
+    <default>
+        <mw_mageworld_productreviewnotify>            
+            <mgoptions>				
+                <mgrecipient_email><![CDATA[hello@example.com]]></mgrecipient_email>
+                <mgsender_email_identity>general</mgsender_email_identity>
+                <mgemail_template>mw_mageworld_productreviewnotify_mgoptions_mgemail_template</mgemail_template>
+				
+            </mgoptions>			
+        </mw_mageworld_productreviewnotify>
+    </default>
+</config>

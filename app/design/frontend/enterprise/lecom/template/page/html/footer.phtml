@@ -1,0 +1,188 @@
+<?php
+$gaCookies = Mage::getModel( 'nosql/parse_ga' )->getCookies();
+$ck_nw_reg = Mage::getSingleton('core/session')->getNewRegistrationUser();
+if($ck_nw_reg=='complete') {
+    if(Mage::getSingleton('customer/session')->isLoggedIn()) {  
+        Mage::getSingleton('core/session')->unsNewRegistrationUser();?>
+
+        <script type="text/javascript">
+        dataLayer.push(
+            {'CATEGORY': 'registration'},
+            {'ACTION': 'success'},
+            {'LABEL': '<?php echo strtolower($gaCookies['campaign']['source'])?>-registration'},
+            {'EVENT': 'registrationsuccess'}
+        );
+</script>
+<?php   
+	}
+}
+?>
+
+<style type="text/css">
+.hideframe {
+    position: fixed;
+    top: -200px;
+}
+</style>
+
+<script>
+jQuery('body iframe:first-child').addClass('hideframe');
+</script>
+
+ <div class="emailsnup-wrap mt30 mb20">
+             <?php echo $this->getLayout()->createBlock('core/template')->setTemplate('newsletter/footer_subscribe.phtml')->toHtml() ?>
+             </div>
+             <div class="fl s-wdt-wrap ta-c mt40">
+             <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('social-v3')->toHtml() ?>
+             </div>
+            </div>
+
+
+    <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('footer-links-v2-mobile')->toHtml(); ?>
+    <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('footer-links-v3')->toHtml(); ?>
+    <?php 
+    $controName = Mage::app()->getRequest()->getControllerName();
+    $routeName =  Mage::app()->getRequest()->getRouteName();
+    if($controName != 'cart' && $routeName != 'checkout') {
+		if(Mage::helper('common')->verifyLiveDomain()) {
+    ?>  
+    <script id="_webengage_script_tag" type="text/javascript">// <![CDATA[
+      var _weq = _weq || {};
+      _weq['webengage.licenseCode'] = 'aa131abd';
+      _weq['webengage.widgetVersion'] = "4.0";
+      
+      (function(d){
+        var _we = d.createElement('script');
+        _we.type = 'text/javascript';
+        _we.async = true;
+        _we.src = (d.location.protocol == 'https:' ? "https://ssl.widgets.webengage.com" : "http://cdn.widgets.webengage.com") + "/js/widget/webengage-min-v-4.0.js";
+        var _sNode = d.getElementById('_webengage_script_tag');
+        _sNode.parentNode.insertBefore(_we, _sNode);
+      })(document);
+    // ]]></script>
+    <?php } } ?>
+<script type="text/javascript">
+jQuery(document).ready(function(){
+jQuery("#currency_switcher").msDropdown();
+    if(!jQuery('body').hasClass('onestepcheckout-index-index')){
+        jQuery('#mycarousel,#mycarousel2,#mycarousel3,#favcarousel1,#favcarousel2,#favcarousel3,#favcarousel4,#favcarousel5,#favcarousel6').jcarousel({ vertical: true, scroll: 2 });
+    }   
+}); 
+jQuery(".catalogue .rightPanel img.lazy, #itemdetails img.lazy").lazyload({effect:"fadeIn"});
+jQuery(".panelContainer img.lazy").lazyload({event : "LoadVisibleImages"});
+
+function LoadVisibleImages() {
+    jQuery(".panelContainer img.lazy").trigger("LoadVisibleImages");
+}
+jQuery("#movers-row img.nav-thumb").click(function(){
+    LoadVisibleImages();
+});
+</script>
+<div class="cart-loader" style="display: none;"><div class="loader-body large"><div class="msg">Loading ...</div></div><div class="loader-overlay"></div></div>
+<div class="registration-popup" style="display:none;"></div>
+<div id="mydalapixel" style="display:none;"></div>
+<script type="text/javascript" class="microad_blade_track">
+    <!--
+    var microad_blade_gl = microad_blade_gl || { 'params' : new Array(), 'complete_map' : new Object() };
+    (function() {
+    var param = {'co_account_id' : '4720', 'group_id' : '', 'country_id' : '4', 'ver' : '2.1.0'};
+    microad_blade_gl.params.push(param);
+
+    var src = (location.protocol == 'https:')
+    ? 'https://d-cache.microadinc.com/js/blade_track_gl.js' : 'http://d-cache.microadinc.com/js/blade_track_gl.js';
+
+    var bs = document.createElement('script');
+    bs.type = 'text/javascript'; bs.async = true;
+    bs.charset = 'utf-8'; bs.src = src;
+
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(bs, s);
+    })();
+    -->
+</script>
+<script type="text/javascript">
+// for responsive start
+	jQuery(function(){
+	 jQuery(window).resize(function(){
+	   var width = jQuery(window).width();
+	   if(width <= 768) {
+			jQuery('.shopByPanel .auto-scroll').css('display', 'none');
+			jQuery('.shopByPanel .adj-nav-dt').addClass('adj-nav-dt-selected');
+		}
+		else{
+			jQuery('.shopByPanel .auto-scroll').css('display', 'block');
+			jQuery('.shopByPanel .adj-nav-dt').removeClass('adj-nav-dt-selected');
+		}
+	})
+	.resize();//trigger the resize event on page load.
+	});
+// for responsive start	
+</script>
+<?php echo Mage::helper('common')->getGTMCode(); ?>
+<!--Scroll top button html start here-->
+ <a class="scrollup gtm-track" href="#" id="gtm-back-to-top">
+ <span>Back to Top</span>
+ </a>
+ 
+ <script type="text/javascript">
+ jQuery(document).ready(function () {
+    jQuery(window).scroll(function () {
+        if (jQuery(this).scrollTop() > 200) {
+            jQuery('.scrollup').addClass('visible');
+        } else {
+            jQuery('.scrollup').removeClass('visible');
+        }
+    });
+    // scroll-to-top animate
+    jQuery('.scrollup').click(function () {
+        jQuery("html, body").animate({
+            scrollTop: 0
+        }, 600);
+        return false;
+    });
+});
+ </script>
+<!--Scroll top button html start here-->
+
+<!--preloader box for filter start-->
+<div style="display:none" class="loading-wrap-box">
+<div class="loading-wheel-box">
+<img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA);?>v3/loader-signup.gif" />
+</div>
+</div>
+<script type="text/javascript">
+    function fullpageloder() {
+        jQuery(".loading-wrap-box").show();
+    }
+</script>
+<!--preloader box for filter END-->
+
+<script>
+// for responsive start
+	jQuery(function(){
+	 jQuery(window).resize(function(){
+	   var width = jQuery(window).width();
+
+	   if(width <= 1024) {
+			jQuery('dd.flt-lable1').hide();
+			jQuery("#head-right-panel").show();
+		}
+		else{
+			jQuery('dd.flt-lable1').show();
+			jQuery("#head-right-panel").hide();
+		}
+	})
+	.resize();//trigger the resize event on page load.
+	});
+// for responsive start	
+</script>
+
+<?php
+if(Mage::getSingleton('customer/session')->isLoggedIn()) {
+?>
+<script>
+    jQuery("#customer-track-myorder").attr('href','<?php echo $this->getBaseUrl() ?>sales/order/history/');
+</script>
+<?php
+}
+?>

@@ -1,0 +1,242 @@
+<?php
+/**
+ * Magento Enterprise Edition
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Magento Enterprise Edition License
+ * that is bundled with this package in the file LICENSE_EE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://www.magentocommerce.com/license/enterprise-edition
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     enterprise_default
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://www.magentocommerce.com/license/enterprise-edition
+ */
+?>
+<?php
+/**
+ * Create account form template
+ *
+ * @see Mage_Customer_Block_Form_Register
+ */
+?>
+<script language="Javascript">
+	var regjq = jQuery.noConflict();
+	regjq(function(){regjq("input[type=checkbox],input[type=radio]").uniform();});
+	regjq(function(){regjq("select").not("#currency_switcher").uniform();});
+</script>
+
+<div class="page_title"><?php echo $this->__('Register') ?></div>
+<div class="clearfix pageRegister">
+    <?php echo $this->getChildHtml('form_fields_before')?>
+    <?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+    <?php /* Extensions placeholder */ ?>
+    <?php echo $this->getChildHtml('customer.form.register.extra')?>
+    <form action="<?php echo $this->getPostActionUrl() ?>" method="post" id="form-validate" enctype="multipart/form-data" onsubmit="return customValidate();">
+       <div class="lftBlk">
+            <input type="hidden" name="success_url" value="<?php echo $this->getSuccessUrl() ?>" />
+            <input type="hidden" name="error_url" value="<?php echo $this->getErrorUrl() ?>" />
+            <div class="panel_title"><?php echo $this->__('Customer Details') ?></div>
+            <div class="regTop"></div>
+			<div class="regMid">
+			<table width="100%" cellpadding="5" cellspacing="0" border="0" class="listOrders">
+                <?php echo $this->getLayout()->createBlock('customer/widget_name')->setObject($this->getFormData())->setForceUseCustomerAttributes(true)->toHtml() ?>
+                  <?php $_gender = $this->getLayout()->createBlock('customer/widget_gender') ?>
+            <?php if ($_gender->isEnabled()): ?>
+                <?php echo $_gender->setGender($this->getFormData()->getGender())->toHtml() ?>
+            <?php endif ?>
+            		<?php $_telephone = $this->getLayout()->createBlock('customer/widget_telephone') ?>
+            <?php if ($_telephone->isEnabled()): ?>
+                <?php echo $_telephone->setTelephone($this->getFormData()->getTelephone())->toHtml() ?>
+            <?php endif ?>
+             <?php $_dob = $this->getLayout()->createBlock('customer/widget_dob') ?>
+            <?php if ($_dob->isEnabled()): ?>
+                <?php echo $_dob->setDate($this->getFormData()->getDob())->toHtml() ?>
+            <?php endif ?>
+             <?php $_taxvat = $this->getLayout()->createBlock('customer/widget_taxvat') ?>
+            <?php if ($_taxvat->isEnabled()): ?>
+                <?php echo $_taxvat->setTaxvat($this->getFormData()->getTaxvat())->toHtml() ?>
+            <?php endif ?>
+             <?php $customerAttributes = $this->getChild('customer_form_user_attributes');?>
+            <?php if ($customerAttributes): ?>
+                <?php $customerAttributes->setShowContainer(false);?>
+                <?php $this->restoreSessionData($customerAttributes->getForm());?>
+                <?php echo $customerAttributes->toHtml()?>
+            <?php endif;?>
+            		</table>
+        </div>
+                        	<div class="regBot"></div>
+					<div class="regInfo">
+					<?php echo $this->__('*All fields marked with asterisks are required fields') ?>
+					</div>
+		</div>
+       
+       
+       
+       <div class="rgtBlk">
+        <div class="panel_title"><?php echo $this->__('Account Details') ?></div>
+             <div class="regTop"></div>
+              <div class="regMid">
+                    <table width="100%" cellpadding="5" cellspacing="0" border="0" class="listOrders">
+                		<tr>
+                	   <td>
+                            	<label for="email_address">
+							<?php echo $this->__('Email Address') ?>
+							<span class="mandatoryField">*</span>
+						</label>
+						
+							<input type="text" name="email" id="email_address" value="<?php echo $this->escapeHtml($this->getFormData()->getEmail()) ?>" title="<?php echo $this->__('Email Address') ?>" class="input-text validate-email required-entry" />
+						</td>
+					</tr>
+					
+					<tr>
+						<td class="mesg">
+						<?php echo $this->__('Please ensure that you are entering a valid email address. All offers, vouchers and account details would be sent on this email address.') ?>
+						</td>
+                    </tr>
+                                        
+                   					
+                    <tr>
+                	   <td>
+                        <label for="password">
+							<?php echo $this->__('Password') ?>
+							<span class="mandatoryField">*</span>
+						</label>                        
+                            <input type="password" name="password" id="password" title="<?php echo $this->__('Password') ?>" class="input-text required-entry validate-password" />                        
+						</td>
+					</tr>
+					
+                    <tr>
+                	   <td>
+                        <label for="confirmation">
+							<?php echo $this->__('Repeat Password') ?>
+							<span class="mandatoryField">*</span>
+						</label>                        
+                            <input type="password" name="confirmation" title="<?php echo $this->__('Repeat Password') ?>" id="confirmation" class="input-text required-entry validate-cpassword" />                        
+						</td>
+					</tr>
+             
+                <?php if ($this->isNewsletterEnabled()): ?>
+                
+                	<tr>
+                	   <td class="rec-email">
+					   <label>&nbsp;</label>
+            
+                     <input type="checkbox" name="is_subscribed" title="<?php echo $this->__('Receive emails and updates') 
+					   ?>" value="1" id="is_subscribed"<?php if($this->getFormData()->getIsSubscribed()): ?> checked=
+					   "checked"<?php endif; ?>/>
+						<label class="billship"><?php echo $this->__('I would like to receive emails and updates') ?>						</label>
+					</td>
+					</tr>
+					<?php endif ?>
+           
+           <tr>
+						<td>
+							<label>&nbsp;</label>
+							<button id="registerId" type="submit" class="btnsubmit btnRegister" title="<?php echo $this->__('Register') ?>"	
+							><span><span><?php echo $this->__('Register') ?></button>							
+						</td>
+        	        </tr>
+										
+			
+			
+				</table>
+            	                </div>
+                                <div class="regBot"></div>
+                            </div>
+       <?php if (Mage::helper('checkout')->isContextCheckout()): ?>
+            <input name="context" type="hidden" value="checkout" />
+        <?php endif; ?>
+    </form>
+	</div>
+<script type="text/javascript">
+    //<![CDATA[
+	
+	function customValidate() {	
+        var dataForm = new VarienForm('form-validate', true);
+        <?php if($this->getShowAddressFields()): ?>
+        new RegionUpdater('country', 'region', 'region_id', <?php echo $this->helper('directory')->getRegionJson() ?>, undefined, 'zip');
+        <?php endif; ?>
+
+        Form.getElements('form-validate').each(function(element) {
+            element.setAttribute('autocomplete', 'off');
+        });
+	
+		if(dataForm.validator && dataForm.validator.validate() || !dataForm.validator){
+		
+			<?php if ($_dob->isRequired()): ?>
+			
+				jQuery('#registerId').click(function() {
+					var reg_day = jQuery('#day').val();
+					var reg_month = jQuery('#month').val();
+					var reg_year = jQuery('#year').val();
+
+					if (!reg_day || !reg_month || !reg_year) {			
+						if(!jQuery('#date-advice').val()) {
+							jQuery('#date-advice').html('Uh-oh! Please enter a valid full date.');			
+							jQuery('#date-advice').show();
+							return false;
+						}
+					}
+				});
+			
+			<?php endif; ?>
+			
+			return true;
+			
+		} else {
+		
+			<?php if ($_dob->isRequired()): ?>
+			
+				jQuery('#registerId').click(function() {
+					var reg_day = jQuery('#day').val();
+					var reg_month = jQuery('#month').val();
+					var reg_year = jQuery('#year').val();
+
+					if (!reg_day || !reg_month || !reg_year) {			
+						if(!jQuery('#date-advice').val()) {
+							jQuery('#date-advice').html('Uh-oh! Please enter a valid full date.');			
+							jQuery('#date-advice').show();
+							return false;
+						}
+					}
+				});
+			
+			<?php endif; ?>		
+		
+			return false;
+		}
+		
+	}
+	
+	/*
+			jQuery('#day, #month, #year').change(function() {
+				var reg_day = jQuery('#day').val();
+				var reg_month = jQuery('#month').val();
+				var reg_year = jQuery('#year').val();
+
+				if (reg_day && reg_month && reg_year) {			
+						jQuery('#date-advice').hide();
+						return true;
+				}
+				
+			});
+	*/
+	
+    //]]>		
+	
+	</script>
+</div>
+
+      

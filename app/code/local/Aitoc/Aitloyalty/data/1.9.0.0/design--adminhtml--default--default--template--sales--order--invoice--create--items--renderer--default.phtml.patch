@@ -1,0 +1,27 @@
+diff D:/IDE/lp1702com/app/design/adminhtml/default/default/template/sales/order/invoice/create/items/renderer/default.phtml D:/IDE/lp1702com/app/design/adminhtml/default/default/template/sales/order/invoice/create/items/renderer/default_new.phtml
+--- D:/IDE/lp1702com/app/design/adminhtml/default/default/template/sales/order/invoice/create/items/renderer/default.phtml	Tue Apr 09 09:10:26 2013
++++ D:/IDE/lp1702com/app/design/adminhtml/default/default/template/sales/order/invoice/create/items/renderer/default_new.phtml	Tue Apr 09 09:10:08 2013
+@@ -229,7 +229,23 @@
+         </span>
+     </td>
+     <td class="a-right"><?php echo $this->displayPriceAttribute('tax_amount') ?></td>
++    <?php /*
+     <td class="a-right"><?php echo $this->displayPriceAttribute('discount_amount') ?></td>
++     */ ?>
++    	 <? if (strpos($this->displayPriceAttribute('discount_amount'), '$0') > 0)
++            {
++                $newDiscount = $this->displayPriceAttribute('discount_amount');
++            }
++            else if (strpos($this->displayPriceAttribute('discount_amount'), '-') > 0)
++            {
++                $newDiscount = str_replace('>-$', '>+ $', $this->displayPriceAttribute('discount_amount'));
++            }
++            else
++            {
++                $newDiscount = str_replace('>$', '>- $', $this->displayPriceAttribute('discount_amount'));
++            }
++        ?>
++    <td class="a-right"><?php echo $newDiscount ?></td>
+     <td class="a-right last">
+         <?php echo $this->displayPrices(
+			 $_item->getBaseRowTotal()+$_item->getBaseTaxAmount()-$_item->getBaseDiscountAmount()+$_item->getBaseWeeeTaxAppliedRowAmount(),

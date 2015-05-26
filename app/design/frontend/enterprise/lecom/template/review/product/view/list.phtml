@@ -1,0 +1,122 @@
+<?php 	
+	$_items = $this->getReviewsCollection()->getItems();
+	
+	/*
+		$_items = array();
+		$_review = Mage::getModel('review/review')->getResourceCollection();
+		$_review->addStoreFilter( Mage::app()->getStore()->getId() )
+		->addEntityFilter('product', $this->getProductId())
+		->addStatusFilter( Mage_Review_Model_Review::STATUS_APPROVED )
+		->setDateOrder()
+		->addRateVotes();
+		$avg = 0;
+		$ratings = array();
+		$_items = $_review->getItems();
+	*/
+?>
+
+	<div class="review_right">
+		<div class="box-collateral box-reviews" id="customer-reviews">
+			<?php if (count($_items)):?>    
+				<h3>
+					<?php 
+						echo $this->__('Read Review') ?>
+					</h3>
+		<?php
+			/* echo $this->getLayout()->createBlock('page/html_pager')->setTemplate(
+			'page/html/pager_review.phtml')->setCollection($this->getReviewsCollection())->_toHtml(); */
+	    ?>
+	
+	<div class="rating_block">                     
+		<span class="rating nobr">
+			<?php if ($this->getRatingSummary()):?>
+				<div class="rating-box">
+					
+					<!-- 
+					 <div class="rating" style="width:<?php // echo $this->getRatingSummary() ?>%"></div>
+					-->
+					
+					<div class="rating" style="width:<?php echo number_format($this->getCustomRatingAverage(
+$_items), 2 , '.', ''); ?>%">
+					</div>
+					
+				</div>
+			<?php endif;?>
+		</span>
+					   
+        <span class="rating_bold blue">
+			<?php echo number_format($this->getReviewAverage($_items), 2, '.', ''); ?>			
+		</span> 
+		
+		<span class="blue" >
+			(Reviewed by <?php echo $this->getReviewsCount() ?> Customers) 
+		</span>   
+     
+	</div>
+    
+	<div class="dashed"></div>	 
+	 
+    <?php foreach ($_items as $_review): ?>
+	
+		<!-- Read review block start -->
+				 
+        <div class="read_review">		
+			<p class="review_title">
+				<?php echo $this->htmlEscape($_review->getTitle()) ?>!
+			</p>
+            <p>
+				<?php echo $this->__('By ') ?> 
+			<a href="javascript:void(0)">
+				<?php echo $this->__('%s', $this->htmlEscape($_review->getNickname())) ?>
+			</a> 
+			<?php echo $this->__('from') ?>
+				<a href="javascript:void(0)">
+			<?php echo $this->__('%s', $this->htmlEscape($_review->getLocation())) ?>
+				</a>
+			<br class="clear"/>
+			<?php echo $this->__('Posted on') ?>
+				<span class="blue">						
+					<?php  echo date('d-m-Y' ,strtotime($_review->getCreatedAt())); ?>
+				</span>
+			</p>
+			<br class="clear"/>
+
+			<p>
+				<?php echo nl2br($this->htmlEscape($_review->getDetail())) ?>
+			</p>
+				
+			<?php foreach ($_review->getRatingVotes() as $_vote): ?>				
+			<div class="rating-box">
+				<div class="rating" style="width:<?php echo $_vote->getPercent() ?>%;"></div>
+            </div>
+			<?php endforeach; ?>
+                
+			<!-- Read review block end -->
+			
+			</div>
+			
+			<?php endforeach; ?>
+				
+			<?php
+				/* echo $this->getLayout()->createBlock('page/html_pager')->setTemplate(
+				'page/html/pager_review.phtml')->setCollection($this->getReviewsCollection())->_toHtml(); */
+			?>
+
+			<?php 
+			
+			else: 
+			
+			echo "<h3>You are the first one to write the review.</h3>";
+			
+			?>
+			
+			<?php endif;?>
+
+
+			</div>
+			
+			</div>
+	  
+			<br class="clear"/>			
+			
+		</div>

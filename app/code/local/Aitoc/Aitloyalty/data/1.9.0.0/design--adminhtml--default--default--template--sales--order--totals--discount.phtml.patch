@@ -1,0 +1,19 @@
+diff -aurBb /home/httpd/htdocs/users/vashkevich/magento-prepare/var/ait_patch_orig/compare34812415976674a0146e3a0403 /home/httpd/htdocs/users/vashkevich/magento-prepare/var/ait_patch_modif/compare34812415976674a0146e3a0403
+--- /home/httpd/htdocs/users/vashkevich/magento-prepare/var/ait_patch_orig/compare34812415976674a0146e3a0403	2009-05-06 11:14:27 +0300
++++ /home/httpd/htdocs/users/vashkevich/magento-prepare/var/ait_patch_modif/compare34812415976674a0146e3a0403	2009-05-06 11:14:27 +0300
+@@ -32,9 +32,15 @@
+     <tr>
+         <td class="label">
+             <?php if ($_order->getCouponCode()): ?>
++                <?php /*
+                 <?php echo Mage::helper('sales')->__('Discount (%s)', $_order->getCouponCode()) ?>
++                */ ?>
++                <?php echo Mage::helper('sales')->__('Discount(-)/Surcharge(+) (%s)', $_order->getCouponCode()) ?>
+             <?php else: ?>
++                <?php /*
+                 <?php echo Mage::helper('sales')->__('Discount') ?>
++                */ ?>
++                <?php echo Mage::helper('sales')->__('Discount(-)/Surcharge(+)') ?>
+             <?php endif; ?>
+         </td>
+         <td><?php echo $this->displayPriceAttribute('discount_amount') ?></td>

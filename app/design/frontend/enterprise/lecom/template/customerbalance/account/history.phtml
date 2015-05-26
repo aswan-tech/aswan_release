@@ -1,0 +1,33 @@
+<div class="storecredit" style="float: left; width: 980px;">
+<?php if ($this->canShow() && $this->getEvents() && count($this->getEvents())): ?>
+    <table id="customerbalance-history" class="data-table listOrders" width="100%" cellspacing="0" cellpadding="5" border="0">
+        <col width="1" />
+        <col />
+        <col width="1" />
+        <col width="1" />
+        <thead>
+            <tr>
+                <th nowrap="nowrap"><?php echo Mage::helper('enterprise_customerbalance')->__('Date'); ?></th>
+                <th nowrap="nowrap"><?php echo Mage::helper('enterprise_customerbalance')->__('Reason'); ?></th>
+                <th nowrap="nowrap"><?php echo Mage::helper('enterprise_customerbalance')->__('Amount'); ?></th>
+                <th nowrap="nowrap"><?php echo Mage::helper('enterprise_customerbalance')->__('Balance'); ?></th>
+            </tr>
+        </thead>
+		<?php $counter = 1; ?>
+        <?php foreach ($this->getEvents() as $event): ?>
+			<?php if($counter%2 == 0): ?>
+				<tr class="evenRow">
+			<?php else: ?>
+				<tr class="oddRow">
+			<?php endif; ?>
+                <td nowrap="nowrap"><?php echo Mage::helper('core')->formatDate($event->getUpdatedAt(), 'short', true); ?></td>
+                <td><?php echo $this->getActionLabel($event->getAction()); ?></td>
+                <td><?php echo Mage::helper('core')->currency($event->getBalanceDelta()); ?> <?php echo ($event->getBalanceDelta() > 0 ? 'Cr' : 'Dr'); ?></td>
+                <td><?php echo Mage::helper('core')->currency($event->getBalanceAmount()); ?></td>
+            </tr>
+		<?php $counter++; ?>
+        <?php endforeach; ?>
+    </table>
+    <!--script type="text/javascript">decorateTable('customerbalance-history')</script-->
+<?php endif; ?>
+</div>

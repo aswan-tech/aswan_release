@@ -1,0 +1,183 @@
+<?php if ('ajax' != Mage::app()->getRequest()->getControllerName()){   ?>
+	<script type="text/javascript" src="<?php echo $this->getSkinUrl('js/adjnav-17.js'); ?>"></script>
+<?php } ?>
+<?php 
+  if(Mage::registry('current_category'))
+  {
+  $showGetTheLook = false;
+  $showNewArrival = false;
+	$currenturl_key = Mage::registry('current_category')->getUrlKey();
+	$currcat_name = Mage::registry('current_category')->getName(); 
+	
+	  if(!empty($currenturl_key)) {
+			$currcat_urlkey = $currenturl_key;
+		} else {
+			$currcat_urlkey = $currcat_name;
+		}
+		$cur_parent = Mage::getModel('catalog/category')->load(Mage::registry('current_category')->getParentId());
+		$parentName = strtolower($cur_parent->getName());
+		if(strtolower($currcat_name)=='men' || strtolower($currcat_name)=='women')
+				$catId = Mage::registry('current_category')->getId();
+		elseif($parentName=="men" || $parentName=="women")
+			    $catId = $cur_parent->getId();
+		elseif(Mage::registry('current_category')->getLevel() > 2)
+			    $catId = $cur_parent->getId();
+		else
+		    $catId = Mage::registry('current_category')->getId();
+		 $category_model = Mage::getModel('catalog/category'); 
+         $_category = $category_model->load($catId);  
+        $all_child_categories = $_category->getChildrenCategories(); 
+		foreach($all_child_categories as $child)
+		     {
+			   if(strtolower($child->getName()) == "get the look" && $child->getIsActive()) { $showGetTheLook = true; }
+			   if(strtolower($child->getName()) == "new arrivals" && $child->getIsActive()) { $showNewArrival = true; }
+			 }
+ }
+?>
+<?php 
+$showNewArrival = false;
+if(Mage::registry('current_category')) {
+	if(Mage::registry('current_category')->getLevel() > 2) $arrivalUrl = 'new-arrivals.html'; 
+	else $arrivalUrl = strtolower($currcat_urlkey).'/new-arrivals.html';
+  } else { $arrivalUrl = strtolower($currcat_urlkey).'/new-arrivals.html'; }
+?>
+<?php if(Mage::registry('current_category'))
+  {
+	  if($showNewArrival) {
+?>
+	<div class="left-links">
+    	<p class="cat-head">highlights</p>
+		<ul>
+		<?php
+			if(strtolower($currcat_name)=='men' || strtolower($currcat_name)=='women') $lookUrl = strtolower($currcat_urlkey).'/get-the-look.html';
+			if($parentName=="men" || $parentName=="women") $lookUrl = 'get-the-look.html';
+			 ?>
+		<?php if($showNewArrival) { ?>
+		       <li><a <?php if($currcat_urlkey == "new-arrivals") echo "class='active'"; ?> href="<?php echo $arrivalUrl; ?>" ><?php echo $this->__('New Arrivals') ?></a></li>
+	    <?php } ?>
+		</ul>
+	</div>
+<?php }  
+  }?>
+<input type="hidden" id="adjnav-attr-expand" value="<?php echo $this->htmlEscape(Mage::helper('adjnav')->__('Show More Attributes')) ?>" />
+<input type="hidden" id="adjnav-attr-collapse" value="<?php echo $this->htmlEscape(Mage::helper('adjnav')->__('Show Less Attributes')) ?>" />
+<input type="hidden" id="adjnav-attr-val-expand" value="<?php echo $this->htmlEscape(Mage::helper('adjnav')->__('Show More')) ?>" />
+<input type="hidden" id="adjnav-attr-val-collapse" value="<?php echo $this->htmlEscape(Mage::helper('adjnav')->__('Show Less')) ?>" />
+<?php if($this->canShowBlock()): $state = $this->getStateInfo()?>
+    <div class="block block-layered-nav adj-nav">
+        <div class="block-content">
+		<?php echo $this->getStateHtml() ?>
+        <?php if($this->canShowOptions()): ?>
+            <div class="narrow-by">
+            <input type="hidden" id="adj-nav-url" value="<?php echo $this->htmlEscape($state[0])?>"/>
+            <input type="hidden" id="adj-nav-params" value="<?php echo $this->htmlEscape($state[1])?>"/> 
+            <input type="hidden" id="adj-nav-ajax" value="<?php echo $this->htmlEscape($state[2])?>"/> 
+            <dl id="narrow-by-list">
+			<?php $_filters = $this->getFilters() ?>
+                <?php 
+				$f=0;
+				foreach ($_filters as $_filter): ?>
+                <?php if ($_filter->getItemsCount()): ?>
+				<?php if(!stristr($_filter->getName(),"category")) {  
+				  if($f==0) { ?>
+				   <div class='shopByPanel'>
+				<?php } ?>
+                <div class="clear"></div>
+                <dt class="adj-nav-dt <?php if ($_filter->getIsOther()) : ?>adjnav-attr-other<?php endif ?> labelTxt">
+                    <p class="cat-head">
+                    <?php if ($clearUrl = $_filter->getClearUrl()): ?>
+                    <a onclick="return false;" id="<?php echo $_filter->getVar()?>-clear" <?php if(!$this->getIsRemoveLinks()): ?>href="<?php echo $this->htmlEscape($clearUrl)?>" <?php endif; ?> class="btn-remove adj-nav-clear" title="<?php echo $this->__('Remove This Item')?>"><span class="right" title="clear">&nbsp;</span></a>
+                    <?php endif ?>
+                    <?php 
+					   if(stristr($_filter->getName(),"size"))
+					     echo $this->__('by size');
+					   elseif(stristr($_filter->getName(),"colour") || stristr($_filter->getName(),"color") || stristr($_filter->getName(),"colors"))
+					      echo "by ".strtolower($_filter->getName());
+					    elseif(stristr($_filter->getName(),"price"))
+					      echo $this->__('by price range');
+						 elseif(stristr($_filter->getName(),"gender"))
+						 	echo "by ".strtolower($_filter->getName());
+					   else
+					      echo $this->__($_filter->getName()) ?>
+		            </p>
+					</dt>
+					<?php $f++;
+				}elseif(stristr($_filter->getName(),"category")){ ?>
+					<?php if(!Mage::registry('current_category')): ?>
+					<div class='shopByPanel'>
+						<?php if ($state[1] && $this->bNeedClearAll()): ?>
+							<div class="adj-clear-all clearAll"><a onclick="return false;" class="adj-nav-clearall" href="<?php echo $this->htmlEscape($this->getClearAllUrl())?>"><?php echo $this->__('Clear All') ?></a>
+							</div>
+						<?php endif; ?>
+					<?php if ($clearUrl = $_filter->getClearUrl()): ?>                    
+                    	<a onclick="return false;" id="<?php echo $_filter->getVar()?>-clear" <?php if(!$this->getIsRemoveLinks()): ?>href="<?php echo $this->htmlEscape($clearUrl)?>" <?php endif; ?> class="btn-remove adj-nav-clear" title="<?php echo $this->__('Remove This Item')?>"><span class="right" title="clear">&nbsp;</span></a>
+                    <?php endif; ?>
+				<?php endif; 
+				}
+				?>
+                <div class="<?php if(stristr($_filter->getName(),"category")){ }else{echo 'auto-scroll';}?>">
+                    <dd <?php echo $this->getHeightStyle()?> id="adj-nav-filter-<?php echo $_filter->getVar()?>" class="<?php if ($_filter->getIsOther()) : ?>adjnav-attr-other<?php endif ?> chkfilter">
+                    	<?php echo $_filter->getHtml() ?>
+                    </dd>
+                </div>
+				<?php if( !Mage::registry('current_category') && stristr($_filter->getName(),"category")){ ?>
+					</div>
+				<?php } ?>
+                <?php 
+				if($f==7) { ?>
+				  </div>
+				 <?php  } endif; ?>
+                <?php endforeach; ?>
+            </dl>
+            
+            <style>
+                jQuery(document).ready(function(e) {
+                        jQuery(".fcolor-option ul li").click(function() {
+                          var jQuerythis = jQuery(this); // reference to the clicked li
+                           if(!jQuerythis.hasClass('fltactive'))
+                         {
+                           jQuerythis.addClass('fltactive').siblings().removeClass('fltactive');
+                         }
+                        });
+                });
+            </style>
+            <dl>
+                <?php if ($this->isShowMoreAttributesButton()) : ?>
+                <dd class="adj-nav-dt adjnav-attr-more-dd">
+                    <a href="javascript:void(0);" class="adjnav-attr-more"><?php echo $this->__('Show More Attributes') ?></a>
+                </dd>
+                <?php endif ?>
+            </dl>
+            <script type="text/javascript">
+            decorateDataList('narrow-by-list');
+            adj_nav_init();
+			/*
+			Event.observe(document, 'dom:loaded', function(){
+			  ewquickview = new EWQuickView();
+			  ewquickview.rewritePage();
+			});
+			*/
+            </script>
+            </div>
+            <?php endif; ?>
+        </div>
+        <div class="adj-nav-progress" style="display:none"></div>        
+    </div>
+<?php endif; ?>
+
+<script type="text/javascript">
+if ('function' == typeof(sns_layer_add_attr))
+{
+    sns_layer_add_attr();
+}
+jQuery(document).ready(function(){
+	adj_nav_toolbar_init();
+	adjnavInitFeaturedValues();
+	adjnavInitFeaturedAttributes();
+});
+</script>
+<?php if(Mage::helper('adjnav')->isPageAutoload()):?>
+<script type="text/javascript">
+    adj_nav_page_autoload_init();
+</script>
+<?php endif; ?>

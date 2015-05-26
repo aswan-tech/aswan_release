@@ -1,0 +1,127 @@
+<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+<?php echo $this->getLayout()->createBlock('core/template')->setTemplate('customer/account/navigation.phtml')->toHtml(); ?>
+<table width="100%" cellpadding="5" cellspacing="0" border="0" class="listOrders acc-perdetail fs16 f-lato ml40" style="float: left; width: 700px;">
+	<tr>
+		<td>
+			<form action="<?php echo $this->getSaveUrl() ?>" method="post" id="form-validate" enctype="multipart/form-data">
+				<?php echo $this->getBlockHtml('formkey')?>
+				<input type="hidden" name="success_url" value="<?php echo $this->getSuccessUrl() ?>" />
+				<input type="hidden" name="error_url" value="<?php echo $this->getErrorUrl() ?>" />
+				
+				<table width="100%" cellpadding="5" cellspacing="5" border="0" class="address">
+					<tr>
+						<td>
+							<label for="address_type"  class="required"><?php echo $this->__('Address Nickname') ?></label>
+							<input type="text" name="addresstype" id="addresstype" title="<?php echo $this->__('Address Nickname') ?>" value="<?php echo $this->escapeHtml($this->getAddress()->getAddresstype()) ?>" class="input-text textfield  <?php echo $this->helper('customer/address')->getAttributeValidationClass('addresstype') ?>" />
+						</td>
+					</tr>
+					
+					<?php echo $this->getNameBlockHtml() ?>
+						
+					<tr>
+						<td>
+							<label for="telephone" class="required "><?php echo $this->__('Mobile') ?><span class="mandatoryField">*</span></label>            
+							<input type="text" name="telephone" value="<?php echo $this->escapeHtml($this->getAddress()->getTelephone()) ?>" title="<?php echo $this->__('Mobile') ?>" class="input-text textfield  validate-mobile <?php echo $this->helper('customer/address')->getAttributeValidationClass('telephone') ?>" id="telephone" />
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<?php $_streetValidationClass = $this->helper('customer/address')->getAttributeValidationClass('street'); ?>
+							<label for="street_1" class="required"><?php echo $this->__('Address Street') ?><span class="mandatoryField">*</span></label>
+							<input type="text" name="street[]" value="<?php echo $this->escapeHtml($this->getAddress()->getStreet(1)) ?>" title="<?php echo $this->__('Street Address') ?>" id="street_1" class="input-text textfield  validate-address maximum-length-125 <?php echo $_streetValidationClass ?> add-street" maxlength="125" />
+						</td>
+					</tr>
+					<?php $_streetValidationClass = trim(str_replace('required-entry', '', $_streetValidationClass)); ?>
+					<?php for ($_i = 2, $_n = $this->helper('customer/address')->getStreetLines(); $_i <= $_n; $_i++): ?>
+					<tr>
+						<td>
+							<label>&nbsp;</label>
+							<input type="text" name="street[]" value="<?php echo $this->escapeHtml($this->getAddress()->getStreet($_i)) ?>" title="<?php echo $this->__('Street Address %s', $_i) ?>" id="street_<?php echo $_i ?>" class="input-text textfield  validate-address maximum-length-125 <?php echo $_streetValidationClass ?> add-street" maxlength="125" />
+						</td>
+					</tr>
+					<?php endfor; ?>
+					<tr>
+						<td>
+							<label for="city" class="required"><?php echo $this->__('City') ?><span class="mandatoryField">*</span></label>
+							<input type="text" name="city" value="<?php echo $this->escapeHtml($this->getAddress()->getCity()) ?>" title="<?php echo $this->__('City') ?>" class="input-text textfield  <?php echo $this->helper('customer/address')->getAttributeValidationClass('city') ?>" id="city" />
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<label for="zip" class="required"><?php echo $this->__('Postcode') ?><span class="mandatoryField">*</span></label>
+							<input type="text" name="postcode" value="<?php echo $this->escapeHtml($this->getAddress()->getPostcode()) ?>" title="<?php echo $this->__('Postcode') ?>" id="zip" class="input-text textfield  validate-zip-international <?php echo $this->helper('customer/address')->getAttributeValidationClass('postcode') ?>" />
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<label for="country" class="required"><?php echo $this->__('Country') ?><span class="mandatoryField">*</span></label>
+							<?php echo $this->getCountryHtmlSelect() ?>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<label for="region_id" class="required"><?php echo $this->__('State') ?><span class="mandatoryField">*</span></label>
+							<select id="region_id" name="region_id" title="<?php echo $this->__('State') ?>" class="validate-select acc-city " style="display:none;">
+							   <option value=""><?php echo $this->__('Please select region, state or province') ?></option>
+							</select>
+							<script type="text/javascript">
+								$('region_id').setAttribute('defaultValue',  "<?php echo $this->getAddress()->getRegionId() ?>");
+							</script>
+							<input type="text" id="region" name="region" value="<?php echo $this->escapeHtml($this->getAddress()->getRegion()) ?>"  title="<?php echo $this->__('State/Province') ?>" class="input-text textfield  <?php echo $this->helper('customer/address')->getAttributeValidationClass('region') ?>" />
+						</td>
+					</tr>
+					<?php $userDefinedAttributes = $this->getLayout()->getBlock('customer_form_user_attributes'); ?>
+					<?php if ($userDefinedAttributes):?>
+						<?php echo $userDefinedAttributes->setEntity($this->getAddress())->setShowContainer(false)->toHtml(); ?>
+					<?php endif;?>
+					<tr>
+						<td >
+                                                    <input style="display:inline;" type="checkbox" id="primary_shipping" name="default_address" value="1" class="mr10" <?php
+                                                    echo ($this->isDefaultShipping() || $this->isDefaultBilling() ? "checked=\"checked\"" : "");
+                                                    ?>
+                                                           onclick="if (this.checked) {
+                                                        jQuery('#default_shipping').val('1');
+                                                        jQuery('#default_billing').val('1');
+                                                    } else {
+                                                        jQuery('#default_shipping').val('0');
+                                                        jQuery('#default_billing').val('0');
+                                                    }" /> Default Address
+                                                    <input type="hidden" name="default_shipping" id="default_shipping" value="<?php echo ($this->isDefaultShipping() || $this->isDefaultBilling() ? "1" : "0"); ?>" />
+                                                    <input type="hidden" name="default_billing" id="default_billing" value="<?php echo ($this->isDefaultShipping() || $this->isDefaultBilling() ? "1" : "0"); ?>" />
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<?php
+								$arrParams = $this->getRequest()->getParams();
+								
+								if (!empty($arrParams['id'])) {
+							?>
+									<button type="submit" class="btnsubmit btnupdate" title="<?php echo $this->__('Update') ?>"><?php echo $this->__('Update') ?></button>
+							
+							<?php
+								} else {
+							?>
+									<button type="submit" class="btnsubmit btnupdate" title="<?php echo $this->__('Save') ?>"><?php echo $this->__('Save') ?></button>
+							<?php
+								}
+							?>
+						</td>
+					</tr>
+				</table>
+			</form>
+		</td>
+	</tr>                                
+</table>
+<script type="text/javascript">
+//<![CDATA[
+    var dataForm = new VarienForm('form-validate', true);
+    new RegionUpdater('country', 'region', 'region_id', <?php echo $this->helper('directory')->getRegionJson() ?>, undefined, 'zip');
+	
+	jQuery(document).ready(function(){
+		//jQuery(function(){jq("#country,#region_id,#prefix").selectbox();});
+		//jQuery("select,input[type=checkbox]").uniform();
+		jQuery(".add-street").css("width","345px");
+	}); 
+//]]>
+</script>

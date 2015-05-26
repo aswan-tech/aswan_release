@@ -1,0 +1,104 @@
+<?php
+/**
+ * MageWorx
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the MageWorx EULA that is bundled with
+ * this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://www.mageworx.com/LICENSE-1.0.html
+ *
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@mageworx.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade the extension
+ * to newer versions in the future. If you wish to customize the extension
+ * for your needs please refer to http://www.mageworx.com/ for more information
+ * or send an email to sales@mageworx.com
+ *
+ * @category   design
+ * @package    default_default
+ * @copyright  Copyright (c) 2010 MageWorx (http://www.mageworx.com/)
+ * @license    http://www.mageworx.com/LICENSE-1.0.html
+ */
+
+/**
+ * Instant Cart extension
+ *
+ * @category   design
+ * @package    default_default
+ * @author     MageWorx Dev Team <dev@mageworx.com>
+ */
+?>
+<?php
+    $_helper = $this->helper('catalog/output');
+    $_product = $this->getProduct();
+    $requestUrl=$this->getRequest()->getRequestString();    
+?>
+<script type="text/javascript">
+    var optionsPrice = new Product.OptionsPrice(<?php echo $this->getJsonConfig() ?>);
+</script>
+<div id="messages_product_view"><?php echo $this->getMessagesBlock()->getGroupedHtml() ?></div>
+<div class="icart-product-view">
+    <form action="<?php if (strpos($requestUrl, '/edit/')) echo $this->getUrl('checkout/icart/edit', array('id' => $this->getRequest()->getParam('id'))); else echo Mage::helper('icart')->getAddUrl($_product) ?>" method="post" id="product_addtocart_form"<?php if($_product->getOptions()): ?> enctype="multipart/form-data"<?php endif; ?> onsubmit="productAddToCartForm.submit(this);">
+        <div class="product-shop">
+            <div class="product-img-box">
+                <?php
+                $_img = '<img src="'.$this->helper('catalog/image')->init($_product, 'image')->resize(70).'" alt="'.$this->htmlEscape($this->getImageLabel()).'" title="'.$this->htmlEscape($this->getImageLabel()).'" />';
+                echo $_helper->productAttribute($_product, $_img, 'image');
+                ?>
+            </div>
+            <div class="product-details">
+                <div class="product-name">
+                    <h1><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></h1>
+                </div>
+                <?php echo $this->getChildHtml('product_type_data') ?>
+                <?php echo $this->getTierPriceHtml() ?>
+                <?php echo $this->getChildHtml('extrahint') ?>
+
+                <?php if (!$this->hasOptions()):?>
+                    <div class="add-to-box">
+                        <?php if($_product->isSaleable()): ?>
+                            <?php echo $this->getChildHtml('addtocart') ?>
+                        <?php endif; ?>
+                    </div>
+                    <?php echo $this->getChildHtml('extra_buttons') ?>
+                <?php else: ?>
+                    <?php echo $this->getChildHtml('addto') ?>
+                <?php endif; ?>
+            </div>
+            <div class="clearer"></div>
+            <?php if ($_product->isSaleable() && $this->hasOptions()):?>
+                <?php echo $this->getChildChildHtml('container1', '', true, true) ?>
+            <?php endif;?>
+        </div>
+        <div class="clearer"></div>
+        <?php if ($_product->isSaleable() && $this->hasOptions()):?>
+            <?php echo $this->getChildChildHtml('container2', '', true, true) ?>
+        <?php endif;?>
+        <div class="no-display">
+            <input type="hidden" name="product" value="<?php echo $_product->getId() ?>" />
+            <input type="hidden" name="related_product" id="related-products-field" value="" />
+            <input type="hidden" name="is_input_file" id="is_input_file" value="0" />
+            <input type="hidden" name="referer_url" value="<?php echo $this->getRequest()->getServer('HTTP_REFERER') ?>" />
+        </div>
+    </form>
+    <script type="text/javascript">
+    //<![CDATA[
+        var productAddToCartForm = new VarienForm('product_addtocart_form');
+        if ($$('input[type="file"]').length==0) {
+            productAddToCartForm.submit = function(){
+                if (this.validator.validate()) {
+                        iCart.submitForm(this.form, 'post');
+                }
+            }.bind(productAddToCartForm);
+        } else {
+            $('is_input_file').value = 1;
+        }   
+    //]]>
+    </script>
+</div>

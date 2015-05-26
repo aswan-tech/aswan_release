@@ -1,0 +1,128 @@
+<?php
+/**
+ * Magento phtml file used for Registered user
+ *
+ * Magento phtml file to show the order details to Registered user
+ *
+ *
+ * @category    FCM
+ * @package     FCM_Trackorder
+ * @author		Vishal Verma
+ * @author_id	51427958
+ * @company		HCL Technologies
+ * @created 	Friday, August 10, 2012
+ * @copyright	Four cross media
+ */
+?>
+
+<?php
+	$ordDtls = $this->getTrackDetails();
+	/*
+	print __LINE__;
+	print "<pre>";
+		print_r($ordDtls);
+	print "</pre>";
+	die;
+	*/
+?>
+
+<h2 class="title"><?php echo $this->__('Track My Order'); ?></h2>
+<div id="messages"><?php echo $this->getMessagesBlock()->getGroupedHtml() ?></div>
+<p class="text"><?php echo $this->__('Status update on your shipment is provided below:-') ?></p>
+<form method="post" action="">
+<ul class="clearfix formOrder">
+	<li>
+		<div class="clearfix field-item">
+			<label for="ordNo">Order Number:</label>
+			<div class="input-box input-value"><?php echo $ordDtls['OrderNumber']=='' ? 'N/A' : $ordDtls['OrderNumber']; ?></div>
+		</div>
+	</li>
+	<li>
+		<div class="clearfix field-item">
+			<label for="wbNo">Waybill Number:</label>
+			<div class="input-box input-value"><?php echo $ordDtls['WaybillNo']=='' ? 'N/A' : $ordDtls['WaybillNo']; ?></div>
+		</div>
+	</li>
+	<?php if ($ordDtls['StatusType'] == 'IT'){ ?>
+		<li>
+			<div class="clearfix field-item">
+				<label for="expDev">Expected Delivery:</label>
+				<div class="input-box input-value"><?php echo $ordDtls['ExpectedDate']=='' ? 'N/A' : $ordDtls['ExpectedDate']; ?></div>
+			</div>
+		</li>
+	<?php } ?>
+	<li>
+		<div class="clearfix field-item">
+			<label for="ordDt">Order Placed On:</label>
+			<div class="input-box input-value"><?php echo $ordDtls['OrderDate_Formatted']=='' ? 'N/A' : $ordDtls['OrderDate_Formatted']; ?></div>
+		</div>
+	</li>
+</ul>
+<ul class="clearfix formOrder">
+	<li>
+		<div class="clearfix field-item">
+			<label for="pckDt">Pick-Up Date:</label>
+			<div class="input-box input-value"><?php echo $ordDtls['PickUpDate_Formatted']=='' ? 'N/A' : $ordDtls['PickUpDate_Formatted']; ?></div>
+		</div>
+	</li>
+	<li>
+		<div class="clearfix field-item">
+			<label for="fromCity">From:</label>
+			<div class="input-box input-value"><?php echo $ordDtls['Origin']=='' ? 'N/A' : $ordDtls['Origin']; ?></div>
+		</div>
+	</li>
+	<li>
+		<div class="clearfix field-item">
+			<label for="toCity">To:</label>
+			<div class="input-box input-value"><?php echo $ordDtls['Destination']=='' ? 'N/A' : $ordDtls['Destination']; ?></div>
+		</div>
+	</li>
+	 <li>
+		<div class="clearfix field-item">
+			<label for="status">Status:</label>
+			<div class="input-box input-value"><?php echo $ordDtls['Status']=='' ? 'N/A' : $ordDtls['Status']; ?></div>
+		</div>
+	</li>
+	<?php if ($ordDtls['StatusType'] == 'DL'){ ?>
+		<li>
+			<div class="clearfix field-item">
+				<label for="dod">Date Of Delivery:</label>
+				<div class="input-box input-value"><?php echo $ordDtls['StatusDate_Formatted']=='' ? 'N/A' : $ordDtls['StatusDate_Formatted']; ?></div>
+			</div>
+		</li>
+		<li>
+			<div class="clearfix field-item">
+				<label for="tod">Time Of Delivery:</label>
+				<div class="input-box input-value"><?php echo $ordDtls['StatusTime_Formatted']=='' ? 'N/A' : $ordDtls['StatusTime_Formatted']; ?></div>
+			</div>
+		</li>
+		 <li>
+			<div class="clearfix field-item">
+				<label for="recipient">Recipient:</label>
+				<div class="input-box input-value"><?php echo $ordDtls['ReceivedBy']=='' ? 'N/A' : $ordDtls['ReceivedBy']; ?></div>
+			</div>
+		</li>
+	<?php }else{ ?>
+		<?php if ($ordDtls['StatusType'] == 'RD' || $ordDtls['StatusType'] == 'RT'){ ?>
+			<li>
+				<div class="clearfix field-item">
+					<label for="dod">New Waybill Number:</label>
+					<div class="input-box input-value"><?php echo $ordDtls['NewWaybillNo']=='' ? 'N/A' : $ordDtls['NewWaybillNo']; ?></div>
+				</div>
+			</li>
+		<?php } ?>
+		<li>
+			<div class="clearfix field-item">
+				<label for="dod">Status Date:</label>
+				<div class="input-box input-value"><?php echo $ordDtls['StatusDate_Formatted']=='' ? 'N/A' : $ordDtls['StatusDate_Formatted']; ?></div>
+			</div>
+		</li>
+		<li>
+			<div class="clearfix field-item">
+				<label for="tod">Status Time:</label>
+				<div class="input-box input-value"><?php echo $ordDtls['StatusTime_Formatted']=='' ? 'N/A' : $ordDtls['StatusTime_Formatted']; ?></div>
+			</div>
+		</li>
+	<?php } ?>
+</ul>
+</form>

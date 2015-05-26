@@ -1,0 +1,184 @@
+<?php
+// Shortlisted products saved in the customer session
+$session_2 = Mage::getSingleton('customer/session', array("name" => "frontend"));
+$shortlistedProducts_2 = @unserialize($session_2->getData("shortlistedProducts"));
+?>
+<script type="text/javascript">
+	function changeImageShortlist(stringofIds){
+		var arrayofIds = stringofIds.split(",");
+		jQuery(".SwanRating").each(function(){
+			if(arrayofIds.indexOf(jQuery(this).attr('id')) > -1){
+				var imageUrl = '<?php echo $this->getSkinUrl("images/swanRatingAdded.png") ?>';
+				var idfound = jQuery(this).attr('id');
+				jQuery("#"+idfound).html('<img src="'+imageUrl+'" title="Added to My Shortlist" alt="Already Added" />');
+			}else{
+				var imageUrl = '<?php echo $this->getSkinUrl("images/swanRating.png") ?>';
+				var idnotfound = jQuery(this).attr('id');
+				jQuery("#"+idnotfound+" a").html('<img title="Add to Shortlist" src="'+imageUrl+'" alt="To Be Added" />');
+			}		
+		});
+	}
+</script>
+<?php $_shortlistIds = ''; 
+	$_shortlistproducts = ''; ?>
+
+<?php if ($shortlistedProducts_2) { ?>
+
+<div id="floater">
+	<div id="floater_top"> <span class="arrowUp"></span> My Shortlist (<?php echo count($shortlistedProducts_2); ?>) </div>
+	<div id="floater_tab" style="display:none;">
+		<div id="itemList">
+			<?php
+				foreach ($shortlistedProducts_2 as $key => $prod_id) {
+					$_shortlistIds .= "shortlist_".$prod_id.","; 
+					$product = Mage::getModel('catalog/product')->load($prod_id);
+			?>
+					<div class="itemListElement" id="prod_<?php echo $prod_id; ?>">
+						<div class="itemCancel">
+							<a href="javascript:void(0);" title="<?php echo Mage::getStoreConfig('shortlist/myshortlist/hoverdeletethis');?>" onclick="shortlistDelete(<?php echo $product->getId(); ?>, '<?php echo $product->getName(); ?>');">X</a>
+						</div>
+						<div class="itemListElementImage">
+							<img alt="<?php echo $product->getName(); ?>" src="<?php echo Mage::helper('catalog/image')->init($product, 'thumbnail')->resize(40, 60); ?>" width="40" height="60">
+						</div>
+						<div class="itemListElementInfo">
+							<span class="itemListElementName"><?php echo ucfirst(strtolower($product->getName())); ?></span>
+							<span class="itemListElementDesc"><?php echo substr($product->getDescription(),0,50).'...'; ?></span>
+							<?php echo $this->getPriceHtml($product, true) ?>
+						</div>
+					</div>
+			<?php
+				}
+				$_shortlistproducts = substr($_shortlistIds,0,strlen($_shortlistIds)-1);
+			?>
+		</div>
+		<div id="floater_bottom">
+			<a onClick="shortlistDeleteAll()" href="javascript:void(0);" class="clear_btn" title="<?php echo Mage::getStoreConfig('shortlist/myshortlist/hoverdeleteall');?>"> <span class="clearList">Clear List</span></a>
+			<a href="<?php echo Mage::getBaseUrl() . "shortlist/index" ?>" class="viewbtn"> View All </a>
+		</div>
+	</div>
+</div>
+
+<?php } else {
+?>
+<div id="floater">
+    <div id="floater_top"> <span class="arrowUp"></span> My Shortlist (0) </div>
+    <div id="floater_tab" style="display:none;">
+        <div id="itemList">
+            <div id="ListEmpty">
+                <!--<p>No shortlisted products.</p>
+                <p>To shortlist a product, press the Swan icon next to the product.</p>-->
+				<?php echo Mage::getStoreConfig('shortlist/myshortlist/noproducts');?>
+            </div>
+        </div>
+    <div id="floater_bottom">
+    </div>
+    </div>
+</div>
+<?php } ?>
+
+<script type="text/javascript">
+	changeImageShortlist('<?php echo $_shortlistproducts  ?>');
+</script>
+
+<script type="text/javascript">
+   
+    jQuery(document).ready(function(){
+        jQuery("#floater_tab").hide();
+        jQuery("#floater_top").click('bind' , function(){
+            jQuery("#floater_tab").slideToggle(1000);
+            changeArrow();
+        });
+    });
+
+    function changeArrow(){
+        if(jQuery("#floater_top > span").attr('class') == 'arrowDown'){
+            jQuery("#floater_top > span").removeClass('arrowDown').addClass('arrowUp');
+        }else{
+            jQuery("#floater_top > span").removeClass('arrowUp').addClass('arrowDown');
+        }
+    }
+    
+    function shortlistDelete(prod, prod_name) {
+		var escProdName = escape(prod_name);
+		var unEscProdName = unescape(escProdName);
+		
+        jQuery.ajax({
+            url:"<?php echo Mage::getBaseUrl(); ?>shortlist/index/shortlistDelete?prodId="+prod,
+			beforeSend: function() {
+				//Clear Cart add notification message if any
+				jQuery("#addedToCart").html('');
+                jQuery('.cart-loader').show();
+            },
+            success:function(result){
+				jQuery('.cart-loader').hide();
+                jQuery("#shortlisted-prods-container").html(result);
+                
+				//notification  message
+				jQuery("#addedToCart").html('<li class="success-msg"><ul><li><span>'+unEscProdName+' removed successsfully from your shortlist.</span></li></ul></li>');
+								
+                if(jQuery("#shortlist_"+prod).length > 0){
+                    jQuery("#shortlist_"+prod).html('<a onclick="shortlistAdd('+prod+');" href="javascript:void(0);"><img alt="To Be Added" src="<?php echo $this->getSkinUrl(); ?>/images/swanRating.png" /></a>');
+                }
+                if(jQuery("#prodPanel_"+prod).length > 0){
+                    jQuery("#prodPanel_"+prod).remove();
+					
+					if(jQuery("#totalCount").length > 0){
+						var totalCnt = jQuery("[id^='more-views-list-']").size();
+						jQuery("#totalCount").html('My Shortlist of '+totalCnt+' Products');
+					}
+                }else{
+                    jQuery("#floater_tab").show();
+                    changeArrow();
+                }               
+            }
+        });
+    }
+	
+
+    function shortlistDeleteAll(){
+        jQuery.ajax({
+            url:"<?php echo Mage::getBaseUrl(); ?>shortlist/index/shortlistDeleteAll",
+			beforeSend: function() {
+				//Clear Cart add notification message if any
+				jQuery("#addedToCart").html('');
+                jQuery('.cart-loader').show();
+            },
+            success:function(result){
+                jQuery("#shortlisted-prods-container").html(result);
+                jQuery("#floater_tab").show();
+                changeArrow();
+				
+                jQuery(".SwanRating").each(function() {
+                    var prod = jQuery(this).attr('id');
+                    var prod_id = prod.replace('shortlist_', '');
+                    if(jQuery("#"+prod).length > 0){
+                        jQuery("#"+prod).html('<a onclick="shortlistAdd('+prod_id+');" href="javascript:void(0);"><img alt="To Be Added" src="<?php echo $this->getSkinUrl(); ?>/images/swanRating.png" /></a>');
+                    } 
+                });
+				jQuery('.cart-loader').hide();
+				if(jQuery("#addedToCart").length > 0){
+					window.location.href = "<?php echo Mage::getBaseUrl(); ?>shortlist/index/";
+                    //jQuery("#addedToCart").html('<li class="success-msg"><ul><li><span>All products removed successsfully from your shortlist.</span></li></ul></li>');
+                }
+            }
+        });
+    }
+</script>
+
+<?php 
+if ($module == 'catalog' && $controller == 'category'){
+	$_category  = Mage::registry('current_category');
+	$_categoryLevel  = $_category->getLevel();
+	$sessionId =  Mage::getModel('core/session')->getSessionId();
+	echo '-------'.$sessionId;
+	/*
+	if (!$sessionId){
+		if ($_categoryLevel > 2) {
+			$parentIds = array(3, 4, 6, 8);
+			$pcatid  = $_category->getParentId();
+			if(in_array($pcatid, $parentIds)) {	echo '<img src="http://www.mydala.com/alliance/pixel/pixserverlead/0/114/0/0/md-'.rand(100,999).'"/>';}
+		}
+	}
+	*/
+}
+?>

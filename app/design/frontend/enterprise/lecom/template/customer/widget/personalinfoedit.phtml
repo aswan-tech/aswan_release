@@ -1,0 +1,82 @@
+<?php
+/**
+ * Magento Enterprise Edition
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Magento Enterprise Edition License
+ * that is bundled with this package in the file LICENSE_EE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://www.magentocommerce.com/license/enterprise-edition
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://www.magentocommerce.com/license/enterprise-edition
+ */
+
+/**
+USAGE:
+
+Simple:
+
+<?php echo $this->getLayout()->createBlock('customer/widget_name')
+   ->setObject($this->getAddress())
+   ->toHtml() ?>
+
+For checkout/onepage/shipping.phtml:
+
+<?php echo $this->getLayout()->createBlock('customer/widget_name')
+   ->setObject($this->getAddress())
+   ->setFieldIdFormat('shipping:%s')
+   ->setFieldNameFormat('shipping[%s]')
+   ->setFieldParams('onchange="shipping.setSameAsBilling(false);"')
+   ->toHtml() ?>
+*/
+/* @var $this Mage_Customer_Block_Widget_Name */
+?>
+
+<?php if ($this->showPrefix()): ?>
+<tr>
+	<td>
+		<label for="<?php echo $this->getFieldId('prefix')?>">
+		<?php echo $this->getStoreLabel('prefix') ?><?php if ($this->isPrefixRequired()) echo '<span class="mandatoryField">*</span>' ?></label>
+		<?php if ($this->getPrefixOptions() === false): ?>
+			<input type="text" id="<?php echo $this->getFieldId('prefix')?>" name="<?php echo $this->getFieldName('prefix')?>" value="<?php echo $this->escapeHtml($this->getObject()->getPrefix()) ?>" title="<?php echo $this->getStoreLabel('prefix') ?>" class="input-text textfield <?php echo $this->helper('customer/address')->getAttributeValidationClass('prefix') ?>" <?php echo $this->getFieldParams() ?> />
+		<?php else: ?>
+			<select id="<?php echo $this->getFieldId('prefix')?>" name="<?php echo $this->getFieldName('prefix')?>" title="<?php echo $this->getStoreLabel('prefix') ?>" class="acc-city <?php echo $this->helper('customer/address')->getAttributeValidationClass('prefix') ?>" <?php echo $this->getFieldParams() ?>>
+			<?php foreach ($this->getPrefixOptions() as $_option): ?>
+				<option value="<?php echo $_option?>"<?php if ($this->getObject()->getPrefix()==$_option):?> selected="selected"<?php endif; ?>><?php echo $this->__($_option) ? $this->__($_option) : 'Please Select'; ?></option>
+			<?php endforeach; ?>
+			</select>
+		<?php endif; ?>
+	</td>
+</tr>
+<?php endif; ?>
+<tr>
+	<td>
+		<label for="<?php echo $this->getFieldId('firstname')?>">
+			<?php echo $this->getStoreLabel('firstname') ?>
+		<span class="mandatoryField">*</span>
+		</label>
+		<input type="text" id="<?php echo $this->getFieldId('firstname')?>" name="<?php echo $this->getFieldName('firstname')?>" value="<?php echo $this->escapeHtml($this->getObject()->getFirstname()) ?>" title="<?php echo $this->getStoreLabel('firstname') ?>" maxlength="255" class="input-text textfield <?php echo $this->helper('customer/address')->getAttributeValidationClass('firstname') ?>" <?php echo $this->getFieldParams() ?> />
+	</td>
+</tr>
+<tr>
+	<td>
+		<label for="<?php echo $this->getFieldId('lastname')?>">
+			<?php echo $this->getStoreLabel('lastname') ?>
+			<span class="mandatoryField">*</span>
+		</label>
+		<input type="text" id="<?php echo $this->getFieldId('lastname')?>" name="<?php echo $this->getFieldName('lastname')?>" value="<?php echo $this->escapeHtml($this->getObject()->getLastname()) ?>" title="<?php echo $this->getStoreLabel('lastname') ?>" maxlength="255" class="input-text textfield <?php echo $this->helper('customer/address')->getAttributeValidationClass('lastname') ?>" <?php echo $this->getFieldParams() ?> />
+	</td>
+</tr>

@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+<!--
+/**
+* FCM Zipcodeimport Module
+*
+* Module for importing zip code, city and state for address verification.
+*
+* @category    FCM
+* @package     FCM_Zipcodeimport
+* @author	Vikrant Kumar Mishra
+* @author_id	51402601
+* @company	HCL Technologies
+* @created Thursday, June 07, 2012
+*/
+-->
+<config>
+    <tabs>
+        <fcmfulfillment translate="label" module="fulfillment">
+            <label>FCM Fulfillment</label>
+            <sort_order>280</sort_order>
+        </fcmfulfillment>
+    </tabs>
+    <sections>
+
+        <commerceextensions_productcrosssellupsellimportexport translate="label" module="commerceextensions_productcrosssellupsellimportexport">
+            <label>Related Import Sheet Upload</label>
+            <tab>fcmfulfillment</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>1003</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <general translate="label">
+                    <label>Upload Sheet</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>10</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+<!--It will display browse field for file upload in admin section -->
+                        <sheetupload translate="label">
+                            <label>File</label>
+                            <frontend_type>file</frontend_type>
+                            <backend_model>CommerceExtensions_Productcrosssellupsellimportexport_Model_System_Config_Backend_File</backend_model>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>upload CSV file format</comment>
+                        </sheetupload>
+<!--On Clicking this upload button, the above browse file will be uploaded on zip code folder under media folder  -->
+                        <upload translate="label">
+                            <label>Upload</label>
+                            <frontend_type>button</frontend_type>
+                            <frontend_model>CommerceExtensions_Productcrosssellupsellimportexport_Block_Adminhtml_System_Config_Form_Field_Upload</frontend_model>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </upload>
+<!--On Clicking this download button, the list of zip codes will be downloaded in csv format  -->
+                    </fields>
+                </general>
+            </groups>
+        </commerceextensions_productcrosssellupsellimportexport>
+    </sections>
+</config>

@@ -1,0 +1,87 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <FCM_CustomerExport>
+            <version>1.0.0</version>
+        </FCM_CustomerExport>
+    </modules>
+    <global>
+        <models>
+            <customerexport>
+                <class>FCM_CustomerExport_Model</class>
+            </customerexport>
+        </models>
+        <helpers>
+            <customerexport>
+                <class>FCM_CustomerExport_Helper</class>
+            </customerexport>
+        </helpers>
+		<template>
+			<email>
+				<error_email_notification module="customerexport">
+					<label>Customerexport custom email module</label>
+					<file>error_custom_email.html</file>
+					<type>html</type>
+				</error_email_notification>
+			</email>
+		</template>
+
+    </global>
+    <adminhtml>
+        <acl>
+            <resources>
+                <all>
+                    <title>Allow Everything</title>
+                </all>
+                <admin>
+                    <children>
+                        <system>
+                            <children>
+                                <config>
+                                    <children>
+                                        <customerexport>
+                                            <title>Report Export Module Section</title>
+                                        </customerexport>
+                                    </children>
+                                </config>
+                            </children>
+                        </system>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
+    </adminhtml>
+    <default>
+        <customerexport>
+            <directories>
+                <csv_directory>output/working/</csv_directory>
+            </directories>
+            <ftp>
+                <ftp_host>ftp.pacbrands.com.au</ftp_host>
+                <ftp_username></ftp_username>
+                <ftp_password></ftp_password>
+                <ftp_directory>/Retail/Retail_online/Dev/POS/IN/Transfer</ftp_directory>
+            </ftp>
+        </customerexport>
+    </default>
+	<frontend>
+    <routers>
+        <customerexport>
+            <use>standard</use>
+            <args>
+                <module>FCM_CustomerExport</module>
+                <frontName>customerexport</frontName>
+            </args>
+        </customerexport>
+    </routers>
+</frontend> 
+</config>
+
+
+
+
+
+
+
+
+

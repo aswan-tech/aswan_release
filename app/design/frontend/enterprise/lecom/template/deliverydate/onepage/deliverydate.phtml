@@ -1,0 +1,71 @@
+<?php
+/**
+ *
+ * @category   design_default
+ * @package    Sharpdot
+ * @copyright  Copyright (c) 2010 Sharpdot Inc (http://www.Sharpdotinc.com)
+ * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+
+<div id="calender" style="margin-bottom:10px; display:none;">
+    <label for="page_date-end">Desired Arrival Date</label>
+	<input name="shipping_arrival_date_display" id="shipping_arrival_date_display" value="" title="date" class=" input-text" style="width: 100px;" type="text"> <img src="<?php echo Mage::getBaseUrl('skin')?>adminhtml/default/default/images/grid-cal.gif" alt="" class="v-middle" id="shipping_arrival_date_trig" title="Select Date" style=""> <a href="#" style="margin-left:5px;" onClick="resetArrivalDate(); return false;">Reset Arrival Date</a>
+    <input name="shipping_arrival_date" id="shipping_arrival_date" value="" onChange="shippingArrivalDateOnChange(this); return false;" title="date"  type="hidden"> 
+            <script type="text/javascript">
+            //<![CDATA[
+                Calendar.setup({
+                    inputField: "shipping_arrival_date",
+                    ifFormat: "%m/%e/%Y",
+					dateStatusFunc : dateRange,
+					onUpdate : update,
+                    showsTime: false,
+                    button: "shipping_arrival_date_trig",
+                    align: "Bl",
+					disableNavYear: false,
+                    singleClick : true
+                });
+				
+				function update() {
+					var inputdate = $('shipping_arrival_date').getValue();
+					var initialDate = new Date(inputdate);
+					var someDate = new Date();
+					var numberOfDaysToAdd = <?php echo Mage::getStoreConfig('carriers/appointment/shipping_interval');?>;
+					var futureDate = someDate.setDate(someDate.getDate() + numberOfDaysToAdd);
+					if(initialDate.getTime() < futureDate ){
+						$('shipping_arrival_date_display').setValue('');
+						//document.getElementById('shipping_arrival_date_display').value ='';
+						//document.getElementById('shipping_arrival_date').text ='';
+						//$('shipping_arrival_date').setValue('');
+					}
+				}
+				
+				function dateRange(date) {
+					var someDate = new Date();
+					var numberOfDaysToAdd = <?php echo Mage::getStoreConfig('carriers/appointment/shipping_interval');?>;
+					var futureDate = someDate.setDate(someDate.getDate() + numberOfDaysToAdd);
+					return (date.getTime() <= futureDate );
+				}
+				
+				function shippingArrivalDateOnChange(el)
+				{
+					var displayDate = $('shipping_arrival_date_display');
+					var date = $('shipping_arrival_date').getValue();
+					displayDate.setValue(date);
+					
+				}
+				
+				function resetArrivalDate()
+				{
+					//clear both fields
+					$('shipping_arrival_date').setValue('');
+					$('shipping_arrival_date_display').setValue('');
+				}
+				//MRD added disable field to only allow calendar input
+				//TODO: need to enable field when form is submitted
+				Form.Element.disable('shipping_arrival_date_display');
+            //]]>
+            </script>
+    <small>&nbsp;</small><br />
+    <small>Please use the calendar icon to select your desired arrival date or leave blank for ASAP.<br /> Must order <?php echo Mage::getStoreConfig('carriers/appointment/shipping_interval');?> days in advance.</small>
+</div>

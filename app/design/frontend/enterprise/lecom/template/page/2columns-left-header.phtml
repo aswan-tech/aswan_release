@@ -1,0 +1,48 @@
+<!doctype html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+	<?php echo $this->getChildHtml('head') ?>
+</head>
+<body <?php echo $this->getBodyClass()?' class="'.$this->getBodyClass().'"':'' ?>>
+	<?php echo $this->getChildHtml('after_body_start') ?>
+	    <div class="top-info-bar"></div>
+      <div class="as-menu-wrap "></div>
+      <div class="as-info-cont">
+	<?php echo $this->getChildHtml('global_notices') ?>
+        <header class=" pos-a">
+            <?php echo $this->getChildHtml('header') ?>
+       </header>
+      </div>
+
+	<div id="container">
+		<div role="main">
+			<div id="bodycontainer" class="clearfix">
+				<div class="mainTop"></div>
+				<?php echo $this->getChildHtml('global_messages') ?>
+				<div class="mainbody myaccount">
+					<?php echo $this->getChildHtml('breadcrumbs') ?>	
+					<?php echo $this->getChildHtml('topcontent') ?>
+				<div class="clearfix sidepanels">
+						<div class="leftPanel">
+							<?php echo $this->getChildHtml('left') ?>
+						</div>
+						<div class="rightPanel">
+							<?php echo $this->getChildHtml('content') ?>
+						</div>
+				</div>
+				</div>
+				<div class="mainBot"></div>
+			</div>
+		</div>
+	</div>
+		<footer>	
+			<?php echo $this->getChildHtml('footer_before') ?>
+			<?php echo $this->getChildHtml('footer') ?>
+			<?php echo $this->getChildHtml('before_body_end') ?>
+		</footer>
+
+</body>
+</html>

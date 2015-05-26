@@ -1,0 +1,91 @@
+"Using the form below you can enable, disable and configure display of the rule in customers' account","En utilisant le formulaire ci-dessous vous pouvez activer, désactiver et configurer l'affichage de la règle dans le compte d'utilisateur '"
+"Display the rule in customers' account","Affichez la règle dans le compte d'utilisateur '"
+Yes,Oui
+No,Non
+"Display the coupon code in customers' account (if applicable)","Affichez le code promo dans le compte d'utilisateur ' (si applicable)"
+"Please describe the rule conditions","S'il vous plaît, décrivez les conditions de la règle"
+"Update prices using the following information","Mettez à jour des prix en utilisant les informations suivantes"
+Apply,Appliquer
+"Percent of product price discount","Pourcentage de la réduction des prix des produits"
+"Fixed amount discount","Montant de réduction fixe"
+"Percent of product price surcharge","Pourcentage de la surcharge des prix des produits"
+"Fixed amount surcharge","Montant de la surcharge fixe"
+"Fixed amount discount for whole cart","Montant de réduction fixe pour tout le panier"
+"Fixed amount surcharge for whole cart","Montant de la surcharge pour tout le panier"
+"Buy X get Y free (discount amount is Y)","Achetez X, obtenez Y gratuitement (montant de réduction est Y)"
+"Discount/Surcharge amount","Montant de réduction/de surcharge"
+"Maximum Qty Discount is Applied to","Réduction pour la quantité maximale est appliquée à"
+"Discount Qty Step (Buy X)","Etape de quantité de réduction (Acheter X)"
+"Free shipping","Livraison gratuite"
+"For matching items only","Pour les articles correspondant seulement"
+"For shipment with matching items","Pour la livraicon avec les articles correspondants"
+"Stop further rules processing","Arrêt de développer des règles "
+"Apply the rule only to cart items matching the following conditions (leave blank for all items)","Appliquer la règle uniquement aux articles du panier correspondant aux conditions suivantes (laisser vide pour tous les articles)"
+"Apply to","Appliquer à"
+"Rule Information","Information des règles"
+Conditions,Conditions
+Actions,Actions
+"Display Options","Affichage des options"
+Period,Période
+Total,Total
+Subtotal,Sous-total
+"Coupon Code","Code Promo"
+"Number of Uses","Nombre d'utilisations"
+"Subtotal Amount","Montant soustotal"
+"Discount(+)/Surcharge(-) Amount","Réduction (+)/ Surcharge (-) Montant"
+"Total Amount","Montant total"
+"Number of Use","Nombre d'utilisation"
+CSV,CSV
+Excel,Excel
+"Number of Orders","Nombre de commandes"
+"Items Ordered","Articles commandés"
+Tax,Taxe
+Shipping,Livraison
+Discounts(+)/Surcharges(-),"Réductions (+)/Surcharges (-)"
+Invoiced,Facturé
+Refunded,Remboursé
+Discount,Réduction
+Discount/Surcharge,"Réduction/ Surcharge"
+"Available Specials","Promotions disponibles"
+"Qty to Refund","Quantité de remboursement"
+"Tax Amount","Montant de la taxe"
+"Discount Amount","Montant de la réduction "
+"Row Total","Total des lignes"
+Qty,"Quantité "
+"Qty to Invoice","Quantité dans la facture"
+"Discount (%s)","Réduction ( %s)"
+"Discount(+)/Surcharge(-) (%s)","Réduction (+)/ Surcharge (-) ( %s)"
+Discount(+)/Surcharge(-),"Réduction (+)/ Surcharge (-)"
+"Tax Percent","Pourcentage de la taxe"
+"Aitoc Loyalty Program","Programme de fidélisation d'Aitoc"
+"Aitoc Loyalty Program functionality is disabled for some websites you specified","La fonctionnalité du programme de fidélisation d'Aitoc est désactivée pour certains sites Web que vous avez spécifiés"
+Surcharge,Surcharge
+"Surcharge (%s)","Surcharge ( %s)"
+"Customer data subselection","Sous-sélection des données d'utilisateur"
+"Test Atrr","Test Atrr"
+"Conditions Combination","Combinaison des conditions"
+"Customer Data","Données d'utilisateur"
+"Amount spent during period","Montant dépensé durant la période"
+"Period of membership","Période d'affiliation"
+"Average order amount during period","Montant moyen de la commande pendant la période"
+Customer,Utilisateur
+suits,convient
+"If a %s %s %s of these conditions:","Si un %s %s %s de ces conditions:"
+is,est
+"is not","n'est pas"
+"equals or greater than","égal ou plus que"
+"equals or less than","égal ou moins que"
+"greater than","plus que"
+"less than","moins que"
+contains,contient
+"does not contain","ne contient pas"
+"is one of","est l'un de(s)"
+"is not one of","n'est pas l'un de(s)"
+"Amount spent during last","Montant dépensé au cours du dernier"
+"Customer's membership period","Période d'adhésion d'utilisateur's "
+"Average order during last","Commande moyenne lors de la dernière"
+"Aitoc Loyalty Program functionality has been disabled for the following store(s):","La fonctionnalité du programme de fidélisation d'Aitoc a été désactivé pour le magasin suivant (s):"
+"Aitoc Loyalty Program functionality is disabled for some stores in websites you specified","La fonctionnalité du programme de fidélisation d'Aitoc est désactivée pour certains magasins dans les sites Web que vous avez spécifiés"
+"Surcharge Amount","Montant de surcharge"
+available,disponible
+"No specials currently available","Pas de promotion actuellement disponibles"

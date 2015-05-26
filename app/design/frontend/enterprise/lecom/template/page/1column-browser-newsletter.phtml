@@ -1,0 +1,131 @@
+<!doctype html>
+	<head>
+		<?php //echo $this->getChildHtml('head') ?>
+	</head>
+	<body <?php echo $this->getBodyClass()?' class="'.$this->getBodyClass().'"':'' ?>>
+		<div style="background: #e1e1e1; color: #373738; font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 12px; margin: 0; padding: 0;">
+			<table style="width: 100%;" border="0" cellspacing="0" cellpadding="0">
+				<tbody>
+					<tr>
+						<td align="center" valign="top">
+							<!-- [ header starts here] -->
+							<table style="width: 650px;" border="0" cellspacing="0" cellpadding="0" bgcolor="FFFFFF">
+								<tbody>
+									<?php //echo $this->getChildHtml('header-newsletter') ?>
+									<tr>
+										<td bgcolor="#F3F3F3">
+											<table style="width: 100%;" border="0" cellspacing="0" cellpadding="0">
+												<tbody>
+													<tr>
+														<td style="font-size: 9px; color: #666666; font-family: Verdana, Geneva, sans-serif; border-bottom: 1px dashed #c6c6c6; padding: 5px 10px;" valign="top">You're receiving this email because you signed up for <a style="color: #343E7A; text-decoration: none;" href="<?php echo $this->getUrl('') ?>"><?php echo Mage::app()->getStore()->getGroup()->getName();?></a></td>
+														<td style="font-size: 9px; color: #666666; font-family: Verdana, Geneva, sans-serif; border-bottom: 1px dashed #c6c6c6; padding: 5px 10px;">
+															<!--Can't see images? <a style="color: #343E7A; text-decoration: none;">Click Here </a>-->
+														</td>
+													</tr>
+												</tbody>
+											</table>
+										</td>
+									</tr>
+									<tr>
+										<td style="font-size: 9px; color: #666666; font-family: Verdana, Geneva, sans-serif; border-bottom: 1px dashed #c6c6c6; padding: 5px 10px;" bgcolor="#F3F3F3">To get the <?php echo Mage::app()->getStore()->getGroup()->getName();?> Newsletter in your inbox add <a style="color: #343E7A; text-decoration: none;" href="mailto:service@americanswan.com">service@americanswan.com</a> to your address book
+										</td>
+									</tr>
+									<tr>
+										<td bgcolor="#F3F3F3">
+											<table>
+												<tbody>
+													<tr>
+														<td style="padding: 5px 10px;" valign="top" width="300"><a style="color: #343E7A; text-decoration: none;" href="<?php echo $this->getUrl('') ?>"><img style="margin-bottom: 10px;" src="<?php echo $this->getSkinUrl('images/logo_email.gif'); ?>" alt="<?php echo $this->getLogoAlt() ?>" border="0" /></a></td>
+														<td><img src="<?php echo $this->getSkinUrl('images/gurantee.png')?>" alt="" width="117" height="37" /></td>
+														<td><img src="<?php echo $this->getSkinUrl('images/money-back.png')?>" alt="" width="117" height="37" /></td>
+														<td><img src="<?php echo $this->getSkinUrl('images/assured_quality.png')?>" alt="" width="117" height="37" /></td>
+													</tr>
+												</tbody>
+											</table>
+										</td>
+									</tr>
+									<tr>
+										<td colspan="4"><img src="<?php echo $this->getSkinUrl('images/dotted_line2.png')?>" alt="" width="652" height="5" align="line" /></td>
+									</tr>
+									<!-- [ middle starts here] -->
+									<tr>
+										<td style="padding: 25px 15px;" valign="top">
+											<?php echo $this->getChildHtml('content') ?>
+											<!--__MIDDLE_GOES_HERE__-->
+										</td>
+									</tr>
+									<!-- footer start -->
+									<tr>
+										<td><img src="<?php echo $this->getSkinUrl('images/dotted_line1.png')?>" alt="line" width="652" height="7" /></td>
+									</tr>
+									<tr>
+										<td align="center" valign="top" bgcolor="#f3f3f3">
+											<table>
+												<tbody>
+													<tr>
+														<td colspan="4" height="10">&nbsp;</td>
+													</tr>
+													<tr>
+														<td style="font-size: 11px; color: #666666; line-height: 16px; font-family: Verdana, Geneva, sans-serif; width: 150px; padding: 0 10px; border-right: 1px dashed #aaaaaa;" valign="top"><img src="<?php echo $this->getSkinUrl('images/gurantee.png')?>" alt="100% gurantee" width="117" height="37" /><br /><br /> When you order from our website, we will ensure that the product gets dispatched within 24hrs.
+														</td>
+														<td style="font-size: 11px; color: #666666; line-height: 16px; font-family: Verdana, Geneva, sans-serif; width: 150px; padding: 0 10px; border-right: 1px dashed #aaaaaa;" valign="top"><img src="<?php echo $this->getSkinUrl('images/assured_quality.png')?>" alt="Money Back" width="117" height="37" /><br /><br /> AmericanSwan.com's 30 Day <br /> Returns Policy<br /> "No Questions Asked !"
+														</td>
+														<td style="font-size: 11px; color: #666666; line-height: 16px; font-family: Verdana, Geneva, sans-serif; width: 150px; padding: 0 10px; border-right: 1px dashed #aaaaaa;" valign="top"><img src="<?php echo $this->getSkinUrl('images/cash_delivery.png')?>" alt="100% gurantee" width="117" height="37" />
+											<p style="padding-left: 20px;">OTHER PAYMENT OPTIONS<br /><br /> <img src="<?php echo $this->getSkinUrl('images/card.png')?>" alt="card" width="82" height="29" /></p>
+														</td>
+														<td style="font-size: 11px; color: #666666; line-height: 16px; font-family: Verdana, Geneva, sans-serif; width: 150px; padding: 0 10px; margin: 10px 0;" valign="top"><img src="<?php echo $this->getSkinUrl('images/assured_quality.png')?>" alt="100% gurantee" width="117" height="37" /><br /><br /> When you order from our website, we will ensure that the product gets dispatched within 24hrs.
+														</td>
+													</tr>
+													<tr>
+														<td colspan="4" height="10">&nbsp;</td>
+													</tr>
+												</tbody>
+											</table>
+											<table style="border-top: 2px solid #343e7a; border-bottom: 1px dashed #c6c6c6; padding: 0pt 10px; color: #666666; font-size: 12px; width: 100%;">
+												<tbody>
+													<tr>
+														<td valign="middle"><img src="<?php echo $this->getSkinUrl('images/toll_free.png')?>" alt="tollfree" width="61" height="50" align="absmiddle" />&nbsp;CALL US FOR FREE <strong style="color: 3c3c3c;"> 1 800 313 1000</strong></td>
+														<td align="right" valign="middle">FOLLOW US: <a href="https://www.facebook.com/AmericanSwan"><img style="border: none;" src="<?php echo $this->getSkinUrl('images/facebook.png')?>" alt="facebook" width="25" height="24" align="absmiddle" /></a>&nbsp;<a href="https://twitter.com/AmericanSwan"><img style="border: none;" src="<?php echo $this->getSkinUrl('images/twitter.png')?>" alt="twitter" width="25" height="24" align="absmiddle" /></a></td>
+													</tr>
+												</tbody>
+											</table>
+											<table style="width: 100%;">
+												<tbody>
+													<tr>
+														<td style="font-size: 10px; color: #666666; line-height: 16px; font-family: Verdana, Geneva, sans-serif; padding: 10px;" valign="top" width="50%">We would like to hear from you. For any questions, suggestions or comments please contact us at: Phone: 1 800 313 1000 (Available 7 Days a week) Email: <a style="color: #343E7A; text-decoration: none;" href="mailto:care@americanswan.com">care@americanswan.com</a></td>
+														<td style="font-size: 10px; color: #666666; line-height: 16px; font-family: Verdana, Geneva, sans-serif; padding: 10px;" valign="top" width="50%"><span style="color: #333;">We are located at:</span><br /> Four Cross Media Services Pvt. Ltd., 708, 7th Floor, Iris Tech Park, Sohna Road, Gurgoan, Haryana - 122016</td>
+													</tr>
+												</tbody>
+											</table>
+											<table style="width: 100%;">
+												<tbody>
+													<tr>
+														<td style="font-size: 10px; color: #666666; line-height: 16px; font-family: Verdana, Geneva, sans-serif; padding: 10px;"><span style="color: #333;">Terms and Conditions</span><br /> Please read the following terms and conditions very carefully as your use of service is subject to your acceptance of and compliance with the following terms and conditions ("Terms"). By subscribing to or using any of our services you agree that you have read, understood and are bound by the Terms, regardless of how you subscribe to or use the services. If you do not want to be bound by the Terms, you must not subscribe to or use our services. <span style="float: right;"><a style="color: #343E7A; text-decoration: none; text-align: right;" href="<?php echo $this->getUrl('terms-n-conditions'); ?>">Read More</a></span></td>
+													</tr>
+												</tbody>
+											</table>
+											<table style="border-bottom: 1px dashed #c6c6c6; width: 100%;">
+												<tbody>
+													<tr>
+														<td style="font-size: 10px; color: #666666; line-height: 16px; font-family: Verdana, Geneva, sans-serif; padding: 10px;"><span style="color: #333;"> Privacy Policy </span><br /> We are AmericanSwan.com, a service provided by Four Cross Media Services Pvt Ltd. from, Gurgaon, Haryana, India - 122018. In this Privacy Policy, references to "you" mean any person submitting any data to us or our agent or the Site. If you have any comments or suggestions, we would be pleased to receive them at our Gurgaon address or by emailing us at service@americanswan.com . Data protection is a matter of trust and your privacy is important to us. We shall therefore only use your name and other information which relates to you in the manner set out in this Privacy Policy. <span style="float: right;"><a style="color: #343E7A; text-decoration: none;" href="<?php echo $this->getUrl('privacy-policy'); ?>">Read More</a></span></td>
+													</tr>
+												</tbody>
+											</table>
+											<table style="width: 100%;">
+												<tbody>
+													<tr>
+														<td style="font-size: 10px; color: #666666; line-height: 16px; font-family: Verdana, Geneva, sans-serif; padding: 10px;" align="center">&nbsp;</td>
+													</tr>
+												</tbody>
+											</table>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</body>
+</html>

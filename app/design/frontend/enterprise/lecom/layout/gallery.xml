@@ -1,0 +1,2581 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <gallery_index_index>
+        <reference name="root">
+            <action method="setTemplate">
+                <template>page/1column-trends.phtml</template>
+            </action>
+        </reference>
+        <reference name="head">
+            <action method="setTitle">
+                <title>THE FIND - Unlock your closet</title>
+            </action>
+            <action method="addCss">
+                <stylesheet>css/trends-1.6.css</stylesheet>
+            </action>
+			<!-- ###############	Remove CSS	###############	-->
+            
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/colorswatch-1.2.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/skin-1.3.css</name>
+            </action>
+			
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/stylesheet-1.7.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/custom-2.0.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/style-3.1.5.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/font-face/font-face.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/msdropdown/dd-2.0.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/msdropdown/flags.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/uniform.default.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/widgets.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/print.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/styles-ie.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/fonts.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/styles.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/stylesprint-1.2.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/widgets.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/print.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/styles-ie.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/jquery.confirm-1.2.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/global.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>extendware/ewcore/css/modalbox.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/jquery.alerts.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/belvg/facebookfree.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/testimonials.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/icart.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/rewards/skin.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/rewards/catalog.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/rewardssocial/facebook/like.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/website.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/mageworx/modalbox-ie.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_js</type>
+                <name>calendar/calendar-win2k-1.css</name>
+            </action>
+			
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/styles-1.8.3.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/blog-0.3.3.css</name>
+            </action>
+			
+			<!-- ###############	Remove JS	###############	-->
+            <action method="removeItem">
+                <type>js</type>
+                <name>jquery.confirm.js</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>jquery/jquery.zoom.js</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>jquery/jquery.alerts.js</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_js</type>
+                <name>js/jquery.limit-1.2.js</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>html5.js</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_js</type>
+                <name>js/jquery.uniform.min.js</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>jquery/jquery.dd.js</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_js</type>
+                <name>js/jkmegamenu.js</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_js</type>
+                <name>js/custom-1.1.js</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_js</type>
+                <name>js/jcarousel.min.js</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>lazyloader.js</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>mageworx/modalbox.js</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>mageworx/icart.js</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>tbt/rewardssocial/facebook/like/reward.js</name>
+            </action>
+        </reference>
+        <reference name="header">
+            <action method="setTemplate">
+                <template>page/html/header_trends.phtml</template>
+            </action>
+            <block type="gallery/archive" name="top.gallery.archive" />
+            <block type="core/template" name="top.search" as="topSearch" template="catalogsearch/form.mini.gallery.phtml"/>
+        </reference>
+        <reference name="content">
+            <block type="gallery/gallery" name="galleryview" template="gallery/gallery.phtml" />
+        </reference>
+        <remove name="footer"/>
+    </gallery_index_index>
+	
+	<gallery_index_view>
+        <reference name="root">
+            <action method="setTemplate">
+                <template>page/1column-trends.phtml</template>
+            </action>
+        </reference>
+        <reference name="head">
+            <action method="addCss">
+                <stylesheet>css/trends-1.6.css</stylesheet>
+            </action>
+			<!-- ###############	Remove CSS	###############	-->
+            
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/colorswatch-1.2.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/skin-1.3.css</name>
+            </action>
+			
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/stylesheet-1.7.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/custom-2.0.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/style-3.1.5.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/font-face/font-face.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/msdropdown/dd-2.0.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/msdropdown/flags.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/uniform.default.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/widgets.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/print.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/styles-ie.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/fonts.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/styles.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/stylesprint-1.2.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/widgets.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/print.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/styles-ie.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/jquery.confirm-1.2.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/global.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>extendware/ewcore/css/modalbox.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/jquery.alerts.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/belvg/facebookfree.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/testimonials.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/icart.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/rewards/skin.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/rewards/catalog.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/rewardssocial/facebook/like.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/website.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/mageworx/modalbox-ie.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_js</type>
+                <name>calendar/calendar-win2k-1.css</name>
+            </action>
+			
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/styles-1.8.3.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/blog-0.3.3.css</name>
+            </action>
+			
+			<!-- ###############	Remove JS	###############	-->
+            <action method="removeItem">
+                <type>js</type>
+                <name>jquery.confirm.js</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>jquery/jquery.zoom.js</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>jquery/jquery.alerts.js</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_js</type>
+                <name>js/jquery.limit-1.2.js</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>html5.js</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_js</type>
+                <name>js/jquery.uniform.min.js</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>jquery/jquery.dd.js</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_js</type>
+                <name>js/jkmegamenu.js</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_js</type>
+                <name>js/custom-1.1.js</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_js</type>
+                <name>js/jcarousel.min.js</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>lazyloader.js</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>mageworx/modalbox.js</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>mageworx/icart.js</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>tbt/rewardssocial/facebook/like/reward.js</name>
+            </action>
+        </reference>
+        <reference name="header">
+            <action method="setTemplate">
+                <template>page/html/header_trends.phtml</template>
+            </action>
+            <block type="gallery/archive" name="top.gallery.archive" />
+            <block type="core/template" name="top.search" as="topSearch" template="catalogsearch/form.mini.gallery.phtml"/>
+        </reference>
+        <reference name="content">
+            <block type="gallery/gallery" name="gallery" template="gallery/gallery-view.phtml" />
+        </reference>
+        <remove name="footer"/>
+    </gallery_index_view>
+	
+	
+    <gallery_index_search>
+        <reference name="root">
+            <action method="setTemplate">
+                <template>page/1column-trends.phtml</template>
+            </action>
+        </reference>
+        <reference name="head">
+            <action method="setTitle">
+                <title>THE FIND - Unlock your closet - Search</title>
+            </action>
+            <action method="addCss">
+                <stylesheet>css/trends-1.6.css</stylesheet>
+            </action>
+			<!-- ###############	Remove CSS	###############	-->
+            
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/colorswatch-1.2.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/skin-1.3.css</name>
+            </action>
+			
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/stylesheet-1.7.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/custom-2.0.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/style-3.1.5.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/font-face/font-face.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/msdropdown/dd-2.0.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/msdropdown/flags.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/uniform.default.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/widgets.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/print.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/styles-ie.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/fonts.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/styles.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/stylesprint-1.2.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/widgets.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/print.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/styles-ie.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/jquery.confirm-1.2.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/global.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>extendware/ewcore/css/modalbox.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/jquery.alerts.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/belvg/facebookfree.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/testimonials.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/icart.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/rewards/skin.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/rewards/catalog.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/rewardssocial/facebook/like.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/website.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/mageworx/modalbox-ie.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_js</type>
+                <name>calendar/calendar-win2k-1.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/styles-1.8.3.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/blog-0.3.3.css</name>
+            </action>
+			
+			<!-- ###############	Remove JS	###############	-->
+            <action method="removeItem">
+                <type>js</type>
+                <name>jquery.confirm.js</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>jquery/jquery.zoom.js</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>jquery/jquery.alerts.js</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_js</type>
+                <name>js/jquery.limit-1.2.js</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>html5.js</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_js</type>
+                <name>js/jquery.uniform.min.js</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>jquery/jquery.dd.js</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_js</type>
+                <name>js/jkmegamenu.js</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_js</type>
+                <name>js/custom-1.1.js</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_js</type>
+                <name>js/jcarousel.min.js</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>lazyloader.js</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>mageworx/modalbox.js</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>mageworx/icart.js</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>tbt/rewardssocial/facebook/like/reward.js</name>
+            </action>
+        </reference>
+        <reference name="header">
+            <action method="setTemplate">
+                <template>page/html/header_trends.phtml</template>
+            </action>
+            <block type="gallery/archive" name="top.gallery.archive" />
+            <block type="core/template" name="top.search" as="topSearch" template="catalogsearch/form.mini.gallery.phtml"/>
+        </reference>
+        <reference name="content">
+            <block type="gallery/trendsearch" name="gallery" template="gallery/trends-search.phtml" />
+        </reference>
+        <remove name="footer"/>
+    </gallery_index_search>
+	
+    <gallery_album_view translate="label">
+        <reference name="head">
+            <action method="addJs">
+                <script>lightbox/jquery.smooth-scroll.min.js</script>
+            </action>
+			<!--<action method="addJs"><script>lightbox/jquery-1.7.2.min.js</script></action>-->
+            <action method="addJs">
+                <script>lightbox/jquery-ui-1.8.18.custom.min.js</script>
+            </action>
+            <action method="addJs">
+                <script>lightbox/lightbox.js</script>
+            </action>
+    		<!-- <action method="addCss"><stylesheet>css/gallery.css</stylesheet></action>
+			<action method="addCss"><stylesheet>css/lightbox.css</stylesheet></action> -->
+			
+			<!--New Added For gallery
+			<action method="addJs"><script>html5.js</script></action>
+			<action method="addJs"><script>jquery.js</script></action>
+			<action method="addJs"><script>customScript.js</script></action>
+			<action method="addJs"><script>jquery.jcarousel.min.js</script></action> -->
+				
+            <action method="addCss">
+                <stylesheet>css/styles_new.css</stylesheet>
+            </action>
+			<!-- <action method="addCss"><stylesheet>css/custom.css</stylesheet></action>
+			<action method="addCss"><stylesheet>css/skin.css</stylesheet></action>
+			<action method="addCss"><stylesheet>css/uniform.default.css</stylesheet></action> -->
+            <action method="addCss">
+                <stylesheet>css/stylesheet.css</stylesheet>
+            </action>
+			<!--New Added For gallery End-->
+				
+        </reference>
+        <reference name="top.links">
+            <action method="setTemplate" ifconfig="gallery/settings/enabled" ifvalue="1">
+                <template>gallery/links.phtml</template>
+            </action>
+        </reference>
+        <reference name="root">
+            <action method="setTemplate">
+                <template>page/1column_gallery.phtml</template>
+            </action>
+    		<!-- <block type="gallery/gallery" name="breadcrumbs" template="gallery/breadcrumbs.phtml" /> -->
+        </reference>
+        <reference name="content">
+            <block type="gallery/gallery" name="gallery" template="gallery/gallery.phtml" />
+        </reference>
+		<remove name="footer"/>
+    </gallery_album_view>
+		
+    <gallery_album_detail translate="label">
+        <reference name="head">
+            <action method="addJs">
+                <script>lightbox/jquery.smooth-scroll.min.js</script>
+            </action>
+			<!--<action method="addJs"><script>lightbox/jquery-1.7.2.min.js</script></action>-->
+            <action method="addJs">
+                <script>lightbox/jquery-ui-1.8.18.custom.min.js</script>
+            </action>
+            <action method="addJs">
+                <script>lightbox/lightbox.js</script>
+            </action>
+    		<!-- <action method="addCss"><stylesheet>css/gallery.css</stylesheet></action>
+			<action method="addCss"><stylesheet>css/lightbox.css</stylesheet></action> -->
+			
+			<!--New Added For gallery
+			<action method="addJs"><script>html5.js</script></action>
+			<action method="addJs"><script>jquery.js</script></action>
+			<action method="addJs"><script>customScript.js</script></action>
+			<action method="addJs"><script>jquery.jcarousel.min.js</script></action> -->
+				
+            <action method="addCss">
+                <stylesheet>css/styles_new.css</stylesheet>
+            </action>
+            <action method="addCss">
+                <stylesheet>css/lightbox.css</stylesheet>
+            </action>
+			<!-- <action method="addCss"><stylesheet>css/custom.css</stylesheet></action>
+			<action method="addCss"><stylesheet>css/skin.css</stylesheet></action>
+			<action method="addCss"><stylesheet>css/uniform.default.css</stylesheet></action> -->
+            <action method="addCss">
+                <stylesheet>css/stylesheet.css</stylesheet>
+            </action>
+			<!--New Added For gallery End-->
+				
+        </reference>
+        <reference name="top.links">
+            <action method="setTemplate" ifconfig="gallery/settings/enabled" ifvalue="1">
+                <template>gallery/links.phtml</template>
+            </action>
+        </reference>
+        <reference name="root">
+            <action method="setTemplate">
+                <template>page/1column_gallery.phtml</template>
+            </action>
+    		<!-- <block type="gallery/gallery" name="breadcrumbs" template="gallery/breadcrumbs.phtml" /> -->
+        </reference>
+        <reference name="content">
+            <block type="gallery/gallery" name="gallery" template="gallery/gview.phtml" />
+        </reference>
+		<remove name="footer"/>
+    </gallery_album_detail>
+	
+    <gallery_day_index>
+        <reference name="head">
+            <action method="setTitle">
+                <title>Look of the day</title>
+            </action>
+            <action method="addCss">
+                <stylesheet>css/trends-1.6.css</stylesheet>
+            </action>
+            <action method="addCss">
+                <stylesheet>css/responsiveslides-1.0.css</stylesheet>
+            </action>
+            <action method="addJs">
+                <script>responsiveslides.js</script>
+            </action>
+            <action method="addCss">
+                <stylesheet>css/trends-1.6.css</stylesheet>
+            </action>
+			<!-- ###############	Remove CSS	###############	-->
+            
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/colorswatch-1.2.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/skin-1.3.css</name>
+            </action>
+			
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/stylesheet-1.7.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/custom-2.0.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/style-3.1.5.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/font-face/font-face.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/msdropdown/dd-2.0.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/msdropdown/flags.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/uniform.default.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/widgets.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/print.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/styles-ie.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/fonts.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/styles.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/stylesprint-1.2.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/widgets.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/print.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/styles-ie.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/jquery.confirm-1.2.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/global.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>extendware/ewcore/css/modalbox.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/jquery.alerts.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/belvg/facebookfree.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/testimonials.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/icart.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/rewards/skin.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/rewards/catalog.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/rewardssocial/facebook/like.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/website.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/mageworx/modalbox-ie.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_js</type>
+                <name>calendar/calendar-win2k-1.css</name>
+            </action>
+			
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/styles-1.8.3.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/blog-0.3.3.css</name>
+            </action>
+			
+			<!-- ###############	Remove JS	###############	-->
+            <action method="removeItem">
+                <type>js</type>
+                <name>jquery.confirm.js</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>jquery/jquery.zoom.js</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>jquery/jquery.alerts.js</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_js</type>
+                <name>js/jquery.limit-1.2.js</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>html5.js</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_js</type>
+                <name>js/jquery.uniform.min.js</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>jquery/jquery.dd.js</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_js</type>
+                <name>js/jkmegamenu.js</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_js</type>
+                <name>js/custom-1.1.js</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>lazyloader.js</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>mageworx/modalbox.js</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>mageworx/icart.js</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>tbt/rewardssocial/facebook/like/reward.js</name>
+            </action>
+        </reference>
+        <reference name="root">
+            <action method="setTemplate">
+                <template>page/2-column-right-gallery.phtml</template>
+            </action>
+        </reference>
+        <reference name="header">
+            <action method="setTemplate">
+                <template>page/html/header_trends.phtml</template>
+            </action>
+            <block type="gallery/archive" name="top.gallery.archive" />
+            <block type="core/template" name="top.search" as="topSearch" template="catalogsearch/form.mini.gallery.phtml"/>
+        </reference>
+        <reference name="content">
+            <block type="gallery/day" name="day" template="gallery/day.phtml" />            
+        </reference>
+        <reference name="right">
+            <remove name="catalog.product.related" />
+            <remove name="catalog.compare.sidebar" />
+            <remove name="fb.activity" />
+            <remove name="sale.reorder.sidebar" />
+            <remove name="rewards_sidebar" />
+            <remove name="wishlist_sidebar" />
+            <block type="gallery/dayrightblock" name="dayright.gallery.block" before="-" />
+        </reference>
+		<remove name="footer"/>
+    </gallery_day_index>
+	
+    <gallery_day_search>
+        <reference name="root">
+            <action method="setTemplate">
+                <template>page/1column_gallery-search.phtml</template>
+            </action>
+        </reference>
+        <reference name="head">
+            <action method="setTitle">
+                <title>Look Of the Day - Search</title>
+            </action>
+            <action method="addCss">
+                <stylesheet>css/trends-1.6.css</stylesheet>
+            </action>
+			<!-- ###############	Remove CSS	###############	-->
+            
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/colorswatch-1.2.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/skin-1.3.css</name>
+            </action>
+			
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/stylesheet-1.7.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/custom-2.0.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/style-3.1.5.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/font-face/font-face.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/msdropdown/dd-2.0.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/msdropdown/flags.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/uniform.default.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/widgets.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/print.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/styles-ie.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/fonts.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/styles.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/stylesprint-1.2.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/widgets.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/print.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/styles-ie.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/jquery.confirm-1.2.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/global.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>extendware/ewcore/css/modalbox.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/jquery.alerts.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/belvg/facebookfree.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/testimonials.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/icart.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/rewards/skin.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/rewards/catalog.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/rewardssocial/facebook/like.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/website.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/mageworx/modalbox-ie.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_js</type>
+                <name>calendar/calendar-win2k-1.css</name>
+            </action>
+			
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/styles-1.8.3.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/blog-0.3.3.css</name>
+            </action>
+			
+			<!-- ###############	Remove JS	###############	-->
+            <action method="removeItem">
+                <type>js</type>
+                <name>jquery.confirm.js</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>jquery/jquery.zoom.js</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>jquery/jquery.alerts.js</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_js</type>
+                <name>js/jquery.limit-1.2.js</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>html5.js</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_js</type>
+                <name>js/jquery.uniform.min.js</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>jquery/jquery.dd.js</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_js</type>
+                <name>js/jkmegamenu.js</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_js</type>
+                <name>js/custom-1.1.js</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_js</type>
+                <name>js/jcarousel.min.js</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>lazyloader.js</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>mageworx/modalbox.js</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>mageworx/icart.js</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>tbt/rewardssocial/facebook/like/reward.js</name>
+            </action>
+
+        </reference>
+        <reference name="header">
+            <action method="setTemplate">
+                <template>page/html/header_trends.phtml</template>
+            </action>
+            <block type="gallery/archive" name="top.gallery.archive" />
+            <block type="core/template" name="top.search" as="topSearch" template="catalogsearch/form.mini.gallery.phtml"/>
+        </reference>
+        <reference name="content">
+            <block type="gallery/daysearch" name="gallery-search" template="gallery/day-search.phtml" />
+        </reference>
+		<remove name="footer"/>
+    </gallery_day_search>
+	 
+	 <gallery_month_index>
+        <reference name="head">
+            <action method="setTitle">
+                <title>Look of the Month</title>
+            </action>
+            <action method="addCss">
+                <stylesheet>css/trends-1.6.css</stylesheet>
+            </action>
+            <action method="addCss">
+                <stylesheet>css/responsiveslides-1.0.css</stylesheet>
+            </action>
+            <action method="addJs">
+                <script>responsiveslides.js</script>
+            </action>
+            <action method="addCss">
+                <stylesheet>css/trends-1.6.css</stylesheet>
+            </action>
+			<!-- ###############	Remove CSS	###############	-->
+            
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/colorswatch-1.2.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/skin-1.3.css</name>
+            </action>
+			
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/stylesheet-1.7.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/custom-2.0.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/style-3.1.5.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/font-face/font-face.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/msdropdown/dd-2.0.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/msdropdown/flags.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/uniform.default.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/widgets.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/print.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/styles-ie.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/fonts.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/styles.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/stylesprint-1.2.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/widgets.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/print.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/styles-ie.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/jquery.confirm-1.2.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/global.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>extendware/ewcore/css/modalbox.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/jquery.alerts.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/belvg/facebookfree.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/testimonials.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/icart.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/rewards/skin.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/rewards/catalog.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/rewardssocial/facebook/like.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/website.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/mageworx/modalbox-ie.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_js</type>
+                <name>calendar/calendar-win2k-1.css</name>
+            </action>
+			
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/styles-1.8.3.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/blog-0.3.3.css</name>
+            </action>
+			
+			<!-- ###############	Remove JS	###############	-->
+            <action method="removeItem">
+                <type>js</type>
+                <name>jquery.confirm.js</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>jquery/jquery.zoom.js</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>jquery/jquery.alerts.js</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_js</type>
+                <name>js/jquery.limit-1.2.js</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>html5.js</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_js</type>
+                <name>js/jquery.uniform.min.js</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>jquery/jquery.dd.js</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_js</type>
+                <name>js/jkmegamenu.js</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_js</type>
+                <name>js/custom-1.1.js</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>lazyloader.js</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>mageworx/modalbox.js</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>mageworx/icart.js</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>tbt/rewardssocial/facebook/like/reward.js</name>
+            </action>
+        </reference>
+        <reference name="root">
+            <action method="setTemplate">
+                <template>page/2-column-right-gallery.phtml</template>
+            </action>
+        </reference>
+        <reference name="header">
+            <action method="setTemplate">
+                <template>page/html/header_trends.phtml</template>
+            </action>
+            <block type="gallery/archive" name="top.gallery.archive" />
+            <block type="core/template" name="top.search" as="topSearch" template="catalogsearch/form.mini.gallery.phtml"/>
+        </reference>
+        <reference name="content">
+            <block type="gallery/day" name="day" template="gallery/day.phtml" />            
+        </reference>
+        <reference name="right">
+            <remove name="catalog.product.related" />
+            <remove name="catalog.compare.sidebar" />
+            <remove name="fb.activity" />
+            <remove name="sale.reorder.sidebar" />
+            <remove name="rewards_sidebar" />
+            <remove name="wishlist_sidebar" />
+            <block type="gallery/dayrightblock" name="dayright.gallery.block" before="-" />
+        </reference>
+		<remove name="footer"/>
+    </gallery_month_index>
+    
+    <gallery_week_index>
+        <reference name="head">
+            <action method="setTitle">
+                <title>Look of the week</title>
+            </action>
+            <action method="addCss">
+                <stylesheet>css/trends-1.6.css</stylesheet>
+            </action>
+            <action method="addCss">
+                <stylesheet>css/responsiveslides-1.0.css</stylesheet>
+            </action>
+            <action method="addJs">
+                <script>responsiveslides.js</script>
+            </action>
+            <action method="addCss">
+                <stylesheet>css/trends-1.6.css</stylesheet>
+            </action>
+			<!-- ###############	Remove CSS	###############	-->
+            
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/colorswatch-1.2.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/skin-1.3.css</name>
+            </action>
+			
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/stylesheet-1.7.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/custom-2.0.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/style-3.1.5.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/font-face/font-face.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/msdropdown/dd-2.0.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/msdropdown/flags.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/uniform.default.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/widgets.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/print.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/styles-ie.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/fonts.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/styles.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/stylesprint-1.2.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/widgets.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/print.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/styles-ie.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/jquery.confirm-1.2.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/global.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>extendware/ewcore/css/modalbox.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/jquery.alerts.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/belvg/facebookfree.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/testimonials.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/icart.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/rewards/skin.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/rewards/catalog.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/rewardssocial/facebook/like.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/website.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/mageworx/modalbox-ie.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_js</type>
+                <name>calendar/calendar-win2k-1.css</name>
+            </action>
+			
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/styles-1.8.3.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/blog-0.3.3.css</name>
+            </action>
+			
+			<!-- ###############	Remove JS	###############	-->
+            <action method="removeItem">
+                <type>js</type>
+                <name>jquery.confirm.js</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>jquery/jquery.zoom.js</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>jquery/jquery.alerts.js</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_js</type>
+                <name>js/jquery.limit-1.2.js</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>html5.js</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_js</type>
+                <name>js/jquery.uniform.min.js</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>jquery/jquery.dd.js</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_js</type>
+                <name>js/jkmegamenu.js</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_js</type>
+                <name>js/custom-1.1.js</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>lazyloader.js</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>mageworx/modalbox.js</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>mageworx/icart.js</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>tbt/rewardssocial/facebook/like/reward.js</name>
+            </action>
+        </reference>
+        <reference name="root">
+            <action method="setTemplate">
+                <template>page/2-column-right-gallery.phtml</template>
+            </action>
+        </reference>
+        <reference name="header">
+            <action method="setTemplate">
+                <template>page/html/header_trends.phtml</template>
+            </action>
+            <block type="gallery/archive" name="top.gallery.archive" />
+            <block type="core/template" name="top.search" as="topSearch" template="catalogsearch/form.mini.gallery.phtml"/>
+        </reference>
+        <reference name="content">
+            <block type="core/messages" name="global_messages" as="global_messages"/>
+            <block type="core/messages" name="messages" as="messages"/>
+            <block type="gallery/week" name="week" template="gallery/week.phtml" />
+        </reference>
+        <reference name="right">
+            <remove name="catalog.product.related" />
+            <remove name="catalog.compare.sidebar" />
+            <remove name="fb.activity" />
+            <remove name="sale.reorder.sidebar" />
+            <remove name="rewards_sidebar" />
+            <remove name="wishlist_sidebar" />
+            <block type="gallery/rightblock" name="right.gallery.block" before="-" />
+        </reference>
+		<remove name="footer"/>
+    </gallery_week_index>
+    
+    <gallery_week_search>
+        <reference name="root">
+            <action method="setTemplate">
+                <template>page/1column_gallery-search.phtml</template>
+            </action>
+        </reference>
+        <reference name="head">
+            <action method="setTitle">
+                <title>Look Of the Week - Search</title>
+            </action>
+            <action method="addCss">
+                <stylesheet>css/trends-1.6.css</stylesheet>
+            </action>
+			<!-- ###############	Remove CSS	###############	-->
+            
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/colorswatch-1.2.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/skin-1.3.css</name>
+            </action>
+			
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/stylesheet-1.7.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/custom-2.0.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/style-3.1.5.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/font-face/font-face.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/msdropdown/dd-2.0.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/msdropdown/flags.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/uniform.default.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/widgets.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/print.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/styles-ie.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/fonts.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/styles.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/stylesprint-1.2.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/widgets.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/print.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/styles-ie.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/jquery.confirm-1.2.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/global.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>extendware/ewcore/css/modalbox.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/jquery.alerts.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/belvg/facebookfree.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/testimonials.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/icart.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/rewards/skin.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/rewards/catalog.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/rewardssocial/facebook/like.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/website.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/mageworx/modalbox-ie.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_js</type>
+                <name>calendar/calendar-win2k-1.css</name>
+            </action>
+			
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/styles-1.8.3.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/blog-0.3.3.css</name>
+            </action>
+			
+			<!-- ###############	Remove JS	###############	-->
+            <action method="removeItem">
+                <type>js</type>
+                <name>jquery.confirm.js</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>jquery/jquery.zoom.js</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>jquery/jquery.alerts.js</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_js</type>
+                <name>js/jquery.limit-1.2.js</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>html5.js</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_js</type>
+                <name>js/jquery.uniform.min.js</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>jquery/jquery.dd.js</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_js</type>
+                <name>js/jkmegamenu.js</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_js</type>
+                <name>js/custom-1.1.js</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_js</type>
+                <name>js/jcarousel.min.js</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>lazyloader.js</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>mageworx/modalbox.js</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>mageworx/icart.js</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>tbt/rewardssocial/facebook/like/reward.js</name>
+            </action>
+        </reference>
+        <reference name="header">
+            <action method="setTemplate">
+                <template>page/html/header_trends.phtml</template>
+            </action>
+            <block type="gallery/archive" name="top.gallery.archive" />
+            <block type="core/template" name="top.search" as="topSearch" template="catalogsearch/form.mini.gallery.phtml"/>
+        </reference>
+        <reference name="content">
+            <block type="gallery/search" name="gallery-search" template="gallery/week-search.phtml" />
+        </reference>
+		<remove name="footer"/>
+    </gallery_week_search>
+    
+    <gallery_week_archive>
+        <reference name="head">
+            <action method="setTitle">
+                <title>Week Archive</title>
+            </action>
+			
+			<action method="addCss">
+                <stylesheet>css/trends-1.6.css</stylesheet>
+            </action>
+			<!-- ###############	Remove CSS	###############	-->
+            
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/colorswatch-1.2.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/skin-1.3.css</name>
+            </action>
+			
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/stylesheet-1.7.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/custom-2.0.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/style-3.1.5.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/font-face/font-face.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/msdropdown/dd-2.0.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/msdropdown/flags.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/uniform.default.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/widgets.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/print.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/styles-ie.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/fonts.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/styles.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/stylesprint-1.2.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/widgets.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/print.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/styles-ie.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/jquery.confirm-1.2.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/global.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>extendware/ewcore/css/modalbox.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/jquery.alerts.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/belvg/facebookfree.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/testimonials.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/icart.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/rewards/skin.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/rewards/catalog.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/rewardssocial/facebook/like.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/website.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/mageworx/modalbox-ie.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_js</type>
+                <name>calendar/calendar-win2k-1.css</name>
+            </action>
+			
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/styles-1.8.3.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/blog-0.3.3.css</name>
+            </action>
+			
+			<!-- ###############	Remove JS	###############	-->
+            <action method="removeItem">
+                <type>js</type>
+                <name>jquery.confirm.js</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>jquery/jquery.zoom.js</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>jquery/jquery.alerts.js</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_js</type>
+                <name>js/jquery.limit-1.2.js</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>html5.js</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_js</type>
+                <name>js/jquery.uniform.min.js</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>jquery/jquery.dd.js</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_js</type>
+                <name>js/jkmegamenu.js</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_js</type>
+                <name>js/custom-1.1.js</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_js</type>
+                <name>js/jcarousel.min.js</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>lazyloader.js</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>mageworx/modalbox.js</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>mageworx/icart.js</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>tbt/rewardssocial/facebook/like/reward.js</name>
+            </action>
+        </reference>
+        <reference name="root">
+            <action method="setTemplate">
+                <template>page/1column_gallery.phtml</template>
+            </action>
+        </reference>
+        <reference name="header">
+            <action method="setTemplate">
+                <template>page/html/header_trends.phtml</template>
+            </action>
+            <block type="gallery/archive" name="top.gallery.archive" />
+            <block type="core/template" name="top.search" as="topSearch" template="catalogsearch/form.mini.gallery.phtml"/>
+        </reference>
+        <reference name="content">
+            <block type="gallery/weekarchive" name="weekarchive" template="gallery/weekarchive.phtml" />
+        </reference>
+		<remove name="footer"/>
+    </gallery_week_archive>
+	
+    <gallery_day_archive>
+        <reference name="head">
+            <action method="setTitle">
+                <title>Day Archive</title>
+            </action>
+			
+			<action method="addCss">
+                <stylesheet>css/trends-1.6.css</stylesheet>
+            </action>
+			<!-- ###############	Remove CSS	###############	-->
+            
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/colorswatch-1.2.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/skin-1.3.css</name>
+            </action>
+			
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/stylesheet-1.7.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/custom-2.0.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/style-3.1.5.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/font-face/font-face.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/msdropdown/dd-2.0.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/msdropdown/flags.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/uniform.default.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/widgets.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/print.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/styles-ie.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/fonts.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/styles.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/stylesprint-1.2.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/widgets.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/print.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/styles-ie.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/jquery.confirm-1.2.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/global.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>extendware/ewcore/css/modalbox.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/jquery.alerts.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/belvg/facebookfree.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/testimonials.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/icart.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/rewards/skin.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/rewards/catalog.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/rewardssocial/facebook/like.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/website.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/mageworx/modalbox-ie.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_js</type>
+                <name>calendar/calendar-win2k-1.css</name>
+            </action>
+			
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/styles-1.8.3.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/blog-0.3.3.css</name>
+            </action>
+			
+			<!-- ###############	Remove JS	###############	-->
+            <action method="removeItem">
+                <type>js</type>
+                <name>jquery.confirm.js</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>jquery/jquery.zoom.js</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>jquery/jquery.alerts.js</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_js</type>
+                <name>js/jquery.limit-1.2.js</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>html5.js</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_js</type>
+                <name>js/jquery.uniform.min.js</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>jquery/jquery.dd.js</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_js</type>
+                <name>js/jkmegamenu.js</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_js</type>
+                <name>js/custom-1.1.js</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_js</type>
+                <name>js/jcarousel.min.js</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>lazyloader.js</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>mageworx/modalbox.js</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>mageworx/icart.js</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>tbt/rewardssocial/facebook/like/reward.js</name>
+            </action>
+        </reference>
+        <reference name="root">
+            <action method="setTemplate">
+                <template>page/1column_gallery.phtml</template>
+            </action>
+        </reference>
+        <reference name="header">
+            <action method="setTemplate">
+                <template>page/html/header_trends.phtml</template>
+            </action>
+            <block type="gallery/archive" name="top.gallery.archive" />
+            <block type="core/template" name="top.search" as="topSearch" template="catalogsearch/form.mini.gallery.phtml"/>
+        </reference>
+        <reference name="content">
+            <block type="gallery/dayarchive" name="dayarchive" template="gallery/dayarchive.phtml" />
+        </reference>
+		<remove name="footer"/>
+    </gallery_day_archive>
+	
+	<gallery_index_archive>
+        <reference name="head">
+            <action method="setTitle">
+                <title>Trends Archive</title>
+            </action>
+			
+			<action method="addCss">
+                <stylesheet>css/trends-1.6.css</stylesheet>
+            </action>
+			<!-- ###############	Remove CSS	###############	-->
+            
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/colorswatch-1.2.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/skin-1.3.css</name>
+            </action>
+			
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/stylesheet-1.7.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/custom-2.0.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/style-3.1.5.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/font-face/font-face.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/msdropdown/dd-2.0.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/msdropdown/flags.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/uniform.default.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/widgets.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/print.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/styles-ie.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/fonts.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/styles.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/stylesprint-1.2.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/widgets.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/print.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/styles-ie.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/jquery.confirm-1.2.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/global.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>extendware/ewcore/css/modalbox.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/jquery.alerts.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/belvg/facebookfree.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/testimonials.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/icart.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/rewards/skin.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/rewards/catalog.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/rewardssocial/facebook/like.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/website.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/mageworx/modalbox-ie.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_js</type>
+                <name>calendar/calendar-win2k-1.css</name>
+            </action>
+			
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/styles-1.8.3.css</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_css</type>
+                <name>css/blog-0.3.3.css</name>
+            </action>
+			
+			<!-- ###############	Remove JS	###############	-->
+            <action method="removeItem">
+                <type>js</type>
+                <name>jquery.confirm.js</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>jquery/jquery.zoom.js</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>jquery/jquery.alerts.js</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_js</type>
+                <name>js/jquery.limit-1.2.js</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>html5.js</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_js</type>
+                <name>js/jquery.uniform.min.js</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>jquery/jquery.dd.js</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_js</type>
+                <name>js/jkmegamenu.js</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_js</type>
+                <name>js/custom-1.1.js</name>
+            </action>
+            <action method="removeItem">
+                <type>skin_js</type>
+                <name>js/jcarousel.min.js</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>lazyloader.js</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>mageworx/modalbox.js</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>mageworx/icart.js</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>tbt/rewardssocial/facebook/like/reward.js</name>
+            </action>
+        </reference>
+        <reference name="root">
+            <action method="setTemplate">
+                <template>page/1column-trends.phtml</template>
+            </action>
+        </reference>
+        <reference name="header">
+            <action method="setTemplate">
+                <template>page/html/header_trends.phtml</template>
+            </action>
+            <block type="gallery/archive" name="top.gallery.archive" />
+            <block type="core/template" name="top.search" as="topSearch" template="catalogsearch/form.mini.gallery.phtml"/>
+        </reference>
+        <reference name="content">
+            <block type="gallery/archive" name="archive" template="gallery/archive.phtml" />
+        </reference>
+        <remove name="footer"/>
+    </gallery_index_archive>
+</layout> 

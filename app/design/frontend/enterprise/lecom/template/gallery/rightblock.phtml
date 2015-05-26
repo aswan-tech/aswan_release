@@ -1,0 +1,45 @@
+<?php
+if ($banner = Mage::getStoreConfig('gallery/lookoftheweek/banner')) {
+?>
+<div class="rightsblock">
+    <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId($banner)->toHtml() ?>
+</div>
+<?php
+}
+if ($twitter = Mage::getStoreConfig('gallery/lookoftheweek/twitter')) {
+?>
+<div class="rightsblock">
+    <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId($twitter)->toHtml() ?>
+</div>
+<?php
+}
+if ($facebook = Mage::getStoreConfig('gallery/lookoftheweek/facebook')) {
+?>
+<div class="rightsblock">
+    <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId($facebook)->toHtml() ?>
+</div>
+<?php
+}
+?>
+
+<?php
+$item = $this->getWeek();
+$week_title = $item->getItemTitle();
+if ($edPickIdArr = $this->getGalleryEditorsPick($week_title)): ?>
+<?php if (count($edPickIdArr) > 0): ?>
+        <div class="rightsblock">
+            <h3><?php echo Mage::helper('gallery')->__("Editor's Picks"); ?></h3>
+    <?php
+        foreach ($edPickIdArr as $pid):
+            $prodObj = Mage::getModel('catalog/product')->load($pid);
+
+    ?>
+            <div class="epick">
+
+                <a href="<?php echo $prodObj->getProductUrl() ?>" title="<?php echo $prodObj->getName(); ?>"><img src="<?php echo Mage::helper('catalog/image')->init($prodObj, 'small_image')->resize(111) ?>" alt="<?php echo $prodObj->getName(); ?>"></a>
+                <h4><a href="<?php echo $prodObj->getProductUrl() ?>" title="<?php echo $prodObj->getName(); ?>"><?php echo $prodObj->getName(); ?></a></h4>
+            </div>
+    <?php endforeach; ?>
+        </div>
+<?php endif; ?>
+<?php endif; ?>

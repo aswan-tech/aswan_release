@@ -1,0 +1,250 @@
+name,cca2,currency,flag
+Afghanistan,AF,AFN,y
+Aland Islands,AX,EUR,y
+Albania,AL,ALL,y
+Algeria,DZ,DZD,y
+American Samoa,AS,USD,y
+Andorra,AD,EUR,y
+Angola,AO,AOA,y
+Anguilla,AI,XCD,y
+Antarctica,AQ,,y
+Antigua and Barbuda,AG,XCD,y
+Argentina,AR,ARS,y
+Armenia,AM,AMD,y
+Aruba,AW,AWG,y
+Australia,AU,AUD,y
+Austria,AT,EUR,y
+Azerbaijan,AZ,AZN,y
+Bahamas,BS,BSD,y
+Bahrain,BH,BHD,y
+Bangladesh,BD,BDT,y
+Barbados,BB,BBD,y
+Belarus,BY,BYR,y
+Belgium,BE,EUR,y
+Belize,BZ,BZD,y
+Benin,BJ,XOF,y
+Bermuda,BM,BMD,y
+Bhutan,BT,BTN,y
+Bolivia,BO,BOB,y
+Bonaire,BQ,USD,
+Bosnia and Herzegovina,BA,BAM,y
+Botswana,BW,BWP,y
+Bouvet Island,BV,NOK,y
+Brazil,BR,BRL,y
+British Indian Ocean Territory,IO,USD,y
+Brunei Darussalam,BN,BND,y
+Bulgaria,BG,BGN,y
+Burkina Faso,BF,XOF,y
+Burundi,BI,BIF,y
+Cambodia,KH,KHR,y
+Cameroon,CM,XAF,y
+Canada,CA,CAD,y
+Cape Verde,CV,CVE,y
+Cayman Islands,KY,KYD,y
+Central African Republic,CF,XAF,y
+Chad,TD,XAF,y
+Chile,CL,CLF,y
+China,CN,CNY,y
+Christmas Island,CX,AUD,y
+Cocos (Keeling) Islands,CC,AUD,y
+Colombia,CO,COP,y
+Comoros,KM,KMF,y
+Republic of the Congo,CG,XAF,y
+Democratic Republic of the Congo,CD,CDF,y
+Cook Islands,CK,NZD,y
+Costa Rica,CR,CRC,y
+Cote D'Ivoire,CI,XOF,y
+Croatia,HR,HRK,y
+Cuba,CU,CUC,y
+Curaçao,CW,ANG,
+Cyprus,CY,EUR,y
+Czech Republic,CZ,CZK,y
+Denmark,DK,DKK,y
+Djibouti,DJ,DJF,y
+Dominica,DM,XCD,y
+Dominican Republic,DO,DOP,y
+Ecuador,EC,USD,y
+Egypt,EG,EGP,y
+El Salvador,SV,SVC,y
+Equatorial Guinea,GQ,XAF,y
+Eritrea,ER,ERN,y
+Estonia,EE,EUR,y
+Ethiopia,ET,ETB,y
+Falkland Islands (Malvinas),FK,FKP,y
+Faroe Islands,FO,DKK,y
+Fiji,FJ,FJD,y
+Finland,FI,EUR,y
+France,FR,EUR,y
+French Guiana,GF,EUR,y
+French Polynesia,PF,XPF,y
+French Southern Territories,TF,EUR,y
+Gabon,GA,XAF,y
+Gambia,GM,GMD,y
+Georgia,GE,GEL,y
+Germany,DE,EUR,y
+Ghana,GH,GHS,y
+Gibraltar,GI,GIP,y
+Greece,GR,EUR,y
+Greenland,GL,DKK,y
+Grenada,GD,XCD,y
+Guadeloupe,GP,EUR,y
+Guam,GU,USD,y
+Guatemala,GT,GTQ,y
+Guernsey,GG,GBP,
+Guinea,GN,GNF,y
+Guinea-Bissau,GW,XOF,y
+Guyana,GY,GYD,y
+Haiti,HT,HTG,y
+Heard Island and McDonald Islands,HM,AUD,y
+Vatican City,VA,EUR,y
+Honduras,HN,HNL,y
+Hong Kong,HK,HKD,y
+Hungary,HU,HUF,y
+Iceland,IS,ISK,y
+India,IN,INR,y
+Indonesia,ID,IDR,y
+Iran,IR,IRR,y
+Iraq,IQ,IQD,y
+Ireland,IE,EUR,y
+Isle of Man,IM,GBP,
+Israel,IL,ILS,y
+Italy,IT,EUR,y
+Jamaica,JM,JMD,y
+Japan,JP,JPY,y
+Jersey,JE,GBP,
+Jordan,JO,JOD,y
+Kazakhstan,KZ,KZT,y
+Kenya,KE,KES,y
+Kiribati,KI,AUD,y
+Kuwait,KW,KWD,y
+Kyrgyzstan,KG,KGS,y
+Laos,LA,LAK,y
+Latvia,LV,LVL,y
+Lebanon,LB,LBP,y
+Lesotho,LS,LSL,y
+Liberia,LR,LRD,y
+Libya,LY,LYD,y
+Liechtenstein,LI,CHF,y
+Lithuania,LT,LTL,y
+Luxembourg,LU,EUR,y
+Macao,MO,MOP,y
+Macedonia,MK,MKD,y
+Madagascar,MG,MGA,y
+Malawi,MW,MWK,y
+Malaysia,MY,MYR,y
+Maldives,MV,MVR,y
+Mali,ML,XOF,y
+Malta,MT,EUR,y
+Marshall Islands,MH,USD,y
+Martinique,MQ,EUR,y
+Mauritania,MR,MRO,y
+Mauritius,MU,MUR,y
+Mayotte,YT,EUR,y
+Mexico,MX,MXN,y
+Micronesia,FM,USD,y
+Moldova,MD,MDL,y
+Monaco,MC,EUR,y
+Mongolia,MN,MNT,y
+Montenegro,ME,EUR,
+Montserrat,MS,XCD,y
+Morocco,MA,MAD,y
+Mozambique,MZ,MZN,y
+Myanmar (Burma),MM,MMK,y
+Namibia,NA,NAD,y
+Nauru,NR,AUD,y
+Nepal,NP,NPR,y
+Netherlands,NL,EUR,y
+New Caledonia,NC,XPF,y
+New Zealand,NZ,NZD,y
+Nicaragua,NI,NIO,y
+Niger,NE,XOF,y
+Nigeria,NG,NGN,y
+Niue,NU,NZD,y
+Norfolk Island,NF,AUD,y
+North Korea,KP,KPW,y
+Northern Mariana Islands,MP,USD,y
+Norway,NO,NOK,y
+Oman,OM,OMR,y
+Pakistan,PK,PKR,y
+Palau,PW,USD,y
+Palestinian Territory,PS,,y
+Panama,PA,PAB,y
+Papua New Guinea,PG,PGK,y
+Paraguay,PY,PYG,y
+Peru,PE,PEN,y
+Philippines,PH,PHP,y
+Pitcairn,PN,NZD,y
+Poland,PL,PLN,y
+Portugal,PT,EUR,y
+Puerto Rico,PR,USD,y
+Qatar,QA,QAR,y
+Réunion,RE,EUR,y
+Romania,RO,RON,y
+Russian Federation,RU,RUB,y
+Rwanda,RW,RWF,y
+Saint Barthélemy,BL,EUR,
+Saint Helena,SH,SHP,y
+Saint Kitts and Nevis,KN,XCD,y
+Saint Lucia,LC,XCD,y
+Saint Martin,MF,EUR,
+Saint Pierre and Miquelon,PM,EUR,y
+Saint Vincent and the Grenadines,VC,XCD,y
+Samoa,WS,WST,y
+San Marino,SM,EUR,y
+São Tomé and Príncipe,ST,STD,y
+Saudi Arabia,SA,SAR,y
+Senegal,SN,XOF,y
+Serbia,RS,RSD,
+Seychelles,SC,SCR,y
+Sierra Leone,SL,SLL,y
+Singapore,SG,SGD,y
+Sint Maarten,SX,ANG,
+Slovakia,SK,XSU,k
+Slovenia,SI,EUR,y
+Solomon Islands,SB,EUR,y
+Somalia,SO,SBD,y
+South Africa,ZA,SOS,y
+South Georgia,GS,ZAR,y
+South Korea,KR,KRW,y
+South Sudan,SS,SSP,
+Spain,ES,EUR,y
+Sri Lanka,LK,LKR,y
+Sudan,SD,SDG,y
+Suriname,SR,SRD,y
+Svalbard and Jan Mayen,SJ,NOK,y
+Swaziland,SZ,SZL,y
+Sweden,SE,SEK,y
+Switzerland,CH,CHE,y
+Syrian Arab Republic,SY,SYP,y
+Taiwan,TW,,y
+Tajikistan,TJ,TJS,y
+Tanzania,TZ,TZS,y
+Thailand,TH,THB,y
+Timor-Leste,TL,USD,y
+Togo,TG,XOF,y
+Tokelau,TK,NZD,y
+Tonga,TO,TOP,y
+Trinidad and Tobago,TT,TTD,y
+Tunisia,TN,TND,y
+Turkey,TR,TRY,y
+Turkmenistan,TM,TMT,y
+Turks and Caicos Islands,TC,USD,y
+Tuvalu,TV,AUD,y
+Uganda,UG,UGX,y
+Ukraine,UA,UAH,y
+United Arab Emirates,AE,AED,y
+United Kingdom,UK,,y
+United States,US,USD,y
+United States Minor Outlying Islands,UM,USD,y
+Uruguay,UY,UYI,y
+Uzbekistan,UZ,UZS,y
+Vanuatu,VU,VUV,y
+Venezuela,VE,VEF,y
+Viet Nam,VN,VND,y
+Virgin Islands (British),VG,USD,y
+Virgin Islands (U.S.),VI,USD,y
+Wallis and Futuna,WF,XPF,y
+Western Sahara,EH,MAD,y
+Yemen,YE,YER,y
+Zambia,ZM,ZMK,y
+Zimbabwe,ZW,ZWL,y

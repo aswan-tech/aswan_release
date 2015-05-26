@@ -1,0 +1,31 @@
+<?php
+/**
+ * Product:     Layered Navigation Pro for Enterprise Edition - 16/08/12
+ * Package:     AdjustWare_Nav_10.4.9_10.0.0_557110
+ * Purchase ID: hXgQU3oI8FOfJ8PDCk5s6h6XPM5oH2Kx0N6TCAPkqN
+ * Generated:   2013-04-22 06:59:44
+ * File path:   app/design/frontend/enterprise/default/template/adjnav/filter_category_search.phtml
+ * Copyright:   (c) 2013 AITOC, Inc.
+ */
+?>
+<ol>
+<?php
+foreach ($this->getItems() as $_item):?>
+    <li>
+        <?php if ($_item->getIsCurrent()): ?>
+            <span class="adj-nav-category-current"><?php echo $_item->getLabel() ?></span>
+        <?php  else: ?>        
+		<?php
+		if (Mage::getStoreConfig('design/adjnav/reload_categories'))
+		{
+		?>
+            <a id="cat-<?php echo $_item->getValue()?>" href="?dir=desc&p=clear&q=<?php echo isset($_GET['q']) ? $this->htmlEscape($_GET['q']) : ''?>&cat=<?php echo $_item->getValue()?>" class="adj-nav-pad<?php echo $_item->getLevel()?>"><?php echo $_item->getLabel() ?></a>			
+		<?php } else { ?>
+			<a onclick="return false;" id="cat-<?php echo $_item->getValue()?>" href="<?php echo $this->htmlEscape($_item->getUri()) ?>" class="adj-nav-category adj-nav-pad<?php echo $_item->getLevel()?>"><?php echo $_item->getLabel() ?></a>		
+		<?php
+		}
+		if($_item->getCount()): ?>  (<?php echo $_item->getCount() ?>) <?php endif ?>
+        <?php endif ?>
+    </li>
+<?php endforeach ?>
+</ol>

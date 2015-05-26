@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Inchoo_Remember>
+            <version>0.2.0</version>
+        </Inchoo_Remember>
+    </modules>
+
+    <frontend>
+		<models>
+            <remember>
+                <class>Inchoo_Remember_Model</class>
+            </remember>
+		</models>
+		<events>
+			<customer_session_init>
+				<observers>
+					<inchoo_remember_init>
+						<type>singleton</type>
+						<class>Inchoo_Remember_Model_Observer</class>
+						<method>checkRememberMe</method>
+					</inchoo_remember_init>
+				</observers>
+			</customer_session_init>
+		</events>
+        <routers>
+            <customer>
+                <args>
+                    <modules>
+                        <Inchoo_Remember before="Mage_Customer_AccountController">Inchoo_Remember_Frontend_Customer</Inchoo_Remember>
+                    </modules>
+                </args>
+            </customer>
+        </routers>
+    </frontend>
+</config>

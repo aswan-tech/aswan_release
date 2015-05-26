@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+
+<config>
+    <modules>
+        <FCM_FacebookConversion>
+            <version>0.1.0</version>
+        </FCM_FacebookConversion>
+    </modules>
+	<global>
+		<blocks>
+            <facebookconversion>
+                <class>FCM_FacebookConversion_Block</class>
+            </facebookconversion>
+        </blocks>
+        <helpers>
+            <facebookconversion>
+                <class>FCM_FacebookConversion_Helper</class>
+            </facebookconversion>
+        </helpers>
+    </global>
+	<frontend>
+		<layout>
+            <updates>
+                <facebookconversion>
+                    <file>facebookconversion.xml</file>
+                </facebookconversion>
+            </updates>
+        </layout>
+    </frontend>
+</config>

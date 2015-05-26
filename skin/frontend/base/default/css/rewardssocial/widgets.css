@@ -1,0 +1,21 @@
+
+.rewardssocial-widget {
+    display: inline-block;
+    margin-right: 15px;
+}
+
+.rewardssocial-facebook-like {
+    vertical-align: top;
+}
+
+.rewardssocial-pinterest-pin {
+    margin-right: 40px;
+}
+
+.rewardssocial-google-plusone {
+    margin-right: -15px;
+}
+
+.rewardssocial-twitter-tweet {
+    margin-right: -15px;
+}

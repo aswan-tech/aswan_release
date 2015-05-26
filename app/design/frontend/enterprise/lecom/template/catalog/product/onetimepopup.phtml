@@ -1,0 +1,45 @@
+<div class="blockbkg" id="bkg" style="display: none;">
+	<div class="closebtn2" title="Close" id="closebtn2"></div>
+	<div class="cont" id="dlg" style="display: none;">
+		<div class="closebtn" title="Close" id="closebtn"></div>
+		<!--
+		<h1>Welcome!</h1>
+		<p>
+			This is a neat little trick to get a modal popup dialog box in your web pages
+			without disturbing the user experience or dsitracting them with popup windows or
+			new tabs...
+		</p>
+		-->
+		<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('fb_login_popup')->toHtml(); ?>
+		
+		<p class="logFB" align="center">
+			<a href="#" onclick="return fblogin();"><img src="<?php echo $this->helper('facebookfree/active')->getLoginImg() ?>" width="167" height="23" alt="<?php echo $this->__('facebook connect') ?>"></a>
+		</p>
+	</div>
+</div>
+
+<script type="text/javascript">
+	//alert("outer");
+	
+	jQuery(document).ready(function () {
+		//alert("inner");
+		
+	  //Open the popup
+      //jQuery("#opn").click(function () {
+        if (document.getElementById('bkg').style.visibility == 'hidden') {
+          document.getElementById('bkg').style.visibility = '';
+          jQuery("#bkg").hide();
+        }
+        if (document.getElementById('dlg').style.visibility == 'hidden') {
+          document.getElementById('dlg').style.visibility = '';
+          jQuery("#dlg").hide();
+        }
+        jQuery("#bkg").fadeIn(500, "linear", function () { jQuery("#dlg").show(800, "swing"); });
+      //});
+	  
+	  //Close the popup
+	  jQuery("#closebtn, #closebtn2").click(function () {
+        jQuery("#dlg").hide('800', "swing", function () { jQuery("#bkg").fadeOut("500"); });
+      });
+    });
+</script>

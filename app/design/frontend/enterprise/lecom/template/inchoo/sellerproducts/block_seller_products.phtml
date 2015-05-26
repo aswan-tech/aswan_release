@@ -1,0 +1,50 @@
+<?php if (($_products = $this->getProductCollection()) && $_products->getSize()): ?>
+<section id='weRecom'>
+<div class="asLook">
+<ul id="mycarousel-bestseller" class="jcarousel-skin-tango">
+<?php foreach ($_products->getItems() as $_product): ?>
+<?php $product = Mage::getModel('catalog/product')->load($_product->getId());?>
+<li>
+<div class="BestPro"> <a href='<?php echo $_product->getProductUrl(); ?>'><img border="0" src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(238, 249) ?>" width="238" height="249" alt="<?php echo $this->htmlEscape($_product->getName()) ?>"/></a>
+<?php $_productname = $this->htmlEscape($_product->getName()); ?>
+<?php if(strlen($_productname) > 27): $_productname = substr($_productname,0,24).'...';  endif; ?>
+  <div class="BestProDetails"><?php echo $_productname; ?></div>
+  <div class="BestProDetailsPrice"><?php 
+				$defPrice = $product->getPrice();
+				$specialprice = 0;
+				$_taxHelper  = Mage::helper('tax');
+				$currentDate = mktime(0,0,0,date("m"),date("d"),date("Y"));
+				$currentDate = date("Y-m-d h:m:s", $currentDate);
+				if (!$product->isConfigurable()){
+				$specialToDate = $product->getSpecialToDate();
+				$specialFromDate = $product->getSpecialFromDate();
+
+				if ( ($currentDate >= $specialFromDate && $currentDate < $specialToDate || $specialToDate == "") && $product->getSpecialPrice() != 0 ){
+				 $price = $product->getResource()->getAttribute('price')->getFrontend()->getValue($product);
+				 $price = $product->getSpecialPrice();
+				} else {
+				 $price = $product->getFinalPrice();
+				}
+				} else {
+				 $price = $product->getPrice();
+				}
+				//echo Mage::helper('checkout')->formatPrice($price);
+				echo $this->getPriceHtml($_product, true)
+			?>
+            </div>
+</div>
+</li>
+<?php endforeach; ?>
+</ul>
+</div>
+</section>
+<script type='text/javascript'>
+	jQuery(document).ready(function(){
+		jQuery('#mycarousel-bestseller').jcarousel({ horizontal: true, scroll: 3});
+	});
+</script>
+<?php endif; ?>
+<style>
+#weRecom p.ShopNow {padding-top: 4px!important;}
+#recView p.ShopNow {padding-top: 4px!important;}
+</style>

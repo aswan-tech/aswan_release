@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <sections>
+        <aitsys>
+          <groups>
+             <modules>
+               <fields>
+                  <Aitoc_Aitloyalty translate="label comment">
+                    <label>Aitoc Loyalty Program</label>
+                    <frontend_type>multiselect</frontend_type>
+                    <source_model>aitsys/system_config_source_stores</source_model>
+                    <backend_model>aitloyalty/system_config_backend_stores</backend_model>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>0</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <can_be_empty>1</can_be_empty>
+                  </Aitoc_Aitloyalty>
+               </fields>
+             </modules>
+          </groups>
+        </aitsys>
+    </sections>
+</config>
+<!--
+/**
+ * Product:     Loyalty Program for Enterprise Edition
+ * Package:     Aitoc_Aitloyalty_10.0.10_574534
+ * Purchase ID: INzRIwyyaNoeOLERhAgt4U28qVKIeEa3dfPrgaAN3C
+ * Generated:   2013-05-13 06:36:55
+ * File path:   app/code/local/Aitoc/Aitloyalty/etc/system.xml
+ * Copyright:   (c) 2013 AITOC, Inc.
+ */
+-->

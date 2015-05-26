@@ -1,0 +1,13 @@
+<?php if ($this->getCollection()->getSize()): ?>
+	<?php if($this->getLastPageNum()>1): ?>
+		<?php if (!$this->isFirstPage()): ?>
+			<a href="<?php echo $this->getPreviousPageUrl() ?>">
+				<img src="<?php echo $this->getSkinUrl('images/trends/left_arc.jpg') ?>" width="19" height="41">
+			</a>
+		<?php else: ?>
+			<a href="javascript:void(0);">
+				<img src="<?php echo $this->getSkinUrl('images/trends/left_disable.jpg') ?>" width="19" height="41">
+			</a>
+		<?php endif; ?>
+	<?php endif; ?>
+<?php endif ?>

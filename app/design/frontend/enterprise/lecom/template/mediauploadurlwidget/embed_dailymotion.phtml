@@ -1,0 +1,25 @@
+<?php
+/**
+ * Magento
+ *
+ *  
+ *
+ * @package     EM_MediaUploadUrlWidget
+ * @copyright   Copyright (c) 2009 Quick Solution LT
+ * 
+ */
+?>
+<div id="<?php echo $id; ?>" class="<?php echo $class; ?>" <?php echo $attrs; ?>>
+    <object width="<?php echo $width; ?>" height="<?php echo $height; ?>">
+        <param name="movie" value="http://www.dailymotion.com/swf/video/<?php echo $media; ?>?width=&amp;theme=none&amp;foreground=%23F7FFFD&amp;highlight=%23FFC300&amp;background=%23171D1B&amp;start=&amp;animatedTitle=&amp;iframe=0&amp;additionalInfos=0&amp;autoPlay=0&amp;hideInfos=0">
+        <param name="allowFullScreen" value="true">
+        <param name="allowScriptAccess" value="always">
+        <embed type="application/x-shockwave-flash"
+               src="http://www.dailymotion.com/swf/video/<?php echo $media; ?>?width=&amp;theme=none&amp;foreground=%23F7FFFD&amp;highlight=%23FFC300&amp;background=%23171D1B&amp;start=&amp;animatedTitle=&amp;iframe=0&amp;additionalInfos=0&amp;autoPlay=0&amp;hideInfos=0"
+               width="<?php echo $width; ?>" height="<?php echo $height; ?>"
+               allowfullscreen="true"
+               allowscriptaccess="always">
+        </embed>
+    </object>
+</div>
+

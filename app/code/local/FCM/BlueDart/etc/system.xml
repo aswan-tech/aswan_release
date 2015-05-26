@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<config>
+	<tabs>
+	   <fcmbluedart translate="label" module="bluedart">
+		   <label>BlueDart Configurations</label>
+		   <sort_order>280</sort_order>
+	  </fcmbluedart>
+   </tabs>
+    <sections>
+		<bluedart translate="label" module="bluedart">
+			<label>Update Details</label>
+			<tab>fcmbluedart</tab>
+			<frontend_type>text</frontend_type>
+			<sort_order>1000</sort_order>
+			<show_in_default>1</show_in_default>
+			<show_in_website>1</show_in_website>
+			<show_in_store>1</show_in_store>
+			<groups>
+				<bluedartdtls translate="label">
+					<label>Update BlueDart Details</label>
+					<frontend_type>text</frontend_type>
+					<sort_order>10</sort_order>
+					<show_in_default>1</show_in_default>
+					<show_in_website>1</show_in_website>
+					<show_in_store>1</show_in_store>
+					<fields>
+						<user_id translate="label">
+							<label>User ID</label>
+							<frontend_type>text</frontend_type>
+							<validate>required-entry</validate>
+							<sort_order>8</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment>Enter your blue dart user id</comment>
+						</user_id>
+						<license_key translate="label">
+							<label>License Key</label>
+							<frontend_type>text</frontend_type>
+							<validate>required-entry</validate>
+							<sort_order>10</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment>Enter your blue dart license key</comment>
+						</license_key> 
+					</fields>
+				</bluedartdtls>
+			</groups>
+		</bluedart>
+    </sections>
+</config>

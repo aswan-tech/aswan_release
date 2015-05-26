@@ -1,0 +1,178 @@
+
+/**
+ * Product:     Layered Navigation Pro for Enterprise Edition - 16/08/12
+ * Package:     AdjustWare_Nav_10.4.9_10.0.0_557110
+ * Purchase ID: n/a
+ * Generated:   2013-04-22 06:59:44
+ * File path:   skin/frontend/base/default/css/adjnav.css
+ * Copyright:   (c) 2013 AITOC, Inc.
+ */
+/*div.narrow-by dd a {padding:0px 5px 0px 0px; display:block; float: left;} */
+
+/*categories*/
+div.narrow-by span.adj-nav-category-current {
+background: url("../images/myacc_liArwHov.gif") no-repeat scroll 97% 12px #353773;
+    color: #FFFFFF;
+    padding-left: 10px;
+} 
+div.narrow-by a.adj-nav-pad2 {padding-left:5px}
+div.narrow-by a.adj-nav-pad3 {padding-left:1px}
+
+/*price ranges*/
+div.narrow-by a.adj-nav-price {}
+div.narrow-by a.adj-nav-price-selected {font-weight: bold;}
+
+/*attributes*/
+div.narrow-by a.adj-nav-attribute { /*padding-left:15px; background:transparent url(../images/adj-nav-checkbox.gif) no-repeat scroll -70px 3px;*/
+	background:url("../images/sprite.png") no-repeat 0px -44px transparent; padding-left:23px; padding-bottom:2px;}
+div.narrow-by a.adj-nav-attribute-selected {/*padding-left:15px; background-position: -50px -17px; font-weight: bold; */ background-position:0px -65px;}
+div.narrow-by a.adj-nav-icon {padding:0px 0px 5px 0px;}
+div.narrow-by a.adj-nav-icon-selected {opacity:0.5}
+img.adj-icon{padding-right:5px}
+
+div.narrow-by a.adj-nav-disabled {color:gray; cursor:wait}
+div.narrow-by input.adj-nav-disabled {background-color:gray; border:1px solid gray; cursor:wait}
+
+div.narrow-by a.adj-nav-clear {/*float: right;*/ cursor:pointer;} 
+/*.Chrome div.narrow-by a.adj-nav-clear, .Safari div.narrow-by a.adj-nav-clear {float: none;}*/
+
+div.adj-nav-slider { position:relative; z-index:9; height:18px; margin:10px auto 5px auto; background:url(../images/slider_bg.png) no-repeat 50% 50%;}
+div.adj-nav-slider div.handle { top:5px; width:9px; height:14px; background: transparent url(../images/adj-nav-slider-hadle.png) no-repeat; cursor:move; position: absolute; }
+/*
+#adj-nav-container {position:relative}
+*/
+div.adj-nav {position:relative}
+
+.adj-nav-progress{
+    width:100%;
+    height:100%;
+    background-color:#FFFFFF;
+    z-index:500;
+    opacity: 0.6;
+    filter:progid:DXImageTransform.Microsoft.Alpha(opacity=60);
+    position:absolute;
+    top:0;
+    left:0;
+    position: fixed;
+    right: 50%;
+    text-align: center;
+    top: 35%;
+}
+
+.adj-nav-progress img{
+	left:45%;
+	top:100px;
+	display:block;
+	position:absolute;
+}
+
+.layered-nav div.adj-clear-all {
+    margin:0;
+    border:1px solid #b9ccdd;
+    border-left:0;
+    border-right:0;
+    padding:3px 10px;
+    background:url(../images/layered_nav_narrowed_category_heading.gif) #d5e8ff;
+    color:#1f5070;
+    font-weight:bold;
+    font-size:1em;
+    text-align:center;
+} 
+
+.narrow-by dt{
+cursor:pointer;
+}
+.narrow-by dt.adj-nav-dt-selected{
+background:url(../images/narrow_by_set2.png) no-repeat 9px .9em; 
+}
+
+div.narrow-by dd li{overflow-y:hidden;}
+.adjnav-attr-more-dd {min-height: 12px;}
+
+div.adjnav-page-autoload-progress {
+    text-align: center;
+    padding: 5px 0;} 
+
+div.adjnav-page-autoload-progress img {
+    margin: 0 2px;}
+	
+	
+/*Additional Definitions*/
+
+.adj-nav-dt {font-size:15px; text-transform:lowercase; margin:15px 0px;}
+span.prselect {float:left; width:65px; font-size:11px;}
+span.prRange {color:#e40d21; float:right; font-size:11px;}
+.chkfilter ol {margin-left:10px;}
+div.narrow-by .chkfilter ol li {margin-bottom:10px; text-align:left;}
+#adj-nav-filter-price ol {margin-left:0px;}
+.price-label {display:none !important;}
+.price{font-weight: normal !important;}
+.shopByPanel .right {
+ background: url("../images/btn_remove.gif") no-repeat scroll 0 0 transparent;
+    cursor: pointer;
+    height: 11px;
+    margin-right: 20px;
+    margin-top: 7px;
+    width: 11px;
+	text-indent:-999em;
+	}
+.shopByPanel .right:hover {background-position:0px -19px;}
+.catalog-category-view #adj-nav-filter-price {width: 175px;}
+.catalog-category-view #adj-nav-filter-cat .shopByPanel {margin-left:-23px;}
+.catalog-category-view #adj-nav-filter-cat {margin-bottom:0px;}
+.catalog-category-view .toolbarHead {top:-70px;}
+.catalog-category-view .leftPanel span.WebRupee {margin:0px !important;}
+
+
+#adj-nav-filter-color ol, .fcolor-option ul {
+        margin: 0px !important;
+        margin-right: 0px !important;
+    }
+    .fcolor-option ul li, 
+    .fcolor-option ul li a { display:inline-block; width:25px; height:25px; border-radius:4px;
+    border:1px solid #cccccc;margin-bottom: 10px; margin-right:8px; cursor:pointer; border-bottom:1px solid #cccccc !important; color: white}
+    .fcolor-option ul li a:hover { color: white}
+    .fcolor-option ul li a:hover,
+    .fcolor-option ul li a.fltactive {-moz-box-shadow:2px 4px 1px #ccc;
+    -webkit-box-shadow: 2px 4px 1px #ccc;
+    box-shadow: 2px 4px 1px #ccc;}
+
+    .color_beige{ background:#f5f1de !important;} /*beige*/
+    .color_black{ background:#000 !important;}/*black*/
+    .color_blue{ background:#2a82d7 !important;} /*blue*/
+    .color_brown{ background:#964b00 !important;} /*brown*/
+    .color_green{ background:#3aa03a !important;} /*green*/
+    .color_gray{ background:#686868 !important;} /*gray*/
+    .color_multi{background: #ff3232 !important; /*multi-color*/
+                                   /* Old browsers */
+    /* IE9 SVG, needs conditional override of 'filter' to 'none' */
+    background: url(data:image/svg
+    +xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc
+    3BlY3RSYXRpbz0ibm9uZSI
+    +CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIxMDAlIiB5Mj0iMCUiPgogICAgPHN0b3Agb2Zmc2V0
+    PSIwJSIgc3RvcC1jb2xvcj0iI2ZmMzIzMiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjE0JSIgc3RvcC1jb2xvcj0iIzI3YzhmNCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjI1JSIgc3R
+    vcC1jb2xvcj0iI2Y3ZGYyZSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjM2JSIgc3RvcC1jb2xvcj0iIzI1ODQxOSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjQ3JSIgc3RvcC1jb2xvc
+    j0iIzI3YzhmNCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjU4JSIgc3RvcC1jb2xvcj0iIzZkMzkxNCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjcwJSIgc3RvcC1jb2xvcj0iI2M5MjZ
+    iYiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjgxJSIgc3RvcC1jb2xvcj0iIzIwN2NjYSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjkwJSIgc3RvcC1jb2xvcj0iI2Y3ZjE4NSIgc3RvcC1
+    vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNmZjAwMDQiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ
+    +CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+    background: -moz-linear-gradient(left,  #ff3232 0%, #27c8f4 14%, #f7df2e 25%, #258419 36%, #27c8f4 47%, #6d3914 58%, #c926bb 70%, #207cca 81%, #f7f185 90%, #ff0004 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, right top, color-stop(0%,#ff3232), color-stop(14%,#27c8f4), color-stop(25%,#f7df2e), color-stop(36%,#258419), color-stop(47%,#27c8f4), color-stop
+    (58%,#6d3914), color-stop(70%,#c926bb), color-stop(81%,#207cca), color-stop(90%,#f7f185), color-stop(100%,#ff0004)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(left,  #ff3232 0%,#27c8f4 14%,#f7df2e 25%,#258419 36%,#27c8f4 47%,#6d3914 58%,#c926bb 70%,#207cca 81%,#f7f185 90%,#ff0004 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(left,  #ff3232 0%,#27c8f4 14%,#f7df2e 25%,#258419 36%,#27c8f4 47%,#6d3914 58%,#c926bb 70%,#207cca 81%,#f7f185 90%,#ff0004 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(left,  #ff3232 0%,#27c8f4 14%,#f7df2e 25%,#258419 36%,#27c8f4 47%,#6d3914 58%,#c926bb 70%,#207cca 81%,#f7f185 90%,#ff0004 100%); /* IE10+ */
+    background: linear-gradient(to right,  #ff3232 0%,#27c8f4 14%,#f7df2e 25%,#258419 36%,#27c8f4 47%,#6d3914 58%,#c926bb 70%,#207cca 81%,#f7f185 90%,#ff0004 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff3232', endColorstr='#ff0004',GradientType=1 ); /* IE6-8 */
+    }
+    .color_orange{ background:#fd7222 !important;} /*orange*/
+    .color_pink{ background:#fc5ab8 !important;} /*pink*/
+    .colo_purple{ background:#af31f2 !important;} /*purple*/
+    .color_red{ background:#fc0d1b !important;} /*red*/
+    .color_white{ background:#fff !important;} /*white*/
+    .color_yellow{ background:#feee35 !important;} /*yellow*/
+
+    
+    .adj-nav-attribute, adj-nav-attribute-selected {
+        background: none !important;
+    }

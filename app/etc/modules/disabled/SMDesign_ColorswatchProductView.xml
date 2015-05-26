@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <SMDesign_ColorswatchProductView>
+            <active>false</active>
+            <codePool>community</codePool>
+        </SMDesign_ColorswatchProductView>
+    </modules>
+</config>

@@ -1,0 +1,186 @@
+<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+<?php if ($this->getOrderId()):?>
+<?php $order = Mage::getModel('sales/order')->loadByIncrementId($this->getOrderId());
+$payment_method_code = $order->getPayment()->getMethodInstance()->getCode(); 
+
+// get customer register date by customer ID
+$customer = Mage::getModel('customer/customer')->load($order->getData('customer_id'));
+
+$orderCollection = Mage::getModel('sales/order')->getCollection()->addFilter('customer_id', $order->getData('customer_id'));
+$numberOfOrders = $orderCollection->count();
+
+$created_at = date('Y-m-d', strtotime($customer->getData('created_at')));
+
+/* network play
+ * 
+ * 326491 - for New User
+ * 326493 - for Old User
+ */ 
+ 
+if( $numberOfOrders > 1 && $created_at == date('Y-m-d') ) {
+	$customerType = 'OLDUSER';
+	$networkPlay = '326493'; // old user id
+}
+else {
+	$customerType = 'NEWUSER';
+	$networkPlay = '326491'; // new user id
+}
+
+/*
+ * New customer and order set source and campaign
+ */
+
+Mage::helper('common')->saveSourceCampaign($order, $customerType);
+
+?>
+
+<div class="thk-wrapp">
+    <div class="thkrco-txt">We have received your order.</div>
+    <?php /*if ($payment_method_code == "cashondelivery" && $order->isOtp()): ?>
+    <div id="varify">
+        <div class="thkvrc-txt">To Verify your Cash on delivery order</div>
+        <div class="thkotp-email-txt">One Time Password (OTP) has been sent to your registered Mobile Number</div>
+        <div class="thkotp-email-txt">Please enter your OTP</div>
+        <div class="input-wrapp"><input type="text" class="" value="" id="codsuccess" name="codsuccess"></div>
+        <div class="thkreg-txt">If you have not recevied the OTP. Please click to <a href="javascript:void(0)" class="gtm-track" id="otp-regenerate">Regenerate</a></div>
+        <div class="thkreg-txt"><button name="codbtn" id="otp-confirm-cod" class="thk-btn gtm-track">Confirm COD</button></div>
+    </div>
+    <input type="hidden" value="<?php echo $order->getEntityId();?>" name="codOid" id="codOid">
+    <input type="hidden" value="<?php echo $this->getOrderId();?>" name="incrementId" id="incrementId">
+    <input type="hidden" value="<?php echo $order->getShippingAddress()->getTelephone();?>" name="mobile" id="mobile">
+    <div class="thkreg-txt" id="loading" style="display:none;">
+    	<img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA);?>v3/loader-signup.gif"  border="0" />
+    </div>
+    <div class="thkreg-txt" id="thanks" style="display:none; color:#FF0000;"></div>
+    <?php endif;*/ ?>
+    <div class="thkreg-txt">Your Order: <?php echo $this->getOrderId();?></div>
+    <div class="thkcont-txt">Your contact number: +91 <?php echo $order->getShippingAddress()->getTelephone(); ?></div>
+</div>
+<script>
+var codsuccess = '';
+var codOid = '';
+var incrementId = '';
+var mobile = '';
+jQuery(document).ready(function(){
+	jQuery('#otp-confirm-cod').click(function(e) {
+		codsuccess = jQuery('#codsuccess').val();
+		codOid = jQuery('#codOid').val();
+		incrementId = jQuery('#incrementId').val();
+		if(codsuccess != '' && codOid != '' && incrementId != '') {
+			jQuery.ajax({
+				type: "POST",
+				url: "<?php echo $this->getUrl(); ?>nosql/index/codsuccess",
+				data: 'codsuccess='+codsuccess+'&codOid='+codOid+'&incrementId='+incrementId,
+				beforeSend: function() {
+					jQuery('#loading').show();
+				},
+				success: function(msg){
+					if(msg == 'COD verification successfull.') {
+						jQuery('#loading').hide();
+						jQuery('#varify').hide();
+						jQuery('#thanks').html(msg);
+						jQuery('#thanks').show();
+					}else{
+						jQuery('#loading').hide();
+						jQuery('#thanks').html(msg);
+						jQuery('#thanks').show();
+					}
+				}
+			});
+		}
+	});
+	jQuery('#otp-regenerate').click(function(e) {
+		incrementId = jQuery('#incrementId').val();
+		mobile = jQuery('#mobile').val();
+		if(incrementId != '' && mobile != '') {
+			jQuery.ajax({
+				type: "POST",
+				url: "<?php echo $this->getUrl(); ?>nosql/index/regenerate",
+				data: 'incrementId='+incrementId+'&mobile='+mobile,
+				beforeSend: function() {
+					jQuery('#loading').show();
+				},
+				success: function(msg){
+					if(msg) {
+						jQuery('#loading').hide();
+						jQuery('#thanks').html(msg);
+						jQuery('#thanks').show();
+					}
+				}
+			});
+		}
+		
+	});		
+});
+</script>
+<?php endif;?>
+<?php
+    $lastOrderId = Mage::getSingleton('checkout/session')->getLastOrderId();
+    $order = Mage::getModel('sales/order')->load($lastOrderId);
+    $items = $order->getAllVisibleItems();
+    foreach($items as $item){
+         $sku =  $item->getSku();
+         $pid = Mage::getModel('catalog/product')->loadByAttribute('sku',$sku)->getId();
+         $array = Mage::getModel('catalog/product_type_configurable')->getParentIdsByChild($pid);
+         $cp_sku[] = Mage::getModel('catalog/product')->load($array[0])->getSku();
+
+    }
+
+    $orderId = $this->getOrderId(); 
+    $paymentMethod = '';
+    if( is_object( $order->getPayment() ) ) {
+        $paymentMethod = $order->getPayment()->getMethod();
+    }
+    $total = $order->getGrandTotal();
+	$items_total = $order->getTotalQtyOrdered();
+	$_pixelfound = false;
+	$_affiliateCode = '';
+	
+	if (isset($_COOKIE["pixelAffiliateCookie"])){
+		$_pixelfound = true;
+		$_affiliateCode = $_COOKIE["pixelAffiliateCookie"];
+	}
+	
+?>
+<script type="text/javascript">
+dataLayer.push(
+    {'ORDER_ID': '<?php echo $this->getOrderId() ?>'}, 
+    {'ORDER_PAYMENT_METHOD': '<?php echo $paymentMethod ?>'},
+    {'ORDER_ITEM_COUNT': '<?php echo round($items_total,0) ?>'},
+    {'ORDER_AMOUNT': '<?php echo round($total,0) ?>'},
+    {'RANDOM_NUMBER' : '<?php echo rand(10000000, 999999999)?>'},
+    {'MYDALA_LEAD_ID': '<?php echo $_COOKIE['myDalaCookie']?>'},
+    {'TRAN_SUCCESS': '1'},
+    {'CUSTOMER_TYPE': '<?php echo $customerType; ?>'},
+    {'NETWORK_PLAY': '<?php echo $networkPlay; ?>'},
+    {'PAGE_TYPE': 'ORDER_SUCCESS'},
+    {'PRODUCT_LIST_CART': '<?php echo implode( ',', $cp_sku );?>'}
+);
+</script>
+
+
+<script type="text/javascript" class="microad_blade_track">
+    <!--
+    var microad_blade_gl = microad_blade_gl || { 'params' : new Array(), 'complete_map' : new Object() };
+    (function() {
+        var param = {'co_account_id' : '4720', 'group_id' : 'convtrack15455', 'country_id' : '4', 'ver' : '2.1.0'};
+        microad_blade_gl.params.push(param);
+        var src = '//d-cache.microadinc.com/js/blade_track_gl.js';
+        var bs = document.createElement('script');
+        bs.type = 'text/javascript'; bs.async = true;
+        bs.charset = 'utf-8'; bs.src = src;
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(bs, s);
+    })();
+    -->
+</script>
+<script type='text/javascript'>
+    //<![CDATA[
+    var p = '//adex.adchakra.net/adex/www/delivery/tjs.php';
+    var r=Math.floor(Math.random()*999999);
+    document.write ("<" + "script language='JavaScript' ");
+    document.write ("type='text/javascript' src='"+p);
+    document.write ("?trackerid=141&amp;append=0&amp;r="+r+"'><" + "\/script>");
+    //]]>
+</script>
+<noscript><div id='m3_tracker_141' style='position: absolute; left: 0px; top: 0px; visibility: hidden;'><img src='http://adex.adchakra.net/adex/www/delivery/ti.php?trackerid=141&amp;cb=%%<?php echo $orderId; ?>%%' width='0' height='0' alt='' /></div></noscript>

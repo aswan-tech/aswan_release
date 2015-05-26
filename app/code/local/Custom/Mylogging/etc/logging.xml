@@ -1,0 +1,120 @@
+<?xml version="1.0"?>
+<logging>
+    <sales_orders translate="label">
+        <label>Sales Orders</label>
+        <expected_models>
+            <sales__order>
+                <additional_data>
+                    <increment_id />
+                </additional_data>
+            </sales__order>
+        </expected_models>
+        <actions>
+
+            <adminhtml_sales_order_pdfdocs>
+                <action>export</action>
+            </adminhtml_sales_order_pdfdocs>
+
+            <adminhtml_sales_order_view>
+                <action>view</action>
+            </adminhtml_sales_order_view>
+
+            <adminhtml_sales_order_create_reorder>
+                <action>reorder</action>
+            </adminhtml_sales_order_create_reorder>
+
+            <adminhtml_sales_order_edit_start>
+                <action>edit</action>
+            </adminhtml_sales_order_edit_start>
+
+            <adminhtml_sales_order_massHold>
+                <action>massUpdate</action>
+                <expected_models extends="merge">
+                    <sales__order_status_history/>
+                </expected_models>
+            </adminhtml_sales_order_massHold>
+
+            <adminhtml_sales_order_massUnhold>
+                <action>massUpdate</action>
+                <expected_models extends="merge">
+                    <sales__order_status_history/>
+                </expected_models>
+            </adminhtml_sales_order_massUnhold>
+
+            <adminhtml_sales_order_massCancel>
+                <action>massUpdate</action>
+                <expected_models extends="merge">
+                    <sales__order_status_history/>
+                </expected_models>
+            </adminhtml_sales_order_massCancel>
+
+            <adminhtml_sales_order_hold>
+                <action>save</action>
+                <expected_models extends="merge">
+                    <sales__order_status_history/>
+                </expected_models>
+            </adminhtml_sales_order_hold>
+
+            <adminhtml_sales_order_unhold>
+                <action>save</action>
+                <expected_models extends="merge">
+                    <sales__order_status_history/>
+                </expected_models>
+            </adminhtml_sales_order_unhold>
+
+            <adminhtml_sales_order_cancel>
+                <action>save</action>
+                <expected_models extends="merge">
+                    <sales__order_status_history/>
+                </expected_models>
+            </adminhtml_sales_order_cancel>
+
+            <adminhtml_sales_order_create_save>
+                <action>save</action>
+                <expected_models extends="merge">
+                    <customer__customer/>
+                    <customer__address/>
+                    <sales__order_status_history/>
+                </expected_models>
+            </adminhtml_sales_order_create_save>
+
+            <adminhtml_sales_order_edit_save>
+                <action>save</action>
+                <expected_models extends="merge">
+                    <customer__customer/>
+                    <customer__address/>
+                    <sales__order_status_history/>
+                </expected_models>
+            </adminhtml_sales_order_edit_save>
+			
+			
+			<adminhtml_sales_order_addressSave>
+                <action>save</action>
+					<expected_models extends="merge">
+						<sales__order_address/>
+					</expected_models>
+            </adminhtml_sales_order_addressSave>
+			
+			
+            <adminhtml_sales_order_email>
+                <action>send</action>
+                <expected_models extends="merge">
+                    <sales__order_status_history/>
+                </expected_models>
+            </adminhtml_sales_order_email>
+
+            <adminhtml_sales_order_pdfinvoices>
+                <action>export</action>
+            </adminhtml_sales_order_pdfinvoices>
+
+            <adminhtml_sales_order_pdfshipments>
+                <action>export</action>
+            </adminhtml_sales_order_pdfshipments>
+
+            <adminhtml_sales_order_pdfcreditmemos>
+                <action>export</action>
+            </adminhtml_sales_order_pdfcreditmemos>
+
+        </actions>
+    </sales_orders>
+</logging>

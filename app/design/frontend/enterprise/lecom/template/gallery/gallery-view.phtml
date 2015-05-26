@@ -1,0 +1,43 @@
+<?php 
+	$season = $this->getSeasonTrendItems(); 
+	$pager = $this->getChild('pager');
+	
+	$seasonItem = $season->getFirstItem();
+	Mage::getStoreConfig('gallery/trendsettings/imagewidth')? $width = Mage::getStoreConfig('gallery/trendsettings/imagewidth') : $width = 898;
+	Mage::getStoreConfig('gallery/trendsettings/imageheight')? $height = Mage::getStoreConfig('gallery/trendsettings/imageheight') : $height = 901;
+?>
+<div class="pagi"><span><a href="<?php echo Mage::getUrl('gallery'); ?>"><?php echo Mage::helper('gallery')->__('Home'); ?></a></span> <?php echo $seasonItem->getHeading(); ?></div>
+<div class="clearfloat"></div>
+<?php if ($pager->getCollection()->getSize()): ?>
+	<div class="navleft">
+	<?php if ($pager->getLastPageNum() > 1): ?>
+			
+			<?php if (!$pager->isFirstPage()): ?>
+				<a href="<?php echo $pager->getPreviousPageUrl() ?>"><img alt="" src="<?php echo $pager->getSkinUrl('images/trends/left_arc.jpg') ?>" width="19" height="41"></a>
+			<?php else : ?>
+				<a><img alt="" src="<?php echo $pager->getSkinUrl('images/trends/left_disable.jpg') ?>" width="19" height="41"></a>			
+			<?php endif; ?>
+			
+	<?php endif; ?>
+	</div>
+<?php endif ?>
+
+<div id="archiveimage">
+	<img src="<?php echo $seasonItem->getLookImageUrl(); ?>" width="<?php echo $width; ?>" height="<?php echo $height; ?>">
+</div>
+   
+<?php if ($pager->getCollection()->getSize()): ?>
+	<div class="navright">
+	<?php if ($pager->getLastPageNum() > 1): ?>
+		
+			<?php if (!$pager->isLastPage()): ?>
+				<a href="<?php echo $pager->getNextPageUrl() ?>"><img alt="" src="<?php echo $pager->getSkinUrl('images/trends/right_arc.jpg') ?>" width="19" height="40"></a>
+			<?php else : ?>
+				<a><img alt="" src="<?php echo $pager->getSkinUrl('images/trends/right_disable.jpg') ?>" width="19" height="41"></a>				
+			<?php endif; ?>
+		
+	<?php endif; ?>
+	</div>
+<?php endif ?>  
+  
+<?php echo $this->getPagerHtml(); ?>

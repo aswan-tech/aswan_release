@@ -1,0 +1,23 @@
+<?php
+/**
+ * Magento
+ *
+ *  
+ *
+ * @package     EM_MediaUploadSourceWidget
+ * @copyright   Copyright (c) 2009 Quick Solution LT
+ * 
+ */
+?>
+<div id="myContent" class="<?php echo $class; ?>" <?php echo $attrs; ?>>
+
+    <object width="<?php echo $width; ?>" height="<?php echo $height; ?>"
+            data="<?php echo $media; ?>"
+            type="application/x-shockwave-flash">
+        <param name="data" value="<?php echo $media; ?>" />
+        <param name="FlashVars" value="<?php echo $flashvars; ?>" />
+        <param name="src" value="<?php echo $media; ?>" />
+        <param name="wmode" value="<?php echo $wmode; ?>" />
+        <param name="quality" value="high" />
+    </object>
+</div>

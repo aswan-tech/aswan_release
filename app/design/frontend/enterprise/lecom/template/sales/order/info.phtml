@@ -1,0 +1,72 @@
+<?php $_order = $this->getOrder(); ?>
+<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+<div class="order_details bgc-fcfc " style="float:left; height:150px; border:1px solid #eaeaea; padding: 10px; width: 460px; margin: 0px 20px 20px 0px; padding-bottom:20px;">
+        <ul class="clearfix Orderdetailf">
+            <li>
+                <div class="clearfix field-item">
+                    <label for="ordNo">
+                        <?php echo $this->__('ORDER NO:'); ?>
+                    </label>
+                    <div class="input-box input-value  bold">
+                        <?php echo $_order->getRealOrderId(); ?>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="clearfix field-item">
+                    <label for="expDev">
+                        <?php echo $this->__('Date Of Order'); ?>
+                    </label>
+                    <div class="input-box input-value">
+                        <?php echo date('d-m-Y', strtotime($this->htmlEscape($_order->getCreatedAt()))) ?>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="clearfix field-item">
+                    <label for="expDev">
+                        <?php echo $this->__('Order Quantity'); ?>
+                    </label>
+                    <div class="input-box input-value">
+                        <?php echo $_order->getTotalItemCount(); ?>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="clearfix field-item">
+                    <label for="expDev">
+                        <?php echo $this->__('Total Order Value'); ?>
+                    </label>
+                    <div class="input-box input-value">
+                        <?php echo Mage::helper('core')->currency($_order->getGrandTotal(), true, false); ?>
+                    </div>
+                </div>
+            </li>
+            <?php if ($_order->getCouponCode() != ''): ?>
+            <li>
+                <div class="clearfix field-item">
+                    <label for="expDev">
+                        <?php echo $this->__('Coupon Used'); ?>
+                    </label>
+                    <div class="input-box input-value">
+                        <?php echo $_order->getCouponCode(); ?>
+                    </div>
+                </div>
+            </li>
+            <?php endif; ?>
+            <?php /*<li>
+                <div class="clearfix field-item">
+                    <label for="wbNo">
+                        <?php echo $this->__('Order Status'); ?>
+                    </label>
+                    <div class="input-box input-value">
+                        <?php echo $_order->getStatusLabel(); ?>
+                    </div>
+                </div>
+            </li>*/?>
+        </ul>
+</div>
+<div id="address_block" class="bgc-fcfc" style="float:left; height:150px; border:1px solid #eaeaea; padding:10px 10px 20px; width: 453px; margin: 0px 0px 20px 0px;">
+    <h3>Delivery Details</h3><br/>
+    <?php echo $_order->getShippingAddress()->format('html') ?>
+</div>

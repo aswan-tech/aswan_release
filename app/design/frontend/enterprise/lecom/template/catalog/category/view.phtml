@@ -1,0 +1,154 @@
+<?php
+$_helper    = $this->helper('catalog/output');
+$_category  = $this->getCurrentCategory();
+$_categoryLevel  = $_category->getLevel();	
+$_imgHtml   = '';	
+if ($_imgUrl = $_category->getImageUrl()) {	?>	
+	<div id="catimage"><img src="<?php echo $_imgUrl ?>" alt="<?php echo $this->htmlEscape($_category->getName()) ?>" title="<?php echo $this->htmlEscape($_category->getName()); ?>">
+		<?php $scratch_card_enable = Mage::getStoreConfig('scratchcard/scratchcardsetting/scratch_enable');
+	if($scratch_card_enable=='1'){
+		$scratch_card_categories = 
+			explode(",",Mage::getStoreConfig('scratchcard/scratchcardsetting/scratch_card_categories'));
+		$category_id = $_category->getId();
+			if(in_array($category_id,$scratch_card_categories)){ 
+				$sCoupon = Mage::helper('catalog/data')->getScratchCardCoupon();
+				?>
+	<div id="scratch-holder">
+		<div id="couponcode" class="hide"><p>You got <?php echo  $sCoupon->getName(); ?><br/>
+			<b>Coupon Code : <?php echo  $sCoupon->getCouponCode(); ?></b>
+			<span></span></p>
+		</div>
+		<div id="scratch1"></div>
+		<div id="resetplay"><p><a href="javascript:void(0)" onclick="playagain()">Try again</a></p></div>
+	</div>
+
+	<script>
+	function playagain(){
+		var scratch_param = getParameterByName('scratch');
+		if(scratch_param==null){
+			var new_param = 1;
+			if (location.search.indexOf('?') > -1) {
+    				var newUrl = jQuery(location).attr('href')+"&scratch="+new_param;
+			} else {
+    			var newUrl = jQuery(location).attr('href')+"?scratch="+new_param;
+			}
+		}else{
+			var new_param = parseInt(scratch_param)+1;
+			var newUrl = location.href.replace("scratch="+scratch_param, "scratch="+new_param);
+		}
+		window.location.href = newUrl;
+			
+	}
+	function getParameterByName(name) {
+	    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+	    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+	        results = regex.exec(location.search);
+	    return results === null ? null : decodeURIComponent(results[1].replace(/\+/g, " "));
+	}
+	jQuery(window).load(function(){
+		if (jQuery.browser.version == '8.0'){
+			jQuery('#scratch1').remove();
+			}else{
+			createScratchCard({
+			'container': document.getElementById('scratch1'),
+			'background':"<?php echo $this->getSkinUrl('images/demo2-background.png');?>",
+			'foreground':"<?php echo $this->getSkinUrl('images/demo1-foreground.png');?>",
+			'coin':"<?php echo $this->getSkinUrl('images/coin2.png');?>",
+			'percent': 100,
+			'thickness':25,
+			'callback': 'callback'//,
+			//'flashPath' : 'assets/swf/scratchcard.swf'
+			});
+			jQuery('#couponcode').removeClass('hide');
+			jQuery('#scratch1').click(function(){
+				jQuery('#resetplay').show();
+			});
+		}
+	});
+</script>
+<?php } } ?>
+	</div>
+	<?php $_imgHtml = $_helper->categoryAttribute($_category, $_imgHtml, 'image');
+}
+?>
+<script type="text/javascript">
+dataLayer.push(
+    <?php if($_categoryLevel <= 2): ?>
+    {'DEPT_ID': '<?php echo $_category->getId() ?>'}, 
+    {'DEPT_NAME': "<?php echo $_category->getName() ?>"},
+    {'PAGE_TYPE': 'DEPARTMENT'}
+    <?php else: ?>
+    {'CATEGORY_ID': '<?php echo $_category->getId() ?>'}, 
+    {'CATEGORY_NAME': "<?php echo $_category->getName() ?>"},
+    <?php endif; ?>
+    <?php if ($_categoryLevel > 2) { ?>   
+    {'DEPT_ID': '<?php echo $_category->getparentCategory()->getId() ?>'}, 
+    {'DEPT_NAME': '<?php echo $_category->getparentCategory()->getName() ?>'},
+    {'PAGE_TYPE': 'CATEGORY'}
+    <?php } ?>
+);
+</script>
+<?php echo $this->getMessagesBlock()->toHtml() ?>
+    <?php 
+	if($_category->getCategoryContentImagemap()){
+		echo $_category->getCategoryContentImagemap();
+	}else{
+		if($_imgUrl && $_categoryLevel > 1) { echo $_imgHtml;} 
+	}
+	?>	
+	<?php if ($_categoryLevel > 1) { $catids = array("6", "8"); ?>
+		<div class="CatTitle">
+		<h1>
+		<?php 
+		if($_category->getCategoryContentHeading()){
+			echo $_category->getCategoryContentHeading();
+		}else{
+			if (in_array($_category->getparentCategory()->getId(), $catids)){ 
+				echo $_category->getName().' For '.$_category->getparentCategory()->getName(); 
+			}else{ 
+				echo $_category->getName();
+			} 
+		}
+		?>
+		</h1>
+         <?php if(strtolower($_category->getName()) == 'get the look'){ ?><br />
+		<div class="fl" style=" width:100%;margin: 10px 0;">
+			<a href="<?php echo $_category->getUrl(); ?>" style="background:#142a56; padding:5px 8px; color:#fff; "><strong>Go Back</strong></a>
+		</div>
+			<br /> <?php } ?> </div>       
+	<?php } ?>
+
+ <?php if($this->isContentMode()): ?>
+        <?php  echo $this->getCmsBlockHtml() ?>
+    <?php elseif($this->isMixedMode()): ?>
+        <?php  //echo $this->getCmsBlockHtml() ?>		
+        <?php  if ($_categoryLevel > 1) { echo $this->getProductListHtml(); } ?>
+    <?php else: ?>
+        <?php  if ($_categoryLevel > 1) { echo $this->getProductListHtml(); } ?>
+    <?php endif; ?>		
+	<?php //if ($_categoryLevel == 2) {  echo $this->getChildHtml('sellers'); } ?>	
+	<?php
+		/* Category Content Begins */
+			$_heading = $this->getCurrentCategory()->getCategoryContentHeading();
+			$_subheading = $this->getCurrentCategory()->getCategoryContentSubHeading();
+			$_description = $this->getCurrentCategory()->getDescription();
+		/* Category Content Ends */		
+		if ((!empty($_heading) OR !empty($_subheading) OR !empty($_description)) && $_categoryLevel != 1) {
+	?>
+			<div class="custom_message <?php if ($_categoryLevel > 1) { ?> custom_message_product <?php } ?>">
+				<?php if(!empty($_description)): ?>
+					<span  class="cmdesc msginfo">
+						<?php echo $_helper->categoryAttribute($_category, $_description, 'description') ?>
+					</span>
+				<?php endif; ?>
+			</div>
+	<?php
+		}
+	?>
+<?php if ($_categoryLevel > 1) { $pcatid  = $_category->getParentId(); ?>
+<script type="text/javascript">
+//<![CDATA[
+pcatid = '<?php echo $pcatid;?>';
+//]]>
+</script>
+<?php } ?>

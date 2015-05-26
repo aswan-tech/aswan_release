@@ -1,0 +1,107 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * FCM Shippingmethod Module 
+ *
+ * Module for importing zip code, city and state for address verification.
+ *
+ * @category    FCM
+ * @package     FCM_Shippingmethod
+ * @author	Vikrant Kumar Mishra
+ * @author_id	51402601
+ * @company	HCL Technologies
+ * @created Thursday, June 5, 2012
+ */
+-->
+<config>
+    <modules>
+        <FCM_Shippingmethod>
+            <version>0.1.0</version>
+        </FCM_Shippingmethod>
+    </modules>
+    <frontend>
+        <routers>
+            <shippingmethod>
+                <use>standard</use>
+                <args>
+                    <module>FCM_Shippingmethod</module>
+                    <frontName>shippingmethod</frontName>
+                </args>
+            </shippingmethod>
+        </routers>
+        <layout>
+            <updates>
+                <shippingmethod>
+                    <file>shippingmethod.xml</file>
+                </shippingmethod>
+            </updates>
+        </layout>
+    </frontend>      
+    <global>
+        <models>
+            <shippingmethod>
+                <class>FCM_Shippingmethod_Model</class>
+            </shippingmethod>            
+        </models>
+        <resources>
+            <shippingmethod_setup>
+                <setup>
+                    <module>FCM_Shippingmethod</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </shippingmethod_setup>            
+        </resources>
+    </global>
+	<default>
+		 <shipping_methods>
+		 	<standard/>
+			<express/>
+			<appointment/>
+			<overnite/>
+		 </shipping_methods>
+		 <carriers>
+            <standard>
+                <active>1</active>
+                <sallowspecific>0</sallowspecific>
+                <model>shippingmethod/carrier_standard</model>
+                <name>standard</name>
+                <price>6.00</price>
+                <title>Standard</title>
+                <type>I</type>
+                <specificerrmsg>This shipping method is currently unavailable. If you would like to ship using this shipping method, please contact us.</specificerrmsg>
+            </standard>
+            <express>
+                <active>1</active>
+                <sallowspecific>0</sallowspecific>
+                <model>shippingmethod/carrier_express</model>
+                <name>express</name>
+                <price>6.00</price>
+                <title>Express</title>
+                <type>I</type>
+                <specificerrmsg>This shipping method is currently unavailable. If you would like to ship using this shipping method, please contact us.</specificerrmsg>
+            </express>
+			<appointment>
+                <active>1</active>
+                <sallowspecific>0</sallowspecific>
+                <model>shippingmethod/carrier_appointment</model>
+                <name>appointment</name>
+                <price>6.00</price>
+                <title>Appointment</title>
+                <type>I</type>
+                <specificerrmsg>This shipping method is currently unavailable. If you would like to ship using this shipping method, please contact us.</specificerrmsg>
+            </appointment>
+			<overnite>
+                <active>1</active>
+                <sallowspecific>0</sallowspecific>
+                <model>shippingmethod/carrier_overnite</model>
+                <name>overnite</name>
+                <price>6.00</price>
+                <title>Overnite</title>
+                <type>I</type>
+                <specificerrmsg>This shipping method is currently unavailable. If you would like to ship using this shipping method, please contact us.</specificerrmsg>
+            </overnite>
+		</carriers>
+	</default>
+</config>

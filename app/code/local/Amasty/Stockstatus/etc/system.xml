@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+   <sections>
+        <catalog>
+            <groups>
+                <general translate="Custom Stock Status" module="amstockstatus">
+                    <label>Custom Stock Status</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>110</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <displayforoutonly translate="label comment">
+                            <label>Display custom stock status for 'Out of Stock' items only</label>
+                            <comment>If set to "No", custom stock status will be visible both for "in stock" and "out of stock" items.</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </displayforoutonly>
+                        <displayincart translate="label comment">
+                            <label>Display custom stock status in shopping cart</label>
+                            <comment>Will display custom stock status for items in shopping cart.</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </displayincart>
+                        <userangesonly translate="label comment">
+                            <label>Use quantity ranges based statuses only</label>
+                            <comment>If set to "No" custom stock status set for product will show up if no range status found for particular product.</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </userangesonly>
+                        <icononly translate="label comment">
+                            <label>Display icon only (no status text)</label>
+                            <comment>Display only icon and no custom status text on the product view and product list pages.</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </icononly>
+                        <stockalert translate="label">
+                            <label>Enable "Back In Stock" alert for out of stock configurable items</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </stockalert>
+                        <outofstock translate="label comment">
+                            <label>Show out-of-stock configurable attributes</label>
+                            <comment>If set to "Yes", out of stock configurations will be displayed in the drop-downs of configurable products with no possibility to purchase.</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </outofstock>
+                        <alt_text translate="label comment">
+                            <label>Status icon title text</label>
+                            <comment>The text that will appear on mouse over a status icon image</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>60</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </alt_text>
+                        <alt_text_loggedin translate="label">
+                            <label>Show status icon title text for logged in customers only</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>70</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </alt_text_loggedin>
+                    </fields>
+                </general>
+            </groups>
+        </catalog>
+    </sections>
+</config>

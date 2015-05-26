@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <progallery_adminhtml_progallery_index>
+        <reference name="content">
+            <block type="progallery/adminhtml_progallery" name="progallery" />
+        </reference>
+    </progallery_adminhtml_progallery_index>
+</layout>

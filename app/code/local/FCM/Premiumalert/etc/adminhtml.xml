@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    Document   : system.xml
+    Created on : Nov 14, 2012, 10:00 AM
+    Author     : rahul.tyagi
+    Description: Provide section in Admin to configure Premium stock alert parameters.
+-->
+
+<config>
+    <acl>
+        <resources>
+            <admin>
+                <children>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <premiumalert translate="title" module="premiumalert">
+                                        <title>Premium Packages Stock Alert</title>
+                                        <sort_order>3000</sort_order>
+                                    </premiumalert>
+                                </children>
+                            </config>
+                        </children>
+                    </system>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+</config>

@@ -1,0 +1,83 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <default>
+        <reference name="head">
+            <action method="setCanLoadExtJs">
+                <flag>1</flag>
+            </action>
+        </reference>
+    </default>
+    
+    <gallery_adminhtml_gallery_index>
+        <reference name="left">
+            <block type="gallery/adminhtml_tree" name="gallery.category.tree" template="gallery/tree.phtml"/>
+        </reference>
+        <reference name="content">
+            <block type="gallery/adminhtml_gallery" name="gallery" />
+        </reference>
+    </gallery_adminhtml_gallery_index>
+	
+    <gallery_adminhtml_day_index>
+        <reference name="left">
+            <block type="gallery/adminhtml_treeday" name="gallery.category.tree" template="gallery/treeday.phtml"/>
+        </reference>
+        <reference name="content">
+            <block type="gallery/adminhtml_day" name="day" />
+        </reference>
+    </gallery_adminhtml_day_index>
+	
+    <gallery_adminhtml_day_edit>
+        <reference name="left">
+            <block type="gallery/adminhtml_treeday" name="gallery.category.tree" template="gallery/treeday.phtml"/>
+        </reference>
+        <reference name="content">			
+            <block type="gallery/adminhtml_day_edit" name="gallery.day.edit">
+                <block type="gallery/adminhtml_day_edit_tabs" name="gallery_edit_tabs"/>
+            </block>			
+        </reference>
+    </gallery_adminhtml_day_edit>
+
+    <gallery_adminhtml_week_index>
+        <reference name="left">
+            <block type="gallery/adminhtml_treeweek" name="gallery.category.tree" template="gallery/treeweek.phtml"/>
+        </reference>
+        <reference name="content">
+            <block type="gallery/adminhtml_week" name="week" />
+        </reference>
+    </gallery_adminhtml_week_index>
+	
+    <gallery_adminhtml_week_edit>
+        <reference name="left">
+            <block type="gallery/adminhtml_treeweek" name="gallery.category.tree" template="gallery/treeweek.phtml"/>
+        </reference>
+        <reference name="content">			
+            <block type="gallery/adminhtml_week_edit" name="gallery.week.edit">
+                <block type="gallery/adminhtml_week_edit_tabs" name="gallery_edit_tabs"/>
+            </block>			
+        </reference>
+    </gallery_adminhtml_week_edit>	
+    
+    <gallery_adminhtml_gallery_edit>
+        <reference name="left">
+            <block type="gallery/adminhtml_tree" name="gallery.category.tree" template="gallery/tree.phtml"/>
+        </reference>
+        <reference name="content">
+            <block type="gallery/adminhtml_gallery_edit" name="gallery.gallery.edit">
+                <block type="gallery/adminhtml_gallery_edit_tabs" name="gallery_edit_tabs"/>
+            </block>			
+        </reference>
+    </gallery_adminhtml_gallery_edit>
+
+    <gallery_manage_comment_index>
+        <reference name="content">
+            <block type="gallery/manage_comment" name="comment" />
+        </reference>
+    </gallery_manage_comment_index>
+
+    <gallery_manage_daycomment_index>
+        <reference name="content">
+            <block type="gallery/manage_daycomment" name="daycomment" />
+        </reference>
+    </gallery_manage_daycomment_index>
+
+</layout>

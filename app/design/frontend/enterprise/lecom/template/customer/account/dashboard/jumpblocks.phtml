@@ -1,0 +1,84 @@
+       <div class="ams-acc-b-pdeatil fl " onclick="location.href='<?php echo $this->getUrl('customer/account/edit/'); ?>'">
+       <div class="fs18 c-999 mt25 f-bold ta-c">PERSONAL DETAILS</div>
+       <div class="f-bold c-b0b mt25 mb25 ta-l fs14">Complete your profile and help us serve you better.</div>
+       <span class="tt-u fs18 ta-c"><a href="<?php echo $this->getUrl('customer/account/edit/'); ?>" class="c-fff">EDIT PROFILE</a></span>
+       </div>
+       
+       <div class="ams-acc-b-myadd fl ta-c ml20 mr20" onclick="location.href='<?php echo $this->getUrl('customer/account/coupons/'); ?>'">
+       <div class="fs18 c-999 mt25 f-bold">MY COUPONS</div>
+       <div class="f-bold c-b0b mt10 mb25"><span class="ams-mycoupon-span-value">
+       
+       <?php
+       $aLoyaltyRules = $this->getLayout()->getBlockSingleton('Custom_Mycustomer_Block_Coupons')->getLoyaltyRulesCustom();
+        foreach ($aLoyaltyRules as $_rule):
+                $actUsed = 0;
+                if(!is_null($_rule->getActUsed())){
+                        $actUsed = $_rule->getActUsed();
+                }
+                if(!is_null($_rule->getExpirationDate()) && strtotime($_rule->getExpirationDate()) <= time()) {
+                    continue;
+                }
+                $iCount++;
+        endforeach; 
+        echo (int)$iCount;
+        ?>
+       </span> &nbsp; <sapn class="ams-mycoupon-span pos-a">Active <br />Coupons<span></div>
+       <span class="tt-u fs18 "><a href="<?php echo $this->getUrl('customer/account/coupons/'); ?>" class="c-fff">PREVIEW COUPONS</a></span>
+       </div>
+       
+       <div class="ams-acc-b-pdeatil fl ta-c" onclick="location.href='<?php echo $this->getUrl('reward/customer/info/'); ?>'">
+       <div class="fs18 c-999 mt25 f-bold">MY POINTS</div>
+       <div class="f-bold c-999 mt10 fs18 pb10 acc-bold-txt"><?php 
+       $reward = Mage::getModel('enterprise_reward/reward')
+            ->setCustomer(Mage::getSingleton('customer/session')->getCustomer())
+            ->setWebsiteId(Mage::app()->getStore()->getWebsiteId())
+            ->loadByCustomer();
+       echo (int)$reward->getData('points_balance');
+       ?> &nbsp;</div>
+       <span class="tt-u fs18 "><a href="<?php echo $this->getUrl('reward/customer/info/'); ?>" class="c-fff">HOW MUCH IS IT WORTH?</a></span>
+       </div>
+       <div class="clear"></div>
+       
+       <div class="ams-acc-myord fl ta-c mt20" onclick="location.href='<?php echo $this->getUrl('sales/order/history/'); ?>'">
+       <div class="fs18 c-999 mt25 f-bold"> MY ORDERS</div>
+       <div class="f-bold c-b0b mt30 mb40 ta-l pl40 fs14">Preview the orders till date.Also review <br /> returns &amp; track shipments.</div>
+       <span class="tt-u fs18 "><a href="<?php echo $this->getUrl('sales/order/history/'); ?>" class="c-fff">review orders</a></span>
+       </div>
+       
+       <div class="ams-acc-b-pdeatil fl ta-c ml20 mt20" onclick="location.href='<?php echo $this->getUrl('customer/address/'); ?>'">
+       <div class="fs18 c-999 mt25 f-bold">MY ADDRESS</div>
+       <div class="f-bold c-b0b mt30 mb40 ta-l">Add an address for delivery in your address book and make checkout faster.</div>
+       <span class="tt-u fs18 "><a href="<?php echo $this->getUrl('customer/address/'); ?>" class="c-fff">EDIT ADDRESS</a></span>
+       </div>
+       <div class="clear"></div>
+
+       <div class="ams-acc-custore fl ta-c mt20">
+       <div class="fs18 c-999 mt25 f-bold">MY CUSTOMISED STORE</div>
+       <div class="f-bold c-b0b mt30 mb40 ta-l fs14">We’ve picked up special styles for you from the latest trends walking the ramps this season.</div>
+       <span class="tt-u fs18 "><a href="" class="c-fff">PREVIEW THE STYLES PICKED UP FOR YOU.</a></span>
+       </div>
+       
+       <div class="ams-acc-mypref fl ta-c mt20 ml20">
+       <div class="fs18 c-999 mt25 f-bold">MY RETURNS</div>
+       <div class="f-bold c-b0b mt30 mb40 ta-l fs14">Track your returns & refunds, we are awaiting to serve you better.</div>
+       <span class="tt-u fs18 "><a href="" class="c-fff">PREVIEW MY RETURNS</a></span>
+       </div>
+       <div class="clear"></div>
+       
+       <div class="ams-acc-b-myadd22 fl ta-c mt20 " onclick="location.href='<?php echo $this->getUrl('customer/account/mypreferences'); ?>'">
+       <div class="fs18 c-999 mt25 f-bold"> MY PREFERENCES</div>
+       <div class="f-bold c-b0b mt30 mb40 fs14">Share your likes &amp; dislikes with us. It’ll help us serve you better.</div>
+       <span class="tt-u fs18 "><a href="<?php echo $this->getUrl('customer/account/mypreferences'); ?>" class="c-fff">SHARE YOUR LIKES!</a></span>
+       </div>
+       <div class="ams-acc-b-pdeatil33 fl ta-c mt20 ml20 " onclick="location.href='<?php echo $this->getUrl('invitation'); ?>'">
+       <div class="fs18 c-999 mt25 f-bold"> MY REFERRALS</div>
+       <div class="f-bold c-b0b mt30 mb40 fs14">Want to share about your latest shopping spree with your besties?</div>
+       <span class="tt-u fs18 "><a href="<?php echo $this->getUrl('invitation'); ?>" class="c-fff">SHARE YOUR LIKES!</a></span>
+       </div>
+       <div class="ams-acc-b-backbtn fl ta-c mt20 ml20 " onclick="location.href='<?php echo $this->getUrl('invitation'); ?>'">
+       
+       <div class="f-bold c-b0b mt40 mb40 fs30 f-bold"><a href="<?php echo $this->getUrl(); ?>" class="c-b0b">BACK<br>TO <br>STORE</a></div>
+       
+       </div>
+       
+       

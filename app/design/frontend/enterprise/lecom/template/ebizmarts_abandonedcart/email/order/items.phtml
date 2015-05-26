@@ -1,0 +1,18 @@
+<?php $_quote = $this->getQuote(); ?>
+<table cellspacing="0" cellpadding="0" border="0" width="100%">
+<?php foreach($_quote->getAllVisibleItems() as $item): ?>
+<?php $_product = $item->getProduct(); ?>
+<?php if(is_object($_product) && $_product->getEntityId()!=''): ?>
+	<?php 	$base_url = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB);
+			$url_path = $_product->getUrlPath();
+			$_url = $base_url.$url_path;
+	?>
+			<tr>
+				<td width="100" align="left"><a href="<?php echo $_url; ?>">
+						<img src="<?php echo $_product->getSmallImageUrl(); ?>" width="75" height="75" style="padding-right: 10px">
+				</a></td>
+				<td><a href="<?php echo $_url; ?>" style="color:#343E7A;text-decoration:none;"><?php echo $item->getName(); ?></a></td>
+				</tr>
+	<?php endif; ?>
+<?php endforeach; ?>
+</table>

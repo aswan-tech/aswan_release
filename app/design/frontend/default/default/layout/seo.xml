@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <default>
+    </default>
+    <seo_index_index>
+        <reference name="content">
+            <block type="seo/seo" name="seo" template="seo/seo.phtml" />
+        </reference>
+    </seo_index_index>
+</layout> 

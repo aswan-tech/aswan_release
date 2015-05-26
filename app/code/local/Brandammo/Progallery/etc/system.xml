@@ -1,0 +1,786 @@
+<?xml version="1.0"?>
+<config>
+	<tabs>
+		<brandammocommercetab translate="label" module="progallery">
+			<label>Product Gallery</label>
+			<sort_order>350</sort_order>
+		</brandammocommercetab>
+	</tabs>
+	<sections>
+		<progallery translate="label" module="progallery">
+			<label>ProGallery 0.1.0</label>
+			<tab>brandammocommercetab</tab>
+			<sort_order>150</sort_order>
+			<show_in_default>1</show_in_default>
+			<show_in_website>1</show_in_website>
+			<show_in_store>1</show_in_store>
+			<groups>
+				<progalleryconfig translate="label">
+					<label>ProGallery Configuration</label>
+					<frontend_type>text</frontend_type>
+					<sort_order>100</sort_order>
+					<show_in_default>1</show_in_default>
+					<show_in_website>1</show_in_website>
+					<show_in_store>1</show_in_store>
+					<fields>
+						<switch translate="label comment">
+							<label>Enable ProGallery</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>1</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment><![CDATA[If disabled, default Magento product view is output]]></comment>
+						</switch>
+						<product_image_border translate="label comment">
+							<label>Product Image Border</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>5</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment><![CDATA[CSS for product image border]]></comment>
+						</product_image_border>
+						<default_image_width translate="label comment">
+							<label>Default Gallery Images Width</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>10</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment><![CDATA[Fixed gallery images width]]></comment>
+						</default_image_width>
+						 
+						<thumbs_width translate="label comment">
+							<label>Gallery thumbnails width</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>40</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment><![CDATA[Width for gallery thumbnails]]></comment>
+						</thumbs_width>
+						<thumbs_height translate="label comment">
+							<label>Gallery Thumbnails Height</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>50</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment><![CDATA[Height for gallery thumbnails]]></comment>
+						</thumbs_height> 
+						<thumbs_border translate="label comment">
+							<label>Thumbnails Border Style</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>51</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment><![CDATA[The style for thumbnails border]]></comment>
+						</thumbs_border>
+						<mage_zoom translate="label comment">
+							<label>Enable Magento Zoom</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>60</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment><![CDATA[If enabled, default Magento product zoom is output]]></comment>
+						</mage_zoom>
+						
+						<has_after_pagination translate="label comment">
+							<label>Has Pagination After</label>
+							<frontend_type>text</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>140</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>							
+						</has_after_pagination>
+						<zoom_tooltip translate="label">
+                            <label>Tooptip on Zoom</label>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>141</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+							<comment><![CDATA[Tooltip displayed on mouse hover over product Image]]></comment>
+                        </zoom_tooltip>
+						
+						<!-- <no_zoom_view_width translate="label comment">
+							<label>Product View Width</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>70</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment><![CDATA[Product image width is resized to this value. Default is 262px.]]></comment>
+						</no_zoom_view_width>
+						<no_zoom_view_height translate="label comment">
+							<label>Product View Height</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>80</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment><![CDATA[Product image height is resized to this value. Default is 262px.]]></comment>
+						</no_zoom_view_height>
+						<more_views_width translate="label comment">
+							<label>More-Views Section Width</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>90</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment><![CDATA[Width for More-Views area. Default is 262px.]]></comment>
+						</more_views_width> -->
+					</fields>
+				</progalleryconfig>
+
+				<thumbscarouselconfig translate="label">
+					<label>More-Views Configuration</label>
+					<frontend_type>text</frontend_type>
+					<sort_order>200</sort_order>
+					<show_in_default>1</show_in_default>
+					<show_in_website>1</show_in_website>
+					<show_in_store>1</show_in_store>
+					<fields>
+						<circular translate="label comment">
+							<label>Circular</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>10</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment><![CDATA[Determines whether the carousel should be circular]]></comment>
+						</circular>
+						
+						<infinite translate="label comment">
+							<label>Infinite</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>20</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment><![CDATA[Determines whether the carousel should be infinite.<br/><strong>Note:</strong> It is possible to create a non-circular, infinite carousel, but it is not possible to create a circular, non-infinite carousel.]]></comment>
+						</infinite>
+						
+						<direction translate="label comment">
+							<label>Direction</label>
+							<frontend_type>select</frontend_type>
+							<source_model>progallery/direction</source_model>
+							<sort_order>30</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment><![CDATA[	The direction to scroll the carousel, determines whether the carousel scrolls horizontal or vertical and -when the carousel scrolls automatically- in what direction.]]></comment>
+						</direction>
+						
+						<items translate="label comment">
+							<label>Items</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>40</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment><![CDATA[The number of visible items]]></comment>
+						</items>
+						
+						 <scrollitems translate="label comment">
+							<label>Scroll Items</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>50</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment><![CDATA[The number of scrolled items]]></comment>
+						</scrollitems>
+						<!--
+						<scrolleffect translate="label comment">
+							<label>Scroll Effect (easing)</label>
+							<frontend_type>select</frontend_type>
+							<source_model>progallery/easing</source_model>
+							<sort_order>60</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment><![CDATA[Indicates which easing function to use for the transition.]]></comment>
+						</scrolleffect>
+						
+						 <scrollduration translate="label comment">
+							<label>Scroll Duration</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>70</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment><![CDATA[Scroll duration in milliseconds]]></comment>
+						</scrollduration>
+						
+						<scrollhoverpause translate="label comment">
+							<label>Pause On Hover</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>80</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment><![CDATA[Whether to pause scrolling when mouse is over thumbnails]]></comment>
+						</scrollhoverpause>
+						
+						<play translate="label comment">
+							<label>Play</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>90</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment><![CDATA[Determines whether the carousel should scroll automatically or not.]]></comment>
+						</play>
+						
+						<playdelay translate="label comment">
+							<label>Play Delay</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>100</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment><![CDATA[Additional delay in milliseconds before the carousel starts scrolling the first time.<br /><strong>Hint:</strong> This can also be a negative number.]]></comment>
+						</playdelay> -->
+												
+						<has_prevandnext translate="label comment">
+							<label>Has Previous and Next</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>110</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment><![CDATA[Whether previous and next buttons have to be added to the carousel]]></comment>
+						</has_prevandnext>
+
+						<has_ajax_prevandnext translate="label comment">
+							<label>Has No Ajax Previous and Next</label>
+							<frontend_type>select</frontend_type>
+						<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>111</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment><![CDATA[Whether previous and next buttons have to be ignored to the carousel]]></comment>
+						</has_ajax_prevandnext>
+																		
+						<prev translate="label comment">
+							<label>Previous Button CSS Selector</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>120</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment><![CDATA[A jQuery-selector for the HTML element that should scroll the carousel backward. For this to work 'Has Previous and Next' must be set to 'Yes'.]]></comment>
+						</prev>
+						
+						<prev_easing translate="label comment">
+							<label>Prev (easing)</label>
+							<frontend_type>select</frontend_type>
+							<source_model>progallery/easing</source_model>
+							<sort_order>121</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment><![CDATA[Indicates which easing function to use for the transition.]]></comment>
+						</prev_easing>
+						
+						<next translate="label comment">
+							<label>Next Button CSS Selector</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>130</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment><![CDATA[A jQuery-selector for the HTML element that should scroll the carousel forward. For this to work 'Has Previous and Next' must be set to 'Yes'.]]></comment>
+						</next>
+						
+						<next_easing translate="label comment">
+							<label>Next (easing)</label>
+							<frontend_type>select</frontend_type>
+							<source_model>progallery/easing</source_model>
+							<sort_order>131</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment><![CDATA[Indicates which easing function to use for the transition.]]></comment>
+						</next_easing>
+						
+						<has_pagination translate="label comment">
+							<label>Has Pagination</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>140</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment><![CDATA[Whether pagination has to be added to the carousel]]></comment>
+						</has_pagination>
+						
+						<pagination translate="label comment">
+							<label>Pagination CSS ID</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>150</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment><![CDATA[A jQuery-selector for the HTML element that should contain the pagination-links. For this to work 'Has Pagination' must be set to 'Yes'.]]></comment>
+						</pagination>
+						
+						<pagination_easing translate="label comment">
+							<label>Pagination (easing)</label>
+							<frontend_type>select</frontend_type>
+							<source_model>progallery/easing</source_model>
+							<sort_order>160</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment><![CDATA[Indicates which easing function to use for the transition.]]></comment>
+						</pagination_easing>
+						
+					</fields>
+				</thumbscarouselconfig>
+				
+				<lightboxconfig>
+					<label>ProGallery Lightbox Configuration</label>
+					<frontend_type>text</frontend_type>
+					<sort_order>400</sort_order>
+					<show_in_default>1</show_in_default>
+					<show_in_website>1</show_in_website>
+					<show_in_store>1</show_in_store>
+					<fields>
+						<open_event translate="label comment">
+							<label>Lightbox Open Event</label>
+							<frontend_type>select</frontend_type>
+							<source_model>progallery/lightboxopenevent</source_model>
+							<sort_order>0</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment><![CDATA[Lightbox opening event. If Magento Zoom is enabled, this should be set to 'Double Click'.]]></comment>
+						</open_event>
+						<closing_speed translate="label comment">
+							<label>Lightbox Closing Speed</label>
+							<frontend_type>select</frontend_type>
+							<source_model>progallery/lightboxclosespeed</source_model>
+							<sort_order>1</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment><![CDATA[Lightbox closing speed]]></comment>
+						</closing_speed>
+						<lightboxwidth translate="label comment">
+							<label>Lightbox Width</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>2</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment><![CDATA[The width, in pixels, of the lightbox.]]></comment>
+						</lightboxwidth>
+						
+						<lightboxheight translate="label comment">
+							<label>Lightbox Height</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>3</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment><![CDATA[The height, in pixels, of the lightbox.]]></comment>
+						</lightboxheight>
+						
+						<top_margin translate="label comment">
+							<label>Lightbox Top Margin</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>3</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment><![CDATA[Gallery top margin (from browser window)]]></comment>
+						</top_margin>
+						<bottom_margin translate="label comment">
+							<label>Lightbox Bottom Margin</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>4</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment><![CDATA[Gallery bottom margin (from browser window)]]></comment>
+						</bottom_margin>
+						<open_easing translate="label comment">
+							<label>Lightbox Open (easing)</label>
+							<frontend_type>select</frontend_type>
+							<source_model>progallery/easing</source_model>
+							<sort_order>10</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment><![CDATA[Indicates which easing function to use for the transition.]]></comment>
+						</open_easing>
+						<open_easing_time translate="label comment">
+							<label>Lightbox Animation Time</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>11</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment><![CDATA[Time in milliseconds for lightbox opening animation]]></comment>
+						</open_easing_time>
+						<open_img_easing translate="label comment">
+							<label>Lightbox Image Open (easing)</label>
+							<frontend_type>select</frontend_type>
+							<source_model>progallery/easing</source_model>
+							<sort_order>20</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment><![CDATA[Indicates which easing function to use for the transition.]]></comment>
+						</open_img_easing>
+						<open_img_easing_time translate="label comment">
+							<label>Lightbox Image Animation Time</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>21</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment><![CDATA[Time in milliseconds for lightbox image opening animation]]></comment>
+						</open_img_easing_time>
+						<panningmode translate="label comment">
+							<label>Lightbox Image Panning Mode</label>
+							<frontend_type>select</frontend_type>
+							<source_model>progallery/panningmode</source_model>
+							<sort_order>30</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment><![CDATA[Defines lightbox panning mode.]]></comment>
+						</panningmode>
+						<thumbs_width translate="label comment">
+							<label>Lightbox Thumbnails Width</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>40</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment><![CDATA[Width for lightbox thumbnails]]></comment>
+						</thumbs_width>
+						<thumbs_height translate="label comment">
+							<label>Lightbox Thumbnails Height</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>50</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment><![CDATA[Height for lightbox thumbnails]]></comment>
+						</thumbs_height>
+						<thumbs_border translate="label comment">
+							<label>Thumbnails Border Style</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>51</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment><![CDATA[The style for lightbox thumbnails border]]></comment>
+						</thumbs_border>
+					</fields>
+				</lightboxconfig>
+				
+				<resizeImage>
+					<label>Image Resize Settings</label>
+					<frontend_type>text</frontend_type>
+					<sort_order>400</sort_order>
+					<show_in_default>1</show_in_default>
+					<show_in_website>1</show_in_website>
+					<show_in_store>1</show_in_store>
+					<fields>						
+						<main_image_resize_width translate="label comment">
+							<label>Main Image Resize Width</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>2</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment><![CDATA[The width for resizing, in pixels, for main Image.]]></comment>
+						</main_image_resize_width>						
+						<main_image_resize_height translate="label comment">
+							<label>Main Image Resize Height</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>2</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment><![CDATA[The height for resizing, in pixels, for main Image.]]></comment>
+						</main_image_resize_height>						
+						<lightbox_image_resize_width translate="label comment">
+							<label>Lightbox Image Resize Width</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>50</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment><![CDATA[The width for resizing, in pixels, for Lightbox Image.]]></comment>
+						</lightbox_image_resize_width>						
+						<lightbox_image_resize_height translate="label comment">
+							<label>Lightbox Image Resize Height</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>51</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment><![CDATA[The height for resizing, in pixels, for Lightbox Image.]]></comment>
+						</lightbox_image_resize_height>						
+					</fields>
+				</resizeImage>
+				
+				<lightboxthumbsbarconfig translate="label">
+					<label>ProGallery Lightbox Thumbnails Bar Configuration</label>
+					<frontend_type>text</frontend_type>
+					<sort_order>450</sort_order>
+					<show_in_default>1</show_in_default>
+					<show_in_website>1</show_in_website>
+					<show_in_store>1</show_in_store>
+					<fields>
+						<top translate="label comment">
+							<label>Top</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>10</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment><![CDATA[Top position value]]></comment>
+						</top>
+						
+						<right translate="label comment">
+							<label>Right</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>20</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment><![CDATA[Right position value. Leave blank if it is not needed]]></comment>
+						</right>
+						
+						<bottom translate="label comment">
+							<label>Bottom</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>25</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment><![CDATA[Bottom position value. Leave blank if it is not needed.]]></comment>
+						</bottom>
+						
+						<left translate="label comment">
+							<label>Left</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>30</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment><![CDATA[Left position value. Leave blank if it is not needed]]></comment>
+						</left>
+						
+						<zindex translate="label comment">
+							<label>Bar z-index</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>35</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment><![CDATA[The z-index for thumbnails bar]]></comment>
+						</zindex>
+						
+						<width translate="label comment">
+							<label>Width</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>40</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment><![CDATA[Lightbox thumbnails bar width]]></comment>
+						</width>
+						<height translate="label comment">
+							<label>Height</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>50</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment><![CDATA[Lightbox thumbnails bar width]]></comment>
+						</height>
+					</fields>
+				</lightboxthumbsbarconfig>
+				
+				<lightboxthumbscarouselconfig translate="label">
+					<label>ProGallery Lightbox Thumbnails Carousel Configuration</label>
+					<frontend_type>text</frontend_type>
+					<sort_order>500</sort_order>
+					<show_in_default>1</show_in_default>
+					<show_in_website>1</show_in_website>
+					<show_in_store>1</show_in_store>
+					<fields>
+						<circular translate="label comment">
+							<label>Circular</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>10</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment><![CDATA[Determines whether the carousel should be circular]]></comment>
+						</circular>
+						
+						<infinite translate="label comment">
+							<label>Infinite</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>20</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment><![CDATA[Determines whether the carousel should be infinite.<br/><strong>Note:</strong> It is possible to create a non-circular, infinite carousel, but it is not possible to create a circular, non-infinite carousel.]]></comment>
+						</infinite>
+						
+						<direction translate="label comment">
+							<label>Direction</label>
+							<frontend_type>select</frontend_type>
+							<source_model>progallery/direction</source_model>
+							<sort_order>30</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment><![CDATA[	The direction to scroll the carousel, determines whether the carousel scrolls horizontal or vertical and -when the carousel scrolls automatically- in what direction.]]></comment>
+						</direction>
+						
+						<items translate="label comment">
+							<label>Items</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>40</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment><![CDATA[The number of visible items]]></comment>
+						</items>
+						
+						<scrollitems translate="label comment">
+							<label>Scroll Items</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>50</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment><![CDATA[The number of scrolled items]]></comment>
+						</scrollitems>
+						
+						<!--  <scrolleffect translate="label comment">
+							<label>Scroll Effect (easing)</label>
+							<frontend_type>select</frontend_type>
+							<source_model>progallery/easing</source_model>
+							<sort_order>60</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment><![CDATA[Indicates which easing function to use for the transition.]]></comment>
+						</scrolleffect>
+						
+						<scrollduration translate="label comment">
+							<label>Scroll Duration</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>70</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment><![CDATA[Scroll duration in milliseconds]]></comment>
+						</scrollduration> 
+						
+						<scrollhoverpause translate="label comment">
+							<label>Pause On Hover</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>80</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment><![CDATA[Whether to pause scrolling when mouse is over thumbnails]]></comment>
+						</scrollhoverpause> -->
+						
+						<!-- <play translate="label comment">
+							<label>Play</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>90</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment><![CDATA[Determines whether the carousel should scroll automatically or not.]]></comment>
+						</play>
+						
+						<playdelay translate="label comment">
+							<label>Play Delay</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>100</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment><![CDATA[Additional delay in milliseconds before the carousel starts scrolling the first time.<br /><strong>Hint:</strong> This can also be a negative number.]]></comment>
+						</playdelay>
+						
+						<prev translate="label comment">
+							<label>Previous Button CSS Selector</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>120</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment><![CDATA[A jQuery-selector for the HTML element that should scroll the carousel backward. For this to work 'Has Previous and Next' must be set to 'Yes'.]]></comment>
+						</prev>
+						
+						<prev_easing translate="label comment">
+							<label>Prev (easing)</label>
+							<frontend_type>select</frontend_type>
+							<source_model>progallery/easing</source_model>
+							<sort_order>121</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment><![CDATA[Indicates which easing function to use for the transition.]]></comment>
+						</prev_easing>
+						
+						<next translate="label comment">
+							<label>Next Button CSS Selector</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>130</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment><![CDATA[A jQuery-selector for the HTML element that should scroll the carousel forward. For this to work 'Has Previous and Next' must be set to 'Yes'.]]></comment>
+						</next>
+						
+						<next_easing translate="label comment">
+							<label>Next (easing)</label>
+							<frontend_type>select</frontend_type>
+							<source_model>progallery/easing</source_model>
+							<sort_order>131</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment><![CDATA[Indicates which easing function to use for the transition.]]></comment>
+						</next_easing>  -->
+						
+					</fields>
+				</lightboxthumbscarouselconfig>
+			</groups>
+		</progallery>
+	</sections>
+</config>

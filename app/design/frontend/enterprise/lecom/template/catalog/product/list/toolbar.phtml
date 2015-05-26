@@ -1,0 +1,55 @@
+<?php $sort_order_value = (isset($_GET['dir']) && $_GET['dir'] == 'desc' ? 'asc' : 'desc');
+ $sort_order_value_for_discount = 'desc';
+ $sort_order_value_for_position = 'desc';
+ if(isset($_GET['dir']) && isset($_GET['order'])){
+                if($_GET['dir']=='desc' && $_GET['order']=='discount')
+                   $sort_order_value_for_discount = 'asc';
+                else if($_GET['dir']=='desc' && $_GET['order']=='position')
+                    $sort_order_value_for_position = 'asc';
+                
+}
+
+
+?>
+<?php if($this->getCollection()->getSize()): ?>
+<div class="">
+    <?php if( $this->isExpanded() ): ?>
+        <?php if( $this->isEnabledViewSwitcher() ): ?>
+        <p class="view-mode">
+            <?php $_modes = $this->getModes(); ?>
+            <?php if($_modes && count($_modes)>1): ?>
+            <label><?php echo $this->__('View as') ?>:</label>
+            <?php $_i=1; $_fix=''; foreach ($this->getModes() as $_code=>$_label): ?>
+                <?php if ($_i==1 && strtolower($_code)=='list') $_fix='-fix'; ?>
+                <?php if($this->isModeActive($_code)): ?>
+                    <strong class="<?php echo strtolower($_code); echo $_fix; ?>" title="<?php echo $_label ?>"><?php echo $_label ?></strong>
+                <?php else: ?>
+                    <a class="<?php echo strtolower($_code); echo $_fix; ?>" title="<?php echo $_label ?>" href="<?php echo $this->getModeUrl($_code) ?>"><?php echo $_label ?></a>
+                <?php endif; ?>
+            <?php $_i++; endforeach; ?>
+            <?php endif; ?>
+        </p>
+    <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('count-down')->toHtml();?>
+        <?php endif; ?>
+        <div class="sort-oprion">
+         <ul>
+         <label>Sort:</label><li onclick="setLocation('<?php echo $this->getOrderUrl('position', 
+         $sort_order_value_for_position) ?>');" id="sort-popularity" class="gtm-track <?php if($_REQUEST['order']=='position') { echo "active";} ?>">Popularity</li>
+         <li>|</li>
+         <li onclick="setLocation('<?php echo $this->getOrderUrl('launch_date', 'desc') ?>');" id="sort-newarrival" class="gtm-track <?php if($_REQUEST['order']=='launch_date') { echo "active";} ?>">New Arrival</li>
+         <li>|</li>
+         <li onclick="setLocation('<?php 
+                echo $this->getOrderUrl('discount', $sort_order_value_for_discount) ?>');" id="sort-discount" class="gtm-track <?php if($_REQUEST['order']=='discount') { echo "active";} ?>">Discount</li>
+         <li>|</li>
+         <label>Price:</label>
+         <li onclick="setLocation('<?php echo $this->getOrderUrl('price', 'asc') ?>');" id="sort-price-low" class="gtm-track <?php if(($_REQUEST['order']=='price') && ($_REQUEST['dir']=='asc')) {echo "active";} ?>">Low</li>
+         <li onclick="setLocation('<?php echo $this->getOrderUrl('price', 'desc') ?>');" id="sort-price-high" class="gtm-track <?php if(($_REQUEST['order']=='price') && ($_REQUEST['dir']=='desc')) {echo "active";} ?>">High</li>
+         </ul>        
+         </div>
+    <?php endif; ?>
+        <div class="CatTitleLeft">
+         <p><?php echo $this->__($this->getTotalNum()) ?> Products Found</p>         
+        </div>
+        <div class="toolbar"><?php echo $this->getPagerHtml() ?></div>
+</div>
+<?php endif; ?>

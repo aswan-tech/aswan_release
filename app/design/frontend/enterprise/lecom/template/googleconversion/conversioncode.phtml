@@ -1,0 +1,14 @@
+<?php
+$jsCode = "";
+if (Mage::helper('googleconversion')->isGoogleConversionAvailable()) {
+	if ($this->getPageCode() == 'checkoutlogin') {
+		$jsCode = Mage::getStoreConfig(FCM_GoogleConversion_Helper_Data::XML_PATH_CHECKOUTLOGIN);
+	} else if ($this->getPageCode() == 'checkoutsuccess') {
+		$jsCode = Mage::getStoreConfig(FCM_GoogleConversion_Helper_Data::XML_PATH_CHECKOUTSUCCESS);
+	}
+	
+	if (!empty($jsCode)) {
+		echo $jsCode;
+	}
+}
+?>

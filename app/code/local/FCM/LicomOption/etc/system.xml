@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<config>
+	<tabs>
+	   <fcmfulfillment translate="label" module="licomoption">
+		   <label>FCM Fulfillment</label>
+		   <sort_order>280</sort_order>
+	  </fcmfulfillment>
+   </tabs>
+     <sections>
+	       <licomoption translate="label" module="licomoption">
+				<label>Lecom Options</label>
+				<tab>fcmfulfillment</tab>
+				<frontend_type>text</frontend_type>
+				<sort_order>1000</sort_order>
+				<show_in_default>1</show_in_default>
+				<show_in_website>1</show_in_website>
+				<show_in_store>1</show_in_store>
+				<groups>
+				 <wishlistcounter translate="label">
+                    <label>WishListCounter</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>10</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+					  <custome_wishlistcounter translate="label">
+                            <label>Wishlist Counter</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Enter no. of days to clear old wishlist data(e.g 30)</comment>
+                        </custome_wishlistcounter> 
+                    </fields>
+                </wishlistcounter>
+            </groups>
+        </licomoption>
+    </sections>
+</config>

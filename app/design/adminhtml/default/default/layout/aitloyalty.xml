@@ -1,0 +1,113 @@
+<?xml version="1.0"?>
+<!-- 
+/**
+ * @copyright  Copyright (c) 2009 AITOC, Inc. 
+ */
+-->
+<layout version="0.1.0">
+    <default>
+    </default>
+<!--
+Admin Order Items
+-->
+    <adminhtml_sales_order_view>
+        <!--reference name="order_items">
+            <action method="setTemplate"><template>aitcommonfiles/design--adminhtml--default--default--template--sales--order--view--items.phtml</template></action>
+            <action method="addItemRender"><type>default</type><block>adminhtml/sales_order_view_items_renderer_default</block><template>aitcommonfiles/design--adminhtml--default--default--template--sales--order--view--items--renderer--default.phtml</template></action>
+        </reference-->
+    </adminhtml_sales_order_view>
+    
+<!--
+Admin Order Totals
+-->
+    <adminhtml_sales_order_view>
+        <reference name="discount">
+            <action method="setTemplate"><template>aitcommonfiles/design--adminhtml--default--default--template--sales--order--totals--discount.phtml</template></action>
+        </reference>
+    </adminhtml_sales_order_view>
+
+<!--
+Admin Invoice Items
+-->
+    <adminhtml_sales_order_invoice_new>
+        <!--reference name="order_items">
+            <action method="setTemplate"><template>aitcommonfiles/design--adminhtml--default--default--template--sales--order--invoice--create--items.phtml</template></action>
+            <action method="addItemRender"><type>default</type><block>adminhtml/sales_items_renderer_default</block><template>aitcommonfiles/design--adminhtml--default--default--template--sales--order--invoice--create--items--renderer--default.phtml</template></action>
+        </reference-->
+        <reference name="discount">
+            <action method="setTemplate"><template>aitcommonfiles/design--adminhtml--default--default--template--sales--order--totals--discount.phtml</template></action>
+        </reference>
+    </adminhtml_sales_order_invoice_new>
+    
+<!--
+Admin Invoice Items Update Qnt Action
+-->
+    <adminhtml_sales_order_invoice_updateqty>
+        <!--reference name="order_items">
+            <action method="setTemplate"><template>aitcommonfiles/design--adminhtml--default--default--template--sales--order--invoice--create--items.phtml</template></action>
+        </reference-->
+        <reference name="discount">
+            <action method="setTemplate"><template>aitcommonfiles/design--adminhtml--default--default--template--sales--order--totals--discount.phtml</template></action>
+        </reference>
+    </adminhtml_sales_order_invoice_updateqty>
+    
+<!--
+Admin Invoice View
+-->
+    <adminhtml_sales_order_invoice_view>
+        <reference name="invoice_items">
+            <action method="setTemplate"><template>aitcommonfiles/design--adminhtml--default--default--template--sales--order--invoice--view--items.phtml</template></action>
+            <action method="addItemRender"><type>default</type><block>adminhtml/sales_items_renderer_default</block><template>aitcommonfiles/design--adminhtml--default--default--template--sales--order--invoice--view--items--renderer--default.phtml</template></action>
+        </reference>
+        <reference name="discount">
+            <action method="setTemplate"><template>aitcommonfiles/design--adminhtml--default--default--template--sales--order--totals--discount.phtml</template></action>
+        </reference>
+    </adminhtml_sales_order_invoice_view>
+    
+<!--
+Admin Credit Memo View
+-->
+    <adminhtml_sales_order_creditmemo_view>
+        <reference name="creditmemo_items">
+            <action method="setTemplate"><template>aitcommonfiles/design--adminhtml--default--default--template--sales--order--creditmemo--view--items.phtml</template></action>
+        </reference>
+        <reference name="discount">
+            <action method="setTemplate"><template>aitcommonfiles/design--adminhtml--default--default--template--sales--order--totals--discount.phtml</template></action>
+        </reference>
+    </adminhtml_sales_order_creditmemo_view>
+    
+<!--
+Admin Credit Memo Create Items
+-->
+    <adminhtml_sales_order_creditmemo_new>
+        <!--reference name="order_items">
+            <action method="setTemplate"><template>aitcommonfiles/design--adminhtml--default--default--template--sales--order--creditmemo--create--items.phtml</template></action>
+        </reference-->
+        <reference name="discount">
+            <action method="setTemplate"><template>aitcommonfiles/design--adminhtml--default--default--template--sales--order--totals--discount.phtml</template></action>
+        </reference>
+    </adminhtml_sales_order_creditmemo_new>
+    
+<!--
+Admin Credit Memo Create Items Update Qnt Action
+-->
+    <adminhtml_sales_order_creditmemo_updateqty>
+        <!--reference name="order_items">
+            <action method="setTemplate"><template>aitcommonfiles/design--adminhtml--default--default--template--sales--order--creditmemo--create--items.phtml</template></action>
+        </reference-->
+        <reference name="discount">
+            <action method="setTemplate"><template>aitcommonfiles/design--adminhtml--default--default--template--sales--order--totals--discount.phtml</template></action>
+        </reference>
+    </adminhtml_sales_order_creditmemo_updateqty>
+    
+</layout>
+<!--
+/**
+ * Product:     Loyalty Program for Enterprise Edition
+ * Package:     Aitoc_Aitloyalty_10.0.10_574534
+ * Purchase ID: INzRIwyyaNoeOLERhAgt4U28qVKIeEa3dfPrgaAN3C
+ * Generated:   2013-05-13 06:36:55
+ * File path:   app/design/adminhtml/default/default/layout/aitloyalty.xml
+ * Copyright:   (c) 2013 AITOC, Inc.
+ */
+-->

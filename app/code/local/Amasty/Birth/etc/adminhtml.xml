@@ -1,0 +1,34 @@
+<?xml version="1.0"?> 
+<config>
+	<acl>
+		<resources>
+			<all>
+				<title>Allow Everything</title>
+			</all>
+            <admin>
+                <children>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <ambirth translate="title" module="ambirth">
+                                        <title>Special Occasion Coupons</title>
+                                    </ambirth>
+                                </children>
+                            </config>
+                        </children>
+                    </system> 
+                 </children>
+            </admin> 
+		</resources>
+	</acl>
+    <translate>
+        <modules>
+            <Amasty_Birth>
+                <files>
+                    <default>Amasty_Birth.csv</default>
+                </files>
+            </Amasty_Birth>
+        </modules>
+    </translate> 
+</config> 

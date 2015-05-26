@@ -1,0 +1,64 @@
+<div id="messages_product_view"><?php echo $this->getMessagesBlock()->getGroupedHtml() ?></div>
+<div class="page-title">
+    <h1 style="float:left;"><?php echo Mage::helper('testimonials')->__('Testimonials') ?></h1>
+	<span style="float:right;"><a href="<?php echo $this->getUrl('testimonials'); ?>" title="<?php echo $this->__('View All Testimonials') ?>"><?php echo $this->__('View All Testimonials') ?></a></span>	
+</div>
+<form action="<?php echo $this->getFormAction(); ?>" id="testimonialForm" method="post">
+    <div class="fieldset">
+        <h2 class="legend"><?php echo Mage::helper('testimonials')->__('Testimonial Information') ?></h2>
+        <ul class="form-list">
+            <li class="fields">
+                <div class="field">
+                    <label for="name" class="required"><em>*</em><?php echo Mage::helper('testimonials')->__('Name') ?></label>
+                    <div class="input-box">
+                        <input name="name" id="name" title="<?php echo Mage::helper('testimonials')->__('Name') ?>" class="input-text required-entry" type="text" />
+                    </div>
+                </div>
+				<div class="field">
+                    <label for="email" class="required"><em>*</em><?php echo Mage::helper('testimonials')->__('Email') ?></label>
+                    <div class="input-box">
+                        <input name="email" id="email" title="<?php echo Mage::helper('testimonials')->__('Email') ?>" class="input-text required-entry validate-email" type="text" />
+                    </div>
+                </div>
+            </li>
+            <li>
+				<div class="field">
+					<label for="url"><?php echo Mage::helper('testimonials')->__('Website URL( optional )') ?></label>
+					<div class="input-box">
+						<input name="url" id="url" title="<?php echo Mage::helper('testimonials')->__('Website URL') ?>"  class="input-text" type="text" />
+					</div>
+				</div>
+            </li>
+            <li class="wide">
+                <label for="content" class="required"><em>*</em><?php echo Mage::helper('testimonials')->__('Your Testimonial') ?></label>
+                <div class="input-box">
+                    <textarea name="content" id="content" title="<?php echo Mage::helper('testimonials')->__('Your Testimonial') ?>" class="required-entry input-text" cols="5" rows="3"></textarea>
+                </div>
+            </li>
+			<li>
+			<?php if(Mage::helper('testimonials')->checkRecaptcha()!= ''): ?>
+			<?php echo Mage::helper('testimonials')->getRecaptcha()->getHTML(); ?>
+			<?php else: ?>
+			<div>Please add recaptcha keys in testimonials configuration</div>
+			<script type="text/javascript">
+				Event.observe(window, 'load', function() {
+				$('testi-button').remove();
+				});
+			</script>
+			<?php endif; ?>
+			</li>
+        </ul>
+    </div>
+    <div class="buttons-set" id="testi-button">
+        <p class="required"><?php echo Mage::helper('testimonials')->__('* Required Fields') ?></p>
+        <input type="text" name="status" id="status" value="<?php echo Mage::helper('testimonials')->getAutoApproved(); ?>" style="display:none !important;" />
+        <button type="submit"  title="<?php echo Mage::helper('testimonials')->__('Submit') ?>" class="button"><span><span><?php echo Mage::helper('testimonials')->__('Submit') ?></span></span></button>
+    </div>
+</form>
+<div class="com-jextn">Community version of Testimonials - Jextn <a  href="http://www.magento-themes.jextn.com">Magento Themes</a></div>
+<script type="text/javascript">
+//<![CDATA[
+    var testimonialForm = new VarienForm('testimonialForm', true);
+//]]>
+</script>
+            

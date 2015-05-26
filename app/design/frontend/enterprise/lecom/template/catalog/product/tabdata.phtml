@@ -1,0 +1,97 @@
+<?php $_product = Mage::registry('current_product'); ?>
+<?php $productCustomData = Mage::getModel('catalog/product')->load($_product->getId()); ?>
+<?php
+	if(isset($GLOBALS['premium'])) { $GLOBALS['premium'] = true;
+	} else { $GLOBALS['premium'] = false; }
+?>
+<?php if(!isset($_GET['ajax'])){ ?>
+<?php /*<div class="clear"></div>
+<div class="Prod-desc-wrapp fl">
+    <div class="prd-desc-maintxt">Product Description</div>
+    <span itemprop="description"><?php echo nl2br($productCustomData['description']); ?></span>
+</div>
+<div class="clear"></div>*/?>
+<div class="pdp-acc-wrapp fl">
+<ul class="pdp-acc">
+<?php
+if(!empty($productCustomData['as_styling_tip']) && trim($productCustomData['as_styling_tip'])!='.' && strtolower(trim($productCustomData['as_styling_tip'])) != 'not required' && strtolower(trim($productCustomData['as_styling_tip'])) != 'not require'){
+?>	
+    <li id="as-stying-tips" class="gtm-track">AS's Styling Tips </li>
+    <ul>
+        <li><?php echo nl2br($productCustomData['as_styling_tip']); ?></li>
+    </ul>
+<?php
+}
+if(!empty($productCustomData['info_care'])){
+?>    
+        <li id="info-care" class="gtm-track">Info & Care</li>
+    <ul>
+    <li><?php echo nl2br($productCustomData['info_care']); ?></li>
+    </ul>
+<?php
+}	
+?>    
+</ul>
+<SCRIPT>
+jQuery(".pdp-acc > li").click(function(){
+	if(false==jQuery(this).next().is(':visible')){
+                jQuery('.pdp-acc > ul').slideUp(300);}
+    jQuery(this).siblings().removeClass('pdptab-active');
+    jQuery(this).next().slideToggle(400);
+                jQuery(this).toggleClass('pdptab-active');
+});
+</SCRIPT> 
+</div>
+
+
+
+
+
+
+
+
+<?php /*?><div id="tabs">
+    <div class="AllBgTab">
+        <a class="tab active" name="content_0" href="javascript:void(0);"><?php echo $this->__('Product') ?></a>
+        <a class="tab" name="content_1" href="javascript:void(0);"><?php echo $this->__('Info & care') ?></a>
+        <a class="tab" name="content_2" href="javascript:void(0);"><?php echo $this->__('Delivery') ?></a>
+        <a class="tab" name="content_3" href="javascript:void(0);"><?php echo $this->__('Returns') ?></a>
+        <?php if($GLOBALS['premium']):?>
+        <a class="tab" name="content_4" href="javascript:void(0);"><?php echo $this->__('Premium Package') ?></a>
+        <?php endif; ?>
+    </div>
+    <div class="top-allbg">
+        <div id="content_0" class="featuredContent">
+            <div class="ProductDes"><p class="ProDesDet"><?php echo nl2br($productCustomData['description']); ?></p></div>
+            <?php if($productCustomData['as_styling_tip'] !='.' && $productCustomData['as_styling_tip'] !=''){?>
+            	<div class="ProductDes"><p class="ProDes">AS's Styling Tip</p><p class="ProDesDet"><?php echo nl2br($productCustomData['as_styling_tip']); ?></p></div>
+            <?php }?>
+        </div>
+        <div id="content_1" class="featuredContent"><div class="ProductDes"><p class="ProDesDet"><?php echo nl2br($productCustomData['info_care']); ?></p></div></div>
+        <div id="content_2" class="featuredContent"><div class="ProductDes">
+        	<p class="ProDesDet"><?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('delivery-v2')->toHtml() ?></p>
+        </div></div>
+        <div id="content_3" class="featuredContent"><div class="ProductDes">
+        	<p class="ProDesDet"><?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('returns-v2')->toHtml() ?></p>
+        </div></div>
+        <?php if($GLOBALS['premium']): ?>
+        <div id="content_4" class="featuredContent"><div class="ProductDes"><p class="ProDesDet"><?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('premium_package_block')->toHtml() ?></p></div></div>
+        <?php endif; ?>
+	</div>
+</div><?php */?>
+<?php } ?>						
+<!--<script type="text/javascript">
+jQuery(document).ready(function(){
+        jQuery("a.tab").click(function() {
+			// switch all tabs off
+			jQuery("#tabs .active").removeClass("active");
+			// switch this tab on
+			jQuery(this).addClass("active");
+			// hide all content
+			jQuery(".featuredContent").hide();
+			// show this content
+			var content_show = jQuery(this).attr("name");
+			jQuery("#"+content_show).show();
+		});
+});
+</script>-->

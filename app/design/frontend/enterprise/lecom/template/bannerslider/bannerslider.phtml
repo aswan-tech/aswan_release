@@ -1,0 +1,330 @@
+<?php $bannerCollection = $this->getBannerCollection() ?>
+<?php $timeDelay = $this->getDelayTime() ?>
+<?php $showdesc = $this->isShowDescription() ?>
+<?php $listStyle = $this->getListStyle() ?>
+<?php $imagewidth = $this->getImageWidth() ?>
+<?php $imageheight = $this->getImageHeight() ?>
+<?php $video_duration = $this->getVideoDuration() ?>
+<?php if($video_duration) {
+		$video_duration = $video_duration;
+	  } else {
+		$video_duration = 14;
+	 }
+?>
+
+<?php if (count($bannerCollection)): ?>
+
+<script type="text/javascript">
+function LoadVisibleBanners() {
+    jQuery(".panelContainer img.lazy").trigger("LoadVisibleImages");
+}
+	var theInt = null;
+	var $crosslink, $navthumb;
+	var curclicked = 0;
+	var stop = 0;
+	var video_duration = 0;
+	
+	theInterval = function(cur){
+	clearInterval(theInt);
+
+	if( typeof cur != 'undefined' )
+		curclicked = cur;
+
+	$crosslink.removeClass("active-thumb");
+	$navthumb.eq(curclicked).parent().addClass("active-thumb");
+		$j(".stripNav ul li a").eq(curclicked).trigger('click');
+	
+	theInt = setInterval(function(){	
+		if (stop==0) {
+			LoadVisibleBanners();
+			//$crosslink.removeClass("active-thumb");
+			//$navthumb.eq(curclicked).parent().addClass("active-thumb");
+			
+			/* active Sidebars */
+			var elemId = parseInt(curclicked)+1;		
+			$j('.block1 a').removeClass("active-thumb");
+			$j('.block1').removeClass("activeBlock");
+			$j('#link'+elemId).addClass("active-thumb");
+			$j('#link'+elemId).parent().addClass("activeBlock");
+			/* active Sidebars */
+			
+			$j(".stripNav ul li a").eq(curclicked).trigger('click');
+			curclicked++;
+			<?php $curclick = count ($bannerCollection); ?>
+			if( <?php echo $curclick;?> == curclicked )
+				curclicked = 0;		
+		}
+	}, <?php echo $timeDelay;?>);			
+	};
+
+	var $j = jQuery.noConflict(); 
+	$j(document).ready(function(){
+	$j("#main-photo-slider").codaSlider({		
+	});
+	
+	//$navthumb = $j(".nav-thumb");
+	
+	$navthumb = $j(".block1");
+	$crosslink = $j(".cross-link");
+	$stoplink = $j(".stop-link");
+	
+	$j("a#link1").addClass('active-thumb');
+	$j("a#link1").parent().addClass('activeBlock');
+
+	$navthumb
+	.click(function() {
+		var $this = $j(this);
+		
+		$j('.block1 a').removeClass("active-thumb");
+		$j('.block1').removeClass("activeBlock");
+		
+		//var clickedId = $this.parent().parent().attr('id');
+		theInterval($this.find('a').attr('href').slice(1) - 1);		
+		var containerId = $this.find('a').attr('href').slice(1);		
+		
+		$this.addClass('activeBlock');	
+		$this.find('a').addClass('active-thumb');
+		
+		if(jQuery('#container'+containerId).length) {
+		
+		video_duration = jwplayer('container'+containerId).getDuration();
+		
+		if(video_duration==-1) {
+			video_duration = <?php echo $video_duration; ?>*1000;
+		} else {
+			video_duration = Math.ceil(jwplayer('container'+containerId).getDuration()) * 1000;
+		}
+		
+			if (stop==0) {
+				stop=1;
+				var handle = self.setInterval(function(){ callLoop() }, video_duration-5000);
+				function callLoop() {
+					if(stop == 1) { 
+						stop = 0;
+						clearInterval(handle);
+						handle = 0;
+					}
+				}
+			}
+		<?php 
+			$ctr = 0; foreach ($bannerCollection as $banner):  $ctr++; 
+			$exp_arr_video = explode(".", $banner['filename']);			
+			$ext_video = array("flv", "mp3", "mp4", "mp5", "ogv", "webm", "mpeg");			
+				
+				if(in_array($exp_arr_video['1'], $ext_video)):
+		?>
+		var ctr = <?php echo $ctr; ?>;
+		if(ctr != containerId ) {
+			jwplayer('container<?php echo $ctr; ?>').stop();
+		}
+			
+		<?php		
+			endif;
+			endforeach; 
+		?>
+		
+		if (jwplayer) {
+			if(jwplayer('container'+containerId).getState()=== 'PLAYING') {		
+			} else {
+				jwplayer('container'+containerId).play();			
+			}
+		}
+		
+        } else {		
+		<?php 
+			$ctr = 0; foreach ($bannerCollection as $banner):  $ctr++; 
+			$exp_arr_video = explode(".", $banner['filename']);			
+			$ext_video = array("flv", "mp3", "mp4", "mp5", "ogv", "webm", "mpeg");			
+				
+				if(in_array($exp_arr_video['1'], $ext_video)):
+		?>
+			jwplayer('container<?php echo $ctr; ?>').stop();
+			
+		<?php		
+			endif;
+			endforeach; 
+		?>	
+		}
+		return false;
+	});
+	
+	
+	$stoplink.click(function() {
+		var $this = $j(this);		
+		var containerId = $this.attr('id');	
+		
+		if(jQuery('#container'+containerId).length) {
+		video_duration = jwplayer('container'+containerId).getDuration();
+		if(video_duration==-1) {
+			video_duration = <?php echo $video_duration; ?>*1000;
+		} else {
+			video_duration = Math.ceil(jwplayer('container'+containerId).getDuration()) * 1000;
+		}
+			if (stop==0) {
+				stop=1;
+				var handle = self.setInterval(function(){ callLoopInterval() }, video_duration-5000);
+				function callLoopInterval() {
+					if(stop == 1) { 
+						stop = 0;
+						clearInterval(handle);
+						handle = 0;
+					}
+				}
+			}
+		<?php 
+			$ctr = 0; foreach ($bannerCollection as $banner):  $ctr++; 
+			$exp_arr_video = explode(".", $banner['filename']);			
+			$ext_video = array("flv", "mp3", "mp4", "mp5", "ogv", "webm", "mpeg");			
+				
+				if(in_array($exp_arr_video['1'], $ext_video)):
+		?>
+		var ctr = <?php echo $ctr; ?>;
+		if(ctr != containerId ) {
+			jwplayer('container<?php echo $ctr; ?>').stop();
+		}
+			
+		<?php		
+			endif;
+			endforeach; 
+		?>
+		
+		if (jwplayer) {
+			if(jwplayer('container'+containerId).getState()=== 'PLAYING') {		
+			} else {
+				jwplayer('container'+containerId).play();			
+			}
+		}
+		
+        } else {		
+		<?php 
+			$ctr = 0; foreach ($bannerCollection as $banner):  $ctr++; 
+			$exp_arr_video = explode(".", $banner['filename']);			
+			$ext_video = array("flv", "mp3", "mp4", "mp5", "ogv", "webm", "mpeg");			
+				
+				if(in_array($exp_arr_video['1'], $ext_video)):
+		?>
+			jwplayer('container<?php echo $ctr; ?>').stop();
+			
+		<?php		
+			endif;
+			endforeach; 
+		?>	
+		}
+		return false;
+	});
+
+	theInterval();
+	
+	$j("div.block1").mouseover(function() {
+		$j(this).find("a").addClass('active-thumb');
+	}).mouseout(function(){
+		if(!$j(this).hasClass('activeBlock')){
+			$j(this).find("a").removeClass('active-thumb');
+		}
+	});
+	
+	});
+</script>
+	<div class="slide-container">
+		<div id="main-photo-slider" class="slider-wrapper">
+			<div class="panelContainer">
+				<?php $i = 0; foreach ($bannerCollection as $banner): $i++; ?>
+				<div class="panel" title="<?php echo $banner['title']; ?>">
+					<?php
+					$exp_arr = explode(".", $banner['filename']);			
+					$ext = array("flv", "mp3", "mp4", "mp5", "ogv", "webm", "mpeg");
+						if(in_array($exp_arr['1'], $ext)) {	?>								
+							<li class="video-player panel1 stop-link" id="<?php echo $i; ?>">
+								<div id="container<?php echo $i; ?>"> </div>
+							</li>
+				<?php 	} else { ?>
+							<li>
+							<?php
+							if($i==1) {
+						$_imgHtml='<img src="'.Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA).$banner['filename'].'" 
+						alt="'.$banner['title'].'" title="'.$banner['title'].'" style="width:'.$imagewidth.'px; height:'.$imageheight.'px;"/>';
+							} else {
+							$_imgHtml='<img src="'.Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA).$banner['filename'].'" alt="'.$banner['title'].'" title="'.$banner['title'].'" style="width:'.$imagewidth.'px; height:'.$imageheight.'px;"/>';
+							}
+							?>
+				
+							<?php if ($banner['weblink']) {	?>
+								<a href="<?php echo $banner['weblink'];?>">
+							<?php }	?>
+							
+							<?php echo $_imgHtml;?>
+							
+							<?php if ($banner['weblink']) {	?>					
+								</a>				
+							<?php }	?>
+						
+							</li>
+				
+				<?php 	}	?>
+				
+				</div>
+				<?php endforeach ?>
+			</div>
+		</div>
+		   
+	<script type="text/javascript">
+	jQuery(function($) {	
+       videos = [];	   
+		 <?php 
+			$i = 0;
+			$GLOBALS['video_count'] = 0;
+			foreach ($bannerCollection as $banner): $i++;	
+		 	$exp_arr = explode(".", $banner['filename']);			
+			$ext = array("flv", "mp3", "mp4", "mp5", "ogv", "webm", "mpeg");
+				if(in_array($exp_arr['1'], $ext)) {				
+					$GLOBALS['video_count'] = 1;
+		
+				if(isset($banner['preview'])) {
+					$banner['preview'] = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA).$banner['preview'];
+				} else {
+					$banner['preview'] = $this->getSkinUrl('images/nopreview.jpg');
+				}
+		?>
+        // videos.push([ id, file, image, height, width ]);
+        videos.push([ "container<?php echo $i; ?>", "<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA) . $banner['filename'] ?>", "<?php echo $banner['preview']; ?>", <?php echo $imageheight;?>, <?php echo $imagewidth;?> ]);
+		
+		<?php
+			} // End of if //
+		?>	
+		<?php endforeach; ?>
+		
+		<?php if($GLOBALS['video_count']): ?>		
+		var flashplayer = "<?php echo $this->getJsUrl('magestore/bannerslider/player/player.swf') ?>";
+		jQuery.each(videos, function(i, v) {
+          jwplayer(v[0]).setup({
+            file: v[1],
+            flashplayer: flashplayer,
+            image: v[2],
+            height: v[3],
+            width: v[4]
+          });
+        });
+		<?php endif; ?>
+
+	     });
+</script>
+
+<?php if($GLOBALS['video_count']): ?>
+
+<script type="text/javascript" language="javascript" src="<?php echo $this->getSkinUrl('js/swfobject.js'); ?>"></script>
+<script type="text/javascript" language="javascript" type="text/javascript" src="<?php echo $this->getJsUrl('magestore/bannerslider/player/jwplayer.js') ?>"></script>
+
+<?php endif; ?>
+
+<?php else:?>
+<div class="slide-container">  
+   <div id="slider-wrapper">
+<?php 
+	echo $this->getLayout()->createBlock('cms/block')->setBlockId('homeBanner_block')->toHtml();?>
+</div>
+										
+<?php endif;?>
+
+<script type="text/javascript" src="<?php echo $this->getJsUrl('magestore/bannerslider/jquery-easing-1.3.pack.js') ?>"></script>
+<script type="text/javascript" src="<?php echo $this->getJsUrl('magestore/bannerslider/jquery-easing-compatibility.1.2.pack.js') ?>"></script>
+<script type="text/javascript" src="<?php echo $this->getJsUrl('magestore/bannerslider/coda-slider.1.1.1.pack.js') ?>"></script>

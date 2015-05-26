@@ -1,0 +1,70 @@
+.rewards-modal-mask {
+	position: fixed;
+	opacity: 0.7;
+	z-index: 2000;
+	width: 100%;
+	height: 100%;
+	left: 0;
+	top: 0;
+	background-color: black;
+}
+
+.rewards-modal
+{
+	display: block;
+	position: fixed;
+	z-index: 2001;
+	left: 50%;
+	top: 50%;
+	width: 550px;
+	background: white;
+	margin-left: -275px;
+	margin-top: -150px;
+	border: darkgrey 2px solid;
+}
+
+.rewards-modal .content
+{
+	padding: 10px;
+}
+
+.rewards-modal .content .message
+{
+	text-align: left;
+	margin-top: 10px;
+	color: #FF0000;
+	font-weight: bold;
+	display: none;
+}
+
+.rewards-modal .content .modal-step
+{
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+.rewards-modal .content .pinterest-username-container
+{
+	text-align: center;
+}
+
+.rewards-modal .content .pinterest-username-container input
+{
+	margin-top: 10px;
+	font-size: 1.2em;
+	padding: 10px;
+	border-radius: 8px;
+	border-width: 1px;
+	border-style: solid;
+	border-color: #a44a02;
+	background-color: #fff3ea;
+	font-weight: bold;
+	width: 60%;
+	text-align: center;
+}
+
+.rewards-modal .content .pinterest-submit-container 
+{
+	margin-top: 10px;
+	text-align: right;
+}

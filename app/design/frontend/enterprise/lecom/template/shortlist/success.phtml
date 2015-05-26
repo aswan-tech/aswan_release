@@ -1,0 +1,57 @@
+<?php 
+if (Mage::getSingleton('core/session')->getAsUrl()) {
+	$successUrl = Mage::getSingleton('core/session')->getAsUrl();
+} else {
+	$successUrl = Mage::getUrl('', array('_secure'=>true));
+}
+?>
+<div class="blockbkg">
+    <div class="popupbody" style="background:none;background-color:#FFFFFF!important;height:160px!important;left:51%;margin-left:-220px;top:25%;width:400px;z-index:99999!important;">
+        <div class="reg-success">
+            <h1>Registration Success!</h1>
+            <p>You have successfully registered to Americanswan.com</p>
+            <a href="<?php echo $successUrl;?>"><input name="" type="button" value="OK" /></a>
+        </div>
+    </div>
+<script type="text/javascript">
+//<![CDATA[
+    setTimeout(function(){ location.href = '<?php echo $successUrl; ?>'},1000);
+//]]>
+</script>
+<!-- Facebook Code for Login Conversion Page -->
+<script type="text/javascript">
+var fb_param = {};
+fb_param.pixel_id = '6008667042818';
+fb_param.value = '0.00';
+(function(){
+  var fpw = document.createElement('script');
+  fpw.async = true;
+  fpw.src = '//connect.facebook.net/en_US/fp.js';
+  var ref = document.getElementsByTagName('script')[0];
+  ref.parentNode.insertBefore(fpw, ref);
+})();
+</script>
+<noscript><img height="1" width="1" alt="" style="display:none" src="https://www.facebook.com/offsite_event.php?id=6008667042818&amp;value=0" /></noscript>
+<!-- Google Code for Login Conversion Page -->
+<script type="text/javascript">
+/* <![CDATA[ */
+var google_conversion_id = 992090359;
+var google_conversion_language = "en";
+var google_conversion_format = "3";
+var google_conversion_color = "ffffff";
+var google_conversion_label = "wBr1CKGmiQQQ97GI2QM";
+var google_conversion_value = 0;
+/* ]]> */
+</script>
+<script type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js">
+</script>
+<noscript>
+<div style="display:inline;">
+<img height="1" width="1" style="border-style:none;" alt="" src="//www.googleadservices.com/pagead/conversion/992090359/?value=0&amp;label=wBr1CKGmiQQQ97GI2QM&amp;guid=ON&amp;script=0"/>
+</div>
+</noscript>
+
+<!-- Advertiser 'Ignitee Digital Services Pvt Ltd.-THE AMERICAN SWAN LIFESTYLE COMPANY PVT LTD', Include user in segment 'THE AMERICAN SWAN LIFESTYLE COMPANY PVT LTD_Conversion_Pixel_052813' - DO NOT MODIFY THIS PIXEL IN ANY WAY -->
+<img src="http://ad.yieldmanager.com/pixel?id=2378708&t=2" width="1" height="1" />
+<!-- End of segment tag -->
+</div>

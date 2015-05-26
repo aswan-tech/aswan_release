@@ -1,0 +1,96 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * FCM Order Tracker Module 
+ *
+ * Module for tracking Customer Order
+ *
+ * @category    FCM
+ * @package     FCM_Tracker
+ * @author	Vikrant Kumar Mishra
+ * @author_id	51402601
+ * @company	HCL Technologies
+ * @created Thursday, June 7, 2012
+ */
+-->
+<config>
+    <modules>
+        <FCM_Tracker>
+            <version>0.1.0</version>
+        </FCM_Tracker>
+    </modules>
+    <frontend>
+        <routers>
+            <tracker>
+                <use>standard</use>
+                <args>
+                    <module>FCM_Tracker</module>
+                    <frontName>tracker</frontName>
+                </args>
+            </tracker>
+        </routers>
+        <layout>
+            <updates>
+                <tracker>
+                    <file>tracker.xml</file>
+                </tracker>
+            </updates>
+        </layout>
+    </frontend>
+    <admin>
+        <routers>
+			<tracker>
+				<use>admin</use>
+				<args>
+					<module>FCM_Tracker</module>
+					<frontName>tracker</frontName>
+				</args>
+			</tracker>
+        </routers>
+    </admin>
+    <adminhtml>
+		<acl>
+			<resources>
+				<all>
+					<title>Allow Everything</title>
+				</all>
+				<admin>
+					<children>
+						<FCM_Tracker>
+							<title>Tracker Module</title>
+							<sort_order>10</sort_order>
+						</FCM_Tracker>
+					</children>
+				</admin>
+			</resources>
+		</acl>
+		<layout>
+			<updates>
+				<tracker>
+					<file>tracker.xml</file>
+				</tracker>
+			</updates>
+		</layout>
+    </adminhtml>   
+    <global>
+        <models>
+            <tracker>
+                <class>FCM_Tracker_Model</class>
+                <resourceModel>tracker_mysql4</resourceModel>
+            </tracker>
+            <tracker_mysql4>
+                <class>FCM_Tracker_Model_Mysql4</class>
+            </tracker_mysql4>
+        </models>
+        <blocks>
+            <tracker>
+                <class>FCM_Tracker_Block</class>
+            </tracker>
+        </blocks>
+        <helpers>
+            <tracker>
+                <class>FCM_Tracker_Helper</class>
+            </tracker>
+        </helpers>
+    </global>
+</config>

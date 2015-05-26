@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<!-- 
+/**
+ * @copyright  Copyright (c) 2009 AITOC, Inc. 
+ */
+-->
+<layout version="0.1.0">
+    <default>
+    </default>
+    
+    <customer_account>
+        <reference name="customer_account_navigation">
+            <action method="addLink" translate="label" module="aitloyalty">
+                <name>aitloyalty</name>
+                <path>aitloyalty/account/promostats</path>
+                <label>My Coupons</label>
+            </action>
+        </reference>
+    </customer_account>    
+    
+    <aitloyalty_account_promostats>
+        <update handle="customer_account"/> 
+        <reference name="content">
+            <block type="aitloyalty/account_promostats" name="aitloyalty_promostats_integration_form" template="aitloyalty/promostats.phtml"/> 
+        </reference>
+    </aitloyalty_account_promostats>
+    
+</layout>
+<!--
+/**
+ * Product:     Loyalty Program for Enterprise Edition
+ * Package:     Aitoc_Aitloyalty_10.0.10_574534
+ * Purchase ID: INzRIwyyaNoeOLERhAgt4U28qVKIeEa3dfPrgaAN3C
+ * Generated:   2013-05-13 06:36:55
+ * File path:   app/design/frontend/base/default/layout/aitloyalty.xml
+ * Copyright:   (c) 2013 AITOC, Inc.
+ */
+-->

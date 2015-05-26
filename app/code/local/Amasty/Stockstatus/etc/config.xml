@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <modules>
+        <Amasty_Stockstatus>
+            <version>3.3.0</version>
+        </Amasty_Stockstatus>
+    </modules>
+    
+    
+    <admin>
+        
+    </admin>
+    
+    
+    <frontend>
+        <translate>
+            <modules>
+                <Amasty_Stockstatus>
+                    <files>
+                        <default>Amasty_Stockstatus.csv</default>
+                    </files>
+                </Amasty_Stockstatus>
+            </modules>
+        </translate>
+        
+        
+        <product>
+            <collection>
+                <attributes>
+                    <custom_stock_status />
+                    <hide_default_stock_status />
+                    <custom_stock_status_quantity_based />
+                    <custom_stock_status_qty_based />
+                </attributes>
+            </collection>
+        </product>
+        
+        
+    </frontend>
+    
+    
+    
+    
+    <adminhtml>
+
+        <translate>
+            <modules>
+                <Amasty_Stockstatus>
+                    <files>
+                        <default>Amasty_Stockstatus.csv</default>
+                    </files>
+                </Amasty_Stockstatus>
+            </modules>
+        </translate>
+        
+    </adminhtml>
+    
+    
+    
+    
+    <global>
+    
+        <models>
+            <amstockstatus>
+                <class>Amasty_Stockstatus_Model</class>
+                <resourceModel>amstockstatus_mysql4</resourceModel>
+            </amstockstatus>
+            <amstockstatus_mysql4>
+                <class>Amasty_Stockstatus_Model_Mysql4</class>
+                <entities>
+                    <range>
+                        <table>amasty_stockstatus_quantityranges</table>
+                    </range>
+                </entities>
+            </amstockstatus_mysql4>
+            
+            <sales>
+                <rewrite>
+                    <quote_item>Amasty_Stockstatus_Model_Rewrite_Sales_Quote_Item</quote_item>
+                </rewrite>
+            </sales>
+        </models>
+        
+		<resources>
+             <amstockstatus_setup>
+                <setup>
+                    <module>Amasty_Stockstatus</module>
+                    <class>Amasty_Stockstatus_Model_Mysql4_Setup</class>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </amstockstatus_setup>
+		    <amstockstatus_write>
+		        <connection><use>core_write</use></connection>
+		    </amstockstatus_write>
+		    <amstockstatus_read>
+		        <connection><use>core_read</use></connection>
+		    </amstockstatus_read>
+		</resources>
+		  
+        <blocks>
+            <amstockstatus>
+                <class>Amasty_Stockstatus_Block</class>
+            </amstockstatus>
+            
+            
+            <catalog>
+                <rewrite>
+                    <product_view_type_configurable>Amasty_Stockstatus_Block_Rewrite_Product_View_Type_Configurable</product_view_type_configurable>
+                    <product_view_type_grouped>Amasty_Stockstatus_Block_Rewrite_Product_View_Type_Grouped</product_view_type_grouped>
+                    <product_view_type_virtual>Amasty_Stockstatus_Block_Rewrite_Product_View_Type_Virtual</product_view_type_virtual>
+                    <product_view_type_simple>Amasty_Stockstatus_Block_Rewrite_Product_View_Type_Simple</product_view_type_simple>
+                </rewrite>
+            </catalog>
+            
+            <checkout>
+                <rewrite>
+                    <cart_item_renderer>Amasty_Stockstatus_Block_Rewrite_Checkout_Cart_Item_Renderer</cart_item_renderer>
+                </rewrite>
+            </checkout>
+            
+            <bundle>
+                <rewrite>
+                    <catalog_product_view_type_bundle>Amasty_Stockstatus_Block_Rewrite_Product_View_Type_Bundle</catalog_product_view_type_bundle>
+                    <catalog_product_view_type_bundle_option_checkbox>Amasty_Stockstatus_Block_Bundle_Catalog_Product_View_Type_Bundle_Option_Checkbox</catalog_product_view_type_bundle_option_checkbox>
+                    <catalog_product_view_type_bundle_option_multi>Amasty_Stockstatus_Block_Bundle_Catalog_Product_View_Type_Bundle_Option_Multi</catalog_product_view_type_bundle_option_multi>
+                    <catalog_product_view_type_bundle_option_radio>Amasty_Stockstatus_Block_Bundle_Catalog_Product_View_Type_Bundle_Option_Radio</catalog_product_view_type_bundle_option_radio>
+                    <catalog_product_view_type_bundle_option_select>Amasty_Stockstatus_Block_Bundle_Catalog_Product_View_Type_Bundle_Option_Select</catalog_product_view_type_bundle_option_select>
+                </rewrite>
+            </bundle>
+            
+            <adminhtml>
+                <rewrite>
+                    <catalog_product_attribute_edit_tabs>Amasty_Stockstatus_Block_Rewrite_Adminhtml_Catalog_Product_Attribute_Edit_Tabs</catalog_product_attribute_edit_tabs>
+                </rewrite>
+            </adminhtml>
+        </blocks>
+        <helpers>
+            <amstockstatus>
+                <class>Amasty_Stockstatus_Helper</class>
+            </amstockstatus>
+        </helpers>
+        
+        
+        <events>
+            <model_save_before>
+                <observers>
+                    <amstockstatus>
+                        <type>singleton</type>
+                        <class>amstockstatus/observer</class>
+                        <method>onModelSaveBefore</method>
+                    </amstockstatus>
+                </observers>
+            </model_save_before>
+            
+            <catalog_product_is_salable_after>
+                <observers>
+                    <amstockstatus>
+                        <type>singleton</type>
+                        <class>amstockstatus/observer</class>
+                        <method>onCatalogProductIsSalableAfter</method>
+                    </amstockstatus>
+                </observers>
+            </catalog_product_is_salable_after>
+        </events>
+    </global>
+    
+    
+    <default>
+        <catalog>
+            <general>
+                <displayforoutonly>0</displayforoutonly>
+                <displayincart>1</displayincart>
+                <userangesonly>0</userangesonly>
+                <icononly>0</icononly>
+                <stockalert>1</stockalert>
+                <outofstock>1</outofstock>
+                <alt_text>{qty} left in stock.</alt_text>
+                <alt_text_loggedin>0</alt_text_loggedin>
+            </general>
+        </catalog>
+    </default>
+    
+</config>

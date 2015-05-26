@@ -1,0 +1,18 @@
+<div class="cart" id="cart">
+<div class="page-title">
+    <h1><?php echo $this->__('Shopping Bag is Empty') ?></h1>
+</div>
+<div class="cart-empty">
+	<?php $token = $this->getRequest()->getParam('token');		
+	if(!Mage::getSingleton('customer/session')->isLoggedIn() && $token != ''){ ?>
+    	<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+		<p>Kindly login to view your cart <a href="<?php echo Mage::getBaseUrl()?>customer/account/login">click here</a></p>
+	<?php }else{	?>
+    <?php echo $this->getMessagesBlock()->getGroupedHtml() ?>.
+    <?php echo $this->getChildHtml('checkout_cart_empty_widget'); ?>
+    <p><?php echo $this->__('You have no items in your shopping cart.') ?></p>
+    <p><?php echo $this->__('Click <a href="%s">here</a> to continue shopping.', Mage::getBaseUrl()) ?></p>
+    <?php echo $this->getChildHtml('shopping.cart.table.after'); ?>
+    <?php } ?>
+</div>
+</div>

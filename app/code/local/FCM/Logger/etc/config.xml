@@ -1,0 +1,160 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * FCM Logger Module 
+ *
+ * Module for tracking Log and Cron Detail
+ *
+ * @category    FCM
+ * @package     FCM_Logger
+ * @author	Vikrant Kumar Mishra
+ * @author_id	51402601
+ * @company	HCL Technologies
+ * @created Thursday, June 7, 2012
+ */
+-->
+	
+<config>
+    <modules>
+        <FCM_Logger>
+            <version>0.3.0</version>
+        </FCM_Logger>
+    </modules>
+    <frontend>
+        <routers>
+            <logger>
+                <use>standard</use>
+                <args>
+                    <module>FCM_Logger</module>
+                    <frontName>logger</frontName>
+                </args>
+            </logger>
+        </routers>
+        <layout>
+            <updates>
+                <logger>
+                    <file>logger.xml</file>
+                </logger>
+            </updates>
+        </layout>
+    </frontend>
+    <admin>
+        <routers>
+			<logger>
+				<use>admin</use>
+				<args>
+					<module>FCM_Logger</module>
+					<frontName>logger</frontName>
+				</args>
+			</logger>
+        </routers>
+    </admin>
+    <adminhtml>
+		<menu>
+			<logger module="logger">
+				<title>Logger</title>
+				<sort_order>71</sort_order>               
+				<children>
+					<items module="logger">
+						<title>Log Detail</title>
+						<sort_order>0</sort_order>
+						<action>logger/adminhtml_logger</action>
+					</items>
+					<cron module="logger">
+						<title>Cron Detail</title>
+						<sort_order>1</sort_order>
+						<action>logger/adminhtml_cron</action>
+					</cron>
+				</children>
+			</logger>
+		</menu>
+		<acl>
+            <resources>
+                <all>
+                    <title>Allow Everything</title>
+                </all>
+                <admin>
+                    <children>
+                        <system>
+                            <children>
+                                <config>
+                                    <children>
+                                        <logger>
+                                            <title>Logger Module</title>
+											<sort_order>10</sort_order>
+                                        </logger>
+                                    </children>
+                                </config>
+                            </children>
+                        </system>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
+		<layout>
+			<updates>
+				<logger>
+					<file>logger.xml</file>
+				</logger>
+			</updates>
+		</layout>
+    </adminhtml>   
+    <global>
+        <models>
+            <logger>
+                <class>FCM_Logger_Model</class>
+                <resourceModel>logger_mysql4</resourceModel>
+            </logger>
+            <logger_mysql4>
+                <class>FCM_Logger_Model_Mysql4</class>
+                <entities>
+                    <logger>
+                        <table>fcm_logger</table>
+                    </logger>
+					<cron>
+                        <table>fcm_cron</table>
+                    </cron>		
+                </entities>
+            </logger_mysql4>
+        </models>
+        <resources>
+            <logger_setup>
+                <setup>
+                    <module>FCM_Logger</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </logger_setup>
+            <logger_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </logger_write>
+            <logger_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </logger_read>
+        </resources>
+        <blocks>
+            <logger>
+                <class>FCM_Logger_Block</class>
+            </logger>
+        </blocks>
+        <helpers>
+            <logger>
+                <class>FCM_Logger_Helper</class>
+            </logger>
+        </helpers>
+		<template>
+        <email>
+            <logger_email_template module="logger">
+                <label>Logger email module</label>
+                <file>logger_email.html</file>
+                <type>html</type>
+            </logger_email_template>
+        </email>
+    </template>
+    </global>
+</config>

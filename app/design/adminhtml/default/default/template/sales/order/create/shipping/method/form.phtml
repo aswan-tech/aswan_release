@@ -1,0 +1,213 @@
+<?php
+/**
+ * Magento Enterprise Edition
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Magento Enterprise Edition License
+ * that is bundled with this package in the file LICENSE_EE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://www.magentocommerce.com/license/enterprise-edition
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     default_default
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://www.magentocommerce.com/license/enterprise-edition
+ */
+?>
+<?php /** @var $this Mage_Adminhtml_Block_Sales_Order_Create_Shipping_Method_Form */ ?>
+<script type="text/javascript">
+	function loadtimesave(){
+		document.getElementById('shipping_time_slot').value=document.getElementById('time').value;
+	}
+	function getCalender(){
+		document.getElementById('calender').style.display="block";
+		loadtimesave();
+	}
+	function removeCalender() {
+		document.getElementById('calender').style.display="none";
+		document.getElementById('shipping_time_slot').value="";
+	}
+	function savetimeslot(obj){
+		document.getElementById('shipping_time_slot').value=obj.value;
+	}
+</script>
+<div id="calender" style="margin-bottom:10px; display:none;">
+    <label for="page_date-end">Desired Arrival Date</label>
+	<input name="shipping_arrival_date_display" id="shipping_arrival_date_display" value="" title="date" class=" input-text" style="width: 100px;" type="text"> <img src="<?php echo Mage::getBaseUrl('skin')?>adminhtml/default/default/images/grid-cal.gif" alt="" class="v-middle" id="shipping_arrival_date_trig" title="Select Date" style=""> <a href="#" style="margin-left:5px;" onClick="resetArrivalDate(); return false;">Reset Arrival Date</a>
+    <input name="shipping_arrival_date" id="shipping_arrival_date" value="" onChange="shippingArrivalDateOnChange(this); return false;" title="date"  type="hidden"> 
+            <script type="text/javascript">
+            //<![CDATA[
+                Calendar.setup({
+                    inputField: "shipping_arrival_date",
+                    ifFormat: "%m/%e/%Y",
+					dateStatusFunc : dateRange,
+					onUpdate : update,
+                    showsTime: false,
+                    button: "shipping_arrival_date_trig",
+                    align: "Bl",
+					disableNavYear: false,
+                    singleClick : true
+                });
+				
+				function update() {
+					var inputdate = $('shipping_arrival_date').getValue();
+					var initialDate = new Date(inputdate);
+					var someDate = new Date();
+					var numberOfDaysToAdd = <?php echo Mage::getStoreConfig('carriers/appointment/shipping_interval');?>;
+					var futureDate = someDate.setDate(someDate.getDate() + numberOfDaysToAdd);
+					if(initialDate.getTime() < futureDate ){
+						$('shipping_arrival_date_display').setValue('');
+						//document.getElementById('shipping_arrival_date_display').value ='';
+						//document.getElementById('shipping_arrival_date').text ='';
+						//$('shipping_arrival_date').setValue('');
+					}
+				}
+				
+				function dateRange(date) {
+					var someDate = new Date();
+					var numberOfDaysToAdd = <?php echo Mage::getStoreConfig('carriers/appointment/shipping_interval');?>;
+					var futureDate = someDate.setDate(someDate.getDate() + numberOfDaysToAdd);
+					return (date.getTime() <= futureDate );
+				}
+				
+				function shippingArrivalDateOnChange(el)
+				{
+					var displayDate = $('shipping_arrival_date_display');
+					var date = $('shipping_arrival_date').getValue();
+					setCookie('bookdate',date,365);
+					displayDate.setValue(date);
+					
+				}
+				
+				function setCookie(c_name,value,exdays)
+				{
+					var exdate=new Date();
+					exdate.setDate(exdate.getDate() + exdays);
+					var c_value=escape(value) + ((exdays==null) ? "" : "; expires="+exdate.toUTCString());
+					document.cookie=c_name + "=" + c_value;
+				}
+				
+				function resetArrivalDate()
+				{
+					//clear both fields
+					$('shipping_arrival_date').setValue('');
+					$('shipping_arrival_date_display').setValue('');
+				}
+				//MRD added disable field to only allow calendar input
+				//TODO: need to enable field when form is submitted
+				Form.Element.disable('shipping_arrival_date_display');
+            //]]>
+            </script>
+    <small>&nbsp;</small><br />
+    <small>Please use the calendar icon to select your desired arrival date or leave blank for ASAP.<br /> Must order <?php echo Mage::getStoreConfig('carriers/appointment/shipping_interval');?> days in advance.</small>
+	<br />
+	<label for="time">Time Slot</label>
+										<select id="time" name="timeslot" onchange="savetimeslot(this);" >
+											<option value="8:30 AM - 10:30 AM">8:30 AM - 10:30 AM</option>
+											<option value="10:30 AM - 12:30 PM">10:30 AM - 12:30 PM</option>
+											<option value="12:30 PM - 2:30 PM">12:30 PM - 2:30 PM</option>
+											<option value="2:30 PM - 4:30 PM">2:30 PM - 4:30 PM</option>
+											<option value="4:30 PM - 6:30 PM">4:30 PM - 6:30 PM</option>
+										</select>
+										<input name="shipping_time_slot" id="shipping_time_slot" value="" title="time slot"  type="hidden"/>
+</div>
+
+<?php $_shippingRateGroups = $this->getShippingRates();
+	?>
+<?php if ($_shippingRateGroups): ?>
+    <div id="order-shipping-method-choose" style="display:none">
+    <dl class="shipment-methods">
+    <?php foreach ($_shippingRateGroups as $code => $_rates): ?>
+        <dt><strong><?php echo $this->escapeHtml($this->getCarrierName($code)) ?></strong></dt>
+        <dd>
+            <ul>
+            <?php foreach ($_rates as $_rate): ?>
+                <?php $_radioProperty = 'name="order[shipping_method]" type="radio" onclick="order.setShippingMethod(this.value)"' ?>
+                <?php $_code=$_rate->getCode() ?>
+                <li>
+                   <?php if ($_rate->getErrorMessage()): ?>
+                        <ul class="messages">
+                            <li class="error-msg"><?php echo $this->escapeHtml($_rate->getErrorMessage()) ?></li>
+                        </ul>
+                   <?php else: ?>
+                        <?php $_checked = $this->isMethodActive($_code) ? 'checked="checked"' : '' ?>
+						<?php $state='';
+								if($this->isCustomShipping($this->getCarrierName($code))){
+									$collection =$this->checkShippingMethod($this->getCarrierName($code));
+									if (count($collection) < 1)
+											$state='disabled';
+								}
+						?>
+                        <input <?php echo $_radioProperty ?> value="<?php echo $_code ?>" id="s_method_<?php echo $_code ?>" <?php echo $_checked ?> <?php echo $state;?>/>
+                        <label class="normal" for="s_method_<?php echo $_code ?>">
+                            <?php echo $this->escapeHtml($_rate->getMethodTitle() ? $_rate->getMethodTitle() : $_rate->getMethodDescription()) ?> -
+                            <strong>
+                                <?php $_excl = $this->getShippingPrice($_rate->getPrice(), $this->helper('tax')->displayShippingPriceIncludingTax()); ?>
+                                <?php $_incl = $this->getShippingPrice($_rate->getPrice(), true); ?>
+
+                                <?php echo $_excl; ?>
+                                <?php if ($this->helper('tax')->displayShippingBothPrices() && $_incl != $_excl): ?>
+                                    (<?php echo $this->__('Incl. Tax'); ?> <?php echo $_incl; ?>)
+                                <?php endif; ?>
+                            </strong>
+                        </label>
+                   <?php endif ?>
+                </li>
+            <?php endforeach; ?>
+            </ul>
+        </dd>
+    <?php endforeach; ?>
+    </dl>
+    </div>
+    <?php if ($_rate = $this->getActiveMethodRate()): ?>
+        <div id="order-shipping-method-info">
+            <strong><?php echo $this->escapeHtml($this->getCarrierName($_rate->getCarrier())) ?></strong><br/>
+            <?php echo $this->escapeHtml($_rate->getMethodTitle() ? $_rate->getMethodTitle() : $_rate->getMethodDescription()) ?> -
+            <strong>
+                <?php $_excl = $this->getShippingPrice($_rate->getPrice(), $this->helper('tax')->displayShippingPriceIncludingTax()); ?>
+                <?php $_incl = $this->getShippingPrice($_rate->getPrice(), true); ?>
+
+                <?php echo $_excl; ?>
+                <?php if ($this->helper('tax')->displayShippingBothPrices() && $_incl != $_excl): ?>
+                    (<?php echo $this->__('Incl. Tax'); ?> <?php echo $_incl; ?>)
+                <?php endif; ?>
+            </strong>
+            <!--input type="text" class="input-text" style="width:70px"/-->
+            <br/>
+            <a href="#" onclick="$('order-shipping-method-info').hide();$('order-shipping-method-choose').show();return false">
+                <?php echo Mage::helper('sales')->__('Click to change shipping method') ?>
+            </a>
+			<?php if($_rate->getCarrier() == 'appointment'): ?>
+					<script type="text/javascript">
+						document.getElementById('calender').style.display="block";
+					</script>
+			<?php endif; ?>
+        </div>
+    <?php else: ?>
+        <script type="text/javascript">$('order-shipping-method-choose').show();</script>
+    <?php endif; ?>
+<?php elseif($this->getIsRateRequest()): ?>
+    <strong><?php echo Mage::helper('sales')->__('Sorry, no quotes are available for this order at this time.') ?></strong>
+<?php else: ?>
+    <div id="order-shipping-method-summary">
+        <a href="#" onclick="order.loadShippingRates();return false">
+            <?php echo Mage::helper('sales')->__('Get shipping methods and rates') ?>
+        </a>
+        <input type="hidden" name="order[has_shipping]" value="" class="required-entry" />
+    </div>
+<?php endif; ?>
+<div style="display:none;" id="shipping-method-overlay" class="overlay"><span><?php echo $this->__('Shipping method selection is not applicable') ?></span></div>
+<script type="text/javascript">
+order.overlay('shipping-method-overlay', <?php if ($this->getQuote()->isVirtual()): ?>false<?php else: ?>true<?php endif; ?>);
+order.overlay('address-shipping-overlay', <?php if ($this->getQuote()->isVirtual()): ?>false<?php else: ?>true<?php endif; ?>);
+</script>

@@ -1,0 +1,103 @@
+@font-face {
+    font-family: 'rupeeregular';
+    src: url('fonts/rupee-webfont.eot');
+    src: url('fonts/rupee-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/rupee-webfont.ttf') format('truetype'),
+         url('fonts/rupee-webfont.svg#rupeeregular') format('svg'),
+		 url('fonts/rupee-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+	font-family: 'Conv_Helvetica';
+	src: url('fonts/Helvetica.eot');
+	src: local('☺'), url('fonts/Helvetica.ttf') format('truetype'), 
+	url('fonts/Helvetica.svg') format('svg')
+	, url('fonts/Helvetica.woff') format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+
+
+@font-face {
+    font-family: 'helvetica_ceregular';
+    src: url('fonts/helveticace_regular-webfont.eot');
+    src: url('fonts/helveticace_regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/helveticace_regular-webfont.ttf') format('truetype'),
+         url('fonts/helveticace_regular-webfont.svg#helvetica_ceregular') format('svg'),
+		 url('fonts/helveticace_regular-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+	font-family: 'Conv_Futura Book BT';
+	src: url('fonts/Futura Book BT.eot');
+	src: local('☺'), url('fonts/Futura Book BT.ttf') format('truetype'),url('fonts/Futura Book BT.svg') format('svg'), url('fonts/Futura Book BT.woff') format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'Conv_Futura Book Italic BT';
+	src: url('fonts/Futura Book Italic BT.eot');
+	src: local('☺'), url('fonts/Futura Book Italic BT.ttf') format('truetype'), url('fonts/Futura Book Italic BT.svg') format('svg'), url('fonts/Futura Book Italic BT.woff') format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+
+
+@font-face {
+	font-family: 'Conv_Helvetica_neue_ce_35_thin';
+	src: url('fonts/Helvetica_neue_ce_35_thin.eot');
+	src: local('☺'), url('fonts/Helvetica_neue_ce_35_thin.ttf') format('truetype'), url('fonts/Helvetica_neue_ce_35_thin.svg') format('svg'), url('fonts/Helvetica_neue_ce_35_thin.woff') format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+
+
+@font-face {
+    font-family: 'HelveticaRegular';
+    src: url('fonts/4864.eot');
+    src: url('fonts/4864.eot') format('embedded-opentype'),
+         url('fonts/4864.ttf') format('truetype'),
+         url('fonts/4864.svg#HelveticaRegular') format('svg'),
+		 url('fonts/4864.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'DubielPlainRegular';
+    src: url('fonts/dubiel_1.eot');
+    src: url('fonts/dubiel_1.eot') format('embedded-opentype'),
+         url('fonts/dubiel_1.ttf') format('truetype'),
+         url('fonts/dubiel_1.svg#DubielPlainRegular') format('svg'),
+		 url('fonts/dubiel_1.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'DubielItalic';
+    src: url('fonts/dubielitalic_1.eot');
+    src: url('fonts/dubielitalic_1.eot') format('embedded-opentype'),
+         url('fonts/dubielitalic_1.ttf') format('truetype'),
+         url('fonts/dubielitalic_1.svg#DubielItalic') format('svg'),
+		 url('fonts/dubielitalic_1.woff') format('woff');
+}
+
+
+@font-face {
+	font-family: 'BebasNeue';
+	src: url('fonts/bebasneue.eot');
+	src: url('fonts/bebasneue.eot?#iefix') format('embedded-opentype'),  url('fonts/bebasneue.ttf') format('truetype'),  url('fonts/bebasneue.svg#bebasneue') format('svg'),  url('fonts/bebasneue.woff') format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+@font-face {
+	font-family: 'HelveticaLT-Condensed';
+	src: url('fonts/HelveticaLT-Condensed.eot?') format('eot'),  
+	     url('fonts/HelveticaLT-Condensed.ttf')  format('truetype'),
+	     url('fonts/HelveticaLT-Condensed.svg#HelveticaLT-Condensed') format('svg'),
+		 url('fonts/HelveticaLT-Condensed.woff') format('woff');
+}

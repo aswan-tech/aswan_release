@@ -1,0 +1,55 @@
+<?php
+$helper = Mage::helper('enterprise_reward');
+$maxBalance = $this->getMaxBalance();
+$minBalance = $this->getMinBalance();
+$expireIn = $this->getExpireIn();
+?>
+<?php echo $this->getLayout()->createBlock('core/template')->setTemplate('customer/account/navigation2.phtml')->toHtml(); ?>
+<div style="float: left; width: 460px; background-color: rgb(238, 238, 238); padding: 10px 20px 20px;">
+    Total reward points in my wallet
+    <div style="height: 166px; text-align: center; padding: 5px; background-color: rgb(170, 170, 170); margin-top: 10px;">
+        <p style='font-size: 50px; margin-bottom: 15px;'><?php echo $helper->formatAmount($this->getCurrencyBalance()) ?></p>
+        are available to shop
+    </div>
+</div>
+<div style='clear: both;'></div>
+<?php if (0)  { ?>
+<div style="width: 990px;">
+    <h2 class="box-title fs16 f-bold c-pantone"><?php echo $this->__('Reward points balance Information'); ?> <span class="separator">|</span> <a href="<?php echo $helper->getLandingPageUrl()?>"><?php echo $this->__('Learn more...')?></a></h2>
+    <dl class="box-content fs14 c-pantone">
+        <dt><?php echo $this->__('Your current balance is %s.', $helper->formatReward($this->getPointsBalance(), $this->getCurrencyBalance()))?></dt>
+        <dt><?php echo $this->__('Current exchange rates:')?></dt>
+<?php if ($this->getPtsToAmountRateAmount() || $this->getAmountToPtsRatePts()): ?>
+    <?php if ($this->getPtsToAmountRateAmount()): ?>
+            <dd><?php echo $this->__('Each %s can be redeemed for %s.', $helper->formatReward($this->getPtsToAmountRatePts(), null, null, '<strong>%s</strong>'), '<strong>' . $helper->formatAmount($this->getPtsToAmountRateAmount()) . '</strong>')?></dd>    <?php endif;?>
+
+    <?php if ($this->getAmountToPtsRatePts()): ?>
+            <dd><?php echo $this->__('Each %s spent will earn %s.', '<strong>' . $helper->formatAmount($this->getAmountToPtsRateAmount()) . '</strong>', $helper->formatReward($this->getAmountToPtsRatePts(), null, null, '<strong>%s</strong>'))?></dd>
+    <?php endif;?>
+<?php else:?>
+             <dd><?php echo $this->__('None.')?></dd>
+<?php endif;?>
+<?php if ($maxBalance || $minBalance):?>
+        <dt><?php echo $this->__('Balance limitations:')?></dt>
+    <?php if ($maxBalance):?>
+            <dd><?php echo $this->__('Balance is capped at %s.', $helper->formatReward($maxBalance))?></dd>
+        <?php if ($this->getIsMaxBalanceReached()):?>
+            <dd class="warning"><?php echo $this->__('Maximum balance is reached.')?></dd>
+        <?php endif;?>
+    <?php endif;?>
+    <?php if ($minBalance):?>
+            <dd><?php echo $this->__('Minimum Balance in order to redeem: %s.', $helper->formatReward($minBalance))?></dd>
+        <?php if (!$this->getIsMinBalanceReached()):?>
+            <dd class="warning"><?php echo $this->__('Minimum balance for redeeming points is not reached.')?></dd>
+        <?php endif;?>
+    <?php endif;?>
+<?php endif;?>
+<?php if ($expireIn):?>
+    <dt><?php echo $this->__('Each earned reward points record expires in %s days.', '<span>' . $expireIn . '</span>')?></dt>
+    <?php if ($this->getIsHistoryPublished()):?>
+            <dd><?php echo $this->__('Refer to reward points history to see if a specific record expires and when.')?></dd>
+    <?php endif;?>
+<?php endif;?>
+    </dl>
+</div>
+<?php } ?>

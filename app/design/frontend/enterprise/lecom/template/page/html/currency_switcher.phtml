@@ -1,0 +1,37 @@
+<?php
+function getFlags( $code ) {
+    return 'data-image="http://www.americanswan.com/skin/frontend/enterprise/lecom/images/msdropdown/icons/blank.gif" data-imagecss="flag ' . substr( strtolower( $code ), 0, 2) . '"';
+}
+if($this->getCurrencyCount()>1):
+    $csvData = Mage::helper('common')->readCSV();
+    $dbCurrencies = array_intersect_key($csvData, $this->getCurrencies());
+    
+    if(count($dbCurrencies) > 1):
+        $session = Mage::getSingleton("core/session",  array("name"=>"frontend"));
+
+?>
+<div class="box language-switcher">
+    <div class="currencyselect">
+        <select name="currency" id="currency_switcher">
+            <?php foreach($dbCurrencies as $_code =>  $innerArr): ?>
+                <option value="<?php echo $_code?>" <?php echo getFlags( $_code ) ?><?php if($_code == $this->getCurrentCurrencyCode() ): ?> selected="selected"<?php endif; ?>> <?php echo $_code;?></option>
+            <?php endforeach; ?>
+        </select>
+    </div>
+</div>
+<script type="text/javascript">
+jQuery(document).on('change', '#currency_switcher', function() {
+    if(this.value){
+        setLocation('<?php echo Mage::helper('common')->getSwitchCurrencyCountryUrl() ?>currency/'+this.value);
+    }
+});
+function changeCurrency(sObject){
+    if(sObject.value){
+        setLocation('<?php echo $this->helper('directory/url')->getSwitchCurrencyUrl() ?>currency/'+sObject.value);
+    }
+}
+</script>
+<?php 
+        endif; 
+    endif; 
+?>

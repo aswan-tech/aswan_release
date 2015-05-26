@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<config>
+  <modules>
+    <PayU_Order>
+      <version>0.1.0</version>
+    </PayU_Order>
+  </modules>
+  <global>
+	<models>
+	  <order>
+		<class>PayU_Order_Model</class>
+		<resourceModel>order_mysql4</resourceModel>
+	  </order>
+	</models>
+  </global>    
+    <crontab>
+        <jobs>            
+			<order_updateoderstatus>
+                <schedule><cron_expr>* * * * *</cron_expr></schedule>
+                <run><model>order/cron::updateOderStatus</model></run>
+            </order_updateoderstatus>
+        </jobs>
+    </crontab>
+</config> 

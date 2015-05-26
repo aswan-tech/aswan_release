@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Custom_Mysales>
+            <version>0.1.0</version>
+        </Custom_Mysales>
+    </modules>
+    <frontend>
+        <routers>
+            <mysales>
+                <use>standard</use>
+                <args>
+                    <module>Custom_Mysales</module>
+                    <frontName>mysales</frontName>
+                </args>
+            </mysales>			
+			
+			<sales>
+                <args>
+                    <modules>
+                        <custom_mysales before="Mage_Sales">Custom_Mysales</custom_mysales>
+                    </modules>
+                </args>
+            </sales>
+			
+        </routers>
+    </frontend>
+</config>

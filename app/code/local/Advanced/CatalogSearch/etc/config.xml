@@ -1,0 +1,76 @@
+<?xml version="1.0"?>
+<config>
+	<modules>
+		<Advanced_CatalogSearch>
+			<version>0.2.0</version>
+		</Advanced_CatalogSearch>
+	</modules>
+	<global>
+		<resources>
+			<advancedcatalogsearch_setup>
+				<setup>
+					<module>Advanced_CatalogSearch</module>
+					<class>Advanced_CatalogSearch_Model_Mysql4_Setup</class>
+				</setup>
+				<connection>
+					<use>core_setup</use>
+				</connection>
+			</advancedcatalogsearch_setup>
+		</resources>
+
+		<models>
+			<advancedcatalogsearch>
+				<class>Advanced_CatalogSearch_Model</class>
+				<resourceModel>advancedcatalogsearch_mysql4</resourceModel>
+			</advancedcatalogsearch>
+
+			<!-- Extend built-in fulltext search -->
+			<catalogsearch_mysql4>
+				<rewrite>
+					<fulltext>Advanced_CatalogSearch_Model_Mysql4_Fulltext</fulltext>
+				</rewrite>
+
+			</catalogsearch_mysql4>
+
+			<advancedcatalogsearch_mysql4>
+				<entities>
+					<fulltext>
+						<table>advancedcatalogsearch_fulltext</table>
+					</fulltext>
+				</entities>
+			</advancedcatalogsearch_mysql4>
+		</models>
+
+		<helpers>
+			<advancedcatalogsearch>
+				<class>Advanced_CatalogSearch_Helper</class>
+			</advancedcatalogsearch>
+		</helpers>
+
+		<resources>
+			<advancedcatalogsearch_write>
+				<connection>
+					<use>core_write</use>
+				</connection>
+			</advancedcatalogsearch_write>
+			<advancedcatalogsearch_read>
+				<connection>
+					<use>core_read</use>
+				</connection>
+			</advancedcatalogsearch_read>
+		</resources>
+
+	</global>
+
+	<adminhtml>
+		<translate>
+			<modules>
+				<Advanced_CatalogSearch>
+					<files>
+						<default>Advanced_CatalogSearch.csv</default>
+					</files>
+				</Advanced_CatalogSearch>
+			</modules>
+		</translate>
+	</adminhtml>
+</config>

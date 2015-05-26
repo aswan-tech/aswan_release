@@ -1,0 +1,101 @@
+<div id="top-nav">
+    <ul>
+        <li>Free Shipping*</li>
+        <li>Cash on Delivery</li>
+        <li>14 Days-exchange</li>
+    </ul>
+</div>
+<div class="header-container">
+    <a name="img"></a>
+    <div id="identity">
+        <a href="<?php echo $this->getUrl('') ?>" title="<?php echo $this->getLogoAlt() ?>" class="logo">
+            <img src="<?php echo $this->getLogoSrc() ?>" alt="<?php echo $this->getLogoAlt() ?>" />
+        </a>
+        <?php echo $this->getChildHtml('headerCallout') ?>
+    </div>
+    <div id="head-right-panel">
+        <div id="top-links">
+            <ul>
+                <?php
+                $customerinfo = Mage::getSingleton('customer/session');
+                if ($customerinfo->isLoggedIn()) {
+                    $firstname = $customerinfo->getCustomer()->getFirstname();
+                    //echo '<li>Hi '.$firstname.'&nbsp;</li> ';
+                    echo '<li><a href="' . $this->getUrl('customer/account') . '">My Account</a></li><li>/</li><li><a href="' . $this->getUrl('customer/account/logout') . '">Sign Out</a></li>';
+                } else {
+                    echo '<li><a href="' . $this->getUrl('customer/account/login') . '">Sign In</a></li><li>/</li><li> <a href="' . $this->getUrl('customer/account/create') . '" >Register</a></li>';
+                }
+                ?>
+            </ul>
+        </div>
+        <div id="my-bag">
+            <?php echo $this->getChildHtml('topCart') ?>
+        </div>
+        <div id="help-line">
+            <?php echo Mage::getStoreConfig('general/store_information/phone'); ?>
+        </div>
+    </div>
+</div>
+<div class="menu-nav">
+    <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('header-menu-v2')->toHtml() ?>
+    <?php echo $this->getChildHtml('topSearch') ?>
+</div>
+<?php
+    $routeName = $this->getRequest()->getRouteName();
+    $catName = (Mage::registry('current_category')) ? Mage::registry('current_category')->getName() : '';
+    $catName = strtolower($catName);
+    if ($catName != '') {
+        $catClass = $catName;
+    } else {
+        if ($routeName == 'blog') {
+            $catClass = 'blog';
+        } elseif ($routeName == 'gallery') {
+            $catClass = 'gallery';
+        } elseif ($routeName == 'catalogsearch') {
+            $catClass = 'catalogsearch';
+        } else {
+            $catClass = 'cat';
+        }
+    }
+?>
+<script>
+    var catClass = '<?php echo $catClass; ?>';
+    jQuery(".menu-nav").find('a.cat-'+catClass).addClass( 'activemenu' );
+</script>
+
+<script type="text/javascript">
+    var state = 'none';
+    function showhide(layer_ref) {
+        if (state == 'block') {
+            state = 'none';
+        } else {
+            state = 'block';
+        }
+        if (document.all) { //IS IE 4 or 5 (or 6 beta)
+            eval( "document.all." + layer_ref + ".style.display = state");
+        }
+        if (document.layers) { //IS NETSCAPE 4 or below
+            document.layers[layer_ref].display = state;
+        }
+        if (document.getElementById &&!document.all) {
+            hza = document.getElementById(layer_ref);
+            hza.style.display = state;
+        }
+    }
+</script>
+
+<?php
+    if (!Mage::getSingleton('customer/session')->isLoggedIn() && $routeName != 'customer') {
+        Mage::getSingleton('core/session')->setAsUrl(Mage::helper('core/url')->getCurrentUrl());
+    } else {
+        Mage::getSingleton('core/session')->getAsUrl();
+    }
+?>
+
+<!-- Look of the week page start here--->
+<div class="header_bottom">
+    <?php echo $this->getChildHtml('topTitle'); ?>
+	<?php //echo $this->getChildHtml('top.gallery.breadcrumbs'); ########## dont delete this	?>
+	<?php echo $this->getChildHtml('top.gallery.archive');	?>
+    <div class="clearfloat"></div>
+</div>

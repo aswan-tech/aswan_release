@@ -1,0 +1,34 @@
+#carousel-wrapper {
+    width: 188px;
+    overflow: hidden;
+}
+#carousel-content {
+    width: 1880px;
+}
+#carousel-content .slide {
+    float: left;
+    width: 188px;
+}
+.block-testimonials .block-title strong 
+{
+	background-image:url(../images/icon-testi.png);
+	background-position:0 0;
+	background-repeat:no-repeat;
+	padding-left:21px;
+}
+.block-testimonials .block-content {
+	 background:#F8F7F5;
+	 padding:5px;
+}
+.testimonials .client
+{
+	margin:20px 0;
+}
+.testimonials .client .name {
+	font-weight:bold;
+}
+.testimonials .client p {
+	margin:0;
+}
+.testimonials .submit { text-align:right; }
+.com-jextn { text-align:right; padding-top:5px; font-size:8px; }

@@ -1,0 +1,32 @@
+<?php
+$controller = Mage::app()->getRequest()->getControllerName();
+$action = Mage::app()->getRequest()->getActionName();
+$router = Mage::app()->getRequest()->getRouteName();
+$module = Mage::app()->getRequest()->getModuleName();
+?>
+<style>
+    .ams-myaccount li { margin-bottom: 10px; cursor: pointer;font-size:14px;}
+    .ams-myaccount li:hover { color:#1e0f46; }
+    .ams-myaccount li.active-wallet { color:#1e0f46; }
+    </style>
+<div class="ams-myaccount bgc-fcfc">
+    <div style='margin-bottom: 15px;'>MY WALLET</div>
+    <ul>
+    <li class="<?php if (($module == 'customer' && $controller == 'account' && $action == 'wallet' && $router == 'customer')) { echo 'active-wallet'; } ?>"
+        onclick="location.href='<?php echo $this->getUrl('customer/account/wallet') ?>'">Total Monetary Value</li>
+    <li class="<?php if (($module == 'aitloyalty' && $controller == 'account' && $action == 'promostats' && $router == 'aitloyalty')) { echo 'active-wallet'; } ?>"
+        onclick="location.href='<?php echo $this->getUrl('customer/account/coupons') ?>'">My Coupons</li>
+    <!--li  class="<?php if (($module == 'reward' && $controller == 'customer' && $action == 'info' && $router == 'enterprise_reward')) { echo 'active-wallet'; } ?>"
+        onclick="location.href='<?php echo $this->getUrl('reward/customer/info/') ?>'">Rewards Points</li-->
+    <li  class="<?php if (($module == 'storecredit' && $controller == 'info' && $action == 'index' && $router == 'enterprise_customerbalance')) { echo 'active-wallet'; } ?>"
+        onclick="location.href='<?php echo $this->getUrl('storecredit/info/') ?>'">Store Credits</li>
+    <li  class="<?php if (($module == 'giftcard' && $controller == 'customer' && $action == 'index' && $router == 'enterprise_giftcardaccount')) { echo 'active-wallet'; } ?>"
+        onclick="location.href='<?php echo $this->getUrl('giftcard/customer/') ?>'">Evoucher</li>
+</ul>
+</div>
+<?php
+// My Coupons: aitloyalty/account/promostats/
+// Rewards Points: reward/customer/info/
+// Store Credits: storecredit/info/
+// Address: customer/address
+?>
