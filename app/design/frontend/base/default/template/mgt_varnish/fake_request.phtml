@@ -1,0 +1,13 @@
+<?php
+
+$esiHelper = Mage::helper('mgt_varnish/esi');
+$canUseEsi = $esiHelper->canUseEsi();
+$isSecure = Mage::app()->getStore()->isCurrentlySecure();
+
+?>
+
+<script>
+new Ajax.Request('<?php echo $this->getUrl('mgtvarnish/esi/', array('_secure' => $isSecure)); ?>', {
+  onSuccess: function(response) {}
+});
+</script>

@@ -1,0 +1,65 @@
+<?php 
+
+$isEnabled = $this->isEnabled();
+$helper = $this->helper('mgt_varnish');
+
+?>
+
+<?php if (true === $isEnabled): ?>
+
+<style>
+  span.note {font-size:11px;color:#6F8992}
+</style>
+
+<br/>
+<div class="content-header">
+  <table cellspacing="0">
+    <tr>
+      <td>
+        <h3><?php echo $helper ->__('Mgt Varnish Cache Management') ?></h3>
+     </td>
+    </tr>
+  </table>
+</div>
+
+<form action="<?php echo $this->getPurgeUrl() ?>" method="post" id="mgt-varnish-purge-form" enctype="multipart/form-data">
+  <table width="330" style="margin-bottom:10px;">
+     <tr>
+       <td>
+         <?php echo $this->getBlockHtml('formkey')?>
+         <select name="stores" class="required-entry select local-validation" style="width:205px">
+         <?php foreach ($this->getStoreOptions() as $store): ?>
+           <option value="<?php echo $store['value'] ?>"><?php echo $this->escapeHtml($store['label'],true) ?></option>
+         <?php endforeach; ?>
+         </select> <br />
+         <span class="note"><?php echo $helper->__('Purges all or an invidual store from Varnish')?></span>
+       </td>
+       <td>
+         <button type="submit" class="scalable"><span><?php echo $helper->__('Purge Varnish') ?></span></button>
+       </td>
+    </tr>
+  </table>
+</form>
+
+<form id="mgt-varnish-single-purge-form" action="<?php echo $this->getSinglePurgeUrl() ?>" method="post" enctype="multipart/form-data">
+  <table width="330">
+     <tr>
+       <td>
+         <?php echo $this->getBlockHtml('formkey')?>
+         <input type="text" name="single_purge_url" class="input-text required-entry" style="width:200px" /> <br />
+         <span class="note"><?php echo $helper->__('Purges a single URL from Varnish.')?></span>
+       </td>
+       <td>
+        <button type="submit" class="scalable"><span><?php echo $helper->__('Single Purge') ?>&nbsp;&nbsp;</span></button>
+       </td>
+    </tr>
+  </table>
+</form>
+
+<script type="text/javascript">
+//<![CDATA[
+    var singlekPurgeForm = new varienForm('mgt-varnish-single-purge-form');
+//]]>
+</script>
+
+<?php endif;?>

@@ -1,0 +1,218 @@
+<?xml version="1.0"?>
+<config>
+    <tabs>
+        <mgt-commerce translate="label" module="mgt_varnish">
+            <label>Mgt-Commerce.com</label>
+            <sort_order>105</sort_order>
+        </mgt-commerce>
+    </tabs>
+    <sections>
+        <mgt_varnish translate="label" module="mgt_varnish">
+            <label>Varnish</label>
+            <tab>mgt-commerce</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>90</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <mgt_varnish translate="label">
+                  <label>Settings</label>
+                    <frontend_type>text</frontend_type>
+                    <frontend_model>mgt_varnish_adminhtml/system_config_form_fieldset</frontend_model>
+                    <sort_order>1</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <enabled translate="label">
+                            <label>Enable</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>100</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </enabled>
+                        <servers translate="label">
+                            <label>Varnish Server</label>
+                            <comment>List separated by seperated</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>200</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </servers>
+                        <server_port translate="label">
+                            <label>Varnish Server Port</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>300</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </server_port>
+                        <excluded_urls translate="label">
+                            <label>Excluded Urls</label>
+                            <frontend_type>textarea</frontend_type>
+                            <comment>e.g. my-url.html . Use one per line.</comment>
+                            <sort_order>400</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </excluded_urls>
+                        <excluded_routes translate="label">
+                            <label>Excluded Routes</label>
+                            <frontend_type>textarea</frontend_type>
+                            <comment>e.g. catalog_product_view, wishlist. Use one per line.</comment>
+                            <sort_order>500</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </excluded_routes>
+                        <excluded_params translate="label">
+                            <label>Excluded Params</label>
+                            <frontend_type>text</frontend_type>
+                            <comment>Request parameters that force setting of NO_CACHE cookie to permanent disable caching</comment>
+                            <sort_order>600</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </excluded_params>
+                        <default_cache_lifetime translate="label">
+                            <label>Default Cache Lifetime</label>
+                            <frontend_type>text</frontend_type>
+                            <comment>Cache lifetime in seconds (3600 seconds = 1 hour)</comment>
+                            <sort_order>700</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </default_cache_lifetime>
+                        <routes_cache_lifetime translate="label">
+                            <label>Cache Lifetime for specific routes</label>
+                            <comment>Cache Lifetime for specific routes (3600 seconds = 1 hour).</comment>
+                            <frontend_type>textarea</frontend_type>
+                            <frontend_model>mgt_varnish_adminhtml/system_config_fieldset_route_cachelifetime</frontend_model>
+                            <backend_model>adminhtml/system_config_backend_serialized_array</backend_model>
+                            <sort_order>800</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </routes_cache_lifetime>
+                        <purge_catalog_category translate="label">
+                            <label>Purge Category</label>
+                            <comment>Purge categorie's cache item on save</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>900</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </purge_catalog_category>
+                        <purge_catalog_product translate="label">
+                            <label>Purge Product</label>
+                            <comment>Purge product's cache item on save</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>1000</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </purge_catalog_product>
+                        <purge_cms_page translate="label">
+                            <label>Purge CMS Page</label>
+                            <comment>Purge CMS page's cache item on save</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>1100</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </purge_cms_page>
+                        <purge_secret_key translate="label">
+                            <label>Purge Secret Key</label>
+                            <comment>Used for purging via API, example call: <![CDATA[http://www.yourdomain.com/mgtvarnish/api/purge/?secretKey=secret-purge-123&url=http://www.yourdomain.com/category.html]]></comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>1200</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </purge_secret_key>
+                        <debug translate="label">
+                            <label>Debug</label>
+                            <comment>Pass X-headers for debugging purpose to the client and log purge requests to /var/log/mgt_varnish.log (ensure developer log is enabled).</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>1300</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </debug>
+                        <esi translate="label">
+                            <label>ESI</label>
+                            <comment>Edge Side Includes is a language to include fragments of web pages in other web pages.</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>1400</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </esi>
+                        <esi_blocks translate="label">
+                            <label>ESI Blocks</label>
+                            <comment>Comma seperated list of block names which should be dynamic</comment>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>1500</sort_order>
+                            <depends>
+                              <esi>1</esi>
+                            </depends>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </esi_blocks>
+                        <esi_debug translate="label">
+                            <label>ESI Debug Mode</label>
+                            <comment>Enable debug mode for detailed logging</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>1600</sort_order>
+                            <depends>
+                              <esi>1</esi>
+                            </depends>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </esi_debug>
+                        <esi_block_name_logging translate="label">
+                            <label>ESI Block Name Logging</label>
+                            <comment>Logs the names of the blocks in file var/log/mgt_varnish_esi_block_names.log</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>1700</sort_order>
+                            <depends>
+                              <esi>1</esi>
+                              <esi_debug>1</esi_debug>
+                            </depends>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </esi_block_name_logging>
+                        <esi_url_logging translate="label">
+                            <label>ESI Url Logging</label>
+                            <comment>Logs esi urls in file var/log/mgt_varnish_esi_urls.log</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>1800</sort_order>
+                            <depends>
+                              <esi>1</esi>
+                              <esi_debug>1</esi_debug>
+                            </depends>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </esi_url_logging>
+                    </fields>
+                </mgt_varnish>
+            </groups>
+        </mgt_varnish>
+    </sections>
+</config>

@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<layout>
+    <adminhtml_cache_index>
+        <reference name="content">
+            <block type="mgt_varnish/adminhtml_additional" name="mgt_varnish.additional" template="mgt_varnish/cache/additional.phtml" />
+        </reference>
+    </adminhtml_cache_index>
+</layout>

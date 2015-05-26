@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <default>
+        <reference name="before_body_end">
+            <block type="core/template" name="mgt_fake_request" template="mgt_varnish/fake_request.phtml"/>
+        </reference>
+    </default>
+</layout>

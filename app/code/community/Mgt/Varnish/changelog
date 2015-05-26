@@ -1,0 +1,28 @@
+3.0.0 Stefan Wieczorek <stefan.wieczorek@mgt-commerce.com>
+Add excluded urls section
+Fix ajax esi request
+
+2.0.3 Stefan Wieczorek <stefan.wieczorek@mgt-commerce.com>
+Fix ajax esi request
+
+2.0.2 Stefan Wieczorek <stefan.wieczorek@mgt-commerce.com>
+Fix bug that prevent purging after purchase
+
+2.0.1 Stefan Wieczorek <stefan.wieczorek@mgt-commerce.com>
+Fix cookie bug
+
+2.0.0 Stefan Wieczorek <stefan.wieczorek@mgt-commerce.com>
+ESI Support
+Add Api controller for purging
+
+1.0.3 Stefan Wieczorek <stefan.wieczorek@mgt-commerce.com>
+remove sort order param from excluded params
+
+1.0.2 Stefan Wieczorek <stefan.wieczorek@mgt-commerce.com>
+set no cache cookie if messages are in session
+
+1.0.1 Stefan Wieczorek <stefan.wieczorek@mgt-commerce.com>
+Send no cache header if license for domain is not valid
+
+1.0.0 Stefan Wieczorek <stefan.wieczorek@mgt-commerce.com>
+Initial release
