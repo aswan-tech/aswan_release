@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Custom_Myinvitation>
+            <active>true</active>
+            <codePool>local</codePool>
+        </Custom_Myinvitation>
+    </modules>
+</config>
