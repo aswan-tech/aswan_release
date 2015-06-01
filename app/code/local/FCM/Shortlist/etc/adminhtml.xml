@@ -24,7 +24,13 @@
 									</registercoupens>
 									<scratchcard translate="title">
 										<title>Scratch Card Settings</title>
-									</scratchcard>	
+									</scratchcard>
+									<customcategoryfilter translate="title">
+										<title>Custom Category Filter</title>
+									</customcategoryfilter>	
+									<catalogdiscountoffer translate="title">
+										<title>Catalog Discount Offer Settings</title>
+									</catalogdiscountoffer>	
 								</children>
 							</config>
 						</children>

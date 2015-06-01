@@ -39,7 +39,7 @@ class Mage_Adminhtml_Block_Promo_Catalog extends Mage_Adminhtml_Block_Widget_Gri
     {
         $this->_addButton('apply_discount', array(
             'label'     => Mage::helper('catalogrule')->__('Apply Discount Tagging'),
-            'onclick'   => "location.href='".$this->getUrl('*/*/applyRules/applyDiscountTagging/true')."'",
+            'onclick'   => "location.href='".$this->getUrl('*/*/applyDiscountTagging/')."'",
             'class'     => '',
         ));
         
