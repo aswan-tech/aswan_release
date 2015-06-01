@@ -42,8 +42,7 @@ class FCM_Nosql_Model_Sms extends Mage_Core_Model_Abstract {
     }
     
     protected function __execute() {
-		$url = 'http://bulkpush.mytoday.com/BulkSms/SingleMsgApi?feedid=340985&username=7838067019&password=gptpp&To='.$this->sendTo.'&Text=';
-        #$url = 'http://121.241.247.222:7501/failsafe/HttpLink?aid=572976&pin=am@1&mnumber='.$this->sendTo.'&message=';
+        $url = 'http://bulkpush.mytoday.com/BulkSms/SingleMsgApi?feedid=340985&username=7838067019&password=gptpp&To='.$this->sendTo.'&Text=';
         $curl = curl_init();        
         curl_setopt($curl, CURLOPT_URL, $url . urlencode($this->message));
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);

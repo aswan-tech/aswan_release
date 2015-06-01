@@ -290,8 +290,16 @@ class Mage_Adminhtml_Promo_CatalogController extends Mage_Adminhtml_Controller_A
     /**
      * Apply all active catalog price rules
      */
-     public function applyRulesAction()
+    public function applyRulesAction()
     {
+        $applyDiscountTagging = $this->getRequest()->getParams('applyDiscountTagging');
+        if(is_array($applyDiscountTagging) && isset($applyDiscountTagging['applyDiscountTagging'])) {
+            $applyDiscountTagging = $applyDiscountTagging['applyDiscountTagging'];
+            $applyDiscountTagging = $applyDiscountTagging == 'true' ? TRUE : FALSE;
+        } else {
+            $applyDiscountTagging = FALSE;
+        }
+        $success = FALSE;
         $errorMessage = Mage::helper('catalogrule')->__('Unable to apply rules.');
         try {
             Mage::getModel('catalogrule/rule')->applyAll();
@@ -299,33 +307,134 @@ class Mage_Adminhtml_Promo_CatalogController extends Mage_Adminhtml_Controller_A
                 ->setState(0)
                 ->save();
             $this->_getSession()->addSuccess(Mage::helper('catalogrule')->__('The rules have been applied.'));
+            $success = TRUE;
         } catch (Mage_Core_Exception $e) {
             $this->_getSession()->addError($errorMessage . ' ' . $e->getMessage());
         } catch (Exception $e) {
             $this->_getSession()->addError($errorMessage);
-            Mage::logException($e);
         }
-        $this->_redirect('*/*');
+        if ($success && $applyDiscountTagging) {
+            $this->_redirect('*/*/applyDiscountTagging');
+        } else {
+            $this->_redirect('*/*');
+        }
     }
-    protected function _getDiscountAttribute(){
-        $attribute = Mage::getModel('eav/config')->getAttribute('catalog_product', 'discount');
-        $dis_attr_array = array();
-        foreach ($attribute->getSource()->getAllOptions(true, true) as $instance) {
-            if(isset($instance['value']) && $instance['value']!='')
-                $dis_attr_array[$instance['value']] = $instance['label'];
-          }
-          return $dis_attr_array;
-    }
+    
     public function applyDiscountTaggingAction() {
         $log_file = 'apply_discount_tag.log';
         Mage::log("Started script to apply discount tagging.", null, $log_file);
-        $discount_options = $this->_getDiscountAttribute();
+        
+        $discount_options = array();
+		$discount_options[1003] = 0;
+		$discount_options[1004] = 1;
+		$discount_options[1005] = 2;
+		$discount_options[1006] = 3;
+		$discount_options[1007] = 4;
+		$discount_options[1008] = 5;
+		$discount_options[1009] = 6;
+		$discount_options[1010] = 7;
+		$discount_options[1011] = 8;
+		$discount_options[1012] = 9;
+		$discount_options[1013] = 10;
+		$discount_options[1014] = 11;
+		$discount_options[1015] = 12;
+		$discount_options[1016] = 13;
+		$discount_options[1017] = 14;
+		$discount_options[1018] = 15;
+		$discount_options[1019] = 16;
+		$discount_options[1020] = 17;
+		$discount_options[1021] = 18;
+		$discount_options[1022] = 19;
+		$discount_options[1023] = 20;
+		$discount_options[1024] = 21;
+		$discount_options[1025] = 22;
+		$discount_options[1026] = 23;
+		$discount_options[1027] = 24;
+		$discount_options[1028] = 25;
+		$discount_options[1029] = 26;
+		$discount_options[1030] = 27;
+		$discount_options[1031] = 28;
+		$discount_options[1032] = 29;
+		$discount_options[1033] = 30;
+		$discount_options[1034] = 31;
+		$discount_options[1035] = 32;
+		$discount_options[1036] = 33;
+		$discount_options[1037] = 34;
+		$discount_options[1038] = 35;
+		$discount_options[1039] = 36;
+		$discount_options[1040] = 37;
+		$discount_options[1041] = 38;
+		$discount_options[1042] = 39;
+		$discount_options[1043] = 40;
+		$discount_options[1044] = 41;
+		$discount_options[1045] = 42;
+		$discount_options[1046] = 43;
+		$discount_options[1047] = 44;
+		$discount_options[1048] = 45;
+		$discount_options[1049] = 46;
+		$discount_options[1050] = 47;
+		$discount_options[1051] = 48;
+		$discount_options[1052] = 49;
+		$discount_options[1053] = 50;
+		$discount_options[1054] = 51;
+		$discount_options[1055] = 52;
+		$discount_options[1056] = 53;
+		$discount_options[1057] = 54;
+		$discount_options[1058] = 55;
+		$discount_options[1059] = 56;
+		$discount_options[1060] = 57;
+		$discount_options[1061] = 58;
+		$discount_options[1062] = 59;
+		$discount_options[1063] = 60;
+		$discount_options[1064] = 61;
+		$discount_options[1065] = 62;
+		$discount_options[1066] = 63;
+		$discount_options[1067] = 64;
+		$discount_options[1068] = 65;
+		$discount_options[1069] = 66;
+		$discount_options[1070] = 67;
+		$discount_options[1071] = 68;
+		$discount_options[1072] = 69;
+		$discount_options[1073] = 70;
+		$discount_options[706] = 71;
+		$discount_options[507] = 72;
+		$discount_options[508] = 73;
+		$discount_options[509] = 74;
+		$discount_options[510] = 75;
+		$discount_options[511] = 76;
+		$discount_options[512] = 77;
+		$discount_options[513] = 78;
+		$discount_options[514] = 79;
+		$discount_options[515] = 80;
+		$discount_options[652] = 81;
+		$discount_options[516] = 82;
+		$discount_options[517] = 83;
+		$discount_options[518] = 84;
+		$discount_options[519] = 85;
+		$discount_options[800] = 86;
+		$discount_options[505] = 87;
+		$discount_options[801] = 88;
+		$discount_options[506] = 89;
+		$discount_options[817] = 90;
+		$discount_options[993] = 91;
+		$discount_options[994] = 92;
+		$discount_options[995] = 93;
+		$discount_options[996] = 94;
+		$discount_options[997] = 95;
+		$discount_options[998] = 96;
+		$discount_options[999] = 97;
+		$discount_options[1000] = 98;
+		$discount_options[1001] = 99;
+		$discount_options[1002] = 100;
+
         $write = Mage::getSingleton('core/resource')->getConnection('core_write');
         $read = Mage::getSingleton('core/resource')->getConnection('core_read');
+        
         $collection = Mage::getModel('catalogrule/rule')->getResourceCollection();
         $collection->addWebsitesToResult();
-        $collection->addFieldToFilter('is_active',array('eq'=>1));
         $collection->setOrder('sort_order', 'DESC');
+        #pr($collection->getData());
+        
         Mage::log("Resetting all discuount attribute to \"No Discount\" (0) for all products.", null, $log_file);
         $sql = "UPDATE `catalog_product_entity_int` SET value=1003 WHERE `attribute_id`=220;";
         $write->query($sql);

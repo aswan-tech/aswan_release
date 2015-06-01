@@ -71,17 +71,9 @@ class Inchoo_Remember_Frontend_Customer_AccountController extends Mage_Customer_
         }
 
         if ($this->getRequest()->isPost()) {
-             $customer = Mage::getModel('customer/customer')
-                 ->setId($this->_getSession()->getCustomerId())
-                 ->setWebsiteId($this->_getSession()->getCustomer()->getWebsiteId());
- 
-             $fields = Mage::getConfig()->getFieldset('customer_account');
-             foreach ($fields as $code=>$node) {
-                 if ($node->is('update') && ($value = $this->getRequest()->getParam($code)) !== null) {
-                     $customer->setData($code, $value);
-                 }
-             }
-             
+            /** @var $customer Mage_Customer_Model_Customer */
+            $customer = $this->_getSession()->getCustomer();
+
             /** @var $customerForm Mage_Customer_Model_Form */
             $customerForm = Mage::getModel('customer/form');
             $customerForm->setFormCode('customer_account_edit')
@@ -93,87 +85,70 @@ class Inchoo_Remember_Frontend_Customer_AccountController extends Mage_Customer_
             } else {
                 $customer->setSpouseDob(NULL);
             }
+            $errors = array();
+            $customerErrors = $customerForm->validateData($customerData);
+            if ($customerErrors !== true) {
+                $errors = array_merge($customerErrors, $errors);
+            } else {
+                $customerForm->compactData($customerData);
+                $errors = array();
 
-             if ($customerData['city'] != '') {
-                $customer->setCity($customerData['city']);
-            } else {
-                $customer->setCity(NULL);
-            }
-             if ($customerData['relationship'] != '') {
-                $customer->setRelationship($customerData['relationship']);
-            } else {
-                $customer->setRelationship(NULL);
-            }
-             $errors = $customer->validate();
-             if (!is_array($errors)) {
-                 $errors = array();
-             }
+                // If password change was requested then add it to common validation scheme
+                if ($this->getRequest()->getParam('change_password')) {
+                    $currPass   = $this->getRequest()->getPost('current_password');
+                    $newPass    = $this->getRequest()->getPost('password');
+                    $confPass   = $this->getRequest()->getPost('confirmation');
 
-             if ($customerData['telephone'] != '') {
-                $customer->setTelephone($customerData['telephone']);
-            } else {
-                $customer->setTelephone(NULL);
+                    $oldPass = $this->_getSession()->getCustomer()->getPasswordHash();
+                    if (Mage::helper('core/string')->strpos($oldPass, ':')) {
+                        list($_salt, $salt) = explode(':', $oldPass);
+                    } else {
+                        $salt = false;
+                    }
+
+                    if ($customer->hashPassword($currPass, $salt) == $oldPass) {
+                        if (strlen($newPass)) {
+                            /**
+                             * Set entered password and its confirmation - they
+                             * will be validated later to match each other and be of right length
+                             */
+                            $customer->setPassword($newPass);
+                            $customer->setConfirmation($confPass);
+                        } else {
+                            $errors[] = $this->__('New password field cannot be empty.');
+                        }
+                    } else {
+                        $errors[] = $this->__('Invalid current password');
+                    }
+                }
+
+                // Validate account and compose list of errors if any
+                $customerErrors = $customer->validate();
+                if (is_array($customerErrors)) {
+                    $errors = array_merge($errors, $customerErrors);
+                }
             }
-             $errors = $customer->validate();
-             if (!is_array($errors)) {
-                 $errors = array();
-             }
- 
-             /**
-              * we would like to preserver the existing group id
-              */
-             if ($this->_getSession()->getCustomerGroupId()) {
-                 $customer->setGroupId($this->_getSession()->getCustomerGroupId());
-             }
- 
-             if ($this->getRequest()->getParam('change_password')) {
-                 $currPass = $this->getRequest()->getPost('current_password');
-                 $newPass  = $this->getRequest()->getPost('password');
-                 $confPass  = $this->getRequest()->getPost('confirmation');
- 
-                 if (empty($currPass) || empty($newPass) || empty($confPass)) {
-                     $errors[] = $this->__('Password fields can\'t be empty.');
-                 }
- 
-                 if ($newPass != $confPass) {
-                     $errors[] = $this->__('Please make sure your passwords match.');
-                 }
- 
-                 $oldPass = $this->_getSession()->getCustomer()->getPasswordHash();
-                 if (strpos($oldPass, ':')) {
-                     list($_salt, $salt) = explode(':', $oldPass);
-                 } else {
-                     $salt = false;
-                 }
- 
-                 if ($customer->hashPassword($currPass, $salt) == $oldPass) {
-                     $customer->setPassword($newPass);
-                 } else {
-                     $errors[] = $this->__('Invalid current password');
-                 }
-             }
- 
-             if (!empty($errors)) {
-                 $this->_getSession()->setCustomerFormData($this->getRequest()->getPost());
-                 foreach ($errors as $message) {
-                     $this->_getSession()->addError($message);
-                 }
-                 $this->_redirect('*/*/edit');
-                 return $this;
-             }
- 
- 
-             try {
+
+            if (!empty($errors)) {
+                $this->_getSession()->setCustomerFormData($this->getRequest()->getPost());
+                foreach ($errors as $message) {
+                    $this->_getSession()->addError($message);
+                }
+                $this->_redirect('*/*/edit');
+                return $this;
+            }
+
+            try {
                 $customer->setConfirmation(null);
-                 $customer->save(); /* commenting as 2 save functions were called consequtively */
+              //  $customer->save(); /* commenting as 2 save functions were called consequtively */
                 $this->_getSession()->setCustomer($customer)
                     ->addSuccess($this->__('The account information has been saved.'));
 
 
                 try {
                     $customer->setStoreId(Mage::app()->getStore()->getId())
-                            ->setIsSubscribed((boolean)$this->getRequest()->getParam('is_subscribed', false))
-                            ->save();
+							->setIsSubscribed((boolean)$this->getRequest()->getParam('is_subscribed', false))
+							->save();
                 }
                 catch (Exception $e) {
                     Mage::getSingleton('customer/session')->addError($this->__('An error occurred while saving your subscription.'));
@@ -182,20 +157,20 @@ class Inchoo_Remember_Frontend_Customer_AccountController extends Mage_Customer_
 
                 $this->_redirect('customer/account/edit');
                 return;
-             }
-             catch (Mage_Core_Exception $e) {
-                 $this->_getSession()->setCustomerFormData($this->getRequest()->getPost())
-                     ->addError($e->getMessage());
-             }
-             catch (Exception $e) {
-                 $this->_getSession()->setCustomerFormData($this->getRequest()->getPost())
-                     ->addException($e, $this->__('Can\'t save customer'));
+            } catch (Mage_Core_Exception $e) {
+                $this->_getSession()->setCustomerFormData($this->getRequest()->getPost())
+                    ->addError($e->getMessage());
+            } catch (Exception $e) {
+                $this->_getSession()->setCustomerFormData($this->getRequest()->getPost())
+                    ->addException($e, $this->__('Cannot save the customer.'));
+            }
+            
+            
 
-             }
-         }
- 
-         $this->_redirect('*/*/edit');
-     }
 
+        }
+
+        $this->_redirect('*/*/edit');
+    }
 
 }
