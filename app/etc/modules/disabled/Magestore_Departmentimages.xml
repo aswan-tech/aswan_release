@@ -1,9 +1,0 @@
-<?xml version="1.0"?>
-<config>
-    <modules>
-        <Magestore_Departmentimages>
-            <active>true</active>
-            <codePool>local</codePool>
-        </Magestore_Departmentimages>
-    </modules>
-</config> 
