@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Product_Taggs>
+            <version>0.1.0</version>
+        </Product_Taggs>
+    </modules>
+    <global>
+        <blocks>
+            <taggs>
+                <class>Product_Taggs_Block</class>
+            </taggs>
+        </blocks>
+        <helpers>
+            <taggs>
+                <class>Product_Taggs_Helper</class>
+            </taggs>  
+        </helpers>
+    </global>
+    <admin>
+        <routers>
+            <taggs>
+                <use>admin</use>
+                <args>
+                    <module>Product_Taggs</module>
+                    <frontName>product</frontName>
+                </args>
+            </taggs>
+        </routers>
+    </admin>
+    <adminhtml>
+        <menu>
+            <catalog>
+                <children>
+                    <taggs_adminform translate="title" module="taggs">
+                        <title>Product Tagging</title>
+                        <action>product/adminhtml_taggs</action>
+                    </taggs_adminform>
+                </children>
+            </catalog>
+        </menu>
+        <acl>
+            <resources>
+                <admin>
+                    <children>
+                        <catalog>
+                            <children>
+                                <taggs_adminform>
+                                    <title>Product Tagging</title>
+                                </taggs_adminform>
+                            </children>
+                        </catalog>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
+        <layout>
+            <updates>
+                <taggs>
+                    <file>product_tagging.xml</file>
+                </taggs>
+            </updates>
+        </layout>
+    </adminhtml>
+</config>
