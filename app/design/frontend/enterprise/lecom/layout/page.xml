@@ -135,7 +135,7 @@ Default layout, loads most of the pages
                     <stylesheet>css/custom-6.2.css</stylesheet>
                 </action>
 				<action method="addCss">
-                    <stylesheet>css/reset-6.2.css</stylesheet>
+                    <stylesheet>css/reset-6.3.css</stylesheet>
                 </action>
 				
 				<action method="addCss">

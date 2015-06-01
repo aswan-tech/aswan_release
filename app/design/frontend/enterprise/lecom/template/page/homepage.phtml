@@ -40,7 +40,16 @@ dataLayer.push({'PAGE_TYPE': 'HOMEPAGE'});
   <div class="top-banner p-rel">
     <div id="slider1_container" class=" asslide-cont-area">
       <div u="slides" class="asslide-img">
-        <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('homepage-slider-v3')->toHtml() ?>
+		<?php 
+		$bannerData = Mage::helper('banners')->getBanners();
+        if($bannerData =='') { 
+			echo $this->getLayout()->createBlock('cms/block')->setBlockId('homepage-slider-v3')->toHtml(); 
+		}
+        else 
+        { 
+			echo $bannerData; 
+		}
+        ?>
       </div>
             <!-- bullet navigator container -->
             <div u="navigator" class="jssorb21" style="position: absolute; bottom: 26px; left: 6px;">

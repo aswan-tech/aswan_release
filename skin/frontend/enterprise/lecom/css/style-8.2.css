@@ -7024,3 +7024,13 @@ display:none;
 .catalog-category-view .custom_message.custom_message_product,
 .catalog-category-view .custom_message.custom_message_product table {width:100%!important;}
 .catalog-category-view .custom_message.custom_message_product h2 {margin:0px 0px 6px 0px!important;}
+.m-filter-item-list li.cattoggle h3 {font-size:12px; font-weight:bold; margin:0px; display:block; cursor:pointer;}
+.m-filter-item-list li.cattoggle {position:relative; background: none;} 
+
+.m-filter-item-list li.cattoggle:before {position: absolute; z-index: 1; content: ''; display: block; width: 11px; height: 11px; top: 6px; left: 0px; background:url("../images/minus-plus-icon.png") no-repeat 0px -23px;}
+.m-filter-item-list li.cattoggle:hover:before {background-position:0px -23px;}
+
+.m-filter-item-list li.cattoggle.select:before {background:url("../images/minus-plus-icon.png") no-repeat 0px 0px;}
+.m-filter-item-list li.cattoggle.select:hover:before {background-position:0px 0px;}
+
+.m-filter-item-list li.cattoggle ol {display:none;}

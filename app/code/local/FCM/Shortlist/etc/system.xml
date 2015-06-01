@@ -175,6 +175,127 @@
 					</scratchcardsetting>
 				</groups>
 			</scratchcard>
+			<catalogdiscountoffer translate="label" module="shortlist">
+				<label>Catalog Discount Offer</label>
+				<tab>catalog</tab>
+				<frontend_type>text</frontend_type>
+				<sort_order>930</sort_order>
+				<show_in_default>1</show_in_default>
+				<show_in_website>1</show_in_website>
+				<show_in_store>1</show_in_store>
+				<groups>
+					<catalogdiscountoffersetting translate="label">
+						<label>Catalog Discount Offer Setting</label>
+						<frontend_type>text</frontend_type>
+						<sort_order>10</sort_order>
+						<show_in_default>1</show_in_default>
+						<show_in_website>1</show_in_website>
+						<show_in_store>1</show_in_store>
+						<fields>
+							<discount_enable translate="label">
+	                            <label>Catalog Discount Offer</label>
+	                            <comment>Catalog Discount Offer Enable/Disable</comment>
+	                            <frontend_type>select</frontend_type>
+	                            <sort_order>10</sort_order>
+	                            <show_in_default>1</show_in_default>
+	                            <show_in_website>1</show_in_website>
+	                            <show_in_store>1</show_in_store>
+	                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                        	</discount_enable>
+                        	<discount_offer_categories translate="label comment">
+	                            <label>Discount Offer Categories</label>
+	                            <comment>Discount Offer Categories Comma Seperated(20%,40%,60%)</comment>
+	                           <frontend_type>text</frontend_type>
+								<sort_order>30</sort_order>
+								<show_in_default>1</show_in_default>
+								<show_in_website>1</show_in_website>
+								<show_in_store>1</show_in_store>
+                        	</discount_offer_categories>
+						</fields>
+					</catalogdiscountoffersetting>
+				</groups>
+			</catalogdiscountoffer>
+				<customcategoryfilter translate="label" module="shortlist">
+				<label>Custom Category Filter</label>
+				<tab>catalog</tab>
+				<frontend_type>text</frontend_type>
+				<sort_order>920</sort_order>
+				<show_in_default>1</show_in_default>
+				<show_in_website>1</show_in_website>
+				<show_in_store>1</show_in_store>
+				<groups>
+					<custom_category_filter_settings translate="label">
+						<label>Custom category Filter Setting</label>
+						<frontend_type>text</frontend_type>
+						<sort_order>10</sort_order>
+						<show_in_default>1</show_in_default>
+						<show_in_website>1</show_in_website>
+						<show_in_store>1</show_in_store>
+						<fields>
+							<filter_enable translate="label">
+	                            <label>Category Filter Enable</label>
+	                            <comment>Custom category Filter Enable/Disable</comment>
+	                            <frontend_type>select</frontend_type>
+	                            <sort_order>10</sort_order>
+	                            <show_in_default>1</show_in_default>
+	                            <show_in_website>1</show_in_website>
+	                            <show_in_store>1</show_in_store>
+	                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                        	</filter_enable>
+                        	<topwear translate="label comment">
+	                            <label>Topwear</label>
+	                            <comment>Visibility of topwear Categories(Multiselect)</comment>
+	                            <frontend_type>multiselect</frontend_type>
+	                            <source_model>shortlist/category_categoryfiltervalues</source_model>
+	                            <sort_order>21</sort_order>
+	                            <show_in_default>1</show_in_default>
+	                            <show_in_website>1</show_in_website>
+	                            <show_in_store>1</show_in_store>
+                        	</topwear>
+                        	<bottomwear translate="label comment">
+	                            <label>Bottomwear</label>
+	                            <comment>Visibility of bottomwear Categories(Multiselect)</comment>
+	                            <frontend_type>multiselect</frontend_type>
+	                            <source_model>shortlist/category_categoryfiltervalues</source_model>
+	                            <sort_order>22</sort_order>
+	                            <show_in_default>1</show_in_default>
+	                            <show_in_website>1</show_in_website>
+	                            <show_in_store>1</show_in_store>
+                        	</bottomwear>
+                        	<footwear translate="label comment">
+	                            <label>Footwear</label>
+	                            <comment>Visibility of footwear Categories(Multiselect)</comment>
+	                            <frontend_type>multiselect</frontend_type>
+	                            <source_model>shortlist/category_categoryfiltervalues</source_model>
+	                            <sort_order>23</sort_order>
+	                            <show_in_default>1</show_in_default>
+	                            <show_in_website>1</show_in_website>
+	                            <show_in_store>1</show_in_store>
+                        	</footwear>
+                        	<accessories translate="label comment">
+	                            <label>Accessories</label>
+	                            <comment>Visibility of accesories Categories(Multiselect)</comment>
+	                            <frontend_type>multiselect</frontend_type>
+	                            <source_model>shortlist/category_categoryfiltervalues</source_model>
+	                            <sort_order>24</sort_order>
+	                            <show_in_default>1</show_in_default>
+	                            <show_in_website>1</show_in_website>
+	                            <show_in_store>1</show_in_store>
+                        	</accessories>
+                        	<winterwear translate="label comment">
+	                            <label>Winterwear</label>
+	                            <comment>Visibility of winterwear Categories(Multiselect)</comment>
+	                            <frontend_type>multiselect</frontend_type>
+	                            <source_model>shortlist/category_categoryfiltervalues</source_model>
+	                            <sort_order>25</sort_order>
+	                            <show_in_default>1</show_in_default>
+	                            <show_in_website>1</show_in_website>
+	                            <show_in_store>1</show_in_store>
+                        	</winterwear>
+						</fields>
+					</custom_category_filter_settings>
+				</groups>
+			</customcategoryfilter>
 			<registercoupens translate="label" module="shortlist">
 				<label>New Customer Coupon</label>
 				<tab>customer</tab>

@@ -288,6 +288,22 @@ $product_style = $_product->getStyle();?>
      $all_categories = $_product->getCategoryIds();
      if (in_array("417", $all_categories))
          echo "<div class='hallmark-logo'></div>";
+
+     $catalog_discount_offer_enable = Mage::getStoreConfig('catalogdiscountoffer/catalogdiscountoffersetting/discount_enable');
+     if($catalog_discount_offer_enable=='1'){
+        $catalog_discount_offer_categories = explode(",",Mage::getStoreConfig(
+            'catalogdiscountoffer/catalogdiscountoffersetting/discount_offer_categories'));
+            if(isset($catalog_discount_offer_categories)){
+                if(in_array($catalog_discount_offer_categories[0], $all_categories))
+                echo '<div class="flagholder"><img src="'.$this->getSkinUrl('images-v3/flat-20.gif').'"></div>';
+            else if(in_array($catalog_discount_offer_categories[1], $all_categories))
+                echo '<div class="flagholder"><img src="'.$this->getSkinUrl('images-v3/flat-40.gif').'"></div>';
+            else if(in_array($catalog_discount_offer_categories[2], $all_categories))
+                echo '<div class="flagholder"><img src="'.$this->getSkinUrl('images-v3/flat-60.gif').'"></div>';
+  
+        }
+        
+     }   
     ?>
 
 <?php if ($product_style != '') : ?>
@@ -379,7 +395,7 @@ jQuery(document).ready(function() {
 <input type="hidden" id="window_height" value="0">
 <script type="text/javascript">
 jQuery(function(){
-    jQuery('.m-filter-item-list li').on('click',function(){
+    jQuery('.m-filter-item-list li ').not('.cattoggle').on('click',function(){
         jQuery('.loader').show();
 
     });
@@ -430,3 +446,6 @@ jQuery(document).ready(function() {
 });
 // opera mini changes : end
 </script>
+<style type="text/css">
+.flagholder {position: absolute; right: 0; top: 2px; z-index: 99;}
+</style>

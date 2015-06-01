@@ -36,7 +36,7 @@ Mage::helper('common')->saveSourceCampaign($order, $customerType);
 
 <div class="thk-wrapp">
     <div class="thkrco-txt">We have received your order.</div>
-    <?php /*if ($payment_method_code == "cashondelivery" && $order->isOtp()): ?>
+    <?php if ($payment_method_code == "cashondelivery" && $order->isOtp()): ?>
     <div id="varify">
         <div class="thkvrc-txt">To Verify your Cash on delivery order</div>
         <div class="thkotp-email-txt">One Time Password (OTP) has been sent to your registered Mobile Number</div>
@@ -52,7 +52,7 @@ Mage::helper('common')->saveSourceCampaign($order, $customerType);
     	<img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA);?>v3/loader-signup.gif"  border="0" />
     </div>
     <div class="thkreg-txt" id="thanks" style="display:none; color:#FF0000;"></div>
-    <?php endif;*/ ?>
+    <?php endif; ?>
     <div class="thkreg-txt">Your Order: <?php echo $this->getOrderId();?></div>
     <div class="thkcont-txt">Your contact number: +91 <?php echo $order->getShippingAddress()->getTelephone(); ?></div>
 </div>
