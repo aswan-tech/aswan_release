@@ -1,0 +1,210 @@
+<div class="" id="anchor-content">
+<div id="page:main-container">
+<div class="main-col" id="content" style="margin-left:0px !important;" >
+<div class="main-col-inner">
+<div id="messages"></div>
+<div class="content-header">
+<h3 class="icon-head head-adminhtml-zipcodeimport">Manage Banner</h3>
+<p class="form-buttons"></p>
+<p class="form-buttons"><button  onclick="redirect()" title="Save Ctegories" type="button" class="scalable save" style=""><span><span><span>Back</span></span></span></button></p>
+</div>
+<div class="entry-edit">
+<form  name="myform" id="myform" method="POST" action="<?php echo $this->getBaseUrl();?>banners/adminhtml_banners/add" enctype="multipart/form-data">
+			<input type="hidden" name="form_key" value="<?php echo Mage::getSingleton('core/session')->getFormKey(); ?>" />
+			<div class="entry-edit">
+				<div class="entry-edit-head">
+					<h4 class="icon-head head-edit-form fieldset-legend">Banner information</h4>
+					<div class="form-buttons"></div>
+				</div>
+				<div class="fieldset">
+					<div class="hor-scroll">
+						<table cellspacing="0" class="form-list">
+							<tbody>
+								<tr>
+									<td class="label"><label>Title<span class="required">*</span></label></td>
+									<td class="value">
+										<input id="banner_title" name="banner_title" value=""  type="text" class=" input-text required-entry">           
+									</td>
+								</tr>
+								<tr>
+									<td class="label"><label>Upload Banner<span class="required">*</span></label></td>
+									<td class="value">
+										<input id="banner_upload" name="banner_upload" value=""  type="file" class=" input-text required-entry">           
+									</td>
+								</tr>
+								<tr>
+									<td class="label"><label>Url<span class="required">*</span></label></td>
+									<td class="value">
+										<input id="banner_url" name="banner_url" value=""  type="text" class=" input-text required-entry">           
+									</td>
+								</tr>
+								
+								<tr>
+								<td class="label">
+								<label for="news_from_date">Start Date</label>
+								</td>
+								<td class="value">
+								<input id="news_from_date" class=" input-text" type="text" style="width:110px !important;" value="" name="news_from_date" readonly >
+								<img id="news_from_date_trig" class="v-middle" style="" title="Select Date" alt="" src="<?php echo $this->getSkinUrl() ?>images/grid-cal.gif">
+								<script type="text/javascript">
+									//<![CDATA[
+									Calendar.setup({
+									inputField: "news_from_date",
+									ifFormat: "%Y-%m-%e %H:%M:%S",
+									showsTime: true,
+									button: "news_from_date_trig",
+									align: "Bl",
+									singleClick : true
+									});
+									//]]>
+								</script>
+								</td>
+							
+								<td class="scope-label">
+								<span class="nobr"></span>
+								</td>
+								</tr>
+
+								<tr>
+								<td class="label">
+								<label for="news_to_date">Expiry Date</label>
+								</td>
+								<td class="value">
+								<input id="news_to_date" class=" input-text" type="text" style="width:110px !important;" value="" name="news_to_date">
+								<img id="news_to_date_trig" class="v-middle" style="" title="Select Date" alt="" src="<?php echo $this->getSkinUrl() ?>images/grid-cal.gif">
+								<script type="text/javascript">
+										//<![CDATA[
+										Calendar.setup({
+										inputField: "news_to_date",
+										ifFormat: "%Y-%m-%e %H:%M:%S",
+										showsTime: true,
+										button: "news_to_date_trig",
+										align: "Bl",
+										singleClick : true
+										});
+										//]]>
+								</script>
+								</td>
+								<td class="scope-label">
+								<span class="nobr"></span>
+								</td>
+								</tr>
+
+								<tr>
+									<td class="label"><label>Banner Type<span class="required">*</span></label></td>
+									<td class="value">
+										<select id="banner_type" name="banner_type" class="required-entry required-entry select">
+											<option value="1">Home Page Slider</option>
+										</select>             
+									</td>
+								</tr>
+								
+								<tr>
+									<td class="label"><label>Status<span class="required">*</span></label></td>
+									<td class="value">
+										<select id="banner_status" name="banner_status" class="required-entry required-entry select">										
+											<option value="1">Enabled</option>
+											<option value="0">Disabled</option>
+										</select>             
+									</td>
+								</tr>
+
+								<tr>
+									<td class="label"><label><span class="required"></span></label></td>
+									<td class="value">
+										 <button title="Save banner" onclick="submitform(); return false;" type="button" class="scalable save" style=""><span><span><span>Save Banner</span></span></span></button>
+									</td>
+								</tr>	
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+	</form>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<script type="text/javascript">
+	
+	function redirect()
+	{
+		window.location.href="<?php echo $this->getBaseUrl();?>banners/adminhtml_banners/";
+	}
+	
+	function submitform()
+	{
+		jQuery('#messages').html('');
+		var validate = formValidate();	
+		if(validate)
+		document.forms["myform"].submit();
+	}
+	
+	function js_yyyy_mm_dd_hh_mm_ss () {
+		
+	  now = new Date();
+	  year = "" + now.getFullYear();
+	  month = "" + (now.getMonth() + 1); if (month.length == 1) { month = "0" + month; }
+	  day = "" + now.getDate(); if (day.length == 1) { day = "0" + day; }
+	  hour = "" + now.getHours(); if (hour.length == 1) { hour = "0" + hour; }
+	  minute = "" + now.getMinutes(); if (minute.length == 1) { minute = "0" + minute; }
+	  second = "" + now.getSeconds(); if (second.length == 1) { second = "0" + second; }
+		return year + "-" + month + "-" + day + " " + hour + ":" + minute + ":" + second;
+	}
+	
+	function formValidate(){
+		
+		var message = '<ul class="messages"><li class="error-msg"><ul><li><span>Oops! This field is required.</span></li></ul></li></ul>';
+		var banner_title 		= jQuery('#banner_title').val();
+		var banner_upload 		= jQuery('#banner_upload').val();
+		var banner_url 			= jQuery('#banner_url').val();
+		var news_from_date 		= jQuery('#news_from_date').val();
+		var news_to_date 		= jQuery('#news_to_date').val();
+		
+	
+		if(banner_title.length  === 0){
+			
+			jQuery('#messages').html(message);
+			return false;
+		}
+		else if(banner_upload.length  === 0){
+			
+			jQuery('#messages').html(message);
+			return false;
+		}
+		else if(banner_url.length  === 0){
+			
+			jQuery('#messages').html(message);
+			return false;
+		}
+		
+		else if(news_from_date.length  === 0){
+			
+			jQuery('#messages').html(message);
+			return false;
+
+		}
+		else if(news_to_date.length  === 0){
+			
+			jQuery('#messages').html(message);
+			return false;
+
+		}
+		
+		return true;
+	}
+	
+
+</script>
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<layout>
+    <taggs_adminhtml_taggs_index>
+		<reference name="head">
+         <action method="addJs">
+            <script>jquery/jquery.js</script>
+        </action>
+       </reference> 
+       
+        <update handle="taggs_taggs_index"/>
+        <reference name="content">
+            <block type="adminhtml/template" name="taggs" template="producttagging/index.phtml"/>
+        </reference>
+    </taggs_adminhtml_taggs_index>
+</layout>

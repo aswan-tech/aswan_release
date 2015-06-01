@@ -1,0 +1,137 @@
+<div class="" id="anchor-content">
+<div id="page:main-container">
+<div class="main-col" id="content" style="margin-left:0px !important;" >
+<div class="main-col-inner">
+<div id="messages"></div>
+<div class="content-header">
+<h3 class="icon-head head-adminhtml-zipcodeimport">Product Tagging</h3>
+</div>
+<div class="entry-edit">
+<form method="POST" id="category_sequencing_form" action="" enctype="multipart/form-data">
+<input type="hidden" name="form_key" value="<?php echo Mage::getSingleton('core/session')->getFormKey(); ?>" />
+		<div class="entry-edit">
+			<div class="entry-edit-head">
+				<h4 class="icon-head head-edit-form fieldset-legend">Product Tagging</h4>
+				<div class="form-buttons"></div>
+			</div>
+			<div class="fieldset ">
+				<div class="hor-scroll">
+					<table cellspacing="0" class="form-list" style="100%;">
+						<tbody>
+							<tr>
+								<td class="label" width="200"><label>Select Category <span class="required">*</span></label></td>
+								<td class="value">
+									<select id="root-category" name="root_category" class="select">
+										<option value="" >Please select...</option>
+										<?php echo Mage::helper('taggs')->getMainCategories(); ?>
+									</select> 
+								          
+									</td>
+							</tr>
+							<tr>
+								<td class="label"><label >Select Sub Category <span class="required">*</span></label></td>
+								<td class="value">
+									<select id="sub-category" name="sub_category" class="select">
+										<option value="">Please select...</option>
+									</select>   
+							         
+								</td>
+								
+								
+							</tr>
+							<tr>
+								<td class="label"><label >Browse CSV File <span class="required">*</span></label></td>
+								<td class="value"><input id="csv_file" name="csv_file" value=""  type="file" class="input-text required-entry">           
+						
+								</td>
+								
+							</tr>
+							<tr>
+								<td class="label"></td>
+								<td class="value">
+								<button onclick="productTagg()" type="button" class="scalable save" style=""><span><span><span>Save</span></span></span></button>	
+								<button onclick="submitExport()" type="button" class="scalable save" style=""><span><span><span>Export</span></span></span></button></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+</form>
+</div>
+</div>
+</div>
+</div>
+</div>
+ <div id="loading-mask" style="display:none">
+    <p class="loader" id="loading_mask_loader">Please wait...</p></div>
+    
+<script type="text/javascript">
+
+ jQuery(document).ready(function(e) {
+ 		jQuery("#root-category").change(function() {
+		    var root_cat = jQuery(this).attr('value');
+		    if(root_cat!=''){
+		    	jQuery('#loading-mask').css('display','block');
+		    	jQuery.ajax({ 
+	            	url: "<?php echo $this->getBaseUrl();?>product/adminhtml_taggs/getSubcategory",
+	            	data:{'category':root_cat},
+	            	dataType: 'json',
+	                success: function(result){
+	                	var html = '';
+	                	jQuery.each(result, function( index, data ) {
+  							html += '<option value="'+data.id+'">'+data.name+'</option>';
+  							
+						});
+						jQuery('#sub-category').html(html);
+						jQuery('#category_for_tagging').html(html);
+						
+	                	jQuery('#loading-mask').css('display','none');
+	                	jQuery('#sequencing-row-table tbody').html('');
+	                } 
+                });
+		    }
+		});
+        
+	});
+	
+	function productTagg() {
+		
+		var data = formValidate();
+		if(data){
+			jQuery('#category_sequencing_form').attr("action", "<?php echo $this->getBaseUrl();?>product/adminhtml_taggs/index");
+			jQuery('#category_sequencing_form').submit();
+			//document.getElementById("category_sequencing_form").submit();
+		}
+	}
+    
+	function formValidate(){
+		
+		jQuery('.remove').remove();
+		var message 	= '<span style="color:red;" class="remove">This field is required.</span>'
+		var cat 		= jQuery('#root-category').val();
+		var subcat 		= jQuery('#sub-category').val();
+		var csv_file 	= jQuery('#csv_file').val();
+		
+		if(cat.length === 0){
+			jQuery('#root-category').parent().append(message);
+		}
+		else if(subcat.length === 0 || subcat == null){
+			jQuery('#sub-category').parent().append(message);
+		}
+		else if(csv_file.length === 0){
+			jQuery('#csv_file').parent().append(message);
+		}
+		else{
+			return true;
+		}
+    } 
+ 
+    function submitExport(){
+		jQuery('#category_sequencing_form').attr("action", "<?php echo $this->getBaseUrl();?>product/adminhtml_taggs/export");
+    	jQuery('#category_sequencing_form').submit();
+    }
+</script>
+<style type="text/css">
+.errorMgs{	border: 1px solid red;}
+</style>

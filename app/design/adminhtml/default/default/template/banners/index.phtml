@@ -1,0 +1,59 @@
+<?php 
+$url = Mage::getBaseUrl();
+$imgPath = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB)."media/banner/";
+$bannerListArr = Mage::getModel('banners/managebanners')->listingBanner();
+?>
+<div class="" id="anchor-content">
+<div id="page:main-container">
+<div class="main-col" id="content" style="margin-left:0px !important;" >
+<div class="main-col-inner">
+<div id="messages"></div>
+<div class="content-header">
+<h3 class="icon-head head-adminhtml-zipcodeimport">Manage Banner</h3>
+<p class="form-buttons"><button  onclick="redirect()" title="Add New Banner" type="button" class="scalable save" style=""><span>Add New Banner</span></button></p>
+</div>
+<div class="grid">
+<div class="hor-scroll">
+	<table cellspacing="0" id="sequencing-row-table" class="form-list">
+		<thead>
+			<tr id="0" class="headings">
+				<th>Title</th>
+				<th>Banner</th>
+				<th>Product URL</th>
+				<th>Start / Expiry Date</th>
+				<th>Status</th>
+				<th>Action</th>
+			</tr>	
+		</thead>
+		<tbody>
+			<?php foreach($bannerListArr as $data){
+				?>
+				<tr>
+					<td class="a-left"><?php echo $data['banner_title'];?></td>
+					<td class=""><img src="<?php echo $imgPath;?><?php echo $data['banner_path'];?>" height="50px" width="100px"></td>
+					<td class=""><?php echo $data['banner_url'];?></td>
+					<td class=""><strong>Start Date:</strong> <?php echo $data['start_date'];?><br><strong>Exp. Date:</strong> <?php echo $data['end_date'];?></td>
+					<td class=""><?php if($data['banner_status'] == 1)	{ echo "Enabled";} else if($data['banner_status'] == 0){ echo "Disabled"; };?>
+					</td>
+					<td class="a-left"><a href="<?php echo $url;?>banners/adminhtml_banners/edit/bid/<?php echo $data['banner_id'];?>">Edit</a> | 
+					<a href="<?php echo $url;?>banners/adminhtml_banners/delete/bid/<?php echo $data['banner_id'];?>" onclick="return confirm('Are you sure?');">Delete</a></td>
+				</tr>
+				<?php 
+				}
+			?>
+		<tbody>
+		</tbody>
+</table>
+</div>
+</div>						
+</div>
+</div>
+</div>
+</div>
+</div>
+<script type="text/javascript">
+function redirect()
+{
+    window.location.href="<?php echo $this->getBaseUrl();?>banners/adminhtml_banners/add/";
+}
+</script>

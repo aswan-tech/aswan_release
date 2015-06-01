@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<layout>
+    <banners_adminhtml_banners_index>
+
+        <update handle="banners_banners_index"/>
+        <reference name="content">
+            <block type="adminhtml/template" name="banners" template="banners/index.phtml"/>
+        </reference>
+       
+    </banners_adminhtml_banners_index>
+    
+    <banners_adminhtml_banners_add>
+		<reference name="head">
+
+         <action method="addJs">
+            <script>jquery/jquery.js</script>
+        </action>
+       </reference>  
+        <update handle="banners_banners_add"/>
+        <reference name="content">
+            <block type="adminhtml/template" name="banners" template="banners/add.phtml"/>
+        </reference>
+       
+    </banners_adminhtml_banners_add>
+    
+        <banners_adminhtml_banners_edit>
+
+        <update handle="banners_banners_edit"/>
+        <reference name="content">
+            <block type="adminhtml/template" name="banners" template="banners/edit.phtml"/>
+        </reference>
+       
+    </banners_adminhtml_banners_edit>
+    
+    <banners_adminhtml_banners_delete>
+
+        <update handle="banners_banners_delete"/>
+        <reference name="content">
+            <block type="adminhtml/template" name="banners" template="banners/delete.phtml"/>
+        </reference>
+       
+    </banners_adminhtml_banners_delete>
+    
+     
+</layout>

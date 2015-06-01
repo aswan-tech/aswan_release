@@ -1,0 +1,156 @@
+<?php 
+$imgPath = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB)."media/banner/";
+$bid = $this->getRequest()->get('bid');
+$dataArr = Mage::getModel('banners/managebanners')->getBannersById($bid);
+?>
+<div class="" id="anchor-content">
+<div id="page:main-container">
+<div class="main-col" id="content" style="margin-left:0px !important;" >
+<div class="main-col-inner">
+<div id="messages"></div>
+<div class="content-header">
+<h3 class="icon-head head-adminhtml-zipcodeimport">Manage Banner</h3>
+<p class="form-buttons"></p>
+<p class="form-buttons"><button  onclick="redirect()" title="Save Ctegories" type="button" class="scalable save" style=""><span><span><span>Back</span></span></span></button></p>
+</div>
+<div class="entry-edit">
+<form  name="myform" method="POST" id="category_sequencing_form" action="" enctype="multipart/form-data">
+			<input type="hidden" name="form_key" value="<?php echo Mage::getSingleton('core/session')->getFormKey(); ?>" />
+			<div class="entry-edit">
+				<div class="entry-edit-head">
+					<h4 class="icon-head head-edit-form fieldset-legend">Banner information</h4>
+					<div class="form-buttons"></div>
+				</div>
+				<div class="fieldset">
+					<div class="hor-scroll">
+						<table cellspacing="0" class="form-list">
+							<tbody>
+								<tr>
+									<td class="label"><label>Title<span class="required">*</span></label></td>
+									<td class="value">
+										<input id="banner_title" name="banner_title" value="<?php echo $dataArr['0']['banner_title'];?>"  type="text" class=" input-text required-entry">           
+									</td>
+								</tr>
+								<tr>
+									<td class="label"><label>Upload Banner<span class="required">*</span></label></td>
+									<td class="value">
+										<input id="banner_upload" name="banner_upload" type="file" class=" input-text required-entry">           
+									</td>
+									<td class=""><img src="<?php echo $imgPath;?><?php echo $dataArr['0']['banner_path'];?>" height="50px" width="100px"></td>
+								</tr>
+								<tr>
+									<td class="label"><label>Url<span class="required">*</span></label></td>
+									<td class="value">
+										<input id="banner_url" name="banner_url" value="<?php echo $dataArr['0']['banner_url'];?>"  type="text" class=" input-text required-entry">           
+									</td>
+								</tr>
+								
+								<tr>
+								<td class="label">
+								<label for="news_from_date">Start Date</label>
+								</td>
+								<td class="value">
+								<input id="news_from_date" class=" input-text" type="text" style="width:110px !important;" value="<?php echo $dataArr['0']['start_date'];?>" name="news_from_date">
+								<img id="news_from_date_trig" class="v-middle" style="" title="Select Date" alt="" src="<?php echo $this->getSkinUrl() ?>images/grid-cal.gif">
+								<script type="text/javascript">
+									//<![CDATA[
+									Calendar.setup({
+									inputField: "news_from_date",
+									ifFormat: "%Y/%m/%e %H:%M:%S",
+									showsTime: true,
+									button: "news_from_date_trig",
+									align: "Bl",
+									singleClick : true
+									});
+									//]]>
+								</script>
+								</td>
+							
+								<td class="scope-label">
+								<span class="nobr"></span>
+								</td>
+								</tr>
+
+								<tr>
+								<td class="label">
+								<label for="news_to_date">Expiry Date</label>
+								</td>
+								<td class="value">
+								<input id="news_to_date" class=" input-text" type="text" style="width:110px !important;" value="<?php echo $dataArr['0']['end_date'];?>" name="news_to_date">
+								<img id="news_to_date_trig" class="v-middle" style="" title="Select Date" alt="" src="<?php echo $this->getSkinUrl() ?>images/grid-cal.gif">
+								<script type="text/javascript">
+										//<![CDATA[
+										Calendar.setup({
+										inputField: "news_to_date",
+										ifFormat: "%Y/%m/%e %H:%M:%S",
+										showsTime: true,
+										button: "news_to_date_trig",
+										align: "Bl",
+										singleClick : true
+										});
+										//]]>
+								</script>
+								</td>
+								<td class="scope-label">
+								<span class="nobr"></span>
+								</td>
+								</tr>
+								
+								<tr>
+									<td class="label"><label>Banner Type<span class="required">*</span></label></td>
+									<td class="value">
+										<select id="banner_type" name="banner_type" class="required-entry required-entry select">
+											
+											<option value="1" <?php echo(isset($dataArr['0']['banner_type'])&&($dataArr['0']['banner_type']=='1') ? 'selected="selected"':'');?>>Home Page Slider</option>
+											
+										</select>             
+									</td>
+								</tr>
+								
+								<tr>
+									<td class="label"><label>Status<span class="required">*</span></label></td>
+									<td class="value">
+										<select id="banner_status" name="banner_status" class="required-entry required-entry select">
+																	
+											<option value="1" <?php echo(isset($dataArr['0']['banner_status'])&&($dataArr['0']['banner_status']=='1') ? 'selected="selected"':'');?>>Enabled</option>
+											<option value="0" <?php echo(isset($dataArr['0']['banner_status'])&&($dataArr['0']['banner_status']=='0') ? 'selected="selected"':'');?>>Disabled</option>
+										</select>             
+									</td>
+								</tr
+
+								<tr>
+									<td class="label"><label><span class="required"></span></label></td>
+									<td class="value">
+										<button onclick="return validateFields()" title="Save Categories" type="button" class="scalable save" style=""><span><span><span>Save Banner</span></span></span></button>
+									</td>
+								</tr>	
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+	</form>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script type="text/javascript">
+	
+function redirect()
+{
+    window.location.href="<?php echo $this->getBaseUrl();?>banners/adminhtml_banners/";
+}
+
+function validateFields(){
+	var banner_title = document.getElementById('banner_title').value;
+	if(banner_title.length === 0){
+		alert ('Please enter your name');
+		return false;		
+	}	
+	else {
+		document.myform.submit();
+	}
+}
+</script>
+
