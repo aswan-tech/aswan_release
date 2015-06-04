@@ -103,7 +103,9 @@ dataLayer.push(
     {'CUSTOMER_TYPE': '<?php echo $customerType; ?>'},
     {'NETWORK_PLAY': '<?php echo $networkPlay; ?>'},
     {'PAGE_TYPE': 'ORDER_SUCCESS'},
-    {'PRODUCT_LIST_CART': '<?php echo implode( ',', $cp_sku );?>'}
+    {'PRODUCT_LIST_CART': '<?php echo implode( ',', $cp_sku );?>'},
+    {'PRODUCT_ID1': '<?php echo $cp_sku[0];?>'},
+	{'PRODUCT_ID2': '<?php echo isset($cp_sku[1]) ? $cp_sku[1] : '';?>'}
 );
 </script>
 <script type="text/javascript" class="microad_blade_track">
