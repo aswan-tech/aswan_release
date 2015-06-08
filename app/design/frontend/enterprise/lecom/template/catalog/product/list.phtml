@@ -11,7 +11,7 @@ function getAddToCartUrl($product, $additional = array()) {
 $session = Mage::getSingleton('customer/session', array("name" => "frontend"));
 $shortlistedProducts = array();
 $shortlistedProducts = @unserialize($session->getData("shortlistedProducts"));
-$catalogRedirectUrl = str_replace(array("?p=".$_GET['p'], "&p=".$_GET['p']), "", $this->getBaseUrl().ltrim($_SERVER['REQUEST_URI'], '/'));
+$catalogRedirectUrl = str_replace(array("?p=".( isset($_GET['p']) ? $_GET['p'] : '' ), "&p=".( isset($_GET['p']) ? $_GET['p'] : '' )), "", $this->getBaseUrl().ltrim($_SERVER['REQUEST_URI'], '/'));
 Mage::getSingleton('core/session')->setContinueShoppingURL($catalogRedirectUrl);
 ?>
 <script type="text/javascript">
@@ -341,17 +341,7 @@ $product_style = $_product->getStyle();?>
 <?php  $reqProductId = serialize($reqProductId); ?>
 <script type="text/javascript" id="cat">
 var asbase = '<?php echo $this->getUrl()?>';
-/*var obj;var allProduct_id = '<?php echo $reqProductId ?>';
-jQuery(document).ready(function() {jQuery.post(asbase+"nosql/index/size/", { product_id: allProduct_id }, function(data){var json = data; obj = JSON.parse(json);
-jQuery('div#cat_products li').each(function() { var pid=jQuery(this).attr('rel'); 
-var showsize = obj.sizes[pid]; 
-if(showsize == undefined) showsize = "Out of Stock";
-if(jQuery('#size'+pid).html()=="") { 
-jQuery('#size'+pid).html(""+ showsize);
-var tabHtml = jQuery('#size'+pid).html();
-jQuery('#size'+pid).html(tabHtml.replace(/,/g , ''));
- } });});});*/
- 
+
 jQuery(document).on('hover', 'li.proditem', function(e) {jQuery(this).find('div.size').show(); });
 jQuery(document).on('mouseleave', 'li.proditem', function(e) {jQuery(this).find('div.size').hide();});
 jQuery.noConflict();
@@ -374,13 +364,7 @@ jQuery(".catalogue .rightPanel img.lazy").lazyload({
 	effect:"fadeIn"
 });
 
-jQuery(document).ready(function() {
-        /*jQuery('.product-image').mouseenter(function(){
-                jQuery(this).find('.prd-img-sec').fadeIn(100);
-        }),
-        jQuery('.product-image').mouseleave(function(){
-                jQuery(this).find('.prd-img-sec').fadeOut(100);
-        });*/
+jQuery(document).ready(function() {       
         jQuery('.product-image').live('mouseenter',function(){
                 jQuery(this).find('.prd-img-sec').fadeIn(100);
                 //new line added for quick view fix

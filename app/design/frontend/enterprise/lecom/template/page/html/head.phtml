@@ -59,11 +59,11 @@ else
 
 <script type="text/javascript">
 dataLayer.push(
-    {'UTM_SOURCE': '<?php echo strtolower($gaCookies['campaign']['source'])?>'}, 
-    {'UTM_NAME': '<?php echo strtolower($gaCookies['campaign']['name'])?>'}, 
-    {'UTM_MEDIUM': '<?php echo strtolower($gaCookies['campaign']['medium'])?>'}, 
-    {'UTM_TERM': '<?php echo strtolower($gaCookies['campaign']['term'])?>'}, 
-    {'UTM_CONTENT': '<?php echo strtolower($gaCookies['campaign']['content'])?>'},
+    {'UTM_SOURCE': '<?php echo isset($gaCookies['campaign']['source']) ? strtolower($gaCookies['campaign']['source']) : ''; ?>'}, 
+    {'UTM_NAME': '<?php echo isset($gaCookies['campaign']['name']) ? strtolower($gaCookies['campaign']['name']) : ''; ?>'}, 
+    {'UTM_MEDIUM': '<?php echo isset($gaCookies['campaign']['medium']) ? strtolower($gaCookies['campaign']['medium']) : ''; ?>'}, 
+    {'UTM_TERM': '<?php echo isset($gaCookies['campaign']['term']) ? strtolower($gaCookies['campaign']['term']) : ''; ?>'}, 
+    {'UTM_CONTENT': '<?php echo isset($gaCookies['campaign']['content']) ? strtolower($gaCookies['campaign']['content']) : ''; ?>'},
     {'PAGE_URL': '<?php echo $_curUrl?>'},
     {'CUSTOMER_ID': '<?php echo $cId ?>'}
 

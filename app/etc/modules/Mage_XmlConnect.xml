@@ -32,7 +32,7 @@
             <codePool>core</codePool>
             <depends>
                 <Mage_Checkout />
-                <Mage_Paypal />
+                <!--<Mage_Paypal />-->
                 <!--<Mage_Usa />-->
                 <Mage_Tax />
                 <Mage_Weee />

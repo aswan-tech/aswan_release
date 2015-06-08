@@ -34,16 +34,16 @@
         <div class="sort-oprion">
          <ul>
          <label>Sort:</label><li onclick="setLocation('<?php echo $this->getOrderUrl('position', 
-         $sort_order_value_for_position) ?>');" id="sort-popularity" class="gtm-track <?php if($_REQUEST['order']=='position') { echo "active";} ?>">Popularity</li>
+         $sort_order_value_for_position) ?>');" id="sort-popularity" class="gtm-track <?php if(isset($_REQUEST['order']) && $_REQUEST['order']=='position') { echo "active";} ?>">Popularity</li>
          <li>|</li>
-         <li onclick="setLocation('<?php echo $this->getOrderUrl('launch_date', 'desc') ?>');" id="sort-newarrival" class="gtm-track <?php if($_REQUEST['order']=='launch_date') { echo "active";} ?>">New Arrival</li>
+         <li onclick="setLocation('<?php echo $this->getOrderUrl('launch_date', 'desc') ?>');" id="sort-newarrival" class="gtm-track <?php if(isset($_REQUEST['order']) && $_REQUEST['order']=='launch_date') { echo "active";} ?>">New Arrival</li>
          <li>|</li>
          <li onclick="setLocation('<?php 
-                echo $this->getOrderUrl('discount', $sort_order_value_for_discount) ?>');" id="sort-discount" class="gtm-track <?php if($_REQUEST['order']=='discount') { echo "active";} ?>">Discount</li>
+                echo $this->getOrderUrl('discount', $sort_order_value_for_discount) ?>');" id="sort-discount" class="gtm-track <?php if(isset($_REQUEST['order']) && $_REQUEST['order']=='discount') { echo "active";} ?>">Discount</li>
          <li>|</li>
          <label>Price:</label>
-         <li onclick="setLocation('<?php echo $this->getOrderUrl('price', 'asc') ?>');" id="sort-price-low" class="gtm-track <?php if(($_REQUEST['order']=='price') && ($_REQUEST['dir']=='asc')) {echo "active";} ?>">Low</li>
-         <li onclick="setLocation('<?php echo $this->getOrderUrl('price', 'desc') ?>');" id="sort-price-high" class="gtm-track <?php if(($_REQUEST['order']=='price') && ($_REQUEST['dir']=='desc')) {echo "active";} ?>">High</li>
+         <li onclick="setLocation('<?php echo $this->getOrderUrl('price', 'asc') ?>');" id="sort-price-low" class="gtm-track <?php if((isset($_REQUEST['order']) && $_REQUEST['order']=='price') && (isset($_REQUEST['dir']) && $_REQUEST['dir']=='asc')) {echo "active";} ?>">Low</li>
+         <li onclick="setLocation('<?php echo $this->getOrderUrl('price', 'desc') ?>');" id="sort-price-high" class="gtm-track <?php if((isset($_REQUEST['order']) && $_REQUEST['order']=='price') && (isset($_REQUEST['dir']) && $_REQUEST['dir']=='desc')) {echo "active";} ?>">High</li>
          </ul>        
          </div>
     <?php endif; ?>
