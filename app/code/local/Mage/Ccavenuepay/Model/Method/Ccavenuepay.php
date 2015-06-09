@@ -1,14 +1,5 @@
 <?php
 /**
-*************************************************************************************
- Please Do not edit or add any code in this file without permission of bluezeal.in.
-@Developed by bluezeal.in
-
-Magento version 1.7.0.2                 CCAvenue Version 1.31
-                              
-Module Version. bz-1.0                 Module release: September 2012
-**************************************************************************************
-*//**
  * Magento
  *
  * NOTICE OF LICENSE
@@ -41,9 +32,13 @@ class Mage_Ccavenuepay_Model_Method_Ccavenuepay extends Mage_Payment_Model_Metho
     protected $_infoBlockType = 'ccavenuepay/info_ccavenuepay';
     protected $_canSaveCcavenuepay     = false;
 	protected $_code  = 'ccavenuepay';
-	protected $_canUseInternal          = false;
 
-   
+    /**
+     * Assign data to info model instance
+     *
+     * @param   mixed $data
+     * @return  Mage_ccavenuepay_Model_Info
+     */
     public function assignData($data)
     {
 		if (!($data instanceof Varien_Object)) {
@@ -53,33 +48,40 @@ class Mage_Ccavenuepay_Model_Method_Ccavenuepay extends Mage_Payment_Model_Metho
         $info->setCcavenuepayType($this->getCcavenuepayAccountId1())	
 			->setMerchant_Id($data->getMerchant_Id())
 			->setOrder_Id($data->getOrder_Id())
-			->setAmount($data->getAmount())
-			->setCurrency_code($data->getCurrency_code())
-			->setShipping($data->getShipping())
-			->setChecksum($data->getChecksum())
-			->setTax($data->getTax())
-			->setBilling_cust_name($data->getBilling_cust_name())			
-			->setBilling_cust_address($data->getBilling_cust_address())
-			->setBilling_cust_city($data->getBilling_cust_city())
-			->setBilling_cust_state($data->getBilling_cust_state())
-			->setBilling_zip_code($data->getBilling_zip_code())
-			->setBilling_cust_country($data->getBilling_cust_country())
-			->setBilling_cust_tel($data->getBilling_cust_tel())
-			->setbilling_cust_email($data->getbilling_cust_email())
-			->setDelivery_cust_name($data->getDelivery_cust_name())
-			->setDelivery_cust_address($data->getDelivery_cust_address())
-			->setDelivery_cust_city($data->getDelivery_cust_city())
-			->setDelivery_cust_state($data->getDelivery_cust_state())
-			->setDelivery_zip_code($data->getDelivery_zip_code())
-			->setDelivery_cust_country($data->getDelivery_cust_country())
-			->setDelivery_cust_tel($data->getDelivery_cust_tel())
-			->setBilling_cust_notes($data->getBilling_cust_notes())
+			->setAmount($data->getAmount())			 
+			->setCurrency($data->getCurrency())
+			->setLanguage($data->getLanguage())
+			->setCancel_Url($data->getCancel_Url())
+			->setMerchant_Param($data->getMerchantParam())
+			->setBilling_name($data->getBilling_name())			
+			->setBilling_address($data->getBilling_address())
+			->setBilling_city($data->getBilling_city())
+			->setBilling_state($data->getBilling_state())
+			->setBilling_zip($data->getBilling_zip())
+			->setBilling_country($data->getBilling_country())
+			->setBilling_tel($data->getBilling_tel())
+			->setbilling_email($data->getbilling_email())
+			->setDelivery_name($data->getDelivery_name())
+			->setDelivery_address($data->getDelivery_address())
+			->setDelivery_city($data->getDelivery_city())
+			->setDelivery_state($data->getDelivery_state())
+			->setDelivery_zip($data->getDelivery_zip())
+			->setDelivery_country($data->getDelivery_country())
+			->setDelivery_tel($data->getDelivery_tel())
+			->setBilling_notes($data->getBilling_notes())
+			->setDelivery_notes($data->getDelivery_notes())
+			->setPayType($data->getPayType())
+			 
 			->setRedirect_Url($data->getRedirect_Url());
 		
         return $this;
     }
 
-    
+    /**
+     * Prepare info instance for save
+     *
+     * @return Mage_ccavenuepay_Model_Abstract
+     */
     public function prepareSave()
     {
         $info = $this->getInfoInstance();
@@ -92,113 +94,134 @@ class Mage_Ccavenuepay_Model_Method_Ccavenuepay extends Mage_Payment_Model_Metho
     }
 	public function getProtocolVersion()
     {
-        return '1.0';
+        return '1.0';//$this->getConfigData('protocolversion');
     }
 	
-	
+	/**
+     * Get paypal session namespace
+     *
+     * @return Mage_Paypal_Model_Session
+     */
     public function getSession()
     {
         return Mage::getSingleton('ccavenuepay/session');
     }
-
-    
+    /**
+     * Get checkout session namespace
+     *
+     * @return Mage_Checkout_Model_Session
+     */
     public function getCheckout()
     {
         return Mage::getSingleton('checkout/session');
     }
-	
+	/**
+     * Get current quote
+     *
+     * @return Mage_Sales_Model_Quote
+     */
     public function getQuote()
     {
-        
-	    return $this->getCheckout()->getQuote();
+        return $this->getCheckout()->getQuote();
     }
-	
 	public function getStandardCheckoutFormFields($option = '')
     {
-       
-	    if ($this->getQuote()->getIsVirtual()) {
+       if ($this->getQuote()->getIsVirtual()) 
+	   {
             $a = $this->getQuote()->getBillingAddress();
             $b = $this->getQuote()->getShippingAddress();
-        } else {
+        } 
+		else 
+		{
             $a = $this->getQuote()->getShippingAddress();
             $b = $this->getQuote()->getBillingAddress();
         }
-		$data=$this->getQuoteData($option);
+		$data	= $this->getQuoteData($option);
 		
-        $sArr = array(	'Merchant_Id' => $data['Merchant_Id'],
-			'Order_Id' => $data['Order_Id'],
-			'Amount' => $data['Amount'],
-			'currency_code' => 	$data['currency_code'],
-			'shipping'=>$data['shipping'],
-			'tax'=>$data['tax'],
-			'Checksum'=>$data['Checksum'],
-			'billing_cust_name' 			=> $data['billing_cust_name'],
-			'billing_cust_address'  		=> $data['billing_cust_address'],
-			'billing_cust_city' 			=> $data['billing_cust_city'],
-			'billing_cust_state'    		=> $data['billing_cust_state'],
-			'billing_zip_code'      		=> $data['billing_zip_code'],
-			'billing_cust_country'  		=> $data['billing_cust_country'],
-			'billing_cust_tel'      		=> $data['billing_cust_tel'],
-			'billing_cust_email'    		=> $data['billing_cust_email'],
-			'delivery_cust_name'    		=> $data['delivery_cust_name'],
-			'delivery_cust_address'     	=> $data['delivery_cust_address'],
-			'delivery_cust_city' 			=> $data['delivery_cust_city'],
-			'delivery_cust_state'   		=> $data['delivery_cust_state'],
-			'delivery_zip_code'     		=> $data['delivery_zip_code'],
-			'delivery_cust_country'     	=> $data['delivery_cust_country'],
-			'delivery_cust_tel'       		=> $data['delivery_cust_tel'],
-			'billing_cust_notes'    		=> $data['billing_cust_notes'],
-			'Redirect_Url'              	=> $data['Redirect_Url'],
-			);
-		/*
-		 * Mobikwik
-		 */ 
-		if(isset($data['payType']) && !empty($data['payType']) && $data['payType'] == 'MOBKP') {
-			$sArr['payType'] = $data['payType'];
-		}
-		
-		$sReq = '';
-        $rArr = array();
-        foreach ($sArr as $k=>$v) {
-           
-            $value =  str_replace("&","and",$v);
-            $rArr[$k] =  $value;
-            $sReq .= '&'.$k.'='.$value;
-        }
-        return $rArr;
-    }
+ 	 	
+		$merchant_data	= 	'merchant_id='. $data['Merchant_Id'].
+							'&order_id='.$data['Order_Id'].
+							'&amount='.$data['Amount'].
+							'&currency='.$data['currency'].
+							'&redirect_url='.$data['Redirect_Url'].
+							'&cancel_url='.$data['cancel_url'].
+							'&language='.$data['language'].
+							'&billing_name='.$data['billing_name'].
+							'&billing_address='.$data['billing_address'].
+							'&billing_city='.$data['billing_city'].
+							'&billing_state='.$data['billing_state'].
+							'&billing_zip='.$data['billing_zip'].
+							'&billing_country='.$data['billing_country'].	
+							'&billing_tel='.$data['billing_tel'].
+							'&billing_email='.$data['billing_email'].
+							'&delivery_name='.$data['delivery_name'].
+							'&delivery_address='.$data['delivery_address'].
+							'&delivery_city='.$data['delivery_city'].
+							'&delivery_state='.$data['delivery_state'].
+							'&delivery_country='.$data['delivery_country'].		
+							'&delivery_zip='.$data['delivery_zip'].
+							'&delivery_tel='.$data['delivery_tel']. 
+							'&merchant_param1='.$data['Merchant_Param1'];
+	 		
+					
+		$encryptionkey 	=  Mage::getStoreConfig('payment/ccavenuepay/encryptionkey');
 
-    public function getCcavenuepayUrl()
+		$encrypted_data	= $this->encrypt($merchant_data,$encryptionkey); 
+		
+		$form_input_array = array();
+		$form_input_array['encRequest']	 = $encrypted_data;
+		
+		$form_input_array['access_code'] = $data['access_code'];
+		
+		 
+        $sReq = '';
+        $form_value_array = array();
+	 
+        
+        foreach($form_input_array as $k=>$v) 
+		{
+           
+			$value =  $v;
+            $form_value_array[$k] =  $value;
+            $sReq .= '&'.$k.'='.$value;
+        }  
+		 
+		
+        return $form_value_array;
+    }
+	public function getCcavenuepayUrl()
     {
 		 $url=$this->_getCcavenuepayConfig()->getCcavenuepayServerUrl();
          return $url;
     }
-	
-	
 	public function getOrderPlaceRedirectUrl()
     {
 	         return Mage::getUrl('ccavenuepay/ccavenuepay/redirect');
     }
 	public function getQuoteData($option = '')
     {					
-	
-		if ($option == 'redirect') {
+		if ($option == 'redirect') 
+		{
     		$orderIncrementId = $this->getCheckout()->getLastRealOrderId();
     		$quote = Mage::getModel('sales/order')->loadByIncrementId($orderIncrementId);
-		} else {
+		} 
+		else 
+		{
 			$quote = $this->getQuote();
 		}
-
 		$data=array();
-				 	
+		
 		if ($quote)
 		{
 			if($quote->getShippingAddress())
 			{
-				if ($quote->getIsVirtual()) {
+				if ($quote->getIsVirtual()) 
+				{
 					$a = $quote->getBillingAddress();
 					$b = $quote->getShippingAddress();
-				} else {
+				} 
+				else 
+				{
 					$a = $quote->getShippingAddress();
 					$b = $quote->getBillingAddress();
 				}
@@ -208,185 +231,82 @@ class Mage_Ccavenuepay_Model_Method_Ccavenuepay extends Mage_Payment_Model_Metho
 				$a = $quote->getBillingAddress();
 				$b = $quote->getBillingAddress();
 			}
+			 
 			
-			$MerchantId = Mage::getStoreConfig('payment/ccavenuepay/merchantid');
-			$OrderId = $this->getCheckout()->getLastRealOrderId();
-			$Amount  = round(Mage::app()->getStore()->roundPrice($quote->getBaseGrandTotal()));
-			$Workingkey = Mage::getStoreConfig('payment/ccavenuepay/workingkey');
-			$Url = $this->_getCcavenuepayConfig()->getCcavenuepayRedirecturl();
 			
-			$pattern='http://www.';
-			if(!(@Eregi($pattern,$Url,$reg)))
-			@eregi_replace('http://', $pattern, $Url);
-			$WorkingKey =  Mage::getStoreConfig('payment/ccavenuepay/workingkey');
+			$MerchantId 		= Mage::getStoreConfig('payment/ccavenuepay/merchantid');
+			$OrderId 			= $this->getCheckout()->getLastRealOrderId();
 			
-			$str ="$MerchantId|$OrderId|$Amount|$Url|$WorkingKey";
-			$adler = 1;
-			$BASE =  65521 ;
+			$Amount  			= round(Mage::app()->getStore()->roundPrice($quote->getBaseGrandTotal()));
+			$encryptionkey 		= Mage::getStoreConfig('payment/ccavenuepay/encryptionkey');
+			$Url 				= $this->_getCcavenuepayConfig()->getCcavenuepayRedirecturl();
+			$cancel_url			= $this->_getCcavenuepayConfig()->getCcavenuepayCancelurl();
+ 			 
+			$data['Merchant_Id'] 	= Mage::getStoreConfig('payment/ccavenuepay/merchantid');
+			$data['Order_Id'] 		= $OrderId;
+			$storeID				= Mage::app()->getStore()->getStoreId();
 			
-			$s1 = $adler & 0xffff ;
-			$s2 = ($adler >> 16) & 0xffff;
-			for($i = 0 ; $i < strlen($str) ; $i++)
-			{
-				$s1 = ($s1 + Ord($str[$i])) % $BASE ;
-				$s2 = ($s2 + $s1) % $BASE ;
+			$data['currency']		= 'INR';
+			$data['Amount']  		= $Amount;
+			$data['Redirect_Url']   = $Url;
+			$data['cancel_url']   	= $cancel_url;
+			$data['Merchant_Param1'] = $OrderId;
+			 
 			
-			}
 			
-			$str = $s2;
-			$num = 16;
-			$dec ='';
 			
-			$str = DecBin($str);
-			
-			for( $i = 0 ; $i < (64 - strlen($str)) ; $i++)
-			$str = "0".$str ;
-			
-			for($i = 0 ; $i < $num ; $i++) 
-			{
-				$str = $str."0";
-				$str = substr($str , 1 ) ;
-			}
-			$num=$str;
-			for ($n = 0 ; $n < strlen($num) ; $n++)
-			{
-				$temp = $num[$n] ;
-				$dec =  $dec + $temp*pow(2 , strlen($num) - $n - 1);
-			}
-			$Checksum = $dec + $s1;
-			$AuthDesc = 'N';
-			
-			$data['Merchant_Id'] = Mage::getStoreConfig('payment/ccavenuepay/merchantid');
-			$data['Order_Id'] = $this->getCheckout()->getLastRealOrderId();
-			$data['Amount']  = $Amount;
-			$data['currency_code']  = $quote->getBaseCurrencyCode();
-			
-			if($quote->getBaseShippingAmount())
-			{
-				$data['shipping'] = sprintf('%.2f', $quote->getBaseShippingAmount());
-			}
-			else
-			{
-				$data['shipping'] = '0';
-			}
-			$data['tax']      = sprintf('%.2f', $quote->getBaseTaxAmount());
-			$data['Checksum']=$Checksum;
+			$data['language']		= "EN";			
+		 	$data['access_code']	= Mage::getStoreConfig('payment/ccavenuepay/accesscode');
 			
 			if($this->getQuote()->getCustomer())
 			{
 				$email_id =$this->getQuote()->getCustomer()->getEmail();
 			}
-			
-			$bState = $b->getRegionId();
-			$bRegionModel = Mage::getModel('directory/region')->load($bState);
-			$bStateName = ucfirst($bRegionModel->getName());
-			
-			$aState = $a->getRegionId();
-			$aRegionModel = Mage::getModel('directory/region')->load($aState);
-			$aStateName = ucfirst($aRegionModel->getName());				
-			
-			$data['billing_cust_name'] 			=$b->getFirstname()." ".$b->getLastname();
-			$data['billing_cust_address'] 		=$b->getStreet(1)."   ".$b->getStreet(2);
-			$data['billing_cust_city'] 			=$b->getCity();
-			//$data['billing_cust_state'] 		=$b->getRegionCode();
-			$data['billing_cust_state'] 		=$bStateName;
-			$data['billing_zip_code']   		=$b->getPostcode();
-			$data['billing_cust_country'] 		=$b->getCountryModel()->getName();
-			$data['billing_cust_tel'] 		    =$b->getTelephone();
-			$data['billing_cust_email'] 		=$quote->getCustomerEmail();
-			$data['delivery_cust_name'] 		=$a->getFirstname()." ".$a->getLastname();
-			$data['delivery_cust_address']  	=$a->getStreet(1)."   ".$a->getStreet(2);
-			$data['delivery_cust_city']         =$a->getCity();
-			//$data['delivery_cust_state'] 		=$a->getRegionCode();
-			$data['delivery_cust_state'] 		=$aStateName;
-			$data['delivery_zip_code']  		=$a->getPostcode();
-			$data['delivery_cust_country']  	= $a->getCountryModel()->getName();
-			$data['delivery_cust_tel']   		=$a->getTelephone();
-			$data['billing_cust_notes'] 		='';
-			$data['Redirect_Url']           	=$this->_getCcavenuepayConfig()->getCcavenuepayRedirecturl();
-			
-			/*
-			 * mobikwik
-			 */ 
-			$paymentTmp = $quote->getPayment();
-			$additional_data = unserialize($paymentTmp->getData('additional_data'));
-			
-			if(isset($additional_data['mobikwik']) && !empty($additional_data['mobikwik']) == 'MOBKP') {
-				$data['payType'] = $additional_data['mobikwik'];
-			}
+			$data['billing_name'] 		= $b->getFirstname()." ".$b->getLastname();
+			$data['billing_address']	= $b->getStreet(1)."   ".$b->getStreet(2);
+			$data['billing_city'] 		= $b->getCity();
+			$data['billing_state'] 		= $b->getRegionCode();
+			$data['billing_zip']   		= $b->getPostcode();
+			$data['billing_country']	= $b->getCountryModel()->getName();
+			$data['billing_tel'] 	    = $b->getTelephone();
+			$data['billing_email'] 		= $quote->getCustomerEmail();
+			$data['billing_notes'] 		= '';
 		}
-		 
-		return $data; 
-	}
-	
-	public function getchecksum($MerchantId,$Amount,$OrderId ,$URL,$WorkingKey)
-	{
-		$str ="$MerchantId|$OrderId|$Amount|$URL|$WorkingKey";
-		$adler = 1;
-		$adler = $this->adler32($adler,$str);
-		return $adler;
-	}
-	
-	public function verifychecksum($MerchantId,$OrderId,$Amount,$AuthDesc,$CheckSum,$WorkingKey)
-	{
-		$str = "$MerchantId|$OrderId|$Amount|$AuthDesc|$WorkingKey";
-		$adler = 1;
-		$adler = $this->adler32($adler,$str);
 		
-		if($adler == $CheckSum)
-			return "true" ;
+		 
+		
+		if(!$quote->getShippingAddress())
+		{
+			
+			$data['delivery_name'] 		= '';
+			$data['delivery_address']  	= '';
+			$data['delivery_city']      = '';
+			$data['delivery_state'] 	= '';
+			$data['delivery_zip']  		= '';
+			$data['delivery_country']  	= '';
+			$data['delivery_tel']   	= '';
+			$data['delivery_notes']   	= '';
+		}	
 		else
-			return "false" ;
-	}
-	
-	public function adler32($adler , $str)
-	{
-		$BASE =  65521 ;
-	
-		$s1 = $adler & 0xffff ;
-		$s2 = ($adler >> 16) & 0xffff;
-		for($i = 0 ; $i < strlen($str) ; $i++)
 		{
-			$s1 = ($s1 + Ord($str[$i])) % $BASE ;
-			$s2 = ($s2 + $s1) % $BASE ;
-	
+			
+			$data['delivery_name'] 		= $a->getFirstname()." ".$a->getLastname();
+			$data['delivery_address']  	= $a->getStreet(1)."   ".$a->getStreet(2);
+			$data['delivery_city']      = $a->getCity();
+			$data['delivery_state'] 	= $a->getRegionCode();
+			$data['delivery_zip']  		= $a->getPostcode();
+			$data['delivery_country']  	= $a->getCountryModel()->getName();
+			$data['delivery_tel']   	= $a->getTelephone();
+			$data['billing_notes'] 		= '';
+			$data['delivery_notes'] 	= '';
 		}
-		return $this->leftshift($s2 , 16) + $s1;
+		return $data;
 	}
-	
-	public function leftshift($str , $num)
-	{
-	
-		$str = DecBin($str);
-	
-		for( $i = 0 ; $i < (64 - strlen($str)) ; $i++)
-			$str = "0".$str ;
-	
-		for($i = 0 ; $i < $num ; $i++) 
-		{
-			$str = $str."0";
-			$str = substr($str , 1 ) ;
-		}
-		return $this->cdec($str) ;
-	}
-	
-	public function cdec($num)
-	{
-		$dec = '';
-		for ($n = 0 ; $n < strlen($num) ; $n++)
-		{
-		   $temp = $num[$n] ;
-		   $dec =  $dec + $temp*pow(2 , strlen($num) - $n - 1);
-		}
-	
-		return $dec;
-	}
-
+		 
 	protected function _getCcavenuepayConfig()
     {
-        return Mage::getSingleton('ccavenuepay/config');
+         return Mage::getSingleton('ccavenuepay/config');
     }
-	
 	public function isAvailable($quote=null)
     {
         if (is_null($quote)) {
@@ -394,8 +314,74 @@ class Mage_Ccavenuepay_Model_Method_Ccavenuepay extends Mage_Payment_Model_Metho
         }
 		$return = parent::isAvailable($quote);
 		if($return==false)return false;
-				
-		return true;
 		
-    }
+		return true;
+	 }	
+	 
+	 
+	function encrypt($plainText,$key)
+	{
+		$secretKey = $this->hextobin(md5($key));
+		$initVector = pack("C*", 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f);
+	  	$openMode = mcrypt_module_open(MCRYPT_RIJNDAEL_128, '','cbc', '');
+	  	$blockSize = mcrypt_get_block_size(MCRYPT_RIJNDAEL_128, 'cbc');
+		$plainPad = $this->pkcs5_pad($plainText, $blockSize);
+	  	if (mcrypt_generic_init($openMode, $secretKey, $initVector) != -1) 
+		{
+		      $encryptedText = mcrypt_generic($openMode, $plainPad);
+	      	      mcrypt_generic_deinit($openMode);
+		      			
+		} 
+		return bin2hex($encryptedText);
+	}
+
+	function decrypt($encryptedText,$key)
+	{
+		$secretKey = $this->hextobin(md5($key));
+		$initVector = pack("C*", 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f);
+		$encryptedText=$this->hextobin($encryptedText);
+	  	$openMode = mcrypt_module_open(MCRYPT_RIJNDAEL_128, '','cbc', '');
+		mcrypt_generic_init($openMode, $secretKey, $initVector);
+		$decryptedText = mdecrypt_generic($openMode, $encryptedText);
+		$decryptedText = rtrim($decryptedText, "\0");
+	 	mcrypt_generic_deinit($openMode);
+		return $decryptedText;
+		
+	}
+
+
+	 function pkcs5_pad ($plainText, $blockSize)
+	{
+	    $pad = $blockSize - (strlen($plainText) % $blockSize);
+	    return $plainText . str_repeat(chr($pad), $pad);
+	}
+
+
+
+	function hextobin($hexString) 
+   	 { 
+		$length = strlen($hexString); 
+		$binString="";   
+		$count=0; 
+		while($count<$length) 
+		{       
+			$subString =substr($hexString,$count,2);           
+			$packedString = pack("H*",$subString); 
+			if ($count==0)
+		{
+			$binString=$packedString;
+		} 
+			
+		else 
+		{
+			$binString.=$packedString;
+		} 
+			
+		$count+=2; 
+		} 
+		return $binString; 
+	} 
+	
+	
 }
+ 

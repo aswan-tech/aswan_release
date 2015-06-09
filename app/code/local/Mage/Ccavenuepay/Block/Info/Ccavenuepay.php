@@ -1,15 +1,5 @@
 <?php
 /**
-*************************************************************************************
- Please Do not edit or add any code in this file without permission of bluezeal.in.
-@Developed by bluezeal.in
-
-Magento version 1.7.0.2                 CCAvenue Version 1.31
-                              
-Module Version. bz-1.0                 Module release: September 2012
-**************************************************************************************
-*/
-/**
  * Magento
  *
  * NOTICE OF LICENSE
@@ -43,6 +33,7 @@ class Mage_Ccavenuepay_Block_Info_Ccavenuepay extends Mage_Payment_Block_Info
         parent::_construct();
         $this->setTemplate('ccavenuepay/info/ccavenuepay.phtml');
     }
+
     
     public function getCcavenuepayTypeName()
     {
@@ -51,6 +42,8 @@ class Mage_Ccavenuepay_Block_Info_Ccavenuepay extends Mage_Payment_Block_Info
             return $types[$this->getInfo()->getCcavenuepayType()];
         }
         return $this->getInfo()->getCcavenuepayType();
-    }	
+    }
+
+   
 }
  ?>

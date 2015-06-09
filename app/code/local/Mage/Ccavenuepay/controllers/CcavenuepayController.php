@@ -1,108 +1,225 @@
 <?php
-class Mage_Ccavenuepay_CcavenuepayController extends Mage_Core_Controller_Front_Action {
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category   Mage
+ * @package    Mage_Ccavenuepay
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
 
+
+
+      
+ 
+class Mage_Ccavenuepay_CcavenuepayController extends Mage_Core_Controller_Front_Action
+{
+    
+    
     protected $_order;
-
-    public function getOrder() {
+	
+	 
+    
+    public function getOrder()
+    {
         if ($this->_order == null) {
-
         }
         return $this->_order;
     }
 
-    protected function _expireAjax() {
+    protected function _expireAjax()
+    {
         if (!Mage::getSingleton('checkout/session')->getQuote()->hasItems()) {
-            $this->getResponse()->setHeader('HTTP/1.1', '403 Session Expired');
+            $this->getResponse()->setHeader('HTTP/1.1','403 Session Expired');
             exit;
         }
     }
 
-    public function getStandard() {
+    /**
+     * Get singleton with Ccavenuepay strandard order transaction information
+     *
+     * @return Mage_Ccavenuepay_Model_Standard
+     */
+    public function getStandard()
+    {
         return Mage::getSingleton('Ccavenuepay/standard');
     }
 
-    public function redirectAction() {
-        $session = Mage::getSingleton('checkout/session');
-        $session->setCcavenuepayStandardQuoteId($session->getQuoteId());
-        $order = Mage::getModel('sales/order');
-        $order->load(Mage::getSingleton('checkout/session')->getLastOrderId());
-        $order->save();
+    /**
+     * When a customer chooses Ccavenuepay on Checkout/Payment page
+     *
+     */
+    public function redirectAction()
+    {
+	
+		$session = Mage::getSingleton('checkout/session');
+		$session->setCcavenuepayStandardQuoteId($session->getQuoteId());
+		$order = Mage::getModel('sales/order');
+		$order->load(Mage::getSingleton('checkout/session')->getLastOrderId());
+		$order->sendNewOrderEmail();
+		$order->save();
+		
+		$this->getResponse()->setBody($this->getLayout()->createBlock('Ccavenuepay/form_redirect')->toHtml());
+		$session->unsQuoteId();
 
-        $this->getResponse()->setBody($this->getLayout()->createBlock('Ccavenuepay/form_redirect')->toHtml());
-        $session->unsQuoteId();
     }
 
-    public function cancelAction() {
+    
+    public function cancelAction()
+    {
         $session = Mage::getSingleton('checkout/session');
         $session->setQuoteId($session->getCcavenuepayStandardQuoteId(true));
+
+		 
+		$order_history_comment='';	
+        
         if ($session->getLastRealOrderId()) {
             $order = Mage::getModel('sales/order')->loadByIncrementId($session->getLastRealOrderId());
             if ($order->getId()) {
-                $order->addStatusHistoryComment("Returned from CC with failure");
+				 
+				$order_history_comments = $this->getCheckout()->getCcavenuepayErrorMessage();
+				foreach($order_history_comments as $order_history_comment)
+				{
+					if($order_history_comment !='') $order->addStatusHistoryComment($order_history_comment,true);
+				}			
                 $order->cancel()->save();
             }
         }
-        Mage::getSingleton('checkout/session')->addError("Thank you for shopping with us. However, the transaction has been declined.");
-        $this->_redirect('checkout/onepage/successCcavenue');
+
+       
+		Mage::getSingleton('checkout/session')->addError("CcavenuePay Payment has been cancelled and the transaction has been declined.");
+		if($order_history_comment!='')	Mage::getSingleton('checkout/session')->addError($order_history_comment);
+		$this->_redirect('checkout/cart');
     }
 
-    public function successAction() {
-        $response = $this->getRequest()->getPost();
-        if(isset($response["Merchant_Id"])) $Merchant_Id=$response["Merchant_Id"];
-        if(isset($response["Amount"])) $Amount= $response["Amount"];
-        if(isset($response["Order_Id"])) $Order_Id=$response["Order_Id"];
-        if(isset($response["Merchant_Param"])) $Merchant_Param= $response["Merchant_Param"];
-        if(isset($response["Checksum"])) $Checksum= $response["Checksum"];
-        if(isset($response["AuthDesc"])) $AuthDesc=$response["AuthDesc"];
-
-        $WorkingKey = Mage::getStoreConfig('payment/ccavenuepay/workingkey');
-        if(empty($WorkingKey)){
-            $WorkingKey = "ylpuns4t5luo5gluok";
-        }
-        $ccavenuepay = Mage::getModel('ccavenuepay/method_ccavenuepay');
-
-        $Checksum = $ccavenuepay->verifyChecksum($Merchant_Id, $Order_Id, $Amount, $AuthDesc, $Checksum, $WorkingKey);
-        if ($Checksum == "true" && $AuthDesc == "N") {
-            $this->getCheckout()->setCcavenuepayErrorMessage('CCAVENUE UNSUCCESS');
-            $this->cancelAction();
-            return false;
-        } else if ($Checksum == "true" && $AuthDesc == "B") {
-            $this->getCheckout()->setCcavenuepayErrorMessage('CCAVENUE UNSUCCESS');
-            $this->cancelAction();
-            return false;
-        } else if ($Checksum == "false") {
-            $this->getCheckout()->setCcavenuepayErrorMessage('CCAVENUE UNSUCCESS');
-            $this->cancelAction();
-            return false;
-        }
-        $session = $this->getCheckout();
-        $session->setQuoteId($session->getCcavenuepayStandardQuoteId());
-        $session->unsCcavenuepayStandardQuoteId();
-
-        $order = Mage::getModel('sales/order')->load( Mage::getSingleton('checkout/session')->getLastOrderId() );
-        $f_passed_status = Mage::getStoreConfig('payment/ccavenuepay/payment_success_status');
-        $message = Mage::helper('Ccavenuepay')->__('Your payment is authorized.');
-        $order->addStatusToHistory( $f_passed_status, $message );
-        
-        $payment_confirmation_mail = Mage::getStoreConfig('payment/ccavenuepay/payment_confirmation_mail');
-        if ($payment_confirmation_mail == "1") {
-            $order->sendNewOrderEmail();
-        }
-        $order->save();
-        foreach( $session->getQuote()->getItemsCollection() as $item ){
-            Mage::getSingleton('checkout/cart')->removeItem( $item->getId() )->save();
+    
+    public function  successAction()
+    {
+		
+        if (!$this->getRequest()->isPost()) {
+        $this->cancelAction();
+			return false;
         }
 
+        $status = true;
 
-        $redirect_url = Mage::getUrl('checkout/onepage/successCcavenue');
-        Mage::app()->getFrontController()->getResponse()->setRedirect($redirect_url);
+		$response = $this->getRequest()->getPost();		 		
+		if (empty($response))  {
+            $status = false;
+        }
+		
+		$encResponse = '';
+		 
+		$ccavenuepay = Mage::getModel('ccavenuepay/method_ccavenuepay');
+		
+		 
+		$encryptionkey 	= Mage::getStoreConfig('payment/ccavenuepay/encryptionkey');
+		if(isset($response["encResp"])){ $encResponse 	= $response["encResp"]; }
+		
+		$rcvdString		= $ccavenuepay->decrypt($encResponse,$encryptionkey);	
+		$decryptValues	= explode('&', $rcvdString);
+		$dataSize		= sizeof($decryptValues);
+		
+		 
+		
+		$Order_Id		= '';
+		$tracking_id	= '';
+		$order_status	= '';
+		$response_array	= array();
+		 
+		for($i = 0; $i < count($decryptValues); $i++) 
+		{
+	  		$information	= explode('=',$decryptValues[$i]);
+			if(count($information)==2)
+			{
+				$response_array[$information[0]] = $information[1];
+			}
+			  
+		}
+		 
+		 
+		if(isset($response_array['order_id']))		$Order_Id		= $response_array['order_id'];
+		if(isset($response_array['tracking_id']))	$tracking_id	= $response_array['tracking_id'];
+		if(isset($response_array['order_status']))	$order_status	= $response_array['order_status'];
+		if(isset($response_array['currency']))	$currency = $response_array['currency'];
+		if(isset($response_array['Amount']))	$payment_mode = $response_array['Amount'];
+		
+		$order_history_comments ='';
+		$order_history_keys =array('tracking_id','failure_message','payment_mode','card_name','status_code','status_message','bank_ref_no');
+		foreach($order_history_keys as $order_history_key)
+		{
+		 
+			if((isset($response_array[$order_history_key]))  && trim($response_array[$order_history_key])!='')
+			{
+				if(trim($response_array[$order_history_key]) == 'null' ) continue;
+				$order_history_comments .= $order_history_key." : ".$response_array[$order_history_key];
+			}
+		}
+		
+		$order_history_comments_array= array();   
+		$order_history_comments_array[] = $order_history_comments;
+		 
+		
+	 
+		if($order_status == "Success")
+		{
+			 
+			$order = Mage::getModel('sales/order');
+			$order->loadByIncrementId($Order_Id); 
+			 
+			$f_passed_status = Mage::getStoreConfig('payment/ccavenuepay/payment_success_status');
+			$message = Mage::helper('Ccavenuepay')->__('Your payment is authorized.');
+			$order->setState($f_passed_status, true, $message);
+			 
+			
+			if($order_history_comments !='') $order->addStatusHistoryComment($order_history_comments,true);
+			
+			$payment_confirmation_mail = Mage::getStoreConfig('payment/ccavenuepay/payment_confirmation_mail');
+			if($payment_confirmation_mail=="1")
+			{	
+				$order->sendOrderUpdateEmail(true,'Your payment is authorized.');
+			}
+			
+			$order->save();
+			
+			$session = Mage::getSingleton('checkout/session');
+			$session->setQuoteId($session->getCcavenuepayStandardQuoteId(true));
+			
+			Mage::getSingleton('checkout/session')->getQuote()->setIsActive(false)->save();
+
+			$this->_redirect('checkout/onepage/success', array('_secure'=>true));
+		}
+		else 
+		{
+			$error_message =  " Order Cancel due to order status ".$order_status;
+			$order_history_comments_array[] = 	$error_message; 			
+			$this->getCheckout()->setCcavenuepayErrorMessage($order_history_comments_array ); 			
+			$this->cancelAction();
+			return false;
+		}
     }
-
-    public function errorAction() {
+	public function errorAction()
+    {
         $this->_redirect('checkout/onepage/');
     }
-
-    public function getCheckout() {
+	public function getCheckout()
+    {
         return Mage::getSingleton('checkout/session');
     }
 }

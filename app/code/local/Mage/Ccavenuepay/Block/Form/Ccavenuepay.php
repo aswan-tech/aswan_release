@@ -1,14 +1,4 @@
 <?php
-/**
-*************************************************************************************
- Please Do not edit or add any code in this file without permission of bluezeal.in.
-@Developed by bluezeal.in
-
-Magento version 1.7.0.2                 CCAvenue Version 1.31
-                              
-Module Version. bz-1.0                 Module release: September 2012
-**************************************************************************************
-*/
 
 /**
  * Magento
@@ -35,24 +25,21 @@ Module Version. bz-1.0                 Module release: September 2012
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
  
-/**
 
-****
-****
-*/
 
 class Mage_Ccavenuepay_Block_Form_Ccavenuepay extends Mage_Payment_Block_Form
 {
     protected function _construct()
     {
         parent::_construct();
-		        $this->setTemplate('ccavenuepay/form/ccavenuepay.phtml');
+		$this->setTemplate('ccavenuepay/form/ccavenuepay.phtml');
     }
 
     
     protected function _getCcavenuepayConfig()
     {
         return Mage::getSingleton('ccavenuepay/config');
+		
     }
 	
 
@@ -90,7 +77,7 @@ class Mage_Ccavenuepay_Block_Form_Ccavenuepay extends Mage_Payment_Block_Form
         return $months;
     }
 
-   
+    
     public function getCcavenuepayYears()
     {
         $years = $this->getData('Ccavenuepay_years');

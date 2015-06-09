@@ -1,15 +1,5 @@
 <?php
 /**
-*************************************************************************************
- Please Do not edit or add any code in this file without permission of bluezeal.in.
-@Developed by bluezeal.in
-
-Magento version 1.7.0.2                 CCAvenue Version 1.31
-                              
-Module Version. bz-1.0                 Module release: September 2012
-**************************************************************************************
-*/
-/**
  * Magento
  *
  * NOTICE OF LICENSE
@@ -45,7 +35,7 @@ class Mage_Ccavenuepay_Model_Source_Ccavenuepaytype
 
     public function toOptionArray()
     {
-       
+        
         $allowed = $this->getAllowedTypes();
         $options = array();
 

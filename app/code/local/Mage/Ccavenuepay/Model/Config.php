@@ -1,15 +1,5 @@
 <?php
 /**
-*************************************************************************************
- Please Do not edit or add any code in this file without permission of bluezeal.in.
-@Developed by bluezeal.in
-
-Magento version 1.7.0.2                 CCAvenue Version 1.31
-                              
-Module Version. bz-1.0                 Module release: September 2012
-**************************************************************************************
-*/
-/**
  * Magento
  *
  * NOTICE OF LICENSE
@@ -39,9 +29,10 @@ class Mage_Ccavenuepay_Model_Config
 {
     protected static $_methods;
 
-    
+  
     public function getActiveMethods($store=null)
     {
+		
         $methods = array();
         $config = Mage::getStoreConfig('ccavenuepay', $store);
         foreach ($config as $code => $methodConfig) {
@@ -49,10 +40,17 @@ class Mage_Ccavenuepay_Model_Config
                 $methods[$code] = $this->_getMethod($code, $methodConfig);
             }
         }
+		 
+		
         return $methods;
     }
 
-    
+    /**
+     * Retrieve all system ccavenuepays
+     *
+     * @param mixed $store
+     * @return array
+     */
     public function getAllMethods($store=null)
     {
         $methods = array();
@@ -76,7 +74,11 @@ class Mage_Ccavenuepay_Model_Config
     }
 
 	 
-   
+    /**
+     * Retrieve list of months translation
+     *
+     * @return array
+     */
     public function getMonths()
     {
         $data = Mage::app()->getLocale()->getTranslationList('month');
@@ -87,7 +89,11 @@ class Mage_Ccavenuepay_Model_Config
         return $data;
     }
 
-   
+    /**
+     * Retrieve array of available years
+     *
+     * @return array
+     */
     public function getYears()
     {
         $years = array();
@@ -100,7 +106,13 @@ class Mage_Ccavenuepay_Model_Config
         return $years;
     }
 
-    
+    /**
+     * Statis Method for compare sort order of CC Types
+     *
+     * @param array $a
+     * @param array $b
+     * @return int
+     */
     static function compareCcavenuepayTypes($a, $b)
     {
         if (!isset($a['order'])) {
@@ -122,15 +134,26 @@ class Mage_Ccavenuepay_Model_Config
     }
 	public function getCcavenuepayServerUrl()
 	{
-	     $url='https://www.ccavenue.com/shopzone/cc_details.jsp';
+	   
+	     $url	= 'https://secure.ccavenue.com/transaction/transaction.do?command=initiateTransaction';		  
          return $url;
 	}
 	
 	public function getCcavenuepayRedirecturl()
 	{
-		  $url= Mage::getUrl('ccavenuepay/ccavenuepay/success',array('_secure' => true));
+		 $url= Mage::getUrl('ccavenuepay/ccavenuepay/success',array('_secure' => true));
 		 return $url;
 	}
+	
+	
+	public function getCcavenuepayCancelurl()
+	{
+		 
+		$cancel_url= Mage::getUrl('ccavenuepay/ccavenuepay/cancel',array('_secure' => true));;
+		return $cancel_url;
+	}
+	 
+
 }
 		
  
