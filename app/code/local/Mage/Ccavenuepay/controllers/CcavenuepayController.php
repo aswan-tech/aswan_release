@@ -140,8 +140,11 @@ class Mage_Ccavenuepay_CcavenuepayController extends Mage_Core_Controller_Front_
 			$order = Mage::getModel( 'sales/order' )->loadByIncrementId( Mage::getSingleton( 'checkout/session' )->getLastRealOrderId() );
 			if ( $order->getId() ) {
 				// Flag the order as 'cancelled' and save it
-				$order->cancel()->setState( Mage_Sales_Model_Order::STATE_CANCELED, true, $cancelMessage )->save();
-			}
+				#$order->cancel()->setState( Mage_Sales_Model_Order::STATE_CANCELED, true, $cancelMessage )->save();
+			     $order->setState('canceled', 'canceled', $cancelMessage, FALSE);
+                 $order->save();
+
+            }
 		}
 	}
 
