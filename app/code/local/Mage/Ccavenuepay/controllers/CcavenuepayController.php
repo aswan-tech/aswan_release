@@ -116,8 +116,15 @@ class Mage_Ccavenuepay_CcavenuepayController extends Mage_Core_Controller_Front_
 		if($order_history_comment!='')	Mage::getSingleton('checkout/session')->addError($order_history_comment);
 		$this->_redirect('checkout/cart');
 		*/
-		$this->cancelOrder( Mage::helper( 'ccavenuepay' )->__( 'The payment was cancelled at CC Avenue.' ) );
-		Mage_Core_Controller_Varien_Action::_redirect( 'checkout/onepage/failure', array( '_secure' => true) );
+        if ( Mage::getSingleton( 'checkout/session' )->getLastRealOrderId() ) {
+		  $this->cancelOrder( Mage::helper( 'ccavenuepay' )->__( 'The payment was cancelled at CC Avenue.' ) );
+		  Mage_Core_Controller_Varien_Action::_redirect( 'checkout/onepage/failure', array( '_secure' => true) );
+
+        }
+        else {
+            Mage_Core_Controller_Varien_Action::_redirect( 'checkout/onepage/failure', array( '_secure' => true) );
+        }
+          
     }
 	/**
 	 * Function to cancel an order with a message
