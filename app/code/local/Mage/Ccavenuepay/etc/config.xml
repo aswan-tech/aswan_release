@@ -32,9 +32,9 @@
         </translate> 
 		<layout>
             <updates>
-                <ccavenuepay>
+                <mage_ccavenuepay>
                     <file>ccavenuepay.xml</file>
-                </ccavenuepay>
+                </mage_ccavenuepay>
             </updates>
         </layout>
     </frontend>
@@ -70,6 +70,7 @@
             <ccavenuepay>
                 <active>1</active>
                 <model>ccavenuepay/method_ccavenuepay</model>
+				<integration_technique>redirect</integration_technique>
                 <order_status>1</order_status>
 				<payment_success_status>2</payment_success_status>
                 <title>Ccavenuepay Payment</title>
