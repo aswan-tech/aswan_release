@@ -162,12 +162,13 @@ class Mage_Ccavenuepay_Model_Method_Ccavenuepay extends Mage_Payment_Model_Metho
 							'&delivery_zip='.$data['delivery_zip'].
 							'&delivery_tel='.$data['delivery_tel']. 
 							'&merchant_param1='.$data['Merchant_Param1'];
+		
+		if(Mage::getStoreConfig('payment/ccavenuepay/integration_technique')=='iframe')
+			$merchant_data = $merchant_data.'&integration_type=iframe_normal';
 	 		
 					
 		$encryptionkey 	=  Mage::getStoreConfig('payment/ccavenuepay/encryptionkey');
-		if(isset($data['payType']) && !empty($data['payType']) && $data['payType'] == 'MOBKP') {
-			$merchant_data .= '&payment_option=OPTWLT&card_type=WLT&card_name=Mobikwik';
-		}
+
 		$encrypted_data	= $this->encrypt($merchant_data,$encryptionkey); 
 		
 		$form_input_array = array();
@@ -239,7 +240,7 @@ class Mage_Ccavenuepay_Model_Method_Ccavenuepay extends Mage_Payment_Model_Metho
 			$MerchantId 		= Mage::getStoreConfig('payment/ccavenuepay/merchantid');
 			$OrderId 			= $this->getCheckout()->getLastRealOrderId();
 			
-			$Amount  			= round(Mage::app()->getStore()->roundPrice($quote->getBaseGrandTotal()));
+			$Amount  			= Mage::app()->getStore()->roundPrice($quote->getGrandTotal());
 			$encryptionkey 		= Mage::getStoreConfig('payment/ccavenuepay/encryptionkey');
 			$Url 				= $this->_getCcavenuepayConfig()->getCcavenuepayRedirecturl();
 			$cancel_url			= $this->_getCcavenuepayConfig()->getCcavenuepayCancelurl();
@@ -302,11 +303,8 @@ class Mage_Ccavenuepay_Model_Method_Ccavenuepay extends Mage_Payment_Model_Metho
 			$data['billing_notes'] 		= '';
 			$data['delivery_notes'] 	= '';
 		}
-		$paymentTmp = $quote->getPayment();
-		$additional_data = unserialize($paymentTmp->getData('additional_data'));
-		if(isset($additional_data['mobikwik']) && !empty($additional_data['mobikwik']) == 'MOBKP') {
-				$data['payType'] = $additional_data['mobikwik'];
-		}
+		 
+		
 		return $data;
 	}
 		 

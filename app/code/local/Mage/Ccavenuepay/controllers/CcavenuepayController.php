@@ -74,8 +74,16 @@ class Mage_Ccavenuepay_CcavenuepayController extends Mage_Core_Controller_Front_
 		$order->load(Mage::getSingleton('checkout/session')->getLastOrderId());
 		$order->sendNewOrderEmail();
 		$order->save();
-		
-		$this->getResponse()->setBody($this->getLayout()->createBlock('Ccavenuepay/form_redirect')->toHtml());
+		if(Mage::getStoreConfig('payment/ccavenuepay/integration_technique')=='iframe')
+		{
+		$this->loadLayout();
+		$this->getLayout()->getBlock( 'head' )->setTitle( $this->__( 'CCAvenue Payment' ) );
+		$this->renderLayout();
+		}
+		else
+		{
+			$this->getResponse()->setBody($this->getLayout()->createBlock('Ccavenuepay/form_redirect')->toHtml());
+		}
 		$session->unsQuoteId();
 
     }
@@ -83,6 +91,7 @@ class Mage_Ccavenuepay_CcavenuepayController extends Mage_Core_Controller_Front_
     
     public function cancelAction()
     {
+		/*
         $session = Mage::getSingleton('checkout/session');
         $session->setQuoteId($session->getCcavenuepayStandardQuoteId(true));
 
@@ -106,7 +115,28 @@ class Mage_Ccavenuepay_CcavenuepayController extends Mage_Core_Controller_Front_
 		Mage::getSingleton('checkout/session')->addError("CcavenuePay Payment has been cancelled and the transaction has been declined.");
 		if($order_history_comment!='')	Mage::getSingleton('checkout/session')->addError($order_history_comment);
 		$this->_redirect('checkout/cart');
+		*/
+		$this->cancelOrder( Mage::helper( 'ccavenuepay' )->__( 'The payment was cancelled at CC Avenue.' ) );
+		Mage_Core_Controller_Varien_Action::_redirect( 'checkout/onepage/failure', array( '_secure' => true) );
     }
+	/**
+	 * Function to cancel an order with a message
+	 * 
+	 * @param  string $cancelMessage
+	 * @return void
+	 */
+	public function cancelOrder( $cancelMessage = '' ) {
+		if ( $cancelMessage == '' )
+			$cancelMessage = Mage::helper( 'ccavenuepay' )->__( 'The payment was cancelled due to a problem.' );
+
+		if ( Mage::getSingleton( 'checkout/session' )->getLastRealOrderId() ) {
+			$order = Mage::getModel( 'sales/order' )->loadByIncrementId( Mage::getSingleton( 'checkout/session' )->getLastRealOrderId() );
+			if ( $order->getId() ) {
+				// Flag the order as 'cancelled' and save it
+				$order->cancel()->setState( Mage_Sales_Model_Order::STATE_CANCELED, true, $cancelMessage )->save();
+			}
+		}
+	}
 
     
     public function  successAction()
@@ -185,10 +215,10 @@ class Mage_Ccavenuepay_CcavenuepayController extends Mage_Core_Controller_Front_
 			 
 			$f_passed_status = Mage::getStoreConfig('payment/ccavenuepay/payment_success_status');
 			$message = Mage::helper('Ccavenuepay')->__('Your payment is authorized.');
-			#$order->setState($f_passed_status, true, $message);
-			$order->setState($f_passed_status, $f_passed_status, $message, false); 
+			$order->setState($f_passed_status, true, $message);
+			 
 			
-			if($order_history_comments !='') $order->addStatusHistoryComment($order_history_comments,false);
+			if($order_history_comments !='') $order->addStatusHistoryComment($order_history_comments,true);
 			
 			$payment_confirmation_mail = Mage::getStoreConfig('payment/ccavenuepay/payment_confirmation_mail');
 			if($payment_confirmation_mail=="1")
