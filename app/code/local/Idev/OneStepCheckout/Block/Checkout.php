@@ -805,13 +805,17 @@ class Idev_OneStepCheckout_Block_Checkout extends Mage_Checkout_Block_Onepage_Ab
         $customer = $this->customer_after_place_order;
         $order_id = $this->getOnepage()->getLastOrderId();
         $order = Mage::getModel('sales/order')->loadByIncrementId($order_id);
-
+        $method = $this->getOnepage()->getQuote()->getPayment()->getMethodInstance()->getCode();
+        if($method == 'free'){
+            $order->setState('created','created','Status changed by free condition', true);
+        }
         if($customer)   {
             $order->setCustomerId($customer->getId());
             $order->setCustomerIsGuest(false);
             $order->setCustomerGroupId($customer->getGroupId());
-            $order->save();
+            
         }
+        $order->save();
     }
 
     protected function _customerEmailExists($email, $websiteId = null)
@@ -912,8 +916,6 @@ class Idev_OneStepCheckout_Block_Checkout extends Mage_Checkout_Block_Onepage_Ab
 
         try {
             $this->getOnepage()->getQuote()->setTotalsCollectedFlag(false)->collectTotals();
-			
-			
             $order = $this->getOnepage()->saveOrder();
 			
         } catch(Exception $e)   {
