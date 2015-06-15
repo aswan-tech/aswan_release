@@ -229,7 +229,7 @@ class Mage_Ccavenuepay_CcavenuepayController extends Mage_Core_Controller_Front_
 			 
 			
 			if($order_history_comments !='') $order->addStatusHistoryComment($order_history_comments,false);
-			
+			$order->setState('processing', true);
 			$payment_confirmation_mail = Mage::getStoreConfig('payment/ccavenuepay/payment_confirmation_mail');
 			if($payment_confirmation_mail=="1")
 			{	
