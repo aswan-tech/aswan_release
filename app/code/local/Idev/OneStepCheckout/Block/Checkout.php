@@ -807,7 +807,7 @@ class Idev_OneStepCheckout_Block_Checkout extends Mage_Checkout_Block_Onepage_Ab
         $order = Mage::getModel('sales/order')->loadByIncrementId($order_id);
         $method = $this->getOnepage()->getQuote()->getPayment()->getMethodInstance()->getCode();
         if($method == 'free'){
-            $order->setState('created','created','Status changed by free condition', false);
+            $order->setState('created','created','Free - Status changed for store credit (zero amount).', false);
             $order->setState('processing', true);
         }
         if($customer)   {
