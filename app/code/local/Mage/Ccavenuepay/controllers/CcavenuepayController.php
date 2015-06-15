@@ -225,7 +225,7 @@ class Mage_Ccavenuepay_CcavenuepayController extends Mage_Core_Controller_Front_
 			 
 			$f_passed_status = Mage::getStoreConfig('payment/ccavenuepay/payment_success_status');
 			$message = Mage::helper('Ccavenuepay')->__('Your payment is authorized.');
-			$order->setState($f_passed_status, $f_passed_status, $message, false);
+			$order->setState($f_passed_status, $f_passed_status, $message, true);
 			 
 			
 			if($order_history_comments !='') $order->addStatusHistoryComment($order_history_comments,false);
