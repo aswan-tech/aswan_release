@@ -72,7 +72,7 @@ class Mage_Ccavenuepay_CcavenuepayController extends Mage_Core_Controller_Front_
 		$session->setCcavenuepayStandardQuoteId($session->getQuoteId());
 		$order = Mage::getModel('sales/order');
 		$order->load(Mage::getSingleton('checkout/session')->getLastOrderId());
-		$order->sendNewOrderEmail();
+		$order->addStatusHistoryComment("Customer was redirected to CCAvenue",false);
 		$order->save();
 		if(Mage::getStoreConfig('payment/ccavenuepay/integration_technique')=='iframe')
 		{
@@ -233,7 +233,8 @@ class Mage_Ccavenuepay_CcavenuepayController extends Mage_Core_Controller_Front_
 			$payment_confirmation_mail = Mage::getStoreConfig('payment/ccavenuepay/payment_confirmation_mail');
 			if($payment_confirmation_mail=="1")
 			{	
-				$order->sendOrderUpdateEmail(true,'Your payment is authorized.');
+				//$order->sendOrderUpdateEmail(true,'Your payment is authorized.');
+				$order->sendNewOrderEmail();
 			}
 			
 			$order->save();
