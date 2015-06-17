@@ -1,0 +1,64 @@
+<?php
+/**
+* aheadWorks Co.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://ecommerce.aheadworks.com/AW-LICENSE-ENTERPRISE.txt
+ *
+ * =================================================================
+ *                 MAGENTO EDITION USAGE NOTICE
+ * =================================================================
+ * This package designed for Magento ENTERPRISE edition
+ * aheadWorks does not guarantee correct work of this extension
+ * on any other Magento edition except Magento ENTERPRISE edition.
+ * aheadWorks does not provide extension support in case of
+ * incorrect edition usage.
+ * =================================================================
+ *
+ * @category   AW
+ * @package    AW_Blog
+ * @version    1.1.1
+ * @copyright  Copyright (c) 2010-2012 aheadWorks Co. (http://www.aheadworks.com)
+ * @license    http://ecommerce.aheadworks.com/AW-LICENSE-ENTERPRISE.txt
+ */
+?>
+<?php $posts = $this->getPosts(); ?>
+<?php if (count($posts)): ?>
+    <?php foreach ($posts as $post): ?>
+        <div class="blogwrapper">
+			<?php $postCats = $post->getCats(); ?>
+				<?php if (!empty($postCats)): ?>
+					<div class="category">
+						<?php foreach ($postCats as $title => $url): ?>
+							<a href="<?php echo $url; ?>"><?php echo $title; ?></a>
+						<?php endforeach; ?> 
+					</div>
+				<?php endif; ?>
+            <div class="heading"><a href="<?php echo $post->getAddress(); ?>" ><?php echo $post->getTitle(); ?></a></div>
+            <div class="date"><?php echo 'Posted '.$post->getCreatedTime(); ?></div>
+			<?php $_catImage = $post->getCatPageImg(); ?>
+			<?php if($_catImage != ''): ?>
+				<div class="blog_img"> <img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA) .$_catImage; ?>"  /></div>
+			<?php else: ?>
+				<?php $_catImage = $post->getBkpCatPageImg(); ?>
+				<div class="blog_img"><img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA) .$_catImage; ?>"  /></div>
+			<?php endif; ?>
+            <p><?php echo $post->getPostContent(); ?></p>
+			<div class="read"><a href="<?php echo $post->getAddress(); ?>">read more..</a></div>
+			<div class="sshare">
+				<fb:like href="<?php echo $post->getAddress(); ?>" send="true" layout="button_count" width="450" show_faces="false"></fb:like>
+			</div>
+			<div class="clearfloat"></div>
+            <div class="tags"><?php echo Mage::getBlockSingleton('blog/blog')->getTagsHtml($post) ?></div>
+        </div>
+    <?php endforeach; ?>
+<?php else: ?> 
+	<div class="blogwrapper">
+		<?php echo Mage::helper('blog')->__('No Posts in this Category.'); ?>
+	</div>
+<?php endif; ?>
+<?php echo $this->getPagerHtml(); ?>

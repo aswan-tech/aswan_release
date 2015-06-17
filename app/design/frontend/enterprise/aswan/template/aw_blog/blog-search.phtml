@@ -1,0 +1,57 @@
+<?php
+
+	$blogPostArr		=	Mage::helper('blog')->getBlogArrForColumnsSearch();
+
+	if(!count($blogPostArr)){ ?>
+		<div id="column1" class="no-results">
+			<p><?php echo("No Results Found!"); ?></p>
+		</div>
+	<?php 
+	
+	}else{
+		$search_helper = Mage::helper('catalogsearch')->getQueryText();
+		
+		$stringHelper = Mage::helper('core/string');
+		
+		$words = $stringHelper->splitWords($search_helper, true, 10);
+		
+		$_searchresult_count = $this->getPostsCustomCount($words); 
+?>		
+		<div id="column1">
+			<div class="searched-keyword">
+				<?php $search_text = Mage::helper('catalogsearch')->getQueryText(); ?>
+				<span class="keywords">SEARCHED KEYWORD: <?php echo "\"$search_text\""; ?></span>
+				<br />
+				<span class="count"><?php echo $_searchresult_count; ?> Post Found</span>
+			</div>
+			<?php foreach($blogPostArr[0] as $blog_1){ ?>
+				<div class="blogwrapper">
+					<div class="category"><?php echo $blog_1['category'] ;?></div>
+					<div class="heading"><a href="<?php echo $blog_1['more_link'];?>"><?php echo $blog_1['title'] ;?></a></div>
+					<div class="date">
+						<!--Posted 27th, May, 2013 09:31:50 AM-->
+						<?php echo 'Posted '.$blog_1['date'];?>
+					</div>
+					<div class="blog_img">
+						<a href="<?php echo $blog_1['more_link'];?>"><img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA) . $blog_1['contnt_img']['category']; ?>" alt="<?php echo $blog_1['title'] ;?>" title="<?php echo $blog_1['title'] ;?>" /></a>
+					</div>
+					<div class="clearfix blogSrch"><?php echo $blog_1['short_desc'];?></div>
+					<div class="read">
+						<a href="<?php echo $blog_1['more_link'];?>"><?php echo $this->__('read more..'); ?></a>
+					</div>
+					<div class="sshare">
+						<fb:like href="<?php echo $blog_1['more_link'];?>" send="true" layout="button_count" width="450" show_faces="false"></fb:like>
+						<!--<img src="<?php echo $this->getSkinUrl('images/fsend.jpg') ?>" width="50" height="20" />&nbsp;
+						<img src="<?php echo $this->getSkinUrl('images/flike.jpg') ?>" width="47" height="20" />-->
+					</div>
+					<div class="clearfloat"></div>
+					<div class="tags">
+						<?php echo Mage::getBlockSingleton('blog/search')->getTagsHtml($blog_1['blogid']); ?>
+					</div>
+					<!--div class="comment">
+						<a href="#"><?php // echo $blog_1['comments'] ;?> comments</a>
+					</div-->
+				</div>
+			<?php } ?>
+		</div>
+<?php	}	?>

@@ -1,0 +1,43 @@
+<div class="clearfloat"></div>
+<div class="archive_month"><?php echo strtoupper($this->getArchiveMonthYear()); ?></div>
+<?php
+    $collection = $this->archivedPosts();
+    $page = $collection->getCurPage();
+?>
+<div class="navleft"><?php echo $this->getFwdPagerHtml(); ?></div>
+<div id="archiveblock">
+    <?php
+    $i = 1;
+    foreach ($collection as $arc_posts) {
+    ?>
+        <div class="imgwrap">
+            <a href="<?php echo $arc_posts->getAddress(); ?>">
+				<?php if($arc_posts->getArcPageImg()){ ?>
+					<img alt="<?php echo $arc_posts->getTitle(); ?>" title="<?php echo $arc_posts->getTitle(); ?>" src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA) . $arc_posts->getArcPageImg(); ?>" width="217" height="143" />
+				<?php }else{ ?>
+					<img alt="<?php echo $arc_posts->getTitle(); ?>" title="<?php echo $arc_posts->getTitle(); ?>" src="<?php echo $this->getSkinUrl("images/archive-noimage.jpg"); ?>" width="217" height="143" />
+				<?php } ?>
+            </a>
+            <h3>
+				<?php if(strlen($arc_posts->getTitle()) > 26){ ?>
+					<a href="<?php echo $arc_posts->getAddress(); ?>" alt="<?php echo $arc_posts->getTitle(); ?>" title="<?php echo $arc_posts->getTitle(); ?>"><?php echo substr($arc_posts->getTitle(), 0,26).'...'; ?></a>
+				<?php }else{ ?>
+					<a href="<?php echo $arc_posts->getAddress(); ?>" alt="<?php echo $arc_posts->getTitle(); ?>" title="<?php echo $arc_posts->getTitle(); ?>"><?php echo $arc_posts->getTitle(); ?></a>
+				<?php } ?>
+			</h3>
+        </div>
+    <?php
+        if ($i % 4 == 0) {
+            echo '<div class="clearfloat"></div>';
+        }
+        $i++;
+    }
+    ?>
+</div>
+<div class="navright"><?php echo $this->getBackPagerHtml(); ?></div>
+<div class="clearfloat"></div>
+<div class="pageBotm">
+    <?php echo $this->getPagerHtml(); ?>
+</div>
+
+

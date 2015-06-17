@@ -31,6 +31,13 @@
 
         <page>
             <layouts>
+		
+		<homepage translate="label">
+          		<label>Home page</label>
+          		<template>page/homepage.phtml</template>
+          		<layout_handle>home_page</layout_handle>
+        	</homepage>
+
                 <two_columns_left_header translate="label">
 					<label>2 columns with left bar and header</label>
 					<template>page/2columns-left-header.phtml</template>

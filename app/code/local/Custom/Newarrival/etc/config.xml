@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Custom_Newarrival>
+            <version>0.1.0</version>
+        </Custom_Newarrival>
+    </modules>
+    <global>
+        <blocks>
+            <newarrival>
+                <class>Custom_Newarrival_Block</class>
+            </newarrival>
+        </blocks>
+        <helpers>
+            <newarrival>
+                <class>Custom_Newarrival_Helper</class>
+            </newarrival>  
+        </helpers>
+         <models>
+			<newarrival>
+				<class>Custom_Newarrival_Model</class>
+			</newarrival>
+		</models>
+    </global>
+    <admin>
+        <routers>
+            <newarrival>
+                <use>admin</use>
+                <args>
+                    <module>Custom_Newarrival</module>
+                    <frontName>newarrival</frontName>
+                </args>
+            </newarrival>
+        </routers>
+    </admin>
+    
+    <adminhtml>
+        <menu>
+            <catalog>
+                <children> 
+                    <newarrival module="newarrival">
+                        <title>New Arrival</title>
+                        <action>newarrival/adminhtml_index</action>
+                    </newarrival>
+                </children>
+            </catalog>
+        </menu>
+        <layout>
+            <updates>
+                <newarrival>
+                    <file>newarrival.xml</file>
+                </newarrival>
+            </updates>
+        </layout>
+    </adminhtml>
+</config>

@@ -1,0 +1,164 @@
+@media only screen and (max-width:920px){
+#wrapper {padding:0px;}
+#header {position:relative; float:left; background:#101027;}
+#logo, #topmenu, #topright ul li#showbag, #topright ul li.myaccount {display:none;}
+#mobilelogo, #topright ul li#mobilemenu, #topright ul li#mobilecart, #topright ul li.myaccount#mobilelogin {display:block;}
+#topright, #topright ul {width:100%; float:left;}
+#topright ul li {width:25%; margin:0px; height:40px; padding:10px 5px 5px; border-right:1px solid #5f5f5f;}
+#topright ul li:last-child {border:none;}
+#topright ul li span.lable {display:inline-block;}
+#topright ul li#mobilemenu {padding:7px 5px 12px;}
+#topright ul li#mobilemenu span.lable {vertical-align:middle; padding:3px 0px 0px 0px;}
+#header .topsearch {position:relative; width:100%; position:static; float:left; text-align:center;}
+#header .topsearch input {display:inline-block; float:none; vertical-align:top; width:80%;}
+.catbanners {padding:30px 20px;}
+
+#listingarea {padding-top:5px;}
+#filterholder {width:100%; clear:both; padding:0px 0px 12px 0px;}
+#filterholder .mobilefilter {display:block;}
+#filters, #filters ul > li .filteroption, #productlist .feturebox, #listingright .shorting .custom-select {display:none;}
+#listingright .shorting .custom-select {width:100px; background-position:85px 12px; float:none; margin:0 auto; margin-bottom:10px;}
+#filters ul > li > h3:after {background-position:-156px -8px;}
+#filters ul > li > h3.deactive:after {background-position:-176px -8px;}
+#listingright {width:100%;}
+#listingright .shorting {width:100%; padding:0px;}
+#listingright .productfound, #productlist .productbox:hover .productimg .sizebar {display:none;}
+#listingright .shorting #gridview {display:block; width:100%; clear:both; text-align:center;}
+#listingright .shorting #gridview ul li {float:none; display:inline-block;}
+
+#productlist .productbox {width:48%;}
+#productlist.singleview .productbox {width:100%; margin:0; margin-bottom:4%;}
+#productlist .productbox .productinfo h3 {font-size:15px;}
+
+#checkoutarea #checkoutleft .pager {padding:10px 0px;}
+#checkoutarea {padding:0px 10px;}
+#checkoutarea #checkoutleft {width:100%; clear:both; padding:0px 0px 10px 0px;}
+#checkoutarea #checkoutright {width:100%; clear:both;}
+#checkoutarea #stepone, #checkoutarea #stepthree {width:85%; margin:0px auto; float:none; clear:both;}
+
+#myaddress .addresscol {width:32.33%;}
+#myrefrals .inviteform, #myrefrals .invitesend {width:100%;}
+#quickview {min-width:100%;}
+#topoffers {top:93px;}
+#userlogin {width:80%;}
+}
+
+@media only screen and (max-width:768px){
+.showonmobile {display:block!important;}
+.catbanners {padding:15px 5px;}
+.catbanners .bannerbox {width:100%;}
+.catbanners .bannerbox .imgholder .imgoverlay a {width:40%;}
+.stickycol, .stickycol1 {position:static!important; width:100%!important;}
+
+
+#footer #newsletter, #footer .footermid .paylogos, #footer #copyright,
+#footer .footermid .footerleft, #new-arrivals, .footersocial {display:none;}
+#footer {background:#1e0f46;}
+
+#footer .footermid .footerright {width:100%; padding:0px 10px;}
+#footer .footermid .footerright .footerlinks {width:100%; padding:0px; margin:0; border-bottom:none;}
+#footer .footermid .footerright .footerlinks h3,
+#footer .footermid .footerright .footerlinks ul li a {color:#fff;}
+#footer .footermid .footerright .footerlinks h3 {font-size:15px; display:block; border:1px solid #5f5f5f; padding:8px 6px;}
+#footer .footermid .footerright .footerlinks ul {display:none; padding:0px 0px 6px 10px;}
+
+#productlist .productbox .morecolors,
+#productlist .productbox:hover .productimg .quickview,
+#productdetail #detailleft .proimages,
+#productdetail #detailright .moreviews {display:none;}
+#productdetail #detailleft #mobgalley {height:auto; overflow:visible;}
+#productdetail #detailright .productshare {float:none; text-align:center;}
+#productdetail #detailleft, #productdetail #detailright {width:100%; clear:both; overflow:hidden;}
+#productdetail #detailright {padding:15px;}
+
+#productdetail #detailright h3 {margin:0px;}
+#productdetail #detailright .addtobag {position:fixed; left:0px; bottom:-1px; padding:0px; z-index:99;}
+#productdetail #detailright .addtobag .add_to_cart {width:100%; padding:18px 32px; background:#101027;}
+
+#productdetail #detailright .prodescription, #productdetail #detailright .clickoffer {display:none;}
+#productdetail #detailright .clickoffer {margin:15px 0px;}
+#productdetail #detailright .productswaches {padding:12px 0px;}
+
+
+#cartarea {padding:0px 10px;}
+#cartarea #cartleft, #cartarea #cartright {width:100%; padding:0px; clear:both;}
+#cartarea #cartleft table td h5, #cartarea #cartleft table td a.removebut {margin-top:0px;}
+
+#checkoutarea #stepone {width:100%; float:left; clear:both; padding:10px; background:#f9f9f9;}
+#checkoutarea #stepone .loginpan,
+#checkoutarea #stepone .loginsocial {width:100%; clear:both; padding:0px 0px 10px 0px;}
+#checkoutarea #stepone .loginpan input[type="text"] {width:85%;}
+#checkoutarea #stepone .divider {position:relative; width:100%; float:left; clear:both; border:none; border-bottom:1px solid #ccc; left:0px; margin:0px 0px 20px 0px;}
+#checkoutarea #stepone .divider:before {left:50%; top:-10px;}
+
+#checkoutarea #steptwo {width:85%; padding:10px 0px;}
+#checkoutarea #stepthree {width:100%; float:left; clear:both; padding:5px 0 0 0;}
+#checkoutarea #stepthree h3 {margin:0px; text-align:center;}
+#checkoutarea #stepthree .payoption, #checkoutarea #stepthree .optionholder {width:100%;}
+#checkoutarea #stepthree .payoption {padding:5px 0px;}
+#checkoutarea #stepthree .optionholder {padding:10px; min-height:200px;}
+#checkoutarea #stepthree .payoption ul li {width:49%; clear:none; margin:.5%;}
+#checkoutarea #stepthree .payoption ul li:after {display:none;}
+
+.page-holder {padding:0px 10px;}
+#accountleft, #commonright {width:100%; clear:both; padding:0px 0px 12px 0px;}
+#accountleft .accountlinks ul li a {background:#eee; text-align:center; padding:10px;}
+#accountleft .accountlinks ul li a:after {display:none;}
+#accountleft .accountlinks ul li a:hover, #accountleft .accountlinks ul li a.active {background:#d7172f; color:#fff;}
+#accountright .infobox {width:100%; padding:0px 0px 18px 0px;}
+
+#orderlist .orderhead td {display:block; padding:3px;}
+#orderlist .orderhead td:last-child {width:auto;}
+#orderlist .orderhead td a.details {position:absolute; top:14px; right:10px;}
+
+#orderlist .orderdetail td {display:block; width:auto; padding:8px 0px; clear:both;}
+#orderlist .orderdetail td img {margin-bottom:0px;}
+#orderlist .orderdetail td h4 {border-bottom:1px solid #c9c9c9; display:block; padding:0px 0px 10px 0px;}
+
+#myaddress .addresscol {width:49%;}
+#mywallet .wallettab ul li {width:50%; margin-bottom:1px;}
+#mywallet .wallet-table th,
+#mywallet .wallet-table td {display:block; width:auto;}
+#mywallet .wallet-table th {background:#101027; color:#fff; border-bottom:1px solid #ccc;}
+#mywallet .wallet-table td {border:none;}
+#mywallet .wallet-table td:last-child {border-bottom:1px solid #ccc;}
+#mywallet .wallet-table th:first-child,
+#mywallet .wallet-table td:first-child {text-align:center;}
+
+#checkoutarea .ordersuccess p {margin:0px 10px 22px 10px;}
+#checkoutarea .ordersuccess ul {margin:0px 20px 30px 45px; display:block; text-align:left;}
+#userlogin {width:100%;}
+#topoffers h3 {width:100%; white-space:nowrap; overflow:hidden; text-overflow: ellipsis;}
+#topoffers h4 {display:none;}
+}
+
+@media only screen and (max-width:480px){
+#topright ul li span.lable {display:none;}
+#cartarea #cartleft table tr:nth-child(odd) {background:#f9f9f9;}
+#cartarea #cartleft table td {display:inline-block; width:100%!important; border:none; padding:5px 10px;}
+#cartarea #cartleft .proimg {width:32%;}
+
+#checkoutarea #checkoutleft .pager ul li {margin:0px 10px; font-size:12px;}
+#checkoutarea #steptwo {width:100%;}
+#checkoutarea #stepthree .paytypebox ul li {width:48%; margin:1%;}
+#checkoutarea #stepthree .paytypebox .formholder ol li label,
+#checkoutarea #stepthree .paytypebox .formholder ol li input {float:none; clear:both; margin:0px 0px 2px 0px; width:100%; text-align:left;}
+#checkoutarea #stepthree .paytypebox a.paynow.shift {margin-left:0px;}
+#myaddress .addresscol {width:100%; margin:0px 0px 10px 0px;}
+#mywallet .walletbox a.go {margin-bottom:8px;}
+#checkoutarea .successright {padding:0px 10px;}
+#userlogin .panelholder .userform .leftside, #userlogin .panelholder .userform .rightside,
+#userlogin .forgotpass label, #userlogin .forgotpass input {width:100%; clear:both;}
+#userlogin .forgotpass label, #userlogin .forgotpass input {text-align:left;}
+#page404 {padding:10px 0px;}
+#page404 p {font-size:12px;}
+	}
+	
+@media only screen and (max-width:360px){
+#checkoutarea #stepthree .paytypebox ul li label {padding:0px 0px 0px 10px;}
+#checkoutarea #stepthree .paytypebox ul li input {margin:18px 8px 0px 0px;}
+
+#newaddress, #editaddress {padding:25px 10px;}
+#newaddress input[type="text"], #editaddress input[type="text"],
+#newaddress select, #editaddress select {width:97%;}
+	}

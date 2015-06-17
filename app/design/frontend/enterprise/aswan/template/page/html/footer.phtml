@@ -1,0 +1,86 @@
+<?php
+/**
+ * Magento Enterprise Edition
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Magento Enterprise Edition End User License Agreement
+ * that is bundled with this package in the file LICENSE_EE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://www.magento.com/license/enterprise-edition
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magento.com for more information.
+ *
+ * @category    design
+ * @package     enterprise_default
+ * @copyright Copyright (c) 2006-2015 X.commerce, Inc. (http://www.magento.com)
+ * @license http://www.magento.com/license/enterprise-edition
+ */
+?>
+
+<div class="container">
+<div id="newsletter">
+<label>Newsletter</label>  
+
+<?php echo $this->getLayout()->createBlock('core/template')->setTemplate('newsletter/footer_subscribe.phtml')->toHtml() ?>
+
+<p>Be the first to find about exclusive deals, the latest lookbooks, and top trends.</p>
+</div>
+</div>
+
+<div class="footermid">
+<!-- Footer menu static block Start-->
+<div class="container">
+<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('aswan-footer-links')->toHtml(); ?>
+</div>
+<!-- Footer menu static block end-->
+
+</div>
+<div id="copyright">
+<p><?php echo $this->getCopyright() ?>
+</div>
+
+
+<!--all popup-->
+<div id="loginpopup" class="globlepopup">
+<div class="formbox">
+<h3>Existing user? <strong>Login</strong></h3>
+<label>Email Address<b>*</b></label>
+<input type="text" class="textfield" />
+<label>Password<b>*</b></label>
+<input type="password" class="textfield" />
+<a href="#" class="go">Sign in</a>
+<a href="#" class="forgotpass">Forgot Password?</a>
+
+<div class="clearfloat"></div>
+<br />
+<h3>Sign in <strong>with</strong></h3>
+<div class="sociallog">
+<a href="#" class="gpluse"></a>
+<a href="#" class="facebook"></a>
+</div>
+</div>
+
+<div class="seprater"></div>
+
+<div class="formbox registerfom">
+<h3>New user? <strong>Register here</strong></h3>
+<label>Email Address<b>*</b></label>
+<input type="text" class="textfield" />
+<label>Password<b>*</b></label>
+<input type="password" class="textfield" />
+<label>Mobile No<b>*</b></label>
+<input type="password" class="textfield" />
+<label><input type="checkbox" /> Send me email updates.</label>
+<a href="#" class="go">Men</a>
+<a href="#" class="go">Women</a>
+</div>
+</div>
+<!--all popup close-->

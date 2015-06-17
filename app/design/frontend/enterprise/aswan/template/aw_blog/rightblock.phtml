@@ -1,0 +1,74 @@
+<?php
+	if ($banner = Mage::getStoreConfig(AW_Blog_Helper_Config::XML_CMS_BLOCK1)) {
+?>
+		<div class="rightsblock">
+			<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId($banner)->toHtml() ?>
+		</div>
+<?php
+	}
+	
+	if ($twitter = Mage::getStoreConfig(AW_Blog_Helper_Config::XML_CMS_BLOCK2)) {
+?>
+		<div class="rightsblock">
+			<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId($twitter)->toHtml() ?>
+		</div>
+<?php
+	}
+	
+	if ($facebook = Mage::getStoreConfig(AW_Blog_Helper_Config::XML_CMS_BLOCK3)) {
+?>
+		<div class="rightsblock">
+			<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId($facebook)->toHtml() ?>
+		</div>
+<?php
+	}
+?>
+
+<?php if ($popularposts = $this->getPopular()): ?> 
+	<?php if (count($popularposts) > 0): ?>                   
+		<div class="rightsblock"> 
+			<h3><?php echo Mage::helper('blog')->__('Most Popular'); ?></h3>
+			<ul>
+			<?php foreach ($popularposts as $popular): ?>
+				<li><a href="<?php echo $popular->getAddress(); ?>" ><?php echo $popular->getTitle(); ?></a></li>
+			<?php endforeach; ?>
+			</ul>
+		</div>
+	<?php endif; ?>
+<?php endif; ?>
+
+<?php if ($posts = $this->getRecent()): ?>  
+	<?php if (count($posts) > 0): ?>      
+		<div class="rightsblock">       
+			<h3><?php echo Mage::helper('blog')->__('Recent Post'); ?></h3>
+			<ul>
+			<?php foreach ($posts as $post): ?>
+				<li><a href="<?php echo $post->getAddress(); ?>" ><?php echo $post->getTitle(); ?></a></li>
+			<?php endforeach; ?>
+			</ul>
+		</div>
+	<?php endif; ?>
+<?php endif; ?>
+
+
+<?php if ($edPickIdArr = $this->getBlogEditorsPick()): ?>
+	<?php if (count($edPickIdArr) > 0): ?>
+		<div class="rightsblock">
+			<h3><?php echo Mage::helper('blog')->__("Editor's Picks"); ?></h3>
+			<?php
+				foreach ($edPickIdArr as $pid):
+					$prodObj	=	Mage::getModel('catalog/product')->load($pid);
+					//print '<br>'.$prodObj->getSku()."===".$prodObj->getName()."===".$prodObj->getSmallImage();
+					//$dataArr[$pid]	=	Mage::helper('catalog/image')->init($prodObj, 'small_image')->resize(166);//111 115
+			?>
+				<div class="epick">
+					
+					<a href="<?php echo $prodObj->getProductUrl() ?>" title="<?php echo $prodObj->getName(); ?>"><img src="<?php echo Mage::helper('catalog/image')->init($prodObj, 'small_image')->resize(111) ?>" alt="<?php echo $prodObj->getName(); ?>"></a>
+					<h4><a href="<?php echo $prodObj->getProductUrl() ?>" title="<?php echo $prodObj->getName(); ?>"><?php echo $prodObj->getName(); ?></a></h4>
+				</div>
+			<?php endforeach; ?>
+		</div>
+	<?php endif; ?>
+<?php endif; ?>
+
+<?php echo $this->getChildHtml('blog_tags'); ?>

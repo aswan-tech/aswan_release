@@ -1,0 +1,40 @@
+	 <form action="<?php echo $this->getBaseUrl() ?>newsletter/subscriber/new/" method="post" id="newsletter-validate-detail">
+                               
+<input name="email" type="text" id="newsletteremail" value="<?php echo $this->__('Your Email') ?>" size="34" onclick="this.value=='<?php echo $this->__('Your Email') ?>'?this.value='':''" onblur="this.value==''?this.value='<?php echo $this->__('Your Email') ?>':''"  />
+
+<input type="button" class="button" value="men" onclick="emailSignup(1, '<?php echo $this->getBaseUrl() ?>newsletter/subscriber/newbyajax');" />
+<input type="button" class="button" value="women" onclick="emailSignup(2, '<?php echo $this->getBaseUrl() ?>newsletter/subscriber/newbyajax');" />
+
+<div id="loader-image" style="display:none;"><img src="<?php echo $this->getSkinUrl('images/ajax-loader.gif') ?>"></div>
+
+<div id="subscription-response" style="display:none;" class="c-032"></div>
+
+	</form>
+
+<script type="text/javascript">
+  function emailSignup(gender, ajaxUrl){
+  var email = $("#newsletteremail").val();
+  if($.trim(email) == '' || $.trim(email) == 'Your Email') {
+    $("#subscription-response").html('Please enter valid email address.').show();
+    return false;
+  }
+  if(email != ''){
+    var login = $.ajax({
+      url: ajaxUrl,
+      data: {email:email, gender:gender },
+      type:'POST',
+      beforeSend: function() {
+        $("#loader-image").show();
+      },
+      success: function(data){
+        $("#subscription-response").html(data).show();
+        $("#loader-image").hide();
+      },
+      error: function(xhr, textStatus, errorThrown){
+        $("#subscription-response").html('Ajax request failed reloading page').show();
+        $("#loader-image").hide();
+      }
+    });
+  }
+}
+</script>

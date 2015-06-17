@@ -1,0 +1,81 @@
+<?php
+/**
+ * Magento Enterprise Edition
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Magento Enterprise Edition End User License Agreement
+ * that is bundled with this package in the file LICENSE_EE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://www.magento.com/license/enterprise-edition
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magento.com for more information.
+ *
+ * @category    design
+ * @package     enterprise_default
+ * @copyright Copyright (c) 2006-2015 X.commerce, Inc. (http://www.magento.com)
+ * @license http://www.magento.com/license/enterprise-edition
+ */
+/**
+ * @var Mage_Page_Block_Html_Header $this
+ */
+?>
+
+<div id="topoffers">
+<div class="container"><h3>
+<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('aswan-top-offer-banner')->toHtml(); ?></h3>
+ <h4><?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('aswan-top-customer-care-number')->toHtml(); ?></h4></div>
+</div>
+
+<div id="quickbag">
+<?php echo $this->getChildHtml('topCart') ?>
+
+<div class="bagsummary">
+<span id="closebag"></span>
+<h3>Shopping Bag</h3>
+<p><?php $cartQty = Mage::helper('checkout/cart')->getSummaryCount();
+           if($cartQty > 0)           {
+           	echo $cartQty.' Items';
+           }
+           else {
+           	 echo "0 Item";
+           }
+ ?></p>
+<a href="<?php echo $this->getUrl('checkout/cart'); ?>" class="viewbag">View Bag</a>
+</div>
+
+</div>
+<div id="logo"><a href="<?php echo Mage::getBaseUrl();?>"><img src="<?php echo $this->getSkinUrl().Mage::getStoreConfig('design/header/logo_src');?>" /></a></div>
+<div id="mobilelogo"><a href="<?php echo Mage::getBaseUrl();?>"><img src="<?php echo $this->getSkinUrl('images/mobile-logo.jpg');?>" /></a></div>
+<!-- Desktop top menu Start -->
+<div id="topmenu">
+<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('aswan-topmenu')->toHtml(); ?>
+</div>
+<!-- End desktop top menu Start -->
+<div id="topright">
+<ul>
+<li id="mobilemenu"><span class="lines"></span> <span class="lable">Menu</span></li>
+<li class="search"><span class="icon"></span> <span class="lable">Search</span></li>
+<li class="myaccount"><a class="fancybox" href="#loginpopup"><span class="icon"></span> <span class="lable">Sign in</span></a></li>
+<li class="myaccount" id="mobilelogin"><a href="login-register.html"><span class="icon"></span> <span class="lable">Sign in</span></a></li>
+<li class="cartbox" id="showbag"><span class="lable">Bag</span> <span class="icon"></span></li>
+<li class="cartbox" id="mobilecart"><a href="cart.html"><span class="lable">Bag</span> <span class="icon"></span></a></li>
+</ul>
+</div>
+<div class="topsearch">
+ <?php echo $this->getChildHtml('topSearch') ?>
+</div>
+<!-- Mobile Menu start -->
+<div id="mobnavigation">
+<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('aswan-mobile-menu')->toHtml(); ?>
+</div>
+<!-- Mobile Menu End -->
+
+    

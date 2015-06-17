@@ -1,0 +1,125 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<?php
+/**
+ * Template for Mage_Page_Block_Html
+ */
+?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<?php echo $this->getLang() ?>" lang="<?php echo $this->getLang() ?>">
+<head>
+<?php echo $this->getChildHtml('head') ?>
+</head>
+<body class="home-page">
+<?php echo $this->getChildHtml('after_body_start') ?>
+<div id="wrapper">
+    <?php echo $this->getChildHtml('global_notices') ?>
+<header id="header">
+        <?php echo $this->getChildHtml('header') ?>
+   </header> 
+
+   <div id="homeslider">
+<ul class="bxslider">
+<?php echo Mage::helper('banners')->getBanners();?>
+<!-- <li><img src="http://www.jaspal.com/americanswan/skin/frontend/enterprise/aswan/images/slide2.jpg" /></li> -->
+</ul>
+</div>
+
+        <div id="middle">
+                <?php echo $this->getChildHtml('breadcrumbs') ?>
+                    <?php echo $this->getChildHtml('global_messages') ?>
+                    <div class="catbanners">
+                    <?php echo $this->getChildHtml('content') ?>
+                    </div>
+
+        <!-- new arrival start -->
+        <div id="new-arrivals">
+<h2>New Arrivals</h2>
+<div class="tabs">
+<ul>
+<li><a href="#" data-toggle="tabmen">Men</a></li>
+<li><a href="#" data-toggle="tabwomen">Women</a></li>
+</ul>
+</div>
+<div class="datatabs">
+<div class="datalisting" id="tabmen">
+<ul>
+<?php 
+$men = Mage::getModel('newarrival/managenewarrival')->getProductByCatId(6);  
+foreach ($men as $data) { 
+    ?>
+       <li><div class="dataimg">
+       <img src="<?php echo $data->getImageUrl();?>" width="320" height="334" /><a href="<?php echo $data->getProducturl();?>"><span>Shop</span></a></div>
+       <h3><?php echo $data->getName();?></h3></li>
+<?php   
+}
+?>
+</ul>
+</div>
+
+<div class="datalisting" id="tabwomen">
+<ul>
+<?php 
+$women = Mage::getModel('newarrival/managenewarrival')->getProductByCatId(8);  
+foreach ($women as $womenData) { 
+    ?>
+       <li><div class="dataimg">
+       <img src="<?php echo $data->getImageUrl();?>" width="320" height="334" /><a href="<?php echo $data->getProducturl();?>"><span>Shop</span></a></div>
+       <h3><?php echo $womenData->getName();?></h3></li>
+<?php   
+}
+?>
+</ul>
+</div>
+</div>
+</div>
+<!-- new arrival end -->
+
+<div class="footersocial">
+<div class="holder" id="blogpost">
+<ul class="bxslider">
+<li><img src="http://www.jaspal.com/americanswan/skin/frontend/enterprise/aswan/images/blog1.jpg" /> <div class="blogtext"><h3>Daily Blog Feed</h3> <p><a href="#">3 Things You Need To Know About Summer Prints</a></p></div></li>
+<li><img src="http://www.jaspal.com/americanswan/skin/frontend/enterprise/aswan/images/blog2.jpg" /> <div class="blogtext"><h3>Daily Blog Feed</h3> <p><a href="#">Sport a scarf this summer</a></p></div></li>
+<li><img src="http://www.jaspal.com/americanswan/skin/frontend/enterprise/aswan/images/blog3.jpg" /> <div class="blogtext"><h3>Daily Blog Feed</h3> <p><a href="#">5 Reasons Why Women Love Men in Blue & White</a></p></div></li>
+</ul>
+</div>
+<!-- Social Icons start block -->
+<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('aswan-social-icons')->toHtml(); ?>
+<!-- Social icons end -->
+</div>
+
+        </div>
+
+<footer id="footer">
+        <?php echo $this->getChildHtml('footer') ?>
+</footer>
+        <?php echo $this->getChildHtml('before_body_end') ?>
+
+</div>
+<?php echo $this->getAbsoluteFooter() ?>
+</body>
+</html>

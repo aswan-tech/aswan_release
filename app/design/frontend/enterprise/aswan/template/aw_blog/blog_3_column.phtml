@@ -1,0 +1,99 @@
+<?php
+	//$test = Mage::helper('blog')->getBlogLandingImgs('blog_short_content_img/foto_blog_1372249772.png', true);
+	//print '<br><br>';
+	//pr($test,0);
+	
+	$blogPostArr		=	Mage::helper('blog')->getBlogArrForColumns();
+	//pr($blogPostArr);
+	
+	if(!count($blogPostArr)){
+		print '<div id="column1"><div class="blogwrapper"><center>No record exists!</center></div></div>';
+	}else{
+		//Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA);
+?>
+		<div id="column3">
+			<div class="columngp1">
+				<?php foreach($blogPostArr[0] as $blog_1){ ?>
+					<div class="blogwrapper">
+						<a href="<?php echo $blog_1['more_link'];?>"><img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA) . '/blog_short_content_img/resized/' . $blog_1['contnt_img']; ?>" alt="<?php echo $blog_1['title'] ;?>" title="<?php echo $blog_1['title'] ;?>" /></a>
+						<div class="category"><?php echo $blog_1['category'] ;?></div>
+						<div class="heading"><a href="<?php echo $blog_1['more_link'];?>"><?php echo $blog_1['title'] ;?></a></div>
+						<div class="date">
+							<!--Posted 27th, May, 2013 09:31:50 AM-->
+							<?php echo 'Posted '.$blog_1['date'];?>
+						</div>
+						<?php echo $blog_1['short_desc'];?>
+						<div class="read_btn">
+							<a href="<?php echo $blog_1['more_link'];?>"><?php echo $this->__('Read More'); ?></a>
+						</div>
+						<div class="sshare">
+							<fb:like href="<?php echo $blog_1['more_link'];?>" send="true" layout="button_count" width="450" show_faces="false"></fb:like>
+							<!--<img src="<?php echo $this->getSkinUrl('images/fsend.jpg') ?>" width="50" height="20" />&nbsp;
+								<img src="<?php echo $this->getSkinUrl('images/flike.jpg') ?>" width="47" height="20" />-->
+						</div>
+						<?php if (Mage::getStoreConfig('blog/comments/enabled')) {	?>
+							<div class="comment">
+								<a href="<?php echo $blog_1['more_link'];?>#comments"><?php echo $blog_1['comments'] ;?> Comments</a>
+							</div>
+						<?php }	?>
+					</div>
+				<?php } ?>
+			</div>
+			
+			<div class="columngp2">
+				<?php foreach($blogPostArr[1] as $blog_2){ ?>
+						<div class="blogwrapper">
+							<a href="<?php echo $blog_2['more_link'];?>"><img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA) . '/blog_short_content_img/resized/' . $blog_2['contnt_img']; ?>" alt="<?php echo $blog_2['title'] ;?>" title="<?php echo $blog_2['title'] ;?>" /></a>
+							<div class="category"><?php echo $blog_2['category'] ;?></div>
+							<div class="heading"><a href="<?php echo $blog_2['more_link'];?>"><?php echo $blog_2['title'] ;?></a></div>
+							<div class="date">
+								<!--Posted 27th, May, 2013 09:31:50 AM-->
+								<?php echo 'Posted '.$blog_2['date'];?>
+							</div>
+							<?php echo $blog_2['short_desc'];?>
+							<div class="read_btn">
+								<a href="<?php echo $blog_2['more_link'];?>"><?php echo $this->__('Read More'); ?></a>
+							</div>
+							<div class="sshare">
+								<fb:like href="<?php echo $blog_2['more_link'];?>" send="true" layout="button_count" width="450" show_faces="false"></fb:like>
+								<!--<img src="<?php echo $this->getSkinUrl('images/fsend.jpg') ?>" width="50" height="20" />&nbsp;
+								<img src="<?php echo $this->getSkinUrl('images/flike.jpg') ?>" width="47" height="20" />-->
+							</div>
+							<?php if (Mage::getStoreConfig('blog/comments/enabled')) {	?>
+								<div class="comment">
+									<a href="<?php echo $blog_2['more_link'];?>#comments"><?php echo $blog_2['comments'] ;?> comments</a>
+								</div>
+							<?php }	?>
+						</div>
+				<?php } ?>
+			</div>
+			
+			<div class="columngp3">
+				<?php foreach($blogPostArr[2] as $blog_3){ ?>
+						<div class="blogwrapper">
+							<a href="<?php echo $blog_3['more_link'];?>"><img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA) . '/blog_short_content_img/resized/' . $blog_3['contnt_img']; ?>" alt="<?php echo $blog_3['title'] ;?>" title="<?php echo $blog_3['title'] ;?>" /></a>
+						<div class="category"><?php echo $blog_3['category'] ;?></div>
+						<div class="heading"><a href="<?php echo $blog_3['more_link'];?>"><?php echo $blog_3['title'] ;?></a></div>
+						<div class="date">
+							<!--Posted 27th, May, 2013 09:31:50 AM-->
+							<?php echo 'Posted '.$blog_3['date'];?>
+						</div>
+						<?php echo $blog_3['short_desc'];?>
+							<div class="read_btn">
+								<a href="<?php echo $blog_3['more_link'];?>"><?php echo $this->__('Read More'); ?></a>
+							</div>
+							<div class="sshare">
+								<fb:like href="<?php echo $blog_3['more_link'];?>" send="true" layout="button_count" width="450" show_faces="false"></fb:like>
+								<!--<img src="<?php echo $this->getSkinUrl('images/fsend.jpg') ?>" width="50" height="20" />&nbsp;
+								<img src="<?php echo $this->getSkinUrl('images/flike.jpg') ?>" width="47" height="20" />-->
+							</div>
+							<?php if (Mage::getStoreConfig('blog/comments/enabled')) {	?>
+								<div class="comment">
+									<a href="<?php echo $blog_3['more_link'];?>#comments"><?php echo $blog_3['comments'] ;?> comments</a>
+								</div>
+							<?php }	?>
+						</div>
+				<?php } ?>
+			</div>
+		</div>
+<?php	}	?>
