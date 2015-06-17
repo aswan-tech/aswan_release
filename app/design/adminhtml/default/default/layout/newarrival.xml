@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<layout>
+	  <newarrival_adminhtml_index_index>
+        <update handle="newarrival_index_index"/>
+        <reference name="content">
+            <block type="adminhtml/template" name="list_newarrival" template="newarrival/index.phtml"/>
+        </reference>
+    </newarrival_adminhtml_index_index>
+    <newarrival_adminhtml_index_add>
+		<reference name="head">
+         <action method="addJs">
+            <script>jquery/jquery.js</script>
+        </action>
+       </reference>  
+        <update handle="newarrival_index_add"/>
+        <reference name="content">
+            <block type="adminhtml/template" name="add_newarrival" template="newarrival/add.phtml"/>
+        </reference>
+    </newarrival_adminhtml_index_add>
+</layout>

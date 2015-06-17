@@ -1,0 +1,51 @@
+<?php 
+	
+$men = Mage::getModel('newarrival/managenewarrival')->getProductByCatId(6);
+$women = Mage::getModel('newarrival/managenewarrival')->getProductByCatId(8);
+	foreach ($men as $dataArr){
+		//echo "<pre>";
+		//echo $dataArr->getName()."<br><br><br>";
+	}
+	foreach ($women as $dataArr){
+		//echo "<pre>";
+		//echo $dataArr->getName()."<br>";
+	}
+?>
+
+<div class="" id="anchor-content">
+<div id="page:main-container">
+<div class="main-col" id="content" style="margin-left:0px !important;" >
+<div class="main-col-inner">
+<div id="messages"></div>
+<div class="content-header">
+<h3 class="icon-head head-adminhtml-zipcodeimport">Manage New Arrival</h3>
+<p class="form-buttons"><button  onclick="redirect();" title="Add New Banner" type="button" class="scalable save" style=""><span>Add</span></button></p>
+</div>
+<div class="grid">
+<div class="hor-scroll">
+	<table cellspacing="0" id="sequencing-row-table" class="form-list">
+		<thead>
+			<tr id="0" class="headings">
+				<th>Category Name</th>
+				<th>SKU</th>
+				<th>Action</th>
+			</tr>	
+		</thead>
+		<tbody>
+		<?php echo Mage::helper('newarrival')->dataListing();?>
+		<tbody>
+		</tbody>
+</table>
+ </div>
+</div>						
+</div>
+</div>
+</div>
+</div>
+</div>
+<script type="text/javascript">
+function redirect()
+{
+    window.location.href="<?php echo $this->getBaseUrl();?>newarrival/adminhtml_index/add/";
+}
+</script>	
