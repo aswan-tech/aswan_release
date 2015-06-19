@@ -6867,7 +6867,7 @@ display:none;
 /*-----New Size Chart CSS Starts------*/
 #fancybox-wrap1 { display: none; height: auto; left: 0; margin-left: 0; outline: medium none; position: absolute; width: 100%; z-index: 1101;}
 #fancybox-outer1 { left: 0; margin: 0 auto; position: fixed; right: 0; width: 62%;}
-#fancybox-close1 { right: -4px !important; top: 0 !important;}
+#fancybox-close1 { right: 10px !important; top: 4px !important; width:24px!important;}
 #mobisize-container{width:100%; margin:0 auto 18px; text-align:center;}
 #mobisize-container .size-top { background: none repeat scroll 0 0 #1e0f46; color: #fff !important; font-size: 14px; margin: 3px auto 0; padding: 5px; text-align: center; width:98%;}
 #mobisize-container .mobi-sizechart .size-info {
@@ -6885,23 +6885,24 @@ display:none;
     border-spacing: 0;
 }
 
-#mobisize-container .mobi-sizechart .size-info table tr th.size {
-    padding-bottom: 15px;
-	vertical-align: middle;
-}
-#mobisize-container .mobi-sizechart .size-info table tr th {
-    text-transform: uppercase;
+#mobisize-container .mobi-sizechart .size-info table .size {
+	text-transform: uppercase;
 	font:normal 12px/14px "Lato-Regular";
 	background:#f1f0ee;
 	color:#666666;
-	padding: 2px 5px!important;
+	padding:5px!important;
+	display: block;
 }
-#mobisize-container .mobi-sizechart .size-info table tr td, #mobisize-container .mobi-sizechart .size-info table tr th {
+
+#mobisize-container .mobi-sizechart .size-info table tr td,
+#mobisize-container .mobi-sizechart .size-info table tr th {
     border: 1px solid #ccc;
-    padding: 5px 3px;
     text-align: center;
+    padding: 0px!important;
+    min-width: 100px;
 }
-#mobisize-container .mobi-sizechart .size-info table caption, table th, table td {
+#mobisize-container .mobi-sizechart .size-info table caption,
+table th, table td {
     text-align: left;
 }
 #mobisize-container .mobi-sizechart .size-info table tr th .unit {
@@ -6916,7 +6917,9 @@ display:none;
 	line-height:16px;
 	border:none;
 	padding:0;
-} 
+}
+#mobisize-container .mobi-sizechart .size-info ul {}
+#mobisize-container .mobi-sizechart .size-info ul li {padding:5px 0px; display:block; border-bottom: 1px solid #ccc;]
 .product-sketch { position: relative; margin:28px auto 18px;}
 
 /*-----New Size Chart CSS Ends------*/

@@ -11,62 +11,51 @@
 			<?php
 				$_product = $this->getProduct();
 				$sizechart = $_product->getAttributeText('sizechart');
-				$counter = 0;
-				$collection = Mage::getModel('sizeguide/sizeguide')->getCollection();
-				if(isset($sizechart) && $sizechart != '') {	
-					$collection->getSelect()->where("sizeguide_id = ? ", (string) $sizechart);
-				}
-				else {
-					$collection->getSelect()->where("sizeguide_id IN (1,2) ");
-				}
-				//echo $collection->getSelect()->__toString();
-				$collection->getSelect()->where('status = 1')->order('order_id ASC');
-				$size_popup = sizeof($collection);
-				
-				if($size_popup <=0 ) {
-					$collection->getSelect()->where("sizeguide_id IN (1,2) ");
-					$collection->getSelect()->where('status = 1')->order('order_id ASC');
-					$size_popup = sizeof($collection);
-				}
-					
-				if($size_popup > 0)	{
-			?>
-				
-					
-						
+				$sizechart_content = trim($_product->getData('sizechart_content'));
+				if($sizechart_content !='' && $sizechart_content!=null){
+					$sizechart_content = (array)json_decode($sizechart_content);
+					if(isset($sizechart_content['image']))
+						$image = $sizechart_content['image'];
+					unset($sizechart_content['image']);?>
+					<div id="tab0" class="">
+						<div id="mobisize-container">			
+		  					<p class="size-top">SIZE GUIDE</p> 
+		  					<div class="mobi-sizechart">				
+								<div class="size-info">
+									<table>
+										<tbody><tr>
+					<?php foreach($sizechart_content as $size_key=>$size_c):?>
 							
-        
-		
-		<?php
-		$imgUrl =  $this->getSkinUrl()."images/sizechart/";
-		foreach ($collection as $sizedata):
-			$SizeData = $sizedata->getData();
-			$content[] = str_replace("##IMG_URL##",$imgUrl,$SizeData['content_size']);
-			if(empty($sizechart)) {
-        ?>
-       
-		   <li id="divli<?php echo $counter;?>" class="size-tab"><a onclick="showMe('<?php 
-		   echo $counter; ?>');" href="javascript:void(0)"><span><b> 
-		   <?php echo $SizeData['title'];?> </b></span></a></li>
-		   <?php } ?>
-		   <?php $counter++; endforeach; ?>
-	
-							
-						
+							<td>
+								<p class="size"><?php echo ucfirst($size_key);?></p>
+								<ul>
+								<?php foreach($size_c as $s_c){?>
+									<li><?php echo $s_c;?></li>
+								<?php } ?>
+							</ul>
+							</td>
+					<?php endforeach; ?>
 
-		<?php for($i=0; $i<$size_popup; $i++) { ?>
-			<div id="tab<?php echo $i; ?>" class="" style="display:none;">
-				<?php echo $content[$i]; ?> 
-			</div>
-		<?php } ?>
+										</tr></tbody>
+									</table>
+								</div>
+								<div class="product-sketch"><img border="0" width="286px" height="258px" alt="Men's Sleeveless Jacket" src="<?php echo $this->getSkinUrl('images/sizechart/v1/'.$image, array('_secure'=>true)); ?>">
+								</div>
+							</div>
+						</div>
+					</div>		
+				<?php }else {  ?>
+					<div id="tab0" class="">
+						<div id="mobisize-container">	
+							<p class="size-top">SIZE GUIDE</p> 
+		  					<div class="mobi-sizechart">
+		  						<p>&nbsp;</p>	
+								<?php echo "No Size chart available!";?>
+							</div>
+						</div>			
+		  			</div>
+				<?php  }?>
 
-					
-				
-				<?php 
-				} else {				
-					echo '<h2>No Size Guide Available !</h2>';				
-				}
-				?>
 				
 			
 		<a style="display: inline;" id="fancybox-close1" onclick="closeBox();"></a>

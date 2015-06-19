@@ -3175,7 +3175,7 @@ img{width:auto;}
 }
 
 /*-----New Size Chart CSS Starts------*/
-#fancybox-close1 { right: -4px !important; top: 0 !important;}
+#fancybox-close1 { right: 10px !important; top: 4px !important;}
 #mobisize-container .size-top { background: none repeat scroll 0 0 #1e0f46; color: #fff !important; font-size: 14px; margin: 3px auto 0; padding: 5px 0; text-align: center; width:100%;}
 #mobisize-container .mobi-sizechart .size-info {
     overflow-x: auto;
