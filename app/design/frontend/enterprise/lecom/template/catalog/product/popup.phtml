@@ -49,7 +49,7 @@
 						<div id="mobisize-container">	
 							<p class="size-top">SIZE GUIDE</p> 
 		  					<div class="mobi-sizechart">
-		  						<p>&nbsp;</p>	
+		  						<br>	
 								<?php echo "No Size chart available!";?>
 							</div>
 						</div>			
@@ -61,36 +61,3 @@
 		<a style="display: inline;" id="fancybox-close1" onclick="closeBox();"></a>
 	</div>
 </div>
-
-    <script language="javascript">
-	
-	<?php if($size_popup > 0) { ?>
-		document.getElementById('tab0').show();	
-	<?php } ?>
-	
-	<?php if(empty($sizechart)) { ?>		
-		document.getElementById('divli0').className="active_tab size-tab";
-	<?php } ?>
-	
-	function showMe(tab) {       
-  	    for(var i=0; i<<?php echo $size_popup; ?>; i++) {
-		  var nact_tab = "tab"+i;
-		  var active_tab = "divli"+i;
-			if(tab==i) {
-				if(active_tab) {
-					document.getElementById(active_tab).className="active_tab size-tab";				   }
-				if(nact_tab) {
-					document.getElementById(nact_tab).style.display="block";
-				}
-			} else {
-		 
-				if(active_tab) {		
-						document.getElementById(active_tab).className="size-tab";
-				} 
-			    if(nact_tab) {
-					document.getElementById(nact_tab).style.display="none";
-				}
-			}
-		}
-	}	
-</script>
