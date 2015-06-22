@@ -6919,7 +6919,7 @@ table th, table td {
 	padding:0;
 }
 #mobisize-container .mobi-sizechart .size-info ul {}
-#mobisize-container .mobi-sizechart .size-info ul li {padding:5px 0px; display:block; border-bottom: 1px solid #ccc;]
+#mobisize-container .mobi-sizechart .size-info ul li {padding:5px 0px; display:block; border-bottom: 1px solid #ccc; float: none!important;}
 .product-sketch { position: relative; margin:28px auto 18px;}
 
 /*-----New Size Chart CSS Ends------*/
