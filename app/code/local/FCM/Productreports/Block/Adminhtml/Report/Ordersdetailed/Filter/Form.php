@@ -194,7 +194,7 @@ class FCM_Productreports_Block_Adminhtml_Report_Ordersdetailed_Filter_Form exten
             ),
         ));
 		
-		$productTypeArr = array('simple'=>'Orders', 'giftcard'=>'Giftcard', 'all'=>'All Orders');
+		$productTypeArr = array('configurable'=>'Orders', 'giftcard'=>'Giftcard', 'all'=>'All Orders');
 		$fieldset->addField('product_type', 'select', array(
             'name' => 'product_type',
             'values' => $productTypeArr,
