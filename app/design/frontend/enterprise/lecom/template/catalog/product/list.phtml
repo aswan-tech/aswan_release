@@ -195,6 +195,9 @@ $product_style = $_product->getStyle();?>
 	<?php 
 	$_productNameStripped = $this->stripTags($_product->getName(), null, true); 
 	$product_category = str_replace(" ", "", strtolower($_product->getAttributeText('product_category')));
+    $gender = $_product->getAttributeText('gender');
+    if($gender =='Unisex')
+        $gender = 'Men and Women';
 	?>
         <li class="proditem <?php if (!($i%$_columnCount==0 || $i==$_collectionSize)){ echo 'brdr-right-bottom';} else if(isset($_GET['wth']) && ($_GET['wth']=='768' || $_GET['wth']=='1024')){echo "mbsize";} ?>" name="showsize" rel="<?php echo $_product->getId() ?>">
         <?php $highlighters = $_product->getAttributeText('highlighters'); ?>
@@ -258,7 +261,7 @@ $product_style = $_product->getStyle();?>
                 <a id="imagehighlight" href="<?php echo $_productUrl; 
                 ?>" title="<?php echo 
                 $this->stripTags($this->getImageLabel($_product, 
-                'small_image'), null, true) ?>" class="product-image gtm-track"><img id="prodImg-<?php echo $_product->getEntityId(); ?>" src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(235,250); ?>" width="235" height="250" alt="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" />
+                'small_image'), null, true) ?>" class="product-image gtm-track"><img id="prodImg-<?php echo $_product->getEntityId(); ?>" src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(235,250); ?>" width="235" height="250" alt="Americanswan <?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true).' '.ucfirst($product_category).' For '.$gender ?> " />
 				<?php if($_product->isSaleable() == 1 && $_product->getHoverImage()): ?>
                 <span class="prd-img-sec"><img width="235" alt="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" src="<?php echo $this->helper('catalog/image')->init($_product, 'hover_image')->resize(235,250); ?>"></span>
                 <?php endif; ?>

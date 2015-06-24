@@ -20,6 +20,21 @@ class Custom_Common_Model_Observer extends Varien_Object
 			}
 		}
 
+		public function changeRobots($observer)
+		{
+		    if($observer->getEvent()->getAction()->getFullActionName() == 'catalog_category_view')
+		    {
+		        $uri = $observer->getEvent()->getAction()->getRequest()->getRequestUri();
+		        if(stristr($uri,"?")): // looking for a ?
+		            $layout       = $observer->getEvent()->getLayout();
+		            $product_info = $layout->getBlock('head');
+		            $layout->getUpdate()->addUpdate('<reference name="head"><action method="setRobots"><value>NOINDEX,NOFOLLOW</value></action></reference>');
+		            $layout->generateXml();
+		        endif;
+		    }
+		    return $this;
+		}
+
 	  public function customerRegisterSuccess(Varien_Event_Observer $observer) {
 	      $event = $observer->getEvent();
 	      $customer = $event->getCustomer();

@@ -35,6 +35,7 @@ class AW_Blog_Model_Observer {
             throw new Exception(Mage::helper('blog')->__('Error during generation sitemap'));
 
         $storeId = $sitemapObject->getStoreId();
+
         $date = Mage::getSingleton('core/date')->gmtDate('Y-m-d');
         $baseUrl = Mage::app()->getStore($storeId)->getBaseUrl(Mage_Core_Model_Store::URL_TYPE_LINK);
         /**
@@ -48,12 +49,13 @@ class AW_Blog_Model_Observer {
         if ($route == "") {
             $route = "blog";
         }
-        foreach ($collection as $item) {
-            $xml = sprintf('<url><loc>%s</loc><lastmod>%s</lastmod><changefreq>%s</changefreq><priority>%.1f</priority></url>', htmlspecialchars($baseUrl . $route . '/' . $item->getIdentifier()), $date, $changefreq, $priority
-            );
-
-            $sitemapObject->sitemapFileAddLine($xml);
+        try{
+            foreach ($collection as $item) {
+                $xml = sprintf('<url><loc>%s</loc><lastmod>%s</lastmod><changefreq>%s</changefreq><priority>%.1f</priority></url>', htmlspecialchars($baseUrl . $route . '/' . $item->getIdentifier()), $date, $changefreq, $priority);
+                $sitemapObject->sitemapFileAddLine($xml);
+            }  
         }
+        catch(Exception $e){}
         unset($collection);
     }
 
