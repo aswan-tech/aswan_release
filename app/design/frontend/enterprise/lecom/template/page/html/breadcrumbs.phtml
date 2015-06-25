@@ -54,7 +54,7 @@ if(isset($_SESSION['salecrumbs']) && $var == 'true'){ ?>
                         <li itemprop="itemListElement" itemscope
       itemtype="http://schema.org/ListItem">
                             <?php if($_crumbInfo['link']): ?>
-                            <a itemprop="item" href="<?php echo Mage::getBaseUrl().'catalogsearch/result/'.$_crumbInfo['link']; ?>" title="<?php echo $this->htmlEscape($_crumbInfo['title']) ?>"><?php echo $this->htmlEscape($_crumbInfo['label']) ?></a>
+                            <a itemprop="item" href="<?php echo Mage::getBaseUrl().'catalogsearch/result/'.$_crumbInfo['link']; ?>" title="<?php echo $this->htmlEscape($_crumbInfo['title']) ?>"><span itemprop="name"><?php echo $this->htmlEscape($_crumbInfo['label']) ?></span></a>
                             <meta itemprop="position" content="<?php echo $i;?>" />
                             <?php else: ?>
                                 <?php echo $this->htmlEscape($_crumbInfo['label']); ?>
@@ -77,7 +77,7 @@ if(isset($_SESSION['salecrumbs']) && $var == 'true'){ ?>
         <li itemprop="itemListElement" itemscope
       itemtype="http://schema.org/ListItem">
             <a temprop="item" title="Home Page" href="<?php echo $this->getBaseUrl(); ?>">
-            Home
+            <span itemprop="name">Home</span>
             </a>
              <meta itemprop="position" content="1" />
         </li>
@@ -86,7 +86,7 @@ if(isset($_SESSION['salecrumbs']) && $var == 'true'){ ?>
         <li itemprop="itemListElement" itemscope
       itemtype="http://schema.org/ListItem">
             <a temprop="item" title="My Account" href="<?php echo $this->getBaseUrl().'customer/account/'; ?>">
-            My Account
+            <span itemprop="name">My Account</span>
             </a>
              <meta itemprop="position" content="2" />
         </li>
@@ -118,7 +118,7 @@ if(isset($_SESSION['salecrumbs']) && $var == 'true'){ ?>
         <li <?php if($_crumbInfo['last']){ echo 'class="last-child"'; } else{ ?> itemprop="itemListElement" itemscope
       itemtype="http://schema.org/ListItem" <?php } ?>>
             <?php if($_crumbInfo['link']): ?>
-            <a itemprop="item" href="<?php echo (strtolower($_crumbInfo['label']) == 'sale' ? 'javascript:void(0);' : $_crumbInfo['link']) ?>" title="<?php echo $this->htmlEscape( $_crumbInfo['title'] ) ?>"><?php echo ucwords(strtolower($this->htmlEscape($_crumbInfo['label']))) ?></a>
+            <a itemprop="item" href="<?php echo (strtolower($_crumbInfo['label']) == 'sale' ? 'javascript:void(0);' : $_crumbInfo['link']) ?>" title="<?php echo $this->htmlEscape( $_crumbInfo['title'] ) ?>"> <span itemprop="name"><?php echo ucwords(strtolower($this->htmlEscape($_crumbInfo['label']))) ?></span></a>
             <meta itemprop="position" content="<?php echo $i; ?>" />
             <?php elseif($_crumbInfo['last']):  ?>
                 <?php $temp = explode(':',$_crumbInfo['label']);
