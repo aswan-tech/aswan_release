@@ -29,7 +29,6 @@ $phpseclibdir = Mage::getBaseDir('lib');
 require_once 'phpseclib' . DS . 'Net' . DS . 'SFTP.php';
 
 class FCM_Fulfillment_Model_Process {
-
     private $ftpHost;
     private $ftpPort;
     private $ftpTimeout;
@@ -43,16 +42,14 @@ class FCM_Fulfillment_Model_Process {
         $this->ftpTimeout = Mage::getStoreConfig('fulfillment/sftp/timeout');
         $this->ftpUsername = Mage::getStoreConfig('fulfillment/sftp/username');
         $this->ftpPassword = Mage::getStoreConfig('fulfillment/sftp/password');
-		
-		if (empty($this->ftpHost)) {
+	if (empty($this->ftpHost)) {
             $this->ftpHost = 'uat.admin.americanswan.com';
         }
 
         if (empty($this->ftpUsername)) {
             $this->ftpUsername = 'lecom-ftp';
         }
-		
-		if (empty($this->ftpPassword)) {
+	if (empty($this->ftpPassword)) {
             $this->ftpPassword = 'secure123#$';
         }
 		
@@ -83,7 +80,6 @@ class FCM_Fulfillment_Model_Process {
                 //'7' => 'Returned',
                 //'8' => 'Refunded'
         );
-
         return $statuses;
     }
 
@@ -109,7 +105,6 @@ class FCM_Fulfillment_Model_Process {
     public function getDcStatusCode($status) {
         $statuses = $this->getDcStatuses();
         $statusCodeArray = array_flip($statuses);
-
         return $statusCodeArray[$status];
     }
 
@@ -122,7 +117,6 @@ class FCM_Fulfillment_Model_Process {
     public function getDcStatusCodes() {
         $statuses = $this->getDcStatuses();
         $statusCodeArray = array_flip($statuses);
-
         return $statusCodeArray;
     }
 
@@ -141,8 +135,6 @@ class FCM_Fulfillment_Model_Process {
             'Returned' => 'order_unsuccessful',
             'Refunded' => 'order_unsuccessful',
             'Partial Shipped'=>'partial_shipped');
-
-
         return $orderStatusCodes;
     }
 
@@ -156,13 +148,11 @@ class FCM_Fulfillment_Model_Process {
     public function getFilename($module, $ext, $filenum="", $orderno="") {
         $store_id = Mage::app()->getStore()->getId();
         $storeTimestamp = Mage::app()->getLocale()->storeTimeStamp($store_id);
+	if ($filenum) {
+		$filenum = "_" . $filenum;
+	}
 
-		if ($filenum) {
-			$filenum = "_" . $filenum;
-		}
-
-	   $filename = $module . '_' . ( empty($orderno) ? date("YmdHis", $storeTimestamp) : $orderno ) . $filenum . '.' . $ext;
-
+   	$filename = $module . '_' . ( empty($orderno) ? date("YmdHis", $storeTimestamp) : $orderno ) . $filenum . '.' . $ext;
         return $filename;
     }
 
@@ -176,9 +166,7 @@ class FCM_Fulfillment_Model_Process {
     public function getTmpFilename($module, $ext) {
         $store_id = Mage::app()->getStore()->getId();
         $storeTimestamp = Mage::app()->getLocale()->storeTimeStamp($store_id);
-
         $filename = $module . '_' . date("YmdHis", $storeTimestamp) . '_tmp.' . $ext;
-
         return $filename;
     }
 
@@ -239,7 +227,7 @@ class FCM_Fulfillment_Model_Process {
                 $subject = Mage::getStoreConfig("itemmaster/notificationemail/notification_email_subject");
                 break;
         }
-       
+
         if (empty($message)) {
             $message = "No Message attached";
         }
@@ -258,7 +246,6 @@ class FCM_Fulfillment_Model_Process {
 
     public function readFromRemote($remote, $local, $module="", $fileformat = "xml", $isfile=false, $tmode=false) {
         Mage::log('Transferring file(s) from ' . $remote . ' to ' . $local, Zend_Log::DEBUG, 'fulfillment');
-
         if ($tmode) {
             $mode = NET_SFTP_STRING;
         } else {
@@ -270,60 +257,56 @@ class FCM_Fulfillment_Model_Process {
         }
 
         try {
-            #$ssh = new Net_SFTP($this->ftpHost, $this->ftpPort, $this->ftpTimeout);
 
+            #$ssh = new Net_SFTP($this->ftpHost, $this->ftpPort, $this->ftpTimeout);
             #if (!$ssh->login($this->ftpUsername, $this->ftpPassword)) {
-            if(1){
-                 #Mage::log('Remote Failed!! starting backup', Zend_Log::DEBUG, 'fulfillment');
+		if(1){
+                 Mage::log('Remote Failed!! starting backup', Zend_Log::DEBUG, 'fulfillment');
 				 Mage::log('copying all files without sftp', Zend_Log::DEBUG, 'fulfillment');
 				 $scanned_files = array_diff(scandir($remote), array('..', '.'));
 				 // check if there is any file 
-				 if(count($scanned_files) > 0)
-				 {
-					 $status = array();
-					 Mage::log(count($scanned_files).' files found', Zend_Log::DEBUG, 'fulfillment');
-					 foreach($scanned_files as $key=>$filename)
-					 {
-						if(rename($remote.$filename,$local.$filename)){
-							$status['success'][] = $filename;
-							unlink($remote.$filename);
-							Mage::log('Copying file ' . $filename . ' to ' . $local.$filename, Zend_Log::DEBUG, 'fulfillment');
-						}
-						else
-						{
-							$status['error'][] = $filename;
-							Mage::log('Error Copying file ' . $filename . ' to ' . $local.$filename, Zend_Log::ERR, 'fulfillment');
-						}
-					}
-					return $status;
-				 }
-				 else
-				 {
-					Mage::log('No File found', Zend_Log::DEBUG, 'fulfillment');
-					return false;
-				 } 
-			}
-			
-			/*
 
+		 if(count($scanned_files) > 0)
+		 {
+			 $status = array();
+			 Mage::log(count($scanned_files).' files found', Zend_Log::DEBUG, 'fulfillment');
+			 foreach($scanned_files as $key=>$filename)
+			 {
+				if(rename($remote.$filename,$local.$filename)){
+					$status['success'][] = $filename;
+					Mage::log('Copying file ' . $filename . ' to ' . $local.$filename, Zend_Log::DEBUG, 'fulfillment');
+					unlink($remote.$filename);
+				}
+				else
+				{
+					$status['error'][] = $filename;
+					Mage::log('Error Copying file ' . $filename . ' to ' . $local.$filename, Zend_Log::ERR, 'fulfillment');
+				}
+			 }
+			 return $status;
+		 }
+		 else
+		 {
+		 	Mage::log('No File found', Zend_Log::DEBUG, 'fulfillment');
+			return false;
+		 } 
+	    }
+
+/*
             if ($isfile) {
                 $tempFileName = rtrim($remote, "." . $fileformat) . ".tmp";
                 $ssh->exec('mv ' . $remote . " " . $tempFileName);
-
                 $status = $ssh->get($tempFileName, $local);
 
                 //File not read
                 if (!$status) {
                     return false;
                 }
-
                 $ssh->exec('rm -rf ' . $tempFileName);
             } else {
                 $fileformatexp = "*." . $fileformat;
                 $fileslist = $ssh->exec('find ' . $remote . ' -maxdepth 1 -type f -name "' . $fileformatexp . '" | sort $1');
-				
-				$files = explode("\n", $fileslist);
-
+		$files = explode("\n", $fileslist);
                 $status = array();
                 foreach ($files as $file) {
                     if (empty($file)) {
@@ -331,17 +314,13 @@ class FCM_Fulfillment_Model_Process {
                     }
 
                     $localfile = $local . basename($file);
-
                     $tempFileName = rtrim($file, "." . $fileformat) . ".tmp";
                     $ssh->exec('mv ' . $file . " " . $tempFileName);
-
                     $stat = $ssh->get($tempFileName, $localfile);
-
                     if ($stat) {
                         $status['success'][] = $file;
                         //Delete the file read
                         $ssh->exec('rm -rf ' . $tempFileName);
-
                         Mage::log('Copying file ' . $file . ' to ' . $localfile, Zend_Log::DEBUG, 'fulfillment');
                     } else {
                         $status['error'][] = $file;
@@ -351,17 +330,13 @@ class FCM_Fulfillment_Model_Process {
             }
 
             $ssh->disconnect();
-
             return $status;
-            */
-             
+	*/
         } catch (Exception $e) {
             $errmsg = $e->getMessage();
             Mage::log($errmsg, Zend_Log::ERR, 'fulfillment');
 
-            Mage::getModel('logger/logger')->saveLogger($module, "Exception", __FILE__, $errmsg);
             $this->notify($module, $errmsg);
-
             return false;
         }
     }
@@ -520,4 +495,3 @@ class FCM_Fulfillment_Model_Process {
         return $erArray;
     }
 }
-

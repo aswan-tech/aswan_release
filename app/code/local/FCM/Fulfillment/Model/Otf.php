@@ -108,7 +108,6 @@ class FCM_Fulfillment_Model_Otf extends FCM_Fulfillment_Model_Order
 	public function otffeed() 
 	{	
 		Mage::log('Entered otffeed function', Zend_Log::DEBUG, 'fulfillment');
-				
 		//Fetch orders with senttoerp status 0 and order status new and processing 
 		//$ostate = $this->otfOrderState;
 		//$this->remoteOutboundOtf = trim($this->remoteOutboundOtf);
@@ -120,9 +119,9 @@ class FCM_Fulfillment_Model_Otf extends FCM_Fulfillment_Model_Order
 		//Unlock the order that have acuired lock for more than 1 hour
 		Mage::log('Unlocking the order which have exceeded the locking criteria.', Zend_Log::DEBUG, 'fulfillment');
 		$this->unlockOrders();
-		
+	
 		$lockingTable = Mage::getSingleton('core/resource')->getTableName('lockorder/lockorder');
-		
+
 		$orders = Mage::getModel('sales/order')->getCollection()->addFieldToSelect('*')
 			   ->addAttributeToFilter('state', array('neq'=>'holded'))
 			   ->addAttributeToFilter('main_table.status', array(array('eq'=>'created'), array('eq'=>'processing'), array('eq'=>'COD_Verification_Successful'), array('eq'=>'closed')))
@@ -131,7 +130,7 @@ class FCM_Fulfillment_Model_Otf extends FCM_Fulfillment_Model_Order
 				->joinLeft(array('locking_table'=>$lockingTable), 'main_table.increment_id = locking_table.order_id', array())
 				->where('locking_table.status=0 OR locking_table.status is NULL')
 				->where("DATE_ADD(created_at, INTERVAL ". $this->lockPeriod . " MINUTE) < '". $this->ctime ."'");
-					
+		
 		Mage::log('Reading Orders', Zend_Log::DEBUG, 'fulfillment');
 		
 		$loggerModel = Mage::getModel('logger/logger');
@@ -263,10 +262,11 @@ class FCM_Fulfillment_Model_Otf extends FCM_Fulfillment_Model_Order
 				
 				$processModel = Mage::getModel('fulfillment/process');
 				
+				//$tmpFileName = Mage::getModel('fulfillment/process')->getTmpFilename($this->initFileOtfName, 'xml');
 				if ($numfilesToCreate == 1) {
-					$fileName = $processModel->getFilename($this->initFileOtfName, 'xml',"",$order->getRealOrderId());
+					$fileName = $processModel->getFilename($this->initFileOtfName, 'xml',"", $order->getRealOrderId());
 				} else {
-					$fileName = $processModel->getFilename($this->initFileOtfName, 'xml', $i,$order->getRealOrderId());
+					$fileName = $processModel->getFilename($this->initFileOtfName, 'xml', $i, $order->getRealOrderId());
 				}
 				
 				$this->feedfile = $fileName;
