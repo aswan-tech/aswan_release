@@ -61,7 +61,7 @@ $gtmId = trim(str_replace(array("/","index.php",".html"," "),array("-","","","")
                                  $topwear_html .=$_item->getRemoveUrl().'\''.'" ';
                                 if($_item->getMShowSelected())
                                     $topwear_html .=' class="m-selected-ln-item"';
-                                $topwear_html .= '><a class="gtm-track" id="f-'.$gtmId.'-cat-'.strtolower($this->escapeHtml($_item->getLabel())).'" href="'.(isset($arr_active_filters[$_item->getValue()]) && !is_null($arr_active_filters[$_item->getValue()]) ? $arr_active_filters[$_item->getValue()]->getRemoveUrl() : $_item->getRemoveUrl()).'" ';
+                                $topwear_html .= '><a rel="NOFOLLOW,NOINDEX" class="gtm-track" id="f-'.$gtmId.'-cat-'.strtolower($this->escapeHtml($_item->getLabel())).'" href="'.(isset($arr_active_filters[$_item->getValue()]) && !is_null($arr_active_filters[$_item->getValue()]) ? $arr_active_filters[$_item->getValue()]->getRemoveUrl() : $_item->getRemoveUrl()).'" ';
                                 $topwear_html .='title="'.$this->escapeHtml($_item->getLabel()).' class="m-selected-filter-item">'.$this->escapeHtml($_item->getLabel());
                                 if (Mage::getStoreConfigFlag('mana_filters/display/count'))
                                     $topwear_html .=  '('.$_item->getCount().')';
@@ -72,7 +72,7 @@ $gtmId = trim(str_replace(array("/","index.php",".html"," "),array("-","","","")
                                             $topwear_html .= '<li onclick="location.href=\''.$this->urlEscape($_item->getUrl()).'\''.'" ';
                                             if($_item->getMShowSelected())
                                                 $topwear_html .=' class="m-selected-ln-item"';
-                                            $topwear_html .= '><a class="gtm-track" id="f-'.$gtmId.'-cat-'.strtolower($this->escapeHtml($_item->getLabel())).'" href="'.$this->urlEscape($_item->getUrl()).'" ';
+                                            $topwear_html .= '><a rel="NOFOLLOW,NOINDEX" class="gtm-track" id="f-'.$gtmId.'-cat-'.strtolower($this->escapeHtml($_item->getLabel())).'" href="'.$this->urlEscape($_item->getUrl()).'" ';
                                             $topwear_html .='title="'.$this->escapeHtml($_item->getLabel()).' class="m-selected-filter-item">'.$this->escapeHtml($_item->getLabel());
                                             if (Mage::getStoreConfigFlag('mana_filters/display/count'))
                                                 $topwear_html .=  '('.$_item->getCount().')';
@@ -90,7 +90,7 @@ $gtmId = trim(str_replace(array("/","index.php",".html"," "),array("-","","","")
                                  $bottomwear_html .=$_item->getRemoveUrl().'\''.'" ';
                                 if($_item->getMShowSelected())
                                     $bottomwear_html .=' class="m-selected-ln-item"';
-                                $bottomwear_html .= '><a class="gtm-track" id="f-'.$gtmId.'-cat-'.strtolower($this->escapeHtml($_item->getLabel())).'" href="'.(isset($arr_active_filters[$_item->getValue()]) && !is_null($arr_active_filters[$_item->getValue()]) ? $arr_active_filters[$_item->getValue()]->getRemoveUrl() : $_item->getRemoveUrl()).'" ';
+                                $bottomwear_html .= '><a rel="NOFOLLOW,NOINDEX" class="gtm-track" id="f-'.$gtmId.'-cat-'.strtolower($this->escapeHtml($_item->getLabel())).'" href="'.(isset($arr_active_filters[$_item->getValue()]) && !is_null($arr_active_filters[$_item->getValue()]) ? $arr_active_filters[$_item->getValue()]->getRemoveUrl() : $_item->getRemoveUrl()).'" ';
                                 $bottomwear_html .='title="'.$this->escapeHtml($_item->getLabel()).' class="m-selected-filter-item">'.$this->escapeHtml($_item->getLabel());
                                 if (Mage::getStoreConfigFlag('mana_filters/display/count'))
                                     $bottomwear_html .=  '('.$_item->getCount().')';
@@ -101,7 +101,7 @@ $gtmId = trim(str_replace(array("/","index.php",".html"," "),array("-","","","")
                                             $bottomwear_html .= '<li onclick="location.href=\''.$this->urlEscape($_item->getUrl()).'\''.'" ';
                                             if($_item->getMShowSelected())
                                                 $bottomwear_html .=' class="m-selected-ln-item"';
-                                            $bottomwear_html .= '><a class="gtm-track" id="f-'.$gtmId.'-cat-'.strtolower($this->escapeHtml($_item->getLabel())).'" href="'.$this->urlEscape($_item->getUrl()).'" ';
+                                            $bottomwear_html .= '><a rel="NOFOLLOW,NOINDEX" class="gtm-track" id="f-'.$gtmId.'-cat-'.strtolower($this->escapeHtml($_item->getLabel())).'" href="'.$this->urlEscape($_item->getUrl()).'" ';
                                             $bottomwear_html .='title="'.$this->escapeHtml($_item->getLabel()).' class="m-selected-filter-item">'.$this->escapeHtml($_item->getLabel());
                                             if (Mage::getStoreConfigFlag('mana_filters/display/count'))
                                                 $bottomwear_html .=  '('.$_item->getCount().')';
@@ -120,7 +120,7 @@ $gtmId = trim(str_replace(array("/","index.php",".html"," "),array("-","","","")
                              $footwear_html .=$_item->getRemoveUrl().'\''.'" ';
                             if($_item->getMShowSelected())
                                 $footwear_html .=' class="m-selected-ln-item"';
-                            $footwear_html .= '><a class="gtm-track" id="f-'.$gtmId.'-cat-'.strtolower($this->escapeHtml($_item->getLabel())).'" href="'.(isset($arr_active_filters[$_item->getValue()]) && !is_null($arr_active_filters[$_item->getValue()]) ? $arr_active_filters[$_item->getValue()]->getRemoveUrl() : $_item->getRemoveUrl()).'" ';
+                            $footwear_html .= '><a rel="NOFOLLOW,NOINDEX" class="gtm-track" id="f-'.$gtmId.'-cat-'.strtolower($this->escapeHtml($_item->getLabel())).'" href="'.(isset($arr_active_filters[$_item->getValue()]) && !is_null($arr_active_filters[$_item->getValue()]) ? $arr_active_filters[$_item->getValue()]->getRemoveUrl() : $_item->getRemoveUrl()).'" ';
                             $footwear_html .='title="'.$this->escapeHtml($_item->getLabel()).' class="m-selected-filter-item">'.$this->escapeHtml($_item->getLabel());
                             if (Mage::getStoreConfigFlag('mana_filters/display/count'))
                                 $footwear_html .=  '('.$_item->getCount().')';
@@ -131,7 +131,7 @@ $gtmId = trim(str_replace(array("/","index.php",".html"," "),array("-","","","")
                                         $footwear_html .= '<li onclick="location.href=\''.$this->urlEscape($_item->getUrl()).'\''.'" ';
                                         if($_item->getMShowSelected())
                                             $footwear_html .=' class="m-selected-ln-item"';
-                                        $footwear_html .= '><a class="gtm-track" id="f-'.$gtmId.'-cat-'.strtolower($this->escapeHtml($_item->getLabel())).'" href="'.$this->urlEscape($_item->getUrl()).'" ';
+                                        $footwear_html .= '><a rel="NOFOLLOW,NOINDEX" class="gtm-track" id="f-'.$gtmId.'-cat-'.strtolower($this->escapeHtml($_item->getLabel())).'" href="'.$this->urlEscape($_item->getUrl()).'" ';
                                         $footwear_html .='title="'.$this->escapeHtml($_item->getLabel()).' class="m-selected-filter-item">'.$this->escapeHtml($_item->getLabel());
                                         if (Mage::getStoreConfigFlag('mana_filters/display/count'))
                                             $footwear_html .=  '('.$_item->getCount().')';
@@ -150,7 +150,7 @@ $gtmId = trim(str_replace(array("/","index.php",".html"," "),array("-","","","")
                              $winterwear_html .=$_item->getRemoveUrl().'\''.'" ';
                             if($_item->getMShowSelected())
                                 $winterwear_html .=' class="m-selected-ln-item"';
-                            $winterwear_html .= '><a class="gtm-track" id="f-'.$gtmId.'-cat-'.strtolower($this->escapeHtml($_item->getLabel())).'" href="'.(isset($arr_active_filters[$_item->getValue()]) && !is_null($arr_active_filters[$_item->getValue()]) ? $arr_active_filters[$_item->getValue()]->getRemoveUrl() : $_item->getRemoveUrl()).'" ';
+                            $winterwear_html .= '><a rel="NOFOLLOW,NOINDEX" class="gtm-track" id="f-'.$gtmId.'-cat-'.strtolower($this->escapeHtml($_item->getLabel())).'" href="'.(isset($arr_active_filters[$_item->getValue()]) && !is_null($arr_active_filters[$_item->getValue()]) ? $arr_active_filters[$_item->getValue()]->getRemoveUrl() : $_item->getRemoveUrl()).'" ';
                             $winterwear_html .='title="'.$this->escapeHtml($_item->getLabel()).' class="m-selected-filter-item">'.$this->escapeHtml($_item->getLabel());
                             if (Mage::getStoreConfigFlag('mana_filters/display/count'))
                                 $winterwear_html .=  '('.$_item->getCount().')';
@@ -161,7 +161,7 @@ $gtmId = trim(str_replace(array("/","index.php",".html"," "),array("-","","","")
                                         $winterwear_html .= '<li onclick="location.href=\''.$this->urlEscape($_item->getUrl()).'\''.'" ';
                                         if($_item->getMShowSelected())
                                             $winterwear_html .=' class="m-selected-ln-item"';
-                                        $winterwear_html .= '><a class="gtm-track" id="f-'.$gtmId.'-cat-'.strtolower($this->escapeHtml($_item->getLabel())).'" href="'.$this->urlEscape($_item->getUrl()).'" ';
+                                        $winterwear_html .= '><a rel="NOFOLLOW,NOINDEX" class="gtm-track" id="f-'.$gtmId.'-cat-'.strtolower($this->escapeHtml($_item->getLabel())).'" href="'.$this->urlEscape($_item->getUrl()).'" ';
                                         $winterwear_html .='title="'.$this->escapeHtml($_item->getLabel()).' class="m-selected-filter-item">'.$this->escapeHtml($_item->getLabel());
                                         if (Mage::getStoreConfigFlag('mana_filters/display/count'))
                                             $winterwear_html .=  '('.$_item->getCount().')';
@@ -180,7 +180,7 @@ $gtmId = trim(str_replace(array("/","index.php",".html"," "),array("-","","","")
                              $accessories_html .=$_item->getRemoveUrl().'\''.'" ';
                             if($_item->getMShowSelected())
                                 $accessories_html .=' class="m-selected-ln-item"';
-                            $accessories_html .= '><a class="gtm-track" id="f-'.$gtmId.'-cat-'.strtolower($this->escapeHtml($_item->getLabel())).'" href="'.(isset($arr_active_filters[$_item->getValue()]) && !is_null($arr_active_filters[$_item->getValue()]) ? $arr_active_filters[$_item->getValue()]->getRemoveUrl() : $_item->getRemoveUrl()).'" ';
+                            $accessories_html .= '><a rel="NOFOLLOW,NOINDEX" class="gtm-track" id="f-'.$gtmId.'-cat-'.strtolower($this->escapeHtml($_item->getLabel())).'" href="'.(isset($arr_active_filters[$_item->getValue()]) && !is_null($arr_active_filters[$_item->getValue()]) ? $arr_active_filters[$_item->getValue()]->getRemoveUrl() : $_item->getRemoveUrl()).'" ';
                             $accessories_html .='title="'.$this->escapeHtml($_item->getLabel()).' class="m-selected-filter-item">'.$this->escapeHtml($_item->getLabel());
                             if (Mage::getStoreConfigFlag('mana_filters/display/count'))
                                 $accessories_html .=  '('.$_item->getCount().')';
@@ -191,7 +191,7 @@ $gtmId = trim(str_replace(array("/","index.php",".html"," "),array("-","","","")
                                         $accessories_html .= '<li onclick="location.href=\''.$this->urlEscape($_item->getUrl()).'\''.'" ';
                                         if($_item->getMShowSelected())
                                             $accessories_html .=' class="m-selected-ln-item"';
-                                        $accessories_html .= '><a class="gtm-track" id="f-'.$gtmId.'-cat-'.strtolower($this->escapeHtml($_item->getLabel())).'" href="'.$this->urlEscape($_item->getUrl()).'" ';
+                                        $accessories_html .= '><a rel="NOFOLLOW,NOINDEX" class="gtm-track" id="f-'.$gtmId.'-cat-'.strtolower($this->escapeHtml($_item->getLabel())).'" href="'.$this->urlEscape($_item->getUrl()).'" ';
                                         $accessories_html .='title="'.$this->escapeHtml($_item->getLabel()).' class="m-selected-filter-item">'.$this->escapeHtml($_item->getLabel());
                                         if (Mage::getStoreConfigFlag('mana_filters/display/count'))
                                             $accessories_html .=  '('.$_item->getCount().')';
@@ -281,7 +281,7 @@ $gtmId = trim(str_replace(array("/","index.php",".html"," "),array("-","","","")
                                <li onclick="location.href='<?php echo (isset($arr_active_filters[$_item->getValue()]) && !is_null($arr_active_filters[$_item->getValue()]) ? $arr_active_filters[$_item->getValue()]->getRemoveUrl() : $_item->getRemoveUrl()) ?>';"
                                     title="<?php echo $this->escapeHtml($_item->getLabel()) ?>"
                                     <?php if ($_item->getMShowSelected()): ?>class="m-selected-ln-item"<?php endif; ?>>
-                                    <a class="gtm-track" id="f-<?php echo $gtmId ?>-size-<?php echo strtolower($this->escapeHtml($_item->getLabel())) ?>" onclick="href="<?php echo (isset($arr_active_filters[$_item->getValue()]) && !is_null($arr_active_filters[$_item->getValue()]) ? $arr_active_filters[$_item->getValue()]->getRemoveUrl() : $_item->getRemoveUrl()) ?>"" 
+                                    <a rel="NOFOLLOW,NOINDEX" class="gtm-track" id="f-<?php echo $gtmId ?>-size-<?php echo strtolower($this->escapeHtml($_item->getLabel())) ?>" onclick="href="<?php echo (isset($arr_active_filters[$_item->getValue()]) && !is_null($arr_active_filters[$_item->getValue()]) ? $arr_active_filters[$_item->getValue()]->getRemoveUrl() : $_item->getRemoveUrl()) ?>"" 
                                            title="<?php echo $this->escapeHtml($_item->getLabel()) ?>"
                                            class="m-selected-filter-item">
                                     <?php echo $this->escapeHtml($_item->getLabel()) ?>
@@ -295,7 +295,7 @@ $gtmId = trim(str_replace(array("/","index.php",".html"," "),array("-","","","")
                                         <?php if ($_item->getMShowSelected()): ?>class="m-selected-ln-item"<?php endif; ?>>
                                             <?php if (!$this->getFilterOptions()->getDisableNoResultOptions() 
                                                     || $_item->getCount() > 0 || $_item->getMSelected()): ?>
-                                            <a class="gtm-track" id="f-<?php echo $gtmId ?>-size-<?php echo strtolower($this->escapeHtml($_item->getLabel())) ?>" href="<?php echo $this->urlEscape($_item->getUrl()) ?>" title="<?php echo $this->escapeHtml($_item->getLabel()) ?>">
+                                            <a rel="NOFOLLOW,NOINDEX" class="gtm-track" id="f-<?php echo $gtmId ?>-size-<?php echo strtolower($this->escapeHtml($_item->getLabel())) ?>" href="<?php echo $this->urlEscape($_item->getUrl()) ?>" title="<?php echo $this->escapeHtml($_item->getLabel()) ?>">
                                                 <?php echo $this->escapeHtml($_item->getLabel()) ?>
                                                 <?php if (Mage::getStoreConfigFlag('mana_filters/display/count')) : ?>
                                                     (<?php echo $_item->getCount() ?>)
@@ -329,7 +329,7 @@ $gtmId = trim(str_replace(array("/","index.php",".html"," "),array("-","","","")
                     <li onclick="location.href='<?php echo (isset($arr_active_filters[$_item->getValue()]) && !is_null($arr_active_filters[$_item->getValue()]) ? $arr_active_filters[$_item->getValue()]->getRemoveUrl() : $_item->getRemoveUrl()) ?>';"
                         title="<?php echo $this->escapeHtml($_item->getLabel()) ?>"
                          <?php if ($_item->getMShowSelected()): ?>class="m-selected-ln-item"<?php endif; ?>>
-                        <a id="f-<?php echo $gtmId ?>-<?php echo $labelPrefix; ?>-<?php echo str_replace(array(" ","rs",","),"",$labelTxt) ?>" class="gtm-track" href="<?php echo (isset($arr_active_filters[$_item->getValue()]) && !is_null($arr_active_filters[$_item->getValue()]) ? $arr_active_filters[$_item->getValue()]->getRemoveUrl() : $_item->getRemoveUrl()) ?>" 
+                        <a rel="NOFOLLOW,NOINDEX" id="f-<?php echo $gtmId ?>-<?php echo $labelPrefix; ?>-<?php echo str_replace(array(" ","rs",","),"",$labelTxt) ?>" class="gtm-track" href="<?php echo (isset($arr_active_filters[$_item->getValue()]) && !is_null($arr_active_filters[$_item->getValue()]) ? $arr_active_filters[$_item->getValue()]->getRemoveUrl() : $_item->getRemoveUrl()) ?>" 
                         title="<?php echo $this->escapeHtml($_item->getLabel()) ?>"
                         class="m-selected-filter-item gtm-track">
                             <?php echo $this->escapeHtml($_item->getLabel()) ?>
@@ -343,7 +343,7 @@ $gtmId = trim(str_replace(array("/","index.php",".html"," "),array("-","","","")
                     <li onclick="location.href='<?php echo $this->urlEscape($_item->getUrl()) ?>';"
                         title="<?php echo $this->escapeHtml($_item->getLabel()) ?>"
                          <?php if ($_item->getMShowSelected()): ?>class="m-selected-ln-item"<?php endif; ?>>
-                        <a id="f-<?php echo $gtmId ?>-<?php echo $labelPrefix; ?>-<?php echo str_replace(array(" ","rs",",","'",'"'),"",$labelTxt) ?>" class="gtm-track" href="<?php echo $this->urlEscape($_item->getUrl()) ?>" title="<?php echo $this->escapeHtml($_item->getLabel()) ?>">
+                        <a rel="NOFOLLOW,NOINDEX" id="f-<?php echo $gtmId ?>-<?php echo $labelPrefix; ?>-<?php echo str_replace(array(" ","rs",",","'",'"'),"",$labelTxt) ?>" class="gtm-track" href="<?php echo $this->urlEscape($_item->getUrl()) ?>" title="<?php echo $this->escapeHtml($_item->getLabel()) ?>">
                             <?php echo $this->escapeHtml($_item->getLabel()) ?>
                             <?php if (Mage::getStoreConfigFlag('mana_filters/display/count')) : ?>
                                 (<?php echo $_item->getCount() ?>)
