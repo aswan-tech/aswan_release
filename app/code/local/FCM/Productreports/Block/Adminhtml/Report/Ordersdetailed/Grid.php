@@ -28,9 +28,9 @@ class FCM_Productreports_Block_Adminhtml_Report_Ordersdetailed_Grid extends FCM_
 
         $filterFrom = $this->getFilter('from');
         $filterTo = $this->getFilter('to');
-	$filterSku = $this->getFilter('sku');        
-	$filterCustomerEmail = $this->getFilter('customer_email');
-	$filterCouponCode = $this->getFilter('coupon_code');
+		$filterSku = $this->getFilter('sku');        
+		$filterCustomerEmail = $this->getFilter('customer_email');
+		$filterCouponCode = $this->getFilter('coupon_code');
         $filterCustomerPostcode = $this->getFilter('customer_postcode');
         $filterCategory = $this->getFilter('product_category');
         $filterSubCategory = $this->getFilter('product_sub_category');
@@ -41,13 +41,15 @@ class FCM_Productreports_Block_Adminhtml_Report_Ordersdetailed_Grid extends FCM_
         $filterCourier = $this->getFilter('courier');
 		$product_type = $this->getFilter('product_type');
         
-		if(empty($product_type)) { $product_type = 'simple'; }
+		if(empty($product_type)) { $product_type = 'configurable'; }
 		$product_name = $this->getFilter('product_name');
 		$order_id = $this->getFilter('order_id');
+		#$xls_fields = $this->getFilter('xls_fields');
+		#$this->_xls_fieldsArr = explode(",",$xls_fields[0]);
 		
-        $_collection = Mage::getResourceModel('sales/order_collection');
-
-        $orderJoinCondition = array(
+		$_collection = Mage::getResourceModel('sales/order_collection');
+		
+		$orderJoinCondition = array(
             'order.entity_id = order_items.order_id'
         );
 
@@ -78,14 +80,13 @@ class FCM_Productreports_Block_Adminhtml_Report_Ordersdetailed_Grid extends FCM_
                         array('order' => 'sales_flat_order'),
                         array(
                             'order_increment_id' => 'order.increment_id',
-			    'customer_balance_amount' => 'order.customer_balance_amount',
+							'customer_balance_amount' => 'order.customer_balance_amount',
                             'latest_status' => 'order.status',
                             'dc_status' => 'order.sent_to_erp',
                             'coupon_code' => 'order.coupon_code',
-			    'coupon_rule_name' => 'order.coupon_rule_name',
-			    'customer_id' => 'order.customer_id', 
+							'coupon_rule_name' => 'order.coupon_rule_name',
+							'customer_id' => 'order.customer_id', 
                             'grand_total' => 'order.grand_total',
-                            'customer_name' => "CONCAT(COALESCE(order.customer_firstname, ''), ' ', COALESCE(order.customer_lastname, ''))",
                             'customer_email' => "order.customer_email",
                             'gift_cards_amount' => 'order.gift_cards_amount',
                             'source' => 'order.source',
@@ -98,6 +99,14 @@ class FCM_Productreports_Block_Adminhtml_Report_Ordersdetailed_Grid extends FCM_
                         array(
                             'item_name' => 'order_items.name',
                             'sku' => 'order_items.sku',
+                            'item_product_mrp' => 'order_items.product_mrp',
+                            'item_original_price' => 'order_items.original_price',
+                            'item_tax_percent' => 'order_items.tax_percent',
+                            'coupon_discount_amount' => 'order_items.discount_amount',
+                            'coupon_discount_percent' => 'order_items.discount_percent',
+                            'amount_to_customer' => '(order_items.row_total + order_items.tax_amount + order_items.hidden_tax_amount + order_items.weee_tax_applied_row_amount + order_items.discount_amount)',
+                            'catalog_discount_amount' => '( order_items.product_mrp - order_items.original_price )',
+                            'catalog_discount_percentage' => 'round((( order_items.product_mrp - order_items.original_price ) / order_items.product_mrp ) * 100 )',
                             'created_at' => 'order_items.created_at',
                             'qty' => 'order_items.qty_ordered',
                             'item_id' => 'order_items.item_id',
@@ -118,15 +127,17 @@ class FCM_Productreports_Block_Adminhtml_Report_Ordersdetailed_Grid extends FCM_
                         array(
                             'payment_gateway' => "payment.method",
                         ),
-                        array())
-                ->joinLeft(
+                        array());
+				
+            	if(!empty($filterCategory) || empty($filterSubCategory)) {
+                	$_collection->getSelect()->joinLeft(
                         array('category_product' => 'catalog_category_product'),
                         implode(' AND ', $categoryCondition),
                         array(),
                         array());
-
+				}
 		if( $product_type == 'all' ) {
-			$_collection->addAttributeToFilter('product_type', array('IN'=>array('simple', 'giftcard')));
+			$_collection->addAttributeToFilter('product_type', array('IN'=>array('configurable', 'giftcard')));
 		}
 		else{
 			$_collection->addAttributeToFilter('product_type', $product_type);
@@ -145,10 +156,6 @@ class FCM_Productreports_Block_Adminhtml_Report_Ordersdetailed_Grid extends FCM_
             $time = mktime('00', '00', '00', $mm, $dd, $yyyy);
             $dateFrom = date('Y-m-d H:i:s', $time - (60 * 60 * 5) - (60 * 30));
             
-            //$timestamp = strtotime($filterFrom);
-            //$timestamp = Mage::getModel('core/date')->gmtDate($timestamp);
-            //$dateFrom = date("Y-m-d H:i:s", $timestamp);
-
             $_collection->addAttributeToFilter('order.created_at', array('gteq' => $dateFrom));
         }
 
@@ -157,11 +164,6 @@ class FCM_Productreports_Block_Adminhtml_Report_Ordersdetailed_Grid extends FCM_
             $time = mktime('23', '59', '59', $mm, $dd, $yyyy);
             $dateTo = date('Y-m-d H:i:s', $time - (60 * 60 * 5) - (60 * 30));
             
-            //$timestamp = strtotime($filterTo);
-            //$timestamp = mktime('23', '59', '59', date("m", $timestamp), date("d", $timestamp), date("Y", $timestamp));
-            //$timestamp = Mage::getModel('core/date')->gmtDate($timestamp);
-            //$dateTo = date("Y-m-d H:i:s", $timestamp);
-
             $_collection->addAttributeToFilter('order.created_at', array('lteq' => $dateTo));
         }
 		
@@ -213,7 +215,7 @@ class FCM_Productreports_Block_Adminhtml_Report_Ordersdetailed_Grid extends FCM_
         }
 
         $_collection->getSelect()->group('order_items.item_id');
-
+       //echo $_collection->getSelect()->__toString();
         //Mage::log('SQL: ' . $_collection->getSelect()->__toString());
 
         $this->setCollection($_collection);
@@ -221,14 +223,12 @@ class FCM_Productreports_Block_Adminhtml_Report_Ordersdetailed_Grid extends FCM_
     }
 
     protected function _prepareColumns() {
-
-        //$currencyCode = $this->getCurrentCurrencyCode();
-
-        $this->addColumn('created_at', array(
+		
+		$this->addColumn('created_at', array(
             'header' => Mage::helper('productreports')->__('Order Date'),
             'index' => 'created_at',
             'sortable' => false,
-            'renderer' => 'FCM_Productreports_Block_Adminhtml_Report_Renderer_Date',
+            //'renderer' => 'FCM_Productreports_Block_Adminhtml_Report_Renderer_Date',
             'type' => 'text',
         ));
 
@@ -239,8 +239,8 @@ class FCM_Productreports_Block_Adminhtml_Report_Ordersdetailed_Grid extends FCM_
             'renderer' => 'FCM_Productreports_Block_Adminhtml_Report_Renderer_Time',
             'type' => 'text',
         ));
-
-        $this->addColumn('order_increment_id', array(
+		
+		$this->addColumn('order_increment_id', array(
             'header' => Mage::helper('productreports')->__('Order Number'),
             'index' => 'order_increment_id',
             'sortable' => false,
@@ -253,8 +253,8 @@ class FCM_Productreports_Block_Adminhtml_Report_Ordersdetailed_Grid extends FCM_
             'sortable' => false,
             //'renderer' => 'FCM_Productreports_Block_Adminhtml_Report_Renderer_Custid',
         ));
-
-        $this->addColumn('source', array(
+		
+		$this->addColumn('source', array(
             'header' => Mage::helper('productreports')->__('Source'),
             'index' => 'source',
             'sortable' => false,
@@ -276,15 +276,15 @@ class FCM_Productreports_Block_Adminhtml_Report_Ordersdetailed_Grid extends FCM_
             'header' => Mage::helper('productreports')->__('Payment Method'),
             'index' => 'payment_gateway',
             'sortable' => false,
-            'renderer' => 'FCM_Productreports_Block_Adminhtml_Report_Renderer_Pmethod',
+            //'renderer' => 'FCM_Productreports_Block_Adminhtml_Report_Renderer_Pmethod',
         ));
-
+		/*
         $this->addColumn('payment_gateway', array(
             'header' => Mage::helper('productreports')->__('Payment Gateway'),
             'index' => 'payment_gateway',
             'sortable' => false
         ));
-
+		*/
         $this->addColumn('dc_status', array(
             'header' => Mage::helper('productreports')->__('DC Status'),
             'index' => 'dc_status',
@@ -296,7 +296,7 @@ class FCM_Productreports_Block_Adminhtml_Report_Ordersdetailed_Grid extends FCM_
             'header' => Mage::helper('productreports')->__('Latest Status'),
             'index' => 'latest_status',
             'sortable' => false,
-            'renderer' => 'FCM_Productreports_Block_Adminhtml_Report_Renderer_Lstatus',
+            //'renderer' => 'FCM_Productreports_Block_Adminhtml_Report_Renderer_Lstatus',
         ));
 
         $this->addColumn('sku', array(
@@ -321,30 +321,30 @@ class FCM_Productreports_Block_Adminhtml_Report_Ordersdetailed_Grid extends FCM_
 
         $this->addColumn('product_mrp', array(
             'header' => Mage::helper('productreports')->__('Item MRP'),
-            'index' => 'item_id',
+            'index' => 'item_product_mrp',
             'sortable' => false,
-            'renderer' => 'FCM_Productreports_Block_Adminhtml_Report_Renderer_Mrp',            
+            //'renderer' => 'FCM_Productreports_Block_Adminhtml_Report_Renderer_Mrp',            
         ));
 
         $this->addColumn('original_price', array(
             'header' => Mage::helper('productreports')->__('Special Price'),
-            'index' => 'item_id',
+            'index' => 'item_original_price',
             'sortable' => false,
-            'renderer' => 'FCM_Productreports_Block_Adminhtml_Report_Renderer_Price',
+           // 'renderer' => 'FCM_Productreports_Block_Adminhtml_Report_Renderer_Price',
         ));
 
         $this->addColumn('discount_percent', array(
-            'header' => Mage::helper('productreports')->__('Discount %'),
-            'index' => 'item_id',
-            'sortable' => false,
-            'renderer' => 'FCM_Productreports_Block_Adminhtml_Report_Renderer_Dpercent',
+            'header' => Mage::helper('productreports')->__('Catalog Discount %'),
+            'index' => 'catalog_discount_percentage',
+            'sortable' => true,
+            //'renderer' => 'FCM_Productreports_Block_Adminhtml_Report_Renderer_Dpercent',
         ));
 
         $this->addColumn('discount_amount', array(
-            'header' => Mage::helper('productreports')->__('Discount Value'),
-            'index' => 'item_id',
+            'header' => Mage::helper('productreports')->__('Catalog Dis. Value'),
+            'index' => 'catalog_discount_amount',
             'sortable' => false,
-            'renderer' => 'FCM_Productreports_Block_Adminhtml_Report_Renderer_Damount',
+            //'renderer' => 'FCM_Productreports_Block_Adminhtml_Report_Renderer_Damount',
         ));
 
         $this->addColumn('tax_percent', array(
@@ -355,9 +355,9 @@ class FCM_Productreports_Block_Adminhtml_Report_Ordersdetailed_Grid extends FCM_
         ));
         $this->addColumn('tax_amount', array(
             'header' => Mage::helper('productreports')->__('Tax Value'),
-            'index' => 'item_id',
+            'index' => 'item_tax_percent',
             'sortable' => false,
-            'renderer' => 'FCM_Productreports_Block_Adminhtml_Report_Renderer_Tamount',
+            //'renderer' => 'FCM_Productreports_Block_Adminhtml_Report_Renderer_Tamount',
         ));
 
         $this->addColumn('coupon_code', array(
@@ -374,9 +374,9 @@ class FCM_Productreports_Block_Adminhtml_Report_Ordersdetailed_Grid extends FCM_
 
         $this->addColumn('coupon_percent', array(
             'header' => Mage::helper('productreports')->__('Coupon %'),
-            'index' => 'item_id',
+            'index' => 'coupon_discount_percent',
             'sortable' => false,
-            'renderer' => 'FCM_Productreports_Block_Adminhtml_Report_Renderer_Cpercent',
+            //'renderer' => 'FCM_Productreports_Block_Adminhtml_Report_Renderer_Cpercent',
         ));
 		
 	$this->addColumn('customer_balance_amount', array(
@@ -389,23 +389,22 @@ class FCM_Productreports_Block_Adminhtml_Report_Ordersdetailed_Grid extends FCM_
 
         $this->addColumn('coupon_amount', array(
             'header' => Mage::helper('productreports')->__('Coupon Money'),
-            'index' => 'item_id',
+            'index' => 'coupon_discount_amount',
             'sortable' => false,
-            'renderer' => 'FCM_Productreports_Block_Adminhtml_Report_Renderer_Camount',
+            //'renderer' => 'FCM_Productreports_Block_Adminhtml_Report_Renderer_Camount',
         ));
 
         $this->addColumn('row_total', array(
             'header' => Mage::helper('productreports')->__('Amount to Customer'),
-            'index' => 'item_id',
+            'index' => 'amount_to_customer',
             'sortable' => false,
-            'renderer' => 'FCM_Productreports_Block_Adminhtml_Report_Renderer_Rtotal',
+            //'renderer' => 'FCM_Productreports_Block_Adminhtml_Report_Renderer_Rtotal',
         ));
 
         $this->addColumn('grand_total', array(
             'header' => Mage::helper('productreports')->__('Order Value'),
             'index' => 'grand_total',
             'sortable' => false,
-            //'currency_code' => $currencyCode,
             'type' => 'currency',
         ));
 
@@ -446,5 +445,4 @@ class FCM_Productreports_Block_Adminhtml_Report_Ordersdetailed_Grid extends FCM_
 
         return parent::_prepareColumns();
     }
-
 }
