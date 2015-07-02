@@ -38,11 +38,7 @@ Supported layout update handles (special):
 -->
 <layout version="0.1.0">
 
-<!--
-Default layout, loads most of the pages
--->
-
-    <default>
+   <default>
 
         <!-- Mage_Catalog -->
         <reference name="top.container">
@@ -50,14 +46,7 @@ Default layout, loads most of the pages
                 <action method="setBlockId"><block_id>top_callout</block_id></action>
             </block>
         </reference>
-        <!--reference name="left">
-            <block type="core/template" name="left.permanent.callout" template="callouts/left_col.phtml">
-                <action method="setImgSrc"><src>images/media/col_left_callout.jpg</src></action>
-                <action method="setImgAlt" translate="alt" module="catalog"><alt>Our customer service is available 24/7. Call us at (555) 555-0123.</alt></action>
-                <action method="setLinkUrl"><url>checkout/cart</url></action>
-            </block>
-        </reference-->
-        <reference name="right">
+                <reference name="right">
             <block type="catalog/product_compare_sidebar" name="catalog.compare.sidebar" template="catalog/product/compare/sidebar.phtml"/>
         </reference>
         <reference name="footer_links">
@@ -84,16 +73,7 @@ Category default layout
                 <block type="catalog/product_list" name="product_list" template="catalog/product/list.phtml">
                     <block type="catalog/product_list_toolbar" name="product_list_toolbar" template="catalog/product/list/toolbar.phtml">
                         <block type="page/html_pager" name="product_list_toolbar_pager"/>
-                        <!-- The following code shows how to set your own pager increments -->
-                        <!--
-                            <action method="setDefaultListPerPage"><limit>4</limit></action>
-                            <action method="setDefaultGridPerPage"><limit>9</limit></action>
-                            <action method="addPagerLimit"><mode>list</mode><limit>2</limit></action>
-                            <action method="addPagerLimit"><mode>list</mode><limit>4</limit></action>
-                            <action method="addPagerLimit"><mode>list</mode><limit>6</limit></action>
-                            <action method="addPagerLimit"><mode>list</mode><limit>8</limit></action>
-                            <action method="addPagerLimit" translate="label"><mode>list</mode><limit>all</limit><label>All</label></action>
-                        -->
+                       
                     </block>
                     <action method="addColumnCountLayoutDepend"><layout>empty</layout><count>6</count></action>
                     <action method="addColumnCountLayoutDepend"><layout>one_column</layout><count>5</count></action>
@@ -121,24 +101,8 @@ Category layered navigation layout
         <reference name="content">
             <block type="catalog/category_view" name="category.products" template="catalog/category/view.phtml">
                 <block type="catalog/product_list" name="product_list" template="catalog/product/list.phtml">
-                    <!-- <action method="addReviewSummaryTemplate"><type>default</type><template>review/helper/su.phtml</template></action> -->
-                    <block type="catalog/product_list_toolbar" name="product_list_toolbar" template="catalog/product/list/toolbar.phtml">
-                        <block type="page/html_pager" name="product_list_toolbar_pager"/>
-                        <!-- The following code shows how to set your own pager increments -->
-                        <!--
-                            <action method="setDefaultListPerPage"><limit>4</limit></action>
-                            <action method="setDefaultGridPerPage"><limit>3</limit></action>
-                            <action method="addPagerLimit"><mode>list</mode><limit>2</limit></action>
-                            <action method="addPagerLimit"><mode>list</mode><limit>4</limit></action>
-                            <action method="addPagerLimit"><mode>list</mode><limit>6</limit></action>
-                            <action method="addPagerLimit"><mode>list</mode><limit>8</limit></action>
-                            <action method="addPagerLimit" translate="label"><mode>list</mode><limit>all</limit><label>All</label></action>
-                            <action method="addPagerLimit"><mode>grid</mode><limit>3</limit></action>
-                            <action method="addPagerLimit"><mode>grid</mode><limit>6</limit></action>
-                            <action method="addPagerLimit"><mode>grid</mode><limit>9</limit></action>
-                            <action method="addPagerLimit" translate="label"><mode>grid</mode><limit>all</limit><label>All</label></action>
-                        -->
-                    </block>
+                 <block type="catalog/product_list_toolbar" name="product_list_toolbar" template="catalog/product/list/toolbar.phtml">
+            <block type="page/html_pager" name="product_list_toolbar_pager"/> </block>
                     <action method="addColumnCountLayoutDepend"><layout>empty</layout><count>6</count></action>
                     <action method="addColumnCountLayoutDepend"><layout>one_column</layout><count>5</count></action>
                     <action method="addColumnCountLayoutDepend"><layout>two_columns_left</layout><count>4</count></action>
@@ -150,12 +114,9 @@ Category layered navigation layout
         </reference>
     </catalog_category_layered>
 
-
-
 <!--
 Compare products page
 -->
-
     <catalog_product_compare_index translate="label">
         <label>Catalog Product Compare List</label>
         <!-- Mage_Catalog -->
@@ -163,9 +124,7 @@ Compare products page
             <action method="setTemplate"><template>page/popup.phtml</template></action>
         </reference>
         <reference name="head">
-            <action method="addJs"><script>scriptaculous/scriptaculous.js</script></action>
-            <action method="addJs"><script>varien/product.js</script></action>
-        </reference>
+                 </reference>
         <reference name="content">
             <block type="catalog/product_compare_list" name="catalog.compare.list" template="catalog/product/compare/list.phtml"/>
         </reference>
@@ -182,8 +141,7 @@ Product view
             <action method="setTemplate"><template>page/1column.phtml</template></action>
         </reference>
         <reference name="head">
-            <action method="addJs"><script>varien/product.js</script></action>
-            <action method="addJs"><script>varien/configurable.js</script></action>
+                    <action method="addJs"><script>varien/configurable.js</script></action>
             <action method="addItem"><type>skin_js</type><name>js/jqzoom/jquery-1.3.1.min.js</name></action>
             <action method="addItem"><type>skin_js</type><name>js/jqzoom/jquery.jqzoom1.0.1.js</name></action>
             <action method="addItem"><type>js_css</type><name>calendar/calendar-win2k-1.css</name><params/><!--<if/><condition>can_load_calendar_js</condition>--></action>
@@ -328,11 +286,9 @@ Product send to friend
             </block>
         </reference>
     </catalog_product_send>
-
 <!--
 Product additional images gallery popup
 -->
-
     <catalog_product_gallery translate="label">
         <label>Catalog Product Image Gallery Popup</label>
         <!-- Mage_Catalog -->
@@ -343,11 +299,9 @@ Product additional images gallery popup
             <block type="catalog/product_gallery" name="catalog_product_gallery" template="catalog/product/gallery.phtml"/>
         </reference>
     </catalog_product_gallery>
-
 <!--
 SEO Site Map
 -->
-
     <catalog_seo_sitemap translate="label">
         <label>Catalog Seo Sitemap (Common)</label>
         <remove name="right"/>

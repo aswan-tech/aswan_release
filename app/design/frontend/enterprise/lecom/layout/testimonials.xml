@@ -2,8 +2,7 @@
 <layout version="0.1.0">
     <default>
 		<reference name="head">
-			<action method="addCss"><stylesheet>css/testimonials-1.1.css</stylesheet></action>
-			<!--<action method="addItem"><type>skin_js</type><name>js/carousel-min.js</name></action>-->
+			
 			<action method="addItem"><type>skin_js</type><name>js/jquery.limit-1.2.js</name></action>
 		</reference>
     </default>

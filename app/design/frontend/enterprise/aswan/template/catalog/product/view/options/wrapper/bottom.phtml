@@ -20,13 +20,9 @@
  *
  * @category    design
  * @package     enterprise_default
- * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://www.magentocommerce.com/license/enterprise-edition
  */
 ?>
-<div class="product-options-bottom">
+
     <?php echo $this->getChildHtml('', true, true);?>
-    <?php if ($this->hasRequiredOptions() && !$this->getHideRequiredNotice()):?>
-        <p class="required"><?php echo $this->__('* Required Fields') ?></p>
-    <?php endif;?>
-</div>

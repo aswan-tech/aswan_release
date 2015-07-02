@@ -32,28 +32,37 @@
  */
 ?>
 <?php if($this->canShowBlock()): ?>
-<div class="block block-layered-nav">
-    <div class="block-title">
-        <strong><span><?php echo $this->__('Shop By') ?></span></strong>
-    </div>
+
+
     <?php echo $this->getStateHtml() ?>
-    <div class="block-content">
+
     <?php if($this->canShowOptions()): ?>
-            <p class="block-subtitle"><?php echo $this->__('Shopping Options') ?></p>
-            <dl id="narrow-by-list">
-                <?php $_filters = $this->getFilters() ?>
+<ul id="narrow-by-list">
+                <?php $_filters = $this->getFilters();
+                $i= 1;
+
+
+                 ?>
                 <?php foreach ($_filters as $_filter): ?>
                 <?php if($_filter->getItemsCount()): ?>
-                    <dt><?php echo $this->__($_filter->getName()) ?></dt>
-                    <dd><?php echo $_filter->getHtml() ?></dd>
+
+                    <li>
+                  
+                    <h3 data-accordian="option<?php echo $i;?>"><?php echo $this->__($_filter->getName()) ?></h3>
+<div id="option<?php echo $i;?>" class="filteroption">
+                    <?php echo $_filter->getHtml() ?>
+</div>
+                    </li>
                 <?php endif; ?>
-                <?php endforeach; ?>
-            </dl>
+                <?php $i++ ;
+                endforeach; ?>
+</ul>
             <script type="text/javascript">decorateDataList('narrow-by-list')</script>
     <?php endif; ?>
     <?php if ($this->getLayer()->getState()->getFilters()): ?>
-        <div class="actions"><a href="<?php echo $this->getClearUrl() ?>"><?php echo $this->__('Clear All') ?></a></div>
+        <div class="actions"><a href="<?php echo $this->getClearUrl() ?>"><?php echo $this->__('Clear All') ?></a>
+        </div>
     <?php endif; ?>
-    </div>
-</div>
+
+
 <?php endif; ?>

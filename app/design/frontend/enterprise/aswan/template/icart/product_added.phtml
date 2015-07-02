@@ -1,0 +1,36 @@
+<div style="text-align: center;">
+<?php $requestUrl=$this->getRequest()->getRequestString();
+echo $this->getMessagesBlock()->getGroupedHtml();
+?>
+</div>
+<script type="text/javascript">
+//<![CDATA[
+iCart.autoClose(<?php echo (int) Mage::getStoreConfig('mageworx_customers/icart/auto_hide') ?>);
+<?php if (strpos($requestUrl, '/addToWishlist/')) { ?>    
+    // wishlist    
+<?php } elseif (strpos($requestUrl, '/addToCompare/')) {?>
+    // compare
+    iCart.replaceBlock($$('div.block-compare', 'div.mini-compare'), <?php echo Zend_Json::encode($this->getChildHtml('catalog.compare.sidebar'))?>);
+<?php } else {?>
+    // cart            
+    iCart.updateBlock($$('.cartHeader'), <?php echo Zend_Json::encode($this->getTopLinkCart())?>);
+    <?php if (preg_match('~/checkout/cart/~', $this->getRequest()->getServer('HTTP_REFERER'))): ?>
+        iCart.updateBlock($$('div.cart'), <?php echo Zend_Json::encode($this->getChildHtml('checkout.cart'))?>);
+    <?php endif ?>
+    iCart.replaceBlock($$('div.top-cart'), <?php echo Zend_Json::encode($this->getChildHtml('cart_sidebar_icart'))?>);            
+<?php } ?>
+jQuery('#topCartContent .close-btn').click(function() {
+	jQuery("#topCartContent").slideUp(400);
+});
+jQuery('#cartHeader').click(function() {
+	jQuery('#topCartContent').slideToggle('slow', function() {
+    // Animation complete.
+	});
+});
+iCart.updateLinks();
+
+// update my bag
+jQuery('#my-bag-qty').html(<?php echo Mage::getSingleton('checkout/cart')->getSummaryQty(); ?>);
+
+//]]>
+</script>

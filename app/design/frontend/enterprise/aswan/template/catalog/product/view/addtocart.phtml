@@ -1,0 +1,53 @@
+<?php 
+$_product = $this->getProduct(); 
+
+/*
+ * TARGETING MANTRA PIXCEL
+ */ 
+$_taxHelper  = Mage::helper('tax');
+$_finalPrice = $_taxHelper->getPrice($_product, $_product->getFinalPrice());
+$customerId = null;
+if(Mage::getSingleton('customer/session')->isLoggedIn()) {
+	$customerData = Mage::getSingleton('customer/session')->getCustomer();
+	$customerId = $customerData->getId();
+}
+?>
+<script type="text/javascript">
+function CheckValidation(id){
+	var colorattr = document.getElementById(id+'_color_attribute_id');
+	var sizeattr = document.getElementById(id+'_size_attribute_id');
+	
+	if(valOpt == 0){
+		
+		jQuery("#cart-add-to-bag").hide();
+		jQuery('.size-info-close').show();
+		jQuery('.ajax-color-swatch').addClass('color-swatch-active');
+		jQuery('.info-dialog').addClass('info-dialog-active');
+		jQuery('.size-info-close').addClass('size-close-btn');
+						
+	}else{
+		valOpt = 0;
+		jQuery('#ajax-loading').show();
+		addToCartByAjax('<?php echo Mage::getStoreConfig('checkout/cart/redirect_to_cart'); ?>');
+	}
+}
+</script>
+<?php $_product_id = $this->getProduct()->getId(); ?>
+<?php $buttonTitle = $this->__('SHOP NOW  '); ?>
+<?php if($_product->isSaleable()): ?>
+	<div class="clear"></div>
+	  <div class="pdpbutton-wrapp">
+        <button id="cart-add-to-bag" type="button" onclick="javascript:CheckValidation(<?php echo $_product_id ?>)" title="<?php echo $buttonTitle ?>" class="ShopNowButton addtobag-btn gtm-track">ADD TO BAG +</button>
+        <?php echo $this->getChildHtml('', true, true) ?>
+    </div>
+    <div id="error-add-to-cart" class="msg-error"></div>
+<?php endif; ?>
+<script type="text/javascript">
+	jQuery('.size-info-close').click(function(){
+		jQuery(this).hide();
+		jQuery('.ajax-color-swatch').removeClass('color-swatch-active');
+		jQuery('#cart-add-to-bag').css({ display: "block" });
+		jQuery('.info-dialog').removeClass('info-dialog-active');
+		jQuery('.size-info-close').hide();
+	});			
+</script>

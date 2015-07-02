@@ -53,7 +53,7 @@
 
 </div>
 <div id="logo"><a href="<?php echo Mage::getBaseUrl();?>"><img src="<?php echo $this->getSkinUrl().Mage::getStoreConfig('design/header/logo_src');?>" /></a></div>
-<div id="mobilelogo"><a href="<?php echo Mage::getBaseUrl();?>"><img src="<?php echo $this->getSkinUrl('images/mobile-logo.jpg');?>" /></a></div>
+<div id="mobilelogo"><a href="<?php echo Mage::getBaseUrl();?>"><img src="<?php echo $this->getSkinUrl('images/mobile-logo.png');?>" /></a></div>
 <!-- Desktop top menu Start -->
 <div id="topmenu">
 <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('aswan-topmenu')->toHtml(); ?>
@@ -78,4 +78,4 @@
 </div>
 <!-- Mobile Menu End -->
 
-    
+    <?php //echo "=============>".$this->getLayout()->getBlock('root')->getTemplate(); ?>

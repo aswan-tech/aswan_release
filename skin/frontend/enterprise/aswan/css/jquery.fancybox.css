@@ -21,7 +21,142 @@
 	position: absolute;
 	top: 0;
 	left: 0;
-	z-index: 8020;
+	z-index: 10010;
+	-webkit-animation: shake .5s ease-in-out;
+  -moz-animation: shake .5s ease-in-out;
+  -ms-animation: shake .5s ease-in-out;
+  -o-animation: shake .5s ease-in-out;
+  animation: shake .5s ease-in-out;
+}
+
+@-webkit-keyframes shake {
+  0% {
+    -webkit-transform: rotate(0);
+  }
+
+  20% {
+    -webkit-transform: rotate(-1deg);
+  }
+
+  40% {
+    -webkit-transform: rotate(1deg);
+  }
+
+  60% {
+    -webkit-transform: rotate(-1deg);
+  }
+
+  80% {
+    -webkit-transform: rotate(1deg);
+  }
+
+  100% {
+    -webkit-transform: rotate(0);
+  }
+}
+
+@-moz-keyframes shake {
+  0% {
+    -moz-transform: rotate(0);
+  }
+
+  20% {
+    -moz-transform: rotate(-1deg);
+  }
+
+  40% {
+    -moz-transform: rotate(1deg);
+  }
+
+  60% {
+    -moz-transform: rotate(-1deg);
+  }
+
+  80% {
+    -moz-transform: rotate(1deg);
+  }
+
+  100% {
+    -moz-transform: rotate(0);
+  }
+}
+
+@-ms-keyframes shake {
+  0% {
+    -ms-transform: rotate(0);
+  }
+
+  20% {
+    -ms-transform: rotate(-1deg);
+  }
+
+  40% {
+    -ms-transform: rotate(1deg);
+  }
+
+  60% {
+    -ms-transform: rotate(-1deg);
+  }
+
+  80% {
+    -ms-transform: rotate(1deg);
+  }
+
+  100% {
+    -ms-transform: rotate(0);
+  }
+}
+
+@-o-keyframes shake {
+  0% {
+    -o-transform: rotate(0);
+  }
+
+  20% {
+    -o-transform: rotate(-1deg);
+  }
+
+  40% {
+    -o-transform: rotate(1deg);
+  }
+
+  60% {
+    -o-transform: rotate(-1deg);
+  }
+
+  80% {
+    -o-transform: rotate(1deg);
+  }
+
+  100% {
+    -o-transform: rotate(0);
+  }
+}
+
+@keyframes shake {
+  0% {
+    transform: rotate(0);
+  }
+
+  20% {
+    transform: rotate(-1deg);
+  }
+
+  40% {
+    transform: rotate(1deg);
+  }
+
+  60% {
+    transform: rotate(-1deg);
+  }
+
+  80% {
+    transform: rotate(1deg);
+  }
+
+  100% {
+    transform: rotate(0);
+  }
 }
 
 .fancybox-skin {
@@ -32,7 +167,7 @@
 }
 
 .fancybox-opened {
-	z-index: 8030;
+	z-index: 10010;
 }
 
 .fancybox-opened .fancybox-skin {
@@ -162,14 +297,14 @@
 
 /* Overlay helper */
 
-.fancybox-lock {
+/*.fancybox-lock {
     overflow: hidden !important;
     width: auto;
 }
 
 .fancybox-lock body {
     overflow: hidden !important;
-}
+}*/
 
 .fancybox-lock-test {
     overflow-y: hidden !important;
@@ -181,7 +316,7 @@
 	left: 0;
 	overflow: hidden;
 	display: none;
-	z-index: 8010;
+	z-index: 10001;
 	background: url('../images/fancybox_overlay.png');
 }
 
@@ -191,10 +326,11 @@
 	right: 0;
 }
 
+/*
 .fancybox-lock .fancybox-overlay {
 	overflow: auto;
 	overflow-y: scroll;
-}
+}*/
 
 /* Title helper */
 

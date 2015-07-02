@@ -27,13 +27,13 @@ Adds video after thumbs
 -->
 	<default>
 		<reference name="head">
-			<action method="addCss" ifconfig="rocketweb_productvideo/settings/fancybox"><stylesheet>css/fancybox/fancybox.css</stylesheet></action>
+			<!-- <action method="addCss" ifconfig="rocketweb_productvideo/settings/fancybox"><stylesheet>css/fancybox/fancybox.css</stylesheet></action>
 			
 			<action method="addJs" ifconfig="rocketweb_productvideo/settings/jquery"><script>rocketweb/jquery/jquery-1.4.4.min.js</script></action>
 			<action method="addJs" ifconfig="rocketweb_productvideo/settings/fancybox"><script>rocketweb/jquery/jquery.noconflict.js</script></action>
 			<action method="addJs" ifconfig="rocketweb_productvideo/settings/fancybox"><script>rocketweb/jquery/jquery.easing-1.3.pack.js</script></action>
 			<action method="addJs" ifconfig="rocketweb_productvideo/settings/fancybox"><script>rocketweb/jquery/jquery.mousewheel-3.0.4.pack.js</script></action>
-			<action method="addJs" ifconfig="rocketweb_productvideo/settings/fancybox"><script>rocketweb/jquery/fancybox/jquery.fancybox-1.3.4.pack.js</script></action>
+			<action method="addJs" ifconfig="rocketweb_productvideo/settings/fancybox"><script>rocketweb/jquery/fancybox/jquery.fancybox-1.3.4.pack.js</script></action> -->
 		</reference>		
     </default>
     

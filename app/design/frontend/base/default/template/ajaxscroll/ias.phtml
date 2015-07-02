@@ -1,31 +1,93 @@
-<?php if (Mage::getStoreConfigFlag('catalog/frontend/useajaxscroll')): ?>
 <?php 
-// Get the default setting for grid or list mode
-$productListMode = Mage::getStoreConfig('catalog/frontend/list_mode');
-if ($productListMode == 'grid-list')
-	$productListMode = 'grid';
-elseif ($productListMode == 'list-grid')
-	$productListMode = 'list';
-
-// Check if this setting is overwritten by the user
-if ($this->getRequest()->getParam('mode')) {
-	if($this->getRequest()->getParam('mode') == 'grid')
+$useIas = $this->getUseIas();
+$useUitotop = $this->getUseScrollToTop();
+if ($useIas) {
+	// Get the default setting for grid or list mode
+	$productListMode = $this->getDefaultCatalogListMode();
+	if ($productListMode == 'grid-list')
 		$productListMode = 'grid';
-	else
+	elseif ($productListMode == 'list-grid')
 		$productListMode = 'list';
+
+	// Check if this setting is overwritten by the user
+	if ($this->getCurrentListMode()) {
+		if($this->getCurrentListMode() == 'grid')
+			$productListMode = 'grid';
+		else
+			$productListMode = 'list';
+	}
 }
 ?>
+<?php if ($useIas || $useUitotop): ?>
 <script type="text/javascript">
+<?php if ($useIas): ?>
 jQuery.ias({
-	container : '.category-products',
-	<?php if ($productListMode == 'grid'): ?>
+	container : '#productlist',
+<?php if ($productListMode == 'grid'): ?>
 	item: '.products-grid',
-	<?php else: ?>
+<?php else: ?>
 	item: '.products-list',
 	<?php endif; ?>
-	pagination: '.toolbar .pagelist',
+	pagination: '.shorting .pager',
 	next: '.next',
-	loader: '<img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA);?>v3/loader-signup.gif" />'
+	loader: '<img src="<?php echo($this->getSkinUrl('images/ajaxscroll/loader.gif')); ?>" /> <?php echo __('Loading more products, please be patient...'); ?>',
+<?php //if($this->getGoogleAnalyticsEnabled()): ?>
+
+	onPageChange: function(pageNum, pageUrl, scrollOffset) {
+		// This will track a pageview every time the user scrolls up or down the screen to a different page.
+		path = jQuery('<a/>').attr('href',pageUrl)[0].pathname.replace(/^[^\/]/,'/');
+		//_gaq.push(['_trackPageview', path]);
+
+	},
+<?php //endif; ?>
+	triggerPageThreshold: <?php echo $this->getIasTriggerpagethreshold(); ?>,
+	thresholdMargin: <?php echo $this->getIasThresholdmargin(); ?>,
+	trigger: '<?php echo __('+ Load more products'); ?>',
+	history: <?php echo ($this->getIasHistory()) ? 'true' : 'false'; ?>,
+	onRenderComplete: function(){
+
+jQuery('.productbox .morecolors .databox img').mouseover(function(){
+        var proId = jQuery(this).attr('pro-id'),
+            proName = jQuery(this).attr('title'),
+            proImg = jQuery(this).attr('large-image'),
+            //proSize = jQuery(this).next('ul').clone(),
+            proPri = jQuery(this).attr('product-price'),
+            proOldpri = jQuery(this).attr('old-price'),
+            proUrl = jQuery(this).attr('prod-url')
+        
+        jQuery('#'+proId).attr('src',proImg);
+        jQuery('#'+proId).parent().attr('href',proUrl);
+        jQuery(this).parent().parent().siblings().find('h3').html(proName);
+        //jQuery(this).parent().parent().siblings().find('.sizebar').html(proSize);
+        jQuery(this).parent().parent().siblings().find('.new-price').html(proPri);
+        jQuery(this).parent().parent().siblings().find('.old-price').html(proOldpri);
+        });
+        
+    jQuery('#productlist .productbox').mouseleave(function(){
+        var defaultSource = jQuery(this).find('.morecolors .databox:first-child img'),
+            proId = jQuery(defaultSource).attr('pro-id'),
+            proName = jQuery(defaultSource).attr('title'),
+            proImg = jQuery(defaultSource).attr('large-image'),
+            //proSize = $(this).find('.morecolors .databox:first-child img').next('ul').clone(),
+            proPri = jQuery(defaultSource).attr('product-price'),
+            proOldpri = jQuery(defaultSource).attr('old-price'),
+            proUrl = jQuery(defaultSource).attr('prod-url')
+            
+        jQuery('#'+proId).attr('src',proImg);
+        jQuery('#'+proId).parent().attr('href',proUrl);
+        jQuery(this).find('h3').html(proName);
+        //$(this).find('.sizebar').html(proSize);
+        jQuery(this).find('.new-price').html(proPri);
+        jQuery(this).find('.old-price').html(proOldpri);
+        
+        });
+	}
+ });
+<?php endif; ?>
+<?php if ($useUitotop): ?>
+jQuery(document).ready(function() {
+	jQuery().UItoTop({ easingType: 'easeOutQuart' });		
 });
+<?php endif; ?>
 </script>
 <?php endif; ?>

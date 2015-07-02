@@ -2,72 +2,102 @@
 <layout version="0.1.0">
 	<catalog_category_default translate="label">
 		<reference name="head">
-<!--			<action method="addJs"><script>ias/jquery-1.7.2.min.js</script></action>
-			<action method="addJs"><script>ias/jquery-noconflict.js</script></action>-->
-			<action method="addJs"><script>ias/jquery.ias.min.js</script></action>
-			<action method="addItem">
+			<action method="addJs" ifconfig="catalog/frontend/include_jquery"><script>ias/jquery-1.7.2.min.js</script></action>
+			<action method="addJs" ifconfig="catalog/frontend/include_jquery"><script>ias/jquery-noconflict.js</script></action>
+			<action method="addJs" ifconfig="catalog/frontend/useajaxscroll"><script>ias/jquery.ias.min.js</script></action>
+			<action method="addJs" ifconfig="catalog/frontend/useajaxscroll"><script>ias/jquery.easing-1.3.pack.js</script></action>
+			<action method="addJs" ifconfig="catalog/frontend/useuitotop"><script>ias/jquery.ui.totop.min.js</script></action>
+			<action method="addItem" ifconfig="catalog/frontend/useajaxscroll">
 				<type>skin_css</type>
 				<name>css/ajaxscroll/ias.css</name>
 			</action>
+			<action method="addItem" ifconfig="catalog/frontend/useuitotop">
+				<type>skin_css</type>
+				<name>css/ajaxscroll/ui.totop.css</name>
+			</action>
 		</reference>
 		<reference name="content">
-			<block type="core/template" name="ias_js" template="ajaxscroll/ias.phtml" after="-" />
+			<block type="ias/beforebodyend" name="ias_js" template="ajaxscroll/ias.phtml" after="-" />
 		</reference>
 	 </catalog_category_default>
 	 <catalog_category_layered translate="label">
 	 	<reference name="head">
-	<!--		<action method="addJs"><script>ias/jquery-1.7.2.min.js</script></action>
-			<action method="addJs"><script>ias/jquery-noconflict.js</script></action>-->
-			<action method="addJs"><script>ias/jquery.ias.min.js</script></action>
-			<action method="addItem">
+			<action method="addJs" ifconfig="catalog/frontend/include_jquery"><script>ias/jquery-1.7.2.min.js</script></action>
+			<action method="addJs" ifconfig="catalog/frontend/include_jquery"><script>ias/jquery-noconflict.js</script></action>
+			<action method="addJs" ifconfig="catalog/frontend/useajaxscroll"><script>ias/jquery.ias.min.js</script></action>
+			<action method="addJs" ifconfig="catalog/frontend/useajaxscroll"><script>ias/jquery.easing-1.3.pack.js</script></action>
+			<action method="addJs" ifconfig="catalog/frontend/useuitotop"><script>ias/jquery.ui.totop.min.js</script></action>
+			<action method="addItem" ifconfig="catalog/frontend/useajaxscroll">
 				<type>skin_css</type>
 				<name>css/ajaxscroll/ias.css</name>
 			</action>
+			<action method="addItem" ifconfig="catalog/frontend/useuitotop">
+				<type>skin_css</type>
+				<name>css/ajaxscroll/ui.totop.css</name>
+			</action>
 		</reference>
 	 	<reference name="content">
-			<block type="core/template" name="ias_js" template="ajaxscroll/ias.phtml" after="-" />
+			<block type="ias/beforebodyend" name="ias_js" template="ajaxscroll/ias.phtml" after="-" />
 		</reference>
 	 </catalog_category_layered>
 	 <catalogsearch_advanced_result translate="label">
 	 	<reference name="head">
-<!--			<action method="addJs"><script>ias/jquery-1.7.2.min.js</script></action>
-			<action method="addJs"><script>ias/jquery-noconflict.js</script></action>-->
-			<action method="addJs"><script>ias/jquery.ias.min.js</script></action>
-			<action method="addItem">
+			<action method="addJs" ifconfig="catalog/frontend/include_jquery"><script>ias/jquery-1.7.2.min.js</script></action>
+			<action method="addJs" ifconfig="catalog/frontend/include_jquery"><script>ias/jquery-noconflict.js</script></action>
+			<action method="addJs" ifconfig="catalog/frontend/useajaxscroll"><script>ias/jquery.ias.min.js</script></action>
+			<action method="addJs" ifconfig="catalog/frontend/useajaxscroll"><script>ias/jquery.easing-1.3.pack.js</script></action>
+			<action method="addJs" ifconfig="catalog/frontend/useuitotop"><script>ias/jquery.ui.totop.min.js</script></action>
+			<action method="addItem" ifconfig="catalog/frontend/useajaxscroll">
 				<type>skin_css</type>
 				<name>css/ajaxscroll/ias.css</name>
 			</action>
+			<action method="addItem" ifconfig="catalog/frontend/useuitotop">
+				<type>skin_css</type>
+				<name>css/ajaxscroll/ui.totop.css</name>
+			</action>
 		</reference>
 	 	<reference name="content">
-			<block type="core/template" name="ias_js" template="ajaxscroll/ias.phtml" after="-" />
+			<block type="ias/beforebodyend" name="ias_js" template="ajaxscroll/ias.phtml" after="-" />
 		</reference>
 	 </catalogsearch_advanced_result>
 	 <catalogsearch_result_index translate="label">
 	 	<reference name="head">
-	<!--		<action method="addJs"><script>ias/jquery-1.7.2.min.js</script></action>
-			<action method="addJs"><script>ias/jquery-noconflict.js</script></action>-->
-			<action method="addJs"><script>ias/jquery.ias.min.js</script></action>
-			<action method="addItem">
+			<action method="addJs" ifconfig="catalog/frontend/include_jquery"><script>ias/jquery-1.7.2.min.js</script></action>
+			<action method="addJs" ifconfig="catalog/frontend/include_jquery"><script>ias/jquery-noconflict.js</script></action>
+			<action method="addJs" ifconfig="catalog/frontend/useajaxscroll"><script>ias/jquery.ias.min.js</script></action>
+			<action method="addJs" ifconfig="catalog/frontend/useajaxscroll"><script>ias/jquery.easing-1.3.pack.js</script></action>
+			<action method="addJs" ifconfig="catalog/frontend/useuitotop"><script>ias/jquery.ui.totop.min.js</script></action>
+			<action method="addItem" ifconfig="catalog/frontend/useajaxscroll">
 				<type>skin_css</type>
 				<name>css/ajaxscroll/ias.css</name>
 			</action>
+			<action method="addItem" ifconfig="catalog/frontend/useuitotop">
+				<type>skin_css</type>
+				<name>css/ajaxscroll/ui.totop.css</name>
+			</action>
 		</reference>
 	 	<reference name="content">
-			<block type="core/template" name="ias_js" template="ajaxscroll/ias.phtml" after="-" />
+			<block type="ias/beforebodyend" name="ias_js" template="ajaxscroll/ias.phtml" after="-" />
 		</reference>
 	 </catalogsearch_result_index>
 	 <tag_product_list translate="label">
 	 	<reference name="head">
-	<!--		<action method="addJs"><script>ias/jquery-1.7.2.min.js</script></action>
-			<action method="addJs"><script>ias/jquery-noconflict.js</script></action>-->
-			<action method="addJs"><script>ias/jquery.ias.min.js</script></action>
-			<action method="addItem">
+			<action method="addJs" ifconfig="catalog/frontend/include_jquery"><script>ias/jquery-1.7.2.min.js</script></action>
+			<action method="addJs" ifconfig="catalog/frontend/include_jquery"><script>ias/jquery-noconflict.js</script></action>
+			<action method="addJs" ifconfig="catalog/frontend/useajaxscroll"><script>ias/jquery.ias.min.js</script></action>
+			<action method="addJs" ifconfig="catalog/frontend/useajaxscroll"><script>ias/jquery.easing-1.3.pack.js</script></action>
+			<action method="addJs" ifconfig="catalog/frontend/useuitotop"><script>ias/jquery.ui.totop.min.js</script></action>
+			<action method="addItem" ifconfig="catalog/frontend/useajaxscroll">
 				<type>skin_css</type>
 				<name>css/ajaxscroll/ias.css</name>
 			</action>
+			<action method="addItem" ifconfig="catalog/frontend/useuitotop">
+				<type>skin_css</type>
+				<name>css/ajaxscroll/ui.totop.css</name>
+			</action>
 		</reference>
 	 	<reference name="content">
-			<block type="core/template" name="ias_js" template="ajaxscroll/ias.phtml" after="-" />
+			<block type="ias/beforebodyend" name="ias_js" template="ajaxscroll/ias.phtml" after="-" />
 		</reference>
 	 </tag_product_list>
 </layout>

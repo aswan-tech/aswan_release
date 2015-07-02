@@ -1,10 +1,7 @@
 <?xml version="1.0"?>
 <layout version="0.1.0">
     <default>
-		<reference name="head">
-			<action method="addCss"><stylesheet>css/testimonials.css</stylesheet></action>
-			<action method="addItem"><type>skin_js</type><name>js/carousel-min.js</name></action>
-		</reference>
+		
 	    <reference name="right">
             <block type="testimonials/testimonials" name="testimonials.sidebar" template="testimonials/sidebar.phtml" />
         </reference>

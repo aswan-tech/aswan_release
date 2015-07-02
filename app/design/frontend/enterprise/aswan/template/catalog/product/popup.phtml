@@ -1,0 +1,60 @@
+<!-- Popup Overlay -->
+<script>function closeBox() {
+               jQuery('#fancybox-wrap1,#fancybox-overlay1').fadeOut(300);
+       }        </script>
+<div class="fancy-overlay1" id="fancybox-overlay1"></div>
+
+       <div class="fancy-wrap1" id="fancybox-wrap1">
+               
+               <div id="fancybox-outer1">
+                    <?php
+                               $_product = $this->getProduct();
+                               $sizechart = $_product->getAttributeText('sizechart');
+                               $sizechart_content = trim($_product->getData('sizechart_content'));
+                               if($sizechart_content !='' && $sizechart_content!=null){
+                                       $sizechart_content = (array)json_decode($sizechart_content);
+                                       if(isset($sizechart_content['image']))
+                                               $image = $sizechart_content['image'];
+                                       unset($sizechart_content['image']);?>
+                                       <div id="tab0" class="">
+                                               <div id="mobisize-container">                        
+                                                         <p class="size-top">SIZE GUIDE</p> 
+                                                         <div class="mobi-sizechart">                                
+                                                     <div class="size-info">
+                                                       <table><tr>
+                                       <?php foreach($sizechart_content as $size_key=>$size_c):?>
+                                                       
+                                                       <td>
+                                                               <p class="size"><?php echo ucfirst($size_key);?></p>
+                                                               <ul>
+                                                               <?php foreach($size_c as $s_c){?>
+                                                                       <li><?php echo $s_c;?></li>
+                                                               <?php } ?>
+                                                       </ul>
+                                                       </td>
+                                       <?php endforeach; ?>
+
+                                            </table>
+                                             </div>
+                                                               <div class="product-sketch"><img border="0" width="286px" height="258px" alt="Men's Sleeveless Jacket" src="<?php echo $this->getSkinUrl('images/sizechart/v1/'.$image, array('_secure'=>true)); ?>">
+                                                               </div>
+                                                       </div>
+                                               </div>
+                                       </div>                
+                               <?php }else {  ?>
+                                       <div id="tab0" class="">
+                                               <div id="mobisize-container">        
+                                                       <p class="size-top">SIZE GUIDE</p> 
+                                                         <div class="mobi-sizechart">
+                                                                 <br>        
+                                                               <?php echo "No Size chart available!";?>
+                                                       </div>
+                                               </div>                        
+                                         </div>
+                               <?php  }?>
+
+                               
+                       
+               <a style="display: inline;" id="fancybox-close1" onclick="closeBox();"></a>
+       </div>
+</div>

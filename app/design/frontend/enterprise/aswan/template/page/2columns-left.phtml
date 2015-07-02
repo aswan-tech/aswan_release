@@ -29,7 +29,7 @@
  * Template for Mage_Page_Block_Html
  */
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<?php echo $this->getLang() ?>" lang="<?php echo $this->getLang() ?>">
 <head>
 <?php echo $this->getChildHtml('head') ?>
@@ -41,18 +41,46 @@
         
 <header id="header">
         <?php echo $this->getChildHtml('header') ?>
-   </header> 
-        <div class="main-container col2-left-layout">
-            <div class="main">
-                <?php echo $this->getChildHtml('breadcrumbs') ?>
-                <div class="col-main">
-                    <?php echo $this->getChildHtml('global_messages') ?>
-                    <?php echo $this->getChildHtml('content') ?>
-                </div>
-                <div class="col-left sidebar"><?php echo $this->getChildHtml('left') ?></div>
-            </div>
-        </div>
-        <footer id="footer">
+</header>
+
+
+<div id="middle">
+<div class="bredcrum">
+<?php echo $this->getChildHtml('breadcrumbs') ?>
+</div>
+<div class="categoryname"><h2><?php   
+        $_category  = Mage::registry('current_category');
+        if($_category){
+         $_helper    = Mage::helper('catalog/output');
+                    echo $_category->getName();
+        }
+        ?></h2></div>
+<div id="listingarea">
+<div id="filterholder">
+<div class="mobilefilter">
+<ul>
+<li><a href="#" id="showfilters">Filter</a></li>
+<li><a href="#" id="showsort">Sort</a></li>
+</ul>
+</div>
+
+<div id="filters">
+<?php echo $this->getChildHtml('left') ?>
+</div>
+</div>
+
+<div id="listingright">
+<?php echo $this->getChildHtml('global_messages') ?>
+<?php echo $this->getChildHtml('content') ?>
+</div>
+
+</div>
+
+
+</div>
+
+
+<footer id="footer">
         <?php echo $this->getChildHtml('footer') ?>
 </footer>
         <?php echo $this->getChildHtml('before_body_end') ?>

@@ -19,12 +19,246 @@
  * needs please refer to http://www.magentocommerce.com for more information.
  *
  * @category    design
- * @package     enterprise_default
- * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
+ * @package     base_default
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://www.magentocommerce.com/license/enterprise-edition
  */
 ?>
-<fieldset class="product-options" id="product-options-wrapper">
-    <?php echo $this->getChildHtml('', true, true);?>
-</fieldset>
-<script type="text/javascript">decorateGeneric($$('#product-options-wrapper dl'), ['last']);</script>
+		
+
+    <?php
+		
+		/* Code check to see if its called of configure product page */
+		/*
+		$action_name = Mage::app()->getFrontController()->getRequest()->getActionName();
+		$module_name = Mage::app()->getFrontController()->getRequest()->getModuleName();
+		$_configure_page_flag = false;
+		$pack_qty_exists = true;
+		if((isset($module_name) && $module_name == 'checkout') && (isset($action_name) && $action_name == 'configure')){
+				$item_id = Mage::app()->getFrontController()->getRequest()->getParam('id');
+				$item = Mage::getModel('sales/quote_item')->load($item_id);
+				if($item->getPckOption() == "1"){
+					$_configure_page_flag = true;
+					$pack_qty_exists = true;
+				}else{
+					$pack_qty_exists = false;
+				}
+		}
+		*/
+		/* Code Check ends */
+		
+		echo $this->getChildHtml('', true, true);
+		
+		/* Start for Code of Premium Packaging */
+		/*
+		$_Product = array();
+		$pck_code = 'premium_packaging_sku';
+		$Premium_Product = $this->getProduct();		
+		$attribute_model = Mage::getModel('eav/entity_attribute');        
+		$attribute_code = $attribute_model->getIdByCode('catalog_product', $pck_code);        
+		$attribute = $attribute_model->load($attribute_code);		
+		
+		
+		if($attribute->hasData()) {
+			$sku = $Premium_Product->getResource()->getAttribute($pck_code)->
+			getFrontend()->getValue($Premium_Product);		
+			$_Product = Mage::getModel('catalog/product')->loadByAttribute('sku', $sku);			
+		}
+		
+		if($_Product) {
+			$pck_sku = $_Product->getSku();
+			$premium_package_id = $_Product->getId();
+		} else {
+			$pck_sku = '';
+			$premium_package_id = '';
+		}
+		
+		?>
+		
+		
+	<br class="clear"/>
+	
+		<?php
+			
+			if($_Product):				
+			
+			$P_premium = false;			
+			$catPIds = $_Product->getCategoryIds();
+			foreach($catPIds as $ids):
+			$PCategory = Mage::getModel('catalog/category')->load($ids);
+				if ($PCategory->getUrlKey()=='premium-packaging' && $PCategory->getIsActive()): 				
+					$P_premium = true;
+				endif;
+				
+			endforeach;
+		
+			if($P_premium):
+			
+				if ($_Product->isAvailable()):
+				
+				$stockLevel = '';
+			
+				$stockLevel = (int) Mage::getModel('cataloginventory/stock_item')->loadByProduct($_Product)->getQty();
+				
+				$productId = $_Product->getId();
+					$quote = Mage::getSingleton('checkout/session')->getQuote();
+					$items = $quote->getAllVisibleItems();
+					$isProductInQty = '';
+					
+					foreach($items as $_item):
+						if($_item->getProductId() == $productId){
+							$isProductInQty = $_item->getQty();
+							break;
+						}
+					endforeach;
+			
+					if($stockLevel > $isProductInQty):					
+					
+					$GLOBALS['premium'] = true;
+					
+					$tooltip_msg = Mage::getStoreConfig("inchoo_general/extensions/premium_tooltip");
+				
+					if($tooltip_msg):
+						$tooltip_msg = $tooltip_msg;
+						else:
+						$tooltip_msg = 'Premium Package Required';
+					endif;	
+		?>
+		<?php if($_configure_page_flag): ?>
+			<?php if($pack_qty_exists): ?>
+					<div class="premium" style="display:none;">
+					<span class="head"><?php echo $this->__('Opt for Premium Package') ?>
+					<a href="#" data-tooltip="<?php echo $tooltip_msg; ?>">
+					<img class="tooltip_msg" src="<?php echo $this->getSkinUrl('images/tooltip_img.jpg'); ?>">
+					</a>
+					</span>
+					
+				<input type="hidden" name="pck_sku" value="<?php echo $pck_sku; ?>"/>
+				<input type="checkbox" name="premium_package" value="<?php echo $premium_package_id; ?>" checked="checked" />
+				
+				<div class="premium_price">			
+					<?php
+						$defPrice = $_Product->getPrice();
+						$specialprice = 0;
+						$_taxHelper  = Mage::helper('tax');
+						$currentDate = mktime(0,0,0,date("m"),date("d"),date("Y"));
+						$currentDate = date("Y-m-d h:m:s", $currentDate);
+
+						if (!$_Product->isConfigurable()){
+							$specialToDate = $_Product->getSpecialToDate();
+							$specialFromDate = $_Product->getSpecialFromDate();
+
+							if ( ($currentDate >= $specialFromDate && $currentDate < $specialToDate || $specialToDate == "") && $_Product->getSpecialPrice() != 0 ){
+							 $price = $_Product->getResource()->getAttribute('price')->getFrontend()->getValue($_Product);
+							 $price = $_Product->getSpecialPrice();
+							} else {
+							 $price = $_Product->getFinalPrice();
+							}
+						} else {
+							$price = $_Product->getPrice();
+						}
+						
+						$price_old = Mage::helper('common')->currency($price, false);
+						$price_new = Mage::helper('common')->currency($_Product->getPrice(), false);
+			
+						echo "<span class='premium_big'>";
+							echo Mage::helper('checkout')->formatPrice($price_old);
+						echo "</span>";					
+						
+						if($_Product->getSpecialPrice()) {					
+							echo "<span class='premium_small'>";
+								echo Mage::helper('checkout')->formatPrice($price_new);
+							echo "</span>";
+						}
+						
+						// echo $this->getPriceHtml($_Product); ?>
+				</div>
+				
+				</div>
+			<?php endif; ?>
+	<?php else: ?>
+		<?php if($pack_qty_exists): ?>
+		<div class="premium">
+		<span class="head"><?php echo $this->__('Opt for Premium Package') ?>
+		<a href="#" data-tooltip="<?php echo $tooltip_msg; ?>">
+		<img class="tooltip_msg" src="<?php echo $this->getSkinUrl('images/tooltip_img.jpg'); ?>">
+		</a>
+		</span>
+		
+		<input type="hidden" name="pck_sku" value="<?php echo $pck_sku; ?>"/>
+		<input type="checkbox" name="premium_package" value="<?php echo $premium_package_id; ?>" />
+	
+		<div class="premium_price">			
+		<?php
+			$defPrice = $_Product->getPrice();
+			$specialprice = 0;
+			$_taxHelper  = Mage::helper('tax');
+			$currentDate = mktime(0,0,0,date("m"),date("d"),date("Y"));
+			$currentDate = date("Y-m-d h:m:s", $currentDate);
+
+			if (!$_Product->isConfigurable()){
+				$specialToDate = $_Product->getSpecialToDate();
+				$specialFromDate = $_Product->getSpecialFromDate();
+
+				if ( ($currentDate >= $specialFromDate && $currentDate < $specialToDate || $specialToDate == "") && $_Product->getSpecialPrice() != 0 ){
+				 $price = $_Product->getResource()->getAttribute('price')->getFrontend()->getValue($_Product);
+				 $price = $_Product->getSpecialPrice();
+				} else {
+					$price = $_Product->getFinalPrice();
+				}
+			} else {
+				$price = $_Product->getPrice();
+			}
+			
+			$price_old = Mage::helper('common')->currency($price, false);
+			$price_new = Mage::helper('common')->currency($_Product->getPrice(), false);
+			
+			if($_Product->getSpecialPrice()) {
+				echo "<span class='premium_big'>";
+					echo Mage::helper('checkout')->formatPrice($price_old);
+				echo "</span>";					
+				
+				echo "<span class='premium_small'>";
+					echo Mage::helper('checkout')->formatPrice($price_new);
+				echo "</span>";
+			} else {
+				echo "<span class='premium_standard'>";
+					echo Mage::helper('checkout')->formatPrice($price_old);
+				echo "</span>";
+			}
+			
+			// echo $this->getPriceHtml($_Product);
+		?>
+		</div>
+	
+	</div>
+	<?php endif; ?>
+	<?php endif; ?>
+	<br class="clear"/>
+	
+	<?php
+		else:
+		echo '<br class="clear"/>';
+		endif; */
+		/* ($stockLevel > $isProductInQty): */		
+		/*
+		else:
+		echo '<br class="clear"/>';
+		endif; 
+		*/
+		/* end of if($_Product->isAvailable()) */
+		/*
+		else:
+		echo '<br class="clear"/>';
+		endif; 
+		*/
+		/* end of if($P_premium) */
+		/*
+		else:
+		echo '<br class="clear"/>';
+		endif; 
+		*/
+		/* end of if($_Product) */		
+		
+		/* End for Code of Premium Packaging */
+	?>

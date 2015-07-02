@@ -236,6 +236,19 @@ open:function(url,title,params){
         });
     Modalbox.show(url,params);
 },
+onSuccess: function() {
+$('.quickslide .bxslider').bxSlider({
+                auto: false,
+                infiniteLoop: false,
+                controls: true,
+                mode: 'vertical',
+                touchEnabled: true,
+                minSlides: 5,
+                maxSlides: 6,
+                slideMargin: 6,
+                pager: false
+              });
+},
 close:function(){
     Modalbox.hide({
         transitions:false
