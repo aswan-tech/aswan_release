@@ -1,20 +1,22 @@
 <?php
 set_time_limit(0);
 require_once '/home/cloudpanel/htdocs/www.americanswan.com/current/app/Mage.php';
-require_once '/home/cloudpanel/htdocs/www.americanswan.com/current/includes/config.php';
-
 Mage::app()->setCurrentStore(Mage_Core_Model_App::DISTRO_STORE_ID);
 Mage::app()->loadAreaPart(Mage_Core_Model_App_Area::AREA_FRONTEND, Mage_Core_Model_App_Area::PART_EVENTS);
 umask(0);
 $app = Mage::app('default');
 $cat_id = Mage::getSingleton('core/app')->getRequest()->getParam('catid');
-$catName = Mage::getModel('catalog/category')->load($cat_id)->getName();
+if(empty($cat_id)){
+	die("Invalid category id");
+}
 $today = date("Ymd");
-
+$_parentcatnameArr = array('6'=>'men', '8'=>'women', '4'=>'footwear', '3'=>'accessories', '7'=>'beauty', '5'=>'home');
+$_parentcatname = array($_parentcatnameArr[$cat_id]);
+$core_read = Mage::getSingleton('core/resource')->getConnection('core_read');
 try{
         header("Content-type: text/csv");
         header("Cache-Control: no-store, no-cache");
-        header('Content-Disposition: attachment; filename="'.$catName.$today.'-product-feed-cat.xml"');
+        header('Content-Disposition: attachment; filename="'.$_parentcatnameArr[$cat_id].$today.'-product-feed-cat.xml"');
         $fp = fopen("php://output", 'w');
         $doc  = new DOMDocument('1.0', 'utf-8');
         $doc->formatOutput = true;
@@ -32,110 +34,37 @@ try{
         $rssNode->appendChild( $productsNode );
         $titleNode = $doc->createElement( "title" );
         $productsNode->appendChild( $titleNode );
-        $dataTitleValue = $doc->createTextNode($catName);
+        $dataTitleValue = $doc->createTextNode($_parentcatnameArr[$cat_id]);
         $titleNode->appendChild($dataTitleValue);
-        $j = 0;
-        $currentDate = mktime(0, 0, 0, date("m"), date("d"), date("Y"));
-        $currentDate = date("Y-m-d h:m:s", $currentDate);
                 
-		$_products = Mage::getModel('catalog/product')->getCollection();
-		$_products->addAttributeToSelect(array('name','sku','ean','color','size','gender','price','special_price'));
-		$_products->getSelect()->join(array('c'=>'catalog_category_product'),'c.product_id = e.entity_id',  array());
-		$_products->getSelect()->join(array('pr'=>'catalog_product_relation'),'pr.parent_id = e.entity_id',  array('count( pr.child_id ) AS totSimpleProd'));
-		$_products->getSelect()->join(array('st'=>'cataloginventory_stock_item'),'(pr.child_id = st.product_id AND st.is_in_stock = 1)',  array());
-		$_products->getSelect()->where("c.category_id = '6'");
-		$_products->getSelect()->group("e.entity_id");
-		$_products->getSelect()->having("totSimpleProd >=2");
-		$_products->addAttributeToFilter('type_id','configurable');
-		//echo $_products->getSelect()->__toString();
-		#var_dump($_products->count());
-		#echo "<pre>";
+        $query = "select * from promotion_feed where availability = 'In Stock' and category_id = '$cat_id'";
+		$result = $core_read->query($query);
+		$_products = $result->fetchAll();
 		
-		#$taxHelper = Mage::helper('tax');
+		#echo "<pre>";print_r($_products);die;
+		
 		foreach ($_products as $key => $_product) {
-			$product = Mage::getModel('catalog/product')->load($_product->getEntityId());
-					
-			$brand = $product->getAttributeText('brand');
-			$product_category = $product->getAttributeText('product_category');
-			$attr_bestsellervalue = $product->getAttributeText('inchoo_seller_product');
-			$product_department = $product->getAttributeText('product_department');
-			
-			if($product_category!=null) {
-				$_productdata['title'] = "American Swan".' '.ucfirst(strtolower($product_category)).' - '.$product->getName();
-			}
-			else {
-				$_productdata['title'] = "American Swan".' - '.$product->getName();
-			}
-			
-			$_productdata['link'] = Mage::getBaseUrl().$product->getUrlPath();
-			$_productdata['description'] = 'Buy '.ucfirst(strtolower($brand)).' '.ucfirst(strtolower($product_category)).' Online- '.$product->getDescription()." Shop Online Now!";
-			$_productdata['g:id'] = $product->getSku();
-			
-			$fprice = 0;
-			/*
-			$specialToDate = $product->getSpecialToDate();
-			$specialFromDate = $product->getSpecialFromDate();
-			
-			if ($currentDate >= $specialFromDate && ($currentDate < $specialToDate || $specialToDate != "")) {
-				$specialprice = $product->getSpecialPrice();
-				if(isset($specialprice) && ($specialprice != '')){
-					$fprice = $specialprice;
-				}
-			}else{
-				$_finalPrice = $taxHelper->getPrice($product, $product->getFinalPrice());
-				if($_finalPrice){ $fprice = $_finalPrice; }else{ $fprice = $product->getFinalPrice();}
-			}
-			*/
-						
-			$fprice = (int)$product->getFinalPrice();
-			$_productdata['g:price'] = round(number_format($fprice, 2, null, ''));
-            
-            $_productdata['g:availability'] = ( $product->getIsInStock() == 1 ? 'In Stock' : 'Out Of Stock');
-            $_productdata['g:custom_label_0'] = ((int)$product->getPrice() == $fprice ? 'New arrivals' : 'Sale' );
+			$brand = $_product['brand'];
+			$product_category = $_product['product_category'];
+			$attr_bestsellervalue = isset($_product['inchoo_seller_product']) ? $_product['inchoo_seller_product'] : '';
+			$product_department = $_product['product_department'];
+			$_productdata['title'] = $_product['title'];
+			$_productdata['link'] = $_product['product_url'];
+			$_productdata['description'] = $_product['description'];
+			$_productdata['g:id'] = $_product['sku'];
+			$_productdata['g:price'] = round(number_format($_product['price'], 2, null, ''));
+            $_productdata['g:availability'] = $_product['availability'];
+            $_productdata['g:custom_label_0'] = $_product['custom_label_0'];
                        
             if($attr_bestsellervalue == 'Yes') {
 				$_productdata['g:custom_label_1'] = 'Best Seller';
 			}
             
-            $_productdata['g:image_link'] = Mage::helper('catalog/image')->init($product, 'image')->__toString();
-            
-            
-            $cats = $product->getCategoryIds();
-			$_parentcatname = array();
-			foreach ($cats as $category_id) {
-				$_cat = Mage::getModel('catalog/category')->load($category_id);
-				if($_cat->getLevel() == 2){
-					$_parentcatname[] = strtolower($_cat->getName());
-				}
-			}
+            $_productdata['g:image_link'] = $_product['image_link'];
+            $_productdata['g:google_product_category'] = $_product['google_product_category'];
+			$_productdata['g:product_type'] = $_product['product_type'];
 			
-			if(in_array('men', $_parentcatname) || in_array('women', $_parentcatname)) {
-				$_productdata['g:google_product_category'] = 'Apparel & Accessories > Clothing';
-				$_productdata['g:product_type'] = 'Apparel & Accessories > Clothing > '.$product_department.' '.$product_category ;
-			}
-			else if(in_array('footwear', $_parentcatname)) {
-				$_productdata['g:google_product_category'] = 'Apparel & Accessories > Shoes';
-				$_productdata['g:product_type'] = 'Apparel & Accessories > Shoes > '.$product_department.' '.$product_category ;
-			}
-			else if(in_array('accessories', $_parentcatname)) {
-				$_productdata['g:google_product_category'] = 'Apparel & Accessories > Clothing Accessories';
-				$_productdata['g:product_type'] = 'Apparel & Accessories > Clothing Accessories > '.$product_category;
-			}
-			else if(in_array('home', $_parentcatname)) {
-				$_productdata['g:google_product_category'] = 'Home & Garden > Linens & Bedding for Home Products';
-				$_productdata['g:product_type'] = 'Home & Garden > Linens & Bedding for Home Products > '.$product->getName();
-			}
-			else if(in_array('beauty', $_parentcatname)) {
-				$_productdata['g:google_product_category'] = 'Health & Beauty > Personal Care for Beauty Products';
-				$_productdata['g:product_type'] = 'Health & Beauty > Personal Care for Beauty Products > '.$product->getName();
-			}
-			else {
-				$_productdata['g:google_product_category'] = 'Apparel & Accessories > Clothing Accessories';
-				$_productdata['g:product_type'] = 'Apparel & Accessories > Clothing Accessories > '.$product_department.' '.$product_category;
-			}
-                        
-                        
-            /*
+			/*
              * creating items
              */
                           
@@ -153,7 +82,7 @@ try{
 				}
 			}
 			
-			$mpn = 'AS-'.$product->getSku();
+			$mpn = 'AS-'.$_product['sku'];
 			$dataShip = $doc->createElement( 'g:shipping' );
 			$productNode->appendChild( $dataShip );
 			$valueTagservice = $doc->createElement('g:service');
@@ -170,7 +99,7 @@ try{
 			$dataCondition->appendChild($dataConditionValue);
 			$dataBrand = $doc->createElement( 'g:brand' );
 			$productNode->appendChild( $dataBrand );
-			$dataBrandValue = $doc->createTextNode("American Swan");
+			$dataBrandValue = $doc->createTextNode($brand);
 			$dataBrand->appendChild($dataBrandValue);
 			$dataMpn = $doc->createElement( 'g:mpn' );
 			$productNode->appendChild( $dataMpn );
@@ -178,7 +107,7 @@ try{
 			$dataMpn->appendChild($dataMpnValue);
 			$dataGender = $doc->createElement( 'g:gender' );
 			$productNode->appendChild( $dataGender );
-			$dataGenderValue = $doc->createTextNode($product->getAttributeText('gender'));
+			$dataGenderValue = $doc->createTextNode($_product['gender']);
 			$dataGender->appendChild($dataGenderValue);					
 		}				       
         $XML =  $doc->saveXML();
