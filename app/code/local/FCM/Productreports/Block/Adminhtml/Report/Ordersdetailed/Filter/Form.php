@@ -194,7 +194,7 @@ class FCM_Productreports_Block_Adminhtml_Report_Ordersdetailed_Filter_Form exten
             ),
         ));
 		
-		$productTypeArr = array('configurable'=>'Orders', 'giftcard'=>'Giftcard', 'all'=>'All Orders');
+		$productTypeArr = array('simple'=>'Orders', 'giftcard'=>'Giftcard', 'all'=>'All Orders');
 		$fieldset->addField('product_type', 'select', array(
             'name' => 'product_type',
             'values' => $productTypeArr,
@@ -205,24 +205,6 @@ class FCM_Productreports_Block_Adminhtml_Report_Ordersdetailed_Filter_Form exten
             ),
         ));
         
-        /*$fieldArr = array(
-							array("value"=>"OrderDate", "label"=>"Order Date"), 
-							array("value"=>"OrderTime", "label"=>"Order Time"),
-							array("value"=>"OrdeNumber", "label"=>"Order Number"),
-							array("value"=>"Campaign", "label"=>"Campaign"),
-							array("value"=>"Source", "label"=>"Source")
-						);
-       
-		$fieldset->addField('xls_fields', 'multiselect', array(
-            'name' => 'xls_fields[]',
-            'values' => $fieldArr,
-            'label' => Mage::helper('productreports')->__('Order Type'),
-            'title' => Mage::helper('productreports')->__('Order Type'),
-            "options" => array(
-                '-1' => Mage::helper('productreports')->__('Order Type')
-            ),
-        ));
-        */
         $form->setUseContainer(true);
         $this->setForm($form);
 
