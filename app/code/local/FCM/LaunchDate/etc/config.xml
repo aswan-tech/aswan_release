@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <FCM_LaunchDate>
+            <version>1.0.0</version>
+        </FCM_LaunchDate>
+    </modules>
+    <global>
+        <helpers>
+            <launchdate>
+                <class>FCM_LaunchDate_Helper</class>
+            </launchdate>
+        </helpers>
+        <blocks>
+            <launchdate>
+                <class>FCM_LaunchDate_Block</class>
+            </launchdate>
+        </blocks>
+		
+	</global>
+    <admin>
+        <routers>
+            <launchdate>
+                <use>admin</use>
+                <args>
+                    <module>FCM_LaunchDate</module>
+                    <frontName>launchdate</frontName>
+                </args>
+            </launchdate>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <FCM_LaunchDate_Adminhtml before="Mage_Adminhtml">FCM_LaunchDate_Adminhtml</FCM_LaunchDate_Adminhtml>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+    <adminhtml>
+        <acl>
+            <resources>
+                <all>
+                    <title>Allow Everything</title>
+                </all>
+                <admin>
+                    <children>
+                        <system>
+                            <children>
+                                <config>
+                                    <children>
+                                        <launchdate>
+                                            <title>Report Export Module Section</title>
+                                        </launchdate>
+                                    </children>
+                                </config>
+                            </children>
+                        </system>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
+    </adminhtml>
+</config>
+
+
+
+
+
+
+
+
+

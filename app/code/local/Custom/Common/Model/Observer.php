@@ -20,7 +20,58 @@ class Custom_Common_Model_Observer extends Varien_Object
 			}
 		}
 
-		public function changeRobots($observer)
+		public function product_save_after(Varien_Event_Observer $observer){
+			$qty = 0;
+			$model = Mage::getModel('catalog/product');
+			$product = $observer->getProduct(); 
+			$product_id=$product->getId(); 
+			if($product->getTypeId()=='simple'){
+			  $stockItem =Mage::getModel('cataloginventory/stock_item');
+			  $stockItem->assignProduct($product);
+			  $qty = round($stockItem ->getData('qty'));
+			  if($qty>0){
+			    
+			    $parentIds = Mage::getModel('catalog/product_type_configurable')
+			                      ->getParentIdsByChild($product->getId());
+			    if(isset($parentIds[0])){
+			    	$configurable_product = Mage::getModel('catalog/product')->load($parentIds[0]);
+				    $inventory_date = Mage::getModel('catalog/product')->getResource()->getAttribute('inventory_date')->getFrontend()->getValue($configurable_product);
+				    if($inventory_date==null || $inventory_date==''){
+					    $created_date=date("Y-m-d H:i:s" , Mage::getModel('core/date')->timestamp(time()));
+					    file_put_contents('/tmp/inv_date.txt',$configurable_product->getId().$parentIds[0].":".$created_date."\n",FILE_APPEND);
+					    $configurable_product->setData('inventory_date',$created_date)->getResource()->saveAttribute($configurable_product, 'inventory_date');
+			    	}
+			    	else file_put_contents('/tmp/inv_date.txt',"Already Exists:".$configurable_product->getId().":".$inventory_date."\n",FILE_APPEND);
+			    } 
+			    else file_put_contents('/tmp/inv_date.txt',"No Parent Id:".$product->getId()."\n",FILE_APPEND);              
+			    
+			  } else file_put_contents('/tmp/inv_date.txt',"Less Inventory:".$product->getId().":".$qty."\n",FILE_APPEND);
+
+			 } 
+			else{
+				 if($product->getTypeId() == 'configurable') {
+		               $itemsinstock = false;
+		               $inventory_date = Mage::getModel('catalog/product')->getResource()->getAttribute('inventory_date')->getFrontend()->getValue($product);
+		               if($inventory_date==null || $inventory_date==''){
+			               $childProducts = $product->getTypeInstance(true)->getUsedProducts ( null, $product);
+			               foreach ($childProducts as $simple) {
+			                   $stock = (int)Mage::getModel('cataloginventory/stock_item')->loadByProduct($simple)->getQty();
+			                   if($stock>0)
+			                   	$itemsinstock = true;
+
+			               }
+			               if($itemsinstock){
+			               		$created_date=date("Y-m-d H:i:s" , Mage::getModel('core/date')->timestamp(time()));
+								file_put_contents('/tmp/inv_date.txt',$product->getId()."Created At:".$created_date."\n",FILE_APPEND);
+								$product->setData('inventory_date',$created_date)->getResource()->saveAttribute($product, 'inventory_date');
+			               }
+			        }
+			        else file_put_contents('/tmp/inv_date.txt',"Already Exists:".$product->getId().":".$inventory_date."\n",FILE_APPEND);      
+				}
+			}
+		}
+		
+	public function changeRobots($observer)
 		{
 		    if($observer->getEvent()->getAction()->getFullActionName() == 'catalog_category_view')
 		    {
