@@ -60,7 +60,7 @@ foreach ($this->getMethods() as $_method){
 		$_codMethodAvailable = true;
 	}
 	
-	if($_code != 'cashondelivery' && $_code != 'paytm_cc') {
+	if($_code != 'cashondelivery' && $_code != 'paytm_cc' && $_code != 'payumoney_shared') {
 		$activePG[] = $_method->getCode();
 	}
 }
