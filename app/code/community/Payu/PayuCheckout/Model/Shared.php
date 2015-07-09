@@ -152,8 +152,8 @@ class Payu_PayuCheckout_Model_Shared extends Mage_Payment_Model_Method_Abstract
 		
 
 		
-		$coFields['Pg']           =  'Wallet';
-		$coFields['bankcode'] = 'payuw';
+		//$coFields['Pg']           =  'Wallet';
+		//$coFields['bankcode'] = 'payuw';
 		$debugId='';
 		
         if ($debug_mode==1) {

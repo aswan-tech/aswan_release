@@ -51,13 +51,22 @@ if ($this->getQuote()->getShippingAddress()) {
     $_quote_postcode = $this->getQuote()->getShippingAddress()->getPostcode();
 	$quote_country = $this->getQuote()->getShippingAddress()->getCountryId();
 }
+$activePG = array();
 $_codMethodAvailable = false;
 foreach ($this->getMethods() as $_method){
 	$_code = $_method->getCode();
+	
 	if ($_code == 'cashondelivery') {
 		$_codMethodAvailable = true;
 	}
+	
+	if($_code != 'cashondelivery' && $_code != 'paytm_cc') {
+		$activePG[] = $_method->getCode();
+	}
 }
+
+$paymentMethodCode = $activePG[array_rand($activePG, 1)];
+
 if ($_quote_postcode != "" && $_quote_postcode != '-' && $_codMethodAvailable) {
     $_Cod = Mage::getModel('zipcodeimport/zipcodeimport')->getCollection()->addFieldToFilter('cod', Array('eq' => 1))->addFieldToFilter('zip_code', Array('eq' => $_quote_postcode));
     if (count($_Cod) > 0) {
@@ -235,8 +244,8 @@ if(in_array('giftcard', $itemArr)) {
                 <div class="ckpayoption">
 					<p class="pay-amt mar-t10">Amount Payable <span class="pr-value"><?php echo $this->helper('checkout')->formatPrice($this->getQuote()->getGrandTotal()) ?></span></p>
                     <?php
-                        $paymentproviderModel = Mage::getModel("paymentprovider/paymentprovider")->getCollection()->addFieldToFilter('payment_method_type', 'credit_card');
-                        $credit_card_data = $paymentproviderModel->getData();
+                        $paymentproviderModel = Mage::getModel("paymentprovider/paymentprovider")->getCollection()->addFieldToFilter('payment_method_type', array('eq'=>'credit_card'))->addFieldToFilter('payment_method_code', array('eq'=>$paymentMethodCode));
+						$credit_card_data = $paymentproviderModel->getData();
                         foreach($credit_card_data as $provider){
                     ?>
                             <input onclick="javascript:togglePaymentMethods('<?php echo $provider['payment_id']; ?>', '<?php echo $provider['payment_method_type']; ?>', '<?php echo $provider['payment_method_code'] ?>');" id="p_payment_name_<?php echo $provider['payment_id'] ?>" value="<?php echo $provider['payment_method_code'] ?>" type="radio" name="payment[payment_method_type]" title="<?php echo $provider['payment_method_name'] ?>" class="css-checkbox fl" />
@@ -254,7 +263,7 @@ if(in_array('giftcard', $itemArr)) {
                 <div class="ckpayoption">
 					<p class="pay-amt mar-t10">Amount Payable <span class="pr-value"><?php echo $this->helper('checkout')->formatPrice($this->getQuote()->getGrandTotal()) ?></span></p>
                     <?php
-                        $paymentproviderModel = Mage::getModel("paymentprovider/paymentprovider")->getCollection()->addFieldToFilter('payment_method_type', 'net_banking');
+                        $paymentproviderModel = Mage::getModel("paymentprovider/paymentprovider")->getCollection()->addFieldToFilter('payment_method_type', array('eq'=>'net_banking'))->addFieldToFilter('payment_method_code', array('eq'=>$paymentMethodCode));
                         $net_banking_data = $paymentproviderModel->getData();
                         foreach($net_banking_data as $provider){
                     ?>
