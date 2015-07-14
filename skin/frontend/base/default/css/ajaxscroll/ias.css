@@ -1,6 +1,21 @@
 @CHARSET "UTF-8";
 
-.ias_loader {
+.ias_loader, .ias_trigger {
 	text-align:center;
-	margin: 5px 0;
+	margin: 30px 0 40px;
+}
+
+.ias_trigger a:link,
+.ias_trigger a:visited {
+    padding:5px 10px;
+    text-transform:uppercase;
+    background:#dc0028!important;
+    font: bold 12px Arial, sans-serif;
+    text-decoration: none;
+    display:inline-block; color:#fff;
+}
+
+.ias_trigger a:hover,
+.ias_trigger a:active {
+    border-color: #ccc;
 }

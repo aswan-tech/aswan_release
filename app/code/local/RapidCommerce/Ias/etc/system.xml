@@ -5,16 +5,75 @@
             <groups>
                 <frontend>
                     <fields>
+                        <!--<enablebuttonscroll translate="label">
+                            <label>Enable button scroll</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>301</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </enablebuttonscroll>-->
+                        <include_jquery translate="label">
+                            <label>Include jQuery</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>300</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+			    <comment><![CDATA[Include jQuery 1.7. Set this to NO if you are already using jQuery in your webshop. ]]></comment>
+                        </include_jquery>
                         <useajaxscroll translate="label">
                             <label>Use jQuery Infinite Ajax Scroll</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
-                            <sort_order>100</sort_order>
+                            <sort_order>301</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </useajaxscroll>
-		              </fields>
+                        <ias_history translate="label">
+                            <label>Use history url</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>302</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+			    <depends><useajaxscroll>1</useajaxscroll></depends>
+			    <comment><![CDATA[The IAS history module uses hashes (in the format "#/page/") to remember the last viewed page, so when a visitor hits the back button after visiting an item from that page, it will load all items up to that last page and scrolls it into view. The use of hashes can be problematic in some cases, in which case you can disable this feature.]]></comment>
+                        </ias_history>
+			<ias_triggerpagethreshold>
+				<label>Show load more button pages</label>
+				<comment><![CDATA[Page number after which a 'Load more items' link is displayed. Users will manually trigger the loading of the next page by clicking this link.]]></comment>
+				<frontend_type>text</frontend_type>
+				<sort_order>303</sort_order>
+				<show_in_default>1</show_in_default>
+				<show_in_website>1</show_in_website>
+				<show_in_store>1</show_in_store>
+	    		        <depends><useajaxscroll>1</useajaxscroll></depends>
+			</ias_triggerpagethreshold>
+			<ias_thresholdmargin>
+				<label>Start loading early</label>
+				<comment><![CDATA[Pixels from bottom at which loading starts. Setting a thresholdMargin of -250 means that IAS will start loading 250 pixel before the last item has scrolled into view. A positive margin means that IAS will laod new items N pixels after the last item.]]></comment>
+				<frontend_type>text</frontend_type>
+				<sort_order>304</sort_order>
+				<show_in_default>1</show_in_default>
+				<show_in_website>1</show_in_website>
+				<show_in_store>1</show_in_store>
+	    		        <depends><useajaxscroll>1</useajaxscroll></depends>
+			</ias_thresholdmargin>
+                        <useuitotop translate="label">
+                            <label>Use jQuery UItoTop</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>305</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </useuitotop>
+		     </fields>
                 </frontend>
             </groups>
         </catalog>
