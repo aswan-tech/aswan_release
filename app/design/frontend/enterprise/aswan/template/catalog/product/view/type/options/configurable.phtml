@@ -86,7 +86,7 @@ if(Mage::getSingleton('customer/session')->isLoggedIn()) {
 		}	
 		
 		jQuery('.ajax-color-swatch').removeClass('color-swatch-active');		
-		jQuery('.info-dialog').removeClass('info-dialog-active');
+		jQuery('.validatesize').hide();
 		jQuery('.size-info-close').removeClass('size-close-btn');
 		jQuery('.size-info-close').hide();
     }
@@ -119,8 +119,6 @@ if(Mage::getSingleton('customer/session')->isLoggedIn()) {
                     return;
                 jQuery('#more-views-loader').hide();
                 jQuery('#onpage-image-spinner').hide();
-                jQuery("#image").attr("src", result.bigImg);
-                jQuery("#imageClick").attr("src", result.uribig);
                 jQuery(".main-image-changed").attr("value",result.bigImg);
 			 
                 if(jQuery(".catwalk").length > 0){
@@ -186,42 +184,13 @@ if(Mage::getSingleton('customer/session')->isLoggedIn()) {
                 if(result.bigImg=="")
                     return;
                 jQuery('#more-views-loader').hide();
-                jQuery("#image").attr("src", result.bigImg);
-                jQuery("#imageClick").attr("src", result.uribig);
                 //jQuery(".main-image-changed").attr("value",result.bigImg);
             }
         });
 
     }
 
-    function changeImageHovercolor(obj){
-        var idtoplay = jQuery(obj).attr("id");
-        simpleProdimg = jQuery("#"+idtoplay+"_color_img_main_image").attr("rel");
-        jQuery("#image").attr("src",simpleProdimg);
-    }
 
-    function restoreImagecolor(){
-        var newImagetoreplace =jQuery(".main-image-changed").attr("value");
-        jQuery("#image").attr("src",newImagetoreplace);
-    }
-
-    function changeImageHover(obj){
-        var idtoplay = jQuery(obj).attr("id");
-        var newImagetoreplace = jQuery("#"+idtoplay+"_image").attr("rel");
-        jQuery("#image").attr("src",newImagetoreplace);
-    }
-
-    function restoreImage(obj){
-        var idtoplay = jQuery(obj).attr("id");
-        var newImagetoreplace = jQuery("#"+idtoplay+"_image").attr("value");
-        jQuery("#image").attr("src",newImagetoreplace);
-    }
-
-    function changeColorImg(prodId,colorId)
-    {
-        simpleProd = jQuery("#"+prodId+"_"+colorId+"_color_img_main_image").val();
-        changeImagebyColor(prodId,simpleProd,'','');
-    }
 </script>
 <script type="text/javascript">
     function changeMoreView(prod,opt)
@@ -258,9 +227,14 @@ if(Mage::getSingleton('customer/session')->isLoggedIn()) {
         });
     }
 </script>
-<div class="ajax-color-swatch">
-	<div class="info-dialog">Select a size to add to bag</div>
-	<span style="display:none;" class="size-info-close">X</span>
+
+<div class="ajax-color-swatch productswaches size">
+<h4>Size</h4>
+<a href="#sizepopup" class="fancybox sizeguide">Size Guide</a>
+<div id="sizepopup" class="globlepopup">
+<?php echo $this->getLayout()->createBlock('catalog/product_popup')->setTemplate('catalog/product/popup.phtml')->toHtml(); ?>
+</div>
+<div class="validatesize" style="display:none;">Select a size to add to bag</div>
 <?php
 		if($this->getRequest()->getParam('sProd')){
 			$_smpproductId = $this->getRequest()->getParam('sProd');
@@ -346,12 +320,11 @@ if(Mage::getSingleton('customer/session')->isLoggedIn()) {
 		}
 		$cats = $_product->getCategoryIds();
 		if(!$confCategory->removeSizeGuide($cats)){ 
-			$sizeGuide = '<div class="size-chart fl show_popup">Size Guide : <span></span> </div>';
+			//$sizeGuide = '<div class="size-chart fl show_popup">Size Guide : <span></span> </div>';
         }
 		$i = 0;
 		if ($_product->isSaleable()){
 			if($isColorAvailable && $isSizeAvailable) { ?>
-            <!--<p class="ProDes">Select color and size</p>-->
 				<?php foreach($superAtt as $sAttKey=>$sAttVal) { ?>
 					<input type="hidden" id="<?php echo $_product->getId() ?>_<?php echo $sAttKey ?>" name="super_attribute[<?php echo $sAttVal ?>]" value="" />
 				<?php }	?>
@@ -386,43 +359,42 @@ if(Mage::getSingleton('customer/session')->isLoggedIn()) {
 						$prod_price = str_replace('class="WebRupee"', 'class=WebRupee', $prod_price);?>
 						<li>
 						<?php
-                            if ($optionVal['stock']) {
-                                $url_image_1 = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN) . 'frontend/enterprise/lecom/images';
-                                $url_image_2 = $this->getSkinUrl('images/available_1.jpg');
-                                // modify by avi : start
-                                if (!in_array($optionKey, $removeSizeArr)) {
-                                    ?>
-                                        <a href="javascript:void(0);" class="swatchProd gtm-track" id="<?php echo $_product->getId() ?>_<?php echo $optKey ?>_<?php echo $optionKey ?>" onclick="selectOption('<?php echo $_product->getId() ?>', '<?php echo $optKey ?>', '<?php echo $optionKey ?>', '<?php echo $url_image_1 ?>');"><?php echo $optionVal['size_label'] ?></a>
-                                        <?php
-                                    } else {
-                                        ?>
-                                        <script type="text/javascript">selectOption('<?php echo $_product->getId() ?>','<?php echo $optKey ?>','<?php echo $optionKey ?>','<?php echo $url_image_3 ?>');changeImage('<?php echo $_product->getId() ?>','<?php echo $optionVal['simple_prod_id'] ?>','<?php echo number_format($optionVal['finalPrice'], 2) ?>',' <?php echo number_format($optionVal['price'], 2) ?>','<?php echo $prod_fprice; ?>','<?php echo $prod_price; ?>');changeMoreView('<?php echo $optionVal['simple_prod_id'] ?>','');</script>
-                                        <?php
-                                    }
-                                    // modify by avi : end
-                                } else if (!in_array($optionKey, $removeSizeArr)) {
-                                    ?>
-                                    <a href="javascript:void(0);" class="deactive-size"><?php echo $optionVal['size_label']; ?></a>
-                                    <div class="clear"></div>
-                                    <span>Sold Out</span> </li>
-						<?php } ?>
-						<?php if(isset($optionVal['simple_prod_id'])){
-							if($_smpproductId == $optionVal['simple_prod_id'])
-							{
-								$url_image_3 = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN).'frontend/enterprise/lecom/images';
-								// Select the same simple product on PDP when coming from wishlist
-								?>
-							<script type="text/javascript">
-								selectOption('<?php echo $_product->getId() ?>','<?php echo $optKey ?>','<?php echo $optionKey ?>','<?php echo $url_image_3 ?>');changeImage('<?php echo $_product->getId() ?>','<?php echo $optionVal['simple_prod_id'] ?>','<?php echo number_format($optionVal['finalPrice'],2) ?>',' <?php echo number_format($optionVal['price'],2) ?>','<?php echo $prod_fprice; ?>','<?php echo $prod_price; ?>');changeMoreView('<?php echo $optionVal['simple_prod_id'] ?>','');
-							</script>
-						<?php
-							}
-						}
-						$assigned = true;
-						if($optionVal['image'] && $optionVal['small_image'] && $assigned)
-						{
-							$assigned = false;
-							?>
+if ($optionVal['stock']) {
+$url_image_1 = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN) . 'frontend/enterprise/lecom/images';
+$url_image_2 = $this->getSkinUrl('images/available_1.jpg');
+// modify by avi : start
+if (!in_array($optionKey, $removeSizeArr)) {
+    ?>
+        <a href="javascript:void(0);" class="swatchProd" id="<?php echo $_product->getId() ?>_<?php echo $optKey ?>_<?php echo $optionKey ?>" onclick="selectOption('<?php echo $_product->getId() ?>', '<?php echo $optKey ?>', '<?php echo $optionKey ?>', '<?php echo $url_image_1 ?>');"><?php echo $optionVal['size_label'] ?></a>
+        <?php
+    } else {
+        ?>
+        <script type="text/javascript">selectOption('<?php echo $_product->getId() ?>','<?php echo $optKey ?>','<?php echo $optionKey ?>','<?php echo $url_image_3 ?>');changeImage('<?php echo $_product->getId() ?>','<?php echo $optionVal['simple_prod_id'] ?>','<?php echo number_format($optionVal['finalPrice'], 2) ?>',' <?php echo number_format($optionVal['price'], 2) ?>','<?php echo $prod_fprice; ?>','<?php echo $prod_price; ?>');changeMoreView('<?php echo $optionVal['simple_prod_id'] ?>','');</script>
+        <?php
+    }
+    // modify by avi : end
+} else if (!in_array($optionKey, $removeSizeArr)) {
+    ?>
+    <span class="soldout"><?php echo $optionVal['size_label']; ?></span>
+    </li>
+<?php } ?>
+<?php if(isset($optionVal['simple_prod_id'])){
+if($_smpproductId == $optionVal['simple_prod_id'])
+{
+$url_image_3 = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN).'frontend/enterprise/lecom/images';
+// Select the same simple product on PDP when coming from wishlist
+?>
+<script type="text/javascript">
+selectOption('<?php echo $_product->getId() ?>','<?php echo $optKey ?>','<?php echo $optionKey ?>','<?php echo $url_image_3 ?>');changeImage('<?php echo $_product->getId() ?>','<?php echo $optionVal['simple_prod_id'] ?>','<?php echo number_format($optionVal['finalPrice'],2) ?>',' <?php echo number_format($optionVal['price'],2) ?>','<?php echo $prod_fprice; ?>','<?php echo $prod_price; ?>');changeMoreView('<?php echo $optionVal['simple_prod_id'] ?>','');
+</script>
+<?php
+}
+}
+$assigned = true;
+if($optionVal['image'] && $optionVal['small_image'] && $assigned)
+{
+$assigned = false;
+?>
 							
 <input type="hidden" class="main-image-changed" id="<?php echo $_product->getId() ?>_<?php echo $optKey ?>_<?php echo $optionKey ?>_image" rel="<?php echo $optionVal['image'] ?>" value="<?php echo Mage::helper('catalog/image')->init($_product,'image')->resize(395,413)->__toString() ?>" />
 
@@ -448,7 +420,7 @@ if(Mage::getSingleton('customer/session')->isLoggedIn()) {
 				?>
 				<div id="ajax-loading" style="display:none;"><img src="<?php echo $this->getSkinUrl('images/ajax-loader.gif'); ?>"></div>
 			</div>
-            <?php echo $sizeGuide; ?>
+            <?php //echo $sizeGuide; ?>
 			<?php
 			}
 			else
@@ -481,7 +453,7 @@ if(Mage::getSingleton('customer/session')->isLoggedIn()) {
 						$cats = $_product->getCategoryIds();
 						if(!$confCategory->removeSizeGuide($cats)){
 					?>
-							<a class="show_popup" href="javascript:void(0);">Size Guide</a>
+		<a class="show_popup" href="javascript:void(0);">Size Guide</a>
 						<?php
 						} 
 					}
@@ -500,12 +472,16 @@ if(Mage::getSingleton('customer/session')->isLoggedIn()) {
 			<?php
 			}
 			?>
-			<script type="text/javascript">
-				jQuery(".show_popup").click(function() {
-					jQuery("#fancybox-outer1").css({top:20}).show(); 
-					jQuery("#fancybox-overlay1")
-					jQuery("#fancybox-wrap1,#fancybox-overlay1").fadeIn(300);
-				});
+<script type="text/javascript">
+jQuery('.quickright .clickoffer h4, .offerdetail .offerclose').click(function(){
+jQuery('.quickright .clickoffer .offerdetail').toggle();
+});
+
+jQuery('#quickview .sizeguide, #quickview .quickclose ').click(function(e){
+e.preventDefault();
+jQuery('.sizepopup').toggle();
+});
+			
 			</script>
 		<?php
 		}

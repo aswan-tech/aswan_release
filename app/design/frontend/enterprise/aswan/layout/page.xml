@@ -46,6 +46,8 @@ Default layout, loads most of the pages
                 <action method="addJs"><script>aswan/jquery.fancybox.js</script></action>
                 <action method="addJs"><script>aswan/custom.js</script>
                 </action>
+                <action method="addJs"><script>aswan/custom-6.3.js</script>
+                </action>
                 <action method="addJs"><script>aswan/jquery.uniform.min.js</script>
                 </action>
   

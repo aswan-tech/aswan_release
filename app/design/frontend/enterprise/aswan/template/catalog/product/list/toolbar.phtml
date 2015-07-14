@@ -80,3 +80,11 @@ Price - High to Low
 <div class="productfound"><?php echo $this->getChildHtml('breadcrumbs') ?><?php echo $this->__($this->getTotalNum()) ?> Styles Found</div>
 
 <?php endif ?>
+<?php
+$category_id = Mage::getSingleton('catalog/layer')
+       ->getCurrentCategory()
+       ->getId();
+$_category  = Mage::getModel('catalog/category')->load($category_id);
+$_imgUrl = $_category->getImageUrl();
+?>
+<div class="mobilebanner"><img src="<?php echo $_category->getImageUrl();?>"  title="<?php echo $_category->getName();?>" /></div>

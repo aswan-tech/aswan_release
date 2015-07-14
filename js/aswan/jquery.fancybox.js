@@ -1743,6 +1743,8 @@
 						if (F.isActive) {
 							F.close();
 							$('.sizepopup').hide();
+							$('#loginpopup .optconfirm').hide();
+							$('#loginpopup .loginregister').show();
 						} else {
 							that.close();
 							
@@ -2016,7 +2018,7 @@
 
 		H.removeClass('fancybox-lock-test');
 
-		$("<style type='text/css'>.fancybox-margin{margin-right:" + (w2 - w1) + "px;}</style>").appendTo("head");
+		//$("<style type='text/css'>.fancybox-margin{margin-right:" + (w2 - w1) + "px;}</style>").appendTo("head");
 	});
 
 }(window, document, jQuery));

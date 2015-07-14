@@ -384,7 +384,6 @@ Product view
             <block type="catalog/product_view" name="product.info" template="catalog/product/view.phtml">
                 <block type="catalog/product_view_media" name="product.info.media" as="media" template="catalog/product/view/media.phtml"/>
 				
-				<block type="catalog/product_price" name="product.info.customprice" as="customprice" template="catalog/product/pricecustom.phtml"/>
 				
 				<block type="core/template" name="product.info.looks" as="looks" template="catalog/product/looks.phtml"/>
 				
@@ -530,7 +529,7 @@ Additional block dependant on product type
         </reference>
         <reference name="product.info.options.wrapper">
             <block type="catalog/product_view_type_configurable" name="product.info.options.configurable" as="options_configurable" before="-" template="catalog/product/view/type/options/configurable.phtml"/>
-        </reference>
+                   </reference>
     </PRODUCT_TYPE_configurable>
     <PRODUCT_TYPE_grouped translate="label" module="catalog">
         <label>Catalog Product View (Grouped)</label>

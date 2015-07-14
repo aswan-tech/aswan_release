@@ -19,10 +19,11 @@
  * needs please refer to http://www.magentocommerce.com for more information.
  *
  * @category    design
- * @package     enterprise_default
+ * @package     base_default
  * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://www.magentocommerce.com/license/enterprise-edition
  */
+
 /**
  * Product media data template
  *
@@ -30,100 +31,26 @@
  */
 ?>
 <?php
-$_product = $this->getProduct();
-$_helper = $this->helper('catalog/output');
-
-if(Mage::getStoreConfig('progallery/resizeImage/main_image_resize_width')) {
-	$main_image_resize_width = Mage::getStoreConfig('progallery/resizeImage/main_image_resize_width');
-} else {
-	$main_image_resize_width = 395;	
-}	   
-
-if(Mage::getStoreConfig('progallery/resizeImage/main_image_resize_height')) {
-	$main_image_resize_height = Mage::getStoreConfig('progallery/resizeImage/main_image_resize_height');
-} else {
-	$main_image_resize_height = 413;	
-}
-
-if(Mage::getStoreConfig('progallery/progalleryconfig/thumbs_width')) {
-	$thumbs_width = Mage::getStoreConfig('progallery/progalleryconfig/thumbs_width');
-} else {
-	$thumbs_width = '60';
-}
-
-if(Mage::getStoreConfig('progallery/progalleryconfig/thumbs_height')) {
-	$thumbs_height = Mage::getStoreConfig('progallery/progalleryconfig/thumbs_height');
-} else {
-	$thumbs_height = '60';
-}
+    $_product = $this->getProduct();
+    $_helper = $this->helper('catalog/output');
 ?>
 
-<p class="product-image">
-    <?php
-    $_img = '<img itemprop="image" id="image" src="' . $this->helper('catalog/image')->init($_product, 'image')->resize(
-	$main_image_resize_width , $main_image_resize_height).'"  class="prdzoomImage" alt="' . $this->
-	htmlEscape($this->getImageLabel()) . '" title="' . $this->htmlEscape($this->getImageLabel()) . '" />';
-    echo $_helper->productAttribute($_product, $_img, 'image');
-    ?>
-</p>
-<div class="more-views">
-    <div id="thumbs-overflower">
-        <div class="caroufredsel_wrapper">
-            <?php if (count($this->getGalleryImages()) > 0): ?>
+<?php if (count($this->getGalleryImages()) > 0): ?>
 
-                <ul class="product-more jcarousel-skin-tango more-views-list" id="more-views-list">
-                <?php foreach ($this->getGalleryImages() as $_image): ?>
-                    <li>
-                        <a href="#" onclick="replaceThumb('<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'image', $_image->getFile())->resize($main_image_resize_width , $main_image_resize_height) ?>'); return false;" title="<?php echo $this->htmlEscape($_image->getLabel()) ?>">
-                            <img src="<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'thumbnail', $_image->getFile())->resize($thumbs_width, $thumbs_height); ?>" width="<?php echo 
-							$thumbs_width?>" height="<?php echo $thumbs_width?>" alt="<?php echo $this->
-							htmlEscape($_image->getLabel()) ?>" />
-                        </a>
-                    </li>
-                <?php endforeach; ?>
-                </ul>
-
-            <?php endif; ?>
-
-        </div>
-    </div>
+<div id="mobgalley">
+<ul class="bxslider">
+<?php foreach ($this->getGalleryImages() as $_image): ?>
+<li><img src="<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'image', $_image->getFile()); ?>" alt="<?php echo $this->htmlEscape($_image->getLabel()) ?>" /></li>
+    <?php endforeach; ?>
+</ul>
 </div>
-<script type="text/javascript">
-	jQuery('document').ready(function(){
-		jQuery(".more-views-list li img").each(function(){
-			if(jQuery(this).attr('src').split('/').pop() == jQuery('#image').attr('src').split('/').pop())
-				jQuery(this).addClass('viewable');
-		});
-	});
-	jQuery('.more-views-list li img').live('click', function(){
-		jQuery(".more-views-list li img").each(function(){
-			jQuery(this).removeClass('viewable');		
-		});
-		jQuery(this).addClass('viewable');		
-	});
-</script>
-<?php 
-		$countgal = count($this->getGalleryImages());
-		$GLOBALS['images_count'] = $countgal;
-		$has_after_paging = Mage::getStoreConfig('progallery/progalleryconfig/has_after_pagination');
-		if (Mage::getStoreConfig('progallery/thumbscarouselconfig/scrollitems')):
-			$items = Mage::getStoreConfig('progallery/thumbscarouselconfig/scrollitems');
-		else:
-			$items = '1';
-		endif;
-		if (Mage::getStoreConfig('progallery/thumbscarouselconfig/has_prevandnext')):
-		if ($countgal > $has_after_paging): 
-		?>
-			<script type="text/javascript">
-				jQuery('#more-views-list').jcarousel({ horizontal: true, scroll: <?php echo $items; ?> });
-			</script>
-			<style type="text/css">
-			.caroufredsel_wrapper .jcarousel-item a img {
-				height: 60px !important;
-				width: 60px !important;
-			}
-			</style>
-		<?php 
-		endif;
-		endif;
-		?>
+
+<div class="proimages">
+    <?php $i = 0;
+    foreach ($this->getGalleryImages() as $_image): ?>
+            <img id="img<?php echo $i;?>" src="<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'image', $_image->getFile()); ?>" alt="<?php echo $this->htmlEscape($_image->getLabel()) ?>" orignal="<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'image', $_image->getFile()); ?>" />
+    <?php $i++;
+    endforeach; ?>
+
+</div>
+<?php endif; ?>

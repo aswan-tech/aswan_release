@@ -23,9 +23,10 @@
         <block type="catalog/product_view" name="product.info.icart" template="icart/product_options.phtml" output="toHtml">
             <action method="setTierPriceTemplate"><template>catalog/product/view/tierprices.phtml</template></action>
 			<block type="catalog/product_view_media" name="product.info.media" as="media" template="catalog/product/view/mediacustom.phtml"/>
+            
 			<block type="catalog/product_price" name="product.info.customprice" as="customprice" template="catalog/product/pricecustom.phtml"/>
             <block type="catalog/product_view" name="product.info.addtocart" as="addtocart" template="catalog/product/view/addtocart.phtml"/>
-            <block type="catalog/product_view" name="product.info.options.wrapper" as="product_options_wrapper" template="catalog/product/view/options/wrapper.phtml" translate="label">
+            <block type="catalog/product_view" name="product.info.options.wrapper1" as="product_options_wrapper" template="catalog/product/view/options/wrapper.phtml" translate="label">
                 <label>Info Column Options Wrapper</label>
                 <block type="core/template" name="options_js" template="catalog/product/view/options/js.phtml"/>
                 <block type="catalog/product_view_options" name="product.info.options" as="product_options" template="catalog/product/view/options.phtml">
@@ -47,13 +48,13 @@
             <block type="core/template_facade" name="product.info.container1" as="container1">
                 <action method="setDataByKey"><key>alias_in_layout</key><value>container1</value></action>
                 <action method="setDataByKeyFromRegistry"><key>options_container</key><key_in_registry>product</key_in_registry></action>
-                <action method="append"><block>product.info.options.wrapper</block></action>
+                <action method="append"><block>product.info.options.wrapper1</block></action>
                 <action method="append"><block>product.info.options.wrapper.bottom</block></action>
             </block>
             <block type="core/template_facade" name="product.info.container2" as="container2">
                 <action method="setDataByKey"><key>alias_in_layout</key><value>container2</value></action>
                 <action method="setDataByKeyFromRegistry"><key>options_container</key><key_in_registry>product</key_in_registry></action>
-                <action method="append"><block>product.info.options.wrapper</block></action>
+                <action method="append"><block>product.info.options.wrapper1</block></action>
                 <action method="append"><block>product.info.options.wrapper.bottom</block></action>
             </block>
             <action method="unsetCallChild"><child>container1</child><call>ifEquals</call><if>0</if><key>alias_in_layout</key><key>options_container</key></action>
@@ -115,7 +116,7 @@
 
             <block type="catalog/product_view" name="product.info.addtocart" as="addtocart" template="catalog/product/view/addtocart.phtml"/>
 
-            <block type="catalog/product_view" name="product.info.options.wrapper" as="product_options_wrapper" template="catalog/product/view/options/wrapper.phtml" translate="label">
+            <block type="catalog/product_view" name="product.info.options.wrapper1" as="product_options_wrapper" template="catalog/product/view/options/wrapper.phtml" translate="label">
                 <label>Info Column Options Wrapper</label>
                 <block type="core/template" name="options_js" template="catalog/product/view/options/js.phtml"/>
                 <block type="catalog/product_view_options" name="product.info.options" as="product_options" template="catalog/product/view/options.phtml">
@@ -142,13 +143,13 @@
             <block type="core/template_facade" name="product.info.container1" as="container1">
                 <action method="setDataByKey"><key>alias_in_layout</key><value>container1</value></action>
                 <action method="setDataByKeyFromRegistry"><key>options_container</key><key_in_registry>product</key_in_registry></action>
-                <action method="append"><block>product.info.options.wrapper</block></action>
+                <action method="append"><block>product.info.options.wrapper1</block></action>
                 <action method="append"><block>product.info.options.wrapper.bottom</block></action>
             </block>
             <block type="core/template_facade" name="product.info.container2" as="container2">
                 <action method="setDataByKey"><key>alias_in_layout</key><value>container2</value></action>
                 <action method="setDataByKeyFromRegistry"><key>options_container</key><key_in_registry>product</key_in_registry></action>
-                <action method="append"><block>product.info.options.wrapper</block></action>
+                <action method="append"><block>product.info.options.wrapper1</block></action>
                 <action method="append"><block>product.info.options.wrapper.bottom</block></action>
             </block>
             <action method="unsetCallChild"><child>container1</child><call>ifEquals</call><if>0</if><key>alias_in_layout</key><key>options_container</key></action>

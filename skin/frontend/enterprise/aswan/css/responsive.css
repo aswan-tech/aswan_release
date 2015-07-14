@@ -28,9 +28,10 @@
 #filters ul > li > h3.deactive:after {background-position:-176px -8px;}
 #listingright {width:100%;}
 #listingright .shorting {width:100%; padding:0px;}
-#listingright .productfound, #productlist .productbox:hover .productimg .sizebar {display:none;}
+#listingright .productfound, #productlist .productbox:hover .productimg .sizebar, #listingright .categorybanner {display:none;}
 #listingright .shorting #gridview {display:block; width:100%; clear:both; text-align:center;}
 #listingright .shorting #gridview ul li {float:none; display:inline-block;}
+#listingright .mobilebanner {display:block;}
 
 #productlist .productbox {width:48%;}
 #productlist.singleview .productbox {width:100%; margin:0; margin-bottom:4%;}
@@ -58,7 +59,7 @@
 
 
 #footer #newsletter, #footer .footermid .paylogos, #footer #copyright,
-#footer .footermid .footerleft, #new-arrivals, .footersocial {display:none;}
+#footer .footermid .footerleft, .footersocial {display:none;}
 #footer {background:#1e0f46;}
 
 #footer .footermid .footerright {width:100%; padding:0px 10px;}
@@ -137,6 +138,9 @@
 #userlogin {width:100%;}
 #topoffers h3 {width:100%; white-space:nowrap; overflow:hidden; text-overflow: ellipsis;}
 #topoffers h4 {display:none;}
+
+#contactus .contactleft, #contactus .contactright {width:80%; float:none; clear:both; margin:0 auto}
+#sizepopup {width:100%; max-width:100%;}
 }
 
 @media only screen and (max-width:480px){
@@ -163,6 +167,18 @@
 #reportissue {min-width:100%;}
 #reportissue input {clear:left;}
 #reportissue label {clear:right;}
+
+#new-arrivals {padding-top:0px;}
+#new-arrivals h2 {font-size:30px; letter-spacing:normal;}
+#new-arrivals .tabs li a {min-width:135px; padding:5px 25px;}
+
+#writereview td {display:table-row;}
+#writereview input[type="text"], #writereview textarea {margin-bottom:10px; width:230px;}
+
+#contactus .contactleft ul li label, #contactus .contactleft ul li input, #contactus .contactleft ul li textarea,
+#contactus .contactright ul li, #contactus .contactright ul li strong, #contactus .contactright ul li a {width:100%; clear:both;}
+#contactus .contactright ul li {padding:0px 0px 13px 0px;}
+#contactus .contactright ul li strong {padding:0px 0px 3px 0px;}
 	}
 	
 @media only screen and (max-width:360px){
@@ -173,4 +189,5 @@
 #newaddress input[type="text"], #editaddress input[type="text"],
 #newaddress select, #editaddress select {width:97%;}
 #checkoutarea #steptwo h3 a#addaddress {float:left; clear:both; margin:5px 0px;}
+#contactus .contactleft, #contactus .contactright {width:100%;}
 	}

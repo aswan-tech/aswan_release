@@ -5,7 +5,7 @@ $_product = $this->getProduct();
  * TARGETING MANTRA PIXCEL
  */ 
 $_taxHelper  = Mage::helper('tax');
-$_finalPrice = $_taxHelper->getPrice($_product, $_product->getFinalPrice());
+//$_finalPrice = $_taxHelper->getPrice($_product, $_product->getFinalPrice());
 $customerId = null;
 if(Mage::getSingleton('customer/session')->isLoggedIn()) {
 	$customerData = Mage::getSingleton('customer/session')->getCustomer();
@@ -35,13 +35,36 @@ function CheckValidation(id){
 <?php $_product_id = $this->getProduct()->getId(); ?>
 <?php $buttonTitle = $this->__('SHOP NOW  '); ?>
 <?php if($_product->isSaleable()): ?>
-	<div class="clear"></div>
-	  <div class="pdpbutton-wrapp">
-        <button id="cart-add-to-bag" type="button" onclick="javascript:CheckValidation(<?php echo $_product_id ?>)" title="<?php echo $buttonTitle ?>" class="ShopNowButton addtobag-btn gtm-track">ADD TO BAG +</button>
+	  <div class="addtobag">
+        <button id="cart-add-to-bag" class="add_to_cart" type="button" onclick="javascript:CheckValidation(<?php echo $_product_id ?>)" title="<?php echo $buttonTitle ?>"><span>ADD TO BAG</span></button>
         <?php echo $this->getChildHtml('', true, true) ?>
     </div>
     <div id="error-add-to-cart" class="msg-error"></div>
 <?php endif; ?>
+
+<!-- offer code start -->
+				<?php
+	$_price = Mage::helper('core')->currency($_product->getPrice(),false,false);   
+	$_specialPrice = Mage::helper('core')->currency($_product
+					->getFinalPrice(),false,false);
+		if ($_specialPrice == $_price): 
+		$pdp_coupon_code = Mage::helper('common')->getCouponCodeByPrice($_price);
+		$discounted_price = Mage::helper('common')->getCouponDiscountByCode($pdp_coupon_code, $_price);
+		else: 
+        $pdp_coupon_code = Mage::helper('common')->getCouponCodeByPrice($_specialPrice);
+         $discounted_price = Mage::helper('common')->getCouponDiscountByCode($pdp_coupon_code, $_specialPrice);
+         ?>
+<?php endif; ?>
+<?php if(!empty($pdp_coupon_code)) { ?>
+<div class="clickoffer">
+<h4>Click For Offer</h4>
+<div class="offerdetail">
+<div class="offerclose"></div>
+Shop this product for <span><?php echo Mage::helper('core')->currency($discounted_price, true, true) ?></span> by applying coupon<span><?php echo $pdp_coupon_code; ?></span>in your cart. 
+</div>
+</div>
+<?php } ?>
+<!-- offer code end -->
 <script type="text/javascript">
 	jQuery('.size-info-close').click(function(){
 		jQuery(this).hide();

@@ -287,7 +287,7 @@ foreach ($quote->getAllItems() as $item) {
                 $this->_updateShoppingCart();
         }
 
-        //$this->_goBack();
+       $this->_goBack();
     }
 
     /**

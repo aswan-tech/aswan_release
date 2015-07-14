@@ -1,3 +1,19 @@
+#quickview .quickright .productswaches {position: static!important;}
+#quickview .quickright .productswaches h4 {position: relative!important;}
+#quickview .quickright .productswaches .sizeguide {top:0px!important;}
+#quickview .sizepopup h4 {
+    background: #d9d9d9!important;
+    display: block!important;
+    font-family: Lato,"Trebuchet MS",Helvetica,sans-serif!important;
+    font-size: 13px!important;
+    font-weight: 400!important;
+    padding: 3px!important;
+    text-align: center!important;
+    text-transform: uppercase!important;
+    margin: 0!important;
+}
+#quickview .sizepopup ul li {margin: 0px!important; float: none!important;}
+
 #MB_overlay {
 	position:absolute;
 	margin:auto;
@@ -6,18 +22,12 @@
 	width:100%;
 	height:100%;
 	z-index:10010;
-	background:rgba(20,42,86,.5)!important;
+	background: url('../images/fancybox_overlay.png');
 }
 #MB_overlay[id] {
 	position:fixed
 }
-#MB_window {
-	position:absolute;
-	top:0;
-	border:0 solid;
-	text-align:left;
-	z-index:10020;
-}
+
 #MB_window[id] {
 	position:fixed!important
 }
@@ -31,52 +41,36 @@
 	padding:0
 }
 #MB_content {
-	padding:0 .75em;
 	overflow:auto;
 	position:relative;
-	overflow-y:hidden!important
+	overflow-y:hidden!important;
+	height: auto!important;
 }
-#MB_caption {
-	font-size:100%;
-font-weight:bold;
-	text-shadow:#FFF 0 1px 0;
-	padding:.5em 2em .5em .75em;
-	margin:0;
-	text-align:left
-}
+#MB_caption {display: none;}
 #MB_close {
-	display:block;
-	position:absolute;
-	right:5px;
-	top:0;
-	padding:2px 3px;
-	font-weight:700;
-	text-decoration:none;
-	font-size:15px;
-	background:transparent url(../images-v3/cross-icon.jpg) 50% 0 no-repeat
+	background: url('../images/sprite.png') -156px -33px no-repeat;
+	position: absolute;
+	top: -4px;
+	right: -4px;
+	width: 16px;
+	height: 14px;
+	cursor: pointer;
+	z-index: 8040;
 }
 #MB_loading {
 	padding:1.5em;
 	text-indent:-10000px;
 	background:transparent url(../images-v3/adj-nav-progress-v1.gif) 50% 0 no-repeat
 }
-#MB_frame {
-	padding-bottom:7px;
-	-webkit-border-radius:7px;
-	-moz-border-radius:7px;
-	border-radius:7px
-}
+
 #MB_window {
-	background-color:#EFEFEF;
-	color:#000;
-	-webkit-box-shadow:0 8px 64px #000;
-	-moz-box-shadow:0 0 64px #000;
-	box-shadow:0 0 64px #000;
-	-webkit-border-radius:7px;
-	-moz-border-radius:7px;
-	border-radius:7px;
-	margin-top:50px
+	background:#fff;
+	padding:15px;
+	position:absolute;
+	top:14%;
+	border:0 solid;
+	text-align:left;
+	z-index:10020;
 }
-#MB_caption {
-	color:#fff
-}
+
+#MB_window #quickview .quickleft {height: inherit; overflow: hidden!important;}

@@ -25,15 +25,44 @@ jQuery(document).ready(function() {
 	
 	
 	jQuery('#new-arrivals .tabs li:first-child a').addClass('active');
-	jQuery('#new-arrivals .datatabs .datalisting:first-child').show();
+	jQuery('#new-arrivals .datatabs .datalisting:first-child').addClass('show');
 	jQuery('#new-arrivals .tabs li a').click(function(e){
 		e.preventDefault();
 		jQuery('#new-arrivals .tabs li a').removeClass('active');
 		jQuery(this).addClass('active');
 		
 		var showtab = jQuery(this).attr('data-toggle');
-		jQuery('#'+showtab).show().siblings().hide();
+		jQuery('#'+showtab).addClass('show').siblings().removeClass('show');
 		
+		});
+	
+	if(jQuery(window).innerWidth() < 1024){	
+		jQuery('.datalisting .bxslider').bxSlider({
+    		auto: false,
+			infiniteLoop: true,
+    		mode: 'horizontal',
+			slideWidth: 260,
+			minSlides: 2,
+			maxSlides:5,
+			pager: false
+  		});
+		 }else{
+			 }
+	
+	jQuery(window).resize(function(){
+		if(jQuery(window).innerWidth() < 1024){	
+		jQuery('.datalisting .bxslider').bxSlider({
+    		auto: true,
+			infiniteLoop: true,
+    		mode: 'horizontal',
+			slideWidth: 260,
+			minSlides: 2,
+			maxSlides:5,
+			pager: false
+  		});
+		 }else{
+
+			 }
 		});
 		
     jQuery('#homeslider .bxslider').bxSlider({
@@ -87,10 +116,10 @@ jQuery(document).ready(function() {
 		jQuery(this).hide();
 		});
 		
-	jQuery('#loginpopup .formbox a.go').click(function(){
+	/*jQuery('#loginpopup .formbox a.go').click(function(){
 		jQuery('#loginpopup .loginregister').hide();
 		jQuery('#loginpopup .optconfirm').show();
-		});
+		});*/
       
   jQuery('#filters ul > li > h3').click(function(){
 	  jQuery(this).toggleClass('deactive');

@@ -52,21 +52,19 @@ $crumbs['current'] = array('label' => $lastCrumbName,
 ?>
 
 <?php if($crumbs && is_array($crumbs)): ?>
-<div class="breadcrumbs">
 <ul xmlns:v="http://rdf.data-vocabulary.org/#">
 <?php foreach($crumbs as $_crumbName=>$_crumbInfo): ?>
 <li class="<?php echo $_crumbName ?>" typeof="v:Breadcrumb">
 <?php if($_crumbInfo['link']): ?>
 <a href="<?php echo $_crumbInfo['link'] ?>" title="<?php echo $this->htmlEscape($_crumbInfo['title']) ?>" rel="v:url" property="v:title"><?php echo $this->htmlEscape($_crumbInfo['label']) ?></a>
 <?php elseif($_crumbInfo['last']): ?>
-<strong><?php echo $this->htmlEscape($_crumbInfo['label']) ?></strong>
+<?php echo $this->htmlEscape($_crumbInfo['label']) ?>
 <?php else: ?>
-<span rel="v:child" property="v:title"><strong><?php echo $this->htmlEscape($_crumbInfo['label']) . ' for sale' ?></strong></span>
+<span rel="v:child" property="v:title"><?php echo $this->htmlEscape($_crumbInfo['label']) . ' for sale' ?></span>
 <?php endif; ?>
 <?php if(!$_crumbInfo['last']): ?>
 <?php endif; ?>
 </li>
 <?php endforeach; ?>
 </ul>
-</div>
 <?php endif; ?>

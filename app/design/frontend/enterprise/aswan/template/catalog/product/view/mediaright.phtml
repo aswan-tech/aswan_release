@@ -1,0 +1,146 @@
+<?php
+/**
+ * Magento Enterprise Edition
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Magento Enterprise Edition License
+ * that is bundled with this package in the file LICENSE_EE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://www.magentocommerce.com/license/enterprise-edition
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://www.magentocommerce.com/license/enterprise-edition
+ */
+
+/**
+ * Product media data template
+ *
+ * @see Mage_Catalog_Block_Product_View_Media
+ */
+?>
+<?php
+    $_product = $this->getProduct();
+    $_helper = $this->helper('catalog/output');
+?>
+
+
+<!-- click offer mobile view start -->
+        <?php
+  $_price = Mage::helper('core')->currency($_product->getPrice(),false,false);   
+  $_specialPrice = Mage::helper('core')->currency($_product
+          ->getFinalPrice(),false,false);
+    if ($_specialPrice == $_price): 
+    $pdp_coupon_code = Mage::helper('common')->getCouponCodeByPrice($_price);
+    $discounted_price = Mage::helper('common')->getCouponDiscountByCode($pdp_coupon_code, $_price);
+    else: 
+        $pdp_coupon_code = Mage::helper('common')->getCouponCodeByPrice($_specialPrice);
+         $discounted_price = Mage::helper('common')->getCouponDiscountByCode($pdp_coupon_code, $_specialPrice);
+         ?>
+<?php endif; ?>
+<?php if(!empty($pdp_coupon_code)) { ?>
+<div class="clickoffer showonmobile">
+<h4>Click For Offer</h4>
+<div class="offerdetail">
+<div class="offerclose"></div>
+Shop this product for <span><?php echo Mage::helper('core')->currency($discounted_price, true, true) ?></span> by applying coupon<span><?php echo $pdp_coupon_code; ?></span>in your cart. 
+</div>
+</div>
+<?php } ?>
+<!-- click offer mobile view  end -->
+
+<?php if ($_product->getDescription()):?>
+        <div class="prodescription showonmobile">
+        <p><?php echo $_helper->productAttribute($_product, nl2br($_product->getDescription()), 'description') ?></p>
+        </div>
+    <?php endif;?>
+
+<div id="additional-detail">
+<div class="tabs">
+<ul>
+<?php if(!empty($_product->getInfoCare())){
+?> 
+<li><a data-toggle="tab1" href="#">Fabric/Care</a></li>
+<?php } ?>
+<li><a data-toggle="tab2" href="#">Delivery</a></li>
+ 
+<li><a data-toggle="tab3" href="#">Return</a></li>
+
+</ul>
+</div>
+<div>
+<div id="tab1" class="detail-content">
+<?php echo $_product->getInfoCare(); ?>
+</div>
+
+<div id="tab2" class="detail-content">
+<?php echo $this->getLayout()->createBlock('zipcodeimport/zipcodeimport')->setTemplate('zipcodeimport/cod.phtml')->_toHtml(); ?>
+
+</div>
+<div id="tab3" class="detail-content">
+<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('aswan_return')->toHtml(); ?></div>
+</div>
+</div>
+
+<!-- additional-detail end  -->
+<div class="freeshipping">
+<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('aswan_shipping_msg')->toHtml(); ?>
+</div>
+<div class="stickycol">
+<?php if (count($this->getGalleryImages()) > 0): ?>
+<div class="moreviews">
+
+    <?php
+    $j = 0;
+     foreach ($this->getGalleryImages() as $_image): ?>
+            <img src="<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'thumbnail', $_image->getFile())->resize(84,88); ?>" alt="<?php echo $this->htmlEscape($_image->getLabel()) ?>" data-scroll="img<?php echo $j; ?>" />
+
+    <?php $j++; endforeach; ?>
+
+</div>
+<?php endif; ?>
+
+<!-- you may also like start-->
+<?php 
+   /*$product_id =$_product->getId();
+   $object = Mage::getModel('catalog/product');
+   $_product = $object->load($product_id);
+   $upsell_product = $_product->getUpSellProductCollection()
+                    ->addAttributeToSort('position', 'asc')
+                    ->addStoreFilter();
+               //     ->addAttributeToSort('position', Varien_Db_Select::SQL_ASC)
+                //->addStoreFilter(); 
+   //var_dump($upsell_product);
+   //exit();
+   $count = count($upsell_product); 
+   if(!empty($count)) : ?>
+        <div class="productrow" id="alsolike">
+        <h4>you may also like</h4>
+        <ul class="bxslider">
+            <?php foreach($upsell_product as $_upsell):
+            $upsp = $object->load($_upsell->getId());
+            $productUpsp = Mage::getModel('catalog/product')->load($upsp->getId());?>
+              <li><a href="<?php echo $productUpsp->getProductUrl();?>"><img src="<?php echo Mage::helper('catalog/image')->init($productUpsp, 'image')->resize(123,128); ?>"></a></li>
+                 <!-- echo "Product Name : ". $upsp->getName();
+                 echo "Poduct url : ". $upsp->getProductUrl();
+                 echo "Product regular price : ". $upsp->getPrice(); -->
+            <?php endforeach; ?>
+        </ul>
+        </div>
+<?php
+   endif;*/
+?>
+<!-- you may also like end -->
+<?php //echo $this->getLayout()->createBlock('reports/product_viewed')->setTemplate('reports/product_viewed.phtml')->toHtml(); ?>
+</div>

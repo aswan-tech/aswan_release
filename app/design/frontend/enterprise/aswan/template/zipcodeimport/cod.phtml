@@ -1,0 +1,34 @@
+<input type="text" value="Enter Your Pin" name="zip_code" id="zip_code" onblur="javascript:onBlurText(this,'Enter Your Pin');" onclick="javascript:onClickText(this,'Enter Your Pin');" maxlength="<?php echo Mage::getStoreConfig('zipcodeimport/cod/zipcodelength'); ?>" />
+
+    <a href="javascript:void(0);" onclick="javascript:submitCodForm();" class="go">Check</a>
+
+
+	<div id="response" style="display:none;" class="result"><img src="<?php echo $this->getSkinUrl('images/opc-ajax-loader.gif') ?>" alt="" class="v-middle" /> </div>
+
+<script type="text/javascript">
+    function submitCodForm(){
+        var data = "zip_code="+jQuery("#zip_code").val();
+        var url = '<?php echo $this->getUrl('zipcodeimport/index/getCodAvailability') ?>';
+        jQuery("#response").html('<img src="<?php echo $this->getSkinUrl('images/opc-ajax-loader.gif') ?>" alt="" class="v-middle" />');
+        jQuery("#response").show();
+        jQuery.post(url, data, function(response){            
+            jQuery("#response").html(response);
+        });
+    }
+    function onClickText(object,value){
+        if(object.value == value){
+            object.value = '';
+        }
+    }
+    function onBlurText(object,value){
+        if(object.value == ''){
+            object.value = value;
+        }
+    }
+	jQuery("#zip_code").keypress(function(event){
+		if(event.keyCode == 13){
+			event.preventDefault();
+			submitCodForm();
+		}
+	});
+</script>

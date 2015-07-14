@@ -25,14 +25,16 @@
  */
 ?>
 <?php $_item = $this->getItem() ?>
-<?php $canApplyMsrp = Mage::helper('catalog')->canApplyMsrp($_item->getProduct(), Mage_Catalog_Model_Product_Attribute_Source_Msrp_Type::TYPE_BEFORE_ORDER_CONFIRM); ?>
+<?php $canApplyMsrp = Mage::helper('catalog')->canApplyMsrp($_item->getProduct(), Mage_Catalog_Model_Product_Attribute_Source_Msrp_Type::TYPE_BEFORE_ORDER_CONFIRM);
+$_product = $_item->getProduct();
+ ?>
 <li>
 <div class="productbox">
 
 <a href="<?php echo $this->getDeleteUrl() ?>" onclick="return confirm('<?php echo $this->__('Are you sure you would like to remove this item from the shopping cart?') ?>');" title="<?php echo $this->__('Remove item') ?>" class="remove"></a>
 
     <?php if ($this->hasProductUrl()): ?>
-        <a href="<?php echo $this->getProductUrl()?>" title="<?php echo $this->htmlEscape($this->getProductName()) ?>"><img src="<?php echo $this->getProductThumbnail()->resize('150x157'); ?>" alt="<?php echo $this->htmlEscape($this->getProductName()) ?>" /></a>
+        <a href="<?php echo $this->getProductUrl()?>" title="<?php echo $this->htmlEscape($this->getProductName()) ?>"><img src="<?php echo Mage::helper('catalog/image')->init($_product, 'thumbnail')->resize(150,157); ?>" alt="<?php echo $this->htmlEscape($this->getProductName()) ?>" /></a>
     <?php else: ?>
         
             <img src="<?php echo $this->getProductThumbnail()->resize('150x157'); ?>" alt="<?php echo $this->htmlEscape($this->getProductName()) ?>" title="<?php echo $this->htmlEscape($this->getProductName()) ?>" />

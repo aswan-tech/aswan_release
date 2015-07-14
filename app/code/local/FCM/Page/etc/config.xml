@@ -32,11 +32,16 @@
         <page>
             <layouts>
 		
-		<homepage translate="label">
-          		<label>Home page</label>
-          		<template>page/homepage.phtml</template>
-          		<layout_handle>home_page</layout_handle>
-        	</homepage>
+        <homepage translate="label">
+        	<label>Home page</label>
+        	<template>page/homepage.phtml</template>
+        	<layout_handle>home_page</layout_handle>
+        </homepage>
+        <product_detail translate="label">
+            <label>Product detail page</label>
+            <template>page/product.phtml</template>
+            <layout_handle>product</layout_handle>
+        </product_detail>
 
             <cartpage translate="label">
                 <label>Cart page</label>

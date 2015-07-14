@@ -37,29 +37,163 @@
     var optionsPrice = new Product.OptionsPrice(<?php echo $this->getJsonConfig() ?>);
 </script>
 <div id="messages_product_view"><?php echo $this->getMessagesBlock()->setEscapeMessageFlag(true)->toHtml() ?></div>
-<div class="product-view">
-    <form action="<?php echo $this->getSubmitUrl($_product) ?>" method="post" id="product_addtocart_form"<?php if($_product->getOptions()): ?> enctype="multipart/form-data"<?php endif; ?>>
+<form action="<?php echo $this->getSubmitUrl($_product) ?>" method="post" id="product_addtocart_form"<?php if($_product->getOptions()): ?> enctype="multipart/form-data"<?php endif; ?>>
         <?php echo $this->getBlockHtml('formkey') ?>
-        <div class="no-display">
+<div class="no-display">
             <input type="hidden" name="product" value="<?php echo $_product->getId() ?>" />
             <input type="hidden" name="related_product" id="related-products-field" value="" />
         </div>
-        <div class="product-essential">
 
-                <div class="product-shop">
-                    <div class="product-main-info">
-                        <div class="product-name">
-                            <h1><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></h1>
-                        </div>
-                        <p class="product-ids"><?php echo $this->__('SKU# %s', $this->escapeHtml($_product->getSku())); ?></p>
-                        <?php echo $this->getReviewsSummaryHtml($_product, false, true)?>
-                        <?php echo $this->getChildHtml('alert_urls') ?>
-                        <?php echo $this->getChildHtml('product_type_data') ?>
-                    </div>
-                    <?php echo ($_product->getCanShowPrice() === false) ? '' : $this->getChildHtml('tierprices'); ?>
-                    <?php echo $this->getChildHtml('extrahint') ?>
+<div id="detailleft">
+<?php echo $this->getChildHtml('media') ?>
+</div>
 
-                    <?php if (!$this->hasOptions()):?>
+<div id="detailright">
+
+<div class="productreview">
+<span class="active"></span>
+<span class="active"></span>
+<span class="active"></span>
+<span class="active"></span>
+<span></span>
+<label>4 Ratings / Reviews</label>
+<p><a href="#readreview" class="fancybox">Read reviews</a> | <a href="#writereview" class="fancybox">Write reviews</a></p>
+
+<!--Read review start-->
+<div id="readreview" class="globlepopup">
+<h2>4 (Reviewed by 4 Customers)</h2>
+<div class="readrow">
+<h3>Simply brilliant.!</h3>
+<h4>By <strong>Nancy</strong> from <strong>Mumbai</strong><br />
+Posted on <strong>22-05-2015</strong></h4>
+<p>For a college student a pocket friendly yet stylish wear is a must. This top fits the bill. It accentuates my petite figure and I simply love it.</p>
+</div>
+
+<div class="readrow">
+<h3>Perfect match .!</h3>
+<h4>By <strong>Malini Jose</strong> from <strong>Kerela</strong><br />
+Posted on <strong>22-05-2015</strong></h4>
+<p>I was looking for a top that would go well with my black and white stilettos and this one completes my look. I really like the soft, light material and wide collars. It gives an ultra chic look to my ensemble.</p>
+</div>
+
+<div class="readrow">
+<h3>Love it so much!</h3>
+<h4>By <strong>Meira Roy</strong> from <strong>Kolkata</strong><br />
+Posted on <strong>22-05-2015</strong></h4>
+<p>This top is my favourite so far. My boyfriend noticed it and complimented my dressing sense. It made me feel ecstatic. All thanks to American Swan. :D :*</p>
+</div>
+
+<div class="readrow">
+<h3>Affordable fashion.!</h3>
+<h4>By <strong>Reshma Rehman</strong> from <strong>Lucknow</strong><br />
+Posted on <strong>22-05-2015</strong></h4>
+<p>It's low on price but high on style. I really adore the black and white print of this sleeve less top. It goes with a variety of denims and shorts in my collection.</p>
+</div>
+
+</div>
+<!--Read review close-->
+
+<!--Write review start-->
+<div id="writereview" class="globlepopup">
+<h2>Write a Review</h2>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="100"><strong>Rating</strong></td>
+<td><div class="starrate">
+<label for="radio1"><input type="checkbox" value="1" name="item" id="radio1"></label>
+<label for="radio2"><input type='checkbox' value="2" name="item2" id="radio2"></label>
+<label for="radio3"><input type='checkbox' value="3" name="item3" id="radio3"></label>
+<label for="radio4"><input type='checkbox' value="4" name="item4" id="radio4"></label>
+<label for="radio5"><input type='checkbox' value="5" name="item5" id="radio5"></label>
+</div></td>
+</tr>
+<tr>
+    <td width="100"><label>Name <strong>*</strong></label></td>
+    <td><input type="text" /></td>
+  </tr>
+  <tr>
+    <td><label>Name <strong>*</strong></label></td>
+    <td><input type="text" /></td>
+  </tr>
+  <tr>
+    <td><label>Your Location <strong>*</strong></label></td>
+    <td><input type="text" /></td>
+  </tr>
+   <tr>
+    <td><label>Review Title <strong>*</strong></label></td>
+    <td><input type="text" /></td>
+  </tr>
+  <tr>
+    <td><label>Review comment:</label>
+<ul>
+<li>How you use the product</li>
+<li>Things that are great about it</li>
+<li>Things that aren't great about it</li>
+</ul>
+</td>
+    <td><textarea></textarea></td>
+  </tr>
+   <tr>
+    <td><label>Email address <strong>*</strong></label></td>
+    <td><input type="text" /></td>
+  </tr>
+   <tr>
+    <td></td>
+    <td><a href="#" class="go">Submit</a></td>
+  </tr>
+</table>
+</div>
+<!--Write review close-->
+</div>
+
+<div class="productshare">
+<ul>
+<li class="facebook"><a href="#"></a></li>
+<li class="pintrest"><a href="#"></a></li>
+<li class="twitter"><a href="#"></a></li>
+</ul>
+</div>
+
+<h2><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></h2>
+<?php 
+$price = Mage::helper('core')->currency($_product
+                ->getPrice(),true,false);    
+$specialPrice = Mage::helper('core')->currency($_product
+                  ->getFinalPrice(),true,false);
+?>
+<h3><?php if($price >$specialPrice) {
+            echo '<u>'.$price.'</u>';
+        }
+        $_price = Mage::helper('core')->currency($_product
+                ->getPrice(),false,false);    
+$_specialPrice = Mage::helper('core')->currency($_product
+                  ->getFinalPrice(),false,false);
+if($_specialPrice < $_price):
+$discount = 100-(round (($_specialPrice / $_price) * 100));
+echo '<strong>'.$discount.'% off</strong>'; ?>
+<?php endif;// Discount percent output end ?>
+<?php if($price ==$specialPrice) {
+         echo '<span>'.$price.'</span>';
+      }
+      else { 
+        echo '<span>'.$specialPrice.'</span>';
+     }?>
+<hr>
+</h3>
+
+
+
+<?php //echo $this->getReviewsSummaryHtml($_product, false, true)?>
+<?php //echo $this->getChildHtml('alert_urls') ?>
+<?php //echo $this->getChildHtml('product_type_data') ?>
+
+    <?php if ($_product->getDescription()):?>
+        <div class="prodescription">
+        <p><?php echo $_helper->productAttribute($_product, nl2br($_product->getDescription()), 'description') ?></p>
+        </div>
+    <?php endif;?>
+
+<?php if (!$this->hasOptions()):?>
                         <div class="add-to-box">
                             <?php if($_product->isSaleable()): ?>
                                 <?php echo $this->getChildHtml('addtocart') ?>
@@ -76,56 +210,27 @@
                         <?php endif;?>
                     <?php endif; ?>
 
-                    <?php if ($_product->getShortDescription()):?>
-                        <div class="short-description std">
-                            <h2><?php echo $this->__('Quick Overview') ?></h2>
-                            <?php echo $_helper->productAttribute($_product, nl2br($_product->getShortDescription()), 'short_description') ?>
-                        </div>
-                    <?php endif;?>
 
-                    <?php echo $this->getChildHtml('other');?>
-                </div>
 
-                <div class="product-img-box">
-                    <?php echo $this->getChildHtml('media') ?>
-                </div>
-
-        </div>
-        <div class="product-collateral">
-            <?php if ($detailedInfoGroup = $this->getChildGroup('detailed_info', 'getChildHtml')):?>
-                <dl id="collateral-tabs" class="collateral-tabs">
-                <?php foreach ($detailedInfoGroup as $alias => $html):?>
-                    <dt class="tab"><span><?php echo $this->escapeHtml($this->getChildData($alias, 'title')) ?></span></dt>
-                    <dd class="tab-container">
-                       <div class="tab-content"><?php echo $html ?></div>
-                    </dd>
-                <?php endforeach;?>
-                </dl>
-                <script type="text/javascript">
-                //<![CDATA[
-                    var collateralTabs = new Enterprise.Tabs('collateral-tabs');
-                    Event.observe(window, 'load', function() {
-                        collateralTabs.select();
-                    });
-                //]]>
-                </script>
-            <?php endif; ?>
-            <?php if ($this->canEmailToFriend()): ?>
-                <p class="emailto-link"><a href="<?php echo $this->helper('catalog/product')->getEmailToFriendUrl($_product) ?>"><?php echo $this->__('Email to a Friend') ?></a></p>
-            <?php endif; ?>
-        </div>
-        <div class="clearer"></div>
-        <?php if ($_product->isSaleable() && $this->hasOptions() && $this->getChildChildHtml('container2') ):?>
-            <div class="options-container-big">
+     <?php if ($_product->isSaleable() && $this->hasOptions() && $this->getChildChildHtml('container2') ):?>
+            
                 <?php echo $this->getChildChildHtml('container2', '', true, true) ?>
-            </div>
+
         <?php endif;?>
-    </form>
-        <?php echo $this->getChildHtml('relatedProducts') ?>
+        <!-- additional-detail Start  -->
+
+
+
+
+<?php echo $this->getChildHtml('relatedProducts') ?>
         <?php echo $this->getChildHtml('upsell_products') ?>
-        <?php echo $this->getChildHtml('productTagList') ?>
-        <?php echo $this->getChildHtml('product_additional_data') ?>
-</div>
+        <?php //echo $this->getChildHtml('productTagList') ?>
+        <?php //echo $this->getChildHtml('product_additional_data') ?>
+        
+        </div>
+    </form>
+        
+
 
 <script type="text/javascript">
 //<![CDATA[
@@ -177,4 +282,36 @@
         }
     }.bind(productAddToCartForm);
 //]]>
+
+function addToCartByAjax(isRedirect) {
+    if(isRedirect == "1") {
+        document.getElementById("product_addtocart_form").submit();
+    }
+    else {
+        var formData = jQuery('#product_addtocart_form').serializeArray();
+        var saveData = jQuery.ajax({
+              type: 'POST',
+              url: "<?php echo $this->getBaseUrl(); ?>checkout/icart/add",
+              data: formData,
+              dataType: "text",
+              success: function(resultData) {
+                  
+                  jQuery.ajax({ 
+                    url: "<?php echo $this->getBaseUrl() ?>common/index/ajaxCartUpdate",
+                    cache: false,
+                    success: function(result){ jQuery('#my-bag-qty').html(result); jQuery('#my-bag-qty-mobile').html(result); } 
+                    });
+             
+                  jQuery('#ajax-loading').hide();
+                  jQuery('#bagholder').show();
+                  jQuery('#bagholder-mobile').show();
+                  setTimeout( "jQuery('#bagholder').hide();",10000 );
+                  setTimeout( "jQuery('#bagholder-mobile').hide();",10000 );
+                  //jQuery("#ajax-response").html(resultData);
+                  //window.location="<?php echo Mage::helper('checkout/cart')->getCartUrl(); ?>"; 
+              }
+        });
+        saveData.error(function() { jQuery("#ajax-response").html("Something went wrong"); });
+    }
+} 
 </script>

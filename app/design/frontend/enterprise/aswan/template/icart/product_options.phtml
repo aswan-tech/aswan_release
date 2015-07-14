@@ -1,4 +1,3 @@
-<script type="text/javascript" src="http://d1t9mcsu0lbkv1.cloudfront.net/js/jquery/jquery.min.js"></script>
 <script type="text/javascript">    
     jQuery(function(){jQuery("#itemrightQickview select,#itemrightQickview input[type=checkbox],#itemrightQickview input[type=radio]").uniform();});
 </script>
@@ -45,18 +44,49 @@
 		<div class="quickleft"><?php echo $this->getChildHtml('media') ?></div>
 		<div class="quickright" id="itemrightQickview">
 			<h3><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></h3>
-            
+
+            <h4> <?php $price = Mage::helper('core')->currency($_product->getPrice(),true,false);?>
+    <?php $specialPrice = Mage::helper('core')->currency($_product->getFinalPrice(),true,false);?>
+             <span class="old-price"><?php if($price >$specialPrice) { echo $price;}?></span>
+             <span class="new-price"><?php if($price ==$specialPrice) { echo $price;} else { echo $specialPrice;}?></span>
+</h4>
+
+<p><?php echo $_product->getDescription();?></p>
+
+<!-- Click offer start -->
+				<?php
+	$_price = Mage::helper('core')->currency($_product->getPrice(),false,false);   
+	$_specialPrice = Mage::helper('core')->currency($_product
+					->getFinalPrice(),false,false);
+		if ($_specialPrice == $_price): 
+		$pdp_coupon_code = Mage::helper('common')->getCouponCodeByPrice($_price);
+		$discounted_price = Mage::helper('common')->getCouponDiscountByCode($pdp_coupon_code, $_price);
+		else: 
+        $pdp_coupon_code = Mage::helper('common')->getCouponCodeByPrice($_specialPrice);
+         $discounted_price = Mage::helper('common')->getCouponDiscountByCode($pdp_coupon_code, $_specialPrice);
+         ?>
+<?php endif; ?>
+<?php if(!empty($pdp_coupon_code)) { ?>
+<div class="clickoffer">
+<h4>Click For Offer</h4>
+<div class="offerdetail">
+<div class="offerclose"></div>
+Shop this product for <?php echo Mage::helper('core')->currency($discounted_price, true, true) ?> by applying coupon<span><?php echo $pdp_coupon_code; ?></span>in your cart. 
+</div>
+</div>
+<?php } ?>
+<!-- click offer end -->
             <div class="Q-price-tag">
                 <div class="Q-price-value-cont">
                 	<span class="old-price-tag"><?php echo $this->getChildHtml('customprice') ?></span>
                 </div>
             </div>
 			<div class="chosesizeboxWrapp chosesizeboxWrappnew productswaches">
-				<?php if ($_product->isSaleable() && $this->hasOptions() && $this->getChildChildHtml('container2')): ?>
-					<?php echo $this->getChildChildHtml('container2', '', true, true) ?>
-				<?php else: ?>
-					<?php echo $this->getChildHtml('product_options_wrapper') ?>
-				<?php endif; ?>
+<?php if ($_product->isSaleable() && $this->hasOptions() && $this->getChildChildHtml('container2')): ?>
+<?php echo $this->getChildChildHtml('container2', '', true, true) ?>
+<?php else: ?>
+<?php echo $this->getChildHtml('product_options_wrapper') ?>
+<?php endif; ?>
 			</div>
 
 			<div class="pdpbutton-wrapp addtobag">
@@ -145,7 +175,7 @@ jQuery('.quickslide img').click(function(){
 				jQuery("#cart-add-to-bag").hide();
 				jQuery('.size-info-close').show();
 				jQuery('.ajax-color-swatch').addClass('color-swatch-active');
-				jQuery('.info-dialog').addClass('info-dialog-active');
+				jQuery('.validatesize').show();
 				jQuery('.size-info-close').addClass('size-close-btn');	
 				jQuery('.size-info-close').show();			
 			}else{

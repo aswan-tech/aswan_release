@@ -66,7 +66,7 @@
 </div>
 <div class="datatabs">
 <div class="datalisting" id="tabmen">
-<ul>
+<ul class="bxslider">
 <?php 
 $men = Mage::getModel('newarrival/managenewarrival')->getProductByCatId(6);  
 foreach ($men as $data) { 
@@ -81,13 +81,13 @@ foreach ($men as $data) {
 </div>
 
 <div class="datalisting" id="tabwomen">
-<ul>
+<ul class="bxslider">
 <?php 
 $women = Mage::getModel('newarrival/managenewarrival')->getProductByCatId(8);  
 foreach ($women as $womenData) { 
     ?>
        <li><div class="dataimg">
-       <img src="<?php echo $data->getImageUrl();?>" width="320" height="334" /><a href="<?php echo $data->getProducturl();?>"><span>Shop</span></a></div>
+       <img src="<?php echo $womenData->getImageUrl();?>" width="320" height="334" /><a href="<?php echo $womenData->getProducturl();?>"><span>Shop</span></a></div>
        <h3><?php echo $womenData->getName();?></h3></li>
 <?php   
 }

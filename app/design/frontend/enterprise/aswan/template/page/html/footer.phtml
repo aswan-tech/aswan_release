@@ -1,30 +1,9 @@
-<?php
-/**
- * Magento Enterprise Edition
- *
- * NOTICE OF LICENSE
- *
- * This source file is subject to the Magento Enterprise Edition End User License Agreement
- * that is bundled with this package in the file LICENSE_EE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://www.magento.com/license/enterprise-edition
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    design
- * @package     enterprise_default
- * @copyright Copyright (c) 2006-2015 X.commerce, Inc. (http://www.magento.com)
- * @license http://www.magento.com/license/enterprise-edition
- */
+<?php 
+$rememberData = Mage::getModel('core/cookie')->get('urme');
+if($rememberData){
+	$rememberDataArr = explode("|", $rememberData);
+}
 ?>
-
 <div class="container">
 <div id="newsletter">
 <label>Newsletter</label>  
@@ -46,41 +25,72 @@
 <div id="copyright">
 <p><?php echo $this->getCopyright() ?>
 </div>
-
-
 <!--all popup-->
 <div id="loginpopup" class="globlepopup">
+<div class="loginregister">
 <div class="formbox">
 <h3>Existing user? <strong>Login</strong></h3>
 <label>Email Address<b>*</b></label>
-<input type="text" class="textfield" />
-<label>Password<b>*</b></label>
-<input type="password" class="textfield" />
-<a href="#" class="go">Sign in</a>
-<a href="#" class="forgotpass">Forgot Password?</a>
+<div id="ajaxLoding" style="display:none;" class="redcolor"><img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN);?>frontend/enterprise/aswan/images/ajax-loader.gif"></div>
 
+<span id="ajaxLoginResp" class="redcolor fl" style="display:none;"></span>
+<div class="clear"></div>
+<input name="login[username]" id="login_email" title="<?php echo $this->__('Email address') ?>" type="text" class="textfield" value="<?php if(isset($rememberDataArr[0])) echo base64_decode($rememberDataArr[0]);?>" />
+<span id="error_login_email" style="display:none;">Please enter valid email address.</span>
+<label>Password<b>*</b></label>
+<input name="login[password]" id="login_pass" title="<?php echo $this->__('Password') ?>" type="password" class="textfield" value="<?php if(isset($rememberDataArr[1])) echo base64_decode($rememberDataArr[1]);?>" />
+<span id="error_login_pass" style="display:none;">Please enter password.</span>
+<a href="javascript:void(0);" id="gtm-customer-sigin-popup" onclick="customerLogin('<?php echo $this->getBaseUrl() ?>common/index/ajaxlogin');" class="go">Sign in</a>
+
+<a href="<?php echo $this->getUrl('customer/account/forgotpassword'); ?>" id="gtm-forgot-pwd-on-signin-signup-popup"  class="forgotpass">Forgot Password?</a>
 <div class="clearfloat"></div>
-<br />
+
 <h3>Sign in <strong>with</strong></h3>
 <div class="sociallog">
-<a href="#" class="gpluse"></a>
-<a href="#" class="facebook"></a>
+	<?php echo $this->getLayout()->createBlock('inchoo_googleconnect/button')->setTemplate('inchoo/googleconnect/new_button.phtml')->toHtml();?>
+<!--<a href="#" class="gpluse"></a>-->
+<a href="javascript:void(0);" onclick="return fblogin();" id="gtm-fb-signin-popup" class="facebook"></a>
 </div>
 </div>
-
 <div class="seprater"></div>
-
 <div class="formbox registerfom">
 <h3>New user? <strong>Register here</strong></h3>
+<div id="ajaxSignupLoding" style="display:none;" class="redcolor"><img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN);?>frontend/enterprise/aswan/images/ajax-loader.gif"></div>
+<div id="ajaxSignupResp" style="display:none;" class="redcolor fl"></div>
+<div class="error_mgs"></div>
 <label>Email Address<b>*</b></label>
-<input type="text" class="textfield" />
-<label>Password<b>*</b></label>
-<input type="password" class="textfield" />
+<input name="email" id="reg_email" type="text" class="sign-text-field" value="" />
+	<span id="error_reg_email" style="display:none;">Please enter valid email address.</span>
+<label>Password<b>*</b>
+<input name="password" id="reg_pass" type="password" class="sign-text-field" value="" /></label>
+<span id="error_reg_pass" style="display:none;">Valid Password is 6 digit.</span>
 <label>Mobile No<b>*</b></label>
-<input type="password" class="textfield" />
-<label><input type="checkbox" /> Send me email updates.</label>
-<a href="#" class="go">Men</a>
-<a href="#" class="go">Women</a>
+<input name="mobile_no" id="mobile_no" type="text" class="sign-text-field" value="" />
+<span id="error_mobile_no" style="display:none;">Valid Mobile no is 10 digit.</span>
+<input type="checkbox" name="is_subscribed" id="is_subscribed" checked="checked" class="fl mar-r10" />Send me email updates.</label>
+<a href="javascript:signup(1,'<?php echo $this->getBaseUrl(); ?>common/index/ajaxsignup')" id="gtm-m-register-poup" class="go">Men</a>
+<a href="javascript:signup(2,'<?php echo $this->getBaseUrl(); ?>common/index/ajaxsignup')" id="gtm-f-register-poup" class="go">Women</a>
 </div>
 </div>
-<!--all popup close-->
+<div class="optconfirm" id="optconfirm">
+	<input type="hidden" name="mobile" id="regenerate-mob" value="">
+	<h3><strong>Yay!</strong> Your Sweet Code is on the Way!</h3>
+	<p>One Time Password (OTP) has been sent to your mobile number</p>
+	<label>Please enter your OTP</label>
+	<div id="otp-ajaxloding" class="redcolor" style="display:none;" ><img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN);?>frontend/enterprise/aswan/images/ajax-loader.gif"></div>
+	<div id="ajaxOtpResp" style="display:none;" class="redcolor fl"></div>
+	<div class="clear"></div>
+	<input name="register_otp" id="register-otp"  type="text" class="sign-text-field" value="" />
+	<div class="sgn-error fl" id="error_register_otp"> 
+	<span class="msgtop-arrowred"></span>
+	<span class="fl error-msg-redtxt ">Please enter valid OTP Number.</span>
+	</div>
+	<div class="clear"></div>
+	<p><span>If you have not received the OTP. Please click to</span> <a class="gtm-track" id="gtm-otp-regenerate-popup" href="javascript:regenerateOtp('<?php echo $this->getBaseUrl() ?>common/index/regenerateOtp')">Regenerate</a></p>
+	<div class="clear"></div>
+	<div class="otp-btn-box">
+	<a class="go" id="gtm-otp-confim-popup" onclick="confirmRegister('<?php echo $this->getBaseUrl() ?>common/index/activateNewReg')" href="javascript:void(0)">Confirm</a>
+	</div>
+	<p><span id="reg-mob"></span>
+</div>
+</div>

@@ -6,7 +6,7 @@ iCart.Methods={
     cartEdit:'Edit',
     wishlist:'Wishlist',
     compare:'Compare',
-    width:900,
+    width:750,
     overlay:true,
     overlayClose:false,
     autoFocusing:false,    

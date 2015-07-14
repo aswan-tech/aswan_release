@@ -7,10 +7,8 @@ $_helper = $this->helper('catalog/output');
     <ul class="bxslider">
     <?php foreach ($this->getGalleryImages() as $_image): ?>
         <li>
-            <a href="#" title="<?php echo $this->htmlEscape($_image->getLabel()) ?>">
-                <img src="<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'thumbnail', $_image->getFile())->resize(50, 60); ?>" data-larger="<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'thumbnail', $_image->getFile()); ?>" alt="<?php echo $this->htmlEscape($_image->getLabel()) ?>" />
-            </a>
-        </li>
+         <img src="<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'thumbnail', $_image->getFile())->resize(58, 77); ?>" data-larger="<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'thumbnail', $_image->getFile()); ?>" alt="<?php echo $this->htmlEscape($_image->getLabel()) ?>" />
+     </li>
     <?php endforeach; ?>        
     </ul>
     <?php endif; ?>     

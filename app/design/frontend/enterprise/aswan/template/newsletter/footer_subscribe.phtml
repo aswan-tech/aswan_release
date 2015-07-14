@@ -13,26 +13,26 @@
 
 <script type="text/javascript">
   function emailSignup(gender, ajaxUrl){
-  var email = $("#newsletteremail").val();
-  if($.trim(email) == '' || $.trim(email) == 'Your Email') {
-    $("#subscription-response").html('Please enter valid email address.').show();
+  var email = jQuery("#newsletteremail").val();
+  if(jQuery.trim(email) == '' || jQuery.trim(email) == 'Your Email') {
+    jQuery("#subscription-response").html('Please enter valid email address.').show();
     return false;
   }
   if(email != ''){
-    var login = $.ajax({
+    var login = jQuery.ajax({
       url: ajaxUrl,
       data: {email:email, gender:gender },
       type:'POST',
       beforeSend: function() {
-        $("#loader-image").show();
+        jQuery("#loader-image").show();
       },
       success: function(data){
-        $("#subscription-response").html(data).show();
-        $("#loader-image").hide();
+        jQuery("#subscription-response").html(data).show();
+        jQuery("#loader-image").hide();
       },
       error: function(xhr, textStatus, errorThrown){
-        $("#subscription-response").html('Ajax request failed reloading page').show();
-        $("#loader-image").hide();
+        jQuery("#subscription-response").html('Ajax request failed reloading page').show();
+        jQuery("#loader-image").hide();
       }
     });
   }

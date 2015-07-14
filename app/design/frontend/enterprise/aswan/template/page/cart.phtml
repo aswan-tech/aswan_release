@@ -42,15 +42,18 @@
 <header id="header">
         <?php echo $this->getChildHtml('header') ?>
    </header> 
-        <div class="main-container col1-layout home-layout">
-            <div class="main">
-                <?php echo $this->getChildHtml('breadcrumbs') ?>
-                <div class="col-main">
-                    <?php echo $this->getChildHtml('global_messages') ?>
-                    <?php echo $this->getChildHtml('content') ?>
-                </div>
+
+
+
+    <div id="middle">
+        <?php echo $this->getChildHtml('global_messages') ?>
+        <?php echo $this->getChildHtml('content') ?>
+    </div>
             </div>
         </div>
+
+
+
         <footer id="footer">
         <?php echo $this->getChildHtml('footer') ?>
 </footer>
