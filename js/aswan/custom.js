@@ -88,7 +88,7 @@ jQuery(document).ready(function() {
 	pager: true
   });
   
-  
+
   
   jQuery('.home-page #logo img').css('width','161px');
   var go = true;  
@@ -540,3 +540,221 @@ jQuery('.starrate input').click( function(){
 });
 
 });
+
+/*Custom 6.3 starts*/
+
+	function signup(gender, ajaxUrl) {
+	var isValid = isValidForm('signup');
+	if(isValid) {
+		jQuery("#ajaxSignupLoding").show();
+		jQuery("#ajaxSignupResp").hide();
+		var email 			= jQuery('#reg_email').val();
+		var pass 			= jQuery('#reg_pass').val();
+		var mobile_no 		= jQuery('#mobile_no').val();
+		var is_subscribed   = jQuery('#is_subscribed').is(':checked');
+		is_subscribed = (is_subscribed == true ? 1 : 0);
+		jQuery.ajax({
+			url : ajaxUrl,
+			type: "POST",
+			data : {email:email, password:pass, is_subscribed:is_subscribed,mobile:mobile_no},
+			success: function(data, textStatus, jqXHR)
+			{
+				jQuery("#ajaxSignupLoding").hide();
+				if(data == '1' || data =='2') {
+					jQuery('#login-reg-div').addClass('hide');
+					jQuery('.otp-cont').removeClass('hide');
+					jQuery('#reg-mob').html('Your contact number +91'+mobile_no);
+					jQuery("#ajaxOtpResp").html('');
+					jQuery('.loginregister').hide();
+					jQuery('.optconfirm').show();
+					
+				}
+				else {
+					jQuery("#ajaxSignupResp").show();
+					jQuery("#ajaxSignupResp").html(data);
+					
+				}
+			}
+		});
+	}
+}
+
+function customerLogin(ajaxUrl) {
+
+	var isValid = isValidForm('signin');
+	
+	if(isValid) {
+		var email = jQuery('#login_email').val();
+		var pass = jQuery('#login_pass').val();
+		jQuery("#ajaxLoding").show();
+		jQuery("#ajaxLoginResp").hide();
+		
+		jQuery.ajax({
+				url : ajaxUrl,
+				type: "POST",
+				data : {username:email, password:pass},
+				success: function(data, textStatus, jqXHR)
+				{
+					jQuery("#ajaxLoding").hide();
+					if(data == '1') {
+						jQuery("#ajaxLoginResp").removeClass('redcolor').addClass('bluecolor').show();
+						jQuery("#ajaxLoginResp").html('You have been logged in successfully. You are being redirected…');							
+						window.setTimeout(function () {
+							window.location = '';
+						}, 2000);
+						
+					}
+					else {
+						jQuery("#ajaxLoginResp").show();
+						jQuery("#ajaxLoginResp").html(data);	
+						
+									
+					}
+				}
+			});
+	}
+}
+
+function regenerateOtp(ajaxUrl){
+	
+	jQuery("#otp-ajaxloding").show();
+	jQuery.ajax({
+		url : ajaxUrl,
+		success: function(data, textStatus, jqXHR)
+		{
+			jQuery("#otp-ajaxloding").hide();
+			if(data == '1') {
+				jQuery("#ajaxOtpResp").removeClass('redcolor').addClass('bluecolor').show();
+				jQuery("#ajaxOtpResp").html('OTP has been sent again.');
+			}
+			else {
+				jQuery("#ajaxOtpResp").show();
+				jQuery("#ajaxOtpResp").html(data);
+			}
+		}
+	});
+}
+
+function isEmail(email){
+	var emailReg = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
+	var valid = emailReg.test(email);
+	return (!valid) ? false : true;
+}
+
+function isValidForm(type) {
+
+	if(type == 'signup') {
+		
+		var email = jQuery('#reg_email').val();
+		var pass = jQuery('#reg_pass').val();
+		var mobile_no = jQuery('#mobile_no').val();
+		var num_check = isNaN(mobile_no);
+		var mob_length = mobile_no.length;
+	}
+	else {
+		var email = jQuery('#login_email').val();
+		var pass = jQuery('#login_pass').val();
+		var conf_pass = '';
+		
+		
+		
+	}
+	pass = pass.replace(/ /g,'');
+	//conf_pass = conf_pass.replace(/ /g,'');
+	emailFldId = (type == 'signup' ? 'reg_email' : 'login_email');
+	passFldId = (type == 'signup' ? 'reg_pass' : 'login_pass');		
+
+	if(jQuery.trim(email) == '' || isEmail(email) == false) {	
+		jQuery("#"+emailFldId).addClass('sign-error');
+		jQuery("#error_"+emailFldId).show();
+		return false;
+		
+	}	
+	
+	else if(jQuery.trim(pass) == '' ||  jQuery.trim(pass).length < 6) {
+		 
+		jQuery("#"+passFldId).addClass('sign-error');
+		jQuery("#"+emailFldId).removeClass('sign-error');
+		jQuery("#error_"+passFldId).show();
+		jQuery("#error_"+emailFldId).hide();
+		
+		return false;
+	}
+	else if(type=='signup' && (num_check == true || mob_length!=10)) {
+		jQuery("#mobile_no").addClass('sign-error');
+		jQuery(".sign-text-field").removeClass('sign-error');
+		jQuery("#error_"+passFldId).hide();
+		jQuery("#error_"+emailFldId).hide();
+		jQuery("#error_mobile_no").show();
+		
+		return false;
+	}
+	else{
+		jQuery(".sign-text-field").removeClass('sign-error');
+		jQuery("#error_"+emailFldId).hide();
+		jQuery("#error_"+passFldId).hide();
+		jQuery("#errormgs_mobile_no").hide();
+		
+		return true;
+	}
+}
+
+function confirmRegister(ajaxUrl){
+	var register_otp = jQuery('#register-otp').val();
+	jQuery("#ajaxOtpResp").hide();
+	jQuery("#register-otp").removeClass('sign-error');
+	jQuery('#error_register_otp').hide();
+	if(isNaN(register_otp) == true || register_otp.length!=6){
+			jQuery("#register-otp").addClass('sign-error');
+			jQuery('#error_register_otp').show();
+			return false;
+	}
+	jQuery("#otp-ajaxloding").show();
+	jQuery.ajax({
+		url : ajaxUrl,
+		type: "POST",
+		data : {register_otp:register_otp},
+		success: function(data, textStatus, jqXHR)
+		{
+			jQuery("#otp-ajaxloding").hide();
+			if(data == '1') {
+					var ck_reg_up =getCookie('nw_user_reg_up');
+					if(ck_reg_up=='ap56767es'){
+							setCookie('nw_user_reg','ap567es',1);
+							setCookie('nw_user_reg_up','ap56767no',1);
+					}
+					jQuery("#ajaxOtpResp").removeClass('redcolor').addClass('bluecolor').show();
+					jQuery("#ajaxOtpResp").html('You have been logged in successfully. You are being redirected…');
+					window.setTimeout(function () {
+							window.location = '';
+					}, 2000);
+			}
+			else {
+					jQuery("#ajaxOtpResp").show();
+					jQuery("#ajaxOtpResp").html(data);
+			}
+		}
+	});
+}
+
+function setCookie(name,value,days){
+    var d = new Date();
+    d.setTime(d.getTime() + (days*24*60*60*1000));
+    var expires = "expires="+d.toGMTString();
+    document.cookie = name + "=" + value + "; " + expires;
+}
+function getCookie(cname) {
+    var name = cname + "=";
+    var ca = document.cookie.split(';');
+    for(var i=0; i<ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0)==' ') c = c.substring(1);
+        if (c.indexOf(name) == 0) return c.substring(name.length,c.length);
+    }
+    return "";
+}
+function newgooglelogin(url){
+        setCookie('nw_user_reg_up','ap56767es',1);
+        window.location.href = url;
+}
+ /* Custom 6.3 ends*/
