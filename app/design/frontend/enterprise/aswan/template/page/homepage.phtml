@@ -40,24 +40,23 @@
 <div id="wrapper">
     <?php echo $this->getChildHtml('global_notices') ?>
 <header id="header">
-        <?php echo $this->getChildHtml('header') ?>
-   </header> 
+	<?php echo $this->getChildHtml('header') ?>
+</header> 
 
-   <div id="homeslider">
+<div id="homeslider">
 <ul class="bxslider">
 <?php echo Mage::helper('banners')->getBanners();?>
 </ul>
 </div>
 
-        <div id="middle">
-                <?php //echo $this->getChildHtml('breadcrumbs') ?>
-                    <?php echo $this->getChildHtml('global_messages') ?>
-                    <div class="catbanners">
-                    <?php echo $this->getChildHtml('content') ?>
-                    </div>
+<div id="middle">
+	<?php echo $this->getChildHtml('global_messages') ?>
+	<div class="catbanners">
+	<?php echo $this->getChildHtml('content') ?>
+	</div>
 
-        <!-- new arrival start -->
-        <div id="new-arrivals">
+<!-- new arrival start -->
+<div id="new-arrivals">
 <h2>New Arrivals</h2>
 <div class="tabs">
 <ul>
@@ -71,7 +70,7 @@
 <?php 
 $men = Mage::getModel('newarrival/managenewarrival')->getProductByCatId(6);  
 foreach ($men as $data) { 
-    ?>
+?>
        <li><div class="dataimg">
        <img src="<?php echo $data->getImageUrl();?>" width="320" height="334" /><a href="<?php echo $data->getProducturl();?>"><span>Shop</span></a></div>
        <h3><?php echo $data->getName();?></h3></li>
@@ -86,7 +85,7 @@ foreach ($men as $data) {
 <?php 
 $women = Mage::getModel('newarrival/managenewarrival')->getProductByCatId(8);  
 foreach ($women as $womenData) { 
-    ?>
+?>
        <li><div class="dataimg">
        <img src="<?php echo $womenData->getImageUrl();?>" width="320" height="334" /><a href="<?php echo $womenData->getProducturl();?>"><span>Shop</span></a></div>
        <h3><?php echo $womenData->getName();?></h3></li>
@@ -103,8 +102,12 @@ foreach ($women as $womenData) {
 <ul class="bxslider">
 <?php 
 	foreach($blogArr as $blog) {
+		$default = $this->getSkinUrl().'images/blog1.jpg';
+		if(file_exists(Mage::getBaseDir('media').'/'.$blog['short_content_img'])) {
+			$default = Mage::getBaseUrl('media').$blog['short_content_img'];
+		}
 ?>	
-<li><img width="480" height="327" src="<?php echo Mage::getBaseUrl('media').$blog['short_content_img'] ?>" /> <div class="blogtext"><<h3><?php echo $blog['title'] ?></h3> <p><a href="<?php $this->getBaseUrl() ?>blog/<?php echo $blog['identifier'] ?>"><?php echo $blog['title'] ?></a></p></div></li>
+<li><img width="480" height="327" src="<?php echo $default ?>" /> <div class="blogtext"><h3>Daily Blog Feed</h3> <p><a href="<?php $this->getBaseUrl() ?>blog/<?php echo $blog['identifier'] ?>"><?php echo $blog['title'] ?></a></p></div></li>
 <?php } ?>
 </ul>
 </div>
@@ -112,14 +115,12 @@ foreach ($women as $womenData) {
 <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('aswan-social-icons')->toHtml(); ?>
 <!-- Social icons end -->
 </div>
-
-        </div>
+</div>
 
 <footer id="footer">
-        <?php echo $this->getChildHtml('footer') ?>
+	<?php echo $this->getChildHtml('footer') ?>
 </footer>
-        <?php echo $this->getChildHtml('before_body_end') ?>
-
+	<?php echo $this->getChildHtml('before_body_end') ?>
 </div>
 <?php echo $this->getAbsoluteFooter() ?>
 </body>
