@@ -37,7 +37,7 @@
         <block type="enterprise_wishlist/customer_sidebar" name="wishlist_sidebar" template="wishlist/sidebar.phtml"/>
 
         <reference name="head">
-           <action method="addItem"><type>skin_js</type><script>js/enterprise/wishlist.js</script></action>
+           <!-- <action method="addItem"><type>skin_js</type><script>js/enterprise/wishlist.js</script></action> -->
         </reference>
 
         <reference name="before_body_end">
