@@ -47,10 +47,8 @@ class AW_Blog_Manage_BlogController extends Mage_Adminhtml_Controller_Action {
     public function indexAction() {
 
         $this->displayTitle('Posts');
-
-
-        $this->_initAction()
-                ->renderLayout();
+		$this->_initAction()
+               ->renderLayout();
     }
 
     public function editAction() {
@@ -687,20 +685,28 @@ class AW_Blog_Manage_BlogController extends Mage_Adminhtml_Controller_Action {
 	}
 	
     public function massStatusAction() {
-        $blogIds = $this->getRequest()->getParam('blog');
+		
+			$blogIds = $this->getRequest()->getParam('blog');
+			
+			$data = $this->getRequest()->getPost();
         if (!is_array($blogIds)) {
             Mage::getSingleton('adminhtml/session')->addError($this->__('Please select post(s)'));
         } else {
             try {
-
-                foreach ($blogIds as $blogId) {
-                    $blog = Mage::getModel('blog/blog')
-                            ->load($blogId)
-                            ->setStatus($this->getRequest()->getParam('status'))
-                            ->setStores('')
-                            ->setIsMassupdate(true)
-                            ->save();
-                }
+					foreach ($blogIds as $blogId) {
+						$blog =Mage::getModel('blog/blog')->load($blogId); 
+						if(isset($data['is_homeslider'])){
+							$blog->setIsHomeslider($data['is_homeslider']);
+						}
+						else{
+							$blog = $blog
+								->setStatus($this->getRequest()->getParam('status'))
+								->setStores('')
+								->setIsMassupdate(true);
+						}
+						
+						$blog->save();
+					}
                 $this->_getSession()->addSuccess(
                         $this->__('Total of %d record(s) were successfully updated', count($blogIds))
                 );

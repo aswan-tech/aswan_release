@@ -71,6 +71,24 @@ class AW_Blog_Block_Manage_Blog_Grid extends Mage_Adminhtml_Block_Widget_Grid {
             'align' => 'left',
             'index' => 'identifier',
         ));
+         $this->addColumn('short_content_img', array(
+            'header' 	=> Mage::helper('blog')->__('Image'),
+            'align' 	=> 'left',
+            'index' 	=>'short_content_img',
+            'renderer' 	=> 'AW_Blog_Block_Adminhtml_Template_Grid_Renderer_Image'
+        ));	
+        
+        $this->addColumn('is_homeslider', array(
+            'header' => Mage::helper('blog')->__('Home Slider'),
+            'align' => 'left',
+            'width' => '80px',
+            'index' => 'is_homeslider',
+            'type' => 'options',
+            'options' => array(
+                1 => Mage::helper('blog')->__('Yes'),
+                0 => Mage::helper('blog')->__('No'),
+            ),
+        ));
 
         $this->addColumn('user', array(
             'header' => Mage::helper('blog')->__('Poster'),
@@ -159,6 +177,22 @@ class AW_Blog_Block_Manage_Blog_Grid extends Mage_Adminhtml_Block_Widget_Grid {
                 )
             )
         ));
+        
+			$is_slider_values = Mage::getSingleton('blog/status')->getYesNoStatusArray();
+			$this->getMassactionBlock()->addItem('is_homeslider', array(
+            'label' => Mage::helper('blog')->__('Homepage Blog'),
+            'url' => $this->getUrl('*/*/massStatus', array('_current' => true)),
+            'additional' => array(
+					'visibility' => array(
+						'name' => 'is_homeslider',
+						'type' => 'select',
+						'class' => 'required-entry',
+						'label' => Mage::helper('blog')->__('Slider Status'),
+						'values' => $is_slider_values
+                )
+            )
+        ));
+        
         return $this;
     }
 

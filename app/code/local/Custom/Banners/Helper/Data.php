@@ -6,9 +6,19 @@ class Custom_Banners_Helper_Data extends Mage_Core_Helper_Abstract {
 		$dataString = '';
 		if(isset($bannerListArr) && count($bannerListArr) > 0) {
 			foreach($bannerListArr as $data){
-				$dataString .='<div><a href="'.$data['banner_url'].'" alt="'.$data['banner_title'].'" title="'.$data['banner_title'].'"><img src="'.Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA).'banner/'.$data['banner_path'].'" alt="" /></a></div>';
+				$dataString .='<li><a href="'.$data['banner_url'].'" alt="'.$data['banner_title'].'" title="'.$data['banner_title'].'"><img src="'.Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA).'banner/'.$data['banner_path'].'" alt="" /></a></li>';
 			}
 		}
+		
+		/*
+		 * if banner not uploaded by modules, call homepage banner by static block
+		 */ 
+		
+		if(empty($dataString) || $dataString == '') {
+			$block = Mage::getModel('cms/block')->setStoreId(Mage::app()->getStore()->getId())->load('aswan-homepage-slider');
+			$dataString = $block->getContent();
+		}
+		
 		return $dataString;
 	}
 }
