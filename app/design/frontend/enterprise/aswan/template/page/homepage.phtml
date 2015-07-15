@@ -29,6 +29,7 @@
  * Template for Mage_Page_Block_Html
  */
 ?>
+<?php $blogArr =  Mage::helper("blog")->getBlogSlider(); ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<?php echo $this->getLang() ?>" lang="<?php echo $this->getLang() ?>">
 <head>
@@ -97,13 +98,14 @@ foreach ($women as $womenData) {
 </div>
 </div>
 <!-- new arrival end -->
-
 <div class="footersocial">
 <div class="holder" id="blogpost">
 <ul class="bxslider">
-<li><img src="http://www.jaspal.com/americanswan/skin/frontend/enterprise/aswan/images/blog1.jpg" /> <div class="blogtext"><h3>Daily Blog Feed</h3> <p><a href="#">3 Things You Need To Know About Summer Prints</a></p></div></li>
-<li><img src="http://www.jaspal.com/americanswan/skin/frontend/enterprise/aswan/images/blog2.jpg" /> <div class="blogtext"><h3>Daily Blog Feed</h3> <p><a href="#">Sport a scarf this summer</a></p></div></li>
-<li><img src="http://www.jaspal.com/americanswan/skin/frontend/enterprise/aswan/images/blog3.jpg" /> <div class="blogtext"><h3>Daily Blog Feed</h3> <p><a href="#">5 Reasons Why Women Love Men in Blue & White</a></p></div></li>
+<?php 
+	foreach($blogArr as $blog) {
+?>	
+<li><img width="480" height="327" src="<?php echo Mage::getBaseUrl('media').$blog['short_content_img'] ?>" /> <div class="blogtext"><<h3><?php echo $blog['title'] ?></h3> <p><a href="<?php $this->getBaseUrl() ?>blog/<?php echo $blog['identifier'] ?>"><?php echo $blog['title'] ?></a></p></div></li>
+<?php } ?>
 </ul>
 </div>
 <!-- Social Icons start block -->
