@@ -83,8 +83,6 @@ Customer account home dashboard layout
             <block type="customer/account_dashboard" name="customer.account.link.back" template="customer/account/link/back.phtml"/>
         </reference>
     </sales_order_history>
-
-
     <sales_order_view translate="label">
         <label>Customer My Account Order View</label>
         <update handle="customer_account"/>

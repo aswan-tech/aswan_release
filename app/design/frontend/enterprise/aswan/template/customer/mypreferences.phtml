@@ -1,0 +1,191 @@
+<?php
+$data = $this->getData();
+?><?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+<?php echo $this->getLayout()->createBlock('core/template')->setTemplate('customer/account/navigation.phtml')->toHtml(); ?>
+ <div class="address f-lato fs16 ml40 acc-perdetail" style="float: left; width: 700px;">
+<form name="frm_preferences" action="<?php echo $this->getUrl('customer/account/mypreferencespost'); ?>" method="post" >
+        <div class="acc-pref-cont mb20">
+        <p class="fs16 c-pantone f-bold mb10">Gender</p>
+        <label class=" mt30 mb10 ta-c"> 
+            <input type="checkbox" id="checkbox_one" class="checkbox " <?php foreach($data as $row) { if ($row['preference'] == 'Male') { echo ('checked="checked"'); break; } } ?> value="Male" name="data[]">
+        <span class="mt10  fs16 c-pantone ml10">Male</span>
+        </label>
+        <div class="clear"></div>
+        <label class=" mt30 mb10 ta-c"> 
+        <input type="checkbox" id="checkbox_one" class="checkbox " <?php foreach($data as $row) { if ($row['preference'] == 'Female') { echo ('checked="checked"'); break; } } ?> value="Female" name="data[]">
+        <span class="mt10 fs16 c-pantone ml10">Female</span>
+        </label>
+        </div>
+    
+       <div class="acc-pref-cont mb20">
+        <p class="fs16 c-pantone f-bold mb10">I want to see more of..</p>
+        <label class=" mt30 mb10 ta-c"> 
+            <input type="checkbox" id="checkbox_one" class="checkbox " <?php foreach($data as $row) { if ($row['preference'] == 'Women’s Wear') { echo ('checked="checked"'); break; } } ?> value="Women’s Wear" name="data[]">
+        <span class="mt10  fs16 c-pantone ml10">Women’s Wear</span>
+        </label>
+        <div class="clear"></div>
+        <label class=" mt30 mb10 ta-c"> 
+        <input type="checkbox" id="checkbox_one" class="checkbox " <?php foreach($data as $row) { if ($row['preference'] == 'Men’s Wear') { echo ('checked="checked"'); break; } } ?> value="Men’s Wear" name="data[]">
+        <span class="mt10 fs16 c-pantone ml10">Men’s Wear</span>
+        </label>
+        <div class="clear"></div>
+        <label class=" mt30 mb10 ta-c"> 
+        <input type="checkbox" id="checkbox_one" class="checkbox " <?php foreach($data as $row) { if ($row['preference'] == 'Both') { echo ('checked="checked"'); break; } } ?> value="Both" name="data[]">
+        <span class="mt10 fs16 c-pantone ml10">Both</span>
+        </label>
+        </div>
+        
+        <div class="acc-pref-cont mb20">
+        <p class="fs16 c-pantone f-bold mb10">I want to see more of..</p>
+        <label class=" mt30 mb10 ta-c"> 
+        <input type="checkbox" id="checkbox_one" class="checkbox " <?php foreach($data as $row) { if ($row['preference'] == 'Topwear') { echo ('checked="checked"'); break; } } ?> value="Topwear" name="data[]">
+        <span class="mt10  fs16 c-pantone ml10">Topwear</span>
+        </label>
+        <div class="clear"></div>
+        <label class=" mt30 mb10 ta-c"> 
+        <input type="checkbox" id="checkbox_one" class="checkbox " <?php foreach($data as $row) { if ($row['preference'] == 'Bottomwear') { echo ('checked="checked"'); break; } } ?> value="Bottomwear" name="data[]">
+        <span class="mt10 fs16 c-pantone ml10">Bottomwear</span>
+        </label>
+        <div class="clear"></div>
+        <label class=" mt30 mb10 ta-c"> 
+        <input type="checkbox" id="checkbox_one" class="checkbox " <?php foreach($data as $row) { if ($row['preference'] == 'Footwear') { echo ('checked="checked"'); break; } } ?> value="Footwear" name="data[]">
+        <span class="mt10 fs16 c-pantone ml10">Footwear</span>
+        </label>
+        <div class="clear"></div>
+        <label class=" mt30 mb10 ta-c"> 
+        <input type="checkbox" id="checkbox_one" class="checkbox " <?php foreach($data as $row) { if ($row['preference'] == 'Accessories') { echo ('checked="checked"'); break; } } ?> value="Accessories" name="data[]">
+        <span class="mt10 fs16 c-pantone ml10">Accessories</span>
+        </label>
+        <div class="clear"></div>
+        <label class=" mt30 mb10 ta-c"> 
+        <input type="checkbox" id="checkbox_one" class="checkbox " <?php foreach($data as $row) { if ($row['preference'] == 'Offers') { echo ('checked="checked"'); break; } } ?> value="Offers" name="data[]">
+        <span class="mt10 fs16 c-pantone ml10">Offers</span>
+        </label>
+        <div class="clear"></div>
+        <label class=" mt30 mb10 ta-c"> 
+        <input type="checkbox" id="checkbox_one" class="checkbox " <?php foreach($data as $row) { if ($row['preference'] == 'Blog & Trends') { echo ('checked="checked"'); break; } } ?> value="Blog & Trends" name="data[]">
+        <span class="mt10 fs16 c-pantone ml10">Blog & Trends</span>
+        </label>
+        <div class="clear"></div>
+        <label class=" mt30 mb10 ta-c"> 
+        <input type="checkbox" id="checkbox_one" class="checkbox " <?php foreach($data as $row) { if ($row['preference'] == 'All of the above') { echo ('checked="checked"'); break; } } ?> value="All of the above" name="data[]">
+        <span class="mt10 fs16 c-pantone ml10">All of the above</span>
+        </label>
+        </div>
+        
+        <div class="acc-pref-cont mb20">
+        <p class="fs16 c-pantone f-bold mb10">I want to hear from you</p>
+        <label class=" mt30 mb10 ta-c"> 
+        <input type="checkbox" id="checkbox_one" class="checkbox " <?php foreach($data as $row) { if ($row['preference'] == 'Blog') { echo ('checked="checked"'); break; } } ?> value="Blog" name="data[]">
+        <span class="mt10  fs16 c-pantone ml10">Blog</span>
+        </label>
+        <div class="clear"></div>
+        <label class=" mt30 mb10 ta-c"> 
+        <input type="checkbox" id="checkbox_one" class="checkbox " <?php foreach($data as $row) { if ($row['preference'] == 'Trends') { echo ('checked="checked"'); break; } } ?> value="Trends" name="data[]">
+        <span class="mt10 fs16 c-pantone ml10">Trends</span>
+        </label>
+        <div class="clear"></div>
+        <label class=" mt30 mb10 ta-c"> 
+        <input type="checkbox" id="checkbox_one" class="checkbox " <?php foreach($data as $row) { if ($row['preference'] == 'Daily') { echo ('checked="checked"'); break; } } ?> value="Daily" name="data[]">
+        <span class="mt10  fs16 c-pantone ml10">Daily</span>
+        </label>
+        <div class="clear"></div>
+        <label class=" mt30 mb10 ta-c"> 
+        <input type="checkbox" id="checkbox_one" class="checkbox " <?php foreach($data as $row) { if ($row['preference'] == 'Twice a week') { echo ('checked="checked"'); break; } } ?> value="Twice a week" name="data[]">
+        <span class="mt10 fs16 c-pantone ml10">Twice a week</span>
+        </label>
+        <div class="clear"></div>
+        <label class=" mt30 mb10 ta-c"> 
+        <input type="checkbox" id="checkbox_one" class="checkbox " <?php foreach($data as $row) { if ($row['preference'] == 'Once a week') { echo ('checked="checked"'); break; } } ?> value="Once a week" name="data[]">
+        <span class="mt10 fs16 c-pantone ml10">Once a week</span>
+        </label>
+        <div class="clear"></div>
+        <label class=" mt30 mb10 ta-c"> 
+        <input type="checkbox" id="checkbox_one" class="checkbox " <?php foreach($data as $row) { if ($row['preference'] == 'Twice a month') { echo ('checked="checked"'); break; } } ?> value="Twice a month" name="data[]">
+        <span class="mt10 fs16 c-pantone ml10">Twice a month</span>
+        </label>
+        <div class="clear"></div>
+        <label class=" mt30 mb10 ta-c"> 
+        <input type="checkbox" id="checkbox_one" class="checkbox " <?php foreach($data as $row) { if ($row['preference'] == 'Once a month') { echo ('checked="checked"'); break; } } ?> value="Once a month" name="data[]">
+        <span class="mt10 fs16 c-pantone ml10">Once a month</span>
+        </label>
+        
+        </div>
+        
+        <div class="acc-pref-cont mb20">
+        <p class="fs16 c-pantone f-bold mb10">I want to see more of </p>
+        <label class=" mt30 mb10 ta-c"> 
+        <input type="checkbox" id="checkbox_one" class="checkbox " <?php foreach($data as $row) { if ($row['preference'] == 'Party Wear') { echo ('checked="checked"'); break; } } ?> value="Party Wear" name="data[]">
+        <span class="mt10  fs16 c-pantone ml10">Party Wear</span>
+        </label>
+        <div class="clear"></div>
+        <label class=" mt30 mb10 ta-c"> 
+        <input type="checkbox" id="checkbox_one" class="checkbox " <?php foreach($data as $row) { if ($row['preference'] == 'Casual Wear') { echo ('checked="checked"'); break; } } ?> value="Casual Wear" name="data[]">
+        <span class="mt10 fs16 c-pantone ml10">Casual Wear</span>
+        </label>
+        <div class="clear"></div>
+        <label class=" mt30 mb10 ta-c"> 
+        <input type="checkbox" id="checkbox_one" class="checkbox " <?php foreach($data as $row) { if ($row['preference'] == 'Work Wear') { echo ('checked="checked"'); break; } } ?> value="Work Wear" name="data[]">
+        <span class="mt10 fs16 c-pantone ml10">Work Wear</span>
+        </label>
+        <div class="clear"></div>
+        <label class=" mt30 mb10 ta-c"> 
+        <input type="checkbox" id="checkbox_one" class="checkbox " <?php foreach($data as $row) { if ($row['preference'] == 'Sports Wear') { echo ('checked="checked"'); break; } } ?> value="Sports Wear" name="data[]">
+        <span class="mt10 fs16 c-pantone ml10">Sports Wear</span>
+        </label>
+        </div>
+        
+        <div class="acc-pref-cont mb20">
+        <div class="fl">
+        <p class="fs16 c-pantone f-bold mb10">My Interests</p>
+        <label class=" mt30 mb10 ta-c"> 
+        <input type="checkbox" id="checkbox_one" class="checkbox " <?php foreach($data as $row) { if ($row['preference'] == 'Movies') { echo ('checked="checked"'); break; } } ?> value="Movies" name="data[]">
+        <span class="mt10  fs16 c-pantone ml10">Movies</span>
+        </label>
+        <div class="clear"></div>
+        <label class=" mt30 mb10 ta-c"> 
+        <input type="checkbox" id="checkbox_one" class="checkbox " <?php foreach($data as $row) { if ($row['preference'] == 'Travel') { echo ('checked="checked"'); break; } } ?> value="Travel" name="data[]">
+        <span class="mt10 fs16 c-pantone ml10">Travel</span>
+        </label>
+        <div class="clear"></div>
+        <label class=" mt30 mb10 ta-c"> 
+        <input type="checkbox" id="checkbox_one" class="checkbox " <?php foreach($data as $row) { if ($row['preference'] == 'Music') { echo ('checked="checked"'); break; } } ?> value="Music" name="data[]">
+        <span class="mt10 fs16 c-pantone ml10">Music</span>
+        </label>
+        <div class="clear"></div>
+        <label class=" mt30 mb10 ta-c"> 
+        <input type="checkbox" id="checkbox_one" class="checkbox " <?php foreach($data as $row) { if ($row['preference'] == 'Food') { echo ('checked="checked"'); break; } } ?> value="Food" name="data[]">
+        <span class="mt10 fs16 c-pantone ml10">Food</span>
+        </label>
+        </div>
+        <div class="fl mt25">
+        
+        <label class=" mt30 mb10 ta-c"> 
+        <input type="checkbox" id="checkbox_one" class="checkbox " <?php foreach($data as $row) { if ($row['preference'] == 'Craft') { echo ('checked="checked"'); break; } } ?> value="Craft" name="data[]">
+        <span class="mt10  fs16 c-pantone ml10">Craft</span>
+        </label>
+        <div class="clear"></div>
+        <label class=" mt30 mb10 ta-c"> 
+        <input type="checkbox" id="checkbox_one" class="checkbox " <?php foreach($data as $row) { if ($row['preference'] == 'Sports') { echo ('checked="checked"'); break; } } ?> value="Sports" name="data[]">
+        <span class="mt10 fs16 c-pantone ml10">Sports</span>
+        </label>
+        <div class="clear"></div>
+        <label class=" mt30 mb10 ta-c"> 
+        <input type="checkbox" id="checkbox_one" class="checkbox " <?php foreach($data as $row) { if ($row['preference'] == 'Fashion') { echo ('checked="checked"'); break; } } ?> value="Fashion" name="data[]">
+        <span class="mt10 fs16 c-pantone ml10">Fashion</span>
+        </label>
+        <div class="clear"></div>
+        <label class=" mt30 mb10 ta-c"> 
+        <input type="checkbox" id="checkbox_one" class="checkbox " <?php foreach($data as $row) { if ($row['preference'] == 'Reading') { echo ('checked="checked"'); break; } } ?> value="Reading" name="data[]">
+        <span class="mt10 fs16 c-pantone ml10">Reading</span>
+        </label>
+        </div>
+        
+        </div>
+        <div class="clear"></div>
+        <div class="fs16 c-pantone mt20 mb20 f-bold">Want to give us feedback on something we can improve, please share below.</div>
+        <div class="acccta ta-c">
+            <button id="AddToCart" class="cta-btn-blue fs16 tt-u mt30 mb20 fl mr35" type="submit">Save Details</button>
+       </div>
+</form>
+ </div>

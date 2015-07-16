@@ -73,6 +73,7 @@ class AW_Blog_Block_Rightblock extends AW_Blog_Block_Abstract {
                         ->addFieldToFilter("status", 1)
                         ->addStoreFilter($storeId)
                         ->addAttributeToFilter('visibility', 4);
+                        
         //print $products->getSelect();
 
         $i = 0;

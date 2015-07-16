@@ -87,7 +87,7 @@ $women = Mage::getModel('newarrival/managenewarrival')->getProductByCatId(8);
 foreach ($women as $womenData) { 
     ?>
        <li><div class="dataimg">
-       <img src="<?php echo $data->getImageUrl();?>" width="320" height="334" /><a href="<?php echo $data->getProducturl();?>"><span>Shop</span></a></div>
+       <img src="<?php echo $womenData->getImageUrl();?>" width="320" height="334" /><a href="<?php echo $womenData->getProducturl();?>"><span>Shop</span></a></div>
        <h3><?php echo $womenData->getName();?></h3></li>
 <?php   
 }
@@ -101,9 +101,9 @@ foreach ($women as $womenData) {
 <div class="footersocial">
 <div class="holder" id="blogpost">
 <ul class="bxslider">
-<li><img src="http://www.jaspal.com/americanswan/skin/frontend/enterprise/aswan/images/blog1.jpg" /> <div class="blogtext"><h3>Daily Blog Feed</h3> <p><a href="#">3 Things You Need To Know About Summer Prints</a></p></div></li>
-<li><img src="http://www.jaspal.com/americanswan/skin/frontend/enterprise/aswan/images/blog2.jpg" /> <div class="blogtext"><h3>Daily Blog Feed</h3> <p><a href="#">Sport a scarf this summer</a></p></div></li>
-<li><img src="http://www.jaspal.com/americanswan/skin/frontend/enterprise/aswan/images/blog3.jpg" /> <div class="blogtext"><h3>Daily Blog Feed</h3> <p><a href="#">5 Reasons Why Women Love Men in Blue & White</a></p></div></li>
+<li><img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN);?>frontend/enterprise/aswan/images/blog1.jpg" /> <div class="blogtext"><h3>Daily Blog Feed</h3> <p><a href="#">3 Things You Need To Know About Summer Prints</a></p></div></li>
+<li><img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN);?>frontend/enterprise/aswan/images/blog2.jpg" /> <div class="blogtext"><h3>Daily Blog Feed</h3> <p><a href="#">Sport a scarf this summer</a></p></div></li>
+<li><img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN);?>frontend/enterprise/aswan/images/blog3.jpg" /> <div class="blogtext"><h3>Daily Blog Feed</h3> <p><a href="#">5 Reasons Why Women Love Men in Blue & White</a></p></div></li>
 </ul>
 </div>
 <!-- Social Icons start block -->
@@ -111,7 +111,7 @@ foreach ($women as $womenData) {
 <!-- Social icons end -->
 </div>
 
-        </div>
+</div>
 
 <footer id="footer">
         <?php echo $this->getChildHtml('footer') ?>

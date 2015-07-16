@@ -38,7 +38,10 @@
 					?>
 				<?php endif;?>
 				<br/>
-				Qty : <input name="cart[<?php echo $_item->getId() ?>][qty]" onchange="javascript:updatecart(this);" value="<?php echo $this->getQty() ?>" size="4" title="<?php echo $this->__('Qty') ?>" class="input-text qty" maxlength="12" /></p>
+				Qty : <input name="cart[<?php echo $_item->getId() ?>][qty]" 
+				onchange="javascript:updatecart(this); return true" value="<?php echo $this->getQty() ?>" 
+				size="4" title="<?php echo $this->__('Qty') ?>" class="input-text qty" maxlength="12" />
+				</p>
 				<?php if ($messages = $this->getMessages()): ?>
 				<?php foreach ($messages as $message): ?>
 					<p class="item-msg <?php echo $message['type'] ?>">* <?php echo $this->escapeHtml($message['text']) ?></p>

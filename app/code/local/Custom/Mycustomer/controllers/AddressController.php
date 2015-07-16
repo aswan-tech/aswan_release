@@ -199,4 +199,12 @@ class Custom_Mycustomer_AddressController extends Mage_Customer_AddressControlle
 		}
 			
 	}
+	public function getcustomerData(){
+			
+        //return $this->_address;
+      
+	}
+	
+		
+	
 }

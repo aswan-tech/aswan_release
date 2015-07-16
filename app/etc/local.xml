@@ -8,7 +8,7 @@
             <key><![CDATA[750cf5849bfe20af04997857d12c9bbf]]></key>
         </crypt>
         <disable_local_modules>false</disable_local_modules>
-	<cache>
+<!--	<cache>
             <backend>Cm_Cache_Backend_Redis</backend>
             <backend_options>
                 <server>localhost</server>
@@ -25,7 +25,7 @@
                 <compress_threshold>409600</compress_threshold>
                 <compression_lib>gzip</compression_lib>
             </backend_options>
-        </cache>
+        </cache>-->
         <resources>
             <db>
                 <table_prefix><![CDATA[]]></table_prefix>
@@ -34,8 +34,8 @@
                 <connection>
                      <host><![CDATA[localhost]]></host>
                     <username><![CDATA[root]]></username>
-                    <password><![CDATA[root]]></password>
-                    <dbname><![CDATA[lecom_db]]></dbname>
+                    <password><![CDATA[admin]]></password>
+                    <dbname><![CDATA[americanswan]]></dbname>
                     <initStatements><![CDATA[SET NAMES utf8]]></initStatements>
                     <model><![CDATA[mysql4]]></model>
                     <type><![CDATA[pdo_mysql]]></type>
@@ -44,9 +44,9 @@
                 </connection>
             </default_setup>
         </resources>
-       <session_save><![CDATA[memcached]]></session_save>
+       <!--<session_save><![CDATA[memcached]]></session_save>
 	<session_save_path><![CDATA[localhost:11211?persistent=1&weight=2&timeout=10&retry_interval=10]]></session_save_path>
-        <session_cache_limiter><![CDATA[]]></session_cache_limiter>
+        <session_cache_limiter><![CDATA[]]></session_cache_limiter>-->
     </global>
     <admin>
         <routers>

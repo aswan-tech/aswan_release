@@ -202,6 +202,15 @@
                 </rewrite>
             </sitemap>
         </models>
+        
+        
+        <blocks>
+            <adminhtml>
+                <rewrite>
+                    <catalog_product_grid>AW_Blog_Adminhtml_Block_Catalog_Product_Grid</catalog_product_grid>
+                </rewrite>
+            </adminhtml>
+        </blocks>
         <blocks>
             <blog>
                 <class>AW_Blog_Block</class>

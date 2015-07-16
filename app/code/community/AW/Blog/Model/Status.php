@@ -28,10 +28,13 @@
 
 
 class AW_Blog_Model_Status extends Varien_Object {
+	
     const STATUS_ENABLED = 1;
     const STATUS_DISABLED = 2;
     const STATUS_HIDDEN = 3;
-
+	const STATUS_YES = 1;
+	const STATUS_NO = 0;
+	
     public function addEnabledFilterToCollection($collection) {
         $collection->addEnableFilter(array('in' => $this->getEnabledStatusIds()));
         return $this;
@@ -53,13 +56,26 @@ class AW_Blog_Model_Status extends Varien_Object {
     public function getHiddenStatusIds() {
         return array(self::STATUS_HIDDEN);
     }
-
+	public function getYesStatusIds() {
+        return array(self::STATUS_YES);
+    }
+    public function getNoStatusIds() {
+        return array(self::STATUS_NO);
+    }
+    
     static public function getOptionArray() {
+		
         return array(
             self::STATUS_ENABLED => Mage::helper('blog')->__('Enabled'),
             self::STATUS_DISABLED => Mage::helper('blog')->__('Disabled'),
             self::STATUS_HIDDEN => Mage::helper('blog')->__('Hidden')
         );
     }
-
+    
+	static public function getYesNoStatusArray() {
+        return array(
+            self::STATUS_YES => Mage::helper('blog')->__('Yes'),
+            self::STATUS_NO => Mage::helper('blog')->__('No'),
+        );
+    }
 }

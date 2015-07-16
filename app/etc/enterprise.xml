@@ -6,7 +6,7 @@
                 <ee>Enterprise_PageCache_Model_Processor</ee>
             </request_processors>
         </cache>
-        <full_page_cache>
+       <!-- <full_page_cache>
             <backend>Cm_Cache_Backend_Redis</backend>
             <backend_options>
                 <server>127.0.0.1</server>
@@ -19,7 +19,7 @@
                 <lifetimelimit>57600</lifetimelimit>
                 <compress_data>0</compress_data>
                 </backend_options>
-        </full_page_cache>
+        </full_page_cache>-->
         <skip_process_modules_updates>0</skip_process_modules_updates>
     </global>
 </config>

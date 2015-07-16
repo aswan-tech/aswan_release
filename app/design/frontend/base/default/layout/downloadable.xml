@@ -28,11 +28,11 @@
 -->
 <layout version="0.1.0">
 
-    <customer_account>
+    <!--<customer_account>
         <reference name="customer_account_navigation">
             <action method="addLink" translate="label" module="downloadable"><name>downloadable_products</name><path>downloadable/customer/products</path><label>My Downloadable Products</label></action>
         </reference>
-    </customer_account>
+    </customer_account>-->
 
     <downloadable_customer_products translate="label">
         <label>Customer My Account Downloadable Items</label>

@@ -1958,5 +1958,9 @@ public function recentlyViewedAction() {
     
     public function remember($value){
 		Mage::getModel('core/cookie')->set('urme',$value,(3600*24*30),'/',null,null,false);
+	}
+	
+	public function testAction(){
+		
 	}	
 } // END of class

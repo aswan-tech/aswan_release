@@ -35,7 +35,7 @@ class AW_Blog_Block_Manage_Blog_Edit_Form extends Mage_Adminhtml_Block_Widget_Fo
                     'action' => $this->getUrl('*/*/save', array('id' => $this->getRequest()->getParam('id'))),
                     'method' => 'post',
 					'enctype' => 'multipart/form-data'
-                        )
+          )
         );
 
         $form->setUseContainer(true);

@@ -1,0 +1,41 @@
+<?php 
+    $enterpriseRewardHelper = Mage::helper('enterprise_reward');
+    $maxBalance = (int)Mage::helper('enterprise_reward')->getGeneralConfig('max_points_balance');
+    $minBalance = (int)Mage::helper('enterprise_reward')->getGeneralConfig('min_points_balance');
+    /*$rewardBlock = $this->getLayout()->getBlockSingleton('Enterprise_Reward_Block_Checkout_Payment_Additional');
+    $rewardBlock->_rewardInstance = Mage::getModel('enterprise_reward/reward')
+                ->setCustomer(Mage::getSingleton('customer/session')->getCustomer())
+                ->setWebsiteId(Mage::app()->getWebsite()->getId())
+                ->loadByCustomer();
+    $balance = $rewardBlock->_rewardInstance->getPointsBalance();
+    $rewardBlock->addData(array(
+        'points_balance' => $balance,
+        'currency_balance' => $rewardBlock->_rewardInstance->getCurrencyAmount(),
+        'pts_to_amount_rate_pts' => $rewardBlock->_rewardInstance->getRateToCurrency()->getPoints(true),
+        'pts_to_amount_rate_amount' => $rewardBlock->_rewardInstance->getRateToCurrency()->getCurrencyAmount(),
+        'amount_to_pts_rate_amount' => $rewardBlock->_rewardInstance->getRateToPoints()->getCurrencyAmount(),
+        'amount_to_pts_rate_pts' => $rewardBlock->_rewardInstance->getRateToPoints()->getPoints(true),
+        'max_balance' => $maxBalance,
+        'is_max_balance_reached' => $balance >= $maxBalance,
+        'min_balance' => $minBalance,
+        'is_min_balance_reached' => $balance >= $minBalance,
+        'expire_in' => (int)Mage::helper('enterprise_reward')->getGeneralConfig('expiration_days'),
+        'is_history_published' => (int)Mage::helper('enterprise_reward')->getGeneralConfig('publish_history'),
+    ));*/
+    
+    $storeCreditBlock = $this->getLayout()->getBlockSingleton('Enterprise_CustomerBalance_Block_Account_Balance');
+?>
+<?php echo $this->getLayout()->createBlock('core/template')->setTemplate('customer/account/navigation2.phtml')->toHtml(); ?>
+<div class="bgc-fcfc">
+    Total value in my wallet
+    <div style="height: 166px; background:#eaeaea; text-align: center; padding: 5px; margin-top: 10px;border:1px solid #eaeaea;">
+        <p style='font-size: 50px; margin-bottom: 15px;'><?php //echo $enterpriseRewardHelper->formatAmount($rewardBlock->getCurrencyBalance()) ?>
+        <?php echo $enterpriseRewardHelper->formatAmount($storeCreditBlock->getBalance()); ?></p>
+        [Store Credit]<br />&nbsp;<br/>
+        <strong>are available to shop</strong>
+    </div>
+</div>
+<div style='clear: both;'></div>
+<div style="width: 990px;">
+    
+</div>

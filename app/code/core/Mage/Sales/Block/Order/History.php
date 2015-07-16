@@ -87,4 +87,5 @@ class Mage_Sales_Block_Order_History extends Mage_Core_Block_Template
     {
         return $this->getUrl('customer/account/');
     }
+   
 }

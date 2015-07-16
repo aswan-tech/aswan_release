@@ -59,6 +59,7 @@ class AW_Blog_Block_Manage_Blog_Edit_Tab_Related extends Mage_Adminhtml_Block_Wi
                 ->addAttributeToSelect('name')
                 ->addAttributeToSelect('sku')
                 ->addAttributeToSelect('price')
+                ->addAttributeToSelect('thumbnail')
                 ->addStoreFilter($this->getRequest()->getParam('store'))
                 ->joinField('position', 'catalog/category_product', 'position', 'product_id=entity_id', 'category_id=' . (int) $this->getRequest()->getParam('id', 0), 'left');
         $this->setCollection($collection);
@@ -67,6 +68,7 @@ class AW_Blog_Block_Manage_Blog_Edit_Tab_Related extends Mage_Adminhtml_Block_Wi
     }
 
     protected function _prepareColumns() {
+		
         $this->addColumn('related_product', array(
             'header_css_class' => 'a-center',
             'type' => 'checkbox',

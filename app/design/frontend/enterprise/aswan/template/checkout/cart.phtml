@@ -33,7 +33,7 @@
 			<h3><?php echo $this->__('Order Summary') ?></h3>
 				<?php echo $this->getChildHtml('totals');?>
 		</div>
-		 <?php //echo $this->getChildHtml('shopping.cart.table.after'); ?>
+		 <?php echo $this->getChildHtml('shopping.cart.table.after'); ?>
 		 <?php if(!$this->hasError()): ?>
         <?php foreach ($this->getMethods('methods') as $method): ?>
             <?php if ($methodHtml = $this->getMethodHtml($method)): ?>
@@ -54,10 +54,11 @@
 <div class="clearfloat"></div>
 </div>
 </div>
-<script>
-function updatecart(obj){
+<script type="text/javascript">
+function updatecart(object){
 	
-	jQuery("#chehckout-form").submit();
+	jQuery("#checkout-form").submit();
+	
 }
 </script>
 

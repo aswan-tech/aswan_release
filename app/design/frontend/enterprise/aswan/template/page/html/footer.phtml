@@ -32,8 +32,6 @@ if($rememberData){
 <h3>Existing user? <strong>Login</strong></h3>
 <label>Email Address<b>*</b></label>
 <div id="ajaxLoding" style="display:none;" class="redcolor"><img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN);?>frontend/enterprise/aswan/images/ajax-loader.gif"></div>
-
-<span id="ajaxLoginResp" class="redcolor fl" style="display:none;"></span>
 <div class="clear"></div>
 <input name="login[username]" id="login_email" title="<?php echo $this->__('Email address') ?>" type="text" class="textfield" value="<?php if(isset($rememberDataArr[0])) echo base64_decode($rememberDataArr[0]);?>" />
 <span id="error_login_email" style="display:none;">Please enter valid email address.</span>
@@ -72,7 +70,6 @@ if($rememberData){
 <a href="javascript:signup(2,'<?php echo $this->getBaseUrl(); ?>common/index/ajaxsignup')" id="gtm-f-register-poup" class="go">Women</a>
 </div>
 </div>
-
 <div class="optconfirm" id="optconfirm">
 	<input type="hidden" name="mobile" id="regenerate-mob" value="">
 	<h3><strong>Yay!</strong> Your Sweet Code is on the Way!</h3>
@@ -95,40 +92,3 @@ if($rememberData){
 	<p><span id="reg-mob"></span>
 </div>
 </div>
-<!--all popup close-->
-<!--<div id="newuserpop" class="globlepopup">
-<div class="leftside">
-<img src="<?php //echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN);?>frontend/enterprise/aswan/images/logo.png" />
-<h3>Register & Get</h3>
-<h4>Rs 200 Gift Voucher<br />
-+<br />
-Rs 2500 Shopping Coupons</h4>
-<p>*Check your My Coupon section post signing up</p>
-</div>
-
-<div class="rightside">
-<div id="newajaxSignupLoding" style="display:none;" class="redcolor"><img src="<?php //echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN);?>frontend/enterprise/aswan/images/ajax-loader.gif">
-   </div>
-<div id="newajaxSignupResp" style="display:none;" class="redcolor fl"></div>
-<input name="new_reg_email" id="new-reg-email" type="text" class="textfield" value="" placeholder="Enter your email"/>
-<span id="new-error-reg-email" style="display:none">Please enter valid email address.</span>
-<input name="new_reg_pass" id="new-reg-pass" type="password" class="textfield" value="" placeholder="Enter your password" />
-<span id="new-error-reg-pass" style="display:none">Please enter password.</span>
-
-
-<input name="new_mobile_no" id="new-mobile-no" type="text" class="textfield" value="" placeholder="Enter your Mobile number" />
-<span id="new_error_mobile_no" style="display:none">Valid Mobile no 10 digit.</span>
-<a href="javascript:void(0)" onclick="newsignup(1, '<?php //echo $this->getBaseUrl() ?>common/index/ajaxsignup');"  class="go">Men</a>
-<a href="javascript:void(0)" onclick="newsignup(2, '<?php //echo $this->getBaseUrl() ?>common/index/ajaxsignup');" id="gtm-f-register-poup" class="go">Women</a>
-<div class="seprater"></div>
-<?php //echo $this->getLayout()->createBlock('inchoo_googleconnect/button')->setTemplate('inchoo/googleconnect/button.phtml')->toHtml();?>
-<a href="javascript:void(0);" onclick="return fblogin();" id="gtm-fb-signin-popup"><img src="<?php //echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN);?>frontend/enterprise/aswan/images/fb-login.png"></a>
-</div>
-</div>
-<!--all popup close-->
-</div>
-<script type="text/javascript">
-//jQuery(document).ready(function(){
-	//jQuery.fancybox.open('#newuserpop');
-//	});
-</script>

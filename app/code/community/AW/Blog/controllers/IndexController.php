@@ -55,7 +55,7 @@ class AW_Blog_IndexController extends Mage_Core_Controller_Front_Action {
               }
              */
         }
-        $this->renderLayout();
+       $this->renderLayout();
     }
 
     public function listAction() {

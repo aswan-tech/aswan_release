@@ -247,6 +247,9 @@ class AW_Blog_Helper_Data extends Mage_Core_Helper_Abstract {
 		$blogCollec = $blogObj->getPosts();
 		
 		foreach($blogCollec as $blog){
+			
+			
+			
 			$column	=	($record % $maxIndex);
 			
 			$cats = Mage::getModel('blog/cat')->getCollection()
@@ -306,6 +309,7 @@ class AW_Blog_Helper_Data extends Mage_Core_Helper_Abstract {
 	
 	public function getBlogLandingImgs($blog, $return_all_names = false) {
 		$contentFormat 	= Mage::getStoreConfig('blog/blog/contentformat');
+		
 		$pos = strpos($contentFormat, '_');
 		$short_content_img = $blog->getShortContentImg();
 		$pos2 = strpos($short_content_img, '/');
@@ -365,6 +369,9 @@ class AW_Blog_Helper_Data extends Mage_Core_Helper_Abstract {
 		$blogCollec = $blogObj->getPostsCustom($words);
 		
 		foreach($blogCollec as $blog){
+			
+			
+			
 			$cats = Mage::getModel('blog/cat')->getCollection()
 					->addPostFilter($blog->getId())
 					->addStoreFilter(Mage::app()->getStore()->getId(), false);

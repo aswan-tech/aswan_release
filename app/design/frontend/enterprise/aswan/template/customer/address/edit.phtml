@@ -127,7 +127,7 @@
                 <div class="field">
                     <label for="country" class="required"><em>*</em><?php echo $this->__('Country') ?></label>
                     <div class="input-box">
-                        <?php echo $this->getCountryHtmlSelect() ?>
+                        <?php echo $this->getCountryHtmlSelect(); ?>
                     </div>
                 </div>
             </li>
@@ -165,3 +165,4 @@
 	jQuery(function(){jQuery("input[type=checkbox]").uniform();});
 	jQuery(function(){jQuery("select").not("#currency_switcher").uniform();});
 </script>
+

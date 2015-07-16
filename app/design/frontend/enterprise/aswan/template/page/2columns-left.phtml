@@ -42,49 +42,72 @@
 <header id="header">
         <?php echo $this->getChildHtml('header') ?>
 </header>
-
-
 <div id="middle">
-<div class="bredcrum">
-<?php echo $this->getChildHtml('breadcrumbs') ?>
-</div>
-<div class="categoryname"><h2><?php   
-        $_category  = Mage::registry('current_category');
-        if($_category){
-         $_helper    = Mage::helper('catalog/output');
-                    echo $_category->getName();
-        }
-        ?></h2></div>
-<div id="listingarea">
-<div id="filterholder">
-<div class="mobilefilter">
-<ul>
-<li><a href="#" id="showfilters">Filter</a></li>
-<li><a href="#" id="showsort">Sort</a></li>
-</ul>
-</div>
-
-<div id="filters">
+<?php  
+	$action = Mage::app()->getFrontController()->getAction()->getFullActionName('_');
+	if($action == 'customer_account_index'){
+	?>
+		<div class="pagename"><h2><?php echo $this->__('My Account') ?></div>
+	<?php 
+	}
+	if($action == 'customer_address_index'){
+	?>
+		<div class="pagename"><h2><?php echo $this->__('My Address') ?></div>
+	<?php 
+	}
+	if($action == 'enterprise_invitation_index_index'){
+	?>
+		<div class="pagename"><h2><?php echo $this->__('My Referrals') ?></div>
+	<?php 
+	}
+	if($action == 'sales_order_history'){
+	?>
+		<div class="pagename"><h2><?php echo $this->__('My Orders') ?></div>
+	<?php 
+	}
+	if($action == 'customer_account_wallet'){
+	?>
+		<div class="pagename"><h2><?php echo $this->__('My Wallet') ?></div>
+	<?php 
+	}
+ ?>   
+<div class="page-holder">
+<div id="accountsection">
+<div id="accountleft">
+<?php 
+$customerinfo = Mage::getSingleton('customer/session');
+if($customerinfo->isLoggedIn()){
+	$customer = Mage::getSingleton('customer/session')->getCustomer();
+	if($customer->getGender() == '1'){
+	?>
+	<div class="profilepic"><img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN);?>frontend/enterprise/aswan/images/guy-icon.jpg" /></div>
+	<?php
+	}
+	else{
+	?>
+	<div class="profilepic"><img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN);?>frontend/enterprise/aswan/images/girl-icon.jpg" /></div>
+	<?php 
+	}
+?>	
+<?php 
+}
+?>
+<div class="accountlinks">
 <?php echo $this->getChildHtml('left') ?>
 </div>
 </div>
 
-<div id="listingright">
+<div id="commonright">
 <?php echo $this->getChildHtml('global_messages') ?>
 <?php echo $this->getChildHtml('content') ?>
 </div>
-
 </div>
-
-
 </div>
-
-
+</div>
 <footer id="footer">
-        <?php echo $this->getChildHtml('footer') ?>
+    <?php echo $this->getChildHtml('footer') ?>
 </footer>
-        <?php echo $this->getChildHtml('before_body_end') ?>
-
+    <?php echo $this->getChildHtml('before_body_end') ?>
 </div>
 <?php echo $this->getAbsoluteFooter() ?>
 </body>

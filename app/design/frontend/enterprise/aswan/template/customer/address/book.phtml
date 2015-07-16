@@ -29,39 +29,53 @@
  * Temlate for Mage_Customer_Block_Address_Book block
  * @var $test Mage_Customer_Block_Address_Book
  */
+ 
+
 ?>
-<div class="page-title title-buttons">
-    <h1><?php echo $this->__('Address Book') ?></h1>
+
+  
     <button type="button" title="<?php echo $this->__('Add New Address') ?>" class="button" onclick="window.location='<?php echo $this->getAddAddressUrl() ?>';"><span><span><?php echo $this->__('Add New Address') ?></span></span></button>
-</div>
+
 <?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
-<div class="col2-set addresses-list">
-    <div class="col-1 addresses-primary">
-        <h2><?php echo $this->__('Default Addresses') ?></h2>
+<div id="myaddress">
+    <div class="addresscol">
+		<ul>
+			<li><a href="#" id="editform" class="fancybox editadd">Edit</a></li>
+		</ul>
+		<div id="ajaxLoding" style="display:none;" class="redcolor"><img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN);?>frontend/enterprise/aswan/images/ajax-loader.gif"></div>
+
+        <h2><?php //echo $this->__('Default Addresses') ?></h2>
         <ol>
-        <?php if($_pAddsses = Mage::getSingleton('customer/session')->getCustomer()->getDefaultBilling()): ?>
+        <?php if($_pAddsses = Mage::getSingleton('customer/session')->getCustomer()->getDefaultBilling()): 
+        
+        ?>
             <li class="item">
                 <h3><?php echo $this->__('Default Billing Address') ?></h3>
                 <address>
                     <?php echo $this->getAddressHtml(Mage::getSingleton('customer/session')->getCustomer()->getAddressById($_pAddsses)) ?>
                 </address>
-                <p><a href="<?php echo $this->getAddressEditUrl(Mage::getSingleton('customer/session')->getCustomer()->getAddressById($_pAddsses)) ?>"><?php echo $this->__('Change Billing Address') ?></a></p>
+                <p><a href="#editaddress" class="fancybox editadd"><?php echo $this->__('Change Billing Address') ?></a></p>
            </li>
+           
         <?php else: ?>
             <li class="item">
                 <h3><?php echo $this->__('Default Billing Address') ?></h3>
                 <?php echo $this->__('You have no default billing address in your address book.') ?>
             </li>
         <?php endif ?>
-
-        <?php if($_pAddsses = Mage::getSingleton('customer/session')->getCustomer()->getDefaultShipping()): ?>
+			
+        <?php if($_pAddsses = Mage::getSingleton('customer/session')->getCustomer()->getDefaultShipping()): 
+			
+        ?>
             <li class="item">
                 <h3><?php echo $this->__('Default Shipping Address') ?></h3>
                 <address>
                     <?php echo $this->getAddressHtml(Mage::getSingleton('customer/session')->getCustomer()->getAddressById($_pAddsses)) ?>
                 </address>
                 <p><a href="<?php echo $this->getAddressEditUrl(Mage::getSingleton('customer/session')->getCustomer()->getAddressById($_pAddsses)) ?>"><?php echo $this->__('Change Shipping Address') ?></a></p>
+           
             </li>
+            
         <?php else: ?>
             <li class="item empty">
                 <h3><?php echo $this->__('Default Shipping Address') ?></h3>
@@ -73,14 +87,127 @@
     <div class="col-2 addresses-additional">
         <h2><?php echo $this->__('Additional Address Entries') ?></h2>
         <ol>
-        <?php if($_pAddsses = $this->getAdditionalAddresses()): ?>
-            <?php foreach($_pAddsses as $_address): ?>
+        <?php if($_pAddsses = $this->getAdditionalAddresses()):
+			
+         ?>
+            <?php foreach($_pAddsses as $_address): 
+		
+			$countryModel = Mage::getModel('directory/country')->loadByCode($_address->getCountry());
+
+			
+            ?>
             <li class="item">
                 <address>
                     <?php echo $this->getAddressHtml($_address) ?>
                 </address>
-                <p><a href="<?php echo $this->getUrl('customer/address/edit', array('id'=>$_address->getId())) ?>"><?php echo $this->__('Edit Address') ?></a> <span class="separator">|</span> <a href="#" class="link-remove" onclick="return deleteAddress('<?php echo $_address->getId() ?>');"><?php echo $this->__('Delete Address') ?></a></p>
+                
+                <p><a href="<?php echo $this->getUrl('customer/address/edit', array('id'=>$_address->getId())) ?>">
+                <?php echo $this->__('Edit Address') ?></a> <span class="separator">|</span> 
+                <a href="#" class="link-remove" onclick="return deleteAddress('<?php echo $_address->getId() ?>');"><?php echo $this->__('Delete Address') ?></a></p>
             </li>
+            <ul>
+				<li><a href="#editaddress_<?php echo $_address->getId();?>" class="fancybox editadd">Edit</a></li>
+			</ul>
+			
+			<div id="editaddress_<?php echo $_address->getId();?>" class="globlepopup">
+			
+			<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+			<form action="<?php echo $this->getSaveUrl() ?>" method="post" id="form-validate">
+			<?php echo $this->getBlockHtml('formkey')?>
+			<input type="hidden" name="success_url" value="<?php echo $this->getSuccessUrl() ?>" />
+			<input type="hidden" name="error_url" value="<?php echo $this->getErrorUrl() ?>" />
+			<table width="100%" border="0" cellspacing="0" cellpadding="0">
+			  <tr>
+				<td><label>First Name<b>*</b></label></td>
+				<td><input type="text" name="firstname" value="<?php echo $this->escapeHtml($_address->getFirstname());?>" /></td>
+			  </tr>
+			  <tr>
+				<td><label>Last Name<b>*</b></label></td>
+				<td><input type="text" name="lastname" value="<?php echo $this->escapeHtml($_address->getLastname());?>" /></td>
+			  </tr>
+			  <tr>
+				<td><label>Mobile<b>*</b></label></td>
+				<td><input type="text" name="telephone" value="<?php echo $this->escapeHtml($_address->getTelephone()) ?>" title="<?php echo $this->__('Telephone') ?>" class="input-text  <?php echo $this->helper('customer/address')->getAttributeValidationClass('telephone') ?>" id="telephone" />
+				</td>
+			  </tr>
+			  <tr>
+				<td><label>Address Street<b>*</b></label></td>
+				<td><input type="text" name="street" placeholder="Line 1" value="<?php echo $_address->getData('street');?>"  /> 
+				<input type="text" name="street" placeholder="Line 2" value="<?php echo $_address->getData('street');?>"  />
+				</td>
+			  </tr>
+			  <tr>
+				<td><label>City<b>*</b></label></td>
+				<td><input type="text" name="city" value="<?php echo $_address->getCity();?>"  /></td>
+			  </tr>
+			  <tr>
+				<td><label>Postcode<b>*</b></label></td>
+				<td><input type="text" name="postcode" value="<?php echo $_address->getPostcode();?>"  /></td>
+			  </tr>
+			  <tr>
+				<td><label>Country<b>*</b></label></td>
+				<td><select title="Country"><option selected="selected" value="<?php echo $_address->getCountry();?>"><?php echo $countryModel->getName();?></option></select></td>
+			  </tr>
+			  <tr>
+				<td><label>State<b>*</b></label></td>
+				<td><select title="State" defaultvalue="0">
+				   <option value="">-- Select state --</option>
+				<option value="485" title="Andaman &amp; Nicobar Islands">Andaman &amp; Nicobar Islands</option>
+				<option value="486" title="Andhra Pradesh">Andhra Pradesh</option>
+				<option value="487" title="Arunachal Pradesh">Arunachal Pradesh</option>
+				<option value="488" title="Assam">Assam</option><option value="489" title="Bihar">Bihar</option>
+				<option value="490" title="Chandigarh">Chandigarh</option>
+				<option value="491" title="Chattisgarh">Chattisgarh</option>
+				<option value="492" title="Dadra &amp; Nagar Haveli">Dadra &amp; Nagar Haveli</option>
+				<option value="493" title="Daman &amp; Diu">Daman &amp; Diu</option>
+				<option value="494" title="Delhi">Delhi</option><option value="495" title="Goa">Goa</option>
+				<option value="496" title="Gujrat">Gujrat</option>
+				<option value="497" title="Haryana" selected="selected">Haryana</option>
+				<option value="498" title="Himachal Pradesh">Himachal Pradesh</option>
+				<option value="499" title="Jammu &amp; Kashmir">Jammu &amp; Kashmir</option>
+				<option value="500" title="Jharkhand">Jharkhand</option>
+				<option value="501" title="Karnataka">Karnataka</option>
+				<option value="502" title="Kerala">Kerala</option>
+				<option value="503" title="Lakshwdeep">Lakshwdeep</option>
+				<option value="504" title="Madhya Pradesh">Madhya Pradesh</option>
+				<option value="505" title="Maharashtra">Maharashtra</option>
+				<option value="506" title="Manipur">Manipur</option>
+				<option value="507" title="Meghalaya">Meghalaya</option>
+				<option value="508" title="Mizoram">Mizoram</option>
+				<option value="509" title="Nagaland">Nagaland</option>
+				<option value="510" title="Orissa">Orissa</option>
+				<option value="511" title="Pondicherry">Pondicherry</option>
+				<option value="512" title="Punjab">Punjab</option>
+				<option value="513" title="Rajasthan">Rajasthan</option>
+				<option value="514" title="Sikkim">Sikkim</option>
+				<option value="515" title="Tamil Nadu">Tamil Nadu</option>
+				<option value="516" title="Tripura">Tripura</option>
+				<option value="517" title="Uttar Pradesh">Uttar Pradesh</option>
+				<option value="518" title="Uttarakhand">Uttarakhand</option>
+				<option value="519" title="West Bengal">West Bengal</option>
+				<option value="520" title="Telangana">Telangana</option>
+				</select>
+				</td>
+			  </tr>
+			  <tr>
+				<td></td>
+				<td><input type="checkbox"/> Default Address </td>
+			  </tr>
+			  <tr>
+				<td></td>
+				<td>
+				<div class="buttons-set">
+				<p class="required"><?php echo $this->__('* Required Fields') ?></p>
+				<p class="back-link"><a href="<?php echo $this->escapeUrl($this->getBackUrl()) ?>"><small>&laquo; </small><?php echo $this->__('Back') ?></a></p>
+				<button type="submit" title="<?php echo $this->__('Save Address') ?>" class="button"><span><span><?php echo $this->__('Save Address') ?></span></span></button>
+				</div>
+				</td>
+			  </tr>
+			</form>
+			</table> 
+			</div>
+			<div>
+			
             <?php endforeach; ?>
         <?php else: ?>
             <li class="item empty">
@@ -103,3 +230,103 @@
     }
 //]]>
 </script>
+
+<script type="text/javascript">
+//<![CDATA[
+    var dataForm = new VarienForm('form-validate', true);
+    new RegionUpdater('country', 'region', 'region_id', <?php echo $this->helper('directory')->getRegionJson() ?>, undefined, 'zip');
+//]]>
+	jQuery(function(){jQuery("input[type=checkbox]").uniform();});
+	jQuery(function(){jQuery("select").not("#currency_switcher").uniform();});
+</script>
+
+<div id="editaddress" class="globlepopup">
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><label>Address Nickname</label></td>
+    <td><input type="text"  /></td>
+  </tr>
+  <tr>
+    <td><label>Title</label></td>
+    <td><select title="Title">
+		<option value="">Please Select</option>
+		<option value="Mr">Mr</option>
+		<option value="Mrs">Mrs</option>
+		<option selected="selected" value="Miss">Miss</option>
+		<option value="Ms">Ms</option>
+	</select></td>
+  </tr>
+  <tr>
+    <td><label>First Name<b>*</b></label></td>
+    <td><input type="text" value="Aman" /></td>
+  </tr>
+  <tr>
+    <td><label>Last Name<b>*</b></label></td>
+    <td><input type="text" value="Bharmi" /></td>
+  </tr>
+  <tr>
+    <td><label>Mobile<b>*</b></label></td>
+    <td><input type="text" value="9560853009"  /></td>
+  </tr>
+  <tr>
+    <td><label>Address Street<b>*</b></label></td>
+    <td><input type="text" placeholder="Line 1" value="708 7th Floor Tower A, Iris Tech Park, Sector 48, Sohna Road"  /> <input type="text" placeholder="Line 2" value="708 7th Floor Tower A, Iris Tech Park, Sector 48, Sohna Road"  /></td>
+  </tr>
+  <tr>
+    <td><label>City<b>*</b></label></td>
+    <td><input type="text" value="Gurgaon"  /></td>
+  </tr>
+  <tr>
+    <td><label>Postcode<b>*</b></label></td>
+    <td><input type="text" value="122002"  /></td>
+  </tr>
+  <tr>
+    <td><label>Country<b>*</b></label></td>
+    <td><select title="Country"><option selected="selected" value="IN">India</option></select></td>
+  </tr>
+  <tr>
+    <td><label>State<b>*</b></label></td>
+    <td><select title="State" defaultvalue="0">
+							   <option value="">-- Select state --</option>
+							<option value="485" title="Andaman &amp; Nicobar Islands">Andaman &amp; Nicobar Islands</option><option value="486" title="Andhra Pradesh">Andhra Pradesh</option><option value="487" title="Arunachal Pradesh">Arunachal Pradesh</option><option value="488" title="Assam">Assam</option><option value="489" title="Bihar">Bihar</option><option value="490" title="Chandigarh">Chandigarh</option><option value="491" title="Chattisgarh">Chattisgarh</option><option value="492" title="Dadra &amp; Nagar Haveli">Dadra &amp; Nagar Haveli</option><option value="493" title="Daman &amp; Diu">Daman &amp; Diu</option><option value="494" title="Delhi">Delhi</option><option value="495" title="Goa">Goa</option><option value="496" title="Gujrat">Gujrat</option><option value="497" title="Haryana" selected="selected">Haryana</option><option value="498" title="Himachal Pradesh">Himachal Pradesh</option><option value="499" title="Jammu &amp; Kashmir">Jammu &amp; Kashmir</option><option value="500" title="Jharkhand">Jharkhand</option><option value="501" title="Karnataka">Karnataka</option><option value="502" title="Kerala">Kerala</option><option value="503" title="Lakshwdeep">Lakshwdeep</option><option value="504" title="Madhya Pradesh">Madhya Pradesh</option><option value="505" title="Maharashtra">Maharashtra</option><option value="506" title="Manipur">Manipur</option><option value="507" title="Meghalaya">Meghalaya</option><option value="508" title="Mizoram">Mizoram</option><option value="509" title="Nagaland">Nagaland</option><option value="510" title="Orissa">Orissa</option><option value="511" title="Pondicherry">Pondicherry</option><option value="512" title="Punjab">Punjab</option><option value="513" title="Rajasthan">Rajasthan</option><option value="514" title="Sikkim">Sikkim</option><option value="515" title="Tamil Nadu">Tamil Nadu</option><option value="516" title="Tripura">Tripura</option><option value="517" title="Uttar Pradesh">Uttar Pradesh</option><option value="518" title="Uttarakhand">Uttarakhand</option><option value="519" title="West Bengal">West Bengal</option><option value="520" title="Telangana">Telangana</option></select></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td><input type="checkbox" /> Default Address </td>
+  </tr>
+  <tr>
+    <td></td>
+    <td><a class="go" href="#">Save</a></td>
+  </tr>
+</table> 
+</div>
+<script type="text/javascript">
+	
+jQuery("document").ready(function(){
+	jQuery("#editform").click(function(){
+	jQuery("#ajaxLoding").show();
+	
+	setTimeout(function() {
+	jQuery('#ajaxLoding').hide();
+	jQuery.fancybox.open('#editaddress');
+	}, 5000);
+	
+	var data = {
+		"ID": '$_address->getId()'
+	};
+	//data = $(this).serialize() + "&" + $.param(data);
+	jQuery.ajax({
+		type: "POST",
+		dataType: "json",
+		url: "response.php", //Relative or absolute path to response.php file
+		data: data,
+		success: function(data){
+			jQuery("#editaddress").show();
+		}
+	});
+	return false;
+	});
+}); 
+</script>
+
+

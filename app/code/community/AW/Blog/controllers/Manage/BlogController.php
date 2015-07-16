@@ -47,19 +47,18 @@ class AW_Blog_Manage_BlogController extends Mage_Adminhtml_Controller_Action {
     public function indexAction() {
 
         $this->displayTitle('Posts');
-
-
-        $this->_initAction()
-                ->renderLayout();
+		$this->_initAction()
+               ->renderLayout();
     }
 
     public function editAction() {
 
         $id = $this->getRequest()->getParam('id');
         $model = Mage::getModel('blog/blog')->load($id);
-
+   
         if ($model->getId() || $id == 0) {
             $data = Mage::getSingleton('adminhtml/session')->getFormData(true);
+
             if (!empty($data)) {
                 $model->setData($data);
             }
@@ -504,6 +503,7 @@ class AW_Blog_Manage_BlogController extends Mage_Adminhtml_Controller_Action {
 					->addFieldToFilter("status", 1)
 					->addStoreFilter($storeId)
 					->addAttributeToFilter('visibility', 4);
+					
 		
 		Mage::app()->setCurrentStore(Mage_Core_Model_App::DISTRO_STORE_ID);
 		Mage::app()->loadAreaPart(Mage_Core_Model_App_Area::AREA_FRONTEND, Mage_Core_Model_App_Area::PART_EVENTS);
@@ -634,6 +634,7 @@ class AW_Blog_Manage_BlogController extends Mage_Adminhtml_Controller_Action {
 	//Delete Archive Image
 	private function deleteArcImage($thisid=0, $arcImgName) {
 		if($thisid){
+			
 			$model = Mage::getModel('blog/blog')->load($thisid);
 			$db_imgName = $model->getData('arc_page_img');
 		}else{
@@ -687,23 +688,33 @@ class AW_Blog_Manage_BlogController extends Mage_Adminhtml_Controller_Action {
 	}
 	
     public function massStatusAction() {
-        $blogIds = $this->getRequest()->getParam('blog');
+		
+			$blogIds = $this->getRequest()->getParam('blog');
+			
+			//$is_homeslider = $this->getRequest()->getParam('is_homeslider');
+			$data = $this->getRequest()->getPost();
         if (!is_array($blogIds)) {
             Mage::getSingleton('adminhtml/session')->addError($this->__('Please select post(s)'));
         } else {
             try {
-
-                foreach ($blogIds as $blogId) {
-                    $blog = Mage::getModel('blog/blog')
-                            ->load($blogId)
-                            ->setStatus($this->getRequest()->getParam('status'))
-                            ->setStores('')
-                            ->setIsMassupdate(true)
-                            ->save();
-                }
+					foreach ($blogIds as $blogId) {
+						$blog =Mage::getModel('blog/blog')->load($blogId); 
+						if(isset($data['is_homeslider'])){
+							$blog->setIsHomeslider($data['is_homeslider']);
+						}
+						else{
+							$blog = $blog
+								->setStatus($this->getRequest()->getParam('status'))
+								->setStores('')
+								->setIsMassupdate(true);
+						}
+						
+						$blog->save();
+					}
                 $this->_getSession()->addSuccess(
                         $this->__('Total of %d record(s) were successfully updated', count($blogIds))
                 );
+			
             } catch (Exception $e) {
 
                 $this->_getSession()->addError($e->getMessage());
@@ -711,6 +722,8 @@ class AW_Blog_Manage_BlogController extends Mage_Adminhtml_Controller_Action {
         }
         $this->_redirect('*/*/index');
     }
+
+ 
 
     protected function displayTitle($data = null, $root = 'Blog') {
 

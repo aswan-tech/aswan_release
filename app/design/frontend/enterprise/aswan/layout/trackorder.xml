@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <default>
+    </default>
+    <trackorder_index_index>
+		<update handle="customer_account" />
+        <reference name="content">
+            <block type="trackorder/trackorder" name="trackorder" template="trackorder/form.phtml" />
+        </reference>
+    </trackorder_index_index>
+	
+	<trackorder_index_detail>
+		<update handle="customer_account" />
+		
+		<!-- ########################	Way to show the specific tab selected at LHS (navigation links)	########################	-->
+		<reference name="customer_account_navigation">
+            <action method="setActive"><path>trackorder/index/index</path></action>
+        </reference>
+		<!-- ########################	Way to show the specific tab selected at LHS (navigation links)	########################	-->
+		
+        <reference name="content">
+            <block type="trackorder/trackorder" name="trackorder" template="trackorder/trackorder.phtml" />
+        </reference>
+    </trackorder_index_detail>
+	
+	
+	
+	<trackorder_index_guest>
+		<reference name="root">
+            <action method="setTemplate"><template>page/1column.phtml</template></action>
+        </reference>
+        <reference name="content">
+            <block type="trackorder/trackorder" name="trackorder" template="trackorder/guestform.phtml" />
+        </reference>
+    </trackorder_index_guest>
+	
+	<trackorder_index_orderdetail>
+		<reference name="root">
+            <action method="setTemplate"><template>page/1column.phtml</template></action>
+        </reference>
+        <reference name="content">
+            <block type="trackorder/trackorder" name="trackorder" template="trackorder/guestorderdetail.phtml" />
+        </reference>
+    </trackorder_index_orderdetail>
+	
+	
+	<!--
+	<customer_account>
+        <reference name="customer_account_navigation">
+            <action method="addLink" translate="label" module="trackorder"><name>trackorder</name><path>trackorder/index</path><label>Track My Order</label><prepare/><urlParams/><position>9</position></action>
+        </reference>
+    </customer_account>
+	-->
+</layout> 
