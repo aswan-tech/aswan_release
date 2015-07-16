@@ -59,6 +59,7 @@ class Enterprise_Invitation_IndexController extends Mage_Core_Controller_Front_A
     public function sendAction()
     {
         $data = $this->getRequest()->getPost();
+     
         if ($data) {
             $customer = Mage::getSingleton('customer/session')->getCustomer();
             $invPerSend = Mage::getSingleton('enterprise_invitation/config')->getMaxInvitationsPerSend();
