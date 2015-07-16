@@ -219,14 +219,15 @@ echo '<strong>'.$discount.'% off</strong>'; ?>
         <?php endif;?>
         <!-- additional-detail Start  -->
 
+<!-- you may also like start-->
+<?php echo $this->getChildHtml('upsell_products') ?>
+<!-- you may also like end-->
 
-
-
-<?php echo $this->getChildHtml('relatedProducts') ?>
-        <?php echo $this->getChildHtml('upsell_products') ?>
+        <?php //echo $this->getChildHtml('relatedProducts') ?>
         <?php //echo $this->getChildHtml('productTagList') ?>
         <?php //echo $this->getChildHtml('product_additional_data') ?>
         
+        </div>
         </div>
     </form>
         

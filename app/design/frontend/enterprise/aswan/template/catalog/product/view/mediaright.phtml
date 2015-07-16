@@ -110,8 +110,9 @@ Shop this product for <span><?php echo Mage::helper('core')->currency($discounte
 
 </div>
 <?php endif; ?>
-
+ <?php //echo $this->getChildHtml('upsell_products') ?>
 <!-- you may also like start-->
+
 <?php 
    /*$product_id =$_product->getId();
    $object = Mage::getModel('catalog/product');
@@ -143,4 +144,4 @@ Shop this product for <span><?php echo Mage::helper('core')->currency($discounte
 ?>
 <!-- you may also like end -->
 <?php //echo $this->getLayout()->createBlock('reports/product_viewed')->setTemplate('reports/product_viewed.phtml')->toHtml(); ?>
-</div>
+<!-- </div> -->
