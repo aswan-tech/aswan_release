@@ -396,6 +396,11 @@ class AW_Blog_Helper_Data extends Mage_Core_Helper_Abstract {
 	
 	public function getBlogSlider() {
 		$dataArr = Mage::getModel('blog/blog')->getCollection()->addFieldToFilter("is_homeslider", array("eq"=>1));
+		if(!$dataArr->count()) {
+			$dataArr = Mage::getModel('blog/blog')->getCollection()->addFieldToFilter("is_homeslider", array("eq"=>0))
+						->setPageSize(3)
+						->setCurPage(1);
+		}
 		$returnData = array();
 		foreach($dataArr as $data) {
 			$returnData[] = $data->getData();
