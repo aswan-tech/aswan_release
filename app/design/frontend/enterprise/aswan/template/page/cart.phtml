@@ -34,33 +34,19 @@
 <head>
 <?php echo $this->getChildHtml('head') ?>
 </head>
-<body<?php echo $this->getBodyClass()?' class="'.$this->getBodyClass().'"':'' ?>>
+<body <?php echo $this->getBodyClass()?' class="'.$this->getBodyClass().'"':'' ?>>
 <?php echo $this->getChildHtml('after_body_start') ?>
 <div id="wrapper">
-    <?php echo $this->getChildHtml('global_notices') ?>
-        
-<header id="header">
-        <?php echo $this->getChildHtml('header') ?>
-   </header> 
-
-
-
-    <div id="middle">
-        <?php echo $this->getChildHtml('global_messages') ?>
-        <?php echo $this->getChildHtml('content') ?>
-    </div>
-            </div>
-        </div>
-
-
-
-        <footer id="footer">
-        <?php echo $this->getChildHtml('footer') ?>
-</footer>
-        <?php echo $this->getChildHtml('global_cookie_notice') ?>
-        <?php echo $this->getChildHtml('before_body_end') ?>
-
+<?php echo $this->getChildHtml('global_notices') ?>
+<header id="header"><?php echo $this->getChildHtml('header') ?></header> 
+<div id="middle">
+	<?php echo $this->getChildHtml('global_messages') ?>
+	<?php echo $this->getChildHtml('content') ?>
 </div>
+</div>
+<footer id="footer"><?php echo $this->getChildHtml('footer') ?></footer>
+<?php echo $this->getChildHtml('global_cookie_notice') ?>
+<?php echo $this->getChildHtml('before_body_end') ?>
 <?php echo $this->getAbsoluteFooter() ?>
 </body>
 </html>

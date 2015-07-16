@@ -3,7 +3,7 @@
 <form id="discount-coupon-form" action="<?php echo $this->getUrl('checkout/cart/couponPost') ?>" method="post">
 <input type="hidden" name="remove" id="remove-coupone" value="0" />
 <?php if(!strlen($this->getCouponCode())): ?>
-<input class="ck-promo-fld mar-none  fl" id="coupon_code" name="coupon_code" onclick="javascript:onClickText(this);" onblur="javascript:onBlurText(this);" title="Enter Coupon Code" type="text" />
+<input class="ck-promo-fld mar-none  fl" id="coupon_code" name="coupon_code" type="text" />
 <a href="javascript:void(0)" class="button" id="cart-promotion-apply" onclick="discountForm.submit(false)"  value="<?php echo $this->__('Apply Coupon') ?>"><?php echo $this->__('Apply') ?></a>
 <?php else: ?>
 <input class="ck-promo-fld mar-none  fl" id="coupon_code" name="coupon_code" />
@@ -35,13 +35,12 @@ discountForm.submit = function (isRemove) {
 		return VarienForm.prototype.submit.bind(discountForm)();
 	}
 	else{ 
-		//alert("Please enter a coupon code.");
 		jQuery("#error-add-to-cart").fadeIn("slow");
 		jQuery("#error-add-to-cart").text( 'Please enter a coupon code.');
 		setTimeout(function() { jQuery('#error-add-to-cart').hide();}, 5000);		
 	}
 }
-function onBlurText(object,value){ if(object.value == ''){ object.value = value; } }
-function onClickText(object,value){ if(object.value == value){ object.value = ''; } }
+//function onBlurText(object,value){ if(object.value == ''){ object.value = value; } }
+//function onClickText(object,value){ if(object.value == value){ object.value = ''; } }
 //]]>
 </script>

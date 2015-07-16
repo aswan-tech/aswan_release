@@ -10,7 +10,6 @@
 </div>
 <div id="cartarea">
 	<div id="cartleft">
-		 
 		<?php echo $this->getChildHtml('form_before') ?>
 		<form id="checkout-form" action="<?php echo $this->getUrl('checkout/cart/updatePost');?>" method="post">
 		<?php foreach($this->getItems() as $_item): ?>
@@ -47,7 +46,6 @@
 </div>
 <script>
 function updatecart(obj){
-	
 	jQuery("#checkout-form").submit();
 }
 </script>
