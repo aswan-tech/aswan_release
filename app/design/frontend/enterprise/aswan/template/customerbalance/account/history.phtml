@@ -24,31 +24,9 @@
  * @license     http://www.magentocommerce.com/license/enterprise-edition
  */
 ?>
-<?php if ($this->canShow() && $this->getEvents() && count($this->getEvents())): ?>
-    <h2 class="table-caption"><?php echo Mage::helper('enterprise_customerbalance')->__('Balance History'); ?></h2>
-    <table id="customerbalance-history" class="data-table">
-        <col />
-        <col width="100" />
-        <col width="100" />
-        <col width="150" />
-        <thead>
-            <tr>
-                <th><?php echo Mage::helper('enterprise_customerbalance')->__('Action'); ?></th>
-                <th><?php echo Mage::helper('enterprise_customerbalance')->__('Balance Change'); ?></th>
-                <th><?php echo Mage::helper('enterprise_customerbalance')->__('Balance'); ?></th>
-                <th><?php echo Mage::helper('enterprise_customerbalance')->__('Date'); ?></th>
-            </tr>
-        </thead>
-        <?php foreach ($this->getEvents() as $event): ?>
-        <tbody>
-            <tr>
-                <td><?php echo $this->getActionLabel($event->getAction()); ?></td>
-                <td><?php echo Mage::helper('core')->currency($event->getBalanceDelta()); ?></td>
-                <td><?php echo Mage::helper('core')->currency($event->getBalanceAmount()); ?></td>
-                <td><?php echo Mage::helper('core')->formatDate($event->getUpdatedAt(), 'short', true); ?></td>
-            </tr>
-        </tbody>
-        <?php endforeach; ?>
-    </table>
-    <script type="text/javascript">decorateTable('customerbalance-history')</script>
-<?php endif; ?>
+<div class="walletbox">
+<h3 class="sub-title"><?php echo Mage::helper('enterprise_customerbalance')->__('Total store credit in my wallet'); ?></h3>
+<p><?php echo Mage::helper('core')->currency($this->getBalance()); ?></p>
+<h4><?php echo Mage::helper('enterprise_customerbalance')->__('are available to shop'); ?></h4>
+
+</div>

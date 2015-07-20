@@ -1,76 +1,150 @@
-<?php
-/**
- * Magento Enterprise Edition
- *
- * NOTICE OF LICENSE
- *
- * This source file is subject to the Magento Enterprise Edition License
- * that is bundled with this package in the file LICENSE_EE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://www.magentocommerce.com/license/enterprise-edition
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magentocommerce.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magentocommerce.com for more information.
- *
- * @category    design
- * @package     base_default
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
- * @license     http://www.magentocommerce.com/license/enterprise-edition
- */
-?>
 <?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
-<?php $_orders = $this->getOrders(); ?>
-<div class="page-title">
-    <h1><?php echo $this->__('My Orders') ?></h1>
-</div>
+<?php  $_orders = $this->getOrders(); ?>
 <?php echo $this->getPagerHtml(); ?>
 <?php if($_orders->getSize()): ?>
-<table class="data-table" id="my-orders-table">
-    <col width="1" />
-    <col width="1" />
-    <col />
-    <col width="1" />
-    <col width="1" />
-    <col width="1" />
-    <thead>
-        <tr>
-            <th><?php echo $this->__('Order #') ?></th>
-            <th><?php echo $this->__('Date') ?></th>
-            <th><?php echo $this->__('Ship To') ?></th>
-            <th><span class="nobr"><?php echo $this->__('Order Total') ?></span></th>
-            <th><span class="nobr"><?php echo $this->__('Order Status') ?></span></th>
-            <th>&nbsp;</th>
-        </tr>
-    </thead>
-    <tbody>
-        <?php $_odd = ''; ?>
-        <?php foreach ($_orders as $_order): ?>
-        <tr>
-            <td><?php echo $_order->getRealOrderId() ?></td>
-            <td><span class="nobr"><?php echo $this->formatDate($_order->getCreatedAtStoreDate()) ?></span></td>
-            <td><?php echo $_order->getShippingAddress() ? $this->htmlEscape($_order->getShippingAddress()->getName()) : '&nbsp;' ?></td>
-            <td><?php echo $_order->formatPrice($_order->getGrandTotal()) ?></td>
-            <td><em><?php echo $_order->getStatusLabel() ?></em></td>
-            <td class="a-center">
-                <span class="nobr"><a href="<?php echo $this->getViewUrl($_order) ?>"><?php echo $this->__('View Order') ?></a>
-                    <?php /*<span class="separator">|</span><a href="<?php echo $this->getTrackUrl($_order) ?>"><?php echo $this->__('Track Order') ?></a>&nbsp;*/ ?>
-                    <?php if ($this->helper('sales/reorder')->canReorder($_order)) : ?>
-                    <span class="separator">|</span> <a href="<?php echo $this->getReorderUrl($_order) ?>" class="link-reorder"><?php echo $this->__('Reorder') ?></a>
-                <?php endif ?>
-                </span>
-            </td>
-        </tr>
-        <?php endforeach; ?>
-    </tbody>
+
+<div id="orderlist">
+<ul>
+<?php 
+foreach ($_orders as $_order): 
+	$status = $_order->getStatusLabel();
+	$order_id = $_order->getIncrementId();
+	$order = Mage::getModel('sales/order')->loadByIncrementId($order_id); 
+	$shipmentCollection = $order->getShipmentsCollection();
+	$track_number = '';
+	foreach($shipmentCollection as $shipment)
+	{
+		$shipmentIncrementId = $shipment->getIncrementId();
+		$shipment=Mage::getModel('sales/order_shipment')->loadByIncrementId($shipmentIncrementId);
+		foreach ($shipment->getAllTracks() as $track)
+		{
+			$track_number=$track->getnumber();
+			$track_title=$track->gettitle();
+		}
+	} 
+$items = $order->getAllVisibleItems();
+$shipping_address = $order->getShippingAddress(); 
+$countryCode = $shipping_address->getData('country_id');
+$country = Mage::getModel('directory/country')->loadByCode($countryCode);	
+?>
+ <li>
+	<div class="orderhead">
+	<table width="100%" border="0" cellspacing="0" cellpadding="0">
+			<tr>
+			  <td>ORDER NO: <?php echo $_order->getRealOrderId() ?></td>
+				<td>Items: <?php echo round($_order->getTotalQtyOrdered()) ?> Qty</td>
+				<td><?php echo $this->formatDate($_order->getCreatedAtStoreDate()) ?></td>
+				<td>Order Value: <?php echo $_order->formatPrice($_order->getGrandTotal()) ?></td>
+				<td><a href="#tab_<?php echo $_order->getId();?>" class="details">Track details</a>
+			</tr>
+		  </table>
+	</div>
+	 <div class="orderdetail" id="tab_<?php echo $_order->getId();?>">
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+	<?php 
+	foreach ($items as $item){
+		$product = Mage::getModel('catalog/product')->load($item->getProductId());
+		$orderItemOptions = $item->getProductOptions();
+		$imageUrl = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA) . 'catalog/product' . $product->getImageUrl();
+		$imageCacheUrl = Mage::helper('catalog/image')->init($product, 'image')->resize(320,334);
+	?>	
+	<tr>
+		<td width="50%"><img src="<?php echo $imageCacheUrl;?>" />
+		<h3><a href="#"><?php echo $product->getName();?></a></h3>
+		<p><?php echo $orderItemOptions['attributes_info'][1]['value'];?>/ <?php echo $orderItemOptions['attributes_info'][0]['value'];?><br />
+		Qty : <?php echo (int)$item->getData('qty_ordered');?></p>
+		<p><span class="price">Rs<?php echo round($item->getPrice());?></span></p>
+      </td>
+    <td>
+    <h4>AWB No. : <?php if($track_number != ''){ echo $track_number; } else{ echo  'Not Tracking No.';} ?>
+    <br/>
+		<a href="#" class="trackdata" data-row="trackrow_<?php echo $item->getProductId();?>_<?php echo $order_id;?>" title="Copy AWB No.">Track Order</a> 
+		<a class="fancybox" href="#reportissue">Report an issue / Return</a></h4>
+    </td>
+  </tr>
+    <tr class="trackrow" id="trackrow_<?php echo $item->getProductId();?>_<?php echo $order_id;?>">
+	<td colspan="2">
+		  <ol>
+			  <li>Status 1</li>
+			  <li>Status 2</li>
+			  <li class="current">Status 3</li>
+			  <li>Status 4</li>
+			  <li>Status 5</li>
+			  <li>Status 6</li>
+		  </ol>
+	</td>
+  </tr>
+	 <?php 	 
+	}
+	?>
+	 <tr>
+    <td colspan="2">
+	<address><strong>Delivery Details:</strong> 
+		<?php echo $shipping_address->getData('street');?>,
+		<?php echo $shipping_address->getData('city');?>, <?php echo $shipping_address->getData('region');?>, <?php echo $country->getName();?>,<?php echo $shipping_address->getPostcode();?>, T: <?php echo $shipping_address->getTelephone(); ?>
+	</address>
+	</td>
+	</tr> 
 </table>
+  <?php
+  endforeach; 
+  ?>
+</li>
+</ul>
+</div>
+<div class="globlepopup" id="reportissue">
+	<input type="radio" name="reportreturn" id="report" data-toggle="tab1" checked="checked"/><label for="report">Report an issue</label>
+	<input type="radio" name="reportreturn" id="return" data-toggle="tab2" /> <label for="return">Return</label>
+	<input type="radio" name="reportreturn" id="exchange" data-toggle="tab3" /> <label for="exchange">Exchange</label>
+	<br />
+<div class="rowhold" id="tab1" style="display:block;">
+	<select>
+		<option selected="selected">Reason ?</option>
+		<option>Qty</option>
+		<option>Quality</option>
+		<option>Size</option>
+		<option>Color</option>
+		<option>Delivery</option>
+		<option>Other</option>
+	</select>
+</div>
+<div class="rowhold" id="tab2">
+<select>
+	<option selected="selected">Reason ?</option>
+	<option>Quality</option>
+	<option>Fit</option>
+	<option>Size</option>
+	<option>Color</option>
+	<option>Other</option>
+</select>
+<select>
+	<option selected="selected">Resolution</option>
+	<option>Exchange</option>
+	<option>Refund</option>
+</select>
+</div>
+<div class="rowhold" id="tab3">
+<select>
+	<option selected="selected">Reason ?</option>
+	<option>Color</option>
+	<option>Size</option>
+	<option>Other</option>
+</select>
+<select>
+	<option selected="selected">Resolution</option>
+	<option>Exchange with other color</option>
+	<option>Exchange with white color</option>
+	<option>Size L</option>
+	<option>Size M</option>
+</select>
+</div>
+<textarea placeholder="Comment"></textarea>
+	<a href="#" class="go">Submit</a>
+</div>
 <script type="text/javascript">decorateTable('my-orders-table');</script>
 <?php echo $this->getPagerHtml(); ?>
 <?php else: ?>
     <p><?php echo $this->__('You have placed no orders.'); ?></p>
 <?php endif ?>
+
+

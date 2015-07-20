@@ -121,7 +121,7 @@
         </reference>
     </enterprise_giftcardaccount_customer_index>
 
-    <customer_account>
+    <!--<customer_account>
         <reference name="customer_account_navigation">
             <action method="addLink" translate="label" module="enterprise_giftcardaccount">
                 <name>enterprise_giftcardaccount</name>
@@ -129,7 +129,7 @@
                 <label>Gift Card</label>
             </action>
         </reference>
-    </customer_account>
+    </customer_account>-->
 
     <enterprise_customerbalance_info_index>
         <reference name="customerbalance.wrapper">
