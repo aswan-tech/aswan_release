@@ -1,0 +1,11 @@
+<?php $action = Mage::app()->getFrontController()->getAction()->getFullActionName('_'); ?>
+
+<div class="wallettab">
+    <ul>
+		<li><a href="<?php echo $this->getUrl('customer/account/wallet')?>" class="<?php if ($action == 'customer_account_wallet'){echo "active";};?>">Total Monetary Value</a></li>
+		<li><a href="<?php echo $this->getUrl('customer/account/coupons') ?>" class="<?php if ($action == 'customer_account_coupons'){echo "active";};?>">My Coupons</a></li>
+		<li><a href="<?php echo $this->getUrl('storecredit/info/') ?>" class="<?php if ($action == 'enterprise_customerbalance_info_index'){echo "active";};?>">Store Credits</a></li>
+		<li><a href="<?php echo $this->getUrl('giftcard/customer/') ?>" class="<?php if ($action == 'enterprise_giftcardaccount_customer_index'){echo "active";};?>">Evoucher</a></li>
+	</ul>
+</div>
+

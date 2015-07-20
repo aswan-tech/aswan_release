@@ -1,0 +1,91 @@
+<div id="accountright">	
+<?php 
+$customerinfo = Mage::getSingleton('customer/session');
+if($customerinfo->isLoggedIn()){
+	$customer = Mage::getSingleton('customer/session')->getCustomer();
+?>
+<h2>Welcome <?php echo $customer->getFirstname();?>!</h2>
+<?php 
+}
+?>
+<p>We're glad to have you join our American Swan family! There's a lot to see and do on this website. This is your account page. Please take a few minutes to enter a bit more information about yourself so that we can provide a more intimate experience.</p>
+<h2>My private information</h2>
+<div class="infobox">
+<h3>Basic information</h3>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+	<?php 
+	if($customerinfo->isLoggedIn()){
+	$customer = Mage::getSingleton('customer/session')->getCustomer();
+	
+	?>
+	 <tr>
+    <td><strong>Name:</strong></td>
+    <td>
+    <div id="uname"><?php echo $customer->getFirstname();?><a href="#" show-tab="editname" hide-tab="uname">Edit</a></div>
+    <div class="editform" id="editname"><input type="text" value="<?php echo $customer->getFirstname();?>" /> <a href="#" show-tab="uname" hide-tab="editname">Save</a></div>
+    </td>
+  </tr>
+	<tr>
+    <td><strong>Email:</strong></td>
+    <td>
+     <div id="uemail"><?php echo $customer->getEmail();?><a href="#" show-tab="editemail" hide-tab="uemail">Edit</a></div>
+     <div class="editform" id="editemail"><input type="text" value="<?php echo $customer->getEmail();?>" /> <a href="#" show-tab="uemail" hide-tab="editemail">Save</a></div>
+     </td>
+  </tr>
+  <tr>
+    <td><strong>Phone:</strong></td>
+    <td>
+<div id="uphone">+91-<?php echo $customer->getTelephone();?> <a href="#" show-tab="editphone" hide-tab="uphone">Edit</a></div>
+<div class="editform" id="editphone"><input type="text" value="+91-<?php echo $customer->getTelephone();?>" /> <a href="#mobileopt" class="fancybox">Save</a></div>
+</td>
+  </tr>
+  <tr>
+    <td><strong>Birthday:</strong></td>
+    <td>
+<div id="ubirth"><?php echo $customer->getDob();?><a href="#" show-tab="editbirth" hide-tab="ubirth">Edit</a></div>
+<div class="editform" id="editbirth"><input type="text" value="<?php echo $customer->getDob();?>" /> <a href="#" show-tab="ubirth" hide-tab="editbirth">Save</a></div>
+</td>
+  </tr>
+  <tr>
+    <td><strong>Password:</strong></td>
+    <td>
+<div id="upassword">********** <a href="#" show-tab="editpassword" hide-tab="upassword">Edit</a></div>
+<div class="editform" id="editpassword"><input type="password" type="text" value="**********" /> <a href="#" show-tab="upassword" hide-tab="editpassword">Save</a></div>
+</td>
+  </tr>
+	<?php 
+	}
+	?>
+</table>
+</div>
+
+<div class="infobox">
+<h3>Social Connections</h3>
+<a href="#"><img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN);?>frontend/enterprise/aswan/images/facebook-conn.jpg" /></a>
+<p>Follow your friends on AS Me and easily share<br />
+items, style pics and collections with them.</p>
+<p><input type="checkbox" /> Keep me logged in</p>
+
+<p><strong>Why Connect with facebook</strong></p>
+<ul>
+<li>Have your American Swan account already linked to facebook?</li>
+<li>Sign in with one step</li>
+<li>Not linked to facebook?</li>
+<li>Create a American Swan account or sign into your American Swan account to link it to facebook</li>
+</ul>
+<a href="#"><img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN);?>frontend/enterprise/aswan/images/instagram.jpg" /></a>
+<p>Add style pics to AS Me directly from your<br />
+instagram account.</p>
+</div>
+</div>
+
+<div id="mobileopt" class="globlepopup">
+<h3><strong>Yay!</strong> Your Sweet Code is on the Way!</h3>
+<p>One Time Password (OTP) has been sent to your mobile number</p>
+<label>Please enter your OTP</label>
+<input type="text" />
+<p>If you have not received the OTP. Please click to <a href="#">Regenerate</a></p>
+<a href="#" class="go">Confirm</a>
+<p>Your contact number +919898989876</p>
+</div>
+

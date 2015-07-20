@@ -1,0 +1,16 @@
+<?php 
+    $enterpriseRewardHelper = Mage::helper('enterprise_reward');
+    $maxBalance = (int)Mage::helper('enterprise_reward')->getGeneralConfig('max_points_balance');
+    $minBalance = (int)Mage::helper('enterprise_reward')->getGeneralConfig('min_points_balance');
+    $storeCreditBlock = $this->getLayout()->getBlockSingleton('Enterprise_CustomerBalance_Block_Account_Balance');
+?>
+
+<div id="mywallet">
+<?php echo $this->getLayout()->createBlock('core/template')->setTemplate('customer/account/navigation2.phtml')->toHtml(); ?>
+	<div class="walletbox">
+		<h3>Total value in my wallet</h3>
+		<h4> <?php echo $enterpriseRewardHelper->formatAmount($storeCreditBlock->getBalance());?></h4>
+		<p>are available to shop</p>
+	</div>
+</div>
+</div>

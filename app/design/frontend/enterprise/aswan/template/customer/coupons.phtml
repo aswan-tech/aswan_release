@@ -1,0 +1,108 @@
+<?php $aLoyaltyRules = $this->getLoyaltyRulesCustom(); ?>
+<?php
+//print count($aLoyaltyRules);
+foreach ($aLoyaltyRules as $_rule):
+		$actUsed = 0;
+		if(!is_null($_rule->getActUsed())){
+				$actUsed = $_rule->getActUsed();
+		}
+		if(!is_null($_rule->getExpirationDate()) && strtotime($_rule->getExpirationDate()) <= time()) {
+			continue;
+		}
+		$iCount++;
+endforeach; 
+?>
+<div id="mywallet">
+<?php echo $this->getLayout()->createBlock('core/template')->setTemplate('customer/account/navigation2.phtml')->toHtml(); ?>
+<div class="walletbox">
+<h3>Total coupons in my wallet</h3>
+<h4><?php echo (int) $iCount ?> Coupon</h4>
+<p>are available to shop</p>
+</div>
+<div class="wallet-table">
+<?php $iCount = 0;?>
+<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+<?php echo $this->getChildHtml('info');?>
+<?php if(count($aLoyaltyRules)): ?>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+    <?php if ($this->getPagerHtml() != '') { 	
+	?>
+		<tr>
+			<td colspan="6" class="pagerNav">
+				<?php echo $this->getPagerHtml(); ?>
+			</td>
+		</tr>
+            <?php  } ?>
+		<tr>
+			<th><?php echo $this->__('Coupon Code') ?></th>
+			<th><?php echo $this->__('Description') ?></th>
+			<th><?php echo $this->__('Expiry Date') ?></th>
+			<th><?php echo $this->__('Can Be Used') ?></th>
+			<th><?php echo $this->__('Times Used') ?></th>
+		</tr>
+		<?php $_odd = 1; ?>
+		<?php
+			//print count($aLoyaltyRules);
+			foreach ($aLoyaltyRules as $_rule):
+				$actUsed = 0;
+				if(!is_null($_rule->getActUsed())){
+					$actUsed = $_rule->getActUsed();
+				}
+		?>
+		<?php 	$iCount++;	?>
+				<tr class="<?php if ($_odd %2 == 0) { echo 'evenRow'; } else { echo 'oddRow';} ?>">
+					<td><?php echo wordwrap($_rule->getCode(), 25, "<br>", true); ?></td>
+					<td>
+						<?php
+							if($_rule->getValue()!=''){
+								$content = trim($_rule->getValue());
+							}else{
+								$content = trim($_rule->getName());
+							}
+							
+							print $content;
+						?>
+					</td>
+					<td>
+						<?php
+							if(is_null($_rule->getExpirationDate())){
+								echo 'N/A';
+							}else{
+								echo $this->formatDate($_rule->getExpirationDate(), 'medium');
+							}
+						?>
+					</td>
+					<td>
+						<?php
+						
+							print $_rule->getUsesPerCustomer();
+							
+						?>
+					</td>
+					<td><?php echo $actUsed;?></td>
+				</tr>
+		<?php
+			$_odd++;
+			endforeach; 
+		?>
+       <?php if ($this->getPagerHtml() != '') { ?>
+		<tr>
+			<td colspan="6" class="pagerNav">
+				<?php echo $this->getPagerHtml(); ?>
+			</td>
+		</tr>
+                                <?php } ?>
+	</table>
+<?php endif; ?>
+<?php if (!$iCount): ?>
+    <?php echo $this->helper('sales')->__('No specials currently available') ?>
+<?php endif; ?>         
+</div>
+
+
+
+
+
+
+                
+                
