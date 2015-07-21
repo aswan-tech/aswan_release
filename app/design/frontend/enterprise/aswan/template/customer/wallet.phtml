@@ -9,7 +9,7 @@
 <?php echo $this->getLayout()->createBlock('core/template')->setTemplate('customer/account/navigation2.phtml')->toHtml(); ?>
 	<div class="walletbox">
 		<h3>Total value in my wallet</h3>
-		<h4> <?php echo $enterpriseRewardHelper->formatAmount($storeCreditBlock->getBalance());?></h4>
+		<h4> <?php echo $enterpriseRewardHelper->formatAmount($storeCreditBlock->getBalance());?> [Store Credit]</h4>
 		<p>are available to shop</p>
 	</div>
 </div>

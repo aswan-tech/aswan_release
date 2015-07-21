@@ -25,17 +25,19 @@
 
                 <label for="message"><?php echo Mage::helper('enterprise_invitation')->__('Message');?>: </label>
                 <div class="input-box">
-                    <textarea tabindex="<?php echo $_index+1 ?>" name="message" id="message" title="<?php echo Mage::helper('enterprise_invitation')->__('Message') ?>"  class="<?php if ($_index == 1): ?>required-entry <?php endif;?>input-text validate-email"  rows="5" cols="5"></textarea>
+                    <textarea onkeyup="countChar(this)" tabindex="<?php echo $_index+1 ?>" name="message" id="message" title="<?php echo Mage::helper('enterprise_invitation')->__('Message') ?>"  class="required-entry input-text"  rows="5" cols="5"></textarea>
                 </div>
-                <div class="inputnote">Max 500 characters.</div>
+                <div class="inputnote">Max <span id="charNum">500</span> characters.</div>
                 
         <?php endif;?>
 <p class="required"><?php echo Mage::helper('enterprise_invitation')->__('') ?></p>
-<button class="go" type="submit"><span><span><?php echo Mage::helper('enterprise_invitation')->__('Send Invitations') ?></span></span></button>
+<button class="go" onclick="sendInvitation();"><?php echo Mage::helper('enterprise_invitation')->__('Send Invitations') ?></button>
 </div>
 </form>
 <script type="text/javascript">
-    var contactForm = new VarienForm('invitationForm', true);
+	function sendInvitation() {
+		var contactForm = new VarienForm('invitationForm', true);
+	}
 </script>
 <?php else:?>
 <p><?php echo Mage::helper('enterprise_invitation')->__('You cannot send more invitations'); ?></p>
@@ -53,7 +55,7 @@
     <?php foreach ($this->getInvitationCollection() as $invitation): ?>
         <tr>
             <td><?php echo $this->htmlEscape($invitation->getEmail()); ?></td>
-            <td><?php echo "10/12/2015"; ?></td>
+            <td><?php echo date("d M, y", strtotime($invitation->getData('invitation_date'))); ?></td>
             <td><?php echo $this->helper('enterprise_invitation')->getInvitationStatusText($invitation);?></td>
         </tr>
     <?php endforeach; ?>
@@ -68,3 +70,13 @@
 </table>
 </div>
 </div>
+<script>
+function countChar(val) {
+        var len = val.value.length;
+        if (len >= 500) {
+          val.value = val.value.substring(0, 500);
+        } else {
+          jQuery('#charNum').text(500 - len);
+        }
+      };
+</script>

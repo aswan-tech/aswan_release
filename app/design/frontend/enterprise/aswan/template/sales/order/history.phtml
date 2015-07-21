@@ -5,13 +5,17 @@
 
 <div id="orderlist">
 <ul>
-<?php 
+<?php
+$orderStatusArr = array('COD_Verification_Pending'=>'Pending', 'pending'=>'Pending', 'created'=>'In Processing', 'processing'=>'In Processing', 
+						'COD_Verification_Successful'=>'COD Verified');
+ 
 foreach ($_orders as $_order): 
-	$status = $_order->getStatusLabel();
+	//$status = $_order->getStatusLabel();
 	$order_id = $_order->getIncrementId();
 	$order = Mage::getModel('sales/order')->loadByIncrementId($order_id); 
 	$shipmentCollection = $order->getShipmentsCollection();
 	$track_number = '';
+	$shipping_url = '';
 	foreach($shipmentCollection as $shipment)
 	{
 		$shipmentIncrementId = $shipment->getIncrementId();
@@ -21,23 +25,39 @@ foreach ($_orders as $_order):
 			$track_number=$track->getnumber();
 			$track_title=$track->gettitle();
 		}
-	} 
-$items = $order->getAllVisibleItems();
-$shipping_address = $order->getShippingAddress(); 
-$countryCode = $shipping_address->getData('country_id');
-$country = Mage::getModel('directory/country')->loadByCode($countryCode);	
+	}
+	
+	if($track_title != '') {
+		$provider = Mage::getModel("provider/provider")->getCollection()->addFilter('shippingprovider_name',$track_title);
+		foreach ($provider as $track_provider)
+		{
+			$shipping_url = $track_provider->getshippingprovider_action();
+		}
+	}
+					 
+	$items = $order->getAllVisibleItems();
+	$shipping_address = $order->getShippingAddress(); 
+	$countryCode = $shipping_address->getData('country_id');
+	$country = Mage::getModel('directory/country')->loadByCode($countryCode);
+	
+	$orderStatus = "Status: ".(isset($orderStatusArr[$_order->getStatus()]) ? $orderStatusArr[$_order->getStatus()] : ucfirst($_order->getStatus()));
+	
+	if($track_number != '') {
+		$orderStatus = $track_title.' ('.$track_number.')';
+	}	
 ?>
  <li>
 	<div class="orderhead">
 	<table width="100%" border="0" cellspacing="0" cellpadding="0">
-			<tr>
-			  <td>ORDER NO: <?php echo $_order->getRealOrderId() ?></td>
-				<td>Items: <?php echo round($_order->getTotalQtyOrdered()) ?> Qty</td>
-				<td><?php echo $this->formatDate($_order->getCreatedAtStoreDate()) ?></td>
-				<td>Order Value: <?php echo $_order->formatPrice($_order->getGrandTotal()) ?></td>
-				<td><a href="#tab_<?php echo $_order->getId();?>" class="details">Track details</a>
-			</tr>
-		  </table>
+		<tr>
+			<td width="16.66%"><?php echo $_order->getRealOrderId() ?></td>
+			<td width="10.66%">Items: <?php echo round($_order->getTotalQtyOrdered()) ?> Qty</td>
+			<td width="16.66%"><?php echo date("jS M, y", strtotime($_order->getCreatedAtStoreDate())); ?></td>
+			<td width="16.66%">Order Value: <?php echo $_order->formatPrice($_order->getGrandTotal()) ?></td>
+			<td width="22.66%"><?php echo $orderStatus ?></td>
+			<td width="16.66%"><a href="#tab_<?php echo $_order->getId();?>" class="details">Track details</a>
+		</tr>
+	  </table>
 	</div>
 	 <div class="orderdetail" id="tab_<?php echo $_order->getId();?>">
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
@@ -56,13 +76,16 @@ $country = Mage::getModel('directory/country')->loadByCode($countryCode);
 		<p><span class="price">Rs<?php echo round($item->getPrice());?></span></p>
       </td>
     <td>
-    <h4>AWB No. : <?php if($track_number != ''){ echo $track_number; } else{ echo  'Not Tracking No.';} ?>
+    <h4><?php if($track_number != ''){ echo 'AWB No. : '.$track_number; } ?>
     <br/>
-		<a href="#" class="trackdata" data-row="trackrow_<?php echo $item->getProductId();?>_<?php echo $order_id;?>" title="Copy AWB No.">Track Order</a> 
-		<a class="fancybox" href="#reportissue">Report an issue / Return</a></h4>
+    <?php if(!empty($track_number)) { ?>
+    <a href="javascript:void(0);" onclick="track('<?php echo $shipping_url ?>')" target="_blank" class="trackdata" title="Copy AWB No.">Track</a>
+    <?php } ?>
+		<?php /*<a href="#" class="trackdata" data-row="trackrow_<?php echo $item->getProductId();?>_<?php echo $order_id;?>" title="Copy AWB No.">Track</a> 
+		<a class="fancybox" href="#reportissue">Report an issue / Return</a>*/?></h4>
     </td>
   </tr>
-    <tr class="trackrow" id="trackrow_<?php echo $item->getProductId();?>_<?php echo $order_id;?>">
+   <?php /* <tr class="trackrow" id="trackrow_<?php echo $item->getProductId();?>_<?php echo $order_id;?>">
 	<td colspan="2">
 		  <ol>
 			  <li>Status 1</li>
@@ -73,7 +96,7 @@ $country = Mage::getModel('directory/country')->loadByCode($countryCode);
 			  <li>Status 6</li>
 		  </ol>
 	</td>
-  </tr>
+  </tr>*/?>
 	 <?php 	 
 	}
 	?>
@@ -92,7 +115,7 @@ $country = Mage::getModel('directory/country')->loadByCode($countryCode);
 </li>
 </ul>
 </div>
-<div class="globlepopup" id="reportissue">
+<?php /*<div class="globlepopup" id="reportissue">
 	<input type="radio" name="reportreturn" id="report" data-toggle="tab1" checked="checked"/><label for="report">Report an issue</label>
 	<input type="radio" name="reportreturn" id="return" data-toggle="tab2" /> <label for="return">Return</label>
 	<input type="radio" name="reportreturn" id="exchange" data-toggle="tab3" /> <label for="exchange">Exchange</label>
@@ -140,11 +163,15 @@ $country = Mage::getModel('directory/country')->loadByCode($countryCode);
 </div>
 <textarea placeholder="Comment"></textarea>
 	<a href="#" class="go">Submit</a>
-</div>
+</div>*/?>
 <script type="text/javascript">decorateTable('my-orders-table');</script>
 <?php echo $this->getPagerHtml(); ?>
 <?php else: ?>
     <p><?php echo $this->__('You have placed no orders.'); ?></p>
 <?php endif ?>
-
+<script>
+function track(url) {
+	window.open(url,'_blank');
+}
+</script>
 

@@ -65,6 +65,8 @@ class Enterprise_Invitation_IndexController extends Mage_Core_Controller_Front_A
             $attempts = 0;
             $sent     = 0;
             $customerExists = 0;
+            $data['email'] = explode(",", $data['email'][0]);
+         
             foreach ($data['email'] as $email) {
                 $attempts++;
                 if (!Zend_Validate::is($email, 'EmailAddress')) {
@@ -73,6 +75,7 @@ class Enterprise_Invitation_IndexController extends Mage_Core_Controller_Front_A
                 if ($attempts > $invPerSend) {
                     continue;
                 }
+                
                 try {
                     $invitation = Mage::getModel('enterprise_invitation/invitation')->setData(array(
                         'email'    => $email,
@@ -102,7 +105,7 @@ class Enterprise_Invitation_IndexController extends Mage_Core_Controller_Front_A
             }
             if ($customerExists) {
                 Mage::getSingleton('customer/session')->addNotice(
-                    Mage::helper('enterprise_invitation')->__('%d invitation(s) were not sent, because customer accounts already exist for specified email addresses.', $customerExists)
+                    Mage::helper('enterprise_invitation')->__($customerExists.' invitation(s) were not sent, because customer accounts already exist for specified email addresses.', $customerExists)
                 );
             }
             $this->_redirect('*/*/');

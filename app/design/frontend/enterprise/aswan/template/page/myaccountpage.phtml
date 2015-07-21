@@ -66,19 +66,17 @@
 <?php 
 $customerinfo = Mage::getSingleton('customer/session');
 if($customerinfo->isLoggedIn()){
-	$customer = Mage::getSingleton('customer/session')->getCustomer();
-	if($customer->getGender() == '1'){
-	?>
-	<div class="profilepic"><img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN);?>frontend/enterprise/aswan/images/guy-icon.jpg" /></div>
-	<?php
+	$customer = $customerinfo->getCustomer();
+	$profileIcon = "default-icon.jpg";
+	if($customer->getGender() == '1') {
+		$profileIcon = "guy-icon.jpg";
 	}
-	else{
-	?>
-	<div class="profilepic"><img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN);?>frontend/enterprise/aswan/images/girl-icon.jpg" /></div>
-	<?php 
+	else if($customer->getGender() == '2'){
+		$profileIcon = "girl-icon.jpg";
 	}
-?>	
-<?php 
+?>
+	<div class="profilepic"><img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN);?>frontend/enterprise/aswan/images/<?php echo $profileIcon; ?>" /></div>
+<?php	
 }
 ?>
 <div class="accountlinks">
