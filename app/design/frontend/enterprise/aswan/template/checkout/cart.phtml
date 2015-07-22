@@ -5,6 +5,7 @@
  * @see Mage_Checkout_Block_Cart
  */
 ?>
+<?php $itemArr = Mage::helper('common')->getItemByType(); ?>
 <div class="pagename"><h2><?php echo $this->__('My Shopping Bag');?></h2>
 <?php echo $this->getMessagesBlock()->getGroupedHtml(); ?>
 </div>
@@ -31,13 +32,17 @@
             <?php endif; ?>
         <?php endforeach; ?>
         <?php endif; ?>
-        
+        <?php if(!in_array('giftcard', $itemArr) && (in_array('configurable', $itemArr) || in_array('simple', $itemArr) )) { ?>
 		<div class="couponboxs">
 			 <?php echo $this->getChildHtml('coupon'); ?>
 		</div>
+		<?php } ?>
+		
+		<?php if(in_array('giftcard', $itemArr) && (in_array('configurable', $itemArr) || in_array('simple', $itemArr) )) { ?>
 		<div class="couponboxs">
 			<?php echo $this->getChildHtml('giftcards');?>
 		</div>
+		<?php } ?>
 	</div>
 	</div>
 	
@@ -49,6 +54,32 @@ function updatecart(obj){
 	jQuery("#checkout-form").submit();
 }
 </script>
-
-
-
+<script type="text/javascript" class="microad_blade_track">
+    var microad_blade_gl = microad_blade_gl || { 'params' : new Array(), 'complete_map' : new Object() };
+    (function() {
+        var param = {'co_account_id' : '4720', 'group_id' : 'convtrack15456', 'country_id' : '4', 'ver' : '2.1.0'};
+        microad_blade_gl.params.push(param);
+        var src = '//d-cache.microadinc.com/js/blade_track_gl.js'; var bs = document.createElement('script');
+        bs.type = 'text/javascript'; bs.async = true; bs.charset = 'utf-8'; bs.src = src;
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(bs, s);
+    })();
+</script>
+<?php
+/*
+ * Data Layer
+ */ 
+$items = Mage::getSingleton('checkout/session')->getQuote()->getAllItems();
+foreach($items as $item) {
+	if($item->getProductType() == "configurable") { continue; }
+	$product = Mage::getModel('catalog/product')->load($item->getProductId());
+	$sku[] = $product->getSku();
+}
+?>
+<script type="text/javascript">
+dataLayer.push(
+{'PAGE_TYPE': 'CART'},
+{'PRODUCT_LIST_CART': '<?php echo implode( ',', $sku );?>'},
+{'ORDER_VALUE': '<?php echo Mage::getSingleton('checkout/cart')->getQuote()->collectTotals()->getGrandTotal()?>'},
+{'ORDER_COUNT':'<?php echo Mage::getModel('checkout/cart')->getQuote()->getItemsQty(); ?>'}
+);
+</script>

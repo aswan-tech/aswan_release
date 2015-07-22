@@ -9,6 +9,8 @@
 	$isVisibleProduct = $_item->getProduct()->isVisibleInSiteVisibility();
 	$canApplyMsrp = Mage::helper('catalog')->canApplyMsrp($_item->getProduct(), Mage_Catalog_Model_Product_Attribute_Source_Msrp_Type::TYPE_BEFORE_ORDER_CONFIRM);
 	$_product = $_item->getProduct();
+	$__product = Mage::getModel('catalog/product')->loadByAttribute('sku', $_item->getSku());
+	$stock = Mage::getModel('cataloginventory/stock_item')->loadByProduct($__product);
 ?>
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
 	<tr>
@@ -131,8 +133,10 @@
                 <?php else: ?>
                     <?php echo $this->helper('checkout')->formatPrice($_incl-$_item->getWeeeTaxDisposition()) ?>
                 <?php endif; ?>
+                <?php if($_item->getProduct()->getPrice() != $_item->getProduct()->getFinalPrice()) { ?>
                 <u><?php echo $this->helper('checkout')->formatPrice($_item->getProduct()->getPrice())?></u>
 				<br>
+				<?php } ?>
 				<?php 
 					$_finalPrice = $this->helper('checkout')->formatPrice($_item->getProduct()->getFinalPrice());
 					$_price = (int)$this->helper('checkout')->formatPrice($_item->getProduct()->getPrice());
@@ -174,8 +178,10 @@
             
         <?php endif; ?>
     <?php endif; ?>
-   
 			</h5>
+			<?php if (!$stock->getData('is_in_stock') || $stock->getData('qty') <= 0){ ?>
+			<span class="soldout">Soldout</span>
+			<?php } ?>
 			<a href="<?php echo $this->getDeleteUrl()?>" title="<?php echo $this->__('Remove item')?>" class="removebut"><?php echo $this->__('Remove')?></a>
 		</td>
 	</tr>
