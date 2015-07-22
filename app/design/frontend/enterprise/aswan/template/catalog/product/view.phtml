@@ -147,16 +147,15 @@ Posted on <strong>22-05-2015</strong></h4>
 </div>
 
 <div class="productshare">
-	<ul>
-		<li class="facebook"><a href="#"></a></li>
-		<li class="pintrest"><a href="#"></a></li>
-		<li class="twitter"><a href="#"></a></li>
-	</ul>
+<ul>
+<li class="facebook"><a href="#"></a></li>
+<li class="pintrest"><a href="#"></a></li>
+<li class="twitter"><a href="#"></a></li>
+</ul>
 </div>
 
 <h2><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></h2>
 <?php 
-<<<<<<< HEAD
  $price = Mage::helper('core')->currency($_product
                 ->getPrice(),true,false);    
  $specialPrice = Mage::helper('core')->currency($_product
@@ -171,42 +170,20 @@ $_specialPrice = Mage::helper('core')->currency($_product
            
         }
         
-=======
-$price = Mage::helper('core')->currency($_product->getPrice(),true,false);    
-$specialPrice = Mage::helper('core')->currency($_product->getFinalPrice(),true,false);
-?>
-<h3>
-<?php 
-if($price >$specialPrice) { echo '<u>'.$price.'</u>';}
-
-$_price = Mage::helper('core')->currency($_product->getPrice(),false,false);    
-$_specialPrice = Mage::helper('core')->currency($_product->getFinalPrice(),false,false);
-
->>>>>>> 00f07c596b5c5ed86ac219a3cda6e22a315ccdf6
 if($_specialPrice < $_price):
 $discount = 100-(round (($_specialPrice / $_price) * 100));
 echo '<strong>'.$discount.'% off</strong>'; ?>
 <?php endif;// Discount percent output end ?>
-<<<<<<< HEAD
 <?php if($_price ==$_specialPrice) {
          echo '<span>'.$price.'</span>';
       }
       else { 
         echo '<span>'.$specialPrice.'</span>';
      }?>
-=======
-
-<?php 
-	if($price == $specialPrice) { 
-		echo '<span>'.$price.'</span>';
-	}
-	else { 
-		echo '<span>'.$specialPrice.'</span>';
-	}
-?>
->>>>>>> 00f07c596b5c5ed86ac219a3cda6e22a315ccdf6
 <hr>
 </h3>
+
+
 
 <?php //echo $this->getReviewsSummaryHtml($_product, false, true)?>
 <?php //echo $this->getChildHtml('alert_urls') ?>
