@@ -1,7 +1,7 @@
 <?php $_item = $this->getItem(); ?>
 <?php //pr(get_class_methods($_item)); ?>
 <?php $_itemMrp = Mage::helper('common')->currency($_item->getProductMrp(), false, $this->getOrder()->getOrderCurrencyCode()); ?>
-<?php $imageSrc = Mage::getModel('catalog/product')->loadByAttribute('sku',$_item->getSku())->getImageUrl(); ?>
+<?php //$imageSrc = Mage::getModel('catalog/product')->loadByAttribute('sku',$_item->getSku())->getImageUrl(); ?>
 <?php $orderCurrCode = Mage::app()->getLocale()->currency($this->getOrder()->getOrderCurrencyCode())->getSymbol(); ?>
 <?php $product = Mage::getModel('catalog/product')->load($_item->getProductId()); ?>
 			<div class="details_block f-lato">
