@@ -412,27 +412,14 @@ if (!!jQuery('.stickycol1').length) { // make sure "#sticky" element exists
 });
 
 
-var bagslider = jQuery('#quickbag .productslide .bxslider').bxSlider({
-    		auto: true,
-			infiniteLoop: true,
-    		mode: 'horizontal',
-			slideWidth: 150,
-			minSlides: 2,
-			maxSlides:6,
-			slideMargin: 3,
-			pager: false
-  		});
-		
 jQuery('#showbag, #closebag').click(function(){
 	jQuery('#quickbag').toggleClass('showthis');
 	jQuery('#topmenu').toggleClass('topshift');
 	jQuery('#header').toggleClass('bagopen');
 	jQuery('#quickbag').slideToggle(300);
-	
-	setTimeout(function() {
-	bagslider.reloadSlider();
-	}, 100);	
-	});
+	bgslider();
+		
+});
 	
 jQuery("#checkoutright .summaryholder").mCustomScrollbar();
 jQuery("#header .topsearch #autosuggest").mCustomScrollbar();
@@ -579,7 +566,23 @@ jQuery('.summryboxs table #showvat').click(function(){
 });
 
 /*Custom 6.3 starts*/
-
+	function bgslider(){
+		var bagslider = jQuery('#quickbag .productslide .bxslider').bxSlider({
+    		auto: true,
+			infiniteLoop: true,
+    		mode: 'horizontal',
+			slideWidth: 150,
+			minSlides: 2,
+			maxSlides:6,
+			slideMargin: 3,
+			pager: false
+  		});
+		if(jQuery('#quickbag #mini-cart').length>0){
+			setTimeout(function() {
+				bagslider.reloadSlider();
+			}, 100);
+		}
+	}
 	function signup(gender, ajaxUrl) {
 	var isValid = isValidForm('signup');
 	if(isValid) {
