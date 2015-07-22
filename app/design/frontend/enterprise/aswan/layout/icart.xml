@@ -64,7 +64,7 @@
     
     <checkout_icart_added>
         <block type="icart/wrapper" name="product.added" template="icart/product_added.phtml" output="toHtml">
-            <block type="checkout/cart_sidebar" name="cart_sidebar_icart" template="checkout/cart/cartheader-icart.phtml" before="-">
+            <block type="checkout/cart_sidebar" name="cart_sidebar_icart" template="checkout/cart/cartheader.phtml" before="-">
                 <action method="addItemRender"><type>simple</type><block>checkout/cart_item_renderer</block><template>checkout/cart/sidebar/default.phtml</template></action>
                 <action method="addItemRender"><type>grouped</type><block>checkout/cart_item_renderer_grouped</block><template>checkout/cart/sidebar/default.phtml</template></action>
                 <action method="addItemRender"><type>configurable</type><block>checkout/cart_item_renderer_configurable</block><template>checkout/cart/sidebar/default.phtml</template></action>

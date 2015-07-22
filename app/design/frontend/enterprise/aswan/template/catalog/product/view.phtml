@@ -156,23 +156,25 @@ Posted on <strong>22-05-2015</strong></h4>
 
 <h2><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></h2>
 <?php 
-$price = Mage::helper('core')->currency($_product
+ $price = Mage::helper('core')->currency($_product
                 ->getPrice(),true,false);    
-$specialPrice = Mage::helper('core')->currency($_product
+ $specialPrice = Mage::helper('core')->currency($_product
                   ->getFinalPrice(),true,false);
-?>
-<h3><?php if($price >$specialPrice) {
-            echo '<u>'.$price.'</u>';
-        }
-        $_price = Mage::helper('core')->currency($_product
+$_price = Mage::helper('core')->currency($_product
                 ->getPrice(),false,false);    
 $_specialPrice = Mage::helper('core')->currency($_product
                   ->getFinalPrice(),false,false);
+?>
+<h3><?php if($_price > $_specialPrice) {
+            echo '<u>'.$price.'</u>';
+           
+        }
+        
 if($_specialPrice < $_price):
 $discount = 100-(round (($_specialPrice / $_price) * 100));
 echo '<strong>'.$discount.'% off</strong>'; ?>
 <?php endif;// Discount percent output end ?>
-<?php if($price ==$specialPrice) {
+<?php if($_price ==$_specialPrice) {
          echo '<span>'.$price.'</span>';
       }
       else { 

@@ -88,7 +88,7 @@ jQuery(document).ready(function() {
 	pager: true
   });
   
-
+  
   
   jQuery('.home-page #logo img').css('width','161px');
   var go = true;  
@@ -224,12 +224,45 @@ jQuery('#quickview .sizeguide, #quickview .quickclose ').click(function(e){
 	jQuery('.sizepopup').toggle();
 	});
 /*****for quickview*****/	  
+  jQuery('.productswaches.color ul a').click(function(e){
+	  e.preventDefault();
+	  jQuery(this).parent().siblings().find('.select').removeClass('select');
+	  jQuery(this).addClass('select');
+	  
+	  var selectImg = jQuery(this).attr('hover-img');
+	  jQuery('#detailleft .proimages img:first-child').attr('src',selectImg);	  
+	  
+	  });
+	  
+jQuery('.productswaches.color ul a').mouseover(function(e){
+	  e.preventDefault(); 
+	  var selectImg = jQuery(this).attr('hover-img');
+	  jQuery('#detailleft .proimages img:first-child').attr('src',selectImg);
+	  });
+	  
+jQuery('.productswaches.color ul a').mouseleave(function(e){
+	  e.preventDefault(); 
+	  var selectImg = jQuery('.productswaches.color ul a.select').attr('hover-img');
+	  jQuery('#detailleft .proimages img:first-child').attr('src',selectImg);
+	  });
 
   jQuery('.productswaches.size ul a').click(function(e){
 	  e.preventDefault();
 	  jQuery(this).parent().siblings().find('.select').removeClass('select');
 	  jQuery(this).addClass('select');
 	  
+	  });
+
+  jQuery('#morecolors ol a').mouseover(function(e){
+	  e.preventDefault(); 
+	  var selectImg = jQuery(this).attr('hover-img');
+	  jQuery('#detailleft .proimages img:first-child').attr('src',selectImg);
+	  });
+	  
+  jQuery('#morecolors ol a').mouseleave(function(e){
+	  e.preventDefault(); 
+	  var selectImg = jQuery('#morecolors ol a.select').attr('hover-img');
+	  jQuery('#detailleft .proimages img:first-child').attr('src',selectImg);
 	  });
   
   jQuery('#detailright .tabs ul li a').click(function(e){
@@ -539,6 +572,10 @@ jQuery('.starrate input').click( function(){
     }
 });
 
+jQuery('.summryboxs table #showvat').click(function(){
+	jQuery('.summryboxs table .vatrow').toggle();
+	jQuery(this).toggleClass('active')
+	});
 });
 
 /*Custom 6.3 starts*/

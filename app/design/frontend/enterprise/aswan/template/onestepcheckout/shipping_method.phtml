@@ -25,60 +25,252 @@
  */
 ?>
 
+<?php
+$_flagemptypost = true;
+if (isset($_POST['shipping']['postcode'])) {
+    if ((empty($_POST['shipping']['postcode']) && !empty($_POST['shipping']['region_id'])) || (!empty($_POST['shipping']['postcode']) && empty($_POST['shipping']['region_id'])) || (empty($_POST['shipping']['postcode']) && empty($_POST['shipping']['region_id']))) {
+        $_flagemptypost = true;
+    } else {
+        $_flagemptypost = false;
+    }
+}
+if (isset($_POST['billing']['use_for_shipping'])) {
+    if ((empty($_POST['billing']['postcode']) && !empty($_POST['billing']['region_id'])) || (!empty($_POST['billing']['postcode']) && empty($_POST['billing']['region_id'])) || (empty($_POST['billing']['postcode']) && empty($_POST['billing']['region_id']))) {
+        $_flagemptypost = true;
+    } else {
+        $_flagemptypost = false;
+    }
+}
+?>
+<script type="text/javascript">
+    function loadtimesave(){
+        if(jQuery("#time_slot_hiddenvalue").val() == ''){
+            document.getElementById('shipping_time_slot').value=document.getElementById('time').value;
+            jQuery("#uniform-time span").html(document.getElementById('time').value);
+        }else{
+            document.getElementById('shipping_time_slot').value=jQuery("#time_slot_hiddenvalue").val();
+            jQuery("#uniform-time span").html(jQuery("#time_slot_hiddenvalue").val());
+        }
+    }
+    function getCalender(){
+        document.getElementById('calender').style.display="block";
+        jQuery('#shipping_arrival_date_display').addClass('required-entry');
+        loadtimesave();
+    }
+    function removeCalender() {
+        if(jQuery('#calender').length > 0){
+            document.getElementById('calender').style.display="none";
+            jQuery('#shipping_arrival_date_display').removeClass('required-entry');
+            document.getElementById('shipping_time_slot').value = '';
+        }
+    }
+    function savetimeslot(obj){
+        document.getElementById('shipping_time_slot').value=obj.value;
+        document.getElementById('time_slot_hiddenvalue').value=obj.value;
+    }
+</script>
+
+
 <?php if (!($_shippingRateGroups = $this->getShippingRates())): ?>
-    <strong><?php echo $this->__('Sorry, no quotes are available for this order at this time.') ?></strong>
+    <span style="display:none;"><?php echo $this->__('Sorry, no quotes are available for this order at this time.') ?></span>
+	<script type="text/javascript">
+		jQuery.noConflict();
+		if(jQuery("#checkout_tab .rgtBlk button.shipping_continue").length >0){
+			jQuery("#checkout_tab .rgtBlk button.shipping_continue").hide();
+		}
+	</script>
 <?php else: ?>
     <?php if (count($_shippingRateGroups)=='1' && Mage::getStoreConfig('onestepcheckout/general/hide_shipping_method')):?>
         <dl class="shipment-methods" style="display: none">
             <?php foreach ($_shippingRateGroups as $code => $_rates): ?>
             <dd><?php echo $this->getCarrierName($code) ?></dd>
                 <?php foreach ($_rates as $_rate): ?>
-                <dt style="margin-bottom: 5px;">
-                   <?php if ($_rate->getErrorMessage()): ?>
-                   <ul class="messages"><li class="error-msg"><ul><li><?php echo $_rate->getErrorMessage() ?></li></ul></li></ul>
-                   <?php else: ?>
-                   <input name="shipping_method" type="radio" value="<?php echo $_rate->getCode() ?>" id="s_method_<?php echo $_rate->getCode() ?>" checked="checked" />
-                   <label for="s_method_<?php echo $_rate->getCode() ?>"><!--<b><?php echo $this->getCarrierName($code) ?>:</b>--> <?php echo $_rate->getMethodTitle() ?>
-                        <strong>
-                        <?php $_excl = $this->getShippingPrice($_rate->getPrice(), $this->helper('tax')->displayShippingPriceIncludingTax()); ?>
-                        <?php $_incl = $this->getShippingPrice($_rate->getPrice(), true); ?>
-                        <?php echo $_excl; ?>
-                        <?php if ($this->helper('tax')->displayShippingBothPrices() && $_incl != $_excl): ?>
-                            (<?php echo $this->__('Incl. Tax'); ?> <?php echo $_incl; ?>)
-                        <?php endif; ?>
-                        </strong>
-                    </label>
-                   <?php endif ?>
-                   </dt>
+                    <dt style="margin-bottom: 5px;">
+                    <?php if ($_rate->getErrorMessage()): ?>
+                        <ul class="messages">
+                            <li class="error-msg"></li>
+                            <li><?php echo $_rate->getErrorMessage() ?></li>
+                        </ul>
+                    <?php else: ?>
+                        <input name="shipping_method" type="radio" value="<?php echo $_rate->getCode() ?>" id="s_method_<?php echo $_rate->getCode() ?>" checked="checked" />
+                        <label for="s_method_<?php echo $_rate->getCode() ?>"><!--<b><?php echo $this->getCarrierName($code) ?>:</b>--> <?php //echo $_rate->getMethodTitle() ?>
+                            <strong>
+                                <?php $_excl = $this->getShippingPrice($_rate->getPrice(), $this->helper('tax')->displayShippingPriceIncludingTax()); ?>
+                                <?php $_incl = $this->getShippingPrice($_rate->getPrice(), true); ?>
+                                <?php echo $_excl; ?>
+                                <?php if ($this->helper('tax')->displayShippingBothPrices() && $_incl != $_excl): ?>
+                                (<?php echo $this->__('Incl. Tax'); ?> <?php echo $_incl; ?>)
+                            <?php endif; ?>
+                            </strong>
+                        </label>
+                    <?php endif ?>
+                    </dt>
                 <?php endforeach; ?>
             <?php endforeach; ?>
         </dl>
+        <div style="clear:both"></div>
     <?php else: ?>
-        <dl class="shipment-methods">
+        <?php $_tempVarCounter = 0;
+            $_counter = count($_shippingRateGroups);
+        ?>
+
+        <div class="error-message" style="display:none;">
+            <label class='no-shipping-method'>Sorry! We do not deliver to this pin code. Please change your delivery address!</label>
+        </div>
+        <div style="clear:both;"></div>
+
+        <dl class="shipment-methods input" style="display:none;">
             <?php foreach ($_shippingRateGroups as $code => $_rates): ?>
-                        <dd><?php echo $this->getCarrierName($code) ?></dd>
-                    <?php foreach ($_rates as $_rate): ?>
-                        <dt style="margin-bottom: 5px;">
+				<?php $chkRadioFlg = false; if($_counter==1 && count($_rates)==1) $chkRadioFlg = true;?>
+                <?php foreach ($_rates as $_rate):
+                    $state='';
+                    /* uncomment below code block if needed to hide the shipping method */
+                    if($this->isCustomShipping($_rate->getCode())){
+                    $collection =$this->checkShippingMethod($_rate->getCode());
+                        if (count($collection) < 1){
+                            $state = "disabled";
+                            $_tempVarCounter++;
+                        }
+                    }
+                ?>
 
-                           <?php if ($_rate->getErrorMessage()): ?>
-                            <ul class="messages"><li class="error-msg"><ul><li><?php echo $_rate->getErrorMessage() ?></li></ul></li></ul>
-                           <?php else: ?>
-                                <input name="shipping_method" type="radio" class="validate-one-required-by-name" value="<?php echo $_rate->getCode() ?>" id="s_method_<?php echo $_rate->getCode() ?>"<?php if($_rate->getCode()===$this->getAddressShippingMethod()) echo ' checked="checked"' ?> />
-                                <label for="s_method_<?php echo $_rate->getCode() ?>"><!--<b><?php echo $this->getCarrierName($code) ?>:</b>--> <?php echo $_rate->getMethodTitle() ?>
-                                <strong>
-                                <?php $_excl = $this->getShippingPrice($_rate->getPrice(), $this->helper('tax')->displayShippingPriceIncludingTax()); ?>
-                                <?php $_incl = $this->getShippingPrice($_rate->getPrice(), true); ?>
+            <?php if ($_rate->getErrorMessage()): ?>
+                <ul class="messages" style="display: none"><li class="error-msg"></li><li><?php echo $_rate->getErrorMessage() ?></li></ul>
+            <?php else: ?>
+                <?php
+                $_message = 'Help Message for Shipping Method';
+                if(Mage::getStoreConfig('shipping_method/shipping/'.$_rate->getCode())){
+                    $_message = Mage::getStoreConfig('shipping_method/shipping/'.$_rate->getCode().'');
+                }
+                ?>
+                <div style="display:none;" class="input input_<?php echo $_rate->getCode() ?>">
+                    <input name="shipping_method" type="radio" <?php echo $state; ?> class="<?php if($state != "disabled"){ echo "isPostcodeAvailable"; } ?> validate-one-required-by-name fl mar-t10" value="<?php echo $_rate->getCode() ?>" <?php if( $_rate->getCode() == 'appointment_appointment'){ echo "onclick=getCalender()";} else { echo "onclick=removeCalender()";} ?> id="s_method_<?php echo $_rate->getCode() ?>"<?php if(($_rate->getCode()===$this->getAddressShippingMethod() && $state != "disabled") || $chkRadioFlg) echo ' checked="checked"' ?> rel="<?php echo $this->getCarrierName($code) ?>" />
+                    <label class="shipping_method_name shipping_method_name_<?php echo $_rate->getCode() ?>"><?php echo $this->getCarrierName($code) ?><a data-tooltip="<?php echo $_message ?>" href="javascript:void(0);"><img width="13" height="13" src="<?php echo $this->getSkinUrl().'images/tooltip_img.jpg'; ?>"></a></label>
+                    <div class="method">
+                        <?php $_excl = $this->getShippingPrice($_rate->getPrice(), $this->helper('tax')->displayShippingPriceIncludingTax()); ?>
+                        <?php $_incl = $this->getShippingPrice($_rate->getPrice(), true); ?>
+                        <?php if($_rate->getCode() == 'standard_standard'): ?>
+                            <?php echo 'Free'; ?>
+                        <?php else: ?>
+                            <?php echo $_excl; ?>
+                        <?php endif; ?>
+                            <?php if ($this->helper('tax')->displayShippingBothPrices() && $_incl != $_excl): ?>
+                            (<?php echo $this->__('Incl. Tax'); ?> <?php echo $_incl; ?>)
+                        <?php endif; ?>
+                    </div>
+                </div>
+                <?php if( $_rate->getCode() == 'appointment_appointment'): ?>
+                    <div id="calender" class="calander" style="display:none;">
+                        <label for="date">Desired Arrival Date</label>
+                        <img src="<?php echo Mage::getBaseUrl('skin') ?>adminhtml/default/default/images/grid-cal.gif" alt="" class="v-middle" id="shipping_arrival_date_trig" title="Select Date" width="20" height="20" />
+                        <input name="shipping_arrival_date_display" id="shipping_arrival_date_display" value="" title="Date" class=" input-text" type="text" />
+                        <input name="shipping_arrival_date" id="shipping_arrival_date" value="" onChange="shippingArrivalDateOnChange(this); return false;" title="date"  type="hidden"/>
+                        <script type="text/javascript">
+                            //<![CDATA[
+                            Calendar.setup({
+                                inputField: "shipping_arrival_date",
+                                ifFormat: "%m/%e/%Y",
+                                dateStatusFunc : dateRange,
+                                onUpdate : update,
+                                showsTime: false,
+                                button: "shipping_arrival_date_trig",
+                                align: "Bl",
+                                disableNavYear: false,
+                                singleClick : true
+                            });
 
-                                <?php echo $_excl; ?>
-                                <?php if ($this->helper('tax')->displayShippingBothPrices() && $_incl != $_excl): ?>
-                                    (<?php echo $this->__('Incl. Tax'); ?> <?php echo $_incl; ?>)
-                                <?php endif; ?>
-                                </strong>
-                                </label>
-                           <?php endif ?>
-                        </dt>
-                    <?php endforeach; ?>
+                            function update() {
+                                var inputdate = $('shipping_arrival_date').getValue();
+                                var initialDate = new Date(inputdate);
+                                var someDate = new Date();
+                                var numberOfDaysToAdd = <?php echo Mage::getStoreConfig('carriers/appointment/shipping_interval'); ?>;
+                                var futureDate = someDate.setDate(someDate.getDate() + numberOfDaysToAdd);
+                                if(initialDate.getTime() < futureDate ){
+                                    $('shipping_arrival_date_display').setValue('');
+                                }
+                            }
+
+                            function dateRange(date) {
+                                var someDate = new Date();
+                                var numberOfDaysToAdd = <?php echo Mage::getStoreConfig('carriers/appointment/shipping_interval'); ?>;
+                                var futureDate = someDate.setDate(someDate.getDate() + numberOfDaysToAdd);
+                                return (date.getTime() <= futureDate );
+                            }
+
+                            function shippingArrivalDateOnChange(el)
+                            {
+                                var displayDate = $('shipping_arrival_date_display');
+                                var date = $('shipping_arrival_date').getValue();
+                                setCookie('bookdate',date,365);
+                                displayDate.setValue(date);
+
+                            }
+
+                            function setCookie(c_name,value,exdays)
+                            {
+                                var exdate=new Date();
+                                exdate.setDate(exdate.getDate() + exdays);
+                                var c_value=escape(value) + ((exdays==null) ? "" : "; expires="+exdate.toUTCString());
+                                document.cookie=c_name + "=" + c_value;
+                            }
+
+                            function resetArrivalDate()
+                            {
+                                //clear both fields
+                                $('shipping_arrival_date').setValue('');
+                                $('shipping_arrival_date_display').setValue('');
+                            }
+                            //MRD added disable field to only allow calendar input
+                            //TODO: need to enable field when form is submitted
+                            Form.Element.disable('shipping_arrival_date_display');
+                            //]]>
+                        </script>
+                        <label for="time">Time Slot</label>
+                        <select id="time" name="timeslot" onchange="savetimeslot(this);" >
+                            <option value="8:30 AM - 10:30 AM">8:30 AM - 10:30 AM</option>
+                            <option value="10:30 AM - 12:30 PM">10:30 AM - 12:30 PM</option>
+                            <option value="12:30 PM - 2:30 PM">12:30 PM - 2:30 PM</option>
+                            <option value="2:30 PM - 4:30 PM">2:30 PM - 4:30 PM</option>
+                            <option value="4:30 PM - 6:30 PM">4:30 PM - 6:30 PM</option>
+                        </select>
+                        <input name="shipping_time_slot" id="shipping_time_slot" value="" title="time slot"  type="hidden"/>
+                    </div>
+                <?php endif; ?>
+            <?php endif ?>
+
+                <?php endforeach; ?>
             <?php endforeach; ?>
+			<script type="text/javascript">
+				jQuery.noConflict();
+				if(jQuery("#checkout_tab .rgtBlk button.shipping_continue").length >0){
+					jQuery("#checkout_tab .rgtBlk button.shipping_continue").show();
+				}
+			</script>
         </dl>
+        
+        <?php
+            if($_counter == $_tempVarCounter){
+            if(!$_flagemptypost){ ?>
+                <script type="text/javascript">
+                    jQuery(".error-message").css('display','block');
+                </script>
+        <?php } } ?>
+        <div style="clear:both;"></div>
     <?php endif; ?>
 <?php endif; ?>
+<script type="text/javascript">
+jQuery.noConflict();
+jQuery(function(){jQuery("input[name=shipping_method]").uniform();});
+jQuery(function(){jQuery("#time").uniform();});
+</script>
+<script type="text/javascript">
+jQuery(document).ready(function(){
+<?php if($this->getAddressShippingMethod() == 'appointment_appointment'): ?>
+document.getElementById('calender').style.display="block";
+jQuery('#shipping_arrival_date_display').addClass('required-entry');
+jQuery('#shipping_arrival_date').val('<?php echo $_COOKIE["bookdate"] ?>');
+jQuery('#shipping_arrival_date_display').val('<?php echo $_COOKIE["bookdate"] ?>');
+loadtimesave();
+<?php endif; ?>
+});
+</script>

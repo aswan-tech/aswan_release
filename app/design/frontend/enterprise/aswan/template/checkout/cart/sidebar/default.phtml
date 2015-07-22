@@ -31,7 +31,7 @@ $_product = $_item->getProduct();
 <li>
 <div class="productbox">
 
-<a href="<?php echo $this->getDeleteUrl() ?>" onclick="return confirm('<?php echo $this->__('Are you sure you would like to remove this item from the shopping cart?') ?>');" title="<?php echo $this->__('Remove item') ?>" class="remove"></a>
+<a href="#" onclick="setLocation('<?php echo $this->getDeleteUrl();?>')" title="<?php echo $this->__('Remove item') ?>" class="remove"></a>
 
     <?php if ($this->hasProductUrl()): ?>
         <a href="<?php echo $this->getProductUrl()?>" title="<?php echo $this->htmlEscape($this->getProductName()) ?>"><img src="<?php echo Mage::helper('catalog/image')->init($_product, 'thumbnail')->resize(150,157); ?>" alt="<?php echo $this->htmlEscape($this->getProductName()) ?>" /></a>

@@ -45,11 +45,15 @@
 		<div class="quickright" id="itemrightQickview">
 			<h3><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></h3>
 
-            <h4> <?php $price = Mage::helper('core')->currency($_product->getPrice(),true,false);?>
-    <?php $specialPrice = Mage::helper('core')->currency($_product->getFinalPrice(),true,false);?>
-             <span class="old-price"><?php if($price >$specialPrice) { echo $price;}?></span>
-             <span class="new-price"><?php if($price ==$specialPrice) { echo $price;} else { echo $specialPrice;}?></span>
-</h4>
+		<h4>
+		<?php $price = Mage::helper('core')->currency($_product->getPrice(),true,false);
+		$specialPrice = Mage::helper('core')->currency($_product->getFinalPrice(),true,false);
+		$_price = Mage::helper('core')->currency($_product->getPrice(),false,false);
+		$_specialPrice = Mage::helper('core')->currency($_product->getFinalPrice(),false,false);
+		?>
+		<span class="old-price"><?php if($_price >$_specialPrice) { echo $price;}?></span>
+		<span class="new-price"><?php if($_price ==$_specialPrice) { echo $price;} else { echo $specialPrice;}?></span>
+		</h4>
 
 <p><?php echo $_product->getDescription();?></p>
 

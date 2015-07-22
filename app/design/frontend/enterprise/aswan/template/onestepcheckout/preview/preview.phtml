@@ -1,6 +1,5 @@
 <?php
 $checkoutHelper = Mage::helper('onestepcheckout/checkout');
-$dataHelper = Mage::helper('onestepcheckout');
 
 if(!empty($checkoutHelper->settings['addressreview']['enable_addressreview'])):?>
 <div id="addressreview" style="display:none">
@@ -25,12 +24,11 @@ if(!empty($checkoutHelper->settings['addressreview']['enable_addressreview'])):?
 <script type="text/javascript">
 //<![CDATA[
 
-<?php
+    <?php
     if(Mage::getSingleton('customer/session')->isLoggedIn()){
         $blacklist = array('entity_id','entity_type_id','attribute_set_id','increment_id','parent_id','created_at','updated_at','is_active','customer_id');
         $baddresses = array();
         $saddresses = array();
-        $customerEmail = $dataHelper->clearDash(Mage::getSingleton('customer/session')->getCustomer()->getEmail());
         $i = 0;
         foreach(Mage::getSingleton('checkout/session')->getQuote()->getCustomer()->getAddresses() as $address){
             foreach($address->getData() as $key=>$value){
@@ -38,28 +36,22 @@ if(!empty($checkoutHelper->settings['addressreview']['enable_addressreview'])):?
                     if($key == 'street'){
                         for($n= 0; $n<=4; $n++){
                             if($address->getStreet($n)){
-                                $baddresses[$i]['billing:'.$key.$n] = $dataHelper->clearDash($address->getStreet($n));
-                                $saddresses[$i]['shipping:'.$key.$n] = $dataHelper->clearDash($address->getStreet($n));
+                                $baddresses[$i]['billing:'.$key.$n] = $address->getStreet($n);
+                                $saddresses[$i]['shipping:'.$key.$n] = $address->getStreet($n);
                             }
                         }
-                    } else if ($key === 'country_id') {
-                        $baddresses[$i]['billing:'.$key] = $dataHelper->clearDash(Mage::getModel('directory/country')->loadByCode($value)->getName());
-                        $saddresses[$i]['shipping:'.$key] = $dataHelper->clearDash(Mage::getModel('directory/country')->loadByCode($value)->getName());
                     } else {
-                        $baddresses[$i]['billing:'.$key] = $dataHelper->clearDash($value);
-                        $saddresses[$i]['shipping:'.$key] = $dataHelper->clearDash($value);
-                        $baddresses[$i]['billing:email'] = $customerEmail;
-                        $saddresses[$i]['shipping:email'] = $customerEmail;
+                        $baddresses[$i]['billing:'.$key] = $value;
+                        $saddresses[$i]['shipping:'.$key] = $value;
                     }
                 }
             }
             $i++;
         }
-
         echo 'var customerBAddresses = '.Mage::helper('onestepcheckout')->jsonEncode($baddresses).';';
         echo 'var customerSAddresses = '.Mage::helper('onestepcheckout')->jsonEncode($saddresses).';';
     }
-?>
+    ?>
     var addressTemplates = {
             shipping: '<?php echo str_replace("\r", '', str_replace("\n", '', $checkoutHelper->settings['addressreview']['shipping_template']));?>',
             billing: '<?php echo str_replace("\r", '', str_replace("\n", '', $checkoutHelper->settings['addressreview']['billing_template']));?>'

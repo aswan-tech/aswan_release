@@ -195,6 +195,10 @@ setLocation:function(url){
         url=url.replace('/cart','/icart');
         this.open(url, this.title+' '+this.cart, {method:'GET'});
     }
+    else if(url.match(/\/checkout\/i?cart\/delete\//)){
+        url=url.replace('/cart','/icart');
+        this.open(url, this.title+' '+this.cart, {method:'GET'});
+    }
     else window.location.href=url;
 },
 setPLocation:function(url,setFocus){

@@ -31,12 +31,11 @@
  */
 ?>
 
-<div class="productslide">
+<div class="productslide top-cart">
 <?php $_cartQty = $this->getSummaryCount() ?>
         <?php $_items = $this->getRecentItems() ?>
         <?php if(count($_items)): ?>
-
-            <ul class="bxslider" id="mini-cart">
+            <ul class="bxslider mini-products-list" id="mini-cart">
             <?php foreach($_items as $_item): ?>
                 <?php echo $this->getItemHtml($_item) ?>
             <?php endforeach; ?>
@@ -52,11 +51,4 @@
             <?php endif; ?>
         <?php endif ?>
       
-
-<script type="text/javascript">
-    //Enterprise.TopCart.initialize('topCartContent');
-    // Below can be used to show minicart after item added
-    // Enterprise.TopCart.showCart(7);
-</script>
-
 </div>

@@ -36,8 +36,12 @@
 $requestUrl = $this->getRequest()->getRequestString();
 $refererUrl = $this->getRequest()->getServer('HTTP_REFERER');
 ?>
+<div style="text-align: center;">
+Item has been succcessfully removed from cart.
+</div>
 <script type="text/javascript">
 //<![CDATA[
+iCart.autoClose(<?php echo (int) Mage::getStoreConfig('mageworx_customers/icart/auto_hide') ?>);
 <?php if (strpos($requestUrl, '/removeWishlist/')) { ?>
     // wishlist    
     <?php if (preg_match('~/wishlist/~', $refererUrl)): ?>
@@ -56,13 +60,30 @@ $refererUrl = $this->getRequest()->getServer('HTTP_REFERER');
     iCart.replaceBlock($$('div.top-cart'), <?php echo Zend_Json::encode($this->getChildHtml('cart_sidebar'))?>);
 <?php } ?>
 iCart.updateLinks();
+
 //]]>
 </script>
 
 
 <script type="text/javascript">
 //<![CDATA[
-
+<?php $qty = (int)Mage::getModel('checkout/cart')->getQuote()->getItemsQty();?>
+var qty = "<?php echo $qty; ?>"+' '+'Items';
+jQuery('.bagsummary p').html(qty);
 iCart.updateLinks();
+    var bagslider = jQuery('#quickbag .productslide .bxslider').bxSlider({
+                auto: true,
+                infiniteLoop: true,
+                mode: 'horizontal',
+                slideWidth: 150,
+                minSlides: 2,
+                maxSlides:6,
+                slideMargin: 3,
+                pager: false
+            });
+    <?php if($qty>0){ ?>
+        bagslider.reloadSlider();
+    <?php } ?>    
+
 //]]>
 </script>
