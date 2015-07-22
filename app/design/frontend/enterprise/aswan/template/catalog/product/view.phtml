@@ -147,41 +147,40 @@ Posted on <strong>22-05-2015</strong></h4>
 </div>
 
 <div class="productshare">
-<ul>
-<li class="facebook"><a href="#"></a></li>
-<li class="pintrest"><a href="#"></a></li>
-<li class="twitter"><a href="#"></a></li>
-</ul>
+	<ul>
+		<li class="facebook"><a href="#"></a></li>
+		<li class="pintrest"><a href="#"></a></li>
+		<li class="twitter"><a href="#"></a></li>
+	</ul>
 </div>
 
 <h2><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></h2>
 <?php 
-$price = Mage::helper('core')->currency($_product
-                ->getPrice(),true,false);    
-$specialPrice = Mage::helper('core')->currency($_product
-                  ->getFinalPrice(),true,false);
+$price = Mage::helper('core')->currency($_product->getPrice(),true,false);    
+$specialPrice = Mage::helper('core')->currency($_product->getFinalPrice(),true,false);
 ?>
-<h3><?php if($price >$specialPrice) {
-            echo '<u>'.$price.'</u>';
-        }
-        $_price = Mage::helper('core')->currency($_product
-                ->getPrice(),false,false);    
-$_specialPrice = Mage::helper('core')->currency($_product
-                  ->getFinalPrice(),false,false);
+<h3>
+<?php 
+if($price >$specialPrice) { echo '<u>'.$price.'</u>';}
+
+$_price = Mage::helper('core')->currency($_product->getPrice(),false,false);    
+$_specialPrice = Mage::helper('core')->currency($_product->getFinalPrice(),false,false);
+
 if($_specialPrice < $_price):
 $discount = 100-(round (($_specialPrice / $_price) * 100));
 echo '<strong>'.$discount.'% off</strong>'; ?>
 <?php endif;// Discount percent output end ?>
-<?php if($price ==$specialPrice) {
-         echo '<span>'.$price.'</span>';
-      }
-      else { 
-        echo '<span>'.$specialPrice.'</span>';
-     }?>
+
+<?php 
+	if($price == $specialPrice) { 
+		echo '<span>'.$price.'</span>';
+	}
+	else { 
+		echo '<span>'.$specialPrice.'</span>';
+	}
+?>
 <hr>
 </h3>
-
-
 
 <?php //echo $this->getReviewsSummaryHtml($_product, false, true)?>
 <?php //echo $this->getChildHtml('alert_urls') ?>
@@ -315,4 +314,33 @@ function addToCartByAjax(isRedirect) {
         saveData.error(function() { jQuery("#ajax-response").html("Something went wrong"); });
     }
 } 
+</script>
+<?php
+/*
+ * Below code for Data Layer only
+ */
+ 
+$pObj 			= Mage::getModel( 'catalog/product' )->load( $_product->getId() );
+$catIds 		= $pObj->getCategoryIds();
+$catId 			= in_array( $catIds[0], array( 3,4,5,6,8,7,256,260) ) ? $catIds[1] : $catIds[0];
+$cats 			= Mage::getModel( 'catalog/category' )->load( $catId );
+$img_url 		= $this->helper('catalog/image')->init($_product, 'image')->resize('395' , '413');
+
+$_taxHelper  	= Mage::helper('tax');
+$_finalPrice 	= $_taxHelper->getPrice($_product, $_product->getFinalPrice());
+$_price 		= $_taxHelper->getPrice($_product, $_product->getPrice());
+?>
+<script type="text/javascript">
+dataLayer.push(
+    {'PRODUCT_ID': '<?php echo $_product->getSku() ?>'}, 
+    {'PRODUCT_NAME': "<?php echo $_product->getName() ?>"},
+    {'PRODUCT_IMG_URL': '<?php echo $img_url ?>'},
+    {'PRODUCT_PRICE': '<?php echo $_finalPrice ?>'},
+    {'PRODUCT_MRP': '<?php echo $_price ?>'},
+    {'DEPT_ID': '<?php echo $cats->getParentCategory()->getId() ?>'}, 
+    {'DEPT_NAME': "<?php echo $cats->getParentCategory()->getName() ?>"},
+    {'CATEGORY_ID': '<?php echo $cats->getId() ?>'}, 
+    {'CATEGORY_NAME': "<?php echo $cats->getName() ?>"},
+    {'PAGE_TYPE': 'PRODUCT_VIEW'}
+);
 </script>

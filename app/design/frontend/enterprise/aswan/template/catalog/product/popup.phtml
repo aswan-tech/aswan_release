@@ -1,53 +1,73 @@
 <!-- Popup Overlay -->
-
 <?php
 $_product = $this->getProduct();
 $sizechart = $_product->getAttributeText('sizechart');
+
+/*
+ * Old sizechart implementation
+ */
+
+$content_size = "";
+  
+if(isset($sizechart) && $sizechart != '') {
+	$collection = Mage::getModel('sizeguide/sizeguide')->getCollection();	
+	$collection->getSelect()->where("sizeguide_id = ? ", (string) $sizechart);
+	foreach ($collection as $sizedata) {
+		$SizeData = $sizedata->getData();
+		$imgUrl =  $this->getSkinUrl()."images/sizechart/";
+		$content_size = str_replace("##IMG_URL##",$imgUrl,$SizeData['content_size']);
+	}
+}
+
+/*
+ * new sizechart implementation
+ */ 
 $sizechart_content = trim($_product->getData('sizechart_content'));
-if($sizechart_content !='' && $sizechart_content!=null){
-$sizechart_content = (array)json_decode($sizechart_content);
-if(isset($sizechart_content['image']))
-               $image = $sizechart_content['image'];
-       unset($sizechart_content['image']);?>
+
+if($sizechart_content !='' && $sizechart_content!=null) {
+	$sizechart_content = (array)json_decode($sizechart_content);
+	
+	if(isset($sizechart_content['image'])) {
+	   $image = $sizechart_content['image'];
+       unset($sizechart_content['image']);
+	}
+?>
 <!--size-popup-->
 <div class="sizepopup">
 <div class="quickclose"></div>
 <h3>SIZE GUIDE <span>[inches]</span></h3>
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
-  <tr>
- 
-       <?php foreach($sizechart_content as $size_key=>$size_c):?>
-                       
-                       <td>
-                               <h4><?php echo ucfirst($size_key);?></h4>
-                               <ul>
-                               <?php foreach($size_c as $s_c){?>
-                                       <li><?php echo $s_c;?></li>
-                               <?php } ?>
-                       </ul>
-                       </td>
-       <?php endforeach; ?>
-</tr>
-            </table>
-
+	<tr>
+	<?php 
+	foreach($sizechart_content as $size_key=>$size_c): 
+	?>
+	   <td>
+			   <h4><?php echo ucfirst($size_key);?></h4>
+			   <ul>
+			   <?php foreach($size_c as $s_c){?>
+				   <li><?php echo $s_c;?></li>
+			   <?php } ?>
+				</ul>
+	   </td>
+   <?php 
+	endforeach; 
+   ?>
+	</tr>
+</table>
 <div class="sizeimage"><img border="0" src="<?php echo $this->getSkinUrl('images/sizechart/v1/'.$image, array('_secure'=>true)); ?>"></div>
-
-             </div>
-
-                                      
-<?php }else {  ?>
-
+</div>
+<?php
+	}
+	else 
+	{  
+?>
 <div class="sizepopup">
-<div class="quickclose"></div>
-<h3>SIZE GUIDE <span>[inches]</span></h3>
-<table width="100%" border="0" cellspacing="0" cellpadding="0">
-  <tr>
-  <td>
-  <?php echo "No Size chart available!";?>
-  </td>
-  </tr>
-  </table>
-  </div>
-
-<?php  }?>
-
+	<div class="quickclose"></div>
+	<h3>SIZE GUIDE <span>[inches]</span></h3>
+	<table width="100%" border="0" cellspacing="0" cellpadding="0">
+	<tr>
+		<td><?php echo (!empty($content_size)) ? $content_size : 'No Size chart available!'; ?></td>
+	</tr>
+	</table>
+</div>
+<?php } ?>
