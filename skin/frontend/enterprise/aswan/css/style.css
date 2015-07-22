@@ -22,7 +22,8 @@ body {font-family: "Gill Sans Roman";}
 #productdetail #detailright .tabs ul li a:after, #productdetail #detailright .clickoffer h4:before,
 #productdetail #detailright .productswaches ul li span.soldout, #quickview .quickright .productswaches ul li span.soldout, #productdetail #detailright .clickoffer .offerdetail .offerclose, #header .topsearch input.go, #loginpopup .formbox .sociallog a, #mobnavigation ul li a:after, #listingright .shorting #gridview ul li a,
 #cartarea #cartleft .prodetail h4 a:before, #cartarea #cartright .summryboxs h3 .icon, 
-#quickbag .productslide .productbox .remove, #quickbag .bagsummary #closebag, #checkoutarea #stepthree .payoption ul li:after,
+#quickbag .productslide .productbox .remove, #quickbag .productslide .productbox .soldoutstrip,
+#checkoutarea #checkoutright .summaryholder td .soldoutstrip, #quickbag .bagsummary #closebag, #checkoutarea #stepthree .payoption ul li:after,
 #accountleft .accountlinks ul li a:after, #myaddress .addresscol ul li a:before,
 #myaddress .addresscol a.newaddress:before, #checkoutarea .ordersuccess ol li a,
 #checkoutarea .ordersuccess ul li:before, #productlist .productbox .productimg .quickview a,
@@ -32,7 +33,7 @@ body {font-family: "Gill Sans Roman";}
 #topoffers h4:before, #topright ul li .accountlinks:after, #header .topsearch #autosuggest:before,
 #mobnavigation h3 a:before, #productdetail #detailright .productreview span, #writereview .starrate label,
 #orderlist .orderdetail td h4 a.trackdata:before, #orderlist .orderdetail td h4 a.cancleord:before,
-#checkoutarea .ordersuccess h6 span:before {background:url(../images/sprite.png) no-repeat;}
+#checkoutarea .ordersuccess h6 span:before, #testmonials .testimonialbox:before, #testmonials .testimonialbox:after {background:url(../images/sprite.png) no-repeat;}
 
 #wrapper, #header {width:100%; clear:both;}
 #wrapper {padding:76px 0px 0px 0px;}
@@ -138,6 +139,7 @@ body {font-family: "Gill Sans Roman";}
 #quickbag .productslide .productbox h3 a {color:#000;}
 #quickbag .productslide .productbox p {margin:0 0 0 4%; font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-weight: 400; font-size:13px;}
 #quickbag .productslide .productbox .remove {display:block; width:15px; height:15px; background-position:-130px -33px; position:absolute; z-index:2; top:5px; right:5px; cursor:pointer;}
+#quickbag .productslide .productbox .soldoutstrip {position:absolute; z-index:9; left:0px; top:0px; width:18px; height:101px; background-position:-279px -126px; display:block;}
 
 #quickbag .bagsummary {width:25%; margin:2% 2% 0 0; float:right; position:relative;}
 #quickbag .bagsummary h3 { font-family:'Trade Gothic Condensed Bold'; font-size:20px; margin:0px 0px 10px 0px; color:#000;}
@@ -160,8 +162,12 @@ body {font-family: "Gill Sans Roman";}
 #loginpopup .formbox label {display:block; clear:both; font-size:14px; margin:0px 0px 4px 0px; color:#0c061c;}
 #loginpopup .formbox label b {color:#dc0028;}
 #loginpopup .formbox input.textfield {width:100%; border:1px solid #dac9ce; margin:0px 0px 13px 0px; height:24px; line-height:24px;}
-#loginpopup .formbox a.go {display:block; float:left; background:#190b3d; padding:6px 12px; text-transform:uppercase; color:#fff; font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-weight: 400; font-size:12px; margin:5px 10px 0px 0px; min-width:65px; text-align:center;}
-#loginpopup .formbox a.go:hover {background:#dc0028;}
+#loginpopup .formbox a.go,
+#loginpopup .formbox button.go,
+#loginpopup .formbox input.go {display:block; float:left; background:#190b3d; padding:6px 12px; text-transform:uppercase; color:#fff; font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-weight: 400; font-size:12px; margin:5px 10px 0px 0px; min-width:65px; text-align:center;}
+#loginpopup .formbox a.go:hover,
+#loginpopup .formbox button.go:hover,
+#loginpopup .formbox input.go:hover {background:#dc0028;}
 #loginpopup .formbox a.forgotpass {font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-weight: 400; font-size:13px; color:#0c061c; float:left; display:block; margin:5px 0px 0px 0px;}
 
 #loginpopup .formbox .sociallog {width:100%; float:left; clear:both;}
@@ -178,7 +184,9 @@ body {font-family: "Gill Sans Roman";}
 #loginpopup .optconfirm p a {color:#dc0028; text-decoration:underline;}
 #loginpopup .optconfirm label {float:left; display:block; padding:2px 10px 2px 0px; font-size:13px;}
 #loginpopup .optconfirm input {width:140px; border:1px solid #CCC; margin:0px 0px 12px 0px;}
-#loginpopup .optconfirm a.go {display:block; float:left; text-transform:uppercase; font-size:13px; color:#fff; background:#dc0028; padding:5px 12px; clear:both; margin:0px 0px 12px 0px;}
+#loginpopup .optconfirm a.go,
+#loginpopup .optconfirm button.go,
+#loginpopup .optconfirm input.go {display:block; float:left; text-transform:uppercase; font-size:13px; color:#fff; background:#dc0028; padding:5px 12px; clear:both; margin:0px 0px 12px 0px;}
 
 #mobileopt {background:#fff; border:12px solid #f0f5f5; padding:30px; float:left;}
 #mobileopt h3 {margin:0px 0px 10px 0px; display:block; border-bottom:1px solid #CCC; font-size:17px; color:#1e0f46; padding:0px 0px 6px 0px;}
@@ -187,7 +195,9 @@ body {font-family: "Gill Sans Roman";}
 #mobileopt p a {color:#dc0028; text-decoration:underline;}
 #mobileopt label {float:left; display:block; padding:2px 10px 2px 0px; font-size:13px;}
 #mobileopt input {width:140px; border:1px solid #CCC; margin:0px 0px 12px 0px;}
-#mobileopt a.go {display:block; float:left; text-transform:uppercase; font-size:13px; color:#fff; background:#dc0028; padding:5px 12px; clear:both; margin:0px 0px 12px 0px;}
+#mobileopt a.go,
+#mobileopt button.go,
+#mobileopt input.go {display:block; float:left; text-transform:uppercase; font-size:13px; color:#fff; background:#dc0028; padding:5px 12px; clear:both; margin:0px 0px 12px 0px;}
 
 #newuserpop {background:#fff; border:12px solid #f0f5f5; max-width:530px; margin:0 auto; float:left;}
 #newuserpop .leftside {width:40%; float:left; background:#1e0f46; padding:10px; text-align:center;}
@@ -197,8 +207,12 @@ body {font-family: "Gill Sans Roman";}
 #newuserpop .leftside p {display:block; margin:0px; clear:both; font-size:12px; color:#fff; font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-weight: 400;}
 #newuserpop .rightside {width:59%; padding:10px; float:right; padding:10px; text-align:center;}
 #newuserpop .rightside input.textfield {width:100%; border:1px solid #dac9ce; margin:0px 0px 13px 0px; height:24px; line-height:24px;}
-#newuserpop .rightside a.go {display:inline-block; background:#dc0028; padding:6px 12px; text-transform:uppercase; color:#fff; font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-weight: 400; font-size:12px; margin:5px 10px 0px 0px; min-width:65px; text-align:center;}
-#newuserpop .rightside a.go:hover {background:#190b3d;}
+#newuserpop .rightside a.go,
+#newuserpop .rightside button.go,
+#newuserpop .rightside input.go {display:inline-block; background:#dc0028; padding:6px 12px; text-transform:uppercase; color:#fff; font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-weight: 400; font-size:12px; margin:5px 10px 0px 0px; min-width:65px; text-align:center;}
+#newuserpop .rightside a.go:hover,
+#newuserpop .rightside button.go:hover,
+#newuserpop .rightside input.go:hover {background:#190b3d;}
 
 #newuserpop .rightside .seprater {float:left; width:100%; border-bottom:1px solid #d0d0d0; position:relative; height:1px; clear:both; margin:30px 0px;}
 #newuserpop .rightside .seprater:before {content:'OR'; position:absolute; left:50%; top:0px; font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-weight: 400; background:#fff; font-size:12px; text-transform:uppercase; margin:-13px 0px 0px -15px; display:block; border:1px solid #d0d0d0; padding:5px; border-radius:15px;}
@@ -363,7 +377,9 @@ body {font-family: "Gill Sans Roman";}
 
 #writereview ul {margin:0px 0px 0px 10px;}
 #writereview ul li {list-style-type:disc; font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-weight:400; font-size:12px; margin:0px 0px 3px 0px; color:#909090;}
-#writereview a.go {display:block; float:left; text-transform:uppercase; font-size:13px; color:#fff; background:#dc0028; padding:5px 12px; clear:both; margin:0px 0px 12px 0px;}
+#writereview a.go,
+#writereview button.go,
+#writereview input.go {display:block; float:left; text-transform:uppercase; font-size:13px; color:#fff; background:#dc0028; padding:5px 12px; clear:both; margin:0px 0px 12px 0px;}
 
 #homeslider {width:100%; clear:both;}
 #homeslider .bx-wrapper .bx-controls-direction a {height:50px!important; opacity:1; width:29px; margin-top:-25px!important;}
@@ -496,7 +512,7 @@ body {font-family: "Gill Sans Roman";}
 #listingright .loadmore {width:100%; float:left; clear:both; padding:20px 0px; text-align:center;}
 #listingright .loadmore a {display:inline-block; padding:7px 18px; position:relative; background:#dc0028; color:#fff; font-size:14px; text-transform:uppercase;}
 
-#quickview {width:100%; position:relative; margin:0 auto; float:left; overflow:hidden; }
+#quickview {width:100%; position:relative; margin:0 auto; float:left; overflow:hidden;}
 #quickview .productprev, #quickview .productnext {display:block; position:absolute; z-index:999; width:16px; height:38px; margin-top:-19px; top:50%; cursor:pointer;}
 #quickview .productprev {background-position:-108px -155px; left:0px;}
 #quickview .productnext {background-position:-129px -155px; right:0px;}
@@ -636,8 +652,8 @@ body {font-family: "Gill Sans Roman";}
 #productdetail #detailright h2 {display:block; clear:both; font-family: "Playfair Display",Georgia,serif; font-size: 25px; font-weight: 700; margin:0px 0px 10px 0px; text-align:center; text-transform:uppercase; color:#505252; clear:both; position:relative;}
 #productdetail #detailright h3 {display:block; clear:both; position:relative; text-align:center; margin:0px 0px 12px 0px; font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-size: 15px; font-weight: 300; color:#999; height:43px;}
 #productdetail #detailright h3 hr {border:none; border-top:1px solid #CCC; margin:3px 0px 0px 0px; position:absolute; top:50%; width:100%;}
-#productdetail #detailright h3 span {display:inline-block; background:#fff; position:relative; z-index:2; padding:0px 20px; color:#dc0028;}
-#productdetail #detailright h3 u {text-decoration:line-through; position:relative; z-index:2; display:inline-block; padding:0px 20px; background:#fff;}
+#productdetail #detailright h3 span {display:inline-block; background:#fff; position:relative; z-index:2; padding:0px 20px; color:#dc0028; margin-top:17px;}
+#productdetail #detailright h3 u {text-decoration:line-through; position:relative; z-index:2; display:inline-block; padding:0px 20px; background:#fff; margin-top:17px;}
 #productdetail #detailright h3 strong {background:#19b9af; color:#fff; font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-weight:400; font-size:12px; padding:8px; border-radius:30px; -moz-border-radius:30px; line-height:13px; width:45px; display:inline-block; position:relative; z-index:2;}
 
 #productdetail #detailright .clickoffer {text-align:center; margin:10px 0px 0px 0px;} 
@@ -661,17 +677,25 @@ body {font-family: "Gill Sans Roman";}
 #productdetail #detailright .detail-content p {margin:0px 0px 12px 0px; font-size:14px; font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-weight: 300; color:#999999;}
 #productdetail #detailright .detail-content p a {color:#dc0028;}
 #productdetail #detailright .detail-content input {width:180px; height:22px; line-height:22px; border:1px solid #CCC; float:left; margin:0px 4px 0px 0px;}
-#productdetail #detailright .detail-content a.go {color:#fff; background:#1e0f46; display:block; padding:0px 10px; height:22px; line-height:22px; float:left; font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-weight: 300; font-size:12px; text-transform:uppercase;}
+#productdetail #detailright .detail-content a.go,
+#productdetail #detailright .detail-content button.go,
+#productdetail #detailright .detail-content input.go {color:#fff; background:#1e0f46; display:block; padding:0px 10px; height:22px; line-height:22px; float:left; font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-weight: 300; font-size:12px; text-transform:uppercase;}
 #productdetail #detailright .detail-content .result {clear:both; font-size:13px; font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-size:13px; padding:10px 0px 0px 0px; color:#dc0028;}
 #productdetail #detailright .productswaches {border-bottom:1px solid #d3d4d4; padding:20px 0px;}
 #productdetail #detailright .productswaches h4 {display:block; clear:both; font-size:13px; font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-weight: 600; margin:0px 0px 10px 0px;}
-#productdetail #detailright .productswaches ul li {float:left; margin:0px 10px 0px 0px; font-size:14px;}
+#productdetail #detailright .productswaches ul li,
+#productdetail #detailright .productswaches ol li {float:left; margin:0px 10px 0px 0px; font-size:14px;}
 #productdetail #detailright .productswaches ul li a,
 #productdetail #detailright .productswaches ul li span.soldout {display:block; padding:2px; min-width:30px; height:22px; text-align:center; border:1px solid #fff; color:#1e0f46;}
 #productdetail #detailright .productswaches ul li span.soldout {background-position:-154px -144px; border:1px solid #909090;}
 #productdetail #detailright .productswaches.color ul li a {border:1px solid #CCC;}
 #productdetail #detailright .productswaches ul li a:hover,
-#productdetail #detailright .productswaches ul li a.select {border:1px solid #1e0f46;}
+#productdetail #detailright .productswaches ul li a.select,
+#productdetail #detailright .productswaches ol li a:hover,
+#productdetail #detailright .productswaches ol li a.select {border:1px solid #1e0f46;}
+
+#productdetail #detailright .productswaches ol li a {width:70px; float:left; display:block; border:1px solid #fff;}
+#productdetail #detailright .productswaches ol li a img {width:100%; float:left; height:auto;}
 
 #productdetail #detailright .productswaches .sizeguide {display:block; float:right; font-size:12px; font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-weight: 600; border: 1px solid #d3d4d4; color: #303232; padding:3px 14px; text-transform:uppercase;}
 #productdetail #detailright .productswaches .sizeguide:hover {background:#1e0f46; border:1px solid #505252; color:#fff;}
@@ -742,6 +766,12 @@ body {font-family: "Gill Sans Roman";}
 #cartarea #cartright .summryboxs table tr td:last-child {text-align:right;}
 #cartarea #cartright .summryboxs table .grandtotal td {border-top:1px solid #dfdfdf; font-weight:600;}
 
+.summryboxs table #showvat {cursor:pointer; position:relative; display:inline-block; padding:0px 0px 0px 18px;}
+.summryboxs table #showvat:before {content:'+'; border:1px solid #CCC; width:14px; height:12px; font-size:11px; text-align:center; line-height:9px; display:block; position:absolute; left:0px; top:2px; font-family:Arial, Helvetica, sans-serif;}
+.summryboxs table #showvat.active:before {content:'-';}
+.summryboxs table .vatrow {display:none;}
+.summryboxs table .vatrow td {padding:6px 10px; background:#f8f8f8;}
+
 #cartarea #cartright .couponboxs {width:100%; float:left; clear:both; padding:10px; margin:0px 0px 0px 0px; }
 #cartarea #cartright .couponboxs h3 {font-size:13px; display:block; clear:both; margin:0px 0px 4px 0px; text-transform:uppercase;}
 #cartarea #cartright .couponboxs input {width:85%; float:left; border:1px solid #dfdfdf; height:24px; line-height:24px;}
@@ -785,8 +815,12 @@ body {font-family: "Gill Sans Roman";}
 #checkoutarea #stepone .loginpan ul li input {float:left;}
 #checkoutarea #stepone .loginpan ul li label {float:left;}
 #checkoutarea #stepone .loginpan ul li label span {display:block; font-size:12px; color:#8f8f8f;}
-#checkoutarea #stepone .loginpan a.gobutton {display:block; float:left; clear:both;  background:#dc0028; color:#fff; font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-weight:400px; font-size:13px; margin:6px 0px 0px 0px; padding:8px 16px; text-transform:uppercase;}
-#checkoutarea #stepone .loginpan a.gobutton:hover {background:#1e0f46;}
+#checkoutarea #stepone .loginpan a.gobutton,
+#checkoutarea #stepone .loginpan button.gobutton,
+#checkoutarea #stepone .loginpan input.gobutton {display:block; float:left; clear:both;  background:#dc0028; color:#fff; font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-weight:400px; font-size:13px; margin:6px 0px 0px 0px; padding:8px 16px; text-transform:uppercase;}
+#checkoutarea #stepone .loginpan a.gobutton:hover,
+#checkoutarea #stepone .loginpan button.gobutton:hover,
+#checkoutarea #stepone .loginpan input.gobutton:hover {background:#1e0f46;}
 #checkoutarea #stepone .divider {position:absolute; height:100%; top:0px; left:50%; border-left:1px solid #CCC;}
 #checkoutarea #stepone .divider:before {position:absolute; content:'OR'; background:#fff; display:block; width:20px; height:20px; border-radius:10px; left:-12px; top:40%;}
 #checkoutarea #stepone .loginsocial {float:right; width:45%;}
@@ -798,7 +832,7 @@ body {font-family: "Gill Sans Roman";}
 #checkoutarea #checkoutright h3 {display:block; margin:0px 0px 10px 0px; font-family:'Trade Gothic Condensed Bold'; text-transform:uppercase; font-size:20px; width:100%;}
 #checkoutarea #checkoutright .summaryholder {max-height:220px; margin:0px 0px 10px 0px;}
 #checkoutarea #checkoutright .summaryholder table {width:100%;}
-#checkoutarea #checkoutright .summaryholder td {border-bottom:1px solid #CCC;}
+#checkoutarea #checkoutright .summaryholder td {border-bottom:1px solid #CCC; position:relative;}
 #checkoutarea #checkoutright .summaryholder th,
 #checkoutarea #checkoutright .summaryholder td {padding:6px 4px; text-align:center; font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-weight:400px; font-size:11px; vertical-align:top;}
 #checkoutarea #checkoutright .summaryholder th:first-child,
@@ -808,9 +842,11 @@ body {font-family: "Gill Sans Roman";}
 #checkoutarea #checkoutright .summaryholder td h4 {font-size:11px; margin:0px 0px 5px 0px;}
 #checkoutarea #checkoutright .summaryholder td h5 {font-size:11px; margin:0px 0px 5px 0px;}
 #checkoutarea #checkoutright .summaryholder td h5 a {color:#909090;}
+#checkoutarea #checkoutright .summaryholder td h5 a.removesold,
 #checkoutarea #checkoutright .summaryholder td h5 a:hover {color:#dc0028;}
 #checkoutarea #checkoutright .summaryholder td p {margin:0px 0px 8px 0px; color:#8f8f8f; font-size:11px;}
 #checkoutarea #checkoutright .summaryholder td p input {width:17px; font-size:11px; font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-weight:400px; text-align:center; border:1px solid #CCC; height:15px; line-height:15px;}
+#checkoutarea #checkoutright .summaryholder td .soldoutstrip {position:absolute; left:4px; top:6px; width:12px; height:70px; background-position:-282px -229px;}
 
 #checkoutarea #checkoutright .summryboxs {width:100%; float:left; clear:both; background:#fff; padding:0px 10px 10px 10px; margin:0px 0px 10px 0px;}
 #checkoutarea #checkoutright .summryboxs table td {padding:6px 0px; font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-size:13px; font-weight:400;}
@@ -823,7 +859,10 @@ body {font-family: "Gill Sans Roman";}
 #checkoutarea #steptwo #newshipaddress{display:none;}
 #checkoutarea #steptwo .addressbox {padding:12px; position:relative; float:left; width:100%; border:1px solid #CCC; margin:0px 0px 15px 0px;}
 #checkoutarea #steptwo .addressbox input {float:left; position:absolute; top:11px; left:12px;}
-#checkoutarea #steptwo .addressbox label {font-size:12px; font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-size:13px; font-weight:400; float:left; display:block; padding:0px 0px 0px 25px;}
+#checkoutarea #steptwo .addressbox label {font-size:12px; font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-size:13px; font-weight:400; float:left; display:block; padding:0px 0px 8px 25px;}
+#checkoutarea #steptwo .addressbox p.removeadd {display:block; float:right; clear:both; font-size:12px; font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-weight:400; padding:0px 10px 0px 0px;}
+#checkoutarea #steptwo .addressbox p.removeadd a {color:#dc0028;}
+#checkoutarea #steptwo .addressbox p.removeadd a:hover {text-decoration:underline;}
 #checkoutarea #steptwo ul {float:left; width:100%; clear:both; margin:0px 0px 10px 0px;}
 #checkoutarea #steptwo ul li {display:block; float:left; width:100%; clear:both; padding:0px 0px 10px 0px;}
 #checkoutarea #steptwo ul li .halfwidth {width:48%; float:left;}
@@ -834,8 +873,12 @@ body {font-family: "Gill Sans Roman";}
 
 #checkoutarea #steptwo .sameaddress {clear:both; font-size:13px; margin:0px 0px 25px 0px; font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-weight:400;}
 #checkoutarea #steptwo #mybilling {display:none;}
-#checkoutarea #steptwo a.gobutton {display:block; float:left; clear:both;  background:#dc0028; color:#fff; font-family:'Trade Gothic Condensed Bold'; font-size:18px; padding:8px 16px; text-transform:uppercase;}
-#checkoutarea #steptwo a.gobutton:hover {background:#1e0f46;}
+#checkoutarea #steptwo a.gobutton,
+#checkoutarea #steptwo button.gobutton,
+#checkoutarea #steptwo input.gobutton {display:block; float:left; clear:both;  background:#dc0028; color:#fff; font-family:'Trade Gothic Condensed Bold'; font-size:18px; padding:8px 16px; text-transform:uppercase;}
+#checkoutarea #steptwo a.gobutton:hover,
+#checkoutarea #steptwo button.gobutton:hover,
+#checkoutarea #steptwo input.gobutton:hover {background:#1e0f46;}
 
 #checkoutarea #stepthree {clear:both; width:100%; float:left; margin:20px 0px; padding:0px 20px; position:relative;}
 #checkoutarea #stepthree h3 {display:block; margin:0px 0px 10px 0px; font-family:'Trade Gothic Condensed Bold'; font-size:18px;}
@@ -859,9 +902,14 @@ body {font-family: "Gill Sans Roman";}
 #checkoutarea #stepthree .paytypebox .codnumber input.border {border:1px solid #CCC;}
 #checkoutarea #stepthree .paytypebox .codnumber a {color:#dc0028; text-decoration:underline; text-transform:uppercase; font-size:11px;}
 #checkoutarea #stepthree .paytypebox .codnumber p {display:block; clear:both; padding:12px 0px 0px 0px; font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-weight:400; font-size:13px; color:#929292;}
-#checkoutarea #stepthree .paytypebox a.paynow {display:block; float:left; clear:both;  background:#1e0f46; color:#fff; font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-weight:400; font-size:12px; padding:8px 15px; margin:12px 0px 0px 0px; text-transform:uppercase;}
-#checkoutarea #stepthree .paytypebox a.paynow:hover {background:#dc0028;}
-#checkoutarea #stepthree .paytypebox a.paynow.shift {margin-left:30%;}
+#checkoutarea #stepthree .paytypebox a.paynow,
+#checkoutarea #stepthree .paytypebox button.paynow {display:block; float:left; clear:both;  background:#1e0f46; color:#fff; font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-weight:400; font-size:12px; padding:8px 15px; margin:12px 0px 10px 0px; text-transform:uppercase; border:none; cursor:pointer;}
+#checkoutarea #stepthree .paytypebox a.paynow:hover,
+#checkoutarea #stepthree .paytypebox button.paynow:hover {background:#dc0028;}
+#checkoutarea #stepthree .paytypebox a.paynow.shift,
+#checkoutarea #stepthree .paytypebox button.paynow.shift {margin-left:30%;}
+#checkoutarea #stepthree .paytypebox h5 {font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-weight:400; font-size:13px; display:block; margin:0px 0px 5px 0px; clear:both;}
+#checkoutarea #stepthree .paytypebox h5 a {color:#dc0028;}
 #checkoutarea #stepthree .paytypebox .banktabs {width:100%; float:left; padding:0px 0px 15px 0px;}
 #checkoutarea #stepthree .paytypebox .wallettabs {width:100%; float:left; padding:0px 0px 15px 0px;}
 #checkoutarea #stepthree .paytypebox ul li {float:left; margin:0px 10px 10px 0px;}
@@ -912,7 +960,9 @@ body {font-family: "Gill Sans Roman";}
 
 #checkoutarea .successright {padding:0px 40px;}
 #checkoutarea .successright .summryboxs {padding:0px!important;}
-#checkoutarea .successright a.go {display:block; padding:10px 0px; margin:0px 0px 12px 0px; background:#dc0028; color:#fff; font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-weight:400; font-size:14px; text-transform:uppercase; text-align:center;}
+#checkoutarea .successright a.go,
+#checkoutarea .successright button.go,
+#checkoutarea .successright input.go {display:block; padding:10px 0px; margin:0px 0px 12px 0px; background:#dc0028; color:#fff; font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-weight:400; font-size:14px; text-transform:uppercase; text-align:center;}
 #checkoutarea .successright h4 {display:block; font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-weight:400; font-size:16px; margin:0px 0px 4px 0px; border-bottom:1px solid #dfdfdf; padding:0px 0px 5px 0px;}
 #checkoutarea .successright p {font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-weight:400; font-size:12px; margin:0px 0px 15px 0px; line-height:18px; color:#939393;}
 
@@ -992,8 +1042,12 @@ body {font-family: "Gill Sans Roman";}
 #reportissue select {max-width:100%; border:1px solid #CCC; margin:5px 0px;}
 #reportissue label {float:left; display:block; font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-weight:400; font-size:13px; padding:0px 20px 0px 0px;}
 #reportissue textarea {width:100%; height:120px; overflow:auto; border:1px solid #CCC; margin:10px 0px; font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-weight:400; font-size:13px; padding:10px; text-align:left;}
-#reportissue a.go {background:#ed1e24; margin:0px; color:#fff; font-size:13px; text-transform:uppercase; padding:6px 12px; display:inline-block;}
-#reportissue a.go:hover {background:#1e0f46;}
+#reportissue a.go,
+#reportissue button.go,
+#reportissue input.go {background:#ed1e24; margin:0px; color:#fff; font-size:13px; text-transform:uppercase; padding:6px 12px; display:inline-block;}
+#reportissue a.go:hover,
+#reportissue button.go:hover,
+#reportissue input.go:hover {background:#1e0f46;}
 
 #myaddress .addresscol {float:left; margin:0 .5%; margin-bottom:12px; width:24%; border:1px solid #eaeaea; background:#fcfcfc; padding:12px 12px 32px 12px; font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-weight:400; min-height:250px; position:relative;}
 #myaddress .addresscol ul {display:block; float:left; text-align:right; padding:0px 0px 6px 0px; margin:0px 0px 6px 0px; width:100%; border-bottom:1px solid #eaeaea;}
@@ -1029,8 +1083,13 @@ body {font-family: "Gill Sans Roman";}
 #myrefrals .inviteform label {display:block; clear:both; font-size:14px; margin:0px 0px 3px 0px;}
 #myrefrals .inviteform textarea {display:block; width:100%; height:70px; margin:0px 0px 3px 0px; border:1px solid #e4e4e4; overflow:auto; font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-weight:400; font-size:13px; padding:5px;}
 #myrefrals .inviteform .inputnote {font-size:11px; margin:0px 0px 20px 0px; color:#969696; text-align:right;}
-#myrefrals .inviteform a.go {background:#ed1e24; margin:5px 0px 0px 0px; color:#fff; font-size:13px; text-transform:uppercase; padding:6px 12px; display:block; float:right;}
-#myrefrals .inviteform a.go:hover {background:#1e0f46;}
+#myrefrals .inviteform a.go,
+#myrefrals .inviteform button.go,
+#myrefrals .inviteform input.go
+ {background:#ed1e24; margin:5px 0px 0px 0px; color:#fff; font-size:13px; text-transform:uppercase; padding:6px 12px; display:block; float:right; cursor:pointer; border:none;}
+#myrefrals .inviteform a.go:hover,
+#myrefrals .inviteform button.go:hover,
+#myrefrals .inviteform input.go:hover {background:#1e0f46;}
 
 #myrefrals .invitesend {width:49%; background:#f9f9f9; padding:10px 15px; float:right; margin:0px 0px 20px 0px; font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-weight:400;}
 #myrefrals .invitesend h3 {margin:0px 0px 10px 0px; font-family:'Trade Gothic Condensed Bold'; font-size:18px; display:block; border-bottom:1px solid #e3e3e3; padding:0px 0px 6px 0px; clear:both;}
@@ -1049,8 +1108,12 @@ body {font-family: "Gill Sans Roman";}
 #mywallet .walletbox h4 {margin:0px 0px 10px 0px; font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-weight:400; font-size:18px;}
 #mywallet .walletbox p {font-size:13px; font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-weight:400; margin:0px;}
 #mywallet .walletbox input {width:100%; height:22px; line-height:22px; border:1px solid #dcdcdc; text-align:center; font-size:13px; font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-weight:400; margin:0px 0px 10px 0px;}
-#mywallet .walletbox a.go {background:#1e0f46; margin:0px 3px; color:#fff; font-size:12px; text-transform:uppercase; padding:6px 12px; display:inline-block;}
-#mywallet .walletbox a.go:hover {background:#ed1e24;}
+#mywallet .walletbox a.go,
+#mywallet .walletbox button.go,
+#mywallet .walletbox input.go {background:#1e0f46; margin:0px 3px; color:#fff; font-size:12px; text-transform:uppercase; padding:6px 12px; display:inline-block;}
+#mywallet .walletbox a.go:hover,
+#mywallet .walletbox button.go:hover,
+#mywallet .walletbox input.go:hover {background:#ed1e24;}
 
 
 #mywallet .wallet-table {width:100%; float:left; clear:both; font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-weight:400;}
@@ -1081,8 +1144,12 @@ body {font-family: "Gill Sans Roman";}
 #userlogin .panelholder .userform .leftside input.auto {width:auto; padding:0px;}
 #userlogin .panelholder .userform .leftside p {margin:0px 0px 10px 0px; font-size:11px; text-transform:uppercase; display:block; clear:both;}
 #userlogin .panelholder .userform .leftside p a {color:#dc0028;}
-#userlogin .panelholder .userform .leftside a.go {display:block; padding:6px 12px; background:#1e0f46; color:#fff; text-transform:uppercase; float:left; margin:0px 10px 12px 0px;}
-#userlogin .panelholder .userform .leftside a.go:hover {background:#dc0028;}
+#userlogin .panelholder .userform .leftside a.go,
+#userlogin .panelholder .userform .leftside button.go,
+#userlogin .panelholder .userform .leftside input.go {display:block; padding:6px 12px; background:#1e0f46; color:#fff; text-transform:uppercase; float:left; margin:0px 10px 12px 0px;}
+#userlogin .panelholder .userform .leftside a.go:hover,
+#userlogin .panelholder .userform .leftside button.go:hover,
+#userlogin .panelholder .userform .leftside input.go:hover {background:#dc0028;}
 
 #userlogin .panelholder .userform .rightside {float:right; width:44%; padding:15px;}
 #userlogin .panelholder .userform .rightside h4 {font-size:16px; margin:0px 0px 6px 0px;}
@@ -1095,15 +1162,21 @@ body {font-family: "Gill Sans Roman";}
 #userlogin .forgotpass p {margin:0px 0px 12px 0px; font-size:15px; text-align:center;}
 #userlogin .forgotpass label {display:block; float:left; padding:2px 10px 2px 0px; width:48%; text-align:right;}
 #userlogin .forgotpass input {width:35%; border:1px solid #CCC; padding:4px; float:left; margin:0px 0px 10px 0px;}
-#userlogin .forgotpass a.go {background:#1e0f46; color:#fff; padding:5px 10px; margin:0 auto; display:block; float:left;}
-#userlogin .forgotpass a.go:hover {background:#dc0028;}
+#userlogin .forgotpass a.go,
+#userlogin .forgotpass button.go,
+#userlogin .forgotpass input.go {background:#1e0f46; color:#fff; padding:5px 10px; margin:0 auto; display:block; float:left;}
+#userlogin .forgotpass a.go:hover,
+#userlogin .forgotpass button.go:hover,
+#userlogin .forgotpass input.go:hover {background:#dc0028;}
 
 #page404 {text-align:center; padding:50px 0px; width:100%; float:left;}
 #page404 h3 {font-size:94px; color:#c9c9c9; margin:0px 0px 10px 0px; font-family:"Trade Gothic Condensed Bold";}
 #page404 h4 {font-size:18px; text-transform:uppercase; margin:0px 0px 10px 0px;}
 #page404 h5 {font-size:28px; text-transform:uppercase; margin:0px 0px 15px 0px;}
 #page404 p {margin:0px 0px 30px 0px; font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-weight:400; font-size:16px;}
-#page404 a.go {background:#dc0028; color:#fff; padding:8px 18px; font-size:14px; text-transform:uppercase;}
+#page404 a.go,
+#page404 button.go,
+#page404 input.go {background:#dc0028; color:#fff; padding:8px 18px; font-size:14px; text-transform:uppercase;}
 
 #otpconfirm {padding:20px; background:#f7f7f7; width:100%; margin:50px auto; max-width:768px; border:4px dashed #CCC;}
 #otpconfirm h3 {font-size:28px; text-transform:uppercase; margin:0px 0px 10px 0px;}
@@ -1113,14 +1186,19 @@ body {font-family: "Gill Sans Roman";}
 #otpconfirm p a {color:#dc0028; text-decoration:underline;}
 #otpconfirm label {float:left; padding:2px 10px 2px 0px; font-size:13px;}
 #otpconfirm input {width:150px; border:1px solid #CCC; margin:0px 0px 20px 0px;}
-#otpconfirm a.go {background:#dc0028; color:#fff; padding:8px 18px; display:block; float:left; clear:both; margin:0px 0px 10px 0px; font-size:14px; text-transform:uppercase;}
+#otpconfirm a.go,
+#otpconfirm button.go,
+#otpconfirm input.go {background:#dc0028; color:#fff; padding:8px 18px; display:block; float:left; clear:both; margin:0px 0px 10px 0px; font-size:14px; text-transform:uppercase;}
 
 /************static pages***********/
-.cmscontent, #contactus {width:100%; clear:both; float:left;}
+.cmscontent, #contactus, #testmonials, #promoters {width:100%; clear:both; float:left;}
+.cmscontent {padding-bottom:20px;}
 .cmscontent h3 {margin:0px 0px 10px 0px; font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-weight:400; font-size:16px; text-transform:uppercase; border-bottom: 1px solid #e6e6e6; padding:0px 0px 10px 0px;}
+.cmscontent h4 {margin:0px 0px 5px 0px; font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-weight:400; font-size:16px;}
 .cmscontent p {margin:0px 0px 10px 0px; line-height:20px; font-size:13px; font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-weight:400;}
-.cmscontent ul {margin:0px 0px 0px 20px; padding:0px;}
+.cmscontent ul {margin:0px 0px 20px 20px; padding:0px;}
 .cmscontent ul li {margin:0px 0px 5px 0px; font-size:13px; font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-weight:400; list-style-type:disc;}
+.cmscontent p a, .cmscontent ul li a {color:#dc0028;}
 .cmscontent .space20 {height:20px;}
 
 #contactus {width:100%; clear:both; float:left;}
@@ -1141,6 +1219,44 @@ body {font-family: "Gill Sans Roman";}
 #contactus .contactright ul li strong {font-weight:400; display:block; width:60%; float:left;}
 #contactus .contactright ul li a {color:#dc0028;}
 
+#testmonials {position:relative;}
+#testmonials .submittesti {position:absolute; right:0px; top:-30px; display:block; font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-weight:400; font-size:13px; color:#fff; background:#1e0f46; padding:4px 10px; text-transform:uppercase;}
+#testmonials .submittesti:hover {background:#dc0028;}
+#testmonials .testimonialbox {float:left; width:46%; margin:10px 2%; height:110px; padding:10px 28px; position:relative;}
+#testmonials .testimonialbox:before, #testmonials .testimonialbox:after {position:absolute; content:''; z-index:4; width:23px; height:18px; display:block;}
+#testmonials .testimonialbox:before {left:0px; top:10px; background-position:-76px -172px;}
+/*#testmonials .testimonialbox:after {right:0px; bottom:10px; background-position:-76px -193px;}*/
+
+#testmonials .testimonialbox p {font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-weight:400; font-size:13px; margin:0px 0px 15px 0px;}
+#testmonials .testimonialbox h4 {font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-weight:400; font-size:13px; margin:0px;}
+#testmonials .testimonialbox h4 strong {color:#dc0028; font-size:16px;}
+
+#testmonials #testimonial-page {width:100%; text-align:center; float:left; clear:both; padding:10px 0px 30px 0px;}
+#testmonials #testimonial-page ul {margin:0px;}
+#testmonials #testimonial-page ul li {display:inline-block;}
+#testmonials #testimonial-page ul li a, #testmonials #testimonial-page ul li strong {display:block; background:#1e0f46; color:#fff; font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-weight:400; font-size:13px; min-width:25px; text-align:center; padding:5px;}
+#testmonials #testimonial-page ul li strong {background:#dc0028;}
+
+#testmonials #submittestimonials {width:600px; margin:20px auto 40px auto; border:4px dashed #CCC; padding:20px;}
+#testmonials #submittestimonials li {display:block; float:left; width:100%; clear:both; padding:0px 0px 4px 0px;}
+#testmonials #submittestimonials li label {display:block; float:left; font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-weight:400; font-size:13px; padding:2px 0px; width:45%;}
+#testmonials #submittestimonials li input, #testmonials #submittestimonials li textarea {width:40%; border:1px solid #c8c8c8;}
+#testmonials #submittestimonials li textarea {height:100px;}
+#testmonials #submittestimonials li h3 {display:block; background:#e8e8e8; padding:4px; font-size:16px; margin:10px 0px;}
+#testmonials #submittestimonials li h4 {font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-weight:400; font-size:12px; color:#898989; margin:5px 0px; margin-left:45%;}
+#testmonials #submittestimonials li .go,
+#testmonials #submittestimonials li button.go,
+#testmonials #submittestimonials li input.go {background:#dc0028; padding:5px 10px; width:auto!important; font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-weight:400; font-size:13px; text-transform:uppercase; color:#fff; cursor:pointer;}
+
+#promoters {padding:0px 0px 20px 0px;}
+#promoters h3 {font-size:20px; text-transform:uppercase; display:block; text-align:center; margin:0px 0px 15px 0px;}
+#promoters .promotercol {width:33.33%; padding:0px 8px; float:left; margin:0px 0px 40px 0px;}
+#promoters .promotercol .promoterimg {text-align:center; padding:0px 0px 20px 0px;}
+#promoters .promotercol .promoterimg img {width:125px; height:125px; border-radius:225px;}
+#promoters .promotercol .promotertxt {border:1px solid #CCC; width:100%; float:left; padding:10px;} 
+#promoters .promotercol .promotertxt h4 {font-size:16px; margin:0px 0px 10px 0px; font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-weight:400; text-transform:uppercase; color:#dc0028;}
+#promoters .promotercol .promotertxt h5 {font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-weight:400; font-size:14px; margin:0px 0px 10px 0px;}
+#promoters .promotercol .promotertxt p {font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-weight:400; font-size:13px; margin:0px 0px 15px 0px; color:#838383;}
 /************static pages close***********/
 
 .footersocial {padding:15px 0px;}

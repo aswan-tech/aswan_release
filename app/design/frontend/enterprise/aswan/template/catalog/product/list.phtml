@@ -59,37 +59,66 @@
     <div class="products-grid">
     <?php endif ?>
         <div class="productbox">
-        <!-- more view start -->
-        <div class="morecolors">
-<?php $sku = $_product->getSku();
-    $getstyle = explode('-', $sku);
-    $styles = $getstyle[0];
-$styleCollection = Mage::getModel('catalog/product')->getCollection() 
-             ->addAttributeToSelect('*')
-             ->addAttributeToFilter('style', array('eq' => $styles))
-             ->addAttributeToFilter('type_id', 'configurable')
-             ->setPageSize(5);             
-foreach ($styleCollection as $key => $styleProduct) {
-   // $sku = $styleProduct->getSku();
-    $name = $styleProduct->getName();
-    $url = $styleProduct->getUrlPath();
-    $img = $styleProduct->getImage();
 
-    $priceBox = Mage::helper('core')->currency($styleProduct
-                ->getPrice(),true,false);
+        <?php
+                $product_style = $_product->getStyle();
+                $collection = Mage::getModel('catalog/product')->getCollection();
+                $collection->addAttributeToSelect('*');
+                $collection->addFieldToFilter(array(array('attribute'=>'style','eq'=>$product_style)));
+                $collection->addFieldToFilter(array(array('attribute'=>'visibility','neq'=>'1')));
+                $collection->addFieldToFilter(array(array('attribute'=>'status','eq'=>'1')));
+                $collection->getSelect()->limit(10);
+                $group_products = array();
+                if (count($collection) > 0):
+                    foreach ($collection as $group_product):
+                        $pSizes[$group_product->getData('entity_id')] = array();
+                        if($group_product->getTypeId() == "configurable"):
+                             $conf = Mage::getModel('catalog/product_type_configurable')->setProduct($group_product);
+                             $simple_collection = $conf->getUsedProductCollection()->addAttributeToSelect('*')->addFilterByRequiredOptions();
+                             foreach($simple_collection as $simple_product):
+                                 $stock = Mage::getModel('cataloginventory/stock_item')->loadByProduct($simple_product);
+                                 if($stock->getQty() <= 0) continue;
+                                 $pSizes[$group_product->getData('entity_id')][] = $simple_product->getAttributeText('size');
+                             endforeach;
+                             if (count($pSizes[$group_product->getData('entity_id')]) <= 0) {
+                                 continue;
+                             }
+                             $group_products[] = $group_product;
+                         endif;
+                     endforeach;
+                     if (count($group_products) > 0):
+                ?>
+                
+                <?php if (count($group_products) > 1) : ?>
+                <div class="morecolors">
+                
+                <?php foreach ($group_products as $group_product){
+                    if($flag == 1):
+                        $url = $group_product->getProductUrl().'?sale=true';
+                    else:
+                        $url = $group_product->getProductUrl();
+                    endif;
+
+                    ?>
+                    <?php   $name = $group_product->getName();
+    $url = $group_product->getUrlPath();
+    $img = $group_product->getImage();
+    $priceBox = Mage::helper('core')->currency($group_product->getPrice(),true,false);
+    $specialPriceBox = Mage::helper('core')->currency($group_product->getFinalPrice(),true,false);
+$_priceBox = Mage::helper('core')->currency($group_product->getPrice(),false,false);
+    $_specialPriceBox = Mage::helper('core')->currency($group_product->getFinalPrice(),false,false);
+    ?>
+<div class="databox"><img prod-url="<?php echo $group_product->getProductUrl() ?>" product-price="<?php if($_priceBox ==$_specialPriceBox) { echo $priceBox;} else { echo $specialPriceBox;}?>" old-price="<?php if($_priceBox >$_specialPriceBox) { echo $priceBox;}?>" pro-id="pro<?php echo $_product->getId();?>" large-image="<?php echo $this->helper('catalog/image')->init($group_product, 'small_image'); ?>" title="<?php echo $name; ?>" src="<?php echo $this->helper('catalog/image')->init($group_product, 'small_image')->resize(53,71); ?>" quick-view="<?php echo $this->getAddToCartUrl($group_product);?>" ></div>
+
+                
+                <?php }; ?>
     
-$specialPriceBox = Mage::helper('core')->currency($styleProduct
-                  ->getFinalPrice(),true,false);
-?>
-<div class="databox"><img prod-url="<?php echo $styleProduct->getProductUrl() ?>" product-price="<?php if($priceBox ==$specialPriceBox) { echo $priceBox;} else { echo $specialPriceBox;}?>" old-price="<?php if($priceBox >$specialPriceBox) { echo $priceBox;}?>" pro-id="pro<?php echo $_product->getId();?>" large-image="<?php echo $this->helper('catalog/image')->init($styleProduct, 'small_image'); ?>" title="<?php echo $name; ?>" src="<?php echo $this->helper('catalog/image')->init($styleProduct, 'small_image')->resize(53,71); ?>" quick-view="<?php echo $this->getAddToCartUrl($styleProduct);?>" ></div>
-
-
-<?php }
-
-?>
-
-
-</div>
+                </div> 
+                <?php endif; ?>
+                <?php endif;
+                endif; ?>
+        <!-- more view start -->
+       
 <!-- more view End -->
         <div class="productimg">
         <div class="quickview">
@@ -100,10 +129,13 @@ $specialPriceBox = Mage::helper('core')->currency($styleProduct
 
             <div class="productinfo">
             <h3><a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($_product->getName(), null, true) ?>"><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></a></h3>
-     <?php $price = Mage::helper('core')->currency($_product->getPrice(),true,false);?>
-    <?php $specialPrice = Mage::helper('core')->currency($_product->getFinalPrice(),true,false);?>
-             <span class="old-price"><?php if($price >$specialPrice) { echo $price;}?></span>
-             <span class="new-price"><?php if($price ==$specialPrice) { echo $price;} else { echo $specialPrice;}?></span>
+     <?php $price = Mage::helper('core')->currency($_product->getPrice(),true,false);
+            $specialPrice = Mage::helper('core')->currency($_product->getFinalPrice(),true,false);
+            $_price = Mage::helper('core')->currency($_product->getPrice(),false,false);
+            $_specialPrice = Mage::helper('core')->currency($_product->getFinalPrice(),false,false);
+            ?>
+             <span class="old-price"><?php if($_price >$_specialPrice) { echo $price;}?></span>
+             <span class="new-price"><?php if($_price ==$_specialPrice) { echo $price;} else { echo $specialPrice;}?></span>
                            </div>
 <div class="defaultvalue" title="<?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?>" data-image="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(510,680); ?>" pro-id="pro<?php echo $_product->getId();?>" old-price="<?php if($price >$specialPrice) { echo $price;}?>" product-price="<?php if($price ==$specialPrice) { echo $price;} else { echo $specialPrice;}?>" prod-url="<?php echo $_product->getProductUrl() ?>" quick-view="<?php echo $this->getAddToCartUrl($_product);?>"></div>
         </div>

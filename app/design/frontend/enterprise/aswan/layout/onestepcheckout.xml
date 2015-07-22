@@ -42,17 +42,61 @@
 
     <onestepcheckout_index_index>
         <reference name="root">
-            <action method="setTemplate"><template>page/1column.phtml</template></action>
+            <action method="setTemplate"><template>page/1column-checkout.phtml</template></action>
             <action method="setHeaderTitle" translate="title"><title>Checkout</title></action>
         </reference>
         <reference name="head">
             <action method="setTitle" translate="title"><title>One Step Checkout</title></action>
             <action method="addItem"><type>skin_js</type><name>onestepcheckout/js/window.js</name></action>
-            <action method="addItem"><type>skin_js</type><name>onestepcheckout/js/onestepcheckout.js</name></action>
-            <action method="addCss"><stylesheet>onestepcheckout/onestepcheckout.css</stylesheet></action>
-        </reference>
+            <action method="addItem"><type>skin_js</type><name>onestepcheckout/js/onestepcheckout-6.1.js</name></action>
+			<action method="addItem"><type>skin_js</type><name>onestepcheckout/js/jquery-ui.js</name></action>
+			<action method="addCss"><stylesheet>onestepcheckout/onestepcheckout-6.9.css</stylesheet></action>
+			<action method="removeItem"><type>js</type><name>mageworx/icart.js</name></action>
+			<action method="removeItem"><type>js</type><name>mageworx/modalbox.js</name></action>
+			<action method="removeItem"><type>js</type><name>extendware/ewcore/center.js</name></action>
+			<action method="removeItem"><type>js</type><name>extendware/ewcore/core.js</name></action>
+			<action method="removeItem"><type>js</type><name>extendware/ewcore/ajax.js</name></action>
+			<action method="removeItem"><type>js</type><name>extendware/ewcore/modalbox.js</name></action>
+			<action method="removeItem"><type>js</type><name>jquery/jquery.zoom.js</name></action>
+			<action method="removeItem"><type>skin_js</type><name>js/jcarousel.min.js</name></action>
+			<action method="removeItem"><type>js</type><name>jquery/jquery.alerts.js</name></action>
+			<action method="removeItem"><type>js</type><name>varien/product.js</name></action>
+			<action method="removeItem"><type>js</type><name>varien/configurable.js</name></action>
+			<action method="removeItem"><type>skin_js</type><name>js/jcarousel.min.js</name></action>
+			<action method="removeItem"><type>skin_js</type><name>js/bundle.js</name></action>
+			<action method="removeItem"><type>skin_css</type><name>css/styles-6.0.css</name></action>
+			<action method="removeItem"><type>skin_css</type><name>css/cart-6.0.css</name></action>
+			<action method="removeItem"><type>skin_css</type><name>css/uniform.default-6.0.css</name></action>
+			<action method="removeItem"><type>skin_css</type><name>css/icart.css</name></action>
+			<action method="removeItem"><type>skin_css</type><name>css/testimonials-1.1.css</name></action>
+			<action method="removeItem"><type>skin_css</type><name>css/msdropdown/flags.css</name></action>
+			<action method="removeItem"><type>skin_css</type><name>css/belvg/facebookfree.css</name></action>
+			<action method="removeItem"><type>skin_css</type><name>css/colorswatch-6.0.css</name></action>
+			<action method="removeItem"><type>skin_css</type><name>css/website.css</name></action>
+			<action method="removeItem"><type>skin_css</type><name>css/global-6.0.css</name></action>
+			<action method="removeItem"><type>skin_css</type><name>css/print.css</name></action>
+			<action method="removeItem"><type>skin_css</type><name>css/stylesheet-6.0.css</name></action>
+			<action method="removeItem"><type>skin_css</type><name>css/jquery.confirm-6.0.css</name></action>
+			<action method="removeItem"><type>skin_css</type><name>css/jquery.alerts.css</name></action>
+			<action method="removeItem"><type>skin_css</type><name>css/custom-6.2.css</name></action>
+			<action method="removeItem"><type>skin_css</type><name>css/widgets.css</name></action>
+			<action method="removeItem"><type>js</type><name>calendar/calendar.js</name></action>
+			<action method="removeItem"><type>js</type><name>calendar/calendar-setup.js</name></action>
+			<action method="removeItem"><type>js</type><name>lazyloader.js</name></action>
+			<action method="removeItem"><type>js</type><name>lib/ccard.js</name></action>			
+			<action method="removeItem"><type>js</type><name>scriptaculous/slider.js</name></action>
+			<action method="removeItem"><type>skin_js</type><name>js/jssor.js</name></action>
+			<action method="removeItem"><type>skin_js</type><name>js/jssor.slider.js</name></action>
+			<action method="removeItem"><type>skin_js</type><name>js/custom-6.1.js</name></action>
+			<action method="removeItem"><type>js</type><name>jquery.confirm.js</name></action>			
+			<action method="removeItem"><type>skin_js</type><name>js/slides.min.js</name></action>
+			<action method="removeItem"><type>skin_js</type><name>js/jquery.limit-1.2.js</name></action>
+			<action method="removeItem"><type>js</type><name>jquery/jquery.dd.js</name></action>			
+			</reference>
         <reference name="content">
+			<block type="page/html_header" name="header-checkout" template="page/html/header-checkout.phtml" />
             <block type="onestepcheckout/checkout" name="onestepcheckout.checkout" template="onestepcheckout/checkout.phtml">
+                <block type="checkout/loginpage" name="checkout.onepage.loginpage" as="loginpage" template="onestepcheckout/loginpage.phtml"/>
                 <block type="checkout/agreements" name="checkout.onepage.agreements" as="agreements" template="onestepcheckout/agreements.phtml"/>
                 <block type="onestepcheckout/fields" as="billing_address" name="onestepcheckout.billing.address" template="onestepcheckout/billing_fields.phtml" />
                 <block type="onestepcheckout/fields" as="shipping_address" name="onestepcheckout.shipping.address" template="onestepcheckout/shipping_fields.phtml" />
@@ -61,6 +105,7 @@
                     <action method="setMethodFormTemplate"><method>purchaseorder</method><template>payment/form/purchaseorder.phtml</template></action>
                 </block>
                 <block type="checkout/onepage_shipping_method_available" name="choose-shipping-method" template="onestepcheckout/shipping_method.phtml"/>
+				<block type="core/html_calendar" name="head.calendar" as="calendar" output="toHtml" template="deliverydate/js/calendar.phtml"/>
             </block>
         </reference>
         <reference name="before_body_end">

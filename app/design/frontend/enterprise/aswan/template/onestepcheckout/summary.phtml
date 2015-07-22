@@ -1,117 +1,309 @@
 <?php
 $_coreHelper = $this->helper('core');
 $checkoutHelper = Mage::helper('onestepcheckout/checkout');
+$_quote = Mage::getSingleton('checkout/session')->getQuote();
+$coupon_code = $_quote->getCouponCode();
+$customerLoginStatus = Mage::getSingleton('customer/session')->isLoggedIn();
+$itemArr = Mage::helper('common')->getItemByType();
 ?>
+<div class="onestepcheckout-summary ordersummary">
+ 
+     
+<h3>Order Summary</h3>
+<div class="summaryholder mCustomScrollbar _mCS_1"> 
+ <table cellspacing="0" cellpadding="0" border="0" width="100%">
+  <tbody><tr>
+    <th>Product</th>
+    <!-- <th width="90">Delivered within</th> -->
+    <th width="70">Price</th>
+  </tr>
+   <?php $i =0; foreach ($this->getItems() as $item): ?>
+   <?php $_product = $item->getProduct(); ?>
+  <tr>
+    <td><img src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(80, 84); ?>" class="mCS_img_loaded"> <h4><?php echo $item->getName(); ?></h4>
+    	 <p><?php 
+    		if ($_options = $item->getProduct()->getTypeInstance(true)->getOrderOptions($item->getProduct())):
+    		$option_size = $_options['attributes_info']['0']['value'];
+			$option_color = $_options['attributes_info']['1']['value'];
+					if(($option_size) && ($option_color))
+					 	echo $option_size.' /'.$option_color;
+					else if($option_size) 
+						echo $option_size;
+					else if($option_color)
+						echo $option_color;
+			endif;?></p>
+    <p>Qty <input class="qty" id="update_qty_<?php echo $item->getId(); ?>" size="1" maxlength="2" type="text" name="cart[<?php echo $item->getId() ?>][qty]" value="<?php echo $item->getQty(); ?>" onblur="updateQty(<?php echo $item->getId() ?>);"></p>
+    <h5><a href="<?php echo Mage::getBaseUrl().'checkout/cart/configure/id/'.$item->getId().'/' ?>">Edit</a> | <a href="javascript:removeProduct('<?php echo $item->getId(); ?>')">Remove</a></h5></td>
+    <!-- <td> 27<sup>th</sup> May </td> -->
+    <td><?php
+				$_origPrice = Mage::helper('common')->currency($item->getProduct()->getPrice(), false);
+				$_finalPrice = Mage::helper('common')->currency($item->getProduct()->getFinalPrice(), false);
+				$_savePercent = round((($_origPrice-$_finalPrice)*100 ) / $_origPrice);
+			?>
+			
+			<?php if($_origPrice > $_finalPrice ) { ?>
+			<div class="ckprd-item-value"><s><?php echo $this->helper('checkout')->formatPrice($_origPrice); ?></s></div>	
+			<div class="ckprd-item-value-disc"><?php echo $this->helper('checkout')->formatPrice($_finalPrice); ?></div>
+			<?php }
+				else{ 
+				$_newPrice = $this->helper('checkout')->getSubtotalInclTax($item);
+				if($_origPrice <= 0 ){$_origPrice = $_newPrice; }
+			?>
+			<div class="ckprd-item-value-disc"><?php echo $this->helper('checkout')->formatPrice($_origPrice); ?></div>
+			<?php } ?>
+			
+			<?php if($_savePercent) { ?>
+				<div class="ckprd-item-disc-pect">(<?php echo $_savePercent; ?>% Off)</div>
+			<?php } ?>
+						
+		  </div>
+		  <div class="clear"></div>
+		  </td>
+  </tr>
+  <?php $i++; endforeach; ?>
+  
+</tbody></table>
+    
 
-<table class="onestepcheckout-summary">
-    <thead>
-        <tr>
-            <th class="name"><?php echo $this->__('Product'); ?></th>
-            <th class="qty"><?php echo $this->__('Qty'); ?></th>
-            <th class="total"><?php echo $this->__('Subtotal'); ?></th>
-        </tr>
-    </thead>
-    <?php foreach($this->getItems() as $item): ?>
-    <tr>
-        <td class="name">
-            <?php echo $item->getName(); ?>
-            <?php if($checkoutHelper->settings['show_custom_options']): ?>
-                <?php $options = $item->getProduct()->getTypeInstance(true)->getOrderOptions($item->getProduct()); ?>
-                <?php if(isset($options['options']) && count($options['options']) > 0): ?>
-                <ul class="onestepcheckout-custom-options">
-                <?php foreach($options['options'] as $option): ?>
-                    <li><b><?php echo $option['label'] . ':</b> ' . $option['value']; ?></li>
-                <?php endforeach; ?>
-                </ul>
-                <?php endif; ?>
 
-                <?php if($item->getProduct()->isConfigurable()): ?>
+    
+    
+    <div class="clear"></div>
+</div>
 
-                <?php
-                $configurable_options = $item->getProduct()->getTypeInstance(true)->getSelectedAttributesInfo($item->getProduct());
-                ?>
+<div class="summryboxs" id="grand_total">
+<table width="100%" cellspacing="0" cellpadding="0" border="0">
+  <tbody><tr>
+    <td>Items</td>
+    <td><?php echo Mage::getSingleton('checkout/cart')->getSummaryQty(); ?></td>
+  </tr>
+  
 
-                <?php if(is_array($configurable_options) && count($configurable_options) > 0): ?>
-                <ul class="onestepcheckout-custom-options">
-                <?php foreach($configurable_options as $option): ?>
-                    <li><b><?php echo $option['label']; ?>:</b> <?php echo $option['value']; ?></li>
-                <?php endforeach; ?>
-                </ul>
-                <?php endif; ?>
-
-                <?php endif; ?>
-
-            <?php endif; ?>
-        </td>
-        <td class="qty"><?php echo $item->getQty(); ?></td>
-        <td class="total">
-            <?php if($checkoutHelper->settings['display_tax_included']): ?>
-            <?php echo $this->helper('checkout')->formatPrice($this->helper('checkout')->getSubtotalInclTax($item)); ?>
-            <?php else: ?>
-            <?php echo $this->helper('checkout')->formatPrice($item->getRowTotal()); ?>
-            <?php endif; ?>
-        </td>
-    </tr>
-    <?php endforeach; ?>
-</table>
-
-<table class="onestepcheckout-totals">
-    <?php foreach($this->getTotals() as $total): ?>
-    <?php if(!$total->getTitle()){continue;}?>
-        <?php
-        $fullInfo = $total->getFullInfo();
-
-        if(!empty($fullInfo) && $checkoutHelper->settings['display_full_tax']):
-            foreach ($fullInfo as $info):
-                $rates = current($info['rates']);
-                $amount = $info['amount'];
-        ?>
-            <tr>
-                <td class="title"><?php echo $rates['title'] ?> (<?php echo $rates['percent'] ?>%)</td><td class="value"><?php echo $this->helper('checkout')->formatPrice($amount); ?></td>
-            </tr>
-        <?php endforeach;
-        endif;?>
-    <tr<?php if($total->getCode() == 'grand_total'): ?> class="grand-total"<?php endif; ?>>
-        <td class="title">
+<?php foreach ($this->getTotals() as $total): ?>
+        <?php if (!$total->getTitle() || $total->getCode() == "giftcardaccount") { continue; } ?>
             <?php
-
-            $code = $total->getCode();
-            $value = $total->getValue();
-
-            if($code == 'subtotal')    {
-                $total_name = $this->__('Subtotal');
-            }
-            elseif($code == 'shipping')    {
-                $total_name = $this->__('Shipping');
-                if($checkoutHelper->settings['display_tax_included'])   {
-                    $value += $this->getQuote()->getShippingAddress()->getShippingTaxAmount();
+                $code = $total->getCode();
+                $value = $total->getValue();
+                if ($code == 'subtotal') {
+                    $total_name = $this->__('<tr><td>Sub Total ( Incl. of Tax )</td>');
+                } elseif ($code == 'shipping') {
+                    $total_name = $this->__('<tr><td>Delivery</td>');
+                    if ($checkoutHelper->settings['display_tax_included']) {
+                        $value += $this->getQuote()->getShippingAddress()->getShippingTaxAmount();
+                    }
+                } elseif ($code == 'tax') {
+                    $taxDiscount = "";
+					$total_name = '';
+                    $fullInfo = $total->getFullInfo();
+                    if (!empty($fullInfo) && $checkoutHelper->settings['display_full_tax']){
+                        $total_name .= '';
+                        foreach ($fullInfo as $info):
+                            $rates = current($info['rates']);
+                            $amount = $info['amount'];
+                            $taxDiscount .= '<tr class="vatrow" style="display:none;"><td>' . $rates['title'] . ' (' . $rates['percent'] . '%)</td> <td>' . $this->helper('checkout')->formatPrice($amount) . '</td></tr>';
+                        endforeach;
+                    }
+					$total_name .= '<tr><td><span id="showvat">VAT & Tax</span></td>';	
+                } elseif($code == 'rewardspent') {
+                    $total_name = $this->__('<tr><td>You Will Spend</td>');
+                    $value = Mage::getSingleton('rewards/session')->getTotalPointsSpendingAsStringList();
+                } elseif ($code == 'rewardearned') {
+                    $total_name = $this->__('<tr><td>You Will Earn</td>');
+                }else {
+                    $total_name = '<td>'.$total->getTitle().'</td>';
                 }
-                            }
-            elseif($code == 'grand_total')    {
-                $total_name = $this->__('Grand total');
-            }
-            else    {
-                $total_name = $total->getTitle();
-            }
+           ?>
 
-            echo $total_name;
-
+           <?php
+				if ($code != 'grand_total'){
+					echo $total_name;
+					if ($code == 'subtotal') {
+						echo '<td>'.$this->helper('checkout')->formatPrice($value).'</td></tr>';
+					}
+					elseif($code == 'rewardspent') {
+					   echo '<td>'.Mage::getSingleton('rewards/session')->getTotalPointsSpendingAsStringList().'</td></tr>';
+					} elseif ($code == 'rewardearned') {
+						 echo '<td>'.Mage::getSingleton('rewards/session')->getTotalPointsEarningAsStringList().'</td></tr>';
+					} else{
+						echo '<td>'.$this->helper('checkout')->formatPrice($value).'</td></tr>';
+					}
+				}
+				if ($code == 'tax') {
+					echo $taxDiscount;
+				}
             ?>
-        </td>
-        <td class="value">
-            <?php echo $this->helper('checkout')->formatPrice($value); ?>
-        </td>
-    </tr>
-    <?php endforeach; ?>
-</table>
+        <?php endforeach; ?>
+
+
+
+		<?php foreach ($this->getTotals() as $total):?>
+        <?php if (!$total->getTitle()) { continue; } ?>
+            <?php
+                $code = $total->getCode();
+                $value = $total->getValue();
+				if($code == 'grand_total') {
+                    $total_name = $this->__('<tr class="grandtotal"><td>Grand Total:</td>');
+					echo $total_name;
+					echo '<td>'.$this->helper('checkout')->formatPrice($value).'</td></tr> ';
+                }
+			?>
+		<?php endforeach; ?>
+		
+		<?php if ($this->needDisplayBaseGrandtotal()):?>
+			<tr><td><?php echo $this->helper('sales')->__('You will be charged for:') ?></td>
+			<td><?php echo $this->displayBaseGrandtotal() ?></td></tr>
+
+		<?php endif?>
+
+</tbody></table>		
+	</div>
+	
+
+<?php if(!in_array('giftcard', $itemArr) && (in_array('configurable', $itemArr) || in_array('simple', $itemArr) )) { ?>
+<!--div id="promocode-section" class="ckprd-tprice-wrpp fl" style="display:none;">
+	<div class="ck-promo-coup-wrap">
+        <p class="ck-promo-txt fl mar-b5">Promotional Coupon</p>
+        <div class="clear"></div>
+          <input class="cklargefield-email validate-email fl promochk" id="coupon_code" name="coupon_code"  value="<?php echo $coupon_code; ?>" type="text">
+          <button class="promo-apply-btn mar mar-none fl" type="button" onclick="removeCoupon(0);">Apply</button>
+          <?php $hide_show = (isset($coupon_code) && !empty($coupon_code)) ? '' : ' style="display:none;"'; ?> 
+          <span id="coupon-response" <?php echo $hide_show; ?> class="c-pantone fs11 mt5 fl">Coupon Successfully Applied</span> 
+          <?php if(isset($coupon_code) && !empty($coupon_code)) { ?>
+		  <a class="ckremove-btn-new fl ml10" href="javascript:removeCoupon(1);">Remove</a>		   
+          <?php } ?>
+          <div id="promo-loader" style="display:none;"><img src="<?php echo $this->getSkinUrl('images/ajax-loader.gif') ?>"></div>
+      </div>
+      </div-->
+</div>
+<?php } ?>
+<div id="shipping-address" class="shipping-address" style="display:none;">
+<?php
+	if(is_object($_quote)){
+		$shipping_address = $_quote->getShippingAddress();
+		if(!empty($shipping_address)){ ?>
+			<div class="ckship-ad-head fl"> Shipping Address</div>
+			<div class="fr mar-r20"><a class="ckshop-bag-text fl" href="javascript:void(0);" onclick="editShipping();">edit</a></div>		
+				<div class="ckprd-tprice-wrpp c-pantone fl">
+					<div class="ckship-ad-txt">
+						<div class="mb5"><span class="bold pr5">Name :</span><?php echo $shipping_address->getName(); ?></div>
+						
+						<div><span class="bold pr5">Address :</span><?php if( is_array($shipping_address->getStreet())) { echo implode(',', $shipping_address->getStreet()); } ?>, <?php echo $shipping_address->getCity(); ?>, <?php echo $shipping_address->getRegion(); ?>, 
+						<?php echo $shipping_address->getPostcode(); ?>, <?php echo "India"; ?></div>
+						
+						<div class="mt5"><span class="bold pr5">Mobile :</span> +91 <?php echo $shipping_address->getTelephone(); ?></div>
+						
+				</div>
+			</div>
+		</div>	
+	<?php					
+		}
+	}
+?>
+</div>    
+
 <script type="text/javascript">
 //<![CDATA[
-var total = <?php echo $this->getGrandTotal();?>;
+    var total = <?php echo $this->getGrandTotal(); ?>;
     if(payment.reloadcallback){
-        var url = '<?php echo $this->getUrl('onestepcheckout/ajax/paymentrefresh', array('_secure'=>true)); ?>';
+        var url = '<?php echo $this->getUrl('onestepcheckout/ajax/paymentrefresh', array('_secure' => true)); ?>';
         paymentrefresh(url);
         payment.countreload = 0;
         payment.reloadcallback = false;
     }
+
+	function showShippingDetail(){
+		if(jQuery(".shipping-tab-passed").val() == '1'){
+			if(jQuery("#paystp3").hasClass("active")){
+				jQuery("#shipping-address").show();
+				jQuery("#cart_item").hide();
+			}else{
+				jQuery("#shipping-address").hide();
+				jQuery("#cart_item").show();
+				jQuery("#promocode-section").show();
+			}			
+		}
+		else{
+			jQuery("#promocode-section").show();
+		}
+	}
+	showShippingDetail();
+	
+	
+	function removeProduct(id) {
+		jQuery('#cart-loader-'+id).show();
+		jQuery.ajax({
+			url: "<?php echo $this->getUrl('onestepcheckout/ajax/ajaxremoveitemcheckout/') ?>",
+			data: {id:id},
+			type:'POST',
+			success: function(data){
+				jQuery('#cart-loader-'+id).hide();
+				if(data == '1'){
+					window.location.reload();
+				}
+				else{
+					alert(data);
+				}
+			}
+		});
+	}
+	
+	function editShipping() {
+		jQuery("ul.sidebar a.one").removeClass("active");
+		jQuery("#stepone").hide();
+		jQuery("ul.sidebar a.two").removeClass("disabled");						
+		jQuery("ul.sidebar a.two").addClass("active");						
+		jQuery("#steptwo").show();
+		jQuery("#stepthree").hide();
+		jQuery("#paystp3").addClass("ck-pay-tabfw disabled");
+	}
+	
+	function updateQty(indx) {
+		var formData = jQuery("#update_qty_"+indx).serialize();
+		jQuery('#cart-loader-'+indx).show();
+		jQuery.ajax({
+			url: "<?php echo $this->getUrl('checkout/cart/updateQty/') ?>",
+			data: formData,
+			type:'POST',
+			success: function(data){
+				jQuery('#cart-loader-'+indx).show();
+				if(data == '1'){
+					window.location.reload();
+				}
+				else{
+					alert(data);
+				}
+			}
+		});		
+	}
+	
+	function removeCoupon(val) {
+		var coupon_code = jQuery("#coupon_code").val();
+		if(coupon_code == '') {
+			jQuery("#coupon-response").addClass("c-032").html('Please enter coupon code').show();
+			return false;
+		}
+		else {
+			jQuery('#promo-loader').show();
+			jQuery.ajax({
+				url: "<?php echo $this->getUrl('checkout/cart/applycouponpost/') ?>",
+				data: {coupon_code:coupon_code, remove:val},
+				type:'POST',
+				success: function(data){
+					jQuery('#promo-loader').hide();
+					var resArr = data.split('~');
+					if(resArr[1] == '1'){
+						jQuery("#coupon-response").removeClass("c-032").html(resArr[0]);
+						window.location.reload();
+					}
+					else{
+						jQuery("#coupon-response").addClass("c-032").html(data).show();
+					}
+				}
+			});
+		}
+	}
+	
+	
+		
 //]]>
 </script>

@@ -1,0 +1,18 @@
+<?php if ($_products = $this->getRecentlyViewedProducts()): ?>
+<div>
+<div>
+<strong><span><?php echo $this->__('Recently Viewed Products') ?></span></strong>
+</div>
+<div>
+<ol id="recently-viewed-items">
+<?php foreach ($_products as $_item): ?>
+<li>
+<p><img src="<?php echo $this->helper('catalog/image')->init($_item, 'small_image')->resize(50, 50) ?>" width="50" height="50" alt="<?php echo $this->htmlEscape($_item->getName()) ?>" /> </p>
+<p><a href="<?php echo $this->getProductUrl($_item) ?>"><?php echo $this->helper('catalog/output')->productAttribute($_item, $_item->getName() , 'name') ?></a></p>
+</li>
+<?php endforeach; ?>
+</ol>
+<script type="text/javascript">decorateList('recently-viewed-items');</script>
+</div>
+</div>
+<?php endif; ?>

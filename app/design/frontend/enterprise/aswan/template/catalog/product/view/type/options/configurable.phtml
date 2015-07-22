@@ -228,6 +228,58 @@ if(Mage::getSingleton('customer/session')->isLoggedIn()) {
     }
 </script>
 
+
+<?php
+                $product_style = $_product->getStyle();
+                $collection = Mage::getModel('catalog/product')->getCollection();
+                $collection->addAttributeToSelect('*');
+                $collection->addFieldToFilter(array(array('attribute'=>'style','eq'=>$product_style)));
+                $collection->addFieldToFilter(array(array('attribute'=>'visibility','neq'=>'1')));
+                $collection->addFieldToFilter(array(array('attribute'=>'status','eq'=>'1')));
+                $collection->getSelect()->limit(10);
+                $group_products = array();
+                if (count($collection) > 0):
+                    foreach ($collection as $group_product):
+                        $pSizes[$group_product->getData('entity_id')] = array();
+                        if($group_product->getTypeId() == "configurable"):
+                             $conf = Mage::getModel('catalog/product_type_configurable')->setProduct($group_product);
+                             $simple_collection = $conf->getUsedProductCollection()->addAttributeToSelect('*')->addFilterByRequiredOptions();
+                             foreach($simple_collection as $simple_product):
+                                 $stock = Mage::getModel('cataloginventory/stock_item')->loadByProduct($simple_product);
+                                 if($stock->getQty() <= 0) continue;
+                                 $pSizes[$group_product->getData('entity_id')][] = $simple_product->getAttributeText('size');
+                             endforeach;
+                             if (count($pSizes[$group_product->getData('entity_id')]) <= 0) {
+                                 continue;
+                             }
+                             $group_products[] = $group_product;
+                         endif;
+                     endforeach;
+                     if (count($group_products) > 0):
+                ?>
+                
+
+                <?php if (count($group_products) > 1) : ?>
+                <div class="productswaches" id="morecolors">
+                <h4>Color</h4>
+                <ol>
+                <?php foreach ($group_products as $group_product):
+                    if($flag == 1):
+                        $_productUrl = $group_product->getProductUrl().'?sale=true';
+                    else:
+                        $_productUrl = $group_product->getProductUrl();
+                    endif; ?>
+                <li><a href="<?php echo $_productUrl ?>" class="<?php echo ($group_product->getData('entity_id') == $_product->getData('entity_id') ? "select" : "") ?>" hover-img="<?php echo $this->helper('catalog/image')->init($group_product, 'small_image'); ?>"><img src="<?php echo $this->helper('catalog/image')->init($group_product, 'small_image')->resize(68,71); ?>" /></a></li>
+                <?php endforeach;
+    if (trim($_product->getData('display_color')) != ""):  ?>
+                </ol>
+                <div class="col-selc-wrap fl">Current Color<br /><?php echo $_product->getData('display_color') ?></div>
+    <?php endif; ?>
+                </div> 
+                <?php endif; ?>
+
+                <?php endif;
+                endif; ?>
 <div class="ajax-color-swatch productswaches size">
 <h4>Size</h4>
 <a href="#sizepopup" class="fancybox sizeguide">Size Guide</a>

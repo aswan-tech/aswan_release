@@ -34,16 +34,55 @@
 <ol class="checkout-agreements">
 <?php foreach ($this->getAgreements() as $_a): ?>
     <li>
-        <div class="agreement-content"<?php echo ($_a->getContentHeight() ? ' style="height:' . $_a->getContentHeight() . '"' : '')?>>
+        <!--div class="agreement-content"<?php /* echo ($_a->getContentHeight() ? ' style="height:' . $_a->getContentHeight() . '"' : '')?>>
             <?php if ($_a->getIsHtml()):?>
                 <?php echo $_a->getContent() ?>
             <?php else:?>
-                <?php echo nl2br($this->escapeHtml($_a->getContent())) ?>
-            <?php endif; ?>
-        </div>
+                <?php echo nl2br($this->htmlEscape($_a->getContent())) ?>
+            <?php endif; */ ?>
+        </div-->
         <p class="agree">
-            <input type="checkbox" id="agreement-<?php echo $_a->getId()?>" name="agreement[<?php echo $_a->getId()?>]" value="1" title="<?php echo $this->escapeHtml($_a->getCheckboxText()) ?>" class="checkbox" /><label for="agreement-<?php echo $_a->getId()?>"><?php echo $this->escapeHtml($_a->getCheckboxText()) ?></label>
+            <input type="checkbox" id="agreement-1" name="agreement[<?php echo $_a->getId()?>]" value="1" title="<?php echo $this->htmlEscape($_a->getCheckboxText()) ?>" class="checkbox" /><label for="agreement-<?php echo $_a->getId()?>">I have read and accept the <a class="terms-condition" href="<?php echo Mage::getBaseUrl().'terms-n-conditions/' ?>" target="_new">Terms and Conditions</a></label>
         </p>
     </li>
 <?php endforeach ?>
 </ol>
+					<!--script type="text/javascript">
+
+							var termsmodals = new Object;
+
+							document.observe('dom:loaded', function() {
+								$$('.checkout-agreements li p input').each(
+									function(elem){
+										elem.addClassName('required-entry');
+									}
+								);
+							});
+							document.observe('dom:loaded', function() {
+								$$('.checkout-agreements li p label').each(
+									function(elem){
+									alert(elem.innerHTML);
+										elem.up().insert('<a href="javascript:void(0);" onclick="termsmodals[\'' + elem.htmlFor + '\'].open();">' + elem.innerHTML + '</a>');
+										elem.hide();
+									}
+								);
+								$$('div.agreement-content').each(
+									function(element){
+										element.id = 'agreement-div-' + element.up('li').down('input').id;
+										$$('body')[0].insert(element);
+									}
+								);
+								$$('.checkout-agreements li p input').each(
+									function(elem){
+										window.termsmodals[elem.id] = new Control.Modal($('agreement-div-' + elem.id),{
+											overlayOpacity: 0.75,
+											className: 'modal',
+											fade: true,
+											closeOnClick: true,
+											height: 400,
+											width: 700
+										});
+									}
+								);
+							});
+							</script-->

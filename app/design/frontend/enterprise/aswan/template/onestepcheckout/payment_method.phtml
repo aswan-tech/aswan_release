@@ -34,21 +34,79 @@
 
 
 <?php
-
 $helper = Mage::helper('onestepcheckout/checkout');
 $hide_nonfree_methods = false;
-if($helper->settings['hide_nonfree_payment_methods'])   {
-    foreach($this->getMethods() as $_method)    {
-        if($_method->getCode() == 'free')   {
+if ($helper->settings['hide_nonfree_payment_methods']) {
+    foreach ($this->getMethods() as $_method) {
+        if ($_method->getCode() == 'free') {
             $hide_nonfree_methods = true;
         }
     }
 }
 
+$_quote_postcode = "";
+$quote_country="";
+$_shipping_method_fail = false;
+if ($this->getQuote()->getShippingAddress()) {
+    $_quote_postcode = $this->getQuote()->getShippingAddress()->getPostcode();
+	$quote_country = $this->getQuote()->getShippingAddress()->getCountryId();
+}
+$_codMethodAvailable = false;
+foreach ($this->getMethods() as $_method){
+	$_code = $_method->getCode();
+	if ($_code == 'cashondelivery') {
+		$_codMethodAvailable = true;
+	}
+}
+if ($_quote_postcode != "" && $_quote_postcode != '-' && $_codMethodAvailable) {
+    $_Cod = Mage::getModel('zipcodeimport/zipcodeimport')->getCollection()->addFieldToFilter('cod', Array('eq' => 1))->addFieldToFilter('zip_code', Array('eq' => $_quote_postcode));
+    if (count($_Cod) > 0) {
+        if ($this->getQuote()->getShippingAddress()->getShippingMethod() == 'standard_standard') {
+            $_codAvailable = true;
+        } else {
+            $_codAvailable = true;
+            $_shipping_method_fail = true;
+        }
 
+        $min_amount = Mage::getStoreConfig('zipcodeimport/cod/min_amount');
+        $min_amount = Mage::helper('common')->currency($min_amount, false, Mage::app()->getStore()->getCurrentCurrencyCode());
+
+        $max_amount = Mage::getStoreConfig('zipcodeimport/cod/max_amount');
+        $max_amount = Mage::helper('common')->currency($max_amount, false, Mage::app()->getStore()->getCurrentCurrencyCode());
+        
+        $gt = $this->getQuote()->getGrandTotal();
+
+        if($min_amount != '' && $max_amount != '') {
+            if( ($gt >= $min_amount) && ($gt <= $max_amount) ){
+                $_codAvailable = true;
+            }else{
+                $_codAvailable = false;
+                $non_availabile_msg = Mage::getStoreConfig('zipcodeimport/cod/checkout_not_availabile_msg');;
+            }            
+        }
+        
+    } else {
+        $_codAvailable = false;
+        //$non_availabile_msg = 'Cash On Delivery not valid for this pincode. Please choose other payment option.';
+        $non_availabile_msg = 'Invalid pincode, please provide correct pincode.';
+    }
+} else if ($_codMethodAvailable) {
+    $_codAvailable = true;
+} else {
+    $_codAvailable = false;
+}
+
+$itemArr = Mage::helper('common')->getItemByType();
+$is_gift = false;
+if(in_array('giftcard', $itemArr)) {
+	$is_gift = true;
+}
 ?>
-
 <div class="payment-methods">
+<style type="text/css">
+.ckpayoption {padding-bottom: 10px; float: left; width: 100%; clear: both;}
+</style>
+<h3>Select payment option</h3>     
 <script type="text/javascript">
 //<![CDATA[
   <?php echo $this->getChildHtml('reward.scripts'); ?>
@@ -57,45 +115,214 @@ if($helper->settings['hide_nonfree_payment_methods'])   {
   payment.currentMethod = "<?php echo $this->getQuote()->getPayment()->getMethod() ?>";
 //]]>
 </script>
-    <?php if(Mage::helper('onestepcheckout')->isEnterprise()):?>
-        <?php echo $this->getChildHtml('customerbalance'); ?>
-        <?php echo $this->getChildHtml('reward.points'); ?>
-    <?php endif;?>
 
-    <?php if (count($this->getMethods())=='1' && Mage::getStoreConfig('onestepcheckout/general/hide_payment_method')):?>
-    <dl id="checkout-payment-method-load" style="display: none">
-        <?php foreach ($this->getMethods() as $_method): $_code = $_method->getCode() ?>
+<?php if(Mage::helper('onestepcheckout')->isEnterprise()):?>
+    <?php echo $this->getChildHtml('customerbalance'); ?>
+    <?php echo $this->getChildHtml('reward.points'); ?>
+<?php endif;?>
 
-        <dt>
-        <input id="p_method_<?php echo $_code ?>" value="<?php echo $_code ?>" type="hidden" name="payment[method]" title="<?php echo $this->escapeHtml($_method->getTitle()) ?>" class="radio" <?php if($this->getSelectedMethodCode()==$_code || ($hide_nonfree_methods && $_code == 'free')): ?> checked="checked"<?php endif; ?> />
-        <label for="p_method_<?php echo $_code ?>"><?php echo $_method->getTitle() ?></label></dt>
-        <?php endforeach; ?>
-    </dl>
-    <?php else:?>
-
-        <dl id="checkout-payment-method-load">
-        <?php foreach ($this->getMethods() as $_method): $_code = $_method->getCode() ?>
+<div id="vtabs">
+	<div class="sgn-error fl fs14 c-032" id="payment-error"></div>
+	
+	<?php if($hide_nonfree_methods): ?>
+		<?php foreach ($this->getMethods() as $_method): $_code = $_method->getCode() ?>
         <?php if($hide_nonfree_methods && $_code != 'free') continue; ?>
+			<div class="content-tab cc-option">
+				<div class="ckpayoption">
             <dt>
             <?php if( sizeof($this->getMethods()) > 1 ): ?>
-                <input id="p_method_<?php echo $_code ?>" value="<?php echo $_code ?>" type="radio" name="payment[method]" title="<?php echo $this->escapeHtml($_method->getTitle()) ?>" class="radio validate-one-required-by-name" <?php if($this->getSelectedMethodCode()==$_code || ($hide_nonfree_methods && $_code == 'free')): ?> checked="checked"<?php endif; ?> />
+				<?php if($this->getQuote()->getUseCustomerBalance() == 1 && $this->getQuote()->getCustomerBalanceAmountUsed() > 0): ?>
+					<input id="p_method_<?php echo $_code ?>" value="<?php echo $_code ?>" type="radio" style="visibility:hidden;" name="payment[method]" title="<?php echo $this->htmlEscape($_method->getTitle()) ?>" class="radio validate-one-required-by-name" <?php if($this->getSelectedMethodCode()==$_code || ($hide_nonfree_methods && $_code == 'free')): ?> checked="checked"<?php endif; ?> />
+				<?php else: ?>
+					<input id="p_method_<?php echo $_code ?>" value="<?php echo $_code ?>" type="radio" name="payment[method]" title="<?php echo $this->htmlEscape($_method->getTitle()) ?>" class="radio validate-one-required-by-name" <?php if($this->getSelectedMethodCode()==$_code || ($hide_nonfree_methods && $_code == 'free')): ?> checked="checked"<?php endif; ?> />
+					<script type="text/javascript">
+						jQuery(function(){jQuery("#p_method_free").uniform();});
+					</script>
+					 <label for="p_method_<?php echo $_code ?>"><?php echo $_method->getTitle() ?></label>
+				<?php endif; ?>
             <?php else: ?>
                 <span class="no-display"><input id="p_method_<?php echo $_code ?>" value="<?php echo $_code ?>" type="radio" name="payment[method]" checked="checked" /></span>
-            <?php endif; ?>
-                <label for="p_method_<?php echo $_code ?>"><?php echo $_method->getTitle() ?></label>
+				 <label for="p_method_<?php echo $_code ?>"><?php echo $_method->getTitle() ?></label>
+            <?php endif; ?>               
             </dt>
             <?php if($html = $this->getChildHtml('payment.method.'.$_code)): ?>
             <dd id="container_payment_method_<?php echo $_code; ?>" class="payment-method">
                 <?php echo $html; ?>
             </dd>
             <?php endif; ?>
+			<button type="submit" id="cod-confirm-order" class="ckord-now-btn paynow">ORDER NOW</button>
+			
+			<h5>By placing the order, you have read and agree to americanswan.com</h5>
+			<h5><a href="<?php echo Mage::getBaseUrl().'terms-n-conditions/' ?>" target="_blank">Terms of Use</a> and <a href="<?php echo Mage::getBaseUrl().'privacy-policy/' ?>" target="_blank">Privacy Policy.</a></h5>
+			</div>
+		</div>
         <?php endforeach; ?>
-        </dl>
-    <?php endif;?>
+	<?php else: ?>
+	<div class="ckprd-pay-option payoption">
+		<ul id="payment_type">
+		<li id="list_credit_card" class="active">
+			<input type="hidden" name="payment[p_pid]" id="p_pid" value="NULL" />
+			<input onclick="javascript:toggleType('credit_card');" id="p_type_credit_card" value="credit_card" type="hidden" name="payment[type]" title="Credit / Debit Card" class="radio" />
+			<a href="#b" class="active_color" id="anchor_credit_card" onclick="javascript:toggleType('credit_card');">Credit/Debit Cards</a><span class="arrow-pay"></span>
+        </li>
+        <li id="list_net_banking">
+			<input onclick="javascript:toggleType('net_banking');" id="p_type_net_banking" value="net_banking" type="hidden" name="payment[type]" title="Net Banking" class="radio" />
+			<a href="#c" id="anchor_net_banking" onclick="javascript:toggleType('net_banking');">Net Banking</a><span class="arrow-pay"></span>
+        </li>
+        
+        <li id="list_wallet">
+			<input onclick="javascript:toggleType('wallet');" id="p_type_wallet" value="wallet" type="hidden" name="payment[type]" title="Paytm By Wallet" class="radio" />
+			<a href="#d" id="anchor_wallet" onclick="javascript:toggleType('wallet');">WALLET</a><span class="arrow-pay"></span>
+        </li>
+        
+		<!--START-->
+        <?php 
+		if(!$is_gift) {
+		?>
+        <!--ENd-->
+		<li id="list_cashondelivery" class="payment_type_methods">
+        <?php 
+		$defaultmethod = "";
+		foreach ($this->getMethods() as $_method): $_code = $_method->getCode() ?>
+			<?php if($hide_nonfree_methods && $_code != 'free') continue; ?>
+				<?php if($_code == 'cashondelivery'): $defaultmethod = $_code; ?>
+  				
+                    <a href="#a" id="anchor_cashondelivery" onclick="javascript:toggleType('<?php echo $_method->getCode() ?>')"><?php echo $_method->getTitle() ?></a><span class="arrow-pay"></span>
+                                                  
+                <?php endif; ?>
+				
+                <?php if($html = $this->getChildHtml('payment.method.'.$_code)): ?>
+                    <div style="display:none;" id="container_payment_method_<?php echo $_code; ?>" class="payment-method"><?php echo $html; ?></div>
+                <?php endif; ?>
+        <?php endforeach; ?>
+        </li>
+        <?php
+			}
+ ?>
+    </ul>
+	</div>	
+    
+    <input  id="p_method_sel" value="" type="hidden" name="payment[method]" />
+    <input  id="p_method_mobikwik" value="" type="hidden" name="payment[mobikwik]" />
+    <div class="ckpay-right-wrapp fl optionholder">
+	<!--Cod payment option start here-->
+    <?php if($is_gift==false && $_codMethodAvailable) { ?>
+			<div id="a" class="content-tab cod-pay-option paytypebox">
+		    		<?php if($quote_country != "" && $quote_country == "IN"): ?>
+						<div class="delver-text paybleamount">Amount Payable on Delivery <span class="pr-value"> <strong><?php echo $this->helper('checkout')->formatPrice($this->getQuote()->getGrandTotal()) ?></strong></span></div>
+						
+						<h4 class="cont-numb mar-t10">Mobile Number: +91 <?php echo $this->getQuote()->getShippingAddress()->getTelephone() ?></h4>
+					
+                		<?php if($_codAvailable): ?>
+							<?php if($_shipping_method_fail): ?>
+								<p class="by-pacing-txt d-block fs14 mt30">Cash On Delivery not valid for selected Shipping Method. Please choose other shipping method.</p>
+							<?php else: ?>
+								<button type="submit" id="cod-confirm-order" class="ckord-now-btn paynow">Confirm Order</button>
+							<?php endif; ?>
+						<?php else: ?>
+							<p class="by-pacing-txt d-block fs14 mt30"><?php echo $non_availabile_msg; ?></p>
+						<?php endif; ?>
+					<?php else: ?>
+						<p class="by-pacing-txt d-block fs14 mt30">Cash On Delivery not available for countries other than India.</p>
+					<?php endif; ?>
+				
+				<h5>By placing the order, you have read and agree to americanswan.com</h5>
+              
+                <h5><a href="<?php echo Mage::getBaseUrl().'terms-n-conditions/' ?>" target="_blank">Terms of Use</a> and <a href="<?php echo Mage::getBaseUrl().'privacy-policy/' ?>" target="_blank">Privacy Policy.</a></h5>
+            </div>
+	<?php }?>
+	<!--Cod payment option end here-->
+	
+            <div id="b" class="content-tab cc-option paytypebox">
+                <div class="ckpayoption">
+					<div class="pay-amt mar-t10 paybleamount">Amount Payable <span class="pr-value"><strong><?php echo $this->helper('checkout')->formatPrice($this->getQuote()->getGrandTotal()) ?></strong></span></div>
+                    <?php
+                        $paymentproviderModel = Mage::getModel("paymentprovider/paymentprovider")->getCollection()->addFieldToFilter('payment_method_type', 'credit_card');
+                        $credit_card_data = $paymentproviderModel->getData();
+                        foreach($credit_card_data as $provider){
+                    ?>
+                            <input onclick="javascript:togglePaymentMethods('<?php echo $provider['payment_id']; ?>', '<?php echo $provider['payment_method_type']; ?>', '<?php echo $provider['payment_method_code'] ?>');" id="p_payment_name_<?php echo $provider['payment_id'] ?>" value="<?php echo $provider['payment_method_code'] ?>" type="radio" name="payment[payment_method_type]" title="<?php echo $provider['payment_method_name'] ?>" class="css-checkbox fl" />
+                            <label for="p_payment_name_<?php echo $provider['payment_id'] ?>" id="credit-debit-<?php echo strtolower(str_replace(array(' ', '/'), array('','-'),$provider['payment_method_name'])) ?>" class="css-label mar-t10 gtm-track"><?php echo $provider['payment_method_name'] ?></label>
+                            <div class="clear"></div>
+                    <?php } ?>
+                </div>
+                <button type="button" onClick="javascript:ValidatePayment('b');" class="ckord-now-btn paynow">PAY SECURELY NOW</button>
+                
+                <h5>By placing the order, you have read and agree to americanswan.com</h5>
+                <h5><a href="<?php echo Mage::getBaseUrl().'terms-n-conditions/' ?>" target="_blank">Terms of Use</a> and <a href="<?php echo Mage::getBaseUrl().'privacy-policy/' ?>" target="_blank">Privacy Policy.</a></h5>
+            </div>
+            
+            <div id="c" class="content-tab cc-option paytypebox">
+                <div class="ckpayoption">
+					<div class="pay-amt mar-t10 paybleamount">Amount Payable <span class="pr-value"><strong><?php echo $this->helper('checkout')->formatPrice($this->getQuote()->getGrandTotal()) ?></strong></span></div>
+                    <?php
+                        $paymentproviderModel = Mage::getModel("paymentprovider/paymentprovider")->getCollection()->addFieldToFilter('payment_method_type', 'net_banking');
+                        $net_banking_data = $paymentproviderModel->getData();
+                        foreach($net_banking_data as $provider){
+                    ?>
+                            <input onclick="javascript:togglePaymentMethods('<?php echo $provider['payment_id']; ?>', '<?php echo $provider['payment_method_type']; ?>', '<?php echo $provider['payment_method_code'] ?>');" id="p_payment_name_<?php echo $provider['payment_id'] ?>" value="<?php echo $provider['payment_method_code'] ?>" type="radio" name="payment[payment_method_type]" title="<?php echo $provider['payment_method_name'] ?>" class="css-checkbox fl" />
+                            <label for="p_payment_name_<?php echo $provider['payment_id'] ?>" class="css-label mar-t10"><?php echo $provider['payment_method_name'] ?></label>
+                            <div class="clear"></div>
+                    <?php } ?>
+                </div>
+                <button  type="button" id="netbanking-pay-securely-now" onClick="javascript:ValidatePayment('c');" class="ckord-now-btn paynow">PAY SECURELY NOW</button>
+                
+				<h5>By placing the order, you have read and agree to americanswan.com</h5>
+				<h5><a href="<?php echo Mage::getBaseUrl().'terms-n-conditions/' ?>" target="_blank">Terms of Use</a> and <a href="<?php echo Mage::getBaseUrl().'privacy-policy/' ?>" target="_blank">Privacy Policy.</a></h5>   
+            </div>
+ <!--wallet payment option end here-->      
+            <div id="d" class="content-tab mobik-option paytypebox">
+				<div class="ckpayoption">
+					<div class="pay-amt mar-t10 paybleamount">Amount Payable <span class="pr-value"><strong><?php echo $this->helper('checkout')->formatPrice($this->getQuote()->getGrandTotal()) ?></strong></span></div>
+					
+					<div class="wallettabs">
+<ul>
+<li>
+<label for="p_payment_name_MOBKP_N01" id="mobikwik-pay-securely-now" class="css-label mar-t10 gtm-track"><input type="radio" onclick="javascript:togglePaymentMethods('MOBKP_N01', 'mobikwik', 'ccavenuepay');" id="p_payment_name_MOBKP_N01" value="ccavenuepay" name="payment[payment_method_type]" title="Pay By Wallet" class="css-checkbox fl" />
+<img src="http://www.jaspal.com/americanswan/skin/frontend/enterprise/aswan/images/wallat2.jpg">
+<?php //echo $this->getLayout()->createBlock('cms/block')->setBlockId('checkout-mobikwik-cashback-v3')->toHtml() ?>
+</label></li>
+					
+
+<li><label for="p_payment_name_paytm_cc" id="paytm-pay-securely-now" class="css-label mar-t10 gtm-track"><input type="radio" onclick="javascript:togglePaymentMethods('paytm_cc', 'paytm_cc', 'paytm_cc');" id="p_payment_name_paytm_cc" value="paytm_cc" name="payment[payment_method_type]" title="Pay By Wallet" class="css-checkbox fl" />
+<img src="http://www.jaspal.com/americanswan/skin/frontend/enterprise/aswan/images/wallat1.jpg">
+</label></li>
+					
+					
+
+<li> <label for="p_payment_name_payumoney_shared" id="payumoney_shared-pay-securely-now" class="css-label mar-t10 gtm-track"><input type="radio" onclick="javascript:togglePaymentMethods('payumoney_shared', 'payumoney_shared', 'payumoney_shared');" id="p_payment_name_payumoney_shared" value="payumoney_shared" name="payment[payment_method_type]" title="Pay By Wallet" class="css-checkbox fl" />
+<img src="http://www.jaspal.com/americanswan/skin/frontend/enterprise/aswan/images/wallat3.jpg"></label></li>
+
+
+                                       
+                    <!--li> <input type="radio" onclick="javascript:togglePaymentMethods('wallet', 'wallet', 'wallet');" id="p_payment_name_wallet" value="payumoney_shared" name="payment[payment_method_type]" title="Pay By Mobiwiki" class="css-checkbox fl" />
+                    <label for="p_payment_name_wallet" id="wallet-pay-securely-now" class="css-label mar-t10 gtm-track"> Mobiwiki</label>
+                     <div class="clear"></div> </li-->
+                     </ul>
+                     </div>
+
+					<button type="button" id="wallet-pay-securely-now" onClick="javascript:ValidatePayment('d');" class="ckord-now-btn paynow">PAY SECURELY NOW</button>
+				
+					<h5>By placing the order, you have read and agree to americanswan.com</h5>
+					<h5><a href="<?php echo Mage::getBaseUrl().'terms-n-conditions/' ?>" target="_blank">Terms of Use</a> and <a href="<?php echo Mage::getBaseUrl().'privacy-policy/' ?>" target="_blank">Privacy Policy.</a></h5>                
+				</div>
+                
+            </div>
+     <!--wallet payment option end here-->      
+		<?php endif; ?>
+        </div>
+        </div>
 </div>
 <script type="text/javascript">
 //<![CDATA[
 
+jQuery(function() {
+	jQuery('#vtabs')
+		.tabs()
+		.addClass('ui-tabs-vertical ui-helper-clearfix');
+		//jQuery(function(){jQuery("input[name='payment[payment_method_type]']").uniform();});
+		jQuery(function(){jQuery("input[name='payment[use_customer_balance]']").uniform();});
+});
 $$('.cvv-what-is-this').each(function(element){
     Event.observe(element, 'click', toggleToolTip);
 });
@@ -153,4 +380,107 @@ if(cBalance){
 payment.switchMethod(payment.currentMethod);
 <?php echo $this->getChildHtml('giftcardaccount_scripts');?>
 //]]>
+</script>
+<script type="text/javascript">
+var checkout = new VarienForm('onestepcheckout-form', true);
+	function ValidatePayment(divid){
+		jQuery("div.content-tab").each(function(){
+			var id = jQuery(this).attr('id');
+			var elementchecked = 0;
+			if(divid == id){
+				jQuery("#vtabs #"+divid+"").each(function(){
+					if(jQuery("#vtabs #"+divid+" input").hasClass('validation-passed')){
+						elementchecked = 1;
+					}
+				});
+		
+				if(elementchecked == 1){
+					jQuery("#payment-error").html("Payment is processing..").show();
+					checkout.submit();
+				}else{
+					jQuery("#payment-error").html("Please Choose Payment Option Before You Proceed To Checkout").show();
+					jQuery( "#payment-error" ).slideUp( 5000 );
+				}
+			}
+		});
+	}
+    function toggleType(paymenttype){
+        payment.currentType = paymenttype;
+        payment.currentMethod = '';
+        payment.currentProviderId = '';
+        jQuery('div.ckprd-pay-option ul#payment_type li a').removeClass('active_color');
+		jQuery('#anchor_'+paymenttype).addClass('active_color');
+		
+		if(paymenttype == "cashondelivery"){
+			// unset the payment method radio button.
+			jQuery("[name='payment[type]']").attr('checked', false);
+			jQuery("[name='payment[type]']").parent('span').removeClass('checked');
+			jQuery("[name='payment[payment_method_type]']").parent('span').removeClass('checked');
+			jQuery("[name='payment[p_pid]']").val("NULL");
+			jQuery("[name='payment[method]']").val(paymenttype);
+			// set the new payment method radio button and trigger its click function
+			jQuery("#p_method_"+paymenttype).attr('checked', true);
+			
+			get_separate_save_methods_function('<?php echo $this->getUrl('onestepcheckout/ajax/set_methods_separate', array('_secure'=>true)); ?>')();
+			
+			// default magento function, added as extra check
+			payment.switchMethod(payment.paymenttype);
+			jQuery("#p_method_mobikwik").val(null);
+		}
+		else{
+			jQuery("#p_method_mobikwik").val(null);
+		}
+		
+		if(paymenttype == "mobikwik") {
+			jQuery("#p_method_mobikwik").val('MOBKP');
+		}		
+    }
+
+    function togglePaymentMethods(providerid, paymenttype, paymentmethod){
+
+        jQuery('.paytypebox .banktabs label, .paytypebox .wallettabs label').click(function(){
+        jQuery(this).parent().siblings().find('.active').removeClass('active');
+        jQuery(this).addClass('active');
+        
+        });
+
+        // set js elements value, to manipulate radio buttons
+        payment.currentType = paymenttype;
+        payment.currentProviderId = providerid;
+        payment.currentMethod = paymentmethod;
+
+        //change pid hidden feild value
+        jQuery("#p_pid").val(providerid);
+
+        // check net banking/ credit card radio button
+        jQuery("#p_type_"+paymenttype).attr('checked', true);
+
+        // add uniform class to net banking/ credit card radio button
+        jQuery("#p_type_"+paymenttype).parent('span').addClass('checked');
+		jQuery("[name='payment[payment_method_type]']").removeClass('validation-passed');
+		jQuery("#p_payment_name_"+providerid).addClass('validation-passed');
+		
+		
+        // remove uniform class and uncheck other radio buttons
+        if(paymenttype == 'net_banking'){
+            jQuery('#list_credit_card input').attr('checked', false);
+            jQuery('#list_credit_card span').removeClass('checked');
+        }
+		else{
+            jQuery('#list_net_banking input').attr('checked', false);
+            jQuery('#list_net_banking span').removeClass('checked');
+        }
+        
+        if(paymenttype == "mobikwik") {
+			jQuery("#p_method_mobikwik").val('MOBKP');
+		}
+		else {
+			jQuery("#p_method_mobikwik").val(null);
+		}
+		jQuery("[name='payment[method]']").val(paymentmethod);
+		payment.switchMethod(payment.currentMethod);
+		get_separate_save_methods_function('<?php echo $this->getUrl('onestepcheckout/ajax/set_methods_separate', array('_secure'=>true)); ?>')();
+    }
+
+    jQuery.noConflict();
 </script>

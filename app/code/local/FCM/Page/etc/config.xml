@@ -48,6 +48,11 @@
                 <template>page/cart.phtml</template>
                 <layout_handle>cartpage</layout_handle>
             </cartpage>
+            <successspage translate="label">
+                <label>Cart page</label>
+                <template>page/1column-success.phtml</template>
+                <layout_handle>Successpage</layout_handle>
+            </successspage>
 
                 <two_columns_left_header translate="label">
 					<label>2 columns with left bar and header</label>

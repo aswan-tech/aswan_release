@@ -141,6 +141,10 @@
 
 #contactus .contactleft, #contactus .contactright {width:80%; float:none; clear:both; margin:0 auto}
 #sizepopup {width:100%; max-width:100%;}
+#testmonials .testimonialbox {width:96%; clear:both; height:auto;}
+#testmonials .submittesti {display:inline-block; margin:10px auto; position:static; top:0px;}
+#testmonials #submittestimonials {border:none; padding:0px; width:100%;}
+#promoters .promotercol {width:100%;}
 }
 
 @media only screen and (max-width:480px){
@@ -179,6 +183,7 @@
 #contactus .contactright ul li, #contactus .contactright ul li strong, #contactus .contactright ul li a {width:100%; clear:both;}
 #contactus .contactright ul li {padding:0px 0px 13px 0px;}
 #contactus .contactright ul li strong {padding:0px 0px 3px 0px;}
+#testmonials #submittestimonials li input, #testmonials #submittestimonials li textarea {width:52%;}
 	}
 	
 @media only screen and (max-width:360px){

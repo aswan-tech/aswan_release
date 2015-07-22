@@ -1,0 +1,242 @@
+<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+<?php if ($this->getOrderId()):?>
+<?php $order = Mage::getModel('sales/order')->loadByIncrementId($this->getOrderId());
+$payment_method_code = $order->getPayment()->getMethodInstance()->getCode(); 
+
+// get customer register date by customer ID
+$customer = Mage::getModel('customer/customer')->load($order->getData('customer_id'));
+
+$orderCollection = Mage::getModel('sales/order')->getCollection()->addFilter('customer_id', $order->getData('customer_id'));
+$numberOfOrders = $orderCollection->count();
+
+$created_at = date('Y-m-d', strtotime($customer->getData('created_at')));
+
+/* network play
+ * 
+ * 326491 - for New User
+ * 326493 - for Old User
+ */ 
+ 
+if( $numberOfOrders > 1 && $created_at == date('Y-m-d') ) {
+    $customerType = 'OLDUSER';
+    $networkPlay = '326493'; // old user id
+}
+else {
+    $customerType = 'NEWUSER';
+    $networkPlay = '326491'; // new user id
+}
+
+/*
+ * New customer and order set source and campaign
+ */
+
+Mage::helper('common')->saveSourceCampaign($order, $customerType);
+
+?>
+    
+<div class="pagename"><h2>Order Success</h2></div>
+<div id="checkoutarea">
+<div id="checkoutleft">
+<div class="ordersuccess">
+<h3>Congratulation!</h3>
+<p>Your <?php  echo $payment = $order->getPayment()->getMethodInstance()->getTitle();
+?> order has been placed successfully.<br>
+Please make a payment of Rs. <?php echo substr($order->getBaseGrandTotal(), 0, -2); ?> at the time of delivery of your order</p>
+<h4>Order Number: <b><?php echo $this->getOrderId();?></b></h4>
+<ul>
+<li class="icon1">You will shortly receive an order verification E-mail and SMS confirming your order details</li>
+<li class="icon2">Once your order is shipped, you will receive an E-mail and SMS with the shipment information</li>
+<li class="icon3">You can track your order status by logging on to www.americanswan.com and clicking on 'my account'</li>
+</ul>
+
+<h6>You can now <span class="icon1">TRACK</span>, <span class="icon2">CANCEL</span> &nbsp; &amp; <span class="icon3">RETURN</span> orderd items from <a href="<?php echo Mage::getBaseUrl()."sales/order/history/";?>">MY ORDERS</a></h6>
+
+<div class="sharepurchase">
+<h5>Share Your Purchase</h5>
+<ol>
+<li class="facebook"><a href="#"></a></li>
+<li class="pintrest"><a href="#"></a></li>
+<li class="twitter"><a href="#"></a></li>
+</ol>
+</div>
+</div>
+
+</div>
+
+<div id="checkoutright">
+<div class="successright">
+<a class="go" href="#">Continue Shopping</a>
+
+<div class="paymenttype">
+Payment Type : COD
+</div>
+
+<h4>Address details</h4>
+<p>Aman Aman<br>
+708 7th Floor Tower A, Iris Tech Park, Sector 48, Sohna Road 708 7th Floor Tower A, Iris Tech Park, Sector 48, Sohna Road
+Gurgaon, Haryana, 122002, India<br>
+T: 9560853009</p>
+
+<h4>Order Summary</h4>
+<div class="summryboxs">
+<table cellspacing="0" cellpadding="0" width="100%" border="0">
+  <tbody><tr>
+    <td>Subtotal</td>
+    <td>Rs4,997</td>
+  </tr>
+  <tr>
+    <td>Coupon discount</td>
+    <td>-Rs50</td>
+  </tr>
+  <tr>
+    <td>Shipping bag</td>
+    <td>2 items</td>
+  </tr>
+  <tr>
+    <td>Shipping charges</td>
+    <td>Rs150</td>
+  </tr>
+  <tr class="grandtotal">
+    <td>Total</td>
+    <td>Rs5,147</td>
+  </tr>
+</tbody></table>
+</div>
+</div>
+</div>
+
+<div class="clearfloat"></div>
+</div>
+
+
+
+<script>
+var codsuccess = '';
+var codOid = '';
+var incrementId = '';
+var mobile = '';
+jQuery(document).ready(function(){
+    jQuery('#otp-confirm-cod').click(function(e) {
+        codsuccess = jQuery('#codsuccess').val();
+        codOid = jQuery('#codOid').val();
+        incrementId = jQuery('#incrementId').val();
+        if(codsuccess != '' && codOid != '' && incrementId != '') {
+            jQuery.ajax({
+                type: "POST",
+                url: "<?php echo $this->getUrl(); ?>nosql/index/codsuccess",
+                data: 'codsuccess='+codsuccess+'&codOid='+codOid+'&incrementId='+incrementId,
+                beforeSend: function() {
+                    jQuery('#loading').show();
+                },
+                success: function(msg){
+                    if(msg == 'COD verification successfull.') {
+                        jQuery('#loading').hide();
+                        jQuery('#varify').hide();
+                        jQuery('#thanks').html(msg);
+                        jQuery('#thanks').show();
+                    }else{
+                        jQuery('#loading').hide();
+                        jQuery('#thanks').html(msg);
+                        jQuery('#thanks').show();
+                    }
+                }
+            });
+        }
+    });
+    jQuery('#otp-regenerate').click(function(e) {
+        incrementId = jQuery('#incrementId').val();
+        mobile = jQuery('#mobile').val();
+        if(incrementId != '' && mobile != '') {
+            jQuery.ajax({
+                type: "POST",
+                url: "<?php echo $this->getUrl(); ?>nosql/index/regenerate",
+                data: 'incrementId='+incrementId+'&mobile='+mobile,
+                beforeSend: function() {
+                    jQuery('#loading').show();
+                },
+                success: function(msg){
+                    if(msg) {
+                        jQuery('#loading').hide();
+                        jQuery('#thanks').html(msg);
+                        jQuery('#thanks').show();
+                    }
+                }
+            });
+        }
+        
+    });     
+});
+</script>
+<?php endif;?>
+<?php
+    $lastOrderId = Mage::getSingleton('checkout/session')->getLastOrderId();
+    $order = Mage::getModel('sales/order')->load($lastOrderId);
+    $items = $order->getAllVisibleItems();
+    foreach($items as $item){
+         $sku =  $item->getSku();
+         $pid = Mage::getModel('catalog/product')->loadByAttribute('sku',$sku)->getId();
+         $array = Mage::getModel('catalog/product_type_configurable')->getParentIdsByChild($pid);
+         $cp_sku[] = Mage::getModel('catalog/product')->load($array[0])->getSku();
+
+    }
+
+    $orderId = $this->getOrderId(); 
+    $paymentMethod = '';
+    if( is_object( $order->getPayment() ) ) {
+        $paymentMethod = $order->getPayment()->getMethod();
+    }
+    $total = $order->getGrandTotal();
+    $items_total = $order->getTotalQtyOrdered();
+    $_pixelfound = false;
+    $_affiliateCode = '';
+    
+    if (isset($_COOKIE["pixelAffiliateCookie"])){
+        $_pixelfound = true;
+        $_affiliateCode = $_COOKIE["pixelAffiliateCookie"];
+    }
+    
+?>
+<script type="text/javascript">
+dataLayer.push(
+    {'ORDER_ID': '<?php echo $this->getOrderId() ?>'}, 
+    {'ORDER_PAYMENT_METHOD': '<?php echo $paymentMethod ?>'},
+    {'ORDER_ITEM_COUNT': '<?php echo round($items_total,0) ?>'},
+    {'ORDER_AMOUNT': '<?php echo round($total,0) ?>'},
+    {'RANDOM_NUMBER' : '<?php echo rand(10000000, 999999999)?>'},
+    {'MYDALA_LEAD_ID': '<?php echo $_COOKIE['myDalaCookie']?>'},
+    {'TRAN_SUCCESS': '1'},
+    {'CUSTOMER_TYPE': '<?php echo $customerType; ?>'},
+    {'NETWORK_PLAY': '<?php echo $networkPlay; ?>'},
+    {'PAGE_TYPE': 'ORDER_SUCCESS'},
+    {'PRODUCT_LIST_CART': '<?php echo implode( ',', $cp_sku );?>'},
+    {'PRODUCT_ID1': '<?php echo $cp_sku[0];?>'},
+    {'PRODUCT_ID2': '<?php echo isset($cp_sku[1]) ? $cp_sku[1] : '';?>'}
+);
+</script>
+
+
+<script type="text/javascript" class="microad_blade_track">
+    <!--
+    var microad_blade_gl = microad_blade_gl || { 'params' : new Array(), 'complete_map' : new Object() };
+    (function() {
+        var param = {'co_account_id' : '4720', 'group_id' : 'convtrack15455', 'country_id' : '4', 'ver' : '2.1.0'};
+        microad_blade_gl.params.push(param);
+        var src = '//d-cache.microadinc.com/js/blade_track_gl.js';
+        var bs = document.createElement('script');
+        bs.type = 'text/javascript'; bs.async = true;
+        bs.charset = 'utf-8'; bs.src = src;
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(bs, s);
+    })();
+    -->
+</script>
+<script type='text/javascript'>
+    //<![CDATA[
+    var p = '//adex.adchakra.net/adex/www/delivery/tjs.php';
+    var r=Math.floor(Math.random()*999999);
+    document.write ("<" + "script language='JavaScript' ");
+    document.write ("type='text/javascript' src='"+p);
+    document.write ("?trackerid=141&amp;append=0&amp;r="+r+"'><" + "\/script>");
+    //]]>
+</script>
+<noscript><div id='m3_tracker_141' style='position: absolute; left: 0px; top: 0px; visibility: hidden;'><img src='http://adex.adchakra.net/adex/www/delivery/ti.php?trackerid=141&amp;cb=%%<?php echo $orderId; ?>%%' width='0' height='0' alt='' /></div></noscript>

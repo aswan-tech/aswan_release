@@ -1,12 +1,39 @@
 <?php
-
 $step_counter = 1;
 $helper = Mage::helper('onestepcheckout/checkout');
 
+/* check to test if customer is logged in to skip the login - tab */
+$_iscustomerLogedIn = false;
+if($this->isCustomerLoggedIn()){
+	$_iscustomerLogedIn = true;
+}
+
+$shipping_passed = $helper->checkShippingPassed();
+$itemArr = Mage::helper('common')->getItemByType();
 ?>
-<?php if(!$this->canCheckout() || !$this->validateMinimumAmount()): ?>
+<div id="amsloader" style="display:none;" class="giftCardloader">
+	<div class="giftCardconf-Boxloader">
+		<span style="text-align:center;" class="fl"><img src="<?php echo $this->getSkinUrl('images-v3/adj-nav-progress-v1.gif') ?>"></span>
+	</div>
+</div>
+
+<div id="amsloader-2" style="display:none;" class="giftCardloader">
+	<div class="giftCardconf-Boxloader">
+		<span style="text-align:center;" class="fl"><img src="<?php echo $this->getSkinUrl('images-v3/adj-nav-progress-v1.gif') ?>"></span>
+	</div>
+</div>
+
+<div id="checkout">
+    <?php 
+		$msg = $this->getMessagesBlock()->getGroupedHtml();
+		echo str_replace('Rs. ', '<span class="WebRupee">` </span>', $msg);
+	?>
+		<div class="pagename"><h2>Checkout</h2></div>
+
+
+	<?php if(!$this->canCheckout() || !$this->validateMinimumAmount()): ?>
     <?php if($this->settings['checkout_title']): ?>
-        <h1 class="onestepcheckout-title"><?php echo $this->settings['checkout_title']; ?></h1>
+        <h1 class="onestepcheckout-title page_title"><?php echo $this->settings['checkout_title']; ?></h1>
     <?php endif; ?>
 
     <?php if($this->canCheckout() && !$this->validateMinimumAmount()): ?>
@@ -18,123 +45,136 @@ $helper = Mage::helper('onestepcheckout/checkout');
     <?php endif; ?>
 <?php else: ?>
 
-<form id="onestepcheckout-form" method="post" action="<?php echo $this->getUrl('onestepcheckout', array('_secure'=>true)); ?>">
-<fieldset class="group-select" style="margin: 0;">
 
-<?php if($this->settings['checkout_title']): ?>
-    <h1 class="onestepcheckout-title"><?php echo $this->settings['checkout_title']; ?></h1>
+<div id="checkoutarea">
+    <div id="checkoutleft">
+		<?php if(isset($this->formErrors['unknown_source_error'])): ?>
+		<div class="onestepcheckout-error">
+			<?php echo $this->formErrors['unknown_source_error']; ?>
+		</div>
+		<?php endif; ?>
+
+		<div class="pager">
+<hr />
+			<ul>
+			<?php if($_iscustomerLogedIn): ?>	
+		  <li><span>1</span> <br /> Email or Login</li>
+		  <li class="current"><span>2</span> <br /> Shipping Address</li>
+		  <li><span>3</span> <br /> Payment</li>
+
+           <?php else: ?>
+		  <li class="current"><span>1</span> <br /> Email or Login</li>
+		  <li><span>2</span> <br /> Shipping Address</li>
+		  <li><span>3</span> <br /> Payment</li>
+		<?php endif; ?>	    
+			</ul>
+		</div>
+		
+
+			<div id="stepone" <?php if($_iscustomerLogedIn): ?> style="display:none;" <?php else: ?> <?php endif; ?>>
+			   <?php echo $this->getChildHtml('loginpage'); ?>
+			</div>
+            <input type="hidden" class="shipping-tab-passed" name="shippingtabpassed" value="<?php echo $shipping_passed; ?>" />
+            
+            <form id="onestepcheckout-form" method="post" action="<?php echo $this->getUrl('onestepcheckout', array('_secure'=>true)); ?>">
+                    <input id="time_slot_hiddenvalue" name="time_slot_hiddenvalue" type="hidden" value="" />
+                    <!--Shipping Details content start here -->
+<div id="steptwo" <?php if($_iscustomerLogedIn): ?> <?php else: ?> style="display:none;" <?php endif; ?>>                                                                        
+<div class="ckprd-shipdet-wrapp">
+<script type="text/javascript">var shipping = new Shipping();</script>
+<style type="text/css">
+ #add-new-address, #list-of-addresses {float:right; color:#333; display:block; padding:3px; font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-size:13px; font-weight:400;}
+</style>
+<div id="shipping_address">
+<h3>Your Shipping Information 
+<?php if ($this->customerHasAddresses()): ?>
+<a href="javascript:void(0);" id="add-new-address"> +ADD NEW ADDRESS</a>
+<a href="javascript:void(0);" id="list-of-addresses" style="display:none;" > BACK TO SAVED ADDRESS</a>
 <?php endif; ?>
+</h3>
+	<?php if ($this->customerHasAddresses()): ?>
+		
+		<div id="list-shipping-address">																	
+			<?php 
+			$addressArr = $this->getCustomerAddresses();
+			$defaultChecked = isset($addressArr[0]['value']) ? $addressArr[0]['value'] : false;
+			foreach($addressArr as $key=>$addressData){
+				$addressText = "{$addressData['data']['firstname']} {$addressData['data']['lastname']}~{$addressData['data']['telephone']}~{$addressData['street1']}~{$addressData['street2']}~{$addressData['data']['postcode']}~{$addressData['data']['city']}~{$addressData['data']['region']}~{$addressData['data']['country_id']}";
+			?>
+			<div class="addressbox">
+			<input <?php echo ($defaultChecked == $addressData['value'] ? 'checked="checked"' : ''); ?> type="radio" id="shipping-address-select-<?php echo $addressData['value']; ?>" id="radio4" class="css-checkbox fl mar-r10" value="<?php echo $addressData['value']; ?>" name="ship" onclick="chooseShipping(this.value);" />
+			<label for="shipping-address-select-<?php echo $addressData['value']; ?>">
+			<?php echo $addressData['label'].', <strong>Mob:</strong> +91 '.$addressData['data']['telephone']; ?></label>	
+<p class="ck-add-remove pad-r10 fr removeadd">
+              <a class="ckremove-btn-new fl" href="javascript:void(0);" onclick="deleteShippingAddress(<?php echo $addressData['value']; ?>);">Remove</a></p>
+              <span style="display:none;" id="shipping_address_text_<?php echo $addressData['value']; ?>"><?php echo $addressText; ?></span>
+												
+			<div id="cart-loader-<?php echo $addressData['value']; ?>" style="display:none;"><img src="<?php echo $this->getSkinUrl('images/ajax-loader.gif') ?>"></div>
+		  </div>
+		  <?php } ?>
+		  <input type="hidden" id="shipping-address-select" name="shipping_address_id" value="<?php echo $defaultChecked; ?>">
+		  <input type="hidden" id="tmp_shipping_address_id" value="<?php echo $defaultChecked; ?>">
+		  <input type="hidden" name="shipping[save_in_address_book]" class="shipping_save_address" value="0" />
+		</div>
+		<div class="clear"></div>
+		<?php /*<div class="input-box"><?php echo $this->getAddressesHtmlSelect('shipping') ?></div>*/ ?>
+	<?php endif ?>
 
-<?php if($this->settings['checkout_description']): ?>
-    <p class="onestepcheckout-description"><?php echo $this->settings['checkout_description']; ?></p>
-<?php endif; ?>
+	<div id="shipping_address_list" <?php if($this->customerHasAddresses() && !$this->getNewAddressSelectValueOnError('shipping')) { echo '  style="display: none;" '; } ?>>
+	   <?php echo $this->getChildHtml('shipping_address');?>
+		<?php $addressAttributes = $this->getChild('customer_form_shipping_address_user_defined_attributes');?>
+		<?php if ($addressAttributes): ?>
+			<?php $addressAttributes->setEntity($this->getQuote()->getShippingAddress())->setEntityType('customer_address');?>
+			<?php $addressAttributes->setFieldIdFormat('shipping:%1$s')->setFieldNameFormat('shipping[%1$s]');?>
+			<?php echo $addressAttributes->setExcludeFileAttributes(true)->setShowContainer(false)->toHtml()?>
+		<?php endif;?>
+		<input type="hidden" name="shipping[address_id]" value="<?php echo $this->getQuote()->getShippingAddress()->getId() ?>" id="shipping:address_id" />
+	</div>
+    <!-- Billing Address -->
+<!--h3>Billing Address</h3-->
+	<div class="sameaddress">
+		  <input class="fl" type="checkbox" name="shipping[use_for_billing]" id="shipping:use_for_billing_yes" value="1" <?php echo $this->isUseShippingAddressForBilling() == 1 ? "checked='checked'" : "" ; ?> />
+		  <label for="shipping:use_for_billing_yes">This address is also my billing address</label>
+	</div>
+	<div class="clear"></div>
+	<div class="bill-add-sec">
+		<div id="billing_address" class="billing_address">
+            <script type="text/javascript">var billing = new Billing();</script>
+            <?php if ($this->customerHasAddresses()): ?>
+                <?php /*<div class="input-box"><?php echo $this->getAddressesHtmlSelect('billing') ?></div>*/?>
+                
+                <?php if(isset($this->formErrors['billing_error']) && count($this->formErrors['billing_errors']) > 0): ?>                                            
+                    <div class="onestepcheckout-error">
+                        <?php echo $this->__('Please check red fields below and try again.'); ?>
+                    </div>                                            
+                <?php endif; ?>                                        
+            <?php endif; ?>
 
-<?php if(!$this->isCustomerLoggedIn() && $helper->showLoginLink()): ?>
-    <p class="onestepcheckout-login-link">
-        <a id="onestepcheckout-login-link" href="javascript:void(0); return: false;"><?php echo $this->__('Already registered? Click here to login.'); ?></a>
-    </p>
-<?php endif; ?>
-
-<?php if(isset($this->formErrors['unknown_source_error'])): ?>
-<div class="onestepcheckout-error">
-    <?php echo $this->formErrors['unknown_source_error']; ?>
-</div>
-<?php endif; ?>
-<div class="onestepcheckout-threecolumns checkoutcontainer onestepcheckout-skin-<?php echo $this->settings['skin']; ?> <?php if(Mage::helper('onestepcheckout')->isEnterprise()): ?>onestepcheckout-enterprise<?php endif; ?>">
-    <div class="onestepcheckout-column-left">
-        <div id="billing_address">
-            <script type="text/javascript">
-            var billing = new Billing();
-
-            </script>
-            <ul>
-                <li>
-                    <p class="onestepcheckout-numbers onestepcheckout-numbers-<?php echo $step_counter++; ?>"><?php echo $this->__('Billing address'); ?></p>
-                        <?php if(isset($this->formErrors['billing_error']) && count($this->formErrors['billing_errors']) > 0): ?>
-                        <div class="onestepcheckout-error">
-                            <?php echo $this->__('Please check red fields below and try again.'); ?>
-                        </div>
-                        <?php endif; ?>
-                </li>
-                <?php if ($this->customerHasAddresses()): ?>
-                <li>
-                    <label for="billing-address-select"><?php echo $this->__('Select a billing address from your address book or enter a new address.') ?></label>
-                    <div class="input-box">
-                        <?php echo $this->getAddressesHtmlSelect('billing') ?>
-                    </div>
-                </li>
-                <?php endif; ?>
-                <li>
-                    <div>
-                        <ul id="billing_address_list" <?php echo (($this->customerHasAddresses() && !$this->getNewAddressSelectValueOnError('billing')) ? 'style = "display:none"' : false ); ?>>
-                            <?php echo $this->getChildHtml('billing_address');?>
-                            <?php $addressAttributes = $this->getChild('customer_form_billing_address_user_defined_attributes');?>
-                            <?php if ($addressAttributes): ?>
-                                <?php $addressAttributes->setEntity($this->getQuote()->getBillingAddress())->setEntityType('customer_address');?>
-                                <?php $addressAttributes->setFieldIdFormat('billing:%1$s')->setFieldNameFormat('billing[%1$s]');?>
-                                <?php echo $addressAttributes->setExcludeFileAttributes(true)->setShowContainer(false)->toHtml()?>
-                            <?php endif;?>
-                            <?php $customerAttributes = $this->getChild('customer_form_customer_user_defined_attributes');?>
-                            <?php if ($customerAttributes): ?>
-                                <?php $customerAttributes->setEntityModelClass('customer/customer')->setFieldIdFormat('billing:%1$s');?>
-                                <?php $customerAttributes->setFieldNameFormat('billing[%1$s]')->setShowContainer(false);?>
-                                <?php echo $customerAttributes->setExcludeFileAttributes(true)->toHtml()?>
-                            <?php endif;?>
-                        </ul>
-                    </div>
-                </li>
-                <li>
-                    <?php $uncheck = (!empty($_POST['billing']) && empty($_POST['billing']['use_for_shipping']));?>
-                    <?php if($this->differentShippingAvailable()): ?>
-                        <div class="input-box input-different-shipping">
-                            <input type="checkbox" name="billing[use_for_shipping]" id="billing:use_for_shipping_yes" value="1" <?php echo (($this->sameAsBilling() && !$uncheck) ? 'checked="checked" ':'')?>/>
-                            <label for="billing:use_for_shipping_yes"><?php echo $this->__('Ship to the same address')?></label>
-                        </div>
-                    <?php else: ?>
-                        <input type="hidden" name="billing[use_for_shipping]" id="billing:use_for_shipping_yes" value="1" />
-                    <?php endif; ?>
-                </li>
-            </ul>
+            <div id="billing_address_list" <?php echo (($this->customerHasAddresses() && !$this->getNewAddressSelectValueOnError('billing')) ? 'style = "display:none"' : false ); ?>>
+                <?php $prefix = $this->getLayout()->createBlock('customer/widget_name')->setObject($this->getAddress())->setFieldIdFormat('billing:%s')->setFieldNameFormat('billing[%s]') ?>
+                
+                <?php echo $this->getChildHtml('billing_address');?>
+                <?php $addressAttributes = $this->getChild('customer_form_billing_address_user_defined_attributes');?>
+                <?php if ($addressAttributes): ?>
+                    <?php $addressAttributes->setEntity($this->getQuote()->getBillingAddress())->setEntityType('customer_address');?>
+                    <?php $addressAttributes->setFieldIdFormat('billing:%1$s')->setFieldNameFormat('billing[%1$s]');?>
+                    <?php echo $addressAttributes->setExcludeFileAttributes(true)->setShowContainer(false)->toHtml()?>
+                <?php endif;?>
+                <?php $customerAttributes = $this->getChild('customer_form_customer_user_defined_attributes');?>
+                <?php if ($customerAttributes): ?>
+                    <?php $customerAttributes->setEntityModelClass('customer/customer')->setFieldIdFormat('billing:%1$s');?>
+                    <?php $customerAttributes->setFieldNameFormat('billing[%1$s]')->setShowContainer(false);?>
+                    <?php echo $customerAttributes->setExcludeFileAttributes(true)->toHtml()?>
+                <?php endif;?>
+            </div>
         </div>
-    <?php if($this->differentShippingAvailable()): ?>
-        <div id="shipping_address" <?php  echo (($this->sameAsBilling() && !$uncheck) ? 'style="display: none"': false);?>>
-            <script type="text/javascript">
-                var shipping = new Shipping();
-            </script>
-            <ul>
-                <li class="shipping-address-title">
-                    <?php echo $this->__('Shipping address'); ?>
-                </li>
-                <?php if ($this->customerHasAddresses()): ?>
-                   <li class="form-alt">
-                       <label for="shipping-address-select"><?php echo $this->__('Select a shipping address from your address book or enter a new address.') ?></label>
-                       <div class="input-box"><?php echo $this->getAddressesHtmlSelect('shipping') ?></div>
-                   </li>
-                <?php endif ?>
-                <li id="shipping_address_list" <?php if($this->customerHasAddresses() && !$this->getNewAddressSelectValueOnError('shipping')) { echo '  style="display: none;" '; } ?>>
-                    <div id="">
-                        <ul>
-                            <?php echo $this->getChildHtml('shipping_address');?>
-                            <?php $addressAttributes = $this->getChild('customer_form_shipping_address_user_defined_attributes');?>
-                            <?php if ($addressAttributes): ?>
-                                <?php $addressAttributes->setEntity($this->getQuote()->getShippingAddress())->setEntityType('customer_address');?>
-                                <?php $addressAttributes->setFieldIdFormat('shipping:%1$s')->setFieldNameFormat('shipping[%1$s]');?>
-                                <?php echo $addressAttributes->setExcludeFileAttributes(true)->setShowContainer(false)->toHtml()?>
-                            <?php endif;?>
-                        </ul>
-                        <input type="hidden" name="shipping[address_id]" value="<?php echo $this->getQuote()->getShippingAddress()->getId() ?>" id="shipping:address_id" />
-                        <!-- END LIST OF SHIPPIING FIELDS -->
-                    </div>
-                </li>
-            </ul>
         </div>
-    <?php endif; ?>
+        </div>
+	<!-- Billing Address -->
+                
 </div>
-
-    <div class="onestepcheckout-column-middle">
-
-
-        <?php if(!$this->isVirtual()): ?>
+        
+    <?php if(!$this->isVirtual()): ?>
             <?php if(Mage::getStoreConfig('onestepcheckout/general/hide_shipping_method')):?>
                 <?php if(isset($this->formErrors['shipping_method']) && $this->formErrors['shipping_method']): ?>
                     <div class="onestepcheckout-error onestepcheckout-shipment-method-error">
@@ -143,823 +183,96 @@ $helper = Mage::helper('onestepcheckout/checkout');
                 <?php endif; ?>
                 <?php echo $this->getChildHtml('choose-shipping-method'); ?>
             <?php else:?>
-                <div class="onestepcheckout-shipping-method">
-                    <p class="onestepcheckout-numbers onestepcheckout-numbers-<?php echo $step_counter++; ?>"><?php echo $this->__('Shipping method'); ?></p>
-
                     <?php if(isset($this->formErrors['shipping_method']) && $this->formErrors['shipping_method']): ?>
                     <div class="onestepcheckout-error onestepcheckout-shipment-method-error">
                         <?php echo $this->__('Please choose a shipping method.'); ?>
                     </div>
                     <?php endif; ?>
 
-                    <div class="onestepcheckout-shipping-method-block">
+                    <div class="onestepcheckout-shipping-method-block shipping_method">
                         <?php echo $this->getChildHtml('choose-shipping-method'); ?>
                     </div>
-                </div>
             <?php endif; ?>
         <?php endif; ?>
+        <div class="clear"></div>
+		<?php if(in_array('giftcard', $itemArr) && (in_array('configurable', $itemArr) || in_array('simple', $itemArr) )) { ?>
+			<a href="javascript:void(0);" class="ckcontinue-btn gobutton" onClick="javascript:orderNow();">CONTINUE</a>
+		<?php }else{ ?>	
+		<a href="javascript:void(0);" id="checkout-delivery-add-continue" class="ckcontinue-btn gobutton" onClick="javascript:validateShippingTab();">CONTINUE</a>
+		<?php } ?>
+<div id="delivery-loader" style="display:none;"><img src="<?php echo $this->getSkinUrl('images/ajax-loader.gif') ?>"></div>				
+<div class="clearfloat"></div>
+</div>
 
-        <?php if(Mage::getStoreConfig('onestepcheckout/general/hide_payment_method')):?>
-            <?php if(!empty($this->formErrors['payment_method'])): ?>
-            <div class="onestepcheckout-error onestepcheckout-payment-method-error">
-                <?php echo $this->__('Please choose a payment method.'); ?>
-            </div>
-            <?php endif; ?>
-            <?php if(!empty($this->formErrors['payment_method_error'])): ?>
-                <div class="onestepcheckout-error onestepcheckout-payment-method-error">
-                    <?php echo $this->__('Please enter valid details below.'); ?>
-                </div>
-            <?php endif; ?>
-            <?php echo $this->getChildHtml('choose-payment-method'); ?>
-        <?php else: ?>
-            <p class="onestepcheckout-numbers onestepcheckout-numbers-<?php echo $step_counter++; ?>"><?php echo $this->__('Payment method'); ?></p>
-            <?php if(isset($this->formErrors['payment_method']) && $this->formErrors['payment_method']): ?>
-                <div class="onestepcheckout-error onestepcheckout-payment-method-error">
-                    <?php echo $this->__('Please choose a payment method.'); ?>
-                </div>
-            <?php else: ?>
-                <?php if(isset($this->formErrors['payment_method_error'])): ?>
-                    <div class="onestepcheckout-error onestepcheckout-payment-method-error">
-                        <?php echo $this->__('Please enter valid details below.'); ?>
-                    </div>
-                <?php endif; ?>
-            <?php endif; ?>
+                    <!-- payment options start -->
+                    <div id="stepthree" style="display:none">
+                        <?php if(Mage::getStoreConfig('onestepcheckout/general/hide_payment_method')):?>
+                            <?php if(!empty($this->formErrors['payment_method'])): ?>
+                                <div class="onestepcheckout-error onestepcheckout-payment-method-error">
+                                    <?php echo $this->__('Please choose a payment method.'); ?>
+                                </div>
+                            <?php endif; ?>
+                            <?php if(!empty($this->formErrors['payment_method_error'])): ?>
+                                <div class="onestepcheckout-error onestepcheckout-payment-method-error">
+                                    <?php echo $this->__('Please enter valid details below.'); ?>
+                                </div>
+                            <?php endif; ?>
+                            <?php echo $this->getChildHtml('choose-payment-method'); ?>
+                      <?php else: ?>
+                        <?php if(isset($this->formErrors['payment_method']) && $this->formErrors['payment_method']): ?>
+                            <div class="onestepcheckout-error onestepcheckout-payment-method-error">
+                            <?php echo $this->__('Please choose a payment method.'); ?>
+                            </div>
+                        <?php else: ?>
+                            <?php if(isset($this->formErrors['payment_method_error'])): ?>
+                                <div class="onestepcheckout-error onestepcheckout-payment-method-error">
+                                <?php echo $this->__('Please enter valid details below.'); ?>
+                                </div>
+                            <?php endif; ?>
+                        <?php endif; ?>
+                        <div class="cckprd-pay-option-wrapp fl c-pantone">
+                            <?php echo $this->getChildHtml('choose-payment-method'); ?>
+                        </div>
+                    <?php endif; ?>
 
-            <?php echo $this->getChildHtml('choose-payment-method'); ?>
+                    
 
-            <div class="tool-tip" id="payment-tool-tip" style="display:none;">
-                <div class="btn-close">
-                    <a href="javascript:void(0);" id="payment-tool-tip-close"><img src="<?php echo $this->getSkinUrl('images/btn_window_close.gif') ?>" alt="<?php echo $this->__('Close') ?>" /></a>
-                </div>
-                <div class="block-content">
-                <img src="<?php echo $this->getSkinUrl('images/cvv.gif') ?>" alt="<?php echo $this->__('Card Verification Number Visual Reference') ?>" />
-                </div>
-            </div>
-        <?php endif; ?>
+                    </form> 
+		</div>
     </div>
-
-    <div class="onestepcheckout-column-right">
-
-        <p class="onestepcheckout-numbers onestepcheckout-numbers-4"><?php echo $this->__('Review your order'); ?></p>
-
-        <div class="onestepcheckout-summary">
-            <?php echo $this->getChildHtml('summary'); ?>
+    <!--Shopping bag start-->
+    <div id="checkoutright">
+		<?php echo $this->getChildHtml('summary'); ?>
+        <input type="hidden" name="placeorder" value="placeorder" />
+        <div class="onestepcheckout-place-order-wrapper place_order" style="display:none;">
+            <button type="button" title="<?php echo $this->__('PLACE YOUR ORDER'); ?>" id="onestepcheckout-place-order" class="large orange onestepcheckout-button onestepcheckout-place-order"><?php echo $this->__('Place order now'); ?></button>
         </div>
 
-        <?php if($this->settings['enable_discount']): ?>
-        <div class="onestepcheckout-coupons">
-            <div id="coupon-notice" style="display: none;"></div>
-            <?php $_couponcode = $this->getQuote()->getCouponCode(); ?>
-            <label for="id_couponcode"><?php echo $this->__('Coupon code:'); ?></label><br/>
-            <input class="input-text" type="text" name="onestepcheckout-couponcode" id="id_couponcode" value="<?php echo Mage::helper('core')->escapeHtml($_couponcode); ?>" />
-            <br/>
-            <button id="onestepcheckout-coupon-add" class="form-button-alt button" type="button"><span><span><?php echo $this->__('Apply Coupon'); ?></span></span></button>
-            <button id="onestepcheckout-coupon-remove" class="form-button-alt button" type="button" style="<?php if($_couponcode == '') { echo 'display: none;'; } ?>"><span><span><?php echo $this->__('Cancel Coupon'); ?></span></span></button>
-            <script>
-            Event.observe(window, 'load', function() {
-                $('onestepcheckout-coupon-add').observe('click', function(e)    {
-
-                    var coupon = $('id_couponcode').getValue();
-                    var couponNotice = $('coupon-notice');
-
-                    couponNotice.hide();
-
-                    if(coupon == '')  {
-                        alert('<?php echo $this->__('Please enter a valid coupon code.'); ?>');
-                        return;
-                    }
-
-                    var url = '<?php echo $this->getUrl('onestepcheckout/ajax/add_coupon', array('_secure'=>true)); ?>';
-                    var parameters = {code: coupon};
-                    var shipping_methods = $$('dl.shipment-methods').first();
-                    var payment_methods = $$('div.payment-methods').first();
-                    var summary = $$('div.onestepcheckout-summary').first();
-
-                    if(shipping_methods){
-                        shipping_methods.update('<div class="loading-ajax">&nbsp;</div>');
-                    }
-
-                    if(payment_methods){
-                        payment_methods.update('<div class="loading-ajax">&nbsp;</div>');
-                    }
-
-                    summary.update('<div class="loading-ajax">&nbsp;</div>');
-
-                    new Ajax.Request(url, {
-                        method: 'post',
-                        parameters: parameters,
-                        onSuccess: function(transport) {
-                            if(transport.status == 200) {
-
-                                var response = transport.responseText.evalJSON();
-
-                                var url = '<?php echo $this->getUrl('onestepcheckout/ajax/set_methods_separate', array('_secure'=>true)); ?>';
-                                var update_payments = <?php echo $this->settings['enable_update_payment_on_shipping'] ? 'true' : 'false'; ?>;
-
-                                if(shipping_methods){
-                                    shipping_methods.hide();
-                                    shipping_methods.update(response.shipping_method);
-                                    shipping_methods.show();
-                                    $$('dl.shipment-methods input').invoke('observe', 'click', get_separate_save_methods_function(url, update_payments));
-                                    $$('dl.shipment-methods input').invoke('observe', 'click', function() {
-                                        $$('div.onestepcheckout-shipment-method-error').each(function(item) {
-                                            new Effect.Fade(item);
-                                        });
-                                    });
-                                }
-
-                                if(payment_methods){
-                                    payment_methods.hide();
-                                    payment_methods.replace(response.payment_method);
-                                    payment_methods.show();
-
-                                    paymentContainer = $('container_payment_method_' + payment.currentMethod)
-                                    paymentForm = $('payment_form_' + payment.currentMethod)
-
-                                    if(paymentContainer != null){
-                                        paymentContainer.show();
-                                    }
-                                    if(paymentForm != null){
-                                        paymentForm.show();
-                                    }
-                                    $$('div.payment-methods input[name="payment\[method\]"]').invoke('observe', 'click', get_separate_save_methods_function(url));
-                                    $$('div.payment-methods input[name="payment\[method\]"]').invoke('observe', 'click', function() {
-                                        $$('div.onestepcheckout-payment-method-error').each(function(item) {
-                                            new Effect.Fade(item);
-                                        });
-                                    });
-                                }
-
-                                summary.hide();
-                                summary.update(response.summary);
-                                summary.show();
-
-                                if(response.success) {
-
-                                    couponNotice.update(response.message);
-                                    couponNotice.removeClassName('error-msg');
-                                    couponNotice.addClassName('success-msg');
-                                    couponNotice.show();
-                                    /* Show remove button */
-                                    $('onestepcheckout-coupon-remove').show();
-                                }
-                                else    {
-
-                                    couponNotice.update(response.message);
-                                    couponNotice.removeClassName('success-msg');
-                                    couponNotice.addClassName('error-msg');
-                                    couponNotice.show();
-                                    /* Hide remove button */
-                                    $('onestepcheckout-coupon-remove').hide();
-                                }
-                            }
-                        }
-                    });
-                });
-
-                $('onestepcheckout-coupon-remove').observe('click', function(e) {
-
-                    var coupon = $('id_couponcode').getValue();
-                    var couponNotice = $('coupon-notice');
-
-                    couponNotice.hide();
-
-                    var url = '<?php echo $this->getUrl('onestepcheckout/ajax/add_coupon', array('_secure'=>true)); ?>';
-                    var parameters = {code: coupon, remove: '1'};
-                    var shipping_methods = $$('dl.shipment-methods').first();
-                    var payment_methods = $$('div.payment-methods').first();
-                    var summary = $$('div.onestepcheckout-summary').first();
-
-                    if(shipping_methods){
-                        shipping_methods.update('<div class="loading-ajax">&nbsp;</div>');
-                    }
-
-                    if(payment_methods){
-                        payment_methods.update('<div class="loading-ajax">&nbsp;</div>');
-                    }
-                    summary.update('<div class="loading-ajax">&nbsp;</div>');
-
-                    new Ajax.Request(url, {
-                        method: 'post',
-                        parameters: parameters,
-                        onSuccess: function(transport)  {
-                            if(transport.status == 200) {
-                                var response = transport.responseText.evalJSON();
-
-                                if(response.success){
-                                    $('id_couponcode').setValue('')
-                                    $('onestepcheckout-coupon-remove').hide();
-                                }
-
-                                var url = '<?php echo $this->getUrl('onestepcheckout/ajax/set_methods_separate', array('_secure'=>true)); ?>';
-                                var update_payments = <?php echo $this->settings['enable_update_payment_on_shipping'] ? 'true' : 'false'; ?>;
-
-                                if(shipping_methods){
-                                    shipping_methods.hide();
-                                    shipping_methods.update(response.shipping_method);
-                                    shipping_methods.show();
-                                    $$('dl.shipment-methods input').invoke('observe', 'click', get_separate_save_methods_function(url, update_payments));
-                                    $$('dl.shipment-methods input').invoke('observe', 'click', function() {
-                                        $$('div.onestepcheckout-shipment-method-error').each(function(item) {
-                                            new Effect.Fade(item);
-                                        });
-                                    });
-                                }
-
-                                if(payment_methods){
-                                    payment_methods.hide();
-                                    payment_methods.replace(response.payment_method);
-                                    payment_methods.show();
-
-                                    paymentContainer = $('container_payment_method_' + payment.currentMethod)
-                                    paymentForm = $('payment_form_' + payment.currentMethod)
-
-                                    if(paymentContainer != null){
-                                        paymentContainer.show();
-                                    }
-
-                                    if(paymentForm != null){
-                                        paymentForm.show();
-                                    }
-                                    $$('div.payment-methods input[name="payment\[method\]"]').invoke('observe', 'click', get_separate_save_methods_function(url));
-                                    $$('div.payment-methods input[name="payment\[method\]"]').invoke('observe', 'click', function() {
-                                        $$('div.onestepcheckout-payment-method-error').each(function(item) {
-                                            new Effect.Fade(item);
-                                        });
-                                    });
-                                }
-
-                                summary.hide();
-                                summary.update(response.summary);
-                                summary.show();
-
-                                couponNotice.hide();
-                                couponNotice.update(response.message);
-                                couponNotice.removeClassName('error-msg');
-                                couponNotice.addClassName('success-msg');
-                                couponNotice.show();
-                            }
-                        }
-                    });
-                });
-            });
-            </script>
-        </div>
-        <?php endif; ?>
-
-        <?php if($this->settings['enable_giftcard']): ?>
-        <div class="onestepcheckout-giftcards">
-            <div id="giftcard-notice" style="display: none;"></div>
-            <?php
-            $_hasGiftCards = unserialize($this->getQuote()->getGiftCards());
-            $_giftcardcode = $this->getQuote()->getgiftcardCode(); ?>
-            <label for="id_giftcardcode"><?php echo $this->__('giftcard code:'); ?></label><br/>
-            <input class="input-text" type="text" name="onestepcheckout-giftcardcode" id="id_giftcardcode" value="<?php echo Mage::helper('core')->escapeHtml($_giftcardcode); ?>" />
-            <br/>
-            <button id="onestepcheckout-giftcard-add" class="form-button-alt button" type="button"><span><span><?php echo $this->__('Apply gift card'); ?></span></span></button>
-            <button id="onestepcheckout-giftcard-remove" class="form-button-alt button" type="button" style="<?php if(empty($_hasGiftCards)) { echo 'display: none;'; } ?>"><span><span><?php echo $this->__('Cancel gift card'); ?></span></span></button>
-            <script>
-            document.observe('dom:loaded', function() {
-                $('onestepcheckout-giftcard-add').observe('click', function(e)    {
-                    var giftcard = $('id_giftcardcode').getValue();
-                    var giftcardNotice = $('giftcard-notice');
-                    giftcardNotice.hide();
-                    if(giftcard == '')    {
-                        alert('<?php echo $this->__('Please enter a valid giftcard code.'); ?>');
-                        return;
-                    }
-
-                    var url = '<?php echo $this->getUrl('onestepcheckout/ajax/add_giftcard', array('_secure'=>true)); ?>';
-                    var parameters = {code: giftcard};
-                    var shipping_methods = $$('dl.shipment-methods').first();
-                    var payment_methods = $$('div.payment-methods').first();
-                    var summary = $$('div.onestepcheckout-summary').first();
-
-                    if(shipping_methods){
-                        shipping_methods.update('<div class="loading-ajax">&nbsp;</div>');
-                    }
-
-                    if(payment_methods){
-                        payment_methods.update('<div class="loading-ajax">&nbsp;</div>');
-                    }
-                    summary.update('<div class="loading-ajax">&nbsp;</div>');
-
-                    new Ajax.Request(url+Math.random(1000), {
-                        method: 'post',
-                        parameters: parameters,
-                        onSuccess: function(transport) {
-                            if(transport.status == 200) {
-
-                                var response = transport.responseText.evalJSON();
-
-                                var url = '<?php echo $this->getUrl('onestepcheckout/ajax/set_methods_separate', array('_secure'=>true)); ?>';
-                                var update_payments = <?php echo $this->settings['enable_update_payment_on_shipping'] ? 'true' : 'false'; ?>;
-
-                                if(shipping_methods){
-                                    shipping_methods.hide();
-                                    shipping_methods.update(response.shipping_method);
-                                    shipping_methods.show();
-                                    $$('dl.shipment-methods input').invoke('observe', 'click', get_separate_save_methods_function(url, update_payments));
-                                    $$('dl.shipment-methods input').invoke('observe', 'click', function() {
-                                        $$('div.onestepcheckout-shipment-method-error').each(function(item) {
-                                            new Effect.Fade(item);
-                                        });
-                                    });
-                                }
-
-                                if(payment_methods){
-                                    //payment_methods.hide();
-                                    payment_methods.replace(response.payment_method);
-                                    //payment_methods.show();
-
-                                    paymentContainer = $('container_payment_method_' + payment.currentMethod)
-                                    paymentForm = $('payment_form_' + payment.currentMethod)
-
-                                    if(paymentContainer != null){
-                                        paymentContainer.show();
-                                    }
-                                    if(paymentForm != null){
-                                        paymentForm.show();
-                                    }
-                                    $$('div.payment-methods input[name="payment\[method\]"]').invoke('observe', 'click', get_separate_save_methods_function(url));
-                                    $$('div.payment-methods input[name="payment\[method\]"]').invoke('observe', 'click', function() {
-                                        $$('div.onestepcheckout-payment-method-error').each(function(item) {
-                                            new Effect.Fade(item);
-                                        });
-                                    });
-                                }
-
-                                if(response.success) {
-                                    summary.update(response.summary);
-                                    giftcardNotice.update(response.message);
-                                    giftcardNotice.removeClassName('error-msg');
-                                    giftcardNotice.addClassName('success-msg');
-                                    giftcardNotice.show();
-                                    /* Show remove button */
-                                    $('onestepcheckout-giftcard-remove').show();
-                                }
-                                else    {
-                                    summary.update(response.summary);
-                                    giftcardNotice.update(response.message);
-                                    giftcardNotice.removeClassName('success-msg');
-                                    giftcardNotice.addClassName('error-msg');
-                                    giftcardNotice.show();
-                                    /* Hide remove button */
-                                    //$('onestepcheckout-giftcard-remove').hide();
-                                }
-                            }
-                        }
-                    });
-                });
-
-                $('onestepcheckout-giftcard-remove').observe('click', function(e) {
-                    var giftcard = $('id_giftcardcode').getValue();
-                    var giftcardNotice = $('giftcard-notice');
-                    giftcardNotice.hide();
-                    var url = '<?php echo $this->getUrl('onestepcheckout/ajax/add_giftcard', array('_secure'=>true)); ?>';
-                    var parameters = {code: giftcard, remove: '1'};
-                    var shipping_methods = $$('dl.shipment-methods').first();
-                    var payment_methods = $$('div.payment-methods').first();
-                    var summary = $$('div.onestepcheckout-summary').first();
-
-                    if(shipping_methods){
-                        shipping_methods.update('<div class="loading-ajax">&nbsp;</div>');
-                    }
-
-                    if(payment_methods){
-                        payment_methods.update('<div class="loading-ajax">&nbsp;</div>');
-                    }
-                    summary.update('<div class="loading-ajax">&nbsp;</div>');
-
-                    new Ajax.Request(url, {
-                        method: 'post',
-                        parameters: parameters,
-                        onSuccess: function(transport)  {
-                            if(transport.status == 200) {
-                                var response = transport.responseText.evalJSON();
-
-                                var url = '<?php echo $this->getUrl('onestepcheckout/ajax/set_methods_separate', array('_secure'=>true)); ?>';
-                                var update_payments = <?php echo $this->settings['enable_update_payment_on_shipping'] ? 'true' : 'false'; ?>;
-
-                                if(shipping_methods){
-                                    shipping_methods.hide();
-                                    shipping_methods.update(response.shipping_method);
-                                    shipping_methods.show();
-                                    $$('dl.shipment-methods input').invoke('observe', 'click', get_separate_save_methods_function(url, update_payments));
-                                    $$('dl.shipment-methods input').invoke('observe', 'click', function() {
-                                        $$('div.onestepcheckout-shipment-method-error').each(function(item) {
-                                            new Effect.Fade(item);
-                                        });
-                                    });
-                                }
-
-                                if(payment_methods){
-                                    $$('div.payment-methods input[name="payment\[method\]"]').invoke('observe', 'click', get_separate_save_methods_function(url));
-                                    $$('div.payment-methods input[name="payment\[method\]"]').invoke('observe', 'click', function() {
-                                        $$('div.onestepcheckout-payment-method-error').each(function(item) {
-                                            new Effect.Fade(item);
-                                        });
-                                    });
-                                    payment_methods.hide();
-                                    payment_methods.replace(response.payment_method);
-                                    payment_methods.show();
-
-                                    paymentContainer = $('container_payment_method_' + payment.currentMethod)
-                                    paymentForm = $('payment_form_' + payment.currentMethod)
-
-                                    if(paymentContainer != null){
-                                        paymentContainer.show();
-                                    }
-                                    if(paymentForm != null){
-                                        paymentForm.show();
-                                    }
-                                }
-
-                                if(response.success){
-                                    $('id_giftcardcode').setValue('')
-                                    $('onestepcheckout-giftcard-remove').hide();
-                                }
-                                var summary = $$('div.onestepcheckout-summary').first();
-
-                                summary.hide();
-                                summary.update(response.summary);
-                                summary.show();
-
-                                giftcardNotice.hide();
-                                giftcardNotice.update(response.message);
-                                giftcardNotice.removeClassName('error-msg');
-                                giftcardNotice.addClassName('success-msg');
-                                giftcardNotice.show();
-                            }
-                        }
-                    });
-                });
-            });
-            </script>
-        </div>
-        <?php endif; ?>
-
-        <?php if($this->settings['enable_comments']): ?>
-            <div class="onestepcheckout-comments">
-                <label for="id_comments"><?php echo $this->__('Comments'); ?></label><br/>
-                <textarea id="id_comments" name="onestepcheckout_comments"><?php if(isset($_POST['onestepcheckout_comments'])) { echo Mage::helper('core')->escapeHtml($_POST['onestepcheckout_comments']); } ?></textarea>
-            </div>
-        <?php endif; ?>
-
-        <?php if($this->settings['enable_gift_messages']): ?>
-            <div id="onestepcheckout-giftmessages">
-            <div class="onestepcheckout-giftmessagecontainer">
-            <?php echo $this->helper('onestepcheckout/message')->getInline('onepage_checkout', $this->getQuote(), $this->getDontDisplayContainer()) ?>
-            </div>
-            </div>
-        <?php endif; ?>
-
-        <?php $customerEmail = (($this->isCustomerLoggedIn())) ? $this->getQuote()->getCustomer()->getEmail() : false ;?>
-        <?php if($this->settings['enable_newsletter'] && !$this->isSubScribed($customerEmail)): ?>
-            <div class="onestepcheckout-enable-newsletter">
-                <input type="checkbox" id="id_subscribe_newsletter" name="subscribe_newsletter" value="1" <?php if($this->settings['newsletter_default_checked']): ?>checked="checked"<?php endif; ?> />
-                <label for="id_subscribe_newsletter"><?php echo $this->__('Subscribe to our newsletter'); ?></label>
-            </div>
-        <?php endif; ?>
-
-        <?php $_extraProductsHelper = Mage::helper('onestepcheckout/extraproducts'); ?>
-            <?php if($_extraProductsHelper->hasExtraProducts()): ?>
-            <div class="onestepcheckout-extraproducts">
-                <ul>
-                <?php foreach($_extraProductsHelper->getExtraProducts() as $product): ?>
-                    <li><input type="checkbox" class="onestepcheckout-extra-product"
-                    <?php if($_extraProductsHelper->productInCart($product->getId())): ?>
-                        checked="checked" <?php endif; ?>
-                        name="extra_products_<?php echo $product->getId(); ?>"
-                        id="id_extra_product_<?php echo $product->getId(); ?>" /> &nbsp;
-                    <label for="id_extra_product_<?php echo $product->getId(); ?>"> <?php echo $product->getName(); ?>
-                    <span><?php echo Mage::helper('checkout')->formatPrice($product->getPrice()); ?></span>
-                    </label></li>
-                    <?php endforeach; ?>
-                </ul>
-            </div>
-
-            <script>
-            Event.observe(window, 'load', function() {
-                $$('input.onestepcheckout-extra-product').invoke('observe', 'click', function(e) {
-                    var id_temp = e.element().id.split('id_extra_product_');
-                    if(id_temp.length == 2) {
-                        var product_id = id_temp[1];
-                        var url = '<?php echo $this->getUrl('onestepcheckout/ajax/add_extra_product'); ?>';
-                        var parameters = {
-                            product_id: product_id
-                        }
-
-                        if(!e.element().checked) {
-                            parameters['remove'] = 1;
-                        }
-
-                        var summary = $$('div.onestepcheckout-summary').first();
-                        summary.update('<div class="loading-ajax">&nbsp;</div>');
-
-                        new Ajax.Request(url, {
-                            method: 'post',
-                            parameters: parameters,
-                            onSuccess: function(transport)  {
-                                summary.update(transport.responseText);
-                            }
-                        });
-                   };
-                });
-            });
+        <script>
+            <?php if($this->hasFormErrors()): ?>
+            if($$('div.input-error').length > 0) {
+                var input = $$('div.input-error')[0].select('input');
+                if(input.length == 1)   {
+                    input[0].focus();
+                }
+            }
+            <?php endif; ?>
         </script>
-        <?php endif; ?>
 
-        <?php
-        /**
-         * Feedbackdropdown start
-         */
-        ?>
-        <?php if(!empty($this->settings['feedback']['enable_feedback']) && !empty($this->settings['feedback']['feedback_values'])):?>
-            <?php
-                $selectedFeedBackFields = $this->getRequest()->getPost('onestepcheckout-feedback', false);
-                $feedbackValues = unserialize($this->settings['feedback']['feedback_values']);
-            ?>
-            <div class="onestepcheckout-feedback" id="">
-                <label for="id_feedback"><?php echo $this->__('How did you hear about us?'); ?></label><br>
-                <select style="" name="onestepcheckout-feedback" id="id_feedback" defaultvalue="">
-                    <option value=""><?php echo $this->__('Please choose'); ?></option>
-                    <?php foreach($feedbackValues as $value => $label):
-                        $selected= (!empty($selectedFeedBackFields) && $selectedFeedBackFields == $value) ? ' selected' : '';
-                    ?>
-                    <option value="<?php echo $value?>" <?php echo $selected;?>><?php echo $label['value']?></option>
-                    <?php endforeach;?>
-                    <?php if(!empty($this->settings['feedback']['enable_feedback_freetext'])):
-                        $selected= (empty($feedbackValues[$selectedFeedBackFields]) && $selectedFeedBackFields != '') ? ' selected' : '';
-                    ?>
-                    <option value="freetext" <?php echo $selected;?>><?php echo $this->__('Other'); ?></option>
-                    <?php endif;?>
-                </select>
-            </div>
-            <?php if(!empty($this->settings['feedback']['enable_feedback_freetext'])):?>
-                <script type="text/javascript">
-                    $('id_feedback').observe('change', function (event){
-                        if(this.getValue() == 'freetext'){
-                            $('id_feedback_freetext_div').show();
-                        } else {
-                            $('id_feedback_freetext_div').hide();
-                        }
-                    });
-                </script>
-                <div id='id_feedback_freetext_div' class="onestepcheckout-feedback-freetext"<?php echo ((!empty($selectedFeedBackFields) && $selectedFeedBackFields == 'freetext') ? '' : ' style="display: none;"'); ?>>
-                    <label for="id_feedback_freetext"><?php echo $this->__('Please specify:'); ?></label><br/>
-                    <textarea id="id_feedback_freetext" name="onestepcheckout-feedback-freetext"><?php echo Mage::helper('core')->escapeHtml($this->getRequest()->getPost('onestepcheckout-feedback-freetext', false));?></textarea>
-                </div>
-            <?php endif; ?>
-        <?php endif; ?>
-        <?php
-        /**
-         * Feedbackdropdown end
-         */
-        ?>
-
-        <?php if($this->settings['enable_terms']): //deprecated?>
-            <div class="onestepcheckout-enable-terms">
-                <?php
-
-                if(isset($this->formErrors['terms_error']) && $this->formErrors['terms_error']) {
-                    $terms_error = true;
-                }
-                else    {
-                    if($_SERVER['REQUEST_METHOD'] == 'POST')    {
-                        $terms_error = false;
-                    }
-                    else    {
-                        $terms_error = true;
-                    }
-                }
-                ?>
-
-                <input class="required-entry" type="checkbox" id="id_accept_terms" name="accept_terms" value="1" <?php if(!$terms_error) echo "checked=\"checked\""; ?> />
-                <label for="id_accept_terms"><?php echo $this->__('I accept the <a id="onestepcheckout-toc-link" target="_blank" href="javascript:void(0);">Terms and Conditions</a>'); ?></label>
-
-                <?php if(isset($this->formErrors['terms_error']) && $this->formErrors['terms_error']): ?>
-                <div class="onestepcheckout-error onestepcheckout-terms-error">
-                    <?php echo $this->__('You must accept our terms to continue.'); ?>
-                </div>
-                <?php endif; ?>
-
-            </div>
-        <?php endif; ?>
-
-        <?php
-        /**
-         * Default magento agreements
-         */
-        ?>
-        <?php if($this->settings['enable_default_terms']): ?>
-            <?php if(!empty($this->formErrors['agreements_error'])):?>
-            <div class="onestepcheckout-error onestepcheckout-terms-error">
-                <?php echo $this->__('Please agree to all the terms and conditions before placing the order.'); ?>
-            </div>
-            <?php endif;?>
-            <?php echo $this->getChildHtml('agreements') ?>
+        <?php if(!$this->settings['exclude_region']): ?>
+            <script type="text/javascript">countryRegions = <?php echo $this->helper('directory')->getRegionJson() ?></script>
             <script type="text/javascript">
+            //<![CDATA[
+                var billingRegionUpdater = new RegionUpdater('billing:country_id', 'billing:region', 'billing:region_id', countryRegions, undefined, 'billing:postcode');
 
-                    var termsmodals = new Object;
-
-                    document.observe('dom:loaded', function() {
-                        $$('.checkout-agreements li p input').each(
-                            function(elem){
-                                elem.addClassName('required-entry');
-                            }
-                        );
-                    });
-
-                    <?php if($this->settings['enable_textarea']):?>
-                    document.observe('dom:loaded', function() {
-                        $$('.checkout-agreements li p label').each(
-                            function(elem){
-                                elem.up().insert('<a href="javascript:void(0);" onclick="termsmodals[\'' + elem.htmlFor + '\'].open();">' + elem.innerHTML + '</a>');
-                                elem.hide();
-                            }
-                        );
-                        $$('div.agreement-content').each(
-                            function(element){
-                                element.id = 'agreement-div-' + element.up('li').down('input').id;
-                                $$('body')[0].insert(element);
-                            }
-                        );
-                        $$('.checkout-agreements li p input').each(
-                            function(elem){
-                                window.termsmodals[elem.id] = new Control.Modal($('agreement-div-' + elem.id),{
-                                    overlayOpacity: 0.75,
-                                    className: 'oscmodal',
-                                    fade: true,
-                                    closeOnClick: true,
-                                    height: 400,
-                                    width: 700
-                                });
-                            }
-                        );
-                    });
-                    <?php endif;?>
-
+                <?php if($this->settings['enable_different_shipping'] && !$this->isVirtual()): ?>
+                var shippingRegionUpdater = new RegionUpdater('shipping:country_id', 'shipping:region', 'shipping:region_id', countryRegions, undefined, 'shipping:postcode');
+                <?php endif; ?>
+            //]]>
             </script>
-        <?php endif;?>
-        <?php
-        /**
-         * Default magento agreements end
-         */
-        ?>
-
-        <div class="onestepcheckout-place-order-wrapper">
-            <button type="button" title="<?php echo $this->__('Place order now'); ?>" id="onestepcheckout-place-order" class="large orange onestepcheckout-button onestepcheckout-place-order" onclick="javascript:void(0);"><span><span><?php echo $this->__('Place order now'); ?></span></span></button>
-        </div>
-    </div>
-    <div style="clear: both;">&nbsp;</div>
-</div>
-</fieldset>
-</form>
-
-<?php if(!$this->isCustomerLoggedIn() && $helper->showLoginLink()): ?>
-    <?php echo $this->getChildHtml('login-popup'); ?>
-<?php endif; ?>
-
-<?php if($helper->isValidateEmail()): ?>
-<script>
-$('billing:email').observe('blur', function(e)    {
-    var url = '<?php echo $this->getUrl('onestepcheckout/ajax/check_email', array('_secure'=>true)); ?>';
-    var email = e.element().getValue();
-    var parameters = { email: email };
-
-    new Ajax.Request(url, {
-        parameters: parameters,
-        onComplete: function(response)  {
-            if(response.status == 200)  {
-                var result = response.responseText.evalJSON().result;
-                if(result == 'invalid') {
-                    $('onestepcheckout-email-error-message').update('<?php echo $this->__('Invalid email address.'); ?>');
-                    $('onestepcheckout-email-error').show();
-                }
-                else if(result == 'exists') {
-                    <?php if($this->settings['registration_order_without_password']): ?>
-                    // Remove the password fields if the email exists in database
-                    $('onestepcheckout-li-password').hide();
-                    <?php endif; ?>
-                    $('onestepcheckout-email-error-message').update('<?php echo $this->__('Email address already registered. Please <a href="javascript:void(0);" onclick="login_popup.show(); return false;">login now</a> or use a different email address.'); ?>');
-                    $('onestepcheckout-email-error').show();
-                    $('id_onestepcheckout_username').value = email;
-                }
-                else    {
-                    $('onestepcheckout-email-error').hide();
-                }
-            }
-        }
-    })
-
-});
-Validation.add('validate-email', '<?php echo $this->__('This is a required field.') ?>', function(v) {
-    var url = '<?php echo $this->getUrl('onestepcheckout/ajax/check_email', array('_secure'=>true)); ?>';
-    var email = v;
-    var parameters = { email: email };
-    var value = Validation.get('IsEmpty').test(v) || /^([a-z0-9,!\#\$%&'\*\+\/=\?\^_`\{\|\}~-]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z0-9,!\#\$%&'\*\+\/=\?\^_`\{\|\}~-]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*@([a-z0-9-]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z0-9-]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*\.(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]){2,})$/i.test(v)
-
-    new Ajax.Request(url, {
-        parameters: parameters,
-        asynchronous: false,
-        onComplete: function(response)  {
-            if(response.status == 200)  {
-                var result = response.responseText.evalJSON().result;
-                if(result == 'invalid') {
-                    value = false;
-                } else if(result == 'exists') {
-                    <?php if($this->settings['registration_order_without_password']): ?>
-                    $('onestepcheckout-li-password').hide();
-                    <?php endif; ?>
-                    $('onestepcheckout-email-error-message').update('<?php echo $this->__('Email address already registered. Please <a href="javascript:void(0);" onclick="login_popup.show(); return false;">login now</a> or use a different email address.'); ?>');
-                    $('onestepcheckout-email-error').show();
-                    $('id_onestepcheckout_username').value = email;
-                    value =  false;
-                }
-            }
-        }
-    })
-    return value;
-});
-</script>
-<?php endif; ?>
-
-<?php if($this->settings['enable_terms']): ?>
-<div id="onestepcheckout-toc-popup" style="display: none;">
-
-    <div class="onestepcheckout-popup-wrapper">
-        <div class="onestepcheckout-popup-wrapper-inner">
-            <h1><?php echo $this->settings['terms_title']; ?></h1>
-
-            <div class="onestepcheckout-toc-terms">
-                <?php echo $this->settings['terms_contents']; ?>
-            </div>
-
-            <p class="close"><a href="javascript:void(0);"><?php echo $this->__('Close'); ?></a></p>
-        </div>
-    </div>
-    <div class="onestepcheckout-popup-footer">&nbsp;</div>
-</div>
-<script>
-Event.observe(window, 'load', function() {
-
-    var termsPopup = new Control.Modal($('onestepcheckout-toc-popup'), {
-        overlayOpacity: 0.65,
-        fade: true,
-        fadeDuration: 0.3
-    });
-
-    $('onestepcheckout-toc-link').observe('click', function(e) {
-        e.preventDefault();
-        termsPopup.open();
-    });
-
-    $$('div#onestepcheckout-toc-popup p.close a').invoke('observe', 'click', function(e) {
-        e.preventDefault();
-        termsPopup.close();
-    });
-
-});
-
-/*
-var popup;
-Event.observe(window, 'load', function() {
-    popup = new OneStepCheckout_Popup('onestepcheckout-toc-popup','onestepcheckout-toc-link', 'div#onestepcheckout-toc-popup p.close a');
-});
-*/
-</script>
-<?php endif; ?>
-
-
-
-
-
-<script>
-<?php if($this->hasFormErrors()): ?>
-if($$('div.input-error').length > 0) {
-    var input = $$('div.input-error')[0].select('input');
-    if(input.length == 1)   {
-        input[0].focus();
-    }
-}
-<?php endif; ?>
-</script>
-
-<?php if(!$this->settings['exclude_region']): ?>
-<script type="text/javascript">countryRegions = <?php echo $this->helper('directory')->getRegionJson() ?></script>
-<script type="text/javascript">
-//<![CDATA[
-    var billingRegionUpdater = new RegionUpdater('billing:country_id', 'billing:region', 'billing:region_id', countryRegions, undefined, 'billing:postcode');
-
-    <?php if($this->settings['enable_different_shipping'] && !$this->isVirtual()): ?>
-    var shippingRegionUpdater = new RegionUpdater('shipping:country_id', 'shipping:region', 'shipping:region_id', countryRegions, undefined, 'shipping:postcode');
-    <?php endif; ?>
-//]]>
-</script>
-<?php endif; ?>
-
-
+        <?php endif; ?>
+        
+            
 <script type="text/javascript">
 
 Event.observe(window, 'load', function() {
@@ -975,14 +288,14 @@ Event.observe(window, 'load', function() {
         $$('.onestepcheckout-place-order').each(function(elem){
             elem.observe('click', function(e)   {
                 Event.stop(e);
-
+				elem.disabled = true;
                // First validate the form
                 var form = new VarienForm('onestepcheckout-form');
 
                 if(!form.validator.validate())  {
                     Event.stop(e);
+					elem.disabled = false;
                 } else {
-
                     if(!already_placing_order && $$('.loading-ajax').length <= 0 ) {
                     <?php if(!empty($helper->settings['addressreview']['enable_addressreview'])):?>
                         var addressTemplates = {
@@ -995,7 +308,7 @@ Event.observe(window, 'load', function() {
                             if(!reviewmodal){
                                 reviewmodal = new Control.Modal($('addressreview'),{
                                     overlayOpacity: 0.75,
-                                    className: 'oscmodal',
+                                    className: 'modal',
                                     fade: true,
                                     closeOnClick: false
                                 });
@@ -1013,19 +326,23 @@ Event.observe(window, 'load', function() {
                         already_placing_order = true;
 
                         var submitelement = $('onestepcheckout-place-order');
-                            /* Disable button to avoid multiple clicks */
-                            submitelement.removeClassName('orange').addClassName('grey');
-                            submitelement.disabled = true;
 
-                        var loaderelement = new Element('span').
+                        var loaderelement = new Element('div').
                             addClassName('onestepcheckout-place-order-loading').
-                            update('<?php echo $this->__('Please wait, processing your order...'); ?>');
+                            update('<img src="<?php echo $this->getSkinUrl('images/opc-ajax-loader.gif'); ?>" />&nbsp;&nbsp;<?php echo $this->__('Please wait, processing your order...'); ?>');
 
                         submitelement.parentNode.appendChild(loaderelement);
+
+                        /* Disable button to avoid multiple clicks */
+                        submitelement.removeClassName('orange').addClassName('grey');
+                        submitelement.disabled = true;
 
                         /* Submit the form */
                         $('onestepcheckout-form').submit();
                     }
+					else{
+						elem.disabled = false;
+					}
                 }
             });
         });
@@ -1074,7 +391,7 @@ Event.observe(window, 'load', function() {
             });
         }
     }
-
+	
     var form = $('onestepcheckout-form');
 
     /* Highlight selected payment method if one set */
@@ -1101,34 +418,39 @@ Event.observe(window, 'load', function() {
         }
     }
    //submit what's available on load
-   get_separate_save_methods_function(url)();
+   //get_separate_save_methods_function(url)();
+   
+    if($('shipping:use_for_billing_yes').checked){
+			$('billing_address').hide();
+	}
 
-<?php if($this->differentShippingAvailable()): ?>
-    $('billing:use_for_shipping_yes').observe('click', function(e)  {
+
+$('shipping:use_for_billing_yes').observe('click', function(e)  {
         var element = e.element();
         if(element.checked){
-            $('shipping_address').hide();
+            $('billing_address').hide();
+			
+			$('shipping:use_for_billing_yes').value="1";
         } else {
-            if($('shipping-address-select') && $('shipping-address-select').value == ''){
-                $('shipping_address_list').show()
+			$('shipping:use_for_billing_yes').value="0";
+            if($('billing-address-select') && $('billing-address-select').value == ''){
+                $('billing_address_list').show()
             }
-            $('shipping_address').show();
+            $('billing_address').show();
             <?php if(!$this->isCustomerLoggedIn()):?>
-            $('shipping_address_list').show()
+            $('billing_address_list').show()
             <?php endif;?>
             <?php if($this->isCustomerLoggedIn()):?>
-            if(!$('shipping-address-select') && $('shipping_address_list').getStyle('display')=='none'){
-                $('shipping_address_list').show()
+            if(!$('billing-address-select') && $('billing_address_list').getStyle('display')=='none'){
+                $('billing_address_list').show()
             }
             <?php endif;?>
         }
 
         <?php if($this->settings['enable_ajax_save_billing']): ?>
-        get_save_billing_function('<?php echo $this->getUrl('onestepcheckout/ajax/save_billing', array('_secure'=>true)); ?>', '<?php echo $this->getUrl('onestepcheckout/ajax/set_methods_separate', array('_secure'=>true)); ?>', <?php echo $this->settings['enable_update_payment_on_shipping'] ? 'true' : 'false'; ?>, true)();
+        get_save_billing_function('<?php echo $this->getUrl('onestepcheckout/ajax/save_billing', array('_secure'=>true)); ?>', '<?php echo $this->getUrl('onestepcheckout/ajax/set_methods_separate', array('_secure'=>true)); ?>', <?php echo $this->settings['enable_update_payment_on_shipping'] ? 'true' : 'false'; ?>, true, this)();
         <?php endif; ?>
-
     });
-    <?php endif; ?>
     <?php
         $triggers = Mage::getStoreConfig('onestepcheckout/ajax_update/ajax_save_billing_fields');
         if(!empty($triggers)){
@@ -1151,13 +473,7 @@ Event.observe(window, 'load', function() {
         var euvat = $('euvat_action_validate_taxvat');
 
         if(euvat !== null){
-            euvat.observe('change', get_save_billing_function(url_save_billing, url_set_methods, update_payments, true));
-        }
-
-        var euvatid = $('billing:vat_id');
-
-        if(euvatid !== null){
-            euvatid.observe('change', get_save_billing_function(url_save_billing, url_set_methods, update_payments, true));
+            euvat.observe('click', get_save_billing_function(url_save_billing, url_set_methods, update_payments, true, this));
         }
 
         triggers = ['<?php echo implode ('\',\'',$triggers)?>'];
@@ -1192,71 +508,54 @@ Event.observe(window, 'load', function() {
         batriggered = false;
         satriggered = false;
 
-        changeTimer = false;
-        changeInterval = 1000;
-
         triggers.each(function(item){
             var belement = $('billing:'+item);
             if(belement){
                 belement.observe('change', function(e){
-                    var element = e.element();
-                    var id = element.id;
-                    var tagname = element.tagName;
-                    if(tagname === 'SELECT'){
-                        clearTimeout(changeTimer);
-                        changeTimer = setTimeout(bcallbackEvent, changeInterval, id);
-                    } else {
-                        bcallbackEvent(id);
+                    id = e.element().id;
+                    if(!btriggered.include(id)){
+                        btriggered.push(id);
                     }
+                    if(btriggered.length >= triggers.length-1){
+                        batriggered = true;
+                    }
+                    get_save_billing_function(url_save_billing, url_set_methods, update_payments, batriggered, this)();
                 });
             }
 
             var selement = $('shipping:'+item);
             if(selement){
                 selement.observe('change', function(e){
-                    var element = e.element();
-                    var id = element.id;
-                    var tagname = element.tagName;
-                    if(tagname === 'SELECT'){
-                        clearTimeout(changeTimer);
-                        changeTimer = setTimeout(scallbackEvent, changeInterval, id);
-                    } else {
-                        scallbackEvent(id);
+                    id = e.element().id;
+                    if(!striggered.include(id)){
+                        striggered.push(id);
                     }
+                    if(striggered.length >= triggers.length-1){
+                        satriggered = true;
+                    }
+                   get_save_billing_function(url_save_billing, url_set_methods, update_payments, satriggered, this)();
                 });
             }
         });
-
-        function scallbackEvent (id){
-            if(!striggered.include(id)){
-                striggered.push(id);
-            }
-            if(striggered.length >= triggers.length-1){
-                satriggered = true;
-            }
-            get_save_billing_function(url_save_billing, url_set_methods, update_payments, satriggered)();
-        }
-
-
-        function bcallbackEvent (id){
-            if(!btriggered.include(id)){
-                btriggered.push(id);
-            }
-            if(btriggered.length >= triggers.length-1){
-                batriggered = true;
-            }
-            get_save_billing_function(url_save_billing, url_set_methods, update_payments, batriggered)();
-        }
-
-
+        
+        // only for opera mini
+        $('ship_pincode_search').observe('click', function() {
+		  get_save_billing_function(url_save_billing, url_set_methods, update_payments, true, this)();
+		});
+		
+		$('bill_pincode_search').observe('click', function() {
+		  get_save_billing_function(url_save_billing, url_set_methods, update_payments, this, this)();
+		});
+		// only for opera mini
+        
         <?php if($this->isCustomerLoggedIn()):?>
             var bselect = $('billing-address-select');
             var sselect = $('shipping-address-select');
             if(bselect){
-                bselect.observe('change', get_save_billing_function(url_save_billing, url_set_methods, update_payments, true));
+                bselect.observe('change', get_save_billing_function(url_save_billing, url_set_methods, update_payments, true, this));
             }
             if(sselect){
-                sselect.observe('change', get_save_billing_function(url_save_billing, url_set_methods, update_payments, true));
+                sselect.observe('change', get_save_billing_function(url_save_billing, url_set_methods, update_payments, true, this));
             }
         <?php endif;?>
 
@@ -1267,13 +566,238 @@ Event.observe(window, 'load', function() {
 if($('payment-tool-tip-close')){
     Event.observe($('payment-tool-tip-close'), 'click', toggleToolTip);
 }
+jQuery.noConflict();
+jQuery(function(){jQuery(".useforbilling").uniform();});
+jQuery(function(){jQuery("select").not("#currency_switcher").uniform();});
 
+jQuery(window).bind("load", function(){
+	jQuery("#onestepcheckout-form div#uniform-billing-address-select").one("click",function(){
+		jQuery(".Chrome .onestepcheckout-index-index #uniform-billing-address-select span").css({position:'relative',top:'3px'});
+		jQuery(".Mac .onestepcheckout-index-index #uniform-billing-address-select span").css({position:'relative',top:'3px'});
+	});
+	jQuery("#onestepcheckout-form div#uniform-shipping-address-select").one("click",function(){
+		jQuery(".Chrome .onestepcheckout-index-index #uniform-shipping-address-select span").css({position:'relative',top:'3px'});
+		jQuery(".Mac .onestepcheckout-index-index #uniform-shipping-address-select span").css({position:'relative',top:'3px'});
+	});
+});
 </script>
 
-
+        
+    </div>
+    
 <?php endif; ?>
+</div>
+</div>
 
 <div id="onestepcheckout_popup_overlay" style="display: none;">&nbsp;</div>
-
-
 <div id="loading-process" style="display: none;"></div>
+<script type="text/javascript">
+	jQuery(document).ready(function() {
+		if (navigator.userAgent.indexOf('Opera Mini') > -1){
+			jQuery("#bill_pincode_search").show();
+			jQuery("#ship_pincode_search").show();
+			jQuery('.input-postcode .reg-success').css({
+				'float':'left'
+				});
+			jQuery('.input-postcode .reg-success input').css({
+				'margin':'0px'
+				});
+		}
+	});
+
+    jQuery(document).ready(function(){
+        jQuery("a.tab").click(function() {
+			if(!jQuery(this).hasClass("disabled")){
+				// switch all tabs off
+				jQuery("#tabs-new .active").removeClass("active");
+				// switch this tab on
+				jQuery(this).addClass("active");
+				// hide all content
+				jQuery(".ckcontent-main").hide();
+				// show this content
+				var content_show = jQuery(this).attr("name");
+				
+				var reltouse = jQuery(this).attr("rel");
+				
+				jQuery("a.tab").each(function(){
+					if(jQuery(this).attr('rel') > reltouse){
+						jQuery(this).addClass("disabled");
+					}
+				});
+				showShippingDetail();
+				jQuery("#"+content_show).show();
+			}
+        });
+		if(jQuery(".shipping-tab-passed").val() == '1'){
+			jQuery("#tabs-new ul.sidebar li a.tab").each(function(){
+				if(!jQuery(this).hasClass("disabled")){
+					jQuery(this).removeClass("disabled");
+				}
+			});
+		}
+		
+		jQuery("#tabs-new ul.sidebar li a.tab").each(function(){
+			if(jQuery(this).hasClass("active")){
+				var name = jQuery(this).attr("name");
+				jQuery("#"+name).show();
+			}else{
+				var name = jQuery(this).attr("name");
+				jQuery("#"+name).hide();
+			}
+		});
+    });
+    
+	function validateShippingTab(){
+		var checkout = new VarienForm('onestepcheckout-form', true);
+		
+		if(checkout.validator.validate()){
+			var login = jQuery.ajax({
+				url: "<?php echo $this->getUrl('onestepcheckout/index/validateShippingTab/') ?>",
+				beforeSend: function() {
+					jQuery('#delivery-loader').show();
+				},
+				success: function(result){
+					get_save_billing_function('<?php echo $this->getUrl('onestepcheckout/ajax/save_billing', array('_secure'=>true)); ?>', '<?php echo $this->getUrl('onestepcheckout/ajax/set_methods_separate', array('_secure'=>true)); ?>', <?php echo $this->settings['enable_update_payment_on_shipping'] ? 'true' : 'false'; ?>, true, this)();
+					
+					jQuery("#steptwo").hide();
+                    jQuery("#checkoutleft .pager ul li").removeClass("current");
+                    jQuery("#checkoutleft .pager ul li:last-child").addClass("current");
+                    jQuery("#stepthree").show();
+					jQuery("span.customer-number").text("+91"+result);
+					jQuery("input[name=shippingtabpassed]").val("1");
+					jQuery('#delivery-loader').hide();
+					jQuery("#checkout-payment").removeClass('ck-payment').addClass('ck-payment-ac');
+				}
+			});
+		}
+	}
+
+	jQuery("#add-new-address").click(function() {
+            togalAddNewAddress();
+	});
+function togalAddNewAddress() {
+    jQuery("#list-of-addresses").show();
+    jQuery("#add-new-address").hide();
+    jQuery("#shipping_address_list").fadeIn();
+    jQuery("#list-shipping-address").fadeOut();
+    jQuery("[name='shipping_address_id']").val('');
+    jQuery("[name='shipping[firstname]']").val('');
+    jQuery("[name='shipping[telephone]']").val('');
+    jQuery("[name='shipping[street][]']").val('');		
+    jQuery("[name='shipping[postcode]']").val('');
+    jQuery("[name='shipping[city]']").val('');
+    jQuery("div.input-region").find('span').html('');
+    jQuery("#add-new-address").hide();
+    jQuery("[name='shipping[save_in_address_book]']").val(1);
+}
+function orderNow() {
+	jQuery(".giftCard").show();
+	jQuery(".gc-closebtn").click(function(){
+		jQuery(".giftCard").fadeOut();
+		});
+}
+</script>
+
+<script type="text/javascript">
+
+//<![CDATA[
+function buyEvoucher(buyparams)
+{
+	new Ajax.Updater(
+		'responsefield',
+		'<?php echo $this->getUrl('checkout/cart/removeitemfromcart') ?>',
+		{
+			onCreate: function() { jQuery("#ajax-loader").show(); jQuery(".giftCard").fadeOut(); },
+			onComplete: function() {jQuery("#ajax-loader").show(); jQuery(".giftCard").fadeOut(); },
+			parameters : {buyparams : buyparams},
+			onSuccess: function(response) { 
+			location.reload('<?php echo $this->getUrl('checkout/cart/') ?>');
+		  }
+		}
+	);
+}
+
+function deleteShippingAddress(addressId) {
+	jQuery.ajax({
+		url: "<?php echo $this->getUrl('checkout/cart/deleteShippingAddress/') ?>",
+		data: {address_id: addressId},
+		type:'POST',
+		success: function(data){
+			jQuery('#cart-loader-'+addressId).show();
+			if(data == '1'){
+				window.location.reload();
+			}
+			else{
+				alert(data);
+			}
+		}
+	});		
+}
+
+function editShippingAddress(addressId) {
+	jQuery("#stepone").hide();					
+	jQuery("#steptwo").show();
+	jQuery("#stepthree").hide();
+	jQuery("#paystp3").addClass("ck-pay-tabfw disabled");
+	jQuery("#list-shipping-address").hide();
+	jQuery("#shipping_address_list").show();
+	jQuery( "#add-new-address" ).hide();
+	var data = jQuery('#shipping_address_text_'+addressId).text();
+	var arr = data.split('~');
+	jQuery("[name='shipping[firstname]']").val(arr[0]);
+	jQuery("[name='shipping[telephone]']").val(arr[1]);
+	
+	if(jQuery("div.input-address-short").find("input").hasClass('street1')) {
+		jQuery(".street1").val(arr[2]);
+	}
+	if(jQuery("div.input-address-short").find("input").hasClass('street2')) {
+		jQuery(".street2").val(arr[3]);
+	}
+	jQuery("[name='shipping[postcode]']").val(arr[4]);
+	jQuery("[name='shipping[city]']").val(arr[5]);
+	jQuery("div.input-region").find('span').html(arr[6]);	
+	jQuery("[name='shipping[country_id]']").val(arr[7]);
+}
+
+function chooseShipping(val) {
+	jQuery("#shipping-address-select").val(val);
+}
+
+jQuery( "#list-of-addresses" ).click(function() {
+	togalBackToSavedAddress();
+});
+
+function togalBackToSavedAddress() {
+    jQuery( "#list-shipping-address" ).show();
+    jQuery( "#shipping_address_list" ).hide();	
+    jQuery("#list-of-addresses").hide();
+    jQuery("#add-new-address").show();		
+    jQuery( "#add-new-address" ).show();
+    jQuery("[name='shipping[save_in_address_book]']").val(0);
+    if(jQuery("#shipping-address-select").val() == '') { jQuery("#shipping-address-select").val(jQuery("#tmp_shipping_address_id").val());}
+}
+
+<?php if($this->customerHasAddresses() && !$this->getNewAddressSelectValueOnError('shipping')) {
+    ?>
+        togalBackToSavedAddress();
+    <?php
+} else {
+    ?>
+        togalAddNewAddress();
+    <?php
+} ?>
+//]]>
+</script>
+<div class="giftCard" style="display: none;">
+<div class="giftCardconf-Box">
+<a class="gc-closebtn crossbtn" href="#"></a>
+<p class="giftCard-text"><span style="font:bold 25px Arial, Helvetica, sans-serif; color:#dd3848; padding:0 0 0 10px;">Hey!</span> <span style="font:bold 14px Arial, Helvetica, sans-serif; color:#122957;">You can only purchase</span> <span style="font:14px Arial, Helvetica, sans-serif; color:#dd3848;"> evoucher or product </span> <span style="font:14px Arial, Helvetica, sans-serif; color:#122957;">at a time.</span></p>
+<div class="clear"></div>
+<a href="javascript:void(0);" onclick="buyEvoucher('giftcard');" class="redbg redbtnlink ">Buy E-voucher</a>
+<a href="javascript:void(0);" onclick="buyEvoucher('normalproduct');" class="bluebg bluebtnlink ">Buy Product</a>
+</div>
+</div>
+
+<!-- Advertiser 'Ignitee Digital Services Pvt Ltd.-THE AMERICAN SWAN LIFESTYLE COMPANY PVT LTD',  Include user in segment '1544425_THE AMERICAN SWAN LIFESTYLE COMPANY_SRT_Pixel_042913' - DO NOT MODIFY THIS PIXEL IN ANY WAY -->
+
+<!-- End of segment tag -->
