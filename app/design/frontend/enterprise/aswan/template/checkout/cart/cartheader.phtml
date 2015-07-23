@@ -42,10 +42,10 @@
             </ul>
             <script type="text/javascript">decorateList('mini-cart', 'none-recursive')</script>
         <?php else: ?>
-
-            <p class="cart-empty">
-                <?php echo $this->__('You have no items in your shopping cart.') ?>
-            </p>
+<div class="productslide">
+<div class="cartempty"><?php echo "You have no items in your shopping cart."; ?></div>
+</div>
+           
             <?php if ($this->getCartEmptyMessage()): ?>
                 <p class="cart-empty cart-empty-message"><?php echo $this->getCartEmptyMessage(); ?></p>
             <?php endif; ?>
