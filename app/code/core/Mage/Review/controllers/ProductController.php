@@ -301,4 +301,46 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
         $update->addUpdate($product->getCustomLayoutUpdate());
         $this->generateLayoutXml()->generateLayoutBlocks();
     }
+    
+    /*
+     * postreviewAction() is used for ajax request
+     */
+      
+    public function postreviewAction()
+    {
+        $data   = $this->getRequest()->getPost();
+		$rating = array();
+		$rating[1] = $data['ratings'];
+		
+		if (($product = $this->_initProduct()) && !empty($data)) {
+            $session    = Mage::getSingleton('core/session');
+            /* @var $session Mage_Core_Model_Session */
+            $review     = Mage::getModel('review/review')->setData($data);
+            /* @var $review Mage_Review_Model_Review */
+            
+			try {
+				$review->setEntityId($review->getEntityIdByCode(Mage_Review_Model_Review::ENTITY_PRODUCT_CODE))
+					->setEntityPkValue($product->getId())
+					->setStatusId(Mage_Review_Model_Review::STATUS_PENDING)
+					->setCustomerId(Mage::getSingleton('customer/session')->getCustomerId())
+					->setStoreId(Mage::app()->getStore()->getId())
+					->setStores(array(Mage::app()->getStore()->getId()))
+					->save();
+
+				foreach ($rating as $ratingId => $optionId) {
+					Mage::getModel('rating/rating')
+					->setRatingId($ratingId)
+					->setReviewId($review->getId())
+					->setCustomerId(Mage::getSingleton('customer/session')->getCustomerId())
+					->addOptionVote($optionId, $product->getId());
+				}
+
+				$review->aggregate();
+				die('Your review has been accepted for approval.');
+			}
+			catch (Exception $e) {
+				die('Unable to post the review.');
+			}
+        }
+    }
 }
