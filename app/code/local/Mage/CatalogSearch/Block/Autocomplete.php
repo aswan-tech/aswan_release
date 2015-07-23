@@ -41,7 +41,7 @@ class Mage_CatalogSearch_Block_Autocomplete extends Mage_Core_Block_Abstract
             return $html;
         }
 		
-		$html .= '<div id="autosuggest" class="mCustomScrollbar _mCS_1"><ul><li style="display:none"></li>';
+		$html .= '<div id="autosuggest"><ul><li style="display:none"></li>';
 		$titleSugg = "<li class='head'>Search Suggestions</li>";
 		//$titleProd = "<li class='head'>Products</li>";
 		

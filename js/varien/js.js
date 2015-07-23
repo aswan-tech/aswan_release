@@ -352,13 +352,18 @@ Varien.searchForm.prototype = {
                 updateElement: this._selectAutocompleteItem.bind(this),
                 onShow : function(element, update) {
                     if(!update.style.position || update.style.position=='absolute') {
-                        update.style.position = 'absolute';
+                        //update.style.position = 'absolute';
+
                         Position.clone(element, update, {
                             setHeight: false,
                             offsetTop: element.offsetHeight
                         });
                     }
                     Effect.Appear(update,{duration:0});
+                    if(destinationElement=='search_autocomplete'){
+                        jQuery("#autosuggest").mCustomScrollbar();
+                    }
+                    
                 }
 
             }
