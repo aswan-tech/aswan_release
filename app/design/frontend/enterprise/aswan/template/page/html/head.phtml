@@ -46,3 +46,30 @@
 <?php echo $this->getChildHtml() ?>
 <?php echo $this->helper('core/js')->getTranslatorScript() ?>
 <?php echo $this->getIncludes() ?>
+<script type="text/javascript">var pcatid = ''; dataLayer = [{}];</script>
+<?php 
+$gaCookies = Mage::getModel( 'nosql/parse_ga' )->getCookies();
+$_curUrl = Mage::helper('core/url')->getCurrentUrl();
+$_curUrl = str_replace(":8080", "", $_curUrl);
+$utm = Mage::getSingleton('core/app')->getRequest()->getParam('utm_source');
+if($utm){ Mage::getSingleton('core/session')->setUtmData($utm); }
+
+$cId = 0;
+$customerSession = Mage::getSingleton('customer/session');
+if($customerSession->isLoggedIn()) {
+     $customerData = $customerSession->getCustomer();
+     $cId =  $customerData->getId();
+}
+
+?>
+<script type="text/javascript">
+dataLayer.push(
+    {'UTM_SOURCE': '<?php echo isset($gaCookies['campaign']['source']) ? strtolower($gaCookies['campaign']['source']) : ''; ?>'}, 
+    {'UTM_NAME': '<?php echo isset($gaCookies['campaign']['name']) ? strtolower($gaCookies['campaign']['name']) : ''; ?>'}, 
+    {'UTM_MEDIUM': '<?php echo isset($gaCookies['campaign']['medium']) ? strtolower($gaCookies['campaign']['medium']) : ''; ?>'}, 
+    {'UTM_TERM': '<?php echo isset($gaCookies['campaign']['term']) ? strtolower($gaCookies['campaign']['term']) : ''; ?>'}, 
+    {'UTM_CONTENT': '<?php echo isset($gaCookies['campaign']['content']) ? strtolower($gaCookies['campaign']['content']) : ''; ?>'},
+    {'PAGE_URL': '<?php echo $_curUrl?>'},
+    {'CUSTOMER_ID': '<?php echo $cId ?>'}
+);
+</script>
