@@ -49,99 +49,92 @@
 </div>
 
 <div id="detailright">
-
+<?php 
+	$productReviews = Mage::getModel('review/review')->getCollection();
+	$productReviews->addStoreFilter(Mage::app()->getStore()->getId());
+    $productReviews->addStatusFilter(Mage_Review_Model_Review::STATUS_APPROVED);
+    $productReviews->addEntityFilter('product', $_product->getId());
+    $productReviews->setDateOrder();
+    $totalReviews = $productReviews->count();
+    $rating = Mage::getModel('rating/rating')->getEntitySummary($_product->getId()); 
+    $totRating = $rating->getData('count');
+    $restRating = (5-$totRating);
+?>
 <div class="productreview">
+<?php for($i=1; $i<=$totRating; $i++){ ?>	
 <span class="active"></span>
-<span class="active"></span>
-<span class="active"></span>
-<span class="active"></span>
+<?php } ?>
+<?php for($j=1; $j<= $restRating; $j++) { ?>
 <span></span>
-<label>4 Ratings / Reviews</label>
+<?php } ?>
+<label><?php echo $totRating; ?> Ratings / Reviews</label>
 <p><a href="#readreview" class="fancybox">Read reviews</a> | <a href="#writereview" class="fancybox">Write reviews</a></p>
 
 <!--Read review start-->
 <div id="readreview" class="globlepopup">
-<h2>4 (Reviewed by 4 Customers)</h2>
+<h2><?php echo $totalReviews ?> (Reviewed by <?php echo $totalReviews ?> Customers)</h2>
+<?php foreach($productReviews as $reviews) { ?>
 <div class="readrow">
-<h3>Simply brilliant.!</h3>
-<h4>By <strong>Nancy</strong> from <strong>Mumbai</strong><br />
-Posted on <strong>22-05-2015</strong></h4>
-<p>For a college student a pocket friendly yet stylish wear is a must. This top fits the bill. It accentuates my petite figure and I simply love it.</p>
+<h3><?php echo $reviews->getData('title'); ?></h3>
+<h4>By <strong><?php echo $reviews->getData('nickname'); ?></strong> from <strong><?php echo $reviews->getData('location'); ?></strong><br />
+Posted on <strong><?php echo $reviews->getData('created_at'); ?></strong></h4>
+<p><?php echo $reviews->getData('detail'); ?></p>
 </div>
-
-<div class="readrow">
-<h3>Perfect match .!</h3>
-<h4>By <strong>Malini Jose</strong> from <strong>Kerela</strong><br />
-Posted on <strong>22-05-2015</strong></h4>
-<p>I was looking for a top that would go well with my black and white stilettos and this one completes my look. I really like the soft, light material and wide collars. It gives an ultra chic look to my ensemble.</p>
-</div>
-
-<div class="readrow">
-<h3>Love it so much!</h3>
-<h4>By <strong>Meira Roy</strong> from <strong>Kolkata</strong><br />
-Posted on <strong>22-05-2015</strong></h4>
-<p>This top is my favourite so far. My boyfriend noticed it and complimented my dressing sense. It made me feel ecstatic. All thanks to American Swan. :D :*</p>
-</div>
-
-<div class="readrow">
-<h3>Affordable fashion.!</h3>
-<h4>By <strong>Reshma Rehman</strong> from <strong>Lucknow</strong><br />
-Posted on <strong>22-05-2015</strong></h4>
-<p>It's low on price but high on style. I really adore the black and white print of this sleeve less top. It goes with a variety of denims and shorts in my collection.</p>
-</div>
-
+<?php } ?>
 </div>
 <!--Read review close-->
 
 <!--Write review start-->
+
 <div id="writereview" class="globlepopup">
 <h2>Write a Review</h2>
+
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
+<tr id="error-msg" style="display:none;">
+    <td colspan="2">Star (*) marked fields are mandatory.</td>
+</tr>
 <tr>
 <td width="100"><strong>Rating</strong></td>
 <td><div class="starrate">
-<label for="radio1"><input type="checkbox" value="1" name="item" id="radio1"></label>
-<label for="radio2"><input type='checkbox' value="2" name="item2" id="radio2"></label>
-<label for="radio3"><input type='checkbox' value="3" name="item3" id="radio3"></label>
-<label for="radio4"><input type='checkbox' value="4" name="item4" id="radio4"></label>
-<label for="radio5"><input type='checkbox' value="5" name="item5" id="radio5"></label>
+<label for="radio1"><input type="radio" value="1" name="ratings" id="radio1"></label>
+<label for="radio2"><input type='radio' value="2" name="ratings" id="radio2"></label>
+<label for="radio3"><input type='radio' value="3" name="ratings" id="radio3"></label>
+<label for="radio4"><input type='radio' value="4" name="ratings" id="radio4"></label>
+<label for="radio5"><input type='radio' value="5" name="ratings" id="radio5"></label>
 </div></td>
 </tr>
 <tr>
-    <td width="100"><label>Name <strong>*</strong></label></td>
-    <td><input type="text" /></td>
-  </tr>
-  <tr>
-    <td><label>Name <strong>*</strong></label></td>
-    <td><input type="text" /></td>
+    <td width="100"><label>Nick Name <strong>*</strong></label></td>
+    <td><input type="text" name="nickname" id="nickname_field" /></td>
   </tr>
   <tr>
     <td><label>Your Location <strong>*</strong></label></td>
-    <td><input type="text" /></td>
+    <td><input type="text" name="location" id="location_field" /></td>
   </tr>
    <tr>
     <td><label>Review Title <strong>*</strong></label></td>
-    <td><input type="text" /></td>
+    <td><input type="text" id="summary_field" name="title" /></td>
   </tr>
   <tr>
     <td><label>Review comment:</label>
-<ul>
-<li>How you use the product</li>
-<li>Things that are great about it</li>
-<li>Things that aren't great about it</li>
-</ul>
-</td>
-    <td><textarea></textarea></td>
+	<ul>
+		<li>How you use the product</li>
+		<li>Things that are great about it</li>
+		<li>Things that aren't great about it</li>
+	</ul>
+	</td>
+    <td><textarea id="review_field" name="detail"></textarea></td>
   </tr>
    <tr>
     <td><label>Email address <strong>*</strong></label></td>
-    <td><input type="text" /></td>
+    <td><input type="text" id="email_field" name="email" /></td>
   </tr>
    <tr>
     <td></td>
-    <td><a href="#" class="go">Submit</a></td>
+    <td><a href="#" onclick="submitRating()" class="go">Submit</a></td>
   </tr>
 </table>
+
 </div>
 <!--Write review close-->
 </div>
@@ -332,6 +325,7 @@ $img_url 		= $this->helper('catalog/image')->init($_product, 'image')->resize('3
 $_taxHelper  	= Mage::helper('tax');
 $_finalPrice 	= $_taxHelper->getPrice($_product, $_product->getFinalPrice());
 $_price 		= $_taxHelper->getPrice($_product, $_product->getPrice());
+/*
 ?>
 <script type="text/javascript">
 dataLayer.push(
@@ -346,4 +340,44 @@ dataLayer.push(
     {'CATEGORY_NAME': "<?php echo $cats->getName() ?>"},
     {'PAGE_TYPE': 'PRODUCT_VIEW'}
 );
+</script>
+*/?> 
+
+<script>
+function submitRating() {
+	var validate = true;
+	jQuery('div #writereview').find('input').each(function(index) {
+	    var fieldValue    = jQuery(this).val();
+        switch(fieldValue) {
+			case '':
+			validate = false;
+			break;
+		}
+    });
+	
+	if(validate) {
+		jQuery('#error-msg').hide();
+		var nickname = jQuery('#nickname_field').val();
+		var location = jQuery('#location_field').val();
+		var title = jQuery('#summary_field').val();
+		var detail = jQuery('#review_field').val();
+		var email = jQuery('#email_field').val();
+		var ratings = 5;
+		
+		var saveData = jQuery.ajax({
+              type: 'POST',
+              url: "<?php echo $this->getBaseUrl() ?>review/product/postreview",
+              data: {nickname:nickname, location:location, title:title, detail:detail, email:email, ratings:ratings, id:<?php echo $_product->getId(); ?>},
+              cache: false,
+              dataType: "text",
+              success: function(resultData) {
+				  jQuery('#error-msg').html(resultData).show();
+              }
+        });
+        saveData.error(function() { jQuery("#ajax-response").html("Something went wrong"); });
+	}
+	else{
+		jQuery('#error-msg').show();
+	}
+}
 </script>
