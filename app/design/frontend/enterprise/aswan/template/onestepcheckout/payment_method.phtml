@@ -279,19 +279,19 @@ if(in_array('giftcard', $itemArr)) {
 <ul>
 <li>
 <label for="p_payment_name_MOBKP_N01" id="mobikwik-pay-securely-now" class="css-label mar-t10 gtm-track"><input type="radio" onclick="javascript:togglePaymentMethods('MOBKP_N01', 'mobikwik', 'ccavenuepay');" id="p_payment_name_MOBKP_N01" value="ccavenuepay" name="payment[payment_method_type]" title="Pay By Wallet" class="css-checkbox fl" />
-<img src="http://www.jaspal.com/americanswan/skin/frontend/enterprise/aswan/images/wallat2.jpg">
+<img src="<?php echo $this->getSkinUrl('images/wallat2.jpg');?>">
 <?php //echo $this->getLayout()->createBlock('cms/block')->setBlockId('checkout-mobikwik-cashback-v3')->toHtml() ?>
 </label></li>
 					
 
 <li><label for="p_payment_name_paytm_cc" id="paytm-pay-securely-now" class="css-label mar-t10 gtm-track"><input type="radio" onclick="javascript:togglePaymentMethods('paytm_cc', 'paytm_cc', 'paytm_cc');" id="p_payment_name_paytm_cc" value="paytm_cc" name="payment[payment_method_type]" title="Pay By Wallet" class="css-checkbox fl" />
-<img src="http://www.jaspal.com/americanswan/skin/frontend/enterprise/aswan/images/wallat1.jpg">
+<img src="<?php echo $this->getSkinUrl('images/wallat1.jpg');?>">
 </label></li>
 					
 					
 
 <li> <label for="p_payment_name_payumoney_shared" id="payumoney_shared-pay-securely-now" class="css-label mar-t10 gtm-track"><input type="radio" onclick="javascript:togglePaymentMethods('payumoney_shared', 'payumoney_shared', 'payumoney_shared');" id="p_payment_name_payumoney_shared" value="payumoney_shared" name="payment[payment_method_type]" title="Pay By Wallet" class="css-checkbox fl" />
-<img src="http://www.jaspal.com/americanswan/skin/frontend/enterprise/aswan/images/wallat3.jpg"></label></li>
+<img src="<?php echo $this->getSkinUrl('images/wallat3.jpg');?>"></label></li>
 
 
                                        

@@ -31,34 +31,12 @@ iCart.updateLinks();
 var qty = "<?php echo (int)Mage::getModel('checkout/cart')->getQuote()->getItemsQty(); ?>"+' '+'Items';
 jQuery('.bagsummary p').html(qty);
 if(jQuery('#quickbag').css('display') == 'block'){
-    var bagslider = jQuery('#quickbag .productslide .bxslider').bxSlider({
-                auto: true,
-                infiniteLoop: true,
-                mode: 'horizontal',
-                slideWidth: 150,
-                minSlides: 2,
-                maxSlides:6,
-                slideMargin: 3,
-                pager: false
-            });
-        bagslider.reloadSlider();
+    bgslider();
 }
 else{
     jQuery('#showbag, #closebag').bind('click',function(){
-    var bagslider = jQuery('#quickbag .productslide .bxslider').bxSlider({
-                auto: true,
-                infiniteLoop: true,
-                mode: 'horizontal',
-                slideWidth: 150,
-                minSlides: 2,
-                maxSlides:6,
-                slideMargin: 3,
-                pager: false
-            });
-    setTimeout(function() {
-        bagslider.reloadSlider();
-    }, 100);
-});    
+        bgslider();
+    });    
 }
 
 

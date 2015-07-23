@@ -71,18 +71,9 @@ iCart.updateLinks();
 var qty = "<?php echo $qty; ?>"+' '+'Items';
 jQuery('.bagsummary p').html(qty);
 iCart.updateLinks();
-    var bagslider = jQuery('#quickbag .productslide .bxslider').bxSlider({
-                auto: true,
-                infiniteLoop: true,
-                mode: 'horizontal',
-                slideWidth: 150,
-                minSlides: 2,
-                maxSlides:6,
-                slideMargin: 3,
-                pager: false
-            });
+
     <?php if($qty>0){ ?>
-        bagslider.reloadSlider();
+        bgslider();
     <?php } ?>    
 
 //]]>
