@@ -41,9 +41,9 @@ class Mage_CatalogSearch_Block_Autocomplete extends Mage_Core_Block_Abstract
             return $html;
         }
 		
-		$html .= '<ul class="ajaxsearch"><li style="display:none"></li>';
+		$html .= '<div id="autosuggest" class="mCustomScrollbar _mCS_1"><ul><li style="display:none"></li>';
 		$titleSugg = "<li class='head'>Search Suggestions</li>";
-		$titleProd = "<li class='head'>Products</li>";
+		//$titleProd = "<li class='head'>Products</li>";
 		
 		//Check if products exist for the search text
 		$results=$this->getSuggestProducts();
@@ -53,7 +53,7 @@ class Mage_CatalogSearch_Block_Autocomplete extends Mage_Core_Block_Abstract
 			$showSugg = false;
 		}
 		
-        $suggestData = $this->getSuggestData();
+        //$suggestData = $this->getSuggestData();
         if (!($count = count($suggestData))) {
 			$showSugg = false;
             //return $html;
@@ -122,7 +122,7 @@ class Mage_CatalogSearch_Block_Autocomplete extends Mage_Core_Block_Abstract
 				$pos = stripos($pro->getName(), $this->helper('catalogsearch')->getQueryText());
 				$actualStr = substr($pro->getName(), $pos, strlen($this->helper('catalogsearch')->getQueryText()));
 				
-				$html .=  "<li class=\"preview {$row_class}\" ><a href=\"{$pro->getProductUrl()}\">";
+				$html .=  "<li><a href=\"{$pro->getProductUrl()}\">";
 				$html .=  "<img src=\"{$this->helper('catalog/image')->init($pro, 'small_image')->resize(50,50)}\"  />";
 				$html .=  str_ireplace($this->helper('catalogsearch')->getQueryText(), '<b>'.strtolower($actualStr).'</b>', ucfirst(strtolower($prodName)));
 				
@@ -130,8 +130,8 @@ class Mage_CatalogSearch_Block_Autocomplete extends Mage_Core_Block_Abstract
 				//$description=wordwrap($description, 30, '<br>', true);
 				$description=ucfirst(strtolower($description));
 				$html .=  "<div class=\"description\">".$description."</div>";
-				//$html .=  "<div class=\"description\"><span class="priceBlock">Price</span> ".Mage::helper('core')->currency($prod->getFinalPrice(),true,false)."</div>";
-				$html .=  "<div class=\"description\"><span class='priceBlock'>Price</span> ".$theProductBlock->getPriceHtml($prod, true)."</div>";
+				$html .=  "<div class=\"description\"><span class='priceBlock'></span> ".Mage::helper('core')->currency($prod->getFinalPrice(),true,false)."</div>";
+				//$html .=  "<div class=\"description\"><span class='priceBlock'>Price</span> ".$theProductBlock->getPriceHtml($prod, true)."</div>";
 				$html .=  "</a></li>";
 			}
 		}
@@ -142,7 +142,7 @@ class Mage_CatalogSearch_Block_Autocomplete extends Mage_Core_Block_Abstract
 			$html .= '<li>Oops! No product found.</li>';
 		}
 		
-        $html.= '</ul>';
+        $html.= '</ul></div>';
 
         return $html;
     }
@@ -214,7 +214,7 @@ class Mage_CatalogSearch_Block_Autocomplete extends Mage_Core_Block_Abstract
 			Mage::getSingleton('catalog/product_visibility')->addVisibleInSearchFilterToCollection($collection);
 			
 			$collection->setOrder('relevance', 'desc');
-			$collection->setPageSize(5);
+			//$collection->setPageSize(5);
 			
 			//Use order by relevance also here.
 			//print '==='.$collection->getSelect();//die;

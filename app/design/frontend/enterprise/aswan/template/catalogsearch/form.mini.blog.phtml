@@ -1,0 +1,42 @@
+<?php $catalogSearchHelper =  $this->helper('catalogsearch'); ?>
+
+<form name="search_mini_form" id="search_mini_form" action="<?php echo $catalogSearchHelper->getBlogResultUrl() ?>" class="search" method="get">
+	<div class="form-search blog-form-search">  
+		<?php
+			$searchParam = '';
+			$p = $catalogSearchHelper->getQueryParamName();
+			if (isset($_GET[$p])) {
+				$searchParam = $_GET[$p];
+			}	
+		?>
+		
+		<input name="<?php echo $catalogSearchHelper->getQueryParamName() ?>" type="text" id="blogsearch" value="<?php echo $searchParam ?>" onclick="this.value=='<?php echo $this->__('Blog Search') ?>'?this.value='':''" onblur="this.value==''?this.value='<?php echo $this->__('Blog Search') ?>':''" class="search rounded input-text required-entry" maxlength="<?php echo $catalogSearchHelper->getMaxQueryLength();?>"/>&nbsp;
+		
+		<button title="<?php echo $this->__('Blog Search') ?>" class="search_btn_new" type="submit"> </button>
+		
+		
+		<script language="javascript">
+		//<![CDATA[
+			var searchForm = new Varien.searchForm('search_mini_form', 'blogsearch', '<?php echo $this->__('Search') ?>');
+		//]]>
+		</script>
+	</div>
+</form>
+
+
+<?php
+	$request = $this->getRequest();
+	$module = $request->getModuleName();
+	$controller = $request->getControllerName();
+	$action = $request->getActionName();
+	
+	if (!($module == 'checkout' && $controller == 'onepage' && ($action == 'success' ||  $action == 'success-ccavenue'  ||  $action == 'success-citrus'  ||  $action == 'success-payseal'  ||  $action == 'success-zaakpay'))){
+?>
+		<div style="position:absolute">
+			<!-- Advertiser 'Ignitee Digital Services Pvt Ltd.-THE AMERICAN SWAN LIFESTYLE COMPANY PVT LTD',  Include user in segment '1544425_THE AMERICAN SWAN LIFESTYLE COMPANY_SRT_Pixel_042913' - DO NOT MODIFY THIS PIXEL IN ANY WAY -->
+				<img src="http://ad.yieldmanager.com/pixel?id=2366136&t=2" width="1" height="1" />
+			<!-- End of segment tag -->
+		</div>
+<?php
+	}
+?>

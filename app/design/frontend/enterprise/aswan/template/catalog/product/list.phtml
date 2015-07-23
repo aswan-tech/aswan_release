@@ -43,11 +43,11 @@
 <div id="productlist">
  
  <!--Feature product-->
- <div class="feturebox">
+ <!-- <div class="feturebox">
 <h2>Summer Weight</h2>
 <p>Made from cool, lightweight cotton, these shirts stay breathable in warmer weather, and feature seasonal patterns you won't find anywhere else.</p>
 <h4>AVAILABLE IN SLIM, STANDARD, TAILORED, AND TALL.</h4>
-<img src="http://www.jaspal.com/americanswan/skin/frontend/enterprise/aswan/images/feture-product.jpg"></div>
+<img src="http://www.jaspal.com/americanswan/skin/frontend/enterprise/aswan/images/feture-product.jpg"></div> -->
  <!-- Feature product close -->
 
 <?php if($this->getMode() =='grid'): ?>
@@ -62,11 +62,11 @@
 
         <?php
                 $product_style = $_product->getStyle();
-                $collection = Mage::getModel('catalog/product')->getCollection();
-                $collection->addAttributeToSelect('*');
-                $collection->addFieldToFilter(array(array('attribute'=>'style','eq'=>$product_style)));
-                $collection->addFieldToFilter(array(array('attribute'=>'visibility','neq'=>'1')));
-                $collection->addFieldToFilter(array(array('attribute'=>'status','eq'=>'1')));
+                $collection = Mage::getModel('catalog/product')->getCollection()
+                ->addAttributeToSelect('*')
+                ->addFieldToFilter(array(array('attribute'=>'style','eq'=>$product_style)))
+                ->addFieldToFilter(array(array('attribute'=>'visibility','neq'=>'1')))
+                ->addFieldToFilter(array(array('attribute'=>'status','eq'=>'1')));
                 $collection->getSelect()->limit(10);
                 $group_products = array();
                 if (count($collection) > 0):

@@ -1,0 +1,106 @@
+<?php
+/**
+ * Magento Enterprise Edition
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Magento Enterprise Edition License
+ * that is bundled with this package in the file LICENSE_EE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://www.magentocommerce.com/license/enterprise-edition
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     enterprise_default
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://www.magentocommerce.com/license/enterprise-edition
+ */
+?>
+<div class="rightPanel" style="margin-top:0px;">
+<?php if($this->getResultCount()): ?>
+	<?php $word = $this->helper('catalogsearch')->getEscapedQueryText();
+		if($word == '439ed537979d8e831561964dbbbd7413'){
+			echo $this->getLayout()->createBlock('cms/block')->setBlockId('sale_block')->toHtml();
+		}
+	?>
+	<div class="clearfix rightGrid">
+		<?php //echo $this->getLayout()->getBlock("breadcrumbs")->toHtml(); ?>
+		<?php if($word != '439ed537979d8e831561964dbbbd7413'): ?>
+			<div class="prodCategoryTitle">
+				<span class="keyword">
+					<span class="normal">Searched keyword: </span>
+					<span class="vwnum">"<?php echo ($this->getHeaderText() || $this->getHeaderText() === false) ? $this->getHeaderText() : $this->__($this->helper('catalogsearch')->getEscapedQueryText()) ?>"</span>
+				</span>
+			</div>
+		<?php endif; ?>
+		<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+		<?php if ($messages = $this->getNoteMessages()):?>
+		<p class="note-msg">
+			<?php foreach ($messages as $message):?>
+				<?php echo $message?><br />
+			<?php endforeach;?>
+		</p>
+		<?php endif; ?>
+		<?php echo $this->getProductListHtml() ?>
+	</div>
+<?php else: ?>
+	<?php 	$word = $this->helper('catalogsearch')->getEscapedQueryText(); 
+			if($word == '439ed537979d8e831561964dbbbd7413'){
+				echo $this->getLayout()->createBlock('cms/block')->setBlockId('no_sale_block')->toHtml();
+			}
+	?>
+	<div class="clearfix rightGrid">
+		<?php if($word != '439ed537979d8e831561964dbbbd7413'): ?>
+			<?php //echo $this->getLayout()->getBlock("breadcrumbs")->toHtml(); ?>
+			<div class="prodCategoryTitle">
+				<span class="keyword">
+					<span class="normal">Searched keyword: </span>
+					<span class="vwnum">"<?php echo ($this->getHeaderText() || $this->getHeaderText() === false) ? $this->getHeaderText() : $this->__($this->helper('catalogsearch')->getEscapedQueryText()) ?>"</span>
+				</span>
+			</div>
+		<?php endif; ?>
+		<?php if($word != '439ed537979d8e831561964dbbbd7413'): ?>
+			<div class="search-message">
+				<?php echo ($this->getNoResultText()) ? $this->getNoResultText() : $this->__('Your search returns no results.') ?>
+			</div>
+			<script type="text/javascript">
+				if(jQuery(".rightPanel").length > 0){
+					jQuery(".rightPanel").removeClass('noResults').addClass('noResults');
+					/*jQuery(".rightPanel").css("width","100%");
+					jQuery(".rightPanel").css("height","400px");*/
+				}
+			</script>
+			<?php echo $this->getAdditionalHtml() ?>
+			<?php if ($messages = $this->getNoteMessages()):?>
+				<?php foreach ($messages as $message):?>
+						<br /><?php echo $message?>
+				<?php endforeach;?>
+		<?php endif; ?>
+	<?php else: ?>
+		<?php //echo $this->__('No Sale Products found.') ?>
+		<script type="text/javascript">
+				if(jQuery(".rightPanel").length > 0){
+					jQuery(".rightPanel").removeClass('noResults').addClass('noResults');
+				}
+			</script>
+	<?php endif; ?> 
+</div>
+<?php endif; ?>
+</div>
+
+
+<?php $word = $this->helper('catalogsearch')->getEscapedQueryText(); ?>
+<?php if($word == '439ed537979d8e831561964dbbbd7413'): ?>
+<script type="text/javascript">
+var searchbox = document.getElementById('search');
+searchbox.value = 'Search';
+</script>
+<?php endif; ?>

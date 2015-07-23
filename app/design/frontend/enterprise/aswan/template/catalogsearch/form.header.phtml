@@ -1,0 +1,22 @@
+<?php $catalogSearchHelper =  $this->helper('catalogsearch');
+$controName = Mage::app()->getRequest()->getControllerName();
+$_utmparam = Mage::app()->getRequest()->getParam('utm_source');
+$routeName = Mage::app()->getFrontController()->getRequest()->getRouteName();
+$identifier = Mage::getSingleton('cms/page')->getIdentifier();
+?>
+<form name="search_mini_form" id="search_mini_form" action="<?php echo $catalogSearchHelper->getResultUrl() ?>" class="search" method="get">
+        <?php  $searchParam = '';
+                $p = $catalogSearchHelper->getQueryParamName();
+                if (isset($_GET[$p])) { $searchParam = $_GET[$p]; }
+                if ($searchParam == '439ed537979d8e831561964dbbbd7413') { $searchParam = ''; }
+        ?>
+        <input name="<?php echo $catalogSearchHelper->getQueryParamName() ?>" type="text" id="search" value="<?php echo $this->helper('catalogsearch')->getEscapedQueryText() ?>" onclick="this.value=='<?php echo $this->__('Search') ?>'?this.value='':''" onblur="this.value==''?this.value='<?php echo $this->__('Search American Swan') ?>':''" class="search-f-box fl input-text required-entry" maxlength="<?php echo $catalogSearchHelper->getMaxQueryLength();?>"/>&nbsp;
+        <button title="<?php echo $this->__('Search') ?>" id="search-button" class="search-f-btn fl gtm-track" type="submit"> </button>
+    <div id="search_autocomplete" class="search-autocomplete"></div>
+    <script language="javascript">
+    //<![CDATA[
+        var searchForm = new Varien.searchForm('search_mini_form', 'search', '<?php echo $this->__('Search American Swan') ?>');
+        searchForm.initAutocomplete('<?php echo $catalogSearchHelper->getSuggestUrl() ?>', 'search_autocomplete');
+    //]]>
+    </script>
+</form>
