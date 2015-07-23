@@ -325,7 +325,7 @@ $img_url 		= $this->helper('catalog/image')->init($_product, 'image')->resize('3
 $_taxHelper  	= Mage::helper('tax');
 $_finalPrice 	= $_taxHelper->getPrice($_product, $_product->getFinalPrice());
 $_price 		= $_taxHelper->getPrice($_product, $_product->getPrice());
-/*
+
 ?>
 <script type="text/javascript">
 dataLayer.push(
@@ -341,7 +341,6 @@ dataLayer.push(
     {'PAGE_TYPE': 'PRODUCT_VIEW'}
 );
 </script>
-*/?> 
 
 <script>
 function submitRating() {

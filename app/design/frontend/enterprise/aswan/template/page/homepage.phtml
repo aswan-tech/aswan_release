@@ -34,8 +34,23 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<?php echo $this->getLang() ?>" lang="<?php echo $this->getLang() ?>">
 <head>
 <?php echo $this->getChildHtml('head') ?>
+<script type="text/javascript">
+dataLayer.push({'PAGE_TYPE': 'HOMEPAGE'});
+</script>
 </head>
 <body class="home-page">
+<script type="application/ld+json">
+{
+   "@context": "http://schema.org",
+   "@type": "WebSite",
+   "url": "<?php echo $this->getBaseUrl(); ?>",
+   "potentialAction": {
+     "@type": "SearchAction",
+     "target": "<?php echo $this->getBaseUrl(); ?>catalogsearch/result/?q={search_term_string}",
+     "query-input": "required name=search_term_string"
+   }
+}
+</script>	
 <?php echo $this->getChildHtml('after_body_start') ?>
 <div id="wrapper">
     <?php echo $this->getChildHtml('global_notices') ?>
