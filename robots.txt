@@ -48,7 +48,7 @@ Disallow: /*.js$
 Disallow: /*.css$
 Disallow: /*.php$
 Disallow: /*?SID=
-
+Disallow: /common/*
 
 
 Sitemap: http://www.americanswan.com/sitemap.xml
@@ -60,4 +60,3 @@ Disallow: /catalogsearch*
 User-agent: bingbot
 User-agent: msnbot 
 Disallow: /catalogsearch*
-Crawl-delay: 10

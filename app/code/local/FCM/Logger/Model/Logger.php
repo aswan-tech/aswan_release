@@ -36,7 +36,7 @@ class FCM_Logger_Model_Logger extends Mage_Core_Model_Abstract {
               $time = "<font color='red'>".$time."</font>";
               $moduleKey = "<font color='red'>".$moduleKey."</font>"; */
         }
-
+        try{
         $logger = Mage::getModel('logger/logger')
                         ->setLogTime($time)
                         ->setStatus($status)
@@ -44,6 +44,10 @@ class FCM_Logger_Model_Logger extends Mage_Core_Model_Abstract {
                         ->setDescription($description)
                         ->setFilename($fileName)
                         ->save();
+	}
+	catch(Exception $e){
+		Mage::log('Unable to save Logger', Zend_Log::DEBUG, 'fulfillment');
+	}
     }
 
     /*

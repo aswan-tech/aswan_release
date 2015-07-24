@@ -29,7 +29,6 @@ $phpseclibdir = Mage::getBaseDir('lib');
 require_once 'phpseclib' . DS . 'Net' . DS . 'SFTP.php';
 
 class FCM_Fulfillment_Model_Process {
-
     private $ftpHost;
     private $ftpPort;
     private $ftpTimeout;
@@ -43,16 +42,14 @@ class FCM_Fulfillment_Model_Process {
         $this->ftpTimeout = Mage::getStoreConfig('fulfillment/sftp/timeout');
         $this->ftpUsername = Mage::getStoreConfig('fulfillment/sftp/username');
         $this->ftpPassword = Mage::getStoreConfig('fulfillment/sftp/password');
-		
-		if (empty($this->ftpHost)) {
+	if (empty($this->ftpHost)) {
             $this->ftpHost = 'uat.admin.americanswan.com';
         }
 
         if (empty($this->ftpUsername)) {
             $this->ftpUsername = 'lecom-ftp';
         }
-		
-		if (empty($this->ftpPassword)) {
+	if (empty($this->ftpPassword)) {
             $this->ftpPassword = 'secure123#$';
         }
 		
@@ -83,7 +80,6 @@ class FCM_Fulfillment_Model_Process {
                 //'7' => 'Returned',
                 //'8' => 'Refunded'
         );
-
         return $statuses;
     }
 
@@ -109,7 +105,6 @@ class FCM_Fulfillment_Model_Process {
     public function getDcStatusCode($status) {
         $statuses = $this->getDcStatuses();
         $statusCodeArray = array_flip($statuses);
-
         return $statusCodeArray[$status];
     }
 
@@ -122,7 +117,6 @@ class FCM_Fulfillment_Model_Process {
     public function getDcStatusCodes() {
         $statuses = $this->getDcStatuses();
         $statusCodeArray = array_flip($statuses);
-
         return $statusCodeArray;
     }
 
@@ -141,8 +135,6 @@ class FCM_Fulfillment_Model_Process {
             'Returned' => 'order_unsuccessful',
             'Refunded' => 'order_unsuccessful',
             'Partial Shipped'=>'partial_shipped');
-
-
         return $orderStatusCodes;
     }
 
@@ -153,16 +145,14 @@ class FCM_Fulfillment_Model_Process {
      * @return string
      */
 
-    public function getFilename($module, $ext, $filenum="") {
+    public function getFilename($module, $ext, $filenum="", $orderno="") {
         $store_id = Mage::app()->getStore()->getId();
         $storeTimestamp = Mage::app()->getLocale()->storeTimeStamp($store_id);
+	if ($filenum) {
+		$filenum = "_" . $filenum;
+	}
 
-		if ($filenum) {
-			$filenum = "_" . $filenum;
-		}
-
-	   $filename = $module . '_' . date("YmdHis", $storeTimestamp) . $filenum . '.' . $ext;
-
+   	$filename = $module . '_' . ( empty($orderno) ? date("YmdHis", $storeTimestamp) : $orderno ) . $filenum . '.' . $ext;
         return $filename;
     }
 
@@ -176,9 +166,7 @@ class FCM_Fulfillment_Model_Process {
     public function getTmpFilename($module, $ext) {
         $store_id = Mage::app()->getStore()->getId();
         $storeTimestamp = Mage::app()->getLocale()->storeTimeStamp($store_id);
-
         $filename = $module . '_' . date("YmdHis", $storeTimestamp) . '_tmp.' . $ext;
-
         return $filename;
     }
 
@@ -193,12 +181,6 @@ class FCM_Fulfillment_Model_Process {
         if (empty($format)) {
             $format = $this->datetimeformat;
         }
-
-        /* $store_id = Mage::app()->getStore()->getId();
-          $storeTimestamp = Mage::app()->getLocale()->storeTimeStamp($store_id);
-
-          $dt = date($format,$storeTimestamp);
-         */
 
         $dt = Mage::getModel('core/date')->date($format);
 
@@ -246,12 +228,6 @@ class FCM_Fulfillment_Model_Process {
                 break;
         }
 
-        /*
-          if (empty($subject)) {
-          $subject = "Notification Email";
-          }
-         */
-
         if (empty($message)) {
             $message = "No Message attached";
         }
@@ -270,7 +246,6 @@ class FCM_Fulfillment_Model_Process {
 
     public function readFromRemote($remote, $local, $module="", $fileformat = "xml", $isfile=false, $tmode=false) {
         Mage::log('Transferring file(s) from ' . $remote . ' to ' . $local, Zend_Log::DEBUG, 'fulfillment');
-
         if ($tmode) {
             $mode = NET_SFTP_STRING;
         } else {
@@ -282,36 +257,32 @@ class FCM_Fulfillment_Model_Process {
         }
 
         try {
-            $ssh = new Net_SFTP($this->ftpHost, $this->ftpPort, $this->ftpTimeout);
 
-            //get($remote_file, $local_file = false)
-            if (!$ssh->login($this->ftpUsername, $this->ftpPassword)) {
+            #$ssh = new Net_SFTP($this->ftpHost, $this->ftpPort, $this->ftpTimeout);
+            #if (!$ssh->login($this->ftpUsername, $this->ftpPassword)) {
+		if(1){
                  Mage::log('Remote Failed!! starting backup', Zend_Log::DEBUG, 'fulfillment');
-		 Mage::log('copying all files without sftp', Zend_Log::DEBUG, 'fulfillment');
-		 $scanned_files = array_diff(scandir($remote), array('..', '.'));
-		 // check if there is any file 
-		 if(count($scanned_files > 0))
+				 Mage::log('copying all files without sftp', Zend_Log::DEBUG, 'fulfillment');
+				 $scanned_files = array_diff(scandir($remote), array('..', '.'));
+				 // check if there is any file 
+
+		 if(count($scanned_files) > 0)
 		 {
 			 $status = array();
 			 Mage::log(count($scanned_files).' files found', Zend_Log::DEBUG, 'fulfillment');
 			 foreach($scanned_files as $key=>$filename)
 			 {
-				Mage::log('Copying file ' . $filename . ' to ' . $local.$filename, Zend_Log::DEBUG, 'fulfillment');
-				//perform copy
-				if(rename($remote.$filename,$local.$filename))
-                                {
+				if(rename($remote.$filename,$local.$filename)){
 					$status['success'][] = $filename;
 					Mage::log('Copying file ' . $filename . ' to ' . $local.$filename, Zend_Log::DEBUG, 'fulfillment');
-                                }
-                                else
+					unlink($remote.$filename);
+				}
+				else
 				{
 					$status['error'][] = $filename;
 					Mage::log('Error Copying file ' . $filename . ' to ' . $local.$filename, Zend_Log::ERR, 'fulfillment');
 				}
-
-
 			 }
-			 //return false;
 			 return $status;
 		 }
 		 else
@@ -321,27 +292,21 @@ class FCM_Fulfillment_Model_Process {
 		 } 
 	    }
 
-
+/*
             if ($isfile) {
                 $tempFileName = rtrim($remote, "." . $fileformat) . ".tmp";
                 $ssh->exec('mv ' . $remote . " " . $tempFileName);
-
                 $status = $ssh->get($tempFileName, $local);
 
                 //File not read
                 if (!$status) {
                     return false;
                 }
-
                 $ssh->exec('rm -rf ' . $tempFileName);
             } else {
-                //$fileslist	= $ssh->exec('find '. $remote . ' -maxdepth 1 -type f -name "*.txt" -o -name "*.asp"');
                 $fileformatexp = "*." . $fileformat;
-                //$fileslist = $ssh->exec('find ' . $remote . ' -maxdepth 1 -type f -name "' . $fileformatexp . '"');
                 $fileslist = $ssh->exec('find ' . $remote . ' -maxdepth 1 -type f -name "' . $fileformatexp . '" | sort $1');
-				
-				$files = explode("\n", $fileslist);
-
+		$files = explode("\n", $fileslist);
                 $status = array();
                 foreach ($files as $file) {
                     if (empty($file)) {
@@ -349,17 +314,13 @@ class FCM_Fulfillment_Model_Process {
                     }
 
                     $localfile = $local . basename($file);
-
                     $tempFileName = rtrim($file, "." . $fileformat) . ".tmp";
                     $ssh->exec('mv ' . $file . " " . $tempFileName);
-
                     $stat = $ssh->get($tempFileName, $localfile);
-
                     if ($stat) {
                         $status['success'][] = $file;
                         //Delete the file read
                         $ssh->exec('rm -rf ' . $tempFileName);
-
                         Mage::log('Copying file ' . $file . ' to ' . $localfile, Zend_Log::DEBUG, 'fulfillment');
                     } else {
                         $status['error'][] = $file;
@@ -369,15 +330,13 @@ class FCM_Fulfillment_Model_Process {
             }
 
             $ssh->disconnect();
-
             return $status;
+	*/
         } catch (Exception $e) {
             $errmsg = $e->getMessage();
             Mage::log($errmsg, Zend_Log::ERR, 'fulfillment');
 
-            Mage::getModel('logger/logger')->saveLogger($module, "Exception", __FILE__, $errmsg);
             $this->notify($module, $errmsg);
-
             return false;
         }
     }
@@ -399,7 +358,7 @@ class FCM_Fulfillment_Model_Process {
         }
 
         try {
-            $ssh = new Net_SFTP($this->ftpHost, $this->ftpPort, $this->ftpTimeout);
+            /*$ssh = new Net_SFTP($this->ftpHost, $this->ftpPort, $this->ftpTimeout);
             if (!$ssh->login($this->ftpUsername, $this->ftpPassword)) {
                 throw new Exception('Remote Login Failed');
                 return false;
@@ -409,7 +368,9 @@ class FCM_Fulfillment_Model_Process {
 
             $ssh->disconnect();
 
-            return $transferStatus;
+            return $transferStatus;*/
+            copy($local, $remote);
+            return true;
         } catch (Exception $e) {
             $errmsg = $e->getMessage();
             Mage::log($errmsg, Zend_Log::ERR, 'fulfillment');
@@ -533,51 +494,4 @@ class FCM_Fulfillment_Model_Process {
 
         return $erArray;
     }
-
-    /* public function readFromRemote() {
-      $ssh = new Net_SFTP($this->ftpHost, $this->ftpPort, $this->ftpTimeout);
-      if (!$ssh->login($this->ftpUsername, $this->ftpPassword)) {
-      //exit('Login Failed');
-      } else {
-      //exit('Login Success');
-      }
-
-
-      echo $ssh->exec('ls'); */
-
-    //$connection = ssh2_connect($this->ftpHost, $this->ftpPort);
-    //$c = ssh2_auth_password($connection, $this->ftpUsername, $this->ftpPassword);
-    //var_dump($c);
-    //ssh2_scp_send($connection, '/local/filename', '/remote/filename', 0644);
-
-    /* $known_host = '6F89C2F0A719B30CC38ABDF90755F2E4';
-
-      $connection = ssh2_connect('shell.example.com', 22);
-
-      $fingerprint = ssh2_fingerprint($connection,
-      SSH2_FINGERPRINT_MD5 | SSH2_FINGERPRINT_HEX);
-
-      if ($fingerprint != $known_host) {
-      die("HOSTKEY MISMATCH!\n" .
-      "Possible Man-In-The-Middle Attack?");
-      } */
-    //read ($filename, $dest=null)
-
-    /* try {
-      $connection = new Varien_Io_Sftp();
-      $connection->open(array(
-      'host'     => $this->ftpHost . ":" . $this->ftpPort,
-      'timeout'  => $this->ftpTimeout,
-      'username' => $this->ftpUsername,
-      'password' => $this->ftpPassword
-      ));
-
-
-      echo	$_fileToExportRemote = Mage::getStoreConfig('fulfillment/paths/otf'). DS . "AWWSO20111222064031.csv"; echo  $this->localOutbound . DS . "AWWSO20111222064031.csv";
-      echo	$_fileToExportRemoteTmp = $connection->write($_fileToExportRemote, $this->localOutbound . DS . "test.txt");
-      $connection->close();
-      } catch (Exception $e) {
-      echo $e->getMessage();
-      } */
 }
-
