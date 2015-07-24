@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <default>
+		<reference name="head">
+			
+			<action method="addItem"><type>skin_js</type><name>js/jquery.limit-1.2.js</name></action>
+		</reference>
+    </default>
+    <testimonials_index_index>
+		<reference name="root">
+            <action method="setTemplate"><template>page/cms-page-layout.phtml</template></action>
+        </reference>	
+        <reference name="content">
+            <block type="testimonials/testimonials" name="testimonials" template="testimonials/testimonials.phtml" />
+        </reference>
+    </testimonials_index_index>
+	<testimonials_submit_index>
+		<reference name="root">
+            <action method="setTemplate"><template>page/cms-page-layout.phtml</template></action>
+        </reference>
+        <reference name="content">
+            <block type="testimonials/testimonials" name="testimonials.form" template="testimonials/form.phtml">
+				<block type="testimonials/testimonials" name="testimonials.sidebar" as="testimonials-sidebar" template="testimonials/sidebar.phtml" />
+			</block>
+        </reference>
+    </testimonials_submit_index>
+</layout> 

@@ -1,39 +1,28 @@
-<!doctype html>
-<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
-<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
-<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+
 <head>
 <?php echo $this->getChildHtml('head') ?>
-<?php echo $this->getChildHtml('after_body_start') ?>
 </head>
-<body <?php echo $this->getBodyClass()?' class="'.$this->getBodyClass().'"':'' ?>>
-      <div class="top-info-bar"></div>
-      <div class="as-menu-wrap "></div>
-      <div class="as-info-cont">
-        <header class=" pos-a">
-            <?php echo $this->getChildHtml('header') ?>
-       </header>
-      </div>
-
+<body>
+	<?php echo $this->getChildHtml('after_body_start') ?>
+<div id="wrapper">
     <?php echo $this->getChildHtml('global_notices') ?>
-    <div id="container">	
-        <?php echo $this->getChildHtml('global_messages') ?>
-       
-        <div class="mainTop"></div>
-		<div class="main mainbody cms-layout">
-            <div class="col-main">
-				<?php echo $this->getChildHtml('breadcrumbs') ?>
-                <?php echo $this->getChildHtml('content') ?>
-            </div>
-        </div>
-		<div class="mainBot"></div>
-   </div>
-		<footer>
-			<?php echo $this->getChildHtml('footer_before') ?>
-			<?php echo $this->getChildHtml('footer') ?>
-			<?php echo $this->getChildHtml('before_body_end') ?>
-		</footer>
- 
+<header id="header">
+	<?php echo $this->getChildHtml('header') ?>
+</header> 
+<div id="middle">
+<div class="page-holder">
+	<?php echo $this->getChildHtml('global_messages') ?>
+	<div class="cmscontent">
+		<div class="bredcrum"><?php echo $this->getChildHtml('breadcrumbs') ?></div>
+		<?php echo $this->getChildHtml('content') ?>
+	</div>
+	</div>
+</div>
+<footer id="footer">
+	<?php echo $this->getChildHtml('footer') ?>
+</footer>
+	<?php echo $this->getChildHtml('before_body_end') ?>
+</div>
+<?php echo $this->getAbsoluteFooter() ?>
 </body>
 </html>
