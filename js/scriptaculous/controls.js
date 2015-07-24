@@ -103,6 +103,10 @@ Autocompleter.Base = Class.create({
       this.iefix = $(this.update.id+'_iefix');
     }
     if(this.iefix) setTimeout(this.fixIEOverlapping.bind(this), 50);
+    if(jQuery('#autosuggest').length>0){
+        jQuery("#autosuggest").mCustomScrollbar();
+        jQuery("#search_autocomplete").css('position','');
+    }
   },
 
   fixIEOverlapping: function() {
