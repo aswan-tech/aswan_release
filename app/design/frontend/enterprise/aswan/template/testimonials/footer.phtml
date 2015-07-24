@@ -1,0 +1,50 @@
+<div id="sub-banner-third-line-side" style="height: 243px;">
+<?php 
+$collection = Mage::getModel('testimonials/testimonials')->getCollection()->addFooterFilter()->addIsActiveFilter();							
+$count = Mage::helper('testimonials')->getFooterCount();		
+if (!empty($count)) { $collection->setPageSize($count); }
+$collection->setOrder('update_time', 'desc');
+$cnt = count($collection);
+$testimonialArr = array_chunk($collection->getData(), 2);
+?>
+<?php if($cnt > 0 ): ?>
+<div class="Testimonials-carousel fl " onclick="window.location='<?php echo $this->getUrl('');?>testimonials'" style="cursor:pointer;">
+    <div class="Testimonials-carou-cont">
+		<a class="gtm-track" id="testimonials-widget" href="<?php echo $this->getUrl('');?>testimonials"><h2>Testimonials</h2></a>
+        <ul>
+        <?php foreach ($testimonialArr as $dataArr): ?> 
+            <li>
+            <a class="gtm-track" id="testimonials-widget" href="<?php echo $this->getUrl('');?>testimonials">
+                <div class="tm-main-slider">
+                    <div class="tm-wrapp fl">
+                        <p class="top-tmq-l"></p>
+                        <?php foreach($dataArr as $item) { ?>
+                        <div class="mar-l30 tm-contshow"><?php if(strlen($item['content']) > 150) { echo nl2br(trim(substr($item['content'], 0, 150))).'...more'; }else{ echo nl2br(trim($item['content'])); } ?></div>
+                        <div class="clear"></div>
+                        <div class="name fr"><?php  echo trim($item['name']); ?>, <span><?php echo trim($item['place']); ?></span></div>
+                        <div class="clear"></div>
+                        <?php } ?>
+                        <p class="top-tmq-r fr"></p>
+                    </div>
+                </div>
+              </a>
+            </li>
+        <?php endforeach;  ?>
+        </ul>
+    </div>
+</div>
+<script type="text/javascript">// <![CDATA[
+(function(e){function t(t,n){return parseInt(e.css(t[0],n))||0}function n(e){return e[0].offsetWidth+t(e,"marginLeft")+t(e,"marginRight")}function r(e){return e[0].offsetHeight+t(e,"marginTop")+t(e,"marginBottom")}e.fn.jCarouselLite=function(t){t=e.extend({btnPrev:null,btnNext:null,btnGo:null,mouseWheel:false,auto:null,speed:200,easing:null,vertical:false,circular:true,visible:1,start:0,scroll:1,beforeStart:null,afterEnd:null},t||{});return this.each(function(){function i(){return d.slice(m).slice(0,p)}function s(n){if(!o){if(t.beforeStart)t.beforeStart.call(this,i());if(t.circular){if(n<=t.start-p-1){l.css(u,-((v-p*2)*g)+"px");m=n==t.start-p-1?v-p*2-1:v-p*2-t.scroll}else if(n>=v-p+1){l.css(u,-(p*g)+"px");m=n==v-p+1?p+1:p+t.scroll}else m=n}else{if(n<0||n>v-p)return;else m=n}o=true;l.animate(u=="left"?{left:-(m*g)}:{top:-(m*g)},t.speed,t.easing,function(){if(t.afterEnd)t.afterEnd.call(this,i());o=false});if(!t.circular){e(t.btnPrev+","+t.btnNext).removeClass("disabled");e(m-t.scroll<0&&t.btnPrev||m+t.scroll>v-p&&t.btnNext||[]).addClass("disabled")}}return false}var o=false,u=t.vertical?"top":"left",a=t.vertical?"height":"width";var f=e(this),l=e("ul",f),c=e("li",l),h=c.size(),p=t.visible;if(t.circular){l.prepend(c.slice(h-p-1+1).clone()).append(c.slice(0,p).clone());t.start+=p}var d=e("li",l),v=d.size(),m=t.start;f.css("visibility","visible");d.css({overflow:"hidden","float":t.vertical?"none":"left"});l.css({margin:"0",padding:"0",position:"relative","list-style-type":"none","z-index":"1"});f.css({overflow:"hidden",position:"relative","z-index":"2",left:"0px"});var g=t.vertical?r(d):n(d);var y=g*v;var b=g*p;d.css({width:d.width(),height:d.height()});l.css(a,y+"px").css(u,-(m*g));f.css(a,b+"px");if(t.btnPrev)e(t.btnPrev).click(function(){return s(m-t.scroll)});if(t.btnNext)e(t.btnNext).click(function(){return s(m+t.scroll)});if(t.btnGo)e.each(t.btnGo,function(n,r){e(r).click(function(){return s(t.circular?t.visible+n:n)})});if(t.mouseWheel&&f.mousewheel)f.mousewheel(function(e,n){return n>0?s(m-t.scroll):s(m+t.scroll)});if(t.auto)setInterval(function(){s(m+t.scroll)},t.auto+t.speed)})}})(jQuery)
+</script>
+<script type="text/javascript">
+jQuery(document).ready(function(e) {
+jQuery(".Testimonials-carousel").jCarouselLite({
+   btnNext: ".tmnext",
+   btnPrev: ".tmprev",
+    auto: 8000,
+    speed: 1000	
+});
+});
+</script> 
+<?php endif; ?>
+</div>

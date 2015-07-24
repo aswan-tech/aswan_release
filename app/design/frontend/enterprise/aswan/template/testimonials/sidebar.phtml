@@ -1,0 +1,12 @@
+<?php $cnt = count($this->getSidebarTestimonials()); ?>
+<?php if($cnt > 0 ): ?>			
+	<?php foreach ($this->getSidebarTestimonials() as $item): ?>
+		<div class="testimonialbox">
+			<p><?php echo nl2br(trim($item->getContent())); ?></p>
+			<br>
+			<h4><span><strong><?php  echo trim($item->getName()); ?>,</strong></span>
+			<span><strong><?php echo trim($item->getPlace()); ?></strong></span></h4>
+			<div class="bottom_quote"></div>
+         </div>
+	<?php endforeach;  ?> 					
+<?php endif; ?>

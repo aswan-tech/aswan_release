@@ -1,0 +1,51 @@
+ <div class="categoryname"><h2><?php echo Mage::helper('testimonials')->__('Testimonials') ?></h2></div>
+<div id="testmonials">
+	<div align="center">
+		<a href="<?php echo $this->getUrl('testimonials/submit'); ?>" class="submittesti"><?php echo $this->__('Submit Your Testimonial') ?></a>
+	</div>
+
+	<br class="clear"/>
+	<?php $cnt = count($this->getTestimonials()); ?>
+	<?php if($cnt > 0 ): ?>
+		<?php 
+			$c = ceil($cnt/2); 
+		
+			$i = 0;
+		?>
+		<?php foreach ($this->getTestimonials() as $item): ?>                  
+			<?php
+				if ($i == 0) {
+			?>
+					
+			<?php
+				} else if ($i == $c) {
+			?>
+			<?php
+				}
+			?>	
+			<div class="testimonialbox">
+				<p><?php echo nl2br(trim($item->getContent())); ?></p>
+				<br>
+				<h4><strong><?php echo trim($item->getName()); ?>,</strong>
+				<?php echo trim($item->getPlace()); ?></h4>
+			 </div>
+			 
+			 <?php
+				$i++;
+				if ($i == $c OR $i == $cnt) {
+			?>
+					
+			<?php
+				}
+			?>
+			
+		<?php endforeach;  ?> 
+		<br class="clear">
+		
+		<?php echo $this->getPagerHtml(); ?>
+		
+	<?php else: ?>
+		<div class="std">There is no testimonials here</div>
+	<?php endif; ?>
+	
+</div>
