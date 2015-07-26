@@ -360,9 +360,8 @@ function submitRating() {
 		var location = jQuery('#location_field').val();
 		var title = jQuery('#summary_field').val();
 		var detail = jQuery('#review_field').val();
-		var email = jQuery('#email_field').val();
-		var ratings = 5;
-		
+		var email = jQuery('#email_field').val();		
+		var ratings = jQuery("input[name='ratings']:checked").val();		
 		var saveData = jQuery.ajax({
               type: 'POST',
               url: "<?php echo $this->getBaseUrl() ?>review/product/postreview",

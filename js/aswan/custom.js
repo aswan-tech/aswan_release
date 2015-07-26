@@ -550,10 +550,11 @@ jQuery('.starrate input').click( function(){
     starvalue = jQuery(this).attr('value');
     for(i=0; i<=5; i++){
         if (i <= starvalue){
-            jQuery("#radio" + i).prop('checked', true);
+            jQuery("#radio" + i).attr('checked', true);
+            jQuery("#radio" + i).parent().siblings().find('input').attr('checked', false);
 			jQuery("#radio" + i).parent().addClass('active');
         } else {
-            jQuery("#radio" + i).prop('checked', false);
+            jQuery("#radio" + i).attr('checked', false);
 			jQuery("#radio" + i).parent().removeClass('active');
         }
     }
