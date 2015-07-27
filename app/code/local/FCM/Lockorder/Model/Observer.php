@@ -38,7 +38,7 @@ class FCM_LockOrder_Model_Observer {
             if($total<=3000){
                 try{
                     if($order->getStatus()=='COD_Verification_Pending'){
-                         $order->setState('COD_Verification_Successful','COD_Verification_Successful','Less then 3000 condition',false);
+                        $order->setState('new','COD_Verification_Successful','Less then 3000 condition',true);
                          $order->sendNewOrderEmail();
                     }
                 }
