@@ -1190,6 +1190,9 @@ body {font-family: "Gill Sans Roman";}
 #otpconfirm button.go,
 #otpconfirm input.go {background:#dc0028; color:#fff; padding:8px 18px; display:block; float:left; clear:both; margin:0px 0px 10px 0px; font-size:14px; text-transform:uppercase;}
 
+.success-msg, .success-msg * {color:#339933!important;}
+.error-msg, .error-msg * {color:#dc0028!important;}
+
 /************static pages***********/
 .cmscontent, #contactus, #testmonials, #promoters {width:100%; clear:both; float:left;}
 .cmscontent {padding-bottom:20px;}
