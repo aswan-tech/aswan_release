@@ -208,10 +208,17 @@ jQuery('#ntab2').click(function(){
               {
                   jQuery('#ajaxSignupLodingM').hide();
                  if(data == '1' || data =='2') {
-                  jQuery('#reg-form-validate').addClass('hide');
+                  //comment for otp
+                  /*jQuery('#reg-form-validate').addClass('hide');
                   jQuery('#otp-cont-m').removeClass('hide');
                   jQuery('#reg-mob-m').html('Your contact number +91'+mobile_no);
-                  jQuery("#ajaxOtpRespM").html('');
+                  jQuery("#ajaxOtpRespM").html('');*/
+
+                  jQuery("#ajaxSignupRespM").removeClass('redcolor').addClass('bluecolor').show();
+                    jQuery("#ajaxSignupRespM").html('You have been logged in successfully. You are being redirected…');
+                    window.setTimeout(function () {
+                      window.location = '<?php echo Mage::getBaseUrl(); ?>';
+                    }, 2000);
                 }
                 else {
                     jQuery("#ajaxSignupRespM").show();

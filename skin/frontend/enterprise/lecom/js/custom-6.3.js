@@ -254,10 +254,22 @@ function newsignup(gender,ajaxUrl){
                                         jQuery("#newajaxSignupLoding").hide();
                                         if(data == '1' || data =='2') {
                                                 setCookie('nw_user_reg_up','ap56767es',1);
+                                                var ck_reg_up =getCookie('nw_user_reg_up');
+                                                if(ck_reg_up=='ap56767es'){
+                                                        setCookie('nw_user_reg','ap567es',1);
+                                                        setCookie('nw_user_reg_up','ap56767no',1);
+                                                }
+                                                jQuery("#newajaxSignupResp").removeClass('redcolor').addClass('bluecolor').show();
+                                                jQuery("#newajaxSignupResp").html('You have been logged in successfully. You are being redirected…');
+                                                window.setTimeout(function () {
+                                                        window.location = '';
+                                                }, 2000);
+                                                //COMMENT FOR OTP
+                                                 /*jQuery("#newajaxSignupLoding").hide();
                                                 jQuery('#new-reg-div').addClass('hide');
                                                 jQuery('.otp-cont').removeClass('hide');
                                                 jQuery('#reg-mob').html('Your contact number +91'+mobile_no);
-                                                jQuery("#ajaxOtpResp").html('');
+                                                jQuery("#ajaxOtpResp").html('');*/
                                                 /*jQuery("#ajaxSignupResp").removeClass('redcolor').addClass('bluecolor').show();
                                                 jQuery("#ajaxSignupResp").html('Your account have been successfully created. You are redirecting...');
                                                 window.setTimeout(function () {
@@ -356,10 +368,22 @@ function signup(gender, ajaxUrl) {
 				{
 					jQuery("#ajaxSignupLoding").hide();
 					if(data == '1' || data =='2') {
-						jQuery('#login-reg-div').addClass('hide');
-						jQuery('.otp-cont').removeClass('hide');
+                        //Lines to uncomment the otp
+						/*jQuery('#login-reg-div').addClass('hide');
+                        jQuery('.otp-cont').removeClass('hide');
 						jQuery('#reg-mob').html('Your contact number +91'+mobile_no);
-						jQuery("#ajaxOtpResp").html('');
+						jQuery("#ajaxOtpResp").html('');*/
+
+                        var ck_reg_up =getCookie('nw_user_reg_up');
+                        if(ck_reg_up=='ap56767es'){
+                            setCookie('nw_user_reg','ap567es',1);
+                            setCookie('nw_user_reg_up','ap56767no',1);
+                        }
+                        jQuery("#ajaxSignupResp").removeClass('redcolor').addClass('bluecolor').show();
+                        jQuery("#ajaxSignupResp").html('You have been logged in successfully. You are being redirected…');
+                        window.setTimeout(function () {
+                            window.location = '';
+                        }, 2000);
 						/*jQuery("#ajaxSignupResp").removeClass('redcolor').addClass('bluecolor').show();
 						jQuery("#ajaxSignupResp").html('Your account have been successfully created. You are redirecting...');
 						window.setTimeout(function () {
