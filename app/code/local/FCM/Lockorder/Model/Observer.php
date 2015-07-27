@@ -32,6 +32,22 @@ class FCM_LockOrder_Model_Observer {
         $where = $connection->quoteInto('order_id =?', $order->getRelationParentRealId());
         $connection->update('lockorder', $fields, $where);
         $connection->commit();
+        $paymenttype = $order->getPayment()->getMethodInstance()->getCode();
+        if($paymenttype =='cashondelivery'){
+            $total = round($order->getGrandTotal());
+            if($total<=3000){
+                try{
+                    if($order->getStatus()=='COD_Verification_Pending'){
+                         $order->setState('COD_Verification_Successful','COD_Verification_Successful','Less then 3000 condition',false);
+                         $order->sendNewOrderEmail();
+                    }
+                }
+                catch(Exception $e){
+                    file_put_contents('/tmp/payment.txt','in exception:'.$order->getIncrementId()."\n");
+                }
+                
+            }
+        }
 
         return;
     }
