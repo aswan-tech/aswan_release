@@ -589,7 +589,8 @@ class Custom_Mycustomer_AccountController extends Mage_Customer_AccountControlle
             }
             $this->_getSession()
                 ->addSuccess(Mage::helper('customer')->__('If there is an account associated with %s you will receive an email with a link to reset your password.', Mage::helper('customer')->htmlEscape($email)));
-            $this->_redirect('*/*/');
+            //$this->_redirect('*/*/');
+             $this->_redirect('*/*/forgotpassword');
             return;
         } else {
             $this->_getSession()->addError($this->__('Please enter your email.'));

@@ -19,9 +19,20 @@
 <div id="middle">
 <?php  
 	$action = Mage::app()->getFrontController()->getAction()->getFullActionName('_');
+	
 	if($action == 'customer_account_index'){
 	?>
 		<div class="pagename"><h2><?php echo $this->__('My Account') ?></div>
+	<?php 
+	}
+	if($action == 'customer_account_edit'){
+	?>
+		<div class="pagename"><h2><?php echo $this->__('Edit Account information') ?></div>
+	<?php 
+	}
+	if($action == 'customer_address_form'){
+	?>
+		<div class="pagename"><h2><?php echo $this->__('Edit Address') ?></div>
 	<?php 
 	}
 	if($action == 'customer_address_index'){
