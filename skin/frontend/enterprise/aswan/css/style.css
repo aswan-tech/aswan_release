@@ -512,7 +512,7 @@ body {font-family: "Gill Sans Roman";}
 #listingright .loadmore {width:100%; float:left; clear:both; padding:20px 0px; text-align:center;}
 #listingright .loadmore a {display:inline-block; padding:7px 18px; position:relative; background:#dc0028; color:#fff; font-size:14px; text-transform:uppercase;}
 
-#quickview {width:100%; position:relative; margin:0 auto; float:left; overflow:hidden;}
+#quickview {width:100%; min-width:750px; max-width:750px; padding:15px; position:relative; margin:0 auto; float:left; overflow:hidden; display:none;}
 #quickview .productprev, #quickview .productnext {display:block; position:absolute; z-index:999; width:16px; height:38px; margin-top:-19px; top:50%; cursor:pointer;}
 #quickview .productprev {background-position:-108px -155px; left:0px;}
 #quickview .productnext {background-position:-129px -155px; right:0px;}
@@ -992,6 +992,7 @@ body {font-family: "Gill Sans Roman";}
 #accountright .infobox {width:49%; float:left;}
 #accountright .infobox:last-child {float:right;}
 #accountright .infobox h3 {font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-weight:400; font-size:13px; margin:0px 0px 10px 0px; display:block; padding:5px; text-transform:uppercase; background:#e3e3e3;}
+#accountright .infobox h3 a {color:#dc0028; float:right;}
 #accountright .infobox td {padding:5px; font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-weight:400; font-size:13px; border-bottom:1px solid #e3e3e3;}
 #accountright .infobox td a {margin:0px 0px 0px 10px; color:#dc0028;}
 #accountright .infobox td .editform {display:none;}
@@ -999,6 +1000,16 @@ body {font-family: "Gill Sans Roman";}
 #accountright .infobox img {float:left; margin:0px 10px 10px 0px;}
 #accountright .infobox ul { margin:0px 0px 20px 20px;}
 #accountright .infobox ul li {list-style-type:disc; font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-weight:400; font-size:13px; margin:0px 0px 2px 0px;}
+#accountright .infoedit {width:100%; float:left; clear:both;}
+#accountright .infoedit ul li {float:left; width:100%; clear:both; padding:0px 0px 10px 0px;  font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-weight:400; font-size:12px;}
+#accountright .infoedit ul li.hidesection {display:none;}
+#accountright .infoedit ul li label {float:left; display:block; width:220px; padding:3px 0px;}
+#accountright .infoedit ul li input {width:200px; border:1px solid #CCC;}
+#accountright .infoedit ul li input.small {width:65px;}
+#accountright .infoedit ul li a.go,
+#accountright .infoedit ul li button.go,
+#accountright .infoedit ul li input.go {width:auto; float:left; padding:5px 10px; font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-weight:400; font-size:12px; text-transform:uppercase; background:#dc0028; color:#fff; border:none; cursor:pointer; margin:0px 5px 0px 0px;}
+
 
 #orderlist ul li {display:block; background:#f6f6f6; border:1px solid #dadada; font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-weight:400; margin:0px 0px 6px 0px;}
 #orderlist .orderhead {padding:10px; position:relative;}
@@ -1066,6 +1077,15 @@ body {font-family: "Gill Sans Roman";}
 #myaddress .addresscol .setdefult a:hover {background:#ed1e24;}
 #myaddress .addresscol a.newaddress {position:absolute; display:block; width:100%; height:100%; background:#ececec; left:0px; top:0px;}
 #myaddress .addresscol a.newaddress:before {position:absolute; width:32px; height:32px; top:50%; left:50%; content:''; display:block; background-position:-153px -101px; margin:-16px 0px 0px -16px;}
+
+#myaddress .infoedit {width:100%; float:left; clear:both;}
+#myaddress .infoedit ul li {float:left; width:100%; clear:both; padding:0px 0px 10px 0px;  font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-weight:400; font-size:12px;}
+#myaddress .infoedit ul li label {float:left; display:block; width:220px; padding:3px 0px;}
+#myaddress .infoedit ul li input {width:200px; border:1px solid #CCC;}
+#myaddress .infoedit ul li input.small {width:65px;}
+#myaddress .infoedit ul li a.go,
+#myaddress .infoedit ul li button.go,
+#myaddress .infoedit ul li input.go {width:auto; float:left; padding:5px 10px; font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-weight:400; font-size:12px; text-transform:uppercase; background:#dc0028; color:#fff; border:none; cursor:pointer; margin:0px 5px 0px 0px;}
 
 #newaddress, #editaddress {font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; max-width:350px; font-weight:400; padding:25px; float:left;}
 #newaddress td, #editaddress td {vertical-align:top; font-size:12px;}
@@ -1189,6 +1209,40 @@ body {font-family: "Gill Sans Roman";}
 #otpconfirm a.go,
 #otpconfirm button.go,
 #otpconfirm input.go {background:#dc0028; color:#fff; padding:8px 18px; display:block; float:left; clear:both; margin:0px 0px 10px 0px; font-size:14px; text-transform:uppercase;}
+
+
+#mediapage, #mediatabs, #mediapage .mediacontainer, #mediapage #brandtabs {width:100%; float:left; clear:both;}
+#mediapage {padding:10px 0px;}
+#mediatabs {border-bottom:1px solid #dc0028; text-align:center;}
+#mediatabs ul li {display:inline-block;}
+#mediatabs ul li a {display:block; padding:5px 10px; font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-weight:400; font-size:13px; text-transform:uppercase; color:#000;}
+#mediatabs ul li a:hover, #mediatabs ul li a.active {background:#dc0028; color:#fff;}
+#mediapage .mediacontainer {height:0px; overflow:hidden;}
+#mediapage .mediacontainer.active {height:auto;}
+#mediapage .mediacontainer .mediabox {width:33.33%; float:left; padding:20px 10px;}
+#mediapage .mediacontainer .mediabox h3 {font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-weight:400; font-size:15px; text-transform:uppercase; margin:0px 0px 8px 0px;}
+#mediapage .mediacontainer .mediabox .mediadate {display:block; font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-weight:400; font-size:12px; color:#666666; margin:0px 0px 5px 0px;}
+#mediapage .mediacontainer .mediabox .mediaimg {position:relative; width:100%; border:1px solid #999; float:left; clear:both;}
+#mediapage .mediacontainer .mediabox .mediaimg a {display:block; float:left;}
+#mediapage .mediacontainer .mediabox .mediaimg img {width:100%; height:auto;}
+#mediapage .mediacontainer .mediabox .mediaimg span {display:none; position:absolute; z-index:1; top:50%; left:50%; background:#dc0028; font-size:12px; font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-weight:400; text-transform:uppercase; padding:5px 10px; color:#fff; margin:-20px 0px 0px -50px;}
+#mediapage .mediacontainer .mediabox .mediaimg:hover span {display:block;}
+
+#mediapage #brandtabs {text-align:center; padding:0px 0px 20px 0px;}
+#mediapage #brandtabs ul li {display:inline-block;}
+#mediapage #brandtabs ul li a {display:block; padding:5px 10px; font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-weight:400; font-size:13px; text-transform:uppercase; color:#000;}
+#mediapage #brandtabs ul li a:hover, #mediapage #brandtabs ul li a.active {border-bottom:1px solid #dc0028;}
+
+#mediapage .branddetail {width:1000px; margin:0 auto; height:0px; overflow:hidden;}
+#mediapage .branddetail.active {height:auto; padding:0px 0px 20px 0px;}
+#mediapage .branddetail .brandleft {width:40%; float:right; border:1px solid #999; padding:15px;}
+#mediapage .branddetail .brandleft h4 {display:block; font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-weight:400; font-size:22px; margin:0px 0px 10px 0px; text-align:center; text-transform:uppercase;}
+#mediapage .branddetail .brandleft h5 {display:block; font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-weight:400; font-size:13px; margin:0px 0px 10px 0px; text-align:center; text-transform:uppercase;}
+#mediapage .branddetail .brandleft p {margin:0px 0px 12px 0px; font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-weight:400; font-size:13px; margin:0px 0px 15px 0px;}
+#mediapage .branddetail .brandright {width:55%; float:left; background:#d9d9d9; padding:10px;}
+#mediapage .branddetail .brandright .bx-wrapper .bx-controls-direction a {height:45px!important; opacity:1; width:20px; margin-top:-22px!important;}
+#mediapage .branddetail .brandright .bx-wrapper .bx-prev {background:url(../images/sprite.png) -10px -175px no-repeat; left:10px!important;}
+#mediapage .branddetail .brandright .bx-wrapper .bx-next {background:url(../images/sprite.png) -47px -175px no-repeat; right:10px!important;}
 
 /************static pages***********/
 .cmscontent, #contactus, #testmonials, #promoters {width:100%; clear:both; float:left;}
