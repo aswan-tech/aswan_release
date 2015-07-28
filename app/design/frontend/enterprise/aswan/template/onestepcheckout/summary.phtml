@@ -10,7 +10,7 @@ $itemArr = Mage::helper('common')->getItemByType();
  
      
 <h3>Order Summary</h3>
-<div class="summaryholder mCustomScrollbar _mCS_1"> 
+<div class="summaryholder"> 
  <table cellspacing="0" cellpadding="0" border="0" width="100%">
   <tbody><tr>
     <th>Product</th>
@@ -203,6 +203,7 @@ $itemArr = Mage::helper('common')->getItemByType();
 
 <script type="text/javascript">
 //<![CDATA[
+	jQuery("#checkoutright .summaryholder").mCustomScrollbar();
     var total = <?php echo $this->getGrandTotal(); ?>;
     if(payment.reloadcallback){
         var url = '<?php echo $this->getUrl('onestepcheckout/ajax/paymentrefresh', array('_secure' => true)); ?>';
