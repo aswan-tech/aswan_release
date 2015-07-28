@@ -992,6 +992,7 @@ body {font-family: "Gill Sans Roman";}
 #accountright .infobox {width:49%; float:left;}
 #accountright .infobox:last-child {float:right;}
 #accountright .infobox h3 {font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-weight:400; font-size:13px; margin:0px 0px 10px 0px; display:block; padding:5px; text-transform:uppercase; background:#e3e3e3;}
+#accountright .infobox h3 a {color:#dc0028; float:right;}
 #accountright .infobox td {padding:5px; font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-weight:400; font-size:13px; border-bottom:1px solid #e3e3e3;}
 #accountright .infobox td a {margin:0px 0px 0px 10px; color:#dc0028;}
 #accountright .infobox td .editform {display:none;}
@@ -999,6 +1000,16 @@ body {font-family: "Gill Sans Roman";}
 #accountright .infobox img {float:left; margin:0px 10px 10px 0px;}
 #accountright .infobox ul { margin:0px 0px 20px 20px;}
 #accountright .infobox ul li {list-style-type:disc; font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-weight:400; font-size:13px; margin:0px 0px 2px 0px;}
+#accountright .infoedit {width:100%; float:left; clear:both;}
+#accountright .infoedit ul li {float:left; width:100%; clear:both; padding:0px 0px 10px 0px;  font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-weight:400; font-size:12px;}
+#accountright .infoedit ul li.hidesection {display:none;}
+#accountright .infoedit ul li label {float:left; display:block; width:220px; padding:3px 0px;}
+#accountright .infoedit ul li input {width:200px; border:1px solid #CCC;}
+#accountright .infoedit ul li input.small {width:65px;}
+#accountright .infoedit ul li a.go,
+#accountright .infoedit ul li button.go,
+#accountright .infoedit ul li input.go {width:auto; float:left; padding:5px 10px; font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-weight:400; font-size:12px; text-transform:uppercase; background:#dc0028; color:#fff; border:none; cursor:pointer; margin:0px 5px 0px 0px;}
+
 
 #orderlist ul li {display:block; background:#f6f6f6; border:1px solid #dadada; font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-weight:400; margin:0px 0px 6px 0px;}
 #orderlist .orderhead {padding:10px; position:relative;}
@@ -1066,6 +1077,15 @@ body {font-family: "Gill Sans Roman";}
 #myaddress .addresscol .setdefult a:hover {background:#ed1e24;}
 #myaddress .addresscol a.newaddress {position:absolute; display:block; width:100%; height:100%; background:#ececec; left:0px; top:0px;}
 #myaddress .addresscol a.newaddress:before {position:absolute; width:32px; height:32px; top:50%; left:50%; content:''; display:block; background-position:-153px -101px; margin:-16px 0px 0px -16px;}
+
+#myaddress .infoedit {width:100%; float:left; clear:both;}
+#myaddress .infoedit ul li {float:left; width:100%; clear:both; padding:0px 0px 10px 0px;  font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-weight:400; font-size:12px;}
+#myaddress .infoedit ul li label {float:left; display:block; width:220px; padding:3px 0px;}
+#myaddress .infoedit ul li input {width:200px; border:1px solid #CCC;}
+#myaddress .infoedit ul li input.small {width:65px;}
+#myaddress .infoedit ul li a.go,
+#myaddress .infoedit ul li button.go,
+#myaddress .infoedit ul li input.go {width:auto; float:left; padding:5px 10px; font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-weight:400; font-size:12px; text-transform:uppercase; background:#dc0028; color:#fff; border:none; cursor:pointer; margin:0px 5px 0px 0px;}
 
 #newaddress, #editaddress {font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; max-width:350px; font-weight:400; padding:25px; float:left;}
 #newaddress td, #editaddress td {vertical-align:top; font-size:12px;}

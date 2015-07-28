@@ -54,19 +54,19 @@ NOTE: Regarding styles - if we leave it this way, we'll move it to boxes.css
 <?php
     $this->setDateInput('d',
 		'<p class="dob-day" style="float:left;">
-             <input type="text" id="' . $this->getFieldId('day') . '" name="' . $this->getFieldName('day') . '" value="' . $this->getDay() . '" title="' . $this->__('Day') . '" class="small validate-custom" ' . $this->getFieldParams() . ' />
+             <input type="text" id="' . $this->getFieldId('day') . '" placeholder="DD" name="' . $this->getFieldName('day') . '" value="' . $this->getDay() . '" title="' . $this->__('Day') . '" class="small validate-custom" ' . $this->getFieldParams() . ' />
          </p>'
     );
 
     $this->setDateInput('m',
         '<p class="dob-month" style="float:left;">
-             <input type="text" id="' . $this->getFieldId('month') . '" name="' . $this->getFieldName('month') . '" value="' . $this->getMonth()  . '" title="' . $this->__('Month')  . '" class="small validate-custom" ' . $this->getFieldParams()  . ' />
+             <input type="text" id="' . $this->getFieldId('month') . '" placeholder="MM" name="' . $this->getFieldName('month') . '" value="' . $this->getMonth()  . '" title="' . $this->__('Month')  . '" class="small validate-custom" ' . $this->getFieldParams()  . ' />
          </p>'
     );
 
     $this->setDateInput('y',
         '<p class="dob-year" style="float:left;">
-             <input type="text" id="' . $this->getFieldId('year') . '" name="' . $this->getFieldName('year') . '" value="' . $this->getYear()  . '" title="' . $this->__('Year')  . '" class="small validate-custom" ' . $this->getFieldParams()  . ' />
+             <input type="text" id="' . $this->getFieldId('year') . '" placeholder="YY" name="' . $this->getFieldName('year') . '" value="' . $this->getYear()  . '" title="' . $this->__('Year')  . '" class="small validate-custom" ' . $this->getFieldParams()  . ' />
          </p>'
     );
 ?>
