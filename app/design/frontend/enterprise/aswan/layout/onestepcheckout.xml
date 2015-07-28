@@ -50,7 +50,7 @@
             <action method="addItem"><type>skin_js</type><name>onestepcheckout/js/window.js</name></action>
             <action method="addItem"><type>skin_js</type><name>onestepcheckout/js/onestepcheckout-6.1.js</name></action>
 			<action method="addItem"><type>skin_js</type><name>onestepcheckout/js/jquery-ui.js</name></action>
-			<action method="addCss"><stylesheet>onestepcheckout/onestepcheckout-6.9.css</stylesheet></action>
+			<!-- <action method="addCss"><stylesheet>onestepcheckout/onestepcheckout-6.9.css</stylesheet></action> -->
 			<action method="removeItem"><type>js</type><name>mageworx/icart.js</name></action>
 			<action method="removeItem"><type>js</type><name>mageworx/modalbox.js</name></action>
 			<action method="removeItem"><type>js</type><name>extendware/ewcore/center.js</name></action>

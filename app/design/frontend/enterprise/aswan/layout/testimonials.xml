@@ -3,7 +3,7 @@
     <default>
 		<reference name="head">
 			
-			<action method="addItem"><type>skin_js</type><name>js/jquery.limit-1.2.js</name></action>
+			<action method="removeItem"><type>skin_js</type><name>js/jquery.limit-1.2.js</name></action>
 		</reference>
     </default>
     <testimonials_index_index>

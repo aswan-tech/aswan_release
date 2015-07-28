@@ -74,9 +74,11 @@ if($_customerEmail == null) {
 	<div class="divider"></div>
 	<div class="loginsocial">
 	<h3>Login with</h3>
+
 		<a id="checkout-connect-with-fb" class="ckfb-btn fl gtm-track" href="javascript:void(0);" onclick="return fblogin();">
             <img src="<?php echo $this->helper('facebookfree/active')->getLoginImg() ?>" alt="<?php echo $this->__('facebook connect') ?>">
         </a>
+<?php echo $this->getLayout()->createBlock('inchoo_googleconnect/button')->setTemplate('inchoo/googleconnect/button.phtml')->toHtml();?>
 	</div>
 </form>
 
