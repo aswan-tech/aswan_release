@@ -561,22 +561,14 @@ body {font-family: "Gill Sans Roman";}
 
 #quickview .sizepopup {position:absolute; display:none; z-index:9999; overflow:auto; padding:10px; width:100%; height:100%; background:#fff; top:0px; left:0px;}
 #quickview .sizepopup .quickclose {position:absolute; z-index:inherit; right:0px; top:0px; width:28px; height:28px; background:url(../images/fancybox_sprite.png) -5px -3px no-repeat; cursor:pointer;}
-#quickview .sizepopup h1,
 #quickview .sizepopup h3 {display:block; text-align:center; font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-size: 13px; font-weight: 400; padding:4px 0px; color:#fff; background:#1e0f46; text-transform:uppercase; margin:0px;}
-#quickview .sizepopup table {border:1px solid #d9d9d9; margin-bottom:15px; width:100%;}
-#quickview .sizepopup th {background:#d9d9d9; text-align:center; padding:3px; font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-size: 13px; font-weight: 400; text-transform:uppercase;}
-#quickview .sizepopup .table_heading th {background:#1e0f46; color:#fff;}
-#quickview .sizepopup h4 {background:#d9d9d9; display:block; text-align:center; padding:3px; font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-size: 13px; font-weight: 400; text-transform:uppercase;}
+#quickview .sizepopup table {border:1px solid #d9d9d9; margin-bottom:15px;}
+#quickview .sizepopup h4 {background:#d9d9d9; display:block; padding:3px; text-align:center; padding:3px; font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-size: 13px; font-weight: 400; text-transform:uppercase;}
 #quickview .sizepopup td {text-align:center; font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-size: 13px; font-weight: 400; text-transform:uppercase;}
 #quickview .sizepopup ul li {display:block; padding:3px; font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-size: 13px; font-weight: 400; text-transform:uppercase; border:1px dashed #d9d9d9; border-top:none; border-left:none; line-height:14px;}
 
-#quickview .sizepopup .column-2, #quickview .sizeimage {text-align:center; padding:0px 0px 10px 0px;}
-#quickview .sizepopup .column-2 img, #quickview .sizeimage img {display:inline; max-width:100%;}
-
-#quickview .sizepopup .sizetabs {text-align:center;}
-#quickview .sizepopup .sizetabs li {display: inline-block; margin: 0 2px; border:none!important;}
-#quickview .sizepopup .sizetabs li a {display: block; height:auto!important; border:none!important; padding: 4px 10px!important; background:#dc0028; color:#fff!important; }
-#quickview .sizepopup .sizetabs li a.active {background: #1e0f46;}
+#quickview .sizeimage {text-align:center; padding:0px 0px 10px 0px;}
+#quickview .sizeimage img {display:inline; max-width:100%;}
 
 #productlist {width:100%; clear:both; float:left; padding:15px 0px;}
 #productlist .feturebox {float:left; width:48%; margin:0 1%; margin-bottom:3%; border:10px solid #f4f4f4; text-align:center; background:#fff;}
@@ -1022,6 +1014,8 @@ body {font-family: "Gill Sans Roman";}
 #orderlist ul li {display:block; background:#f6f6f6; border:1px solid #dadada; font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-weight:400; margin:0px 0px 6px 0px;}
 #orderlist .orderhead {padding:10px; position:relative;}
 #orderlist .orderhead td {font-size:13px;}
+#orderlist .orderhead td h5 {font-size:11px; text-transform:uppercase;}
+#orderlist .orderhead td h5 a {display:inline-block; color:#fff; background:#1e0f46; padding:3px 5px; margin:0px 2px;}
 #orderlist .orderhead td:last-child {width:10%;}
 #orderlist .orderhead td a.details {color:#dc0028; position:relative;}
 #orderlist .orderhead td a.details:before {position:absolute; content:'+'; left:-10px;}
@@ -1218,6 +1212,40 @@ body {font-family: "Gill Sans Roman";}
 #otpconfirm button.go,
 #otpconfirm input.go {background:#dc0028; color:#fff; padding:8px 18px; display:block; float:left; clear:both; margin:0px 0px 10px 0px; font-size:14px; text-transform:uppercase;}
 
+
+#mediapage, #mediatabs, #mediapage .mediacontainer, #mediapage #brandtabs {width:100%; float:left; clear:both;}
+#mediapage {padding:10px 0px;}
+#mediatabs {border-bottom:1px solid #dc0028; text-align:center;}
+#mediatabs ul li {display:inline-block;}
+#mediatabs ul li a {display:block; padding:5px 10px; font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-weight:400; font-size:13px; text-transform:uppercase; color:#000;}
+#mediatabs ul li a:hover, #mediatabs ul li a.active {background:#dc0028; color:#fff;}
+#mediapage .mediacontainer {height:0px; overflow:hidden;}
+#mediapage .mediacontainer.active {height:auto;}
+#mediapage .mediacontainer .mediabox {width:33.33%; float:left; padding:20px 10px;}
+#mediapage .mediacontainer .mediabox h3 {font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-weight:400; font-size:15px; text-transform:uppercase; margin:0px 0px 8px 0px;}
+#mediapage .mediacontainer .mediabox .mediadate {display:block; font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-weight:400; font-size:12px; color:#666666; margin:0px 0px 5px 0px;}
+#mediapage .mediacontainer .mediabox .mediaimg {position:relative; width:100%; border:1px solid #999; float:left; clear:both;}
+#mediapage .mediacontainer .mediabox .mediaimg a {display:block; float:left;}
+#mediapage .mediacontainer .mediabox .mediaimg img {width:100%; height:auto;}
+#mediapage .mediacontainer .mediabox .mediaimg span {display:none; position:absolute; z-index:1; top:50%; left:50%; background:#dc0028; font-size:12px; font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-weight:400; text-transform:uppercase; padding:5px 10px; color:#fff; margin:-20px 0px 0px -50px;}
+#mediapage .mediacontainer .mediabox .mediaimg:hover span {display:block;}
+
+#mediapage #brandtabs {text-align:center; padding:0px 0px 20px 0px;}
+#mediapage #brandtabs ul li {display:inline-block;}
+#mediapage #brandtabs ul li a {display:block; padding:5px 10px; font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-weight:400; font-size:13px; text-transform:uppercase; color:#000;}
+#mediapage #brandtabs ul li a:hover, #mediapage #brandtabs ul li a.active {border-bottom:1px solid #dc0028;}
+
+#mediapage .branddetail {width:1000px; margin:0 auto; height:0px; overflow:hidden;}
+#mediapage .branddetail.active {height:auto; padding:0px 0px 20px 0px;}
+#mediapage .branddetail .brandleft {width:40%; float:right; border:1px solid #999; padding:15px;}
+#mediapage .branddetail .brandleft h4 {display:block; font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-weight:400; font-size:22px; margin:0px 0px 10px 0px; text-align:center; text-transform:uppercase;}
+#mediapage .branddetail .brandleft h5 {display:block; font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-weight:400; font-size:13px; margin:0px 0px 10px 0px; text-align:center; text-transform:uppercase;}
+#mediapage .branddetail .brandleft p {margin:0px 0px 12px 0px; font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-weight:400; font-size:13px; margin:0px 0px 15px 0px;}
+#mediapage .branddetail .brandright {width:55%; float:left; background:#d9d9d9; padding:10px;}
+#mediapage .branddetail .brandright .bx-wrapper .bx-controls-direction a {height:45px!important; opacity:1; width:20px; margin-top:-22px!important;}
+#mediapage .branddetail .brandright .bx-wrapper .bx-prev {background:url(../images/sprite.png) -10px -175px no-repeat; left:10px!important;}
+#mediapage .branddetail .brandright .bx-wrapper .bx-next {background:url(../images/sprite.png) -47px -175px no-repeat; right:10px!important;}
+
 .success-msg, .success-msg * {color:#339933!important;}
 .error-msg, .error-msg * {color:#dc0028!important;}
 
@@ -1226,6 +1254,8 @@ body {font-family: "Gill Sans Roman";}
 .cmscontent {padding-bottom:20px;}
 .cmscontent h3 {margin:0px 0px 10px 0px; font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-weight:400; font-size:16px; text-transform:uppercase; border-bottom: 1px solid #e6e6e6; padding:0px 0px 10px 0px;}
 .cmscontent h4 {margin:0px 0px 5px 0px; font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-weight:400; font-size:16px;}
+.cmscontent img.leftalign {float:left; display:block; background:#fff; padding:5px; border:1px solid #CCC; margin:0px 20px 20px 0px;}
+.cmscontent img.rightalign {float:right; display:block; background:#fff; padding:5px; border:1px solid #CCC; margin:0px 0px 20px 20px;}
 .cmscontent p {margin:0px 0px 10px 0px; line-height:20px; font-size:13px; font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-weight:400;}
 .cmscontent ul {margin:0px 0px 20px 20px; padding:0px;}
 .cmscontent ul li {margin:0px 0px 5px 0px; font-size:13px; font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-weight:400; list-style-type:disc;}
