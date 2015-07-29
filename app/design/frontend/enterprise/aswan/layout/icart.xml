@@ -36,7 +36,7 @@
                     <action method="addOptionRenderer"><type>date</type><block>catalog/product_view_options_type_date</block><template>catalog/product/view/options/type/date.phtml</template></action>
             </block>
                     <block type="core/html_calendar" name="html_calendar" as="html_calendar" template="page/js/calendar.phtml"/>
-					 <block type="catalog/product_popup" name="popuphtml" as="popuphtml" template="catalog/product/popup.phtml"/>
+					<!--  <block type="catalog/product_popup" name="popuphtml" as="popuphtml" template="catalog/product/popup.phtml"/> -->
                 </block>
             <block type="catalog/product_view" name="product.info.options.wrapper.bottom" as="product_options_wrapper_bottom" template="catalog/product/view/options/wrapper/bottom.phtml" translate="label">
                 <label>Bottom Block Options Wrapper</label>

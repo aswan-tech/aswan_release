@@ -561,14 +561,22 @@ body {font-family: "Gill Sans Roman";}
 
 #quickview .sizepopup {position:absolute; display:none; z-index:9999; overflow:auto; padding:10px; width:100%; height:100%; background:#fff; top:0px; left:0px;}
 #quickview .sizepopup .quickclose {position:absolute; z-index:inherit; right:0px; top:0px; width:28px; height:28px; background:url(../images/fancybox_sprite.png) -5px -3px no-repeat; cursor:pointer;}
+#quickview .sizepopup h1,
 #quickview .sizepopup h3 {display:block; text-align:center; font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-size: 13px; font-weight: 400; padding:4px 0px; color:#fff; background:#1e0f46; text-transform:uppercase; margin:0px;}
-#quickview .sizepopup table {border:1px solid #d9d9d9; margin-bottom:15px;}
-#quickview .sizepopup h4 {background:#d9d9d9; display:block; padding:3px; text-align:center; padding:3px; font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-size: 13px; font-weight: 400; text-transform:uppercase;}
+#quickview .sizepopup table {border:1px solid #d9d9d9; margin-bottom:15px; width:100%;}
+#quickview .sizepopup th {background:#d9d9d9; text-align:center; padding:3px; font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-size: 13px; font-weight: 400; text-transform:uppercase;}
+#quickview .sizepopup .table_heading th {background:#1e0f46; color:#fff;}
+#quickview .sizepopup h4 {background:#d9d9d9; display:block; text-align:center; padding:3px; font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-size: 13px; font-weight: 400; text-transform:uppercase;}
 #quickview .sizepopup td {text-align:center; font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-size: 13px; font-weight: 400; text-transform:uppercase;}
 #quickview .sizepopup ul li {display:block; padding:3px; font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-size: 13px; font-weight: 400; text-transform:uppercase; border:1px dashed #d9d9d9; border-top:none; border-left:none; line-height:14px;}
 
-#quickview .sizeimage {text-align:center; padding:0px 0px 10px 0px;}
-#quickview .sizeimage img {display:inline; max-width:100%;}
+#quickview .sizepopup .column-2, #quickview .sizeimage {text-align:center; padding:0px 0px 10px 0px;}
+#quickview .sizepopup .column-2 img, #quickview .sizeimage img {display:inline; max-width:100%;}
+
+#quickview .sizepopup .sizetabs {text-align:center;}
+#quickview .sizepopup .sizetabs li {display: inline-block; margin: 0 2px; border:none!important;}
+#quickview .sizepopup .sizetabs li a {display: block; height:auto!important; border:none!important; padding: 4px 10px!important; background:#dc0028; color:#fff!important; }
+#quickview .sizepopup .sizetabs li a.active {background: #1e0f46;}
 
 #productlist {width:100%; clear:both; float:left; padding:15px 0px;}
 #productlist .feturebox {float:left; width:48%; margin:0 1%; margin-bottom:3%; border:10px solid #f4f4f4; text-align:center; background:#fff;}

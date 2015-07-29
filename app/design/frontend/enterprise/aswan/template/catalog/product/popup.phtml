@@ -1,73 +1,95 @@
 <!-- Popup Overlay -->
-<?php
-$_product = $this->getProduct();
-$sizechart = $_product->getAttributeText('sizechart');
-
-/*
- * Old sizechart implementation
- */
-
-$content_size = "";
-  
-if(isset($sizechart) && $sizechart != '') {
-	$collection = Mage::getModel('sizeguide/sizeguide')->getCollection();	
-	$collection->getSelect()->where("sizeguide_id = ? ", (string) $sizechart);
-	foreach ($collection as $sizedata) {
-		$SizeData = $sizedata->getData();
-		$imgUrl =  $this->getSkinUrl()."images/sizechart/";
-		$content_size = str_replace("##IMG_URL##",$imgUrl,$SizeData['content_size']);
-	}
-}
-
-/*
- * new sizechart implementation
- */ 
-$sizechart_content = trim($_product->getData('sizechart_content'));
-
-if($sizechart_content !='' && $sizechart_content!=null) {
-	$sizechart_content = (array)json_decode($sizechart_content);
-	
-	if(isset($sizechart_content['image'])) {
-	   $image = $sizechart_content['image'];
-       unset($sizechart_content['image']);
-	}
-?>
-<!--size-popup-->
 <div class="sizepopup">
 <div class="quickclose"></div>
-<h3>SIZE GUIDE <span>[inches]</span></h3>
-<table width="100%" border="0" cellspacing="0" cellpadding="0">
-	<tr>
-	<?php 
-	foreach($sizechart_content as $size_key=>$size_c): 
-	?>
-	   <td>
-			   <h4><?php echo ucfirst($size_key);?></h4>
-			   <ul>
-			   <?php foreach($size_c as $s_c){?>
-				   <li><?php echo $s_c;?></li>
-			   <?php } ?>
-				</ul>
-	   </td>
-   <?php 
-	endforeach; 
-   ?>
-	</tr>
-</table>
-<div class="sizeimage"><img border="0" src="<?php echo $this->getSkinUrl('images/sizechart/v1/'.$image, array('_secure'=>true)); ?>"></div>
-</div>
-<?php
-	}
-	else 
-	{  
-?>
-<div class="sizepopup">
-	<div class="quickclose"></div>
-	<h3>SIZE GUIDE <span>[inches]</span></h3>
-	<table width="100%" border="0" cellspacing="0" cellpadding="0">
-	<tr>
-		<td><?php echo (!empty($content_size)) ? $content_size : 'No Size chart available!'; ?></td>
-	</tr>
-	</table>
-</div>
+
+		
+
+			
+			<?php
+				$_product = $this->getProduct();
+				$sizechart = $_product->getAttributeText('sizechart');
+				$counter = 0;
+				$collection = Mage::getModel('sizeguide/sizeguide')->getCollection();
+				if(isset($sizechart) && $sizechart != '') {	
+					$collection->getSelect()->where("sizeguide_id = ? ", (string) $sizechart);
+				}
+				else {
+					$collection->getSelect()->where("sizeguide_id IN (1,2) ");
+				}
+				//echo $collection->getSelect()->__toString();
+				$collection->getSelect()->where('status = 1')->order('order_id ASC');
+				$size_popup = sizeof($collection);
+				
+				if($size_popup <=0 ) {
+					$collection->getSelect()->where("sizeguide_id IN (1,2) ");
+					$collection->getSelect()->where('status = 1')->order('order_id ASC');
+					$size_popup = sizeof($collection);
+				}
+					
+				if($size_popup > 0)	{
+			?>
+				
+					
+						
+							
+       <div class="sizetabs"> 
+		<ul>
+		<?php
+		$imgUrl =  $this->getSkinUrl()."images/sizechart/";
+		foreach ($collection as $sizedata):
+			$SizeData = $sizedata->getData();
+			$content[] = str_replace("##IMG_URL##",$imgUrl,$SizeData['content_size']);
+			if(empty($sizechart)) {
+        ?>
+       
+		   <li class="size-tab"><a toggle-tab="tab<?php echo $counter;?>" href="javascript:void(0)"><span><b> 
+		   <?php echo $SizeData['title'];?> </b></span></a></li>
+		   <?php } ?>
+		   <?php $counter++; endforeach; ?>
+	</ul>
+		</div>					
+						
+<div>
+<?php for($i=0; $i<$size_popup; $i++) { ?>
+	<div id="tab<?php echo $i; ?>" style="display:none;">
+		<?php echo $content[$i]; ?> 
+	</div>
 <?php } ?>
+
+					
+				
+				<?php 
+				} else {				
+					echo '<h2>No Size Guide Available !</h2>';				
+				}
+				?>
+				
+	</div>		
+
+    <script language="javascript">
+	
+	<?php if($size_popup > 0) { ?>
+		jQuery('.sizetabs li:first-child a').addClass('active');
+		jQuery('#tab0').show();	
+	<?php } ?>
+	
+	<?php if(empty($sizechart)) { ?>		
+		jQuery('#tab0').addClass('active');
+	<?php } ?>
+	
+   jQuery('.sizetabs li a').click(function(){
+   	var tabShow = jQuery(this).attr('toggle-tab');
+   	jQuery(this).addClass('active');
+   	jQuery(this).parent().siblings().find('.active').removeClass('active');
+
+   	jQuery('#'+tabShow).siblings().hide();
+   	jQuery('#'+tabShow).siblings().removeClass('active');
+
+   	jQuery('#'+tabShow).show();
+   	jQuery('#'+tabShow).addClass('active');
+
+   });
+
+	
+</script>
+</div>
