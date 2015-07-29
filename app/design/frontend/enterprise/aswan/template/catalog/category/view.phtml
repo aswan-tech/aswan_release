@@ -34,13 +34,30 @@
 <?php
     $_helper    = $this->helper('catalog/output');
     $_category  = $this->getCurrentCategory();
-    
+    $_categoryLevel  = $_category->getLevel();
     $_imgHtml   = '';
     if ($_imgUrl = $_category->getImageUrl()) {
         $_imgHtml = '<div class="categorybanner"><img src="'.$_imgUrl.'" alt="'.$this->escapeHtml($_category->getName()).'" title="'.$this->escapeHtml($_category->getName()).'" /></div>';
         $_imgHtml = $_helper->categoryAttribute($_category, $_imgHtml, 'image');
     }
 ?>
+<script type="text/javascript">
+dataLayer.push(
+    <?php if($_categoryLevel <= 2): ?>
+    {'DEPT_ID': '<?php echo $_category->getId() ?>'}, 
+    {'DEPT_NAME': "<?php echo $_category->getName() ?>"},
+    {'PAGE_TYPE': 'DEPARTMENT'}
+    <?php else: ?>
+    {'CATEGORY_ID': '<?php echo $_category->getId() ?>'}, 
+    {'CATEGORY_NAME': "<?php echo $_category->getName() ?>"},
+    <?php endif; ?>
+    <?php if ($_categoryLevel > 2) { ?>   
+    {'DEPT_ID': '<?php echo $_category->getparentCategory()->getId() ?>'}, 
+    {'DEPT_NAME': '<?php echo $_category->getparentCategory()->getName() ?>'},
+    {'PAGE_TYPE': 'CATEGORY'}
+    <?php } ?>
+);
+</script>
 <?php echo $this->getMessagesBlock()->toHtml() ?>
 
     <?php if($_imgUrl): ?>
