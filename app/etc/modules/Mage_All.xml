@@ -190,14 +190,14 @@
                 <Mage_Shipping/>
             </depends>
         </Mage_Usa>
-        <Mage_Paygate>
+        <!--<Mage_Paygate>
             <active>true</active>
             <codePool>core</codePool>
             <depends>
                 <Mage_Payment/>
             </depends>
         </Mage_Paygate>
-        <!--<Mage_Paypal>
+        <Mage_Paypal>
             <active>false</active>
             <codePool>core</codePool>
             <depends>

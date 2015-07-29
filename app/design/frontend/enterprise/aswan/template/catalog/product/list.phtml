@@ -50,16 +50,19 @@
 <img src="http://www.jaspal.com/americanswan/skin/frontend/enterprise/aswan/images/feture-product.jpg"></div> 
  <!-- Feature product close -->
 */?>
-<?php if($this->getMode() =='grid'): ?>
-
-<?php $_collectionSize = $_productCollection->count() ?>
-<?php $_columnCount = $this->getColumnCount(); ?>
-<?php $i=0; foreach ($_productCollection as $_product): ?>
-    <?php if ($i++%$_columnCount==0): ?>
+<?php 
+	if($this->getMode() =='grid'): 
+	
+	$_collectionSize = $_productCollection->count();
+	$_columnCount = $this->getColumnCount(); 
+	$i=0; 
+	
+	foreach ($_productCollection as $_product): 
+		if ($i++%$_columnCount==0): 
+?>
     <div class="products-grid">
     <?php endif ?>
         <div class="productbox">
-
         <?php
                 $product_style = $_product->getStyle();
                 $product_category = str_replace(" ", "", strtolower($_product->getAttributeText('product_category')));
@@ -95,29 +98,24 @@
                 
                 <?php if (count($group_products) > 1) : ?>
                 <div class="morecolors">
-                
-                <?php foreach ($group_products as $group_product){
-                    if($flag == 1):
+                <?php foreach ($group_products as $group_product) {
+                    /*if($flag == 1):
                         $url = $group_product->getProductUrl().'?sale=true';
                     else:
                         $url = $group_product->getProductUrl();
-                    endif;
+                    endif;*/
 
-                    ?>
-                    <?php   $name = $group_product->getName();
-    $url = $group_product->getUrlPath();
-    $img = $group_product->getImage();
-    $priceBox = Mage::helper('core')->currency($group_product->getPrice(),true,false);
-    $specialPriceBox = Mage::helper('core')->currency($group_product->getFinalPrice(),true,false);
-$_priceBox = Mage::helper('core')->currency($group_product->getPrice(),false,false);
-    $_specialPriceBox = Mage::helper('core')->currency($group_product->getFinalPrice(),false,false);
-    ?>
-<div class="databox"><img prod-url="<?php echo $group_product->getProductUrl() ?>" product-price="<?php if($_priceBox ==$_specialPriceBox) { echo $priceBox;} else { echo $specialPriceBox;}?>" old-price="<?php if($_priceBox >$_specialPriceBox) { echo $priceBox;}?>" pro-id="pro<?php echo $_product->getId();?>" large-image="<?php echo $this->helper('catalog/image')->init($group_product, 'small_image'); ?>" title="<?php echo $name; ?>" src="<?php echo $this->helper('catalog/image')->init($group_product, 'small_image')->resize(53,71); ?>" quick-view="<?php echo $this->getAddToCartUrl($group_product);?>" ></div>
-
-                
-                <?php }; ?>
-    
-                </div> 
+						$name = $group_product->getName();
+						$url = $group_product->getUrlPath();
+						$img = $group_product->getImage();
+						$priceBox = Mage::helper('core')->currency($group_product->getPrice(),true,false);
+						$specialPriceBox = Mage::helper('core')->currency($group_product->getFinalPrice(),true,false);
+						$_priceBox = Mage::helper('core')->currency($group_product->getPrice(),false,false);
+						$_specialPriceBox = Mage::helper('core')->currency($group_product->getFinalPrice(),false,false);
+				?>
+						<div class="databox"><img prod-url="<?php echo $group_product->getProductUrl() ?>" product-price="<?php if($_priceBox == $_specialPriceBox) { echo $priceBox;} else { echo $specialPriceBox;}?>" old-price="<?php if($_priceBox >$_specialPriceBox) { echo $priceBox;}?>" pro-id="pro<?php echo $_product->getId();?>" large-image="<?php echo $this->helper('catalog/image')->init($group_product, 'small_image'); ?>" title="<?php echo $name; ?>" src="<?php echo $this->helper('catalog/image')->init($group_product, 'small_image')->resize(53,71); ?>" quick-view="<?php echo $this->getAddToCartUrl($group_product);?>" ></div>
+                <?php } ?>
+                </div>
                 <?php endif; ?>
                 <?php endif;
                 endif; ?>
@@ -153,14 +151,10 @@ $_priceBox = Mage::helper('core')->currency($group_product->getPrice(),false,fal
     jQuery('.productimg .quickview .quickurl').click(function(e){
         e.preventDefault();
     });
-
-
     </script>
 <?php endif; ?>
 
 <div class="toolbar-bottom">
-    <?php //echo $this->getToolbarHtml() ?>
      <a style="display: none; cursor: pointer;" id="view_more_items" class="normal-text viewmore-Btn" onclick=" return adj_nav_page_more_autoload();">View more products <span id="view_more_items_count"></span></a>
-     
 </div>
 <?php endif; ?>
