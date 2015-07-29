@@ -25,7 +25,15 @@
 .block-content dd li.color_bucket_purple,
 .block-content dd li.color_bucket_red,
 .block-content dd li.color_bucket_white,
-.block-content dd li.color_bucket_yellow
+.block-content dd li.color_bucket_yellow,
+.block-content dd li.color_bucket_khaki,
+.block-content dd li.color_bucket_musturd,
+.block-content dd li.color_bucket_navy,
+.block-content dd li.color_bucket_olive,
+.block-content dd li.color_bucket_purple,
+.block-content dd li.color_bucket_silver,
+.block-content dd li.color_bucket_tan,
+.block-content dd li.color_bucket_turquoise
  {display:inline-block; height: 20px;
     margin-bottom: 10px;
     margin-right: 12px; border-radius:3px; 
@@ -44,9 +52,17 @@ border-bottom:1px solid #cccccc !important;}
 .block-content dd li.color_bucket_red:hover,
 .block-content dd li.color_bucket_white:hover,
 .block-content dd li.color_bucket_yellow:hover,
-.block-content dd li.m-selected-filter-item { -moz-box-shadow:2px 4px 1px #ccc;
--webkit-box-shadow: 2px 4px 1px #ccc;
-box-shadow: 2px 4px 1px #ccc; 
+.block-content dd li.color_bucket_khaki:hover,
+.block-content dd li.color_bucket_musturd:hover,
+.block-content dd li.color_bucket_navy:hover,
+.block-content dd li.color_bucket_olive:hover,
+.block-content dd li.color_bucket_purple:hover,
+.block-content dd li.color_bucket_silver:hover,
+.block-content dd li.color_bucket_tan:hover,
+.block-content dd li.color_bucket_turquoise:hover,
+.block-content dd li.m-selected-filter-item { -moz-box-shadow:2px 4px 1px #999;
+-webkit-box-shadow: 2px 4px 1px #999;
+box-shadow: 2px 4px 1px #999; 
 /*background:url("../images/flt-sel-active.png") no-repeat 0 0  !important;  background-color: navy;*/}
 
 .color_bucket_beige{ background:#f5f1de !important;} /*beige*/
@@ -55,32 +71,22 @@ box-shadow: 2px 4px 1px #ccc;
 .color_bucket_brown{ background:#964b00 !important;} /*brown*/
 .color_bucket_green{ background:#3aa03a !important;} /*green*/
 .color_bucket_grey{ background:#686868 !important;} /*gray*/
-.color_bucket_multi{background: #ff3232 !important; /*multi-color*/
-                               /* Old browsers */
-/* IE9 SVG, needs conditional override of 'filter' to 'none' */
-background: url(data:image/svg
-+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc
-3BlY3RSYXRpbz0ibm9uZSI
-+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIxMDAlIiB5Mj0iMCUiPgogICAgPHN0b3Agb2Zmc2V0
-PSIwJSIgc3RvcC1jb2xvcj0iI2ZmMzIzMiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjE0JSIgc3RvcC1jb2xvcj0iIzI3YzhmNCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjI1JSIgc3R
-vcC1jb2xvcj0iI2Y3ZGYyZSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjM2JSIgc3RvcC1jb2xvcj0iIzI1ODQxOSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjQ3JSIgc3RvcC1jb2xvc
-j0iIzI3YzhmNCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjU4JSIgc3RvcC1jb2xvcj0iIzZkMzkxNCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjcwJSIgc3RvcC1jb2xvcj0iI2M5MjZ
-iYiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjgxJSIgc3RvcC1jb2xvcj0iIzIwN2NjYSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjkwJSIgc3RvcC1jb2xvcj0iI2Y3ZjE4NSIgc3RvcC1
-vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNmZjAwMDQiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ
-+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
-background: -moz-linear-gradient(left,  #ff3232 0%, #27c8f4 14%, #f7df2e 25%, #258419 36%, #27c8f4 47%, #6d3914 58%, #c926bb 70%, #207cca 81%, #f7f185 90%, #ff0004 100%); /* FF3.6+ */
-background: -webkit-gradient(linear, left top, right top, color-stop(0%,#ff3232), color-stop(14%,#27c8f4), color-stop(25%,#f7df2e), color-stop(36%,#258419), color-stop(47%,#27c8f4), color-stop
-(58%,#6d3914), color-stop(70%,#c926bb), color-stop(81%,#207cca), color-stop(90%,#f7f185), color-stop(100%,#ff0004)); /* Chrome,Safari4+ */
-background: -webkit-linear-gradient(left,  #ff3232 0%,#27c8f4 14%,#f7df2e 25%,#258419 36%,#27c8f4 47%,#6d3914 58%,#c926bb 70%,#207cca 81%,#f7f185 90%,#ff0004 100%); /* Chrome10+,Safari5.1+ */
-background: -o-linear-gradient(left,  #ff3232 0%,#27c8f4 14%,#f7df2e 25%,#258419 36%,#27c8f4 47%,#6d3914 58%,#c926bb 70%,#207cca 81%,#f7f185 90%,#ff0004 100%); /* Opera 11.10+ */
-background: -ms-linear-gradient(left,  #ff3232 0%,#27c8f4 14%,#f7df2e 25%,#258419 36%,#27c8f4 47%,#6d3914 58%,#c926bb 70%,#207cca 81%,#f7f185 90%,#ff0004 100%); /* IE10+ */
-background: linear-gradient(to right,  #ff3232 0%,#27c8f4 14%,#f7df2e 25%,#258419 36%,#27c8f4 47%,#6d3914 58%,#c926bb 70%,#207cca 81%,#f7f185 90%,#ff0004 100%); /* W3C */
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff3232', endColorstr='#ff0004',GradientType=1 ); /* IE6-8 */
-}
+.color_bucket_multi{background:url("../images/multicolor-box.jpg") 0 0 no-repeat !important;}
+
+
 .color_bucket_orange{ background:#fd7222 !important;} /*orange*/
 .color_bucket_pink{ background:#fc5ab8 !important;} /*pink*/
 .color_bucket_purple{ background:#af31f2 !important;} /*purple*/
 .color_bucket_red{ background:#fc0d1b !important;} /*red*/
 .color_bucket_white{ background:#fff !important;} /*white*/
 .color_bucket_yellow{ background:#feee35 !important;} /*yellow*/
+
+.color_bucket_khaki{background:#F7BD51 !important;}
+.color_bucket_musturd{background:#FFDB57 !important;}
+.color_bucket_navy{background:#000080 !important;}
+.color_bucket_olive{background:#808000 !important;}
+.color_bucket_purple{background:#800080 !important;}
+.color_bucket_silver{background:#c0c0c0 !important;}
+.color_bucket_tan{background:#944E2C !important;}
+.color_bucket_turquoise{background:#76DEE7 !important;}
 

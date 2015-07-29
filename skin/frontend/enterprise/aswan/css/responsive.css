@@ -2,6 +2,7 @@
 #logo, #topright {width:20%;}
 #topmenu {width:60%;}
 #topright ul li.welcome {display:none;}
+#mediapage .branddetail {width:100%;}
 	}
 @media only screen and (max-width:920px){
 #wrapper {padding:0px;}
@@ -37,6 +38,14 @@
 #productlist.singleview .productbox {width:100%; margin:0; margin-bottom:4%;}
 #productlist .productbox .productinfo h3 {font-size:15px;}
 
+#categoryarea #categoryleft {width:100%; clear:both; padding:0px 0px 12px 0px;}
+#categoryarea #categoryleft h4 {display:block;}
+#categoryarea #categoryleft h3 {cursor:pointer;}
+#categoryarea #categoryleft .categorylinks,
+#categoryarea #categoryleft ul {display:none;}
+
+#categoryarea #categoryright {width:100%;}
+
 #checkoutarea #checkoutleft .pager {padding:10px 0px;}
 #checkoutarea {padding:0px 10px;}
 #checkoutarea #checkoutleft {width:100%; clear:both; padding:0px 0px 10px 0px;}
@@ -48,6 +57,7 @@
 #quickview {min-width:100%;}
 #topoffers {top:93px;}
 #userlogin {width:80%;}
+#mediapage #brandtabs ul li a {font-size:12px; padding:5px;}
 }
 
 @media only screen and (max-width:768px){
@@ -144,7 +154,10 @@
 #testmonials .testimonialbox {width:96%; clear:both; height:auto;}
 #testmonials .submittesti {display:inline-block; margin:10px auto; position:static; top:0px;}
 #testmonials #submittestimonials {border:none; padding:0px; width:100%;}
-#promoters .promotercol {width:100%;}
+#promoters .promotercol, #mediapage .branddetail .brandleft, #mediapage .branddetail .brandright {width:100%;}
+#mediapage .mediacontainer .mediabox {width:50%;}
+
+#categoryright .featuring .featuringbox {width:100%;}
 }
 
 @media only screen and (max-width:480px){
@@ -184,6 +197,9 @@
 #contactus .contactright ul li {padding:0px 0px 13px 0px;}
 #contactus .contactright ul li strong {padding:0px 0px 3px 0px;}
 #testmonials #submittestimonials li input, #testmonials #submittestimonials li textarea {width:52%;}
+#accountright .infoedit ul li label,
+#accountright .infoedit ul li input {width:50%;}
+#accountright .infoedit ul li input.small {width:15.5%;}
 	}
 	
 @media only screen and (max-width:360px){
@@ -195,4 +211,8 @@
 #newaddress select, #editaddress select {width:97%;}
 #checkoutarea #steptwo h3 a#addaddress {float:left; clear:both; margin:5px 0px;}
 #contactus .contactleft, #contactus .contactright {width:100%;}
+#mediapage .mediacontainer .mediabox {width:100%;}
+#accountright .infoedit ul li label,
+#accountright .infoedit ul li input {width:100%;}
+#accountright .infoedit ul li input.small {width:32%;}
 	}

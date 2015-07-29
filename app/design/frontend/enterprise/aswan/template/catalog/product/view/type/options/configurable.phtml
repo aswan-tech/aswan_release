@@ -55,8 +55,13 @@ if(Mage::getSingleton('customer/session')->isLoggedIn()) {
 
 <script type="text/javascript">
 	var valOpt = 0;
-    function selectOption(prodId,colorId,sizeId,skinUrl)
+    var noSize =0;
+    function selectOption(prodId,colorId,sizeId,skinUrl,nosize)
     {
+        if(nosize==true){
+            jQuery(".ajax-color-swatch").hide();
+            noSize = 1;
+        }
         if(jQuery("#"+prodId+"_color_attribute_id").val()!="" && jQuery("#"+prodId+"_size_attribute_id").val() != "")
         {
             var cid = jQuery("#"+prodId+"_color_attribute_id").val();
@@ -286,7 +291,7 @@ if(Mage::getSingleton('customer/session')->isLoggedIn()) {
 <div id="sizepopup" class="globlepopup">
 <?php echo $this->getLayout()->createBlock('catalog/product_popup')->setTemplate('catalog/product/popup.phtml')->toHtml(); ?>
 </div>
-<div class="validatesize" style="display:none;">Select a size to add to bag</div>
+
 <?php
 		if($this->getRequest()->getParam('sProd')){
 			$_smpproductId = $this->getRequest()->getParam('sProd');
@@ -421,7 +426,10 @@ if (!in_array($optionKey, $removeSizeArr)) {
         <?php
     } else {
         ?>
-        <script type="text/javascript">selectOption('<?php echo $_product->getId() ?>','<?php echo $optKey ?>','<?php echo $optionKey ?>','<?php echo $url_image_3 ?>');changeImage('<?php echo $_product->getId() ?>','<?php echo $optionVal['simple_prod_id'] ?>','<?php echo number_format($optionVal['finalPrice'], 2) ?>',' <?php echo number_format($optionVal['price'], 2) ?>','<?php echo $prod_fprice; ?>','<?php echo $prod_price; ?>');changeMoreView('<?php echo $optionVal['simple_prod_id'] ?>','');</script>
+        <script type="text/javascript">
+            selectOption('<?php echo $_product->getId() ?>','<?php echo $optKey ?>','<?php echo $optionKey ?>','<?php echo $url_image_3 ?>',true);
+            changeImage('<?php echo $_product->getId() ?>','<?php echo $optionVal['simple_prod_id'] ?>','<?php echo number_format($optionVal['finalPrice'], 2) ?>',' <?php echo number_format($optionVal['price'], 2) ?>','<?php echo $prod_fprice; ?>','<?php echo $prod_price; ?>');
+            changeMoreView('<?php echo $optionVal['simple_prod_id'] ?>','');</script>
         <?php
     }
     // modify by avi : end
@@ -524,6 +532,7 @@ $assigned = false;
 			<?php
 			}
 			?>
+            <div class="validatesize" style="display:none;">Select a size to add to bag</div>
 <script type="text/javascript">
 jQuery('.quickright .clickoffer h4, .offerdetail .offerclose').click(function(){
 jQuery('.quickright .clickoffer .offerdetail').toggle();

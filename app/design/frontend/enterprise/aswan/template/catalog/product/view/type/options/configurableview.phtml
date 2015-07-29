@@ -368,7 +368,9 @@ if (!in_array($optionKey, $removeSizeArr)) {
         <?php
     } else {
         ?>
-        <script type="text/javascript">selectOption('<?php echo $_product->getId() ?>','<?php echo $optKey ?>','<?php echo $optionKey ?>','<?php echo $url_image_3 ?>');changeImage('<?php echo $_product->getId() ?>','<?php echo $optionVal['simple_prod_id'] ?>','<?php echo number_format($optionVal['finalPrice'], 2) ?>',' <?php echo number_format($optionVal['price'], 2) ?>','<?php echo $prod_fprice; ?>','<?php echo $prod_price; ?>');changeMoreView('<?php echo $optionVal['simple_prod_id'] ?>','');</script>
+        <script type="text/javascript">selectOption('<?php echo $_product->getId() ?>','<?php echo $optKey ?>','<?php echo $optionKey ?>','<?php echo $url_image_3 ?>');
+            jQuery(".ajax-color-swatch").hide();
+            changeImage('<?php echo $_product->getId() ?>','<?php echo $optionVal['simple_prod_id'] ?>','<?php echo number_format($optionVal['finalPrice'], 2) ?>',' <?php echo number_format($optionVal['price'], 2) ?>','<?php echo $prod_fprice; ?>','<?php echo $prod_price; ?>');changeMoreView('<?php echo $optionVal['simple_prod_id'] ?>','');</script>
         <?php
     }
     // modify by avi : end
