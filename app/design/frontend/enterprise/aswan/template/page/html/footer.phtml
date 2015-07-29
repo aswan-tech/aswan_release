@@ -1,3 +1,22 @@
+<?php
+$gaCookies = Mage::getModel( 'nosql/parse_ga' )->getCookies();
+$ck_nw_reg = Mage::getSingleton('core/session')->getNewRegistrationUser();
+if($ck_nw_reg=='complete') {
+    if(Mage::getSingleton('customer/session')->isLoggedIn()) {  
+        Mage::getSingleton('core/session')->unsNewRegistrationUser();?>
+
+        <script type="text/javascript">
+        dataLayer.push(
+            {'CATEGORY': 'registration'},
+            {'ACTION': 'success'},
+            {'LABEL': '<?php echo strtolower($gaCookies['campaign']['source'])?>-registration'},
+            {'EVENT': 'registrationsuccess'}
+        );
+</script>
+<?php   
+	}
+}
+?>
 <?php 
 $rememberData = Mage::getModel('core/cookie')->get('urme');
 if($rememberData){
