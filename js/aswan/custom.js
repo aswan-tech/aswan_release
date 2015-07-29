@@ -564,6 +564,76 @@ jQuery('.summryboxs table #showvat').click(function(){
 	jQuery('.summryboxs table .vatrow').toggle();
 	jQuery(this).toggleClass('active')
 	});
+	
+/*** Start media and category js 29 july 2015 */
+
+jQuery('#mediatabs ul li:first-child a').addClass('active');
+jQuery('#mediapage .mediacontainer:first-child').addClass('active');
+jQuery('#mediatabs ul li a').click(function(e){
+	e.preventDefault();
+	var dataTab = jQuery(this).attr('toggle-tab');
+	jQuery(this).addClass('active');
+	jQuery(this).parent().siblings().find('.active').removeClass('active');
+	jQuery('#'+dataTab).siblings().removeClass('active');
+	jQuery('#'+dataTab).addClass('active');
+	});
+	
+	
+jQuery('#brandtabs ul li:first-child a').addClass('active');
+jQuery('#mediapage .branddetail:first-child').addClass('active');
+jQuery('#brandtabs ul li a').click(function(e){
+	e.preventDefault();
+	var dataTab = jQuery(this).attr('toggle-tab');
+	jQuery(this).addClass('active');
+	jQuery(this).parent().siblings().find('.active').removeClass('active');
+	jQuery('#'+dataTab).siblings().removeClass('active');
+	jQuery('#'+dataTab).addClass('active');
+	});
+	
+jQuery('.brandright .bxslider').bxSlider({
+    auto: true,
+	infiniteLoop: true,
+	controls: true,
+	pager: false,
+    mode: 'horizontal'
+  });
+  
+  
+jQuery('#newproduct .slidehilder .bxslider').bxSlider({
+    		auto: false,
+			infiniteLoop: true,
+    		mode: 'horizontal',
+			slideWidth: 213,
+			minSlides: 2,
+			maxSlides:5,
+			pager: false
+  		});
+jQuery('#categoryarea #categoryleft h4').click(function(){
+	jQuery('#categoryleft .categorylinks').toggle();
+	});
+
+if(jQuery(window).innerWidth() < 920){
+jQuery('#categoryarea #categoryleft h3').click(function(){
+	var toggleTab = jQuery(this).attr('data-accordian');
+	jQuery(this).parent().siblings().find('ul').slideUp();
+	jQuery('#'+toggleTab).slideDown();
+	});
+}else{
+}
+
+jQuery(window).resize(function(){
+	if(jQuery(window).innerWidth() < 920){
+jQuery('#categoryarea #categoryleft h3').click(function(){
+	var toggleTab = jQuery(this).attr('data-accordian');
+	jQuery(this).parent().siblings().find('ul').slideUp();
+	jQuery('#'+toggleTab).slideDown();
+	});
+}else{
+}
+	});
+	
+/****end media and category js*****/
+	
 });
 
 /*Custom 6.3 starts*/
