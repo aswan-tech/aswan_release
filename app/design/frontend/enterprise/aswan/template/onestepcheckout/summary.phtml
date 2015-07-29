@@ -7,8 +7,6 @@ $customerLoginStatus = Mage::getSingleton('customer/session')->isLoggedIn();
 $itemArr = Mage::helper('common')->getItemByType();
 ?>
 <div class="onestepcheckout-summary ordersummary">
- 
-     
 <h3>Order Summary</h3>
 <div class="summaryholder"> 
  <table cellspacing="0" cellpadding="0" border="0" width="100%">
@@ -63,11 +61,6 @@ $itemArr = Mage::helper('common')->getItemByType();
   <?php $i++; endforeach; ?>
   
 </tbody></table>
-    
-
-
-    
-    
     <div class="clear"></div>
 </div>
 
@@ -77,8 +70,6 @@ $itemArr = Mage::helper('common')->getItemByType();
     <td>Items</td>
     <td><?php echo Mage::getSingleton('checkout/cart')->getSummaryQty(); ?></td>
   </tr>
-  
-
 <?php foreach ($this->getTotals() as $total): ?>
         <?php if (!$total->getTitle() || $total->getCode() == "giftcardaccount") { continue; } ?>
             <?php
@@ -112,9 +103,7 @@ $itemArr = Mage::helper('common')->getItemByType();
                 }else {
                     $total_name = '<td>'.$total->getTitle().'</td>';
                 }
-           ?>
-
-           <?php
+          
 				if ($code != 'grand_total'){
 					echo $total_name;
 					if ($code == 'subtotal') {
@@ -133,9 +122,6 @@ $itemArr = Mage::helper('common')->getItemByType();
 				}
             ?>
         <?php endforeach; ?>
-
-
-
 		<?php foreach ($this->getTotals() as $total):?>
         <?php if (!$total->getTitle()) { continue; } ?>
             <?php
@@ -186,12 +172,9 @@ $itemArr = Mage::helper('common')->getItemByType();
 				<div class="ckprd-tprice-wrpp c-pantone fl">
 					<div class="ckship-ad-txt">
 						<div class="mb5"><span class="bold pr5">Name :</span><?php echo $shipping_address->getName(); ?></div>
-						
 						<div><span class="bold pr5">Address :</span><?php if( is_array($shipping_address->getStreet())) { echo implode(',', $shipping_address->getStreet()); } ?>, <?php echo $shipping_address->getCity(); ?>, <?php echo $shipping_address->getRegion(); ?>, 
 						<?php echo $shipping_address->getPostcode(); ?>, <?php echo "India"; ?></div>
-						
 						<div class="mt5"><span class="bold pr5">Mobile :</span> +91 <?php echo $shipping_address->getTelephone(); ?></div>
-						
 				</div>
 			</div>
 		</div>	
@@ -276,7 +259,7 @@ $itemArr = Mage::helper('common')->getItemByType();
 			}
 		});		
 	}
-	
+	/*
 	function removeCoupon(val) {
 		var coupon_code = jQuery("#coupon_code").val();
 		if(coupon_code == '') {
@@ -286,7 +269,7 @@ $itemArr = Mage::helper('common')->getItemByType();
 		else {
 			jQuery('#promo-loader').show();
 			jQuery.ajax({
-				url: "<?php echo $this->getUrl('checkout/cart/applycouponpost/') ?>",
+				url: "<?php //echo $this->getUrl('checkout/cart/applycouponpost/') ?>",
 				data: {coupon_code:coupon_code, remove:val},
 				type:'POST',
 				success: function(data){
@@ -302,9 +285,6 @@ $itemArr = Mage::helper('common')->getItemByType();
 				}
 			});
 		}
-	}
-	
-	
-		
+	}*/
 //]]>
 </script>

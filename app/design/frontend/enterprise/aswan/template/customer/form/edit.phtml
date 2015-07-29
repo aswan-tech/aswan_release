@@ -27,7 +27,7 @@
 
 <?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
 <div id="accountright">
-<h2><?php echo $this->__('My private information') ?></h2>
+<h2><?php echo $this->__('My Personal Information') ?></h2>
 <div class="infoedit">
 <form action="<?php echo $this->getUrl('customer/account/editPost') ?>" method="post" id="form-validate">
         <?php echo $this->getBlockHtml('formkey')?>
@@ -77,8 +77,8 @@
 <ul>
 <li>
 	<label>&nbsp;</label>
-	<a href="<?php echo $this->escapeUrl($this->getBackUrl()) ?>" class="go"><?php echo $this->__('Back') ?></a>
 	<button type="submit" title="<?php echo $this->__('Save') ?>" class="go"><span><span><?php echo $this->__('Save') ?></span></span></button>
+	<a href="<?php echo $this->escapeUrl($this->getBackUrl()) ?>" class="go"><?php echo $this->__('Back') ?></a>
 </li>
 </ul>
 </form>
