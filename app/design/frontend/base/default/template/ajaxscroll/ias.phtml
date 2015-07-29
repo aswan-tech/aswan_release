@@ -47,40 +47,45 @@ jQuery.ias({
 	onRenderComplete: function(){
 
 jQuery('.productbox .morecolors .databox img').mouseover(function(){
-        var proId = jQuery(this).attr('pro-id'),
-            proName = jQuery(this).attr('title'),
-            proImg = jQuery(this).attr('large-image'),
-            //proSize = jQuery(this).next('ul').clone(),
-            proPri = jQuery(this).attr('product-price'),
-            proOldpri = jQuery(this).attr('old-price'),
-            proUrl = jQuery(this).attr('prod-url')
-        
-        jQuery('#'+proId).attr('src',proImg);
-        jQuery('#'+proId).parent().attr('href',proUrl);
-        jQuery(this).parent().parent().siblings().find('h3').html(proName);
-        //jQuery(this).parent().parent().siblings().find('.sizebar').html(proSize);
-        jQuery(this).parent().parent().siblings().find('.new-price').html(proPri);
-        jQuery(this).parent().parent().siblings().find('.old-price').html(proOldpri);
-        });
-        
-    jQuery('#productlist .productbox').mouseleave(function(){
-        var defaultSource = jQuery(this).find('.morecolors .databox:first-child img'),
-            proId = jQuery(defaultSource).attr('pro-id'),
-            proName = jQuery(defaultSource).attr('title'),
-            proImg = jQuery(defaultSource).attr('large-image'),
-            //proSize = $(this).find('.morecolors .databox:first-child img').next('ul').clone(),
-            proPri = jQuery(defaultSource).attr('product-price'),
-            proOldpri = jQuery(defaultSource).attr('old-price'),
-            proUrl = jQuery(defaultSource).attr('prod-url')
-            
-        jQuery('#'+proId).attr('src',proImg);
-        jQuery('#'+proId).parent().attr('href',proUrl);
-        jQuery(this).find('h3').html(proName);
-        //$(this).find('.sizebar').html(proSize);
-        jQuery(this).find('.new-price').html(proPri);
-        jQuery(this).find('.old-price').html(proOldpri);
-        
-        });
+		var proId = jQuery(this).attr('pro-id'),
+		    proName = jQuery(this).attr('title'),
+			proImg = jQuery(this).attr('large-image'),
+			//proSize = jQuery(this).next('ul').clone(),
+			proPri = jQuery(this).attr('product-price'),
+			proOldpri = jQuery(this).attr('old-price'),
+			proUrl = jQuery(this).attr('prod-url'),
+			quickUrl = jQuery(this).attr('quick-view'),
+			quickView = 'setLocation("'+quickUrl+'")'
+		
+		jQuery('#'+proId).attr('src',proImg);
+		jQuery('#'+proId).parent().attr('href',proUrl);
+		jQuery(this).parent().parent().siblings().find('h3').html(proName);
+		//jQuery(this).parent().parent().siblings().find('.sizebar').html(proSize);
+	    jQuery(this).parent().parent().siblings().find('.new-price').html(proPri);
+		jQuery(this).parent().parent().siblings().find('.old-price').html(proOldpri);
+		jQuery(this).parent().parent().siblings().find('.quickurl').attr('onclick',quickView);
+		});
+		
+	jQuery('#productlist .productbox').mouseleave(function(){
+		var defaultSource = jQuery(this).find('.defaultvalue'),
+		    proId = jQuery(defaultSource).attr('pro-id'),
+		    proName = jQuery(defaultSource).attr('title'),
+			proImg = jQuery(defaultSource).attr('data-image'),
+			proPri = jQuery(defaultSource).attr('product-price'),
+			proOldpri = jQuery(defaultSource).attr('old-price'),
+			proUrl = jQuery(defaultSource).attr('prod-url'),
+			quickUrl = jQuery(defaultSource).attr('quick-view'),
+			quickView = 'setLocation("'+quickUrl+'")'
+			
+		jQuery('#'+proId).attr('src',proImg);
+		jQuery('#'+proId).parent().attr('href',proUrl);
+		jQuery(this).find('h3').html(proName);
+	    //jQuery(this).find('.sizebar').html(proSize);
+		jQuery(this).find('.new-price').html(proPri);
+		jQuery(this).find('.old-price').html(proOldpri);
+		jQuery(this).find('.quickurl').attr('onclick',quickView);
+		
+		});
 	}
  });
 <?php endif; ?>
