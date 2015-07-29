@@ -41,15 +41,15 @@
 <?php echo $this->getToolbarHtml() ?>
 <?php echo $this->getAdditionalHtml() ?>
 <div id="productlist">
- 
+ <?php /*
  <!--Feature product-->
- <!-- <div class="feturebox">
+  <div class="feturebox">
 <h2>Summer Weight</h2>
 <p>Made from cool, lightweight cotton, these shirts stay breathable in warmer weather, and feature seasonal patterns you won't find anywhere else.</p>
 <h4>AVAILABLE IN SLIM, STANDARD, TAILORED, AND TALL.</h4>
-<img src="http://www.jaspal.com/americanswan/skin/frontend/enterprise/aswan/images/feture-product.jpg"></div> -->
+<img src="http://www.jaspal.com/americanswan/skin/frontend/enterprise/aswan/images/feture-product.jpg"></div> 
  <!-- Feature product close -->
-
+*/?>
 <?php if($this->getMode() =='grid'): ?>
 
 <?php $_collectionSize = $_productCollection->count() ?>
@@ -62,12 +62,16 @@
 
         <?php
                 $product_style = $_product->getStyle();
+                $product_category = str_replace(" ", "", strtolower($_product->getAttributeText('product_category')));
+                if($gender =='Unisex')
+                    $gender = 'Men and Women';
+                $gender = $_product->getAttributeText('gender');
                 $collection = Mage::getModel('catalog/product')->getCollection()
                 ->addAttributeToSelect('*')
                 ->addFieldToFilter(array(array('attribute'=>'style','eq'=>$product_style)))
                 ->addFieldToFilter(array(array('attribute'=>'visibility','neq'=>'1')))
                 ->addFieldToFilter(array(array('attribute'=>'status','eq'=>'1')));
-                $collection->getSelect()->limit(10);
+                $collection->getSelect()->limit(5);
                 $group_products = array();
                 if (count($collection) > 0):
                     foreach ($collection as $group_product):
@@ -124,7 +128,7 @@ $_priceBox = Mage::helper('core')->currency($group_product->getPrice(),false,fal
         <div class="quickview">
 
         <a href="#" class="quickurl" onClick="setLocation('<?php echo $this->getAddToCartUrl($_product);?>')"></a></div>
-            <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>"><img src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(510,680); ?>" alt="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" id="pro<?php echo $_product->getId();?>" /></a>
+            <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>"><img src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(510,680); ?>" alt="Americanswan <?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true).' '.ucfirst($product_category).' For '.$gender ?>" id="pro<?php echo $_product->getId();?>" /></a>
             </div>
 
             <div class="productinfo">

@@ -59,17 +59,22 @@ dataLayer.push(
 );
 </script>
 <?php echo $this->getMessagesBlock()->toHtml() ?>
-
+    <h1>
+        <?php 
+        if($_category->getCategoryContentHeading()){
+            echo $_category->getCategoryContentHeading();
+        }else{
+            if (in_array($_category->getparentCategory()->getId(), $catids)){ 
+                echo $_category->getName().' For '.$_category->getparentCategory()->getName(); 
+            }else{ 
+                echo $_category->getName();
+            } 
+        }
+        ?>
+        </h1>
     <?php if($_imgUrl): ?>
         <?php echo $_imgHtml ?>
     <?php endif; ?>
-
-  <!--   <?php if($_description=$this->getCurrentCategory()->getDescription()): ?>
-        <div class="category-description std">
-            <?php //echo $_helper->categoryAttribute($_category, $_description, 'description') ?>
-        </div>
-    <?php endif; ?> -->
-
     <?php if($this->isContentMode()): ?>
         <?php echo $this->getCmsBlockHtml() ?>
 
@@ -80,4 +85,8 @@ dataLayer.push(
     <?php else: ?>
         <?php echo $this->getProductListHtml() ?>
     <?php endif; ?>
-
+     <?php if($_description=$this->getCurrentCategory()->getDescription()): ?>
+        <div class="category-description std">
+            <?php echo $_helper->categoryAttribute($_category, $_description, 'description') ?>
+        </div>
+    <?php endif; ?>

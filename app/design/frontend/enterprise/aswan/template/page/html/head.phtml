@@ -24,6 +24,12 @@
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
+<?php
+$controller = $this->getRequest()->getControllerName();
+$action = $this->getRequest()->getActionName();
+$module = $this->getRequest()->getModuleName();
+?>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta http-equiv="Content-Type" content="<?php echo $this->getContentType() ?>" />
 <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1">
 <title><?php echo $this->getTitle() ?></title>
@@ -32,6 +38,10 @@
 <meta name="robots" content="<?php echo htmlspecialchars($this->getRobots()) ?>" />
 <link rel="icon" href="<?php echo $this->getFaviconFile(); ?>" type="image/x-icon" />
 <link rel="shortcut icon" href="<?php echo $this->getFaviconFile(); ?>" type="image/x-icon" />
+<meta name="msvalidate.01" content="45AA5B26493CAAAFABE7BEDD924DF25F" />
+<meta name="google-site-verification" content="g6KgTtkmyHq3KC-dp3DgziOZpgJ5DYA5XyACvAN56QU" />
+<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0">
+<meta property="fb:app_id" content="323522714412740" />
 <!--[if lt IE 7]>
 <script type="text/javascript">
 //<![CDATA[
