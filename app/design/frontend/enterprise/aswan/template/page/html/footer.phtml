@@ -63,6 +63,7 @@ if($rememberData){
 
 <a href="<?php echo $this->getUrl('customer/account/forgotpassword'); ?>" id="gtm-forgot-pwd-on-signin-signup-popup"  class="forgotpass">Forgot Password?</a>
 <div class="clearfloat"></div>
+<br>
 
 <h3>Sign in <strong>with</strong></h3>
 <div class="sociallog">
@@ -78,15 +79,15 @@ if($rememberData){
 <div id="ajaxSignupResp" style="display:none;" class="redcolor fl"></div>
 <div class="error_mgs"></div>
 <label>Email Address<b>*</b></label>
-<input name="email" id="reg_email" type="text" class="sign-text-field" value="" />
-	<span id="error_reg_email" style="display:none;">Please enter valid email address.</span>
+<input name="email" id="reg_email" type="text" class="sign-text-field textfield" value="" />
+<span id="error_reg_email" style="display:none;">Please enter valid email address.</span>
 <label>Password<b>*</b>
-<input name="password" id="reg_pass" type="password" class="sign-text-field" value="" /></label>
+<input name="password" id="reg_pass" type="password" class="sign-text-field textfield" value="" /></label>
 <span id="error_reg_pass" style="display:none;">Valid Password is 6 digit.</span>
 <label>Mobile No<b>*</b></label>
-<input name="mobile_no" id="mobile_no" type="text" class="sign-text-field" value="" />
+<input name="mobile_no" id="mobile_no" type="text" class="sign-text-field textfield" value="" />
 <span id="error_mobile_no" style="display:none;">Valid Mobile no is 10 digit.</span>
-<input type="checkbox" name="is_subscribed" id="is_subscribed" checked="checked" class="fl mar-r10" />Send me email updates.</label>
+<label><input type="checkbox" name="is_subscribed" id="is_subscribed" checked="checked" class="fl mar-r10" />Send me email updates.</label>
 <a href="javascript:signup(1,'<?php echo $this->getBaseUrl(); ?>common/index/ajaxsignup')" id="gtm-m-register-poup" class="go">Men</a>
 <a href="javascript:signup(2,'<?php echo $this->getBaseUrl(); ?>common/index/ajaxsignup')" id="gtm-f-register-poup" class="go">Women</a>
 </div>
