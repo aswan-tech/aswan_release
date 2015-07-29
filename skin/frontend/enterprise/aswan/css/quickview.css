@@ -23,3 +23,53 @@
 .cksmallfield-mob-wrap .selector{background: url("../images/drop-arrow-icon.jpg") no-repeat scroll right center rgba(0, 0, 0, 0); overflow: hidden; width: 100%; position: relative;}
 .ckprd-shipdet-wrapp span{  display:block; font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-weight:400; font-size:13px; padding:3px; color:#000; margin:0;}
 /***************checkout dropdown close****************/
+
+#mobisize-container{width:100%; margin:0 auto 18px; text-align:center;}
+#mobisize-container .size-top { background: none repeat scroll 0 0 #1e0f46; color: #fff !important; font-size: 14px; margin: 3px auto 0; padding: 5px; text-align: center; width:98%;}
+#mobisize-container .mobi-sizechart .size-info {
+    overflow-x: auto;
+    padding: 0 2px;
+	display:block;
+}
+#mobisize-container .mobi-sizechart .size-info table {
+    margin: 0 auto;
+    min-width: 100%;
+	font:normal 12px/14px "Lato-Regular";
+}
+#mobisize-container .mobi-sizechart .size-info table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+#mobisize-container .mobi-sizechart .size-info table tr th.size {
+    padding-bottom: 15px;
+	vertical-align: middle;
+}
+#mobisize-container .mobi-sizechart .size-info table tr th {
+    text-transform: uppercase;
+	font:normal 12px/14px "Lato-Regular";
+	background:#f1f0ee;
+	color:#666666;
+	padding: 2px 5px!important;
+}
+#mobisize-container .mobi-sizechart .size-info table tr td, #mobisize-container .mobi-sizechart .size-info table tr th {
+    border: 1px solid #ccc;
+    padding: 5px 3px;
+    text-align: center;
+}
+#mobisize-container .mobi-sizechart .size-info table caption, table th, table td {
+    text-align: left;
+}
+#mobisize-container .mobi-sizechart .size-info table tr th .unit {
+    font-size: 9px!important;
+}
+#mobisize-container .mobi-sizechart .size-info table tr th p {
+    font-weight: 500;
+	margin-bottom:8px;
+	color:#666666!important;
+	font-size:12px!important;
+	margin:3px 0 2px!important;
+	line-height:16px;
+	border:none;
+	padding:0;
+} 
