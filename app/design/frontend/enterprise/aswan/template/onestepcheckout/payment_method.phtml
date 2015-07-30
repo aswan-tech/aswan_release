@@ -122,7 +122,7 @@ if(in_array('giftcard', $itemArr)) {
 <?php endif;?>
 
 <div id="vtabs">
-	<div class="sgn-error fl fs14 c-032" id="payment-error"></div>
+	<div class="sgn-error fl fs14 c-032 validation-advice" id="payment-error"></div>
 	
 	<?php if($hide_nonfree_methods): ?>
 		<?php foreach ($this->getMethods() as $_method): $_code = $_method->getCode() ?>
@@ -399,7 +399,7 @@ var checkout = new VarienForm('onestepcheckout-form', true);
 					checkout.submit();
 				}else{
 					jQuery("#payment-error").html("Please Choose Payment Option Before You Proceed To Checkout").show();
-					jQuery( "#payment-error" ).slideUp( 5000 );
+					jQuery( "#payment-error" ).slideUp( 1500 );
 				}
 			}
 		});
