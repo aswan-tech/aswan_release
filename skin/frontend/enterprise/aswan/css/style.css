@@ -881,6 +881,7 @@ body {font-family: "Gill Sans Roman";}
 
 #checkoutarea #checkoutright {float:right; width:35%; padding:10px 0px 0px 0px;}
 #checkoutarea #checkoutright .ordersummary {width:100%;}
+#checkoutarea #checkoutright .ordersummary .loading-ajax {background: url('../images/ajax-loader.gif') center no-repeat #fff; height: 40px; width:100%; float:left; clear: both; }
 #checkoutarea #checkoutright h3 {display:block; margin:0px 0px 10px 0px; font-family:'Trade Gothic Condensed Bold'; text-transform:uppercase; font-size:20px; width:100%;}
 #checkoutarea #checkoutright .summaryholder {max-height:220px; margin:0px 0px 10px 0px;}
 #checkoutarea #checkoutright .summaryholder table {width:100%;}
@@ -978,6 +979,8 @@ body {font-family: "Gill Sans Roman";}
 #checkoutarea #stepthree .paytypebox .formholder ol li {display:block; float:left; width:100%; clear:both; padding:0px 0px 6px 0px;}
 #checkoutarea #stepthree .paytypebox .formholder ol li label {display:block; font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-weight:400; font-size:13px; width:30%; text-align:right; padding:2px 10px 0px 0px; float:left;}
 #checkoutarea #stepthree .paytypebox .formholder ol li input {width:60%; height:24px; line-height:24px; border:1px solid #CCC;}
+#checkoutarea .amsloader {background: url('../images/ajax-loader.gif') center no-repeat #fff; height: 40px; width:100%; float:left; clear: both; }
+
 
 #checkoutarea .ordersuccess {text-align:center; border:1px solid #CCC; padding:15px 0px 0px 0px; margin:15px 0px;}
 #checkoutarea .ordersuccess h3 {display:block; margin:0px 0px 10px 0px; font-family:'Trade Gothic Condensed Bold'; font-size:28px; text-align:center; text-transform:uppercase;}
