@@ -1,19 +1,20 @@
 <?php $aLoyaltyRules = $this->getLoyaltyRulesCustom(); ?>
-<?php
-//print count($aLoyaltyRules);
-foreach ($aLoyaltyRules as $_rule):
-		$actUsed = 0;
-		if(!is_null($_rule->getActUsed())){
-				$actUsed = $_rule->getActUsed();
-		}
-		if(!is_null($_rule->getExpirationDate()) && strtotime($_rule->getExpirationDate()) <= time()) {
-			continue;
-		}
-		$iCount++;
-endforeach; 
-?>
 <div id="mywallet">
 <?php echo $this->getLayout()->createBlock('core/template')->setTemplate('customer/account/navigation2.phtml')->toHtml(); ?>
+<?php
+        //print count($aLoyaltyRules);
+        foreach ($aLoyaltyRules as $_rule):
+                $actUsed = 0;
+                if(!is_null($_rule->getActUsed())){
+                        $actUsed = $_rule->getActUsed();
+                }
+                if(!is_null($_rule->getExpirationDate()) && strtotime($_rule->getExpirationDate()) <= time()) {
+                    continue;
+                }
+                $iCount++;
+        endforeach; 
+?>
+
 <div class="walletbox">
 <h3>Total coupons in my wallet</h3>
 <h4><?php echo (int) $iCount ?> Coupon</h4>
@@ -21,12 +22,17 @@ endforeach;
 </div>
 <div class="wallet-table">
 <?php $iCount = 0;?>
+
 <?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
 <?php echo $this->getChildHtml('info');?>
+
+<?php //if($aLoyaltyRules->getSize()): ?>
+	<!--<p class="text">You have <strong><?php //echo $aLoyaltyRules->getSize(); ?></strong> coupons</p>-->
+
 <?php if(count($aLoyaltyRules)): ?>
-<table width="100%" border="0" cellspacing="0" cellpadding="0">
-    <?php if ($this->getPagerHtml() != '') { 	
-	?>
+
+	<table width="100%" border="0" cellspacing="0" cellpadding="0">
+            <?php if ($this->getPagerHtml() != '') { ?>
 		<tr>
 			<td colspan="6" class="pagerNav">
 				<?php echo $this->getPagerHtml(); ?>
@@ -34,13 +40,15 @@ endforeach;
 		</tr>
             <?php  } ?>
 		<tr>
-			<th><?php echo $this->__('Coupon Code') ?></th>
-			<th><?php echo $this->__('Description') ?></th>
-			<th><?php echo $this->__('Expiry Date') ?></th>
-			<th><?php echo $this->__('Can Be Used') ?></th>
-			<th><?php echo $this->__('Times Used') ?></th>
+			<th class="couponNo"><?php echo $this->__('Coupon Code') ?></th>
+			<th class="couponDesc"><?php echo $this->__('Description') ?></th>
+			<th class="couponDt"><?php echo $this->__('Expiry Date') ?></th>
+			<th class="couponStatus"><?php echo $this->__('Can Be Used') ?></th>
+			<th class="timesused"><?php echo $this->__('Times Used') ?></th>
 		</tr>
+
 		<?php $_odd = 1; ?>
+		
 		<?php
 			//print count($aLoyaltyRules);
 			foreach ($aLoyaltyRules as $_rule):
@@ -85,7 +93,12 @@ endforeach;
 			$_odd++;
 			endforeach; 
 		?>
-       <?php if ($this->getPagerHtml() != '') { ?>
+	
+		<!-- <tr>
+			<td colspan="6" class="heightmgr">
+			</td>
+		</tr>-->
+                                <?php if ($this->getPagerHtml() != '') { ?>
 		<tr>
 			<td colspan="6" class="pagerNav">
 				<?php echo $this->getPagerHtml(); ?>
@@ -94,15 +107,9 @@ endforeach;
                                 <?php } ?>
 	</table>
 <?php endif; ?>
+
 <?php if (!$iCount): ?>
     <?php echo $this->helper('sales')->__('No specials currently available') ?>
-<?php endif; ?>         
+<?php endif; ?>
+ </div>
 </div>
-
-
-
-
-
-
-                
-                

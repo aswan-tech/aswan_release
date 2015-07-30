@@ -105,7 +105,8 @@ class Custom_Mycustomer_AccountController extends Mage_Customer_AccountControlle
      */
     public function indexAction()
     {
-        $this->loadLayout();
+        $this->_redirect('*/*/edit');
+        /*$this->loadLayout();
         $this->_initLayoutMessages('customer/session');
         $this->_initLayoutMessages('catalog/session');
 
@@ -113,7 +114,7 @@ class Custom_Mycustomer_AccountController extends Mage_Customer_AccountControlle
             $this->getLayout()->createBlock('customer/account_dashboard')
         );
         $this->getLayout()->getBlock('head')->setTitle($this->__('My Account'));
-        $this->renderLayout();
+        $this->renderLayout();*/
     }
 
     /**
