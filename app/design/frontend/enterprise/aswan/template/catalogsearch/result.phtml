@@ -31,14 +31,11 @@
 			echo $this->getLayout()->createBlock('cms/block')->setBlockId('sale_block')->toHtml();
 		}
 	?>
-	<div class="clearfix rightGrid">
+	
 		<?php //echo $this->getLayout()->getBlock("breadcrumbs")->toHtml(); ?>
 		<?php if($word != '439ed537979d8e831561964dbbbd7413'): ?>
-			<div class="prodCategoryTitle">
-				<span class="keyword">
-					<span class="normal">Searched keyword: </span>
-					<span class="vwnum">"<?php echo ($this->getHeaderText() || $this->getHeaderText() === false) ? $this->getHeaderText() : $this->__($this->helper('catalogsearch')->getEscapedQueryText()) ?>"</span>
-				</span>
+			<div class="categoryname">
+				<h2>Searched keyword: <?php echo ($this->getHeaderText() || $this->getHeaderText() === false) ? $this->getHeaderText() : $this->__($this->helper('catalogsearch')->getEscapedQueryText()) ?>"</h2>
 			</div>
 		<?php endif; ?>
 		<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
@@ -50,7 +47,7 @@
 		</p>
 		<?php endif; ?>
 		<?php echo $this->getProductListHtml() ?>
-	</div>
+	
 <?php else: ?>
 	<?php 	$word = $this->helper('catalogsearch')->getEscapedQueryText(); 
 			if($word == '439ed537979d8e831561964dbbbd7413'){
@@ -60,15 +57,13 @@
 	<div class="clearfix rightGrid">
 		<?php if($word != '439ed537979d8e831561964dbbbd7413'): ?>
 			<?php //echo $this->getLayout()->getBlock("breadcrumbs")->toHtml(); ?>
-			<div class="prodCategoryTitle">
-				<span class="keyword">
-					<span class="normal">Searched keyword: </span>
-					<span class="vwnum">"<?php echo ($this->getHeaderText() || $this->getHeaderText() === false) ? $this->getHeaderText() : $this->__($this->helper('catalogsearch')->getEscapedQueryText()) ?>"</span>
-				</span>
+			<div class="categoryname">
+				<h2>Searched keyword: "<?php echo ($this->getHeaderText() || $this->getHeaderText() === false) ? $this->getHeaderText() : $this->__($this->helper('catalogsearch')->getEscapedQueryText()) ?>"</h2>
+				
 			</div>
 		<?php endif; ?>
 		<?php if($word != '439ed537979d8e831561964dbbbd7413'): ?>
-			<div class="search-message">
+			<div class="seachnotfound">
 				<?php echo ($this->getNoResultText()) ? $this->getNoResultText() : $this->__('Your search returns no results.') ?>
 			</div>
 			<script type="text/javascript">

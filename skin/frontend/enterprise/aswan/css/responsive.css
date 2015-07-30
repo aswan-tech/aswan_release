@@ -24,10 +24,11 @@
 #filterholder {width:100%; clear:both; padding:0px 0px 12px 0px;}
 #filterholder .mobilefilter {display:block;}
 #filters, #filters ul > li .filteroption, #productlist .feturebox, #listingright .shorting .custom-select {display:none;}
-#listingright .shorting .custom-select {width:100px; background-position:85px 12px; float:none; margin:0 auto; margin-bottom:10px;}
+#listingright .shorting .custom-select {float:none; margin:0 auto; margin-bottom:10px;}
 #filters ul > li > h3:after {background-position:-156px -8px;}
 #filters ul > li > h3.deactive:after {background-position:-176px -8px;}
 #listingright {width:100%;}
+#listingright h1 {display:none;}
 #listingright .shorting {width:100%; padding:0px;}
 #listingright .productfound, #productlist .productbox:hover .productimg .sizebar, #listingright .categorybanner {display:none;}
 #listingright .shorting #gridview {display:block; width:100%; clear:both; text-align:center;}

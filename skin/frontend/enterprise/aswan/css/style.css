@@ -173,6 +173,9 @@ body {font-family: "Gill Sans Roman";}
 #loginpopup .formbox input.go:hover {background:#dc0028;}
 #loginpopup .formbox a.forgotpass {font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-weight: 400; font-size:13px; color:#0c061c; float:left; display:block; margin:5px 0px 0px 0px;}
 
+#loginpopup .formbox #ajaxLoginResp {color:#339933; font-size:13px;}
+#loginpopup .formbox .errorm {color:#dc0028; font-size: 13px;}
+
 #loginpopup .formbox .sociallog {width:100%; float:left; clear:both;}
 #loginpopup .formbox .sociallog a {float:left; margin:0px 12px 0px 0px; width:35px; height:32px;}
 #loginpopup .formbox .sociallog a.gpluse {background-position:-184px -32px;}
@@ -441,7 +444,7 @@ body {font-family: "Gill Sans Roman";}
 .bredcrum ul li:after {content:'/'; position:absolute; right:-5px; top:0px;}
 .bredcrum ul li:last-child:after {display:none;}
 .categoryname {text-align:center; padding:10px 0px;}
-.categoryname h2 {font-size:24px; text-transform:uppercase;}
+.categoryname h1, .categoryname h2, .categoryname h3 {font-size:24px; text-transform:uppercase;}
 
 #filterholder {/*position:absolute; left:20px; top:20px;*/ width:15%; float:left;}
 #filterholder .mobilefilter {width:100%; display:none; float:left; clear:both;}
@@ -481,9 +484,10 @@ body {font-family: "Gill Sans Roman";}
 #filters ul > li .filteroption dl dt a.color_yellow {background:#FC0;}
 
 #listingright {float:right; width:83%;}
+#listingright h1 {font-size:13px; display:block; text-align:center; margin:0px 0px 10px 10px; font-family: Lato,"Trebuchet MS",Helvetica,sans-serif;}
 #listingright .shorting {float:right; padding-right:1%;}
-#listingright .shorting .custom-select {border:1px solid #e7e8ea; background:url(../images/bottom-arrow.png) 85px 12px no-repeat #fff; width:100px; overflow:hidden; float:left; margin:0px 10px 0px 0px;}
-#listingright .shorting .custom-select select {width:140px; height:30px; line-height:30px; background:none; border:none;}
+#listingright .shorting .custom-select {border:1px solid #e7e8ea; background:url(../images/bottom-arrow.png) 124px 12px no-repeat #fff; width:140px; overflow:hidden; float:left; margin:0px 10px 0px 0px;}
+#listingright .shorting .custom-select select {width:180px; font-size: 13px; height:30px; line-height:30px; background:none; border:none;}
 
 #listingright .shorting dl {display:block; float:left;}
 #listingright .shorting dl dd, #listingright .shorting dl dt {float:left; display:block; text-transform:uppercase; font-size:12px; margin:0px 6px 0px 0px; padding:5px 2px;}
@@ -515,7 +519,7 @@ body {font-family: "Gill Sans Roman";}
 #listingright .loadmore {width:100%; float:left; clear:both; padding:20px 0px; text-align:center;}
 #listingright .loadmore a {display:inline-block; padding:7px 18px; position:relative; background:#dc0028; color:#fff; font-size:14px; text-transform:uppercase;}
 
-#quickview {width:100%;position:relative; margin:0 auto; float:left; overflow:hidden;}
+#quickview {width:100%; position:relative; margin:0 auto; float:left; overflow:hidden;}
 #quickview .productprev, #quickview .productnext {display:block; position:absolute; z-index:999; width:16px; height:38px; margin-top:-19px; top:50%; cursor:pointer;}
 #quickview .productprev {background-position:-108px -155px; left:0px;}
 #quickview .productnext {background-position:-129px -155px; right:0px;}
@@ -979,8 +983,7 @@ body {font-family: "Gill Sans Roman";}
 #checkoutarea #stepthree .paytypebox .formholder ol li {display:block; float:left; width:100%; clear:both; padding:0px 0px 6px 0px;}
 #checkoutarea #stepthree .paytypebox .formholder ol li label {display:block; font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-weight:400; font-size:13px; width:30%; text-align:right; padding:2px 10px 0px 0px; float:left;}
 #checkoutarea #stepthree .paytypebox .formholder ol li input {width:60%; height:24px; line-height:24px; border:1px solid #CCC;}
-#checkoutarea .amsloader {background: url('../images/ajax-loader.gif') center no-repeat #fff; height: 40px; width:100%; float:left; clear: both; }
-
+#checkoutarea .amsloader {background: url('../images/ajax-loader.gif') center no-repeat #fff; height: 40px; width:100%; float:left; clear: both;}
 
 #checkoutarea .ordersuccess {text-align:center; border:1px solid #CCC; padding:15px 0px 0px 0px; margin:15px 0px;}
 #checkoutarea .ordersuccess h3 {display:block; margin:0px 0px 10px 0px; font-family:'Trade Gothic Condensed Bold'; font-size:28px; text-align:center; text-transform:uppercase;}
@@ -1239,9 +1242,10 @@ body {font-family: "Gill Sans Roman";}
 #userlogin .forgotpass p {margin:0px 0px 12px 0px; font-size:15px; text-align:center;}
 #userlogin .forgotpass label {display:block; float:left; padding:2px 10px 2px 0px; width:48%; text-align:right;}
 #userlogin .forgotpass input {width:35%; border:1px solid #CCC; padding:4px; float:left; margin:0px 0px 10px 0px;}
+#userlogin .forgotpass .validation-advice {clear:both; font-size:13px; margin:0 0 10px; color:#dc0028; padding-left:48%;}
 #userlogin .forgotpass a.go,
 #userlogin .forgotpass button.go,
-#userlogin .forgotpass input.go {background:#1e0f46; color:#fff; padding:5px 10px; margin:0 auto; display:block; float:left;}
+#userlogin .forgotpass input.go {background:#1e0f46; color:#fff; padding:5px 10px; margin:0 auto; display:block; float:left; border:none; cursor:pointer;}
 #userlogin .forgotpass a.go:hover,
 #userlogin .forgotpass button.go:hover,
 #userlogin .forgotpass input.go:hover {background:#dc0028;}
@@ -1303,6 +1307,9 @@ body {font-family: "Gill Sans Roman";}
 
 .success-msg, .success-msg * {color:#339933!important;}
 .error-msg, .error-msg * {color:#dc0028!important;}
+.success-msg {border:1px dashed #339933!important; line-height:23px; padding:3px 0px;}
+.error-msg {border:1px dashed #dc0028!important; line-height:23px; padding:3px 0px;}
+
 
 /************static pages***********/
 .cmscontent, #contactus, #testmonials, #promoters {width:100%; clear:both; float:left;}
