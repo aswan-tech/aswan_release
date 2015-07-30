@@ -45,7 +45,7 @@
 				value="<?php echo $this->getQty() ?>" size="4" title="<?php echo $this->__('Qty') ?>" class="input-text qty" maxlength="12" /></p>
 				<?php if ($messages = $this->getMessages()): ?>
 				<?php foreach ($messages as $message): ?>
-					<p class="item-msg <?php echo $message['type'] ?>">* <?php echo $this->escapeHtml($message['text']) ?></p>
+					<p class="item-msg <?php echo $message['type'] ?> qtyexceed">* <?php echo $this->escapeHtml($message['text']) ?></p>
 				<?php endforeach; ?>
 				<?php endif; ?>
 				
@@ -75,7 +75,7 @@
 					<?php $helpLinkId = 'cart-msrp-help-' . $_item->getId(); ?>
 					<a id="<?php echo $helpLinkId ?>" href="#" class="map-help-link"><?php echo $this->__("What's this?"); ?></a>
 					<script type="text/javascript">
-						Catalog.Map.addHelpLink($('<?php echo $helpLinkId ?>'), "<?php echo $this->__("What's this?") ?>");
+						Catalog.Map.addHelpLink($('<?php echo $helpLinkId ?>'), "<?php echo $this->__("What this?") ?>");
 					</script>
 				</span>
 			</td>
