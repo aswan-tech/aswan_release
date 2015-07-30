@@ -284,6 +284,7 @@ function addToCartByAjax(isRedirect) {
         document.getElementById("product_addtocart_form").submit();
     }
     else {
+        jQuery('#messages_product_view').remove();
         var formData = jQuery('#product_addtocart_form').serializeArray();
         var saveData = jQuery.ajax({
               type: 'POST',
@@ -291,23 +292,14 @@ function addToCartByAjax(isRedirect) {
               data: formData,
               dataType: "text",
               success: function(resultData) {
-                  
-                  jQuery.ajax({ 
-                    url: "<?php echo $this->getBaseUrl() ?>common/index/ajaxCartUpdate",
-                    cache: false,
-                    success: function(result){ jQuery('#my-bag-qty').html(result); jQuery('#my-bag-qty-mobile').html(result); } 
-                    });
-             
+                  jQuery('#productdetail').prepend('<div id="messages_product_view"><ul class="messages"><li class="success-msg"><ul><li>'+resultData+'</li></ul></li></ul></div>');
                   jQuery('#ajax-loading').hide();
-                  jQuery('#bagholder').show();
-                  jQuery('#bagholder-mobile').show();
-                  setTimeout( "jQuery('#bagholder').hide();",10000 );
-                  setTimeout( "jQuery('#bagholder-mobile').hide();",10000 );
-                  //jQuery("#ajax-response").html(resultData);
-                  //window.location="<?php echo Mage::helper('checkout/cart')->getCartUrl(); ?>"; 
               }
         });
-        saveData.error(function() { jQuery("#ajax-response").html("Something went wrong"); });
+        saveData.error(function() { 
+          jQuery('#productdetail').prepend('<div id="messages_product_view"><ul class="messages"><li class="success-msg"><ul><li>Something Wrong.Try Again!</li></ul></li></ul></div>');
+                  jQuery('#ajax-loading').hide(); 
+        });
     }
 } 
 </script>
