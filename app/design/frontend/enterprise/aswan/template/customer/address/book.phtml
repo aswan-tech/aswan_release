@@ -33,7 +33,7 @@
 
 <?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
 <div id="myaddress">
-    <div class="addresscol">
+    <?php /*<div class="addresscol">
 		  <?php if($_pAddsses = Mage::getSingleton('customer/session')->getCustomer()->getDefaultBilling()): ?>
 			<ul>
 				<li><a href="<?php echo $this->getAddressEditUrl(Mage::getSingleton('customer/session')->getCustomer()->getAddressById($_pAddsses)) ?>"><?php echo $this->__('Edit') ?></a>
@@ -50,9 +50,9 @@
             </li>
         <?php endif ?>
         <div class="setdefult">
-<span>Default Address</span>
-</div>
+            <span>Default Address</span>
         </div>
+    </div>*/?>
         <div class="addresscol">
          <?php if($_pAddsses = Mage::getSingleton('customer/session')->getCustomer()->getDefaultShipping()): ?>
 				<ul><li><a href="<?php echo $this->getAddressEditUrl(Mage::getSingleton('customer/session')->getCustomer()->getAddressById($_pAddsses)) ?>">

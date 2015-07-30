@@ -292,12 +292,12 @@ function addToCartByAjax(isRedirect) {
               data: formData,
               dataType: "text",
               success: function(resultData) {
-                  jQuery('#productdetail').prepend('<div id="messages_product_view"><ul class="messages"><li class="success-msg"><ul><li>'+resultData+'</li></ul></li></ul></div>');
+                  jQuery('#productdetail').prepend('<div id="messages_product_view">'+resultData+'</div>');
                   jQuery('#ajax-loading').hide();
               }
         });
         saveData.error(function() { 
-          jQuery('#productdetail').prepend('<div id="messages_product_view"><ul class="messages"><li class="success-msg"><ul><li>Something Wrong.Try Again!</li></ul></li></ul></div>');
+          jQuery('#productdetail').prepend('<div id="messages_product_view"><ul class="messages"><li class="error-msg"><ul><li>Something Wrong.Try Again!</li></ul></li></ul></div>');
                   jQuery('#ajax-loading').hide(); 
         });
     }

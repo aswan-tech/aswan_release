@@ -55,10 +55,10 @@ if($rememberData){
 <span id="ajaxLoginResp" class="redcolor fl" style="display:none;"></span>
 <div class="clear"></div>
 <input name="login[username]" id="login_email" title="<?php echo $this->__('Email address') ?>" type="text" class="textfield" value="<?php if(isset($rememberDataArr[0])) echo base64_decode($rememberDataArr[0]);?>" />
-<span id="error_login_email" style="display:none;">Please enter valid email address.</span>
+<span id="error_login_email"  class="errorm" style="display:none;">Please enter valid email address.</span>
 <label>Password<b>*</b></label>
 <input name="login[password]" id="login_pass" title="<?php echo $this->__('Password') ?>" type="password" class="textfield" value="<?php if(isset($rememberDataArr[1])) echo base64_decode($rememberDataArr[1]);?>" />
-<span id="error_login_pass" style="display:none;">Please enter password.</span>
+<span id="error_login_pass"  class="errorm" style="display:none;">Please enter password.</span>
 <a href="javascript:void(0);" id="gtm-customer-sigin-popup" onclick="customerLogin('<?php echo $this->getBaseUrl() ?>common/index/ajaxlogin');" class="go">Sign in</a>
 
 <a href="<?php echo $this->getUrl('customer/account/forgotpassword'); ?>" id="gtm-forgot-pwd-on-signin-signup-popup"  class="forgotpass">Forgot Password?</a>
@@ -76,17 +76,17 @@ if($rememberData){
 <div class="formbox registerfom">
 <h3>New user? <strong>Register here</strong></h3>
 <div id="ajaxSignupLoding" style="display:none;" class="redcolor"><img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN);?>frontend/enterprise/aswan/images/ajax-loader.gif"></div>
-<div id="ajaxSignupResp" style="display:none;" class="redcolor fl"></div>
+<div id="ajaxSignupResp"  style="display:none;" class="redcolor fl errorm"></div>
 <div class="error_mgs"></div>
 <label>Email Address<b>*</b></label>
 <input name="email" id="reg_email" type="text" class="sign-text-field textfield" value="" />
-<span id="error_reg_email" style="display:none;">Please enter valid email address.</span>
+<span id="error_reg_email"  class="errorm" style="display:none;">Please enter valid email address.</span>
 <label>Password<b>*</b>
 <input name="password" id="reg_pass" type="password" class="sign-text-field textfield" value="" /></label>
-<span id="error_reg_pass" style="display:none;">Valid Password is 6 digit.</span>
+<span id="error_reg_pass"  class="errorm" style="display:none;">Valid Password is 6 digit.</span>
 <label>Mobile No<b>*</b></label>
 <input name="mobile_no" id="mobile_no" type="text" class="sign-text-field textfield" value="" />
-<span id="error_mobile_no" style="display:none;">Valid Mobile no is 10 digit.</span>
+<span id="error_mobile_no"  class="errorm" style="display:none;">Valid Mobile no is 10 digit.</span>
 <label><input type="checkbox" name="is_subscribed" id="is_subscribed" checked="checked" class="fl mar-r10" />Send me email updates.</label>
 <a href="javascript:signup(1,'<?php echo $this->getBaseUrl(); ?>common/index/ajaxsignup')" id="gtm-m-register-poup" class="go">Men</a>
 <a href="javascript:signup(2,'<?php echo $this->getBaseUrl(); ?>common/index/ajaxsignup')" id="gtm-f-register-poup" class="go">Women</a>
