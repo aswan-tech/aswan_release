@@ -1,0 +1,76 @@
+<div class="pagename"><h2>Login / Register</h2></div>
+<div class="page-holder">
+<div id="userlogin">
+    <div class="usertabs">
+    <ul>
+    <li><a data-toggle="loginpan" href="#" class="active">Sign in</a></li>
+    <li><a data-toggle="regpan" href="#">Sign up</a></li>
+    </ul>
+    </div>
+
+<div class="panelholder">
+<div class="userform" id="loginpan" style="display: block;">
+<div class="leftside">
+<h3>I'M already registered</h3>
+<label>Email Address*</label>
+<div id="ajaxLoding" style="display:none;" class="redcolor"><img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN);?>frontend/enterprise/aswan/images/ajax-loader.gif"></div>
+<span id="ajaxLoginResp" class="redcolor fl" style="display:none;"></span> 
+<input name="login[username]" id="login_email" title="<?php echo $this->__('Email address') ?>" type="text" class="textfield" value="<?php if(isset($rememberDataArr[0])) echo base64_decode($rememberDataArr[0]);?>" />
+<span id="error_login_email"  class="errorm" style="display:none;">Please enter valid email address.</span>
+<label>Password*</label> <input name="login[password]" id="login_pass" title="<?php echo $this->__('Password') ?>" type="password" class="textfield" value="<?php if(isset($rememberDataArr[1])) echo base64_decode($rememberDataArr[1]);?>" />
+<span id="error_login_pass"  class="errorm" style="display:none;">Please enter password.</span>
+<p><a href="<?php echo $this->getUrl('customer/account/forgotpassword'); ?>">Forgot Password?</a></p>
+<label for="remember"><input type="checkbox" class="fl mar-r10 auto"  id="is_remember" name="is_remember"> Next time, automatically sign me in</label>
+
+<a href="javascript:void(0);" id="gtm-customer-sigin-popup" onclick="customerLogin('<?php echo $this->getBaseUrl() ?>common/index/ajaxlogin');" class="go">Sign in</a>
+<p>Don't have an account? <a href="<?php echo $this->getUrl('customer/account/create'); ?>">Create one!</a></p>
+</div>
+<div class="rightside">
+<h3>Sign in with</h3>
+
+
+
+<h4><a id="checkout-connect-with-fb" class="ckfb-btn fl gtm-track" href="javascript:void(0);" onclick="return fblogin();">
+            <img src="<?php echo $this->helper('facebookfree/active')->getLoginImg() ?>" alt="<?php echo $this->__('facebook connect') ?>">
+        </a></h4>
+<h4><?php echo $this->getLayout()->createBlock('inchoo_googleconnect/button')->setTemplate('inchoo/googleconnect/button.phtml')->toHtml();?></h4>
+<h4>Why sign in with Facebook?</h4>
+<ul>
+<li>Easily share with your friends</li>
+<li>We never post without your permission</li>
+</ul>
+</div>
+</div>
+
+<div class="userform" id="regpan" style="display: none;">
+<div class="leftside">
+<h3>Sign up</h3>
+<div id="ajaxSignupLoding" style="display:none;" class="redcolor"><img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN);?>frontend/enterprise/aswan/images/ajax-loader.gif"></div>
+<div id="ajaxSignupResp"  style="display:none;" class="redcolor fl errorm"></div>
+<div class="error_mgs"></div>
+<label>Email Address*</label> <input name="email" id="reg_email" type="text" class="sign-text-field textfield" value="" />
+<span id="error_reg_email"  class="errorm" style="display:none;">Please enter valid email address.</span>
+<label>Password*</label> <input name="password" id="reg_pass" type="password" class="sign-text-field textfield" value="" />
+        <span id="error_reg_pass"  class="errorm" style="display:none;">Valid Password is 6 digit.</span>
+<label>Mobile*</label> <input name="mobile_no" id="mobile_no" type="text" class="sign-text-field textfield" value="" />
+        <span id="error_mobile_no"  class="errorm" style="display:none;">Valid Mobile no is 10 digit.</span> 
+<label for="email"><input type="checkbox" name="is_subscribed" id="is_subscribed" checked="checked" class="fl mar-r10 auto" /> I would like to receive emails and updates.</label>
+
+<a href="javascript:signup(1,'<?php echo $this->getBaseUrl(); ?>common/index/ajaxsignup')" id="gtm-m-register-poup" class="go">Men</a>
+        <a href="javascript:signup(2,'<?php echo $this->getBaseUrl(); ?>common/index/ajaxsignup')" id="gtm-f-register-poup" class="go">Women</a>
+
+</div>
+
+<div class="rightside">
+<h3 align="center">Register &amp; Get</h3>
+<h5>Rs 200 Gift Voucher<br>
++<br>
+Rs 2500 Shopping Coupons</h5>
+<p>*Check your My Coupon section post signing up</p>
+</div>
+
+</div>
+</div>
+
+<div class="clearfloat"></div>
+</div></div>
