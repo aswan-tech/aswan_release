@@ -58,16 +58,17 @@ if($customerinfo->isLoggedIn()){
 		<li><a href="<?php echo $this->getUrl('customer/account/logout');?>" id="gtm-logout" class="tt-u fs12 c-fff td-n pl10 gtm-track">Logout</a></li>
 	</ol>
 </li>
+<li class="myaccount" id="mobilelogin"><a href="<?php echo $this->getUrl('customer/account/');?>"><span class="icon"></span> <span class="lable">Sign in</span></a></li>
 <?php 
 }
 else{
 ?>
 <li class="myaccount"><a class="fancybox" href="#loginpopup"><span class="icon"></span> <span class="lable">Sign in</span></a></li>
+<li class="myaccount" id="mobilelogin"><a href="<?php echo Mage::getBaseUrl();?>customer/account/login/"><span class="icon"></span> <span class="lable">Sign in</span></a></li>
 <?php 
 }
 ?>
 
-<li class="myaccount" id="mobilelogin"><a href="login-register.html"><span class="icon"></span> <span class="lable">Sign in</span></a></li>
 <li class="cartbox" id="showbag"><span class="lable">Bag</span> <span class="icon"></span></li>
 <li class="cartbox" id="mobilecart"><a href="<?php echo Mage::getBaseUrl();?>checkout/cart/"><span class="lable">Bag</span> <span class="icon"></span></a></li>
 </ul>

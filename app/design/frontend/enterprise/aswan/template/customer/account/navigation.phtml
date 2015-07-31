@@ -12,5 +12,6 @@
 		<?php endif; ?>
 	<?php endforeach; ?>
 	<li><a <?php echo ($action == 'customer_account_wallet' ? 'class="active"' : '') ?> href="<?php echo $this->getUrl('customer/account/wallet');?>">My wallet</a></li>
+	<li><a <?php echo ($action == 'customer_account_logout' ? 'class="active"' : '') ?> href="<?php echo $this->getUrl('customer/account/logout');?>">Logout</a></li>
 </ul>
 
