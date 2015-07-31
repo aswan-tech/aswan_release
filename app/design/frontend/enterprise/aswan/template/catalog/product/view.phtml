@@ -301,11 +301,13 @@ function addToCartByAjax(isRedirect) {
               data: formData,
               dataType: "text",
               success: function(resultData) {
+                  jQuery("#cart-add-to-bag").show();
                   jQuery('#productdetail').prepend('<div id="messages_product_view">'+resultData+'</div>');
                   jQuery('#ajax-loading').hide();
               }
         });
         saveData.error(function() { 
+          jQuery("#cart-add-to-bag").show();
           jQuery('#productdetail').prepend('<div id="messages_product_view"><ul class="messages"><li class="error-msg"><ul><li>Something Wrong.Try Again!</li></ul></li></ul></div>');
                   jQuery('#ajax-loading').hide(); 
         });
