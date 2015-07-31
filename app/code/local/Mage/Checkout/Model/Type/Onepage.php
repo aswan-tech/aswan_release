@@ -801,7 +801,7 @@ class Mage_Checkout_Model_Type_Onepage
 						$write->query("UPDATE sales_flat_order SET codvarcode='".$codCode."' WHERE entity_id='".$order->getId()."';");
 						//$orderModel = Mage::getModel('sales/order')->load($order->getId())->setCodvarcode($codCode)->save();
 						$data['template'] = $tempOTP;
-						$helper->sendNow($data, 'sms', $tempOTP);
+						//$helper->sendNow($data, 'sms', $tempOTP);
                         #end sms
                     }
                 } catch (Exception $e) {
