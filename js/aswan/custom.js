@@ -878,3 +878,73 @@ function newgooglelogin(url){
         window.location.href = url;
 }
  /* Custom 6.3 ends*/
+ 
+ /*
+  * newsletter subscription
+  */ 
+  
+function emailSignup(gender, ajaxUrl){
+  var email = jQuery("#newsletteremail").val();
+  if(jQuery.trim(email) == '' || jQuery.trim(email) == 'Your Email') {
+    jQuery("#subscription-response").html('Please enter valid email address.').show();
+    return false;
+  }
+  if(email != ''){
+    var login = jQuery.ajax({
+      url: ajaxUrl,
+      data: {email:email, gender:gender },
+      type:'POST',
+      beforeSend: function() {
+        jQuery("#loader-image").show();
+      },
+      success: function(data){
+        jQuery("#subscription-response").html(data).show();
+        jQuery("#loader-image").hide();
+      },
+      error: function(xhr, textStatus, errorThrown){
+        jQuery("#subscription-response").html('Ajax request failed reloading page').show();
+        jQuery("#loader-image").hide();
+      }
+    });
+  }
+}
+
+/*
+ * Review & Rating
+ */ 
+
+function submitRating(ajaxUrl, productId) {
+	var validate = true;
+	jQuery('div #writereview').find('input').each(function(index) {
+	    var fieldValue    = jQuery(this).val();
+        switch(fieldValue) {
+			case '':
+			validate = false;
+			break;
+		}
+    });
+	
+	if(validate) {
+		jQuery('#error-msg').hide();
+		var nickname = jQuery('#nickname_field').val();
+		var location = jQuery('#location_field').val();
+		var title = jQuery('#summary_field').val();
+		var detail = jQuery('#review_field').val();
+		var email = jQuery('#email_field').val();		
+		var ratings = jQuery("input[name='ratings']:checked").val();		
+		var saveData = jQuery.ajax({
+              type: 'POST',
+              url: ajaxUrl,
+              data: {nickname:nickname, location:location, title:title, detail:detail, email:email, ratings:ratings, id:productId},
+              cache: false,
+              dataType: "text",
+              success: function(resultData) {
+				  jQuery('#error-msg').html(resultData).show();
+              }
+        });
+        saveData.error(function() { jQuery("#ajax-response").html("Something went wrong"); });
+	}
+	else{
+		jQuery('#error-msg').show();
+	}
+}

@@ -1,9 +1,6 @@
 <input type="text" value="Enter Your Pin" name="zip_code" id="zip_code" onblur="javascript:onBlurText(this,'Enter Your Pin');" onclick="javascript:onClickText(this,'Enter Your Pin');" maxlength="<?php echo Mage::getStoreConfig('zipcodeimport/cod/zipcodelength'); ?>" />
-
-    <a href="javascript:void(0);" onclick="javascript:submitCodForm();" class="go">Check</a>
-
-
-	<div id="response" style="display:none;" class="result"><img src="<?php echo $this->getSkinUrl('images/opc-ajax-loader.gif') ?>" alt="" class="v-middle" /> </div>
+<a href="javascript:void(0);" onclick="javascript:submitCodForm();" class="go">Check</a>
+<div id="response" style="display:none;" class="result"><img src="<?php echo $this->getSkinUrl('images/opc-ajax-loader.gif') ?>" alt="" class="v-middle" /> </div>
 
 <script type="text/javascript">
     function submitCodForm(){
