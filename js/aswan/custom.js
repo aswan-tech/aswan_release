@@ -571,7 +571,7 @@ jQuery('#mediatabs ul li:first-child a').addClass('active');
 jQuery('#mediapage .mediacontainer:first-child').addClass('active');
 jQuery('#mediatabs ul li a').click(function(e){
 	e.preventDefault();
-	var dataTab = jQuery(this).attr('toggle-tab');
+	var dataTab = jQuery(this).attr('title');
 	jQuery(this).addClass('active');
 	jQuery(this).parent().siblings().find('.active').removeClass('active');
 	jQuery('#'+dataTab).siblings().removeClass('active');
@@ -583,7 +583,7 @@ jQuery('#brandtabs ul li:first-child a').addClass('active');
 jQuery('#mediapage .branddetail:first-child').addClass('active');
 jQuery('#brandtabs ul li a').click(function(e){
 	e.preventDefault();
-	var dataTab = jQuery(this).attr('toggle-tab');
+	var dataTab = jQuery(this).attr('title');
 	jQuery(this).addClass('active');
 	jQuery(this).parent().siblings().find('.active').removeClass('active');
 	jQuery('#'+dataTab).siblings().removeClass('active');
@@ -654,7 +654,7 @@ jQuery('#categoryarea #categoryleft h3').click(function(){
 			}, 100);
 		}
 	}
-	function signup(gender, ajaxUrl) {
+function signup(gender, ajaxUrl) {
 	var isValid = isValidForm('signup');
 	if(isValid) {
 		jQuery("#ajaxSignupLoding").show();
@@ -672,13 +672,22 @@ jQuery('#categoryarea #categoryleft h3').click(function(){
 			{
 				jQuery("#ajaxSignupLoding").hide();
 				if(data == '1' || data =='2') {
-					jQuery('#login-reg-div').addClass('hide');
+					/*jQuery('#login-reg-div').addClass('hide');
 					jQuery('.otp-cont').removeClass('hide');
 					jQuery('#reg-mob').html('Your contact number +91'+mobile_no);
 					jQuery("#ajaxOtpResp").html('');
 					jQuery('.loginregister').hide();
-					jQuery('.optconfirm').show();
-					
+					jQuery('.optconfirm').show();*/
+					var ck_reg_up =getCookie('nw_user_reg_up');
+                    if(ck_reg_up=='ap56767es'){
+                        setCookie('nw_user_reg','ap567es',1);
+                        setCookie('nw_user_reg_up','ap56767no',1);
+                    }
+                    jQuery("#ajaxSignupResp").removeClass('redcolor').addClass('bluecolor').show();
+                    jQuery("#ajaxSignupResp").html('You have been logged in successfully. You are being redirected…');
+                    window.setTimeout(function () {
+                        window.location = '';
+                    }, 2000);
 				}
 				else {
 					jQuery("#ajaxSignupResp").show();
