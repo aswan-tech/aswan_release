@@ -234,7 +234,7 @@ echo '<strong>'.$discount.'% off</strong>'; ?>
         </div>
         </div>
     </form>
-<?php /*
+
 <script type="text/javascript">
 //<![CDATA[
     var productAddToCartForm = new VarienForm('product_addtocart_form');
@@ -270,7 +270,7 @@ echo '<strong>'.$discount.'% off</strong>'; ?>
             delete Validation.methods['validate-one-required-by-name'];
             // Remove custom datetime validators
             for (var methodName in Validation.methods) {
-                if (methodName.match(/^validate-datetime-.*//*i)) {
+                if (methodName.match(/^validate-datetime-.*/i)) {
                     delete Validation.methods[methodName];
                 }
             }
@@ -285,7 +285,7 @@ echo '<strong>'.$discount.'% off</strong>'; ?>
         }
     }.bind(productAddToCartForm);
 //]]>
-</script>*/?>
+</script>
 <script>
 function addToCartByAjax(isRedirect) {
     if(isRedirect == "1") {
