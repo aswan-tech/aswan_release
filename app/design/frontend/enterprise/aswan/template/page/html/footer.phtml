@@ -44,6 +44,14 @@ if($rememberData){
 	<p><?php echo $this->getCopyright() ?>
 </div>
 <!--all popup-->
+<?php
+$controllerName = Mage::app()->getRequest()->getControllerName();
+$request = $this->getRequest();
+$action = $request->getActionName();
+if($controllerName=='account' && ($action=='login' || $action=='create')){
+}
+else{
+ ?>
 <div id="loginpopup" class="globlepopup">
 	<div class="loginregister">
 		<div class="formbox">
@@ -113,4 +121,6 @@ if($rememberData){
 		<p><span id="reg-mob"></span>
 	</div>*/?>
 </div>
+
+<?php } ?>
 <?php echo Mage::helper('common')->getGTMCode(); ?>
