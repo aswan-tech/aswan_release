@@ -57,8 +57,13 @@
     $productReviews->setDateOrder();
     $totalReviews = $productReviews->count();
     $rating = Mage::getModel('rating/rating')->getEntitySummary($_product->getId()); 
-    $totRating = $rating->getData('count');
+    $totRating = (int)$rating->getData('count');
     $restRating = (5-$totRating);
+    $summaryData = Mage::getModel('review/review_summary')->setStoreId(Mage::app()->getStore()->getId())->load($_product->getId());
+    $aggregateRating = '';
+	if($summaryData['rating_summary']) {
+		$aggregateRating = ' itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating"';
+	}
 ?>
 <div class="productreview">
 <?php for($i=1; $i<=$totRating; $i++){ ?>	
@@ -67,9 +72,12 @@
 <?php for($j=1; $j<= $restRating; $j++) { ?>
 <span></span>
 <?php } ?>
-<label><?php echo $totRating; ?> Ratings / Reviews</label>
+<label <?php echo $aggregateRating; ?>><?php echo $totRating; ?> Ratings / Reviews</label>
 <p><a href="#readreview" class="fancybox">Read reviews</a> | <a href="#writereview" class="fancybox">Write reviews</a></p>
-
+<?php if($totRating) { ?>							        
+	<meta itemprop="ratingValue" content="<?php echo ($summaryData['rating_summary']*5)/100; ?>"/>
+	<meta itemprop="ratingCount" content="<?php echo $totRating; ?>"/>
+<?php } ?>    
 <!--Read review start-->
 <div id="readreview" class="globlepopup">
 <h2><?php echo $totalReviews ?> (Reviewed by <?php echo $totalReviews ?> Customers)</h2>
@@ -147,21 +155,22 @@ Posted on <strong><?php echo $reviews->getData('created_at'); ?></strong></h4>
 </ul>
 </div>
 
-<h2><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></h2>
+<h2 itemprop="name"><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></h2>
 <?php 
- $price = Mage::helper('core')->currency($_product
-                ->getPrice(),true,false);    
- $specialPrice = Mage::helper('core')->currency($_product
-                  ->getFinalPrice(),true,false);
-$_price = Mage::helper('core')->currency($_product
-                ->getPrice(),false,false);    
-$_specialPrice = Mage::helper('core')->currency($_product
-                  ->getFinalPrice(),false,false);
+$price = Mage::helper('core')->currency($_product->getPrice(),true,false);    
+$specialPrice = Mage::helper('core')->currency($_product->getFinalPrice(),true,false);
+$_price = Mage::helper('core')->currency($_product->getPrice(),false,false);    
+$_specialPrice = Mage::helper('core')->currency($_product->getFinalPrice(),false,false);
 ?>
-<h3><?php if($_price > $_specialPrice) {
-            echo '<u>'.$price.'</u>';
-           
-        }
+<h3 itemprop="offers" itemscope="" itemtype="http://schema.org/Offer">
+<?php if($_product->isSaleable()) { ?>
+<link itemprop="availability" href="http://schema.org/InStock" />	
+<?php } ?>
+	
+<?php 
+	if($_price > $_specialPrice) {
+		echo '<u>'.$price.'</u>';
+	}
         
 if($_specialPrice < $_price):
 $discount = 100-(round (($_specialPrice / $_price) * 100));
@@ -174,9 +183,9 @@ echo '<strong>'.$discount.'% off</strong>'; ?>
         echo '<span>'.$specialPrice.'</span>';
      }?>
 <hr>
+<meta itemprop="price" content="<?php echo ( ($specialPrice == $price) ? $price : $specialPrice ); ?>"/>
+<meta itemprop="priceCurrency" content="INR"/>
 </h3>
-
-
 
 <?php //echo $this->getReviewsSummaryHtml($_product, false, true)?>
 <?php //echo $this->getChildHtml('alert_urls') ?>
@@ -184,7 +193,7 @@ echo '<strong>'.$discount.'% off</strong>'; ?>
 
     <?php if ($_product->getDescription()):?>
         <div class="prodescription">
-        <p><?php echo $_helper->productAttribute($_product, nl2br($_product->getDescription()), 'description') ?></p>
+        <p itemprop="description"><?php echo $_helper->productAttribute($_product, nl2br($_product->getDescription()), 'description') ?></p>
         </div>
     <?php endif;?>
 

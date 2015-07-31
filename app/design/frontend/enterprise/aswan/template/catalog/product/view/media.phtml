@@ -48,7 +48,7 @@
 <div class="proimages">
     <?php $i = 0;
     foreach ($this->getGalleryImages() as $_image): ?>
-            <img id="img<?php echo $i;?>" src="<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'image', $_image->getFile()); ?>" alt="<?php echo $this->htmlEscape($_image->getLabel()) ?>" orignal="<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'image', $_image->getFile()); ?>" />
+            <img itemprop="image" id="img<?php echo $i;?>" src="<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'image', $_image->getFile()); ?>" alt="<?php echo $this->htmlEscape($_image->getLabel()) ?>" orignal="<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'image', $_image->getFile()); ?>" />
     <?php $i++;
     endforeach; ?>
 
