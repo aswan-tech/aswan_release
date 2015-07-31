@@ -36,23 +36,22 @@ Mage::helper('common')->saveSourceCampaign($order, $customerType);
 ?><?php  $orderStatus = $order->getStatus();?>
   <?php if ($payment_method_code == "cashondelivery" && $order->isOtp() && $orderStatus =="COD_Verification_Pending" ) { ?>
     <div id="varify" class="page-holder">
-    <div id="otpconfirm">
-        <h3>We have received your order.</h3>
-        <h4>To Verify your Cash on delivery order</h4>
-        <p>One Time Password (OTP) has been sent to your registered Mobile Number</p>
-        <label>Please enter your OTP</label>
-
-        <div class="input-wrapp" style="float:left;"><input type="text" class="" value="" id="codsuccess" name="codsuccess"></div>
-        <div class="thkreg-txt" id="loading" style="display:none; float:left;">
-        <img src="<?php echo $this->getSkinUrl('images/loader-signup.gif');?>" style="width:20px; height:auto;"  border="0" />
-    </div>
-        <p>If you have not recevied the OTP. Please click to <a href="javascript:void(0)" class="gtm-track" id="otp-regenerate">Regenerate</a></p>
-        <p id="otpmsg" style="display:none; color:#dc0028;"></p>
-        <div class="thkreg-txt"><button name="codbtn" id="otp-confirm-cod" class="thk-btn gtm-track go">Confirm COD</button></div>
+		<div id="otpconfirm">
+			<h3>We have received your order.</h3>
+			<h4>&nbsp;</h4>
+			<?php
+			/*
+			<p>One Time Password (OTP) has been sent to your registered Mobile Number</p>
+			<label>Please enter your OTP</label>
+			<div class="input-wrapp" style="float:left;"><input type="text" class="" value="" id="codsuccess" name="codsuccess"></div>
+			<div class="thkreg-txt" id="loading" style="display:none; float:left;"><img src="<?php echo $this->getSkinUrl('images/loader-signup.gif');?>" style="width:20px; height:auto;"  border="0" /></div>
+			<p>If you have not recevied the OTP. Please click to <a href="javascript:void(0)" class="gtm-track" id="otp-regenerate">Regenerate</a></p>
+			<p id="otpmsg" style="display:none; color:#dc0028;"></p>
+			<div class="thkreg-txt"><button name="codbtn" id="otp-confirm-cod" class="thk-btn gtm-track go">Confirm COD</button></div>
+			*/
+        ?>
         <h5>Your Order: <?php echo $this->getOrderId();?></h5>
-<p>Your contact number: +91 <?php echo $order->getShippingAddress()->getTelephone(); ?>
-</p>
-
+		<p>Your contact number: +91 <?php echo $order->getShippingAddress()->getTelephone(); ?></p>
         </div>
     </div>
     <input type="hidden" value="<?php echo $order->getEntityId();?>" name="codOid" id="codOid">
@@ -234,7 +233,7 @@ Payment Type :  <?php  echo $payment = $order->getPayment()->getMethodInstance()
 </div>
 
  <?php }  ?>  
-
+<?php /*
 <script>
 var codsuccess = '';
 var codOid = '';
@@ -293,7 +292,7 @@ jQuery(document).ready(function(){
         
     });     
 });
-</script>
+</script>*/?>
 <?php endif;?>
 <?php
     $lastOrderId = Mage::getSingleton('checkout/session')->getLastOrderId();

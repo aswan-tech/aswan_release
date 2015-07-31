@@ -139,7 +139,7 @@ Posted on <strong><?php echo $reviews->getData('created_at'); ?></strong></h4>
   </tr>
    <tr>
     <td></td>
-    <td><a href="#" onclick="submitRating()" class="go">Submit</a></td>
+    <td><a href="#" onclick="submitRating('<?php echo $this->getBaseUrl() ?>review/product/postreview', '<?php echo $_product->getId(); ?>')" class="go">Submit</a></td>
   </tr>
 </table>
 
@@ -234,8 +234,6 @@ echo '<strong>'.$discount.'% off</strong>'; ?>
         </div>
         </div>
     </form>
-        
-
 
 <script type="text/javascript">
 //<![CDATA[
@@ -287,7 +285,8 @@ echo '<strong>'.$discount.'% off</strong>'; ?>
         }
     }.bind(productAddToCartForm);
 //]]>
-
+</script>
+<script>
 function addToCartByAjax(isRedirect) {
     if(isRedirect == "1") {
         document.getElementById("product_addtocart_form").submit();
@@ -343,42 +342,4 @@ dataLayer.push(
     {'CATEGORY_NAME': "<?php echo $cats->getName() ?>"},
     {'PAGE_TYPE': 'PRODUCT_VIEW'}
 );
-</script>
-
-<script>
-function submitRating() {
-	var validate = true;
-	jQuery('div #writereview').find('input').each(function(index) {
-	    var fieldValue    = jQuery(this).val();
-        switch(fieldValue) {
-			case '':
-			validate = false;
-			break;
-		}
-    });
-	
-	if(validate) {
-		jQuery('#error-msg').hide();
-		var nickname = jQuery('#nickname_field').val();
-		var location = jQuery('#location_field').val();
-		var title = jQuery('#summary_field').val();
-		var detail = jQuery('#review_field').val();
-		var email = jQuery('#email_field').val();		
-		var ratings = jQuery("input[name='ratings']:checked").val();		
-		var saveData = jQuery.ajax({
-              type: 'POST',
-              url: "<?php echo $this->getBaseUrl() ?>review/product/postreview",
-              data: {nickname:nickname, location:location, title:title, detail:detail, email:email, ratings:ratings, id:<?php echo $_product->getId(); ?>},
-              cache: false,
-              dataType: "text",
-              success: function(resultData) {
-				  jQuery('#error-msg').html(resultData).show();
-              }
-        });
-        saveData.error(function() { jQuery("#ajax-response").html("Something went wrong"); });
-	}
-	else{
-		jQuery('#error-msg').show();
-	}
-}
 </script>
