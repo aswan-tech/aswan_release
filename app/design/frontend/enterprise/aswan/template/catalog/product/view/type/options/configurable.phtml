@@ -71,7 +71,7 @@ if(Mage::getSingleton('customer/session')->isLoggedIn()) {
         }
         jQuery("#"+prodId+"_color_attribute_id").val(colorId);
         jQuery("#"+prodId+"_size_attribute_id").val(sizeId);
-	valOpt = 1;
+	   valOpt = 1;
         var newSelectedOption = prodId+'_'+colorId+'_'+sizeId;
 		jQuery(".pdp-sel-size-Wrapp .swatchProd").removeClass("active");
 		jQuery("#"+newSelectedOption).addClass(" active");
@@ -86,6 +86,9 @@ if(Mage::getSingleton('customer/session')->isLoggedIn()) {
 				ValidateIcart(this,prodId,'My Product');
 			}
 			else{
+                if(jQuery('#update_item_btn').length>0){
+                   updateBag(); 
+                }else
 				addToCartByAjax('<?php echo Mage::getStoreConfig('checkout/cart/redirect_to_cart'); ?>');
 			}			
 		}	
