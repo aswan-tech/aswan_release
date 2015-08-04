@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<?php echo $this->getLang() ?>" lang="<?php echo $this->getLang() ?>">
+<head>
+<?php echo $this->getChildHtml('head') ?>
+</head>
+<body<?php echo $this->getBodyClass()?' class="'.$this->getBodyClass().'"':'' ?>>
+<?php echo $this->getChildHtml('after_body_start') ?>
+<div id="wrapper">
+    <?php echo $this->getChildHtml('global_notices') ?>
+        
+<header id="header">
+        <?php echo $this->getChildHtml('header') ?>
+   </header> 
+
+<div id="middle">
+          <?php echo $this->getChildHtml('global_messages') ?>
+  <div class="bredcrum">
+<?php echo $this->getChildHtml('breadcrumbs') ?>
+  </div>
+<div class="categoryname"><h3><?php   
+        $_category  = Mage::registry('current_category');
+        if($_category){
+            echo $_category->getName();
+
+        }
+        ?></h3></div>
+<div id="categoryarea">
+                <?php   
+            if($_category->getName() =='MEN') { 
+              echo $this->getLayout()->createBlock('cms/block')->setBlockId('aswan-mens-department-filter')->toHtml();
+            }
+            else if ($_category->getName() =='WOMEN') {
+              echo $this->getLayout()->createBlock('cms/block')->setBlockId('aswan-women-department-filter')->toHtml();
+            }
+
+
+          ?>
+      
+<div id="categoryright">
+<?php echo $this->getChildHtml('content');?>
+<div id="newproduct">
+<h2>New Arrivals</h2>
+<div class="slidehilder">
+<ul class="bxslider">
+<?php  $catId = $_category->getId();
+ $men = Mage::getModel('newarrival/managenewarrival')->getProductByCatId($catId);  
+foreach ($men as $data) { 
+?>
+       <li><div class="dataimg">
+       <img src="<?php echo $data->getImageUrl();?>" width="320" height="334" /><a href="<?php echo $data->getProducturl();?>"><span>Shop</span></a></div>
+       <h3><?php echo $data->getName();?></h3></li>
+<?php   
+}
+?>
+</ul>
+</div>
+</div>
+</div>
+</div>
+        </div>
+        <footer id="footer">
+        <?php echo $this->getChildHtml('footer') ?>
+</footer>
+        <?php echo $this->getChildHtml('before_body_end') ?>
+
+</div>
+
+<?php echo $this->getAbsoluteFooter() ?>
+</body>
+</html>
