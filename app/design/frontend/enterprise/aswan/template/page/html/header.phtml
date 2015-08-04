@@ -49,6 +49,7 @@ if($customerinfo->isLoggedIn()){
 	$customer = Mage::getSingleton('customer/session')->getCustomer();
 	
 ?>
+
 <li class="myaccount">
 <a class="accountdrop" href="#"><span class="icon"></span><span class="lable">Sign in</span></a>
 	<ol class="accountlinks">
@@ -63,7 +64,16 @@ if($customerinfo->isLoggedIn()){
 }
 else{
 ?>
+<?php
+$controllerName = Mage::app()->getRequest()->getControllerName();
+$request = $this->getRequest();
+$action = $request->getActionName();
+if($controllerName=='account' && ($action=='login' || $action=='create')){
+}
+else{
+ ?>
 <li class="myaccount"><a class="fancybox" href="#loginpopup"><span class="icon"></span> <span class="lable">Sign in</span></a></li>
+<?php } ?>
 <li class="myaccount" id="mobilelogin"><a href="<?php echo Mage::getBaseUrl();?>customer/account/login/"><span class="icon"></span> <span class="lable">Sign in</span></a></li>
 <?php 
 }
