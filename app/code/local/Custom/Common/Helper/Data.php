@@ -493,4 +493,12 @@ class Custom_Common_Helper_Data extends Mage_Core_Helper_Abstract{
 					->setCampaign($campaign);
 		$orderModel->setId($orderId)->save();
 	}
+
+	public function getOrderUrl(){
+		return $this->_getUrl('sales/order/history/');
+	}
+	public function getWalletUrl(){
+		return $this->_getUrl('customer/account/wallet');
+	}
+
 }

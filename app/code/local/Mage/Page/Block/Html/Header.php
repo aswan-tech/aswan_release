@@ -35,8 +35,6 @@ class Mage_Page_Block_Html_Header extends Mage_Core_Block_Template
 {
     public function _construct()
     {
-         $cache = Mage::app()->getCacheInstance();
-         $cache->banUse('full_page');
          $this->setTemplate('page/html/header.phtml');
     }
 
