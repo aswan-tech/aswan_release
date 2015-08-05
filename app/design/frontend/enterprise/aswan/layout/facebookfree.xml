@@ -39,11 +39,11 @@
                 <params />
             </action>
         </reference>
-        <reference name="top.links">
+        <!-- <reference name="top.links">
             <action method="setTemplate" ifconfig="facebookfree/settings/enabled" ifvalue="1">
                 <template>facebookfree/links.phtml</template>
             </action>
-        </reference>
+        </reference> -->
         <reference name="before_body_end">
             <block type="facebookfree/active" name="belvg.facebookfree.block">
                 <action method="setTemplate" ifconfig="facebookfree/settings/enabled" ifvalue="1">

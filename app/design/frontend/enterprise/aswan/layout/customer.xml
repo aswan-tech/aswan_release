@@ -48,9 +48,9 @@ Default layout, loads most of the pages
 
     <default>
         <!-- Mage_Customer -->
-        <reference name="top.links">
+        <!-- <reference name="top.links">
             <action method="addLink" translate="label title" module="customer"><label>My Account</label><url helper="customer/getAccountUrl"/><title>My Account</title><prepare/><urlParams/><position>10</position></action>
-        </reference>
+        </reference> -->
     </default>
 
 <!--
@@ -59,6 +59,9 @@ Load this update on every page when customer is logged in
 
     <customer_logged_in>
         <reference name="top.links">
+            <action method="addLink" translate="label title" module="customer"><label>My Account</label><url helper="customer/getAccountUrl"/><title>Login</title><prepare/><urlParams/><position>10</position></action>
+            <action method="addLink" translate="label title" module="customer"><label>Track Orders</label><url helper="common/getOrderUrl"/><title>Track Orders</title><prepare/><urlParams/><position>20</position></action>
+            <action method="addLink" translate="label title" module="customer"><label>My Wallet</label><url helper="common/getWalletUrl"/><title>My Wallet</title><prepare/><urlParams/><position>30</position></action>
             <action method="addLink" translate="label title" module="customer"><label>Log Out</label><url helper="customer/getLogoutUrl"/><title>Log Out</title><prepare/><urlParams/><position>100</position></action>
         </reference>
     </customer_logged_in>
@@ -72,7 +75,7 @@ Load this update on every page when customer is logged out
             <block type="customer/form_login" name="customer_form_mini_login" before="-" template="customer/form/mini.login.phtml"/>
         </reference>-->
         <reference name="top.links">
-            <action method="addLink" translate="label title" module="customer"><label>Log In</label><url helper="customer/getLoginUrl"/><title>Log In</title><prepare/><urlParams/><position>100</position></action>
+            <action method="addLink" translate="label title" module="customer"><label></label><url helper="customer/getLoginUrl"/><title>Nologin</title><prepare/><urlParams/><position>100</position></action>
         </reference>
         <remove name="reorder"></remove>
     </customer_logged_out>

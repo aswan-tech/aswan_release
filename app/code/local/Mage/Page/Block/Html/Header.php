@@ -35,7 +35,9 @@ class Mage_Page_Block_Html_Header extends Mage_Core_Block_Template
 {
     public function _construct()
     {
-        $this->setTemplate('page/html/header.phtml');
+         $cache = Mage::app()->getCacheInstance();
+         $cache->banUse('full_page');
+         $this->setTemplate('page/html/header.phtml');
     }
 
     /**
@@ -76,13 +78,13 @@ class Mage_Page_Block_Html_Header extends Mage_Core_Block_Template
         if (empty($this->_data['welcome'])) {
             if (Mage::isInstalled() && Mage::getSingleton('customer/session')->isLoggedIn()) {
 			
-			$username = $this->escapeHtml(strtoupper(Mage::getSingleton('customer/session')->getCustomer()->getFirstname()));
+			$username = $this->escapeHtml(ucfirst(substr(Mage::getSingleton('customer/session')->getCustomer()->getFirstname(),0,14)));
 			
 			if(strlen($username) > 32) {
 				$username = substr($username, 0, 32).'...';
 			} 
 			
-			$this->_data['welcome'] = $this->__('Hi %s', $username);
+			$this->_data['welcome'] = $this->__('Welcome %s !', $username);
 			
             } else {
                  $this->_data['welcome'] = '';//Mage::getStoreConfig('design/header/welcome');
