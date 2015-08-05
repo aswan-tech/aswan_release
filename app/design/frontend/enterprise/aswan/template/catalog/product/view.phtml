@@ -147,14 +147,8 @@ Posted on <strong><?php echo $reviews->getData('created_at'); ?></strong></h4>
 <!--Write review close-->
 </div>
 
-<div class="productshare">
-<ul>
-<li class="facebook"><a href="#"></a></li>
-<li class="pintrest"><a href="#"></a></li>
-<li class="twitter"><a href="#"></a></li>
-</ul>
-</div>
-
+<!-- Go to www.addthis.com/dashboard to customize your tools -->
+<div class="addthis_sharing_toolbox productshare"></div>
 <h2 itemprop="name"><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></h2>
 <?php 
 $price = Mage::helper('core')->currency($_product->getPrice(),true,false);    

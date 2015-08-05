@@ -36,7 +36,7 @@ if($customerinfo->isLoggedIn()){
 	$customer = Mage::getSingleton('customer/session')->getCustomer();
 	
 ?>
-<li class="welcome">Welcome &nbsp;<?php echo $customer->getFirstname();?>&nbsp;!</li>
+<li class="welcome">Welcome &nbsp;<?php echo substr($customer->getFirstname(),0,14);?>&nbsp;!</li>
 <?php 
 }
 ?>
