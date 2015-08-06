@@ -173,6 +173,7 @@ class Custom_Newarrival_Model_Managenewarrival extends Mage_Core_Model_Abstract
 		if(count($catIDArr)) {
 			$collection = Mage::getModel('catalog/product')->getCollection();
 			$collection->addAttributeToFilter('status', 1);
+			$collection->addAttributeToFilter('type_id', array('eq' => 'configurable'));
 			$collection->joinField('category_id', 'catalog/category_product', 'category_id', 'product_id = entity_id', null, 'left');
 			$collection->addAttributeToSelect('*');
 			$collection->getSelect()->limit(5);
