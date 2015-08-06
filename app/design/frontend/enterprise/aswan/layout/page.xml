@@ -87,7 +87,10 @@
                     <action method="unsetData"><key>cache_lifetime</key></action>
                     <action method="unsetData"><key>cache_tags</key></action>
                     <block type="page/template_links" name="account.links" as="accountLinks"/>
-                    <block type="page/template_links" name="top.links" as="topLinks"/>
+                    <block type="page/template_links" name="top.links" as="topLinks">
+                        <action method="unsetData"><key>cache_lifetime</key></action>
+                        <action method="unsetData"><key>cache_tags</key></action>
+                    </block>    
                     <block type="page/template_links" name="checkout.links" as="checkoutLinks"/>
                     <block type="core/text_list" name="top.switches" as="switches" translate="label">
                         <label>Store Language</label>
