@@ -84,6 +84,8 @@
                     </block>
                 <block type="page/html_notices" name="global_notices" as="global_notices" template="page/html/notices.phtml" />
                 <block type="page/html_header" name="header" as="header">
+                    <action method="unsetData"><key>cache_lifetime</key></action>
+                    <action method="unsetData"><key>cache_tags</key></action>
                     <block type="page/template_links" name="account.links" as="accountLinks"/>
                     <block type="page/template_links" name="top.links" as="topLinks"/>
                     <block type="page/template_links" name="checkout.links" as="checkoutLinks"/>
