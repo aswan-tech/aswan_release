@@ -10,7 +10,7 @@
 <span id="closebag"></span>
 <h3>Shopping Bag</h3>
 <p><?php $cartQty = Mage::helper('checkout/cart')->getSummaryCount();
-   if($cartQty > 0)           {
+   if($cartQty > 0) {
 	echo $cartQty.' Items';
    }
    else {
@@ -44,7 +44,13 @@
 
 <li class="search"><span class="icon"></span> <span class="lable">Search</span></li>
 <?php echo $this->getChildHtml('topLinks'); ?>
-<li class="cartbox" id="showbag"><span class="lable">Bag</span> <span class="icon"></span></li>
+<li class="cartbox" id="showbag">
+<?php  if($cartQty > 0) {?>
+	<strong id="cartcount"><?php echo $cartQty;?></strong>
+  <?php }
+   
+ ?>
+<span class="lable">Bag</span> <span class="icon"></span></li>
 <li class="cartbox" id="mobilecart"><a href="<?php echo Mage::getBaseUrl();?>checkout/cart/"><span class="lable">Bag</span> <span class="icon"></span></a></li>
 </ul>
 </div>
