@@ -720,7 +720,7 @@ function customerLogin(ajaxUrl) {
 						jQuery("#ajaxLoginResp").removeClass('redcolor').addClass('bluecolor').show();
 						jQuery("#ajaxLoginResp").html('You have been logged in successfully. You are being redirected…');							
 						window.setTimeout(function () {
-							window.location = '';
+							window.location = '/customer/account/edit/';
 						}, 2000);
 						
 					}
