@@ -106,11 +106,13 @@ jQuery(document).ready(function() {
 	
 	jQuery('#topright .search').click(function(){
 		jQuery('#header .topsearch').toggle();
+		jQuery('#topright .accountlinks').hide();
 		});
 		
 	jQuery('#topright .accountdrop').click(function(e){
 		e.preventDefault();
 		jQuery('#topright .accountlinks').toggle();
+		jQuery('#header .topsearch').hide();
 		});
 	jQuery('#topright .accountlinks').mouseleave(function(){
 		jQuery(this).hide();
@@ -261,7 +263,7 @@ jQuery('.productswaches.color ul a').mouseleave(function(e){
 	  
   jQuery('#morecolors ol a').mouseleave(function(e){
 	  e.preventDefault(); 
-	  var selectImg = jQuery('#morecolors ol a.select').attr('hover-img');
+	  var selectImg = jQuery('#detailleft .proimages img:first-child').attr('orignal');
 	  jQuery('#detailleft .proimages img:first-child').attr('src',selectImg);
 	  });
   

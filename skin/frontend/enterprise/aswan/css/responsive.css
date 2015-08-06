@@ -30,7 +30,7 @@
 #listingright {width:100%;}
 #listingright h1 {display:none;}
 #listingright .shorting {width:100%; padding:0px;}
-#listingright .productfound, #productlist .productbox:hover .productimg .sizebar, #listingright .categorybanner {display:none;}
+#listingright .productfound, #productlist .productbox:hover .productimg .sizebar, #listingright .categorybanner, #listingright .bannercolumn  {display:none;}
 #listingright .shorting #gridview {display:block; width:100%; clear:both; text-align:center;}
 #listingright .shorting #gridview ul li {float:none; display:inline-block;}
 #listingright .mobilebanner {display:block;}
@@ -112,6 +112,7 @@
 
 #checkoutarea #steptwo {width:85%; padding:10px 0px;}
 #checkoutarea #stepthree {width:100%; float:left; clear:both; padding:5px 0 0 0;}
+#checkoutarea #stepthree .usestorecredits {padding:10px 0px;}
 #checkoutarea #stepthree h3 {margin:0px; text-align:center;}
 #checkoutarea #stepthree .payoption, #checkoutarea #stepthree .optionholder {width:100%;}
 #checkoutarea #stepthree .payoption {padding:5px 0px;}
@@ -197,6 +198,7 @@
 #contactus .contactright ul li, #contactus .contactright ul li strong, #contactus .contactright ul li a {width:100%; clear:both;}
 #contactus .contactright ul li {padding:0px 0px 13px 0px;}
 #contactus .contactright ul li strong {padding:0px 0px 3px 0px;}
+#contactus .contactleft .validation-advice {padding: 0px;}
 #testmonials #submittestimonials li input, #testmonials #submittestimonials li textarea {width:52%;}
 #accountright .infoedit ul li label,
 #accountright .infoedit ul li input {width:50%;}

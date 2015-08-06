@@ -68,8 +68,10 @@ iCart.updateLinks();
 <script type="text/javascript">
 //<![CDATA[
 <?php $qty = (int)Mage::getModel('checkout/cart')->getQuote()->getItemsQty();?>
-var qty = "<?php echo $qty; ?>"+' '+'Items';
+var qty = "<?php echo $qty; ?>"+' '+'Items',
+ qtya = "<?php echo $qty; ?>";
 jQuery('.bagsummary p').html(qty);
+jQuery('#cartcount').html(qtya);
 iCart.updateLinks();
 
     <?php if($qty>0){ ?>

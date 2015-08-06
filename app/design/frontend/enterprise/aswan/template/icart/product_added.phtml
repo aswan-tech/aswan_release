@@ -28,8 +28,10 @@ jQuery('#cartHeader').click(function() {
 	});
 });
 iCart.updateLinks();
-var qty = "<?php echo (int)Mage::getModel('checkout/cart')->getQuote()->getItemsQty(); ?>"+' '+'Items';
+var qty = "<?php echo (int)Mage::getModel('checkout/cart')->getQuote()->getItemsQty(); ?>"+' '+'Items',
+    qtym = "<?php echo (int)Mage::getModel('checkout/cart')->getQuote()->getItemsQty(); ?>";
 jQuery('.bagsummary p').html(qty);
+jQuery('#cartcount').html(qtym);
 if(jQuery('#quickbag').css('display') == 'block'){
     bgslider();
 }

@@ -44,7 +44,7 @@
             <block type="core/template" name="customerbalance.wrapper" template="customerbalance/account/wrapper.phtml" translate="label">
                 <label>Store Credit Balance and History Wrapper</label>
                 <block type="enterprise_customerbalance/account_balance" name="balance" template="customerbalance/account/balance.phtml" before="-" />
-                <block type="enterprise_customerbalance/account_history" name="history" template="customerbalance/account/history.phtml" after="-" />
+                <block type="enterprise_customerbalance/account_history" name="history" template="customerbalance/account/history.phtml" before="-" />
             </block>
         </reference>
     </enterprise_customerbalance_info_index>
