@@ -151,6 +151,12 @@
     jQuery('.productimg .quickview .quickurl').click(function(e){
         e.preventDefault();
     });
+    jQuery('.quickview').click(function(){
+        jQuery('#quickbag').css('display','none');
+        jQuery('#quickbag').removeClass('showthis');
+        jQuery('#topmenu').removeClass('topshift');
+        jQuery('#header').removeClass('bagopen');
+    });
     </script>
 <?php endif; ?>
 

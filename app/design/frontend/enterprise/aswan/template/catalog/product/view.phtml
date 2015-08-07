@@ -282,6 +282,10 @@ echo '<strong>'.$discount.'% off</strong>'; ?>
 </script>
 <script>
 function addToCartByAjax(isRedirect) {
+    jQuery('#quickbag').css('display','none');
+    jQuery('#quickbag').removeClass('showthis');
+    jQuery('#topmenu').removeClass('topshift');
+    jQuery('#header').removeClass('bagopen');
     if(isRedirect == "1") {
         document.getElementById("product_addtocart_form").submit();
     }

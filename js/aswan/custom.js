@@ -640,21 +640,18 @@ jQuery('#categoryarea #categoryleft h3').click(function(){
 
 /*Custom 6.3 starts*/
 	function bgslider(){
-		var bagslider = jQuery('#quickbag .productslide .bxslider').bxSlider({
-    		auto: true,
-			infiniteLoop: true,
-    		mode: 'horizontal',
-			slideWidth: 150,
-			minSlides: 2,
-			maxSlides:6,
-			slideMargin: 3,
-			pager: false
-  		});
 		if(jQuery('#quickbag #mini-cart').length>0){
-			setTimeout(function() {
-				bagslider.reloadSlider();
-			}, 100);
-		}
+			jQuery('#quickbag > .productslide > .bxslider').bxSlider({
+	    		auto: true,
+				infiniteLoop: false,
+	    		mode: 'horizontal',
+				slideWidth: 150,
+				minSlides: 2,
+				maxSlides:5,
+				slideMargin: 3,
+				pager: false
+	  		});
+	  	}	
 	}
 function signup(gender, ajaxUrl) {
 	var isValid = isValidForm('signup');
