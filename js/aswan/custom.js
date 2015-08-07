@@ -160,7 +160,13 @@ jQuery(document).ready(function() {
 			proOldpri = jQuery(this).attr('old-price'),
 			proUrl = jQuery(this).attr('prod-url'),
 			quickUrl = jQuery(this).attr('quick-view'),
-			quickView = 'setLocation("'+quickUrl+'")'
+			quickView = 'setLocation("'+quickUrl+'")',
+			loaderIcon = jQuery('#'+proId).parent().next('.prodload')
+
+		jQuery(loaderIcon).show();
+        jQuery('#'+proId).load(function(){
+         jQuery(loaderIcon).hide();
+        });
 		
 		jQuery('#'+proId).attr('src',proImg);
 		jQuery('#'+proId).parent().attr('href',proUrl);
@@ -180,7 +186,10 @@ jQuery(document).ready(function() {
 			proOldpri = jQuery(defaultSource).attr('old-price'),
 			proUrl = jQuery(defaultSource).attr('prod-url'),
 			quickUrl = jQuery(defaultSource).attr('quick-view'),
-			quickView = 'setLocation("'+quickUrl+'")'
+			quickView = 'setLocation("'+quickUrl+'")',
+			loaderIcon = jQuery('#'+proId).parent().next('.prodload')
+
+		jQuery(loaderIcon).hide();
 			
 		jQuery('#'+proId).attr('src',proImg);
 		jQuery('#'+proId).parent().attr('href',proUrl);
