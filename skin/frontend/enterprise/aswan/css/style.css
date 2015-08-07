@@ -627,7 +627,7 @@ body {font-family: "Gill Sans Roman";}
 #productlist .productbox .morecolors img {width:100%; cursor:pointer; height:auto; border:1px solid #fff;}
 #productlist .productbox .morecolors img:hover {border:1px solid #dc0028;}
 
-#productlist .productbox .productimg {width:100%; margin:0px 0px 12px 0px; position:relative;}
+#productlist .productbox .productimg {width:100%; margin:0px 0px 12px 0px; background: url(../images/loader-signup.gif) #fff center center no-repeat; min-height: 135px; position:relative;}
 #productlist .productbox .productimg img {width:100%; height:auto;}
 
 #productlist .productbox .productimg .soldoutstrip {position:absolute; z-index:9; right:0px; top:0px; width:18px; height:101px; background-position:-279px -126px;}
