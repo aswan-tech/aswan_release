@@ -127,6 +127,7 @@
 
         <a href="#" class="quickurl" onClick="setLocation('<?php echo $this->getAddToCartUrl($_product);?>')"></a></div>
             <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>"><img src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(520,544); ?>" alt="Americanswan <?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true).' '.ucfirst($product_category).' For '.$gender ?>" id="pro<?php echo $_product->getId();?>" /></a>
+            <div class="prodload"></div>
             </div>
 
             <div class="productinfo">

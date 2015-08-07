@@ -448,7 +448,7 @@ function get_save_billing_function(url, set_methods_url, update_payments, trigge
 	
 
         var payment_methods = $$('div.payment-methods')[0];
-        payment_methods.update('<span class="fl ckpyment-top-txt"><h3>Select payment option</h3></span><div class="clear"></div><div class="amsloader ta-c pt30 pb30 fs42"></div>');
+        payment_methods.update('<div class="clear"></div><div class="amsloader ta-c pt30 pb30 fs42"></div>');
 
         var totals = get_totals_element();
         totals.update('<div class="loading-ajax">&nbsp;</div>');

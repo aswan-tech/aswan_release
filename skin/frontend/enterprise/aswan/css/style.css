@@ -632,6 +632,8 @@ body {font-family: "Gill Sans Roman";}
 
 #productlist .productbox .productimg .soldoutstrip {position:absolute; z-index:9; right:0px; top:0px; width:18px; height:101px; background-position:-279px -126px;}
 
+#productlist .productbox .productimg .prodload {position:absolute; z-index:9; left:0px; top:0px; width: 100%; height: 100%; background: url(../images/loader-signup.gif) #fff center center no-repeat; display: none;}
+
 #productlist .productbox .productimg .quickview {position:absolute; z-index:9; bottom:5px; right:5px; width:30px; height:30px; display:none;}
 #productlist .productbox .productimg .quickview a {display:block; width:100%; height:30px; background-position:-196px -120px;}
 #productlist .productbox:hover .productimg .quickview {display:block;}
@@ -913,7 +915,7 @@ body {font-family: "Gill Sans Roman";}
 
 #checkoutarea #checkoutright {float:right; width:35%; padding:10px 0px 0px 0px;}
 #checkoutarea #checkoutright .ordersummary {width:100%;}
-#checkoutarea #checkoutright .ordersummary .loading-ajax {background: url('../images/ajax-loader.gif') center no-repeat #fff; height: 40px; width:100%; float:left; clear: both; }
+#checkoutarea #checkoutright .ordersummary .loading-ajax {background: url('../images/loader-signup.gif') center no-repeat #fff; border: 1px solid #ccc; height: 100px; width:100%; float:left; clear: both; }
 #checkoutarea #checkoutright h3 {display:block; margin:0px 0px 10px 0px; font-family:'Trade Gothic Condensed Bold'; text-transform:uppercase; font-size:20px; width:100%;}
 #checkoutarea #checkoutright .summaryholder {max-height:220px; margin:0px 0px 10px 0px;}
 #checkoutarea #checkoutright .summaryholder table {width:100%;}
@@ -1012,7 +1014,7 @@ body {font-family: "Gill Sans Roman";}
 #checkoutarea #stepthree .paytypebox .formholder ol li {display:block; float:left; width:100%; clear:both; padding:0px 0px 6px 0px;}
 #checkoutarea #stepthree .paytypebox .formholder ol li label {display:block; font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-weight:400; font-size:13px; width:30%; text-align:right; padding:2px 10px 0px 0px; float:left;}
 #checkoutarea #stepthree .paytypebox .formholder ol li input {width:60%; height:24px; line-height:24px; border:1px solid #CCC;}
-#checkoutarea .amsloader {background: url('../images/ajax-loader.gif') center no-repeat #fff; height: 40px; width:100%; float:left; clear: both;}
+#checkoutarea .amsloader {background: url('../images/ajax-loader.gif') center no-repeat #fff; border: 1px solid #ccc; height: 100px; width:100%; float:left; clear: both;}
 #customerbalance_placer {float:left; width:100%; clear: both; padding: 0 0 10px 25%; font-size: 15px;}
 #customerbalance_placer .checker {float:left;}
 #customerbalance_placer .checker input {opacity:1!important; filter:alpha(opacity=100)!important; margin: 0px 10px 0px 0px;}
