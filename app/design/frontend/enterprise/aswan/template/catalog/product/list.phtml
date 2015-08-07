@@ -113,7 +113,7 @@
 						$_priceBox = Mage::helper('core')->currency($group_product->getPrice(),false,false);
 						$_specialPriceBox = Mage::helper('core')->currency($group_product->getFinalPrice(),false,false);
 				?>
-						<div class="databox"><img prod-url="<?php echo $group_product->getProductUrl() ?>" product-price="<?php if($_priceBox == $_specialPriceBox) { echo $priceBox;} else { echo $specialPriceBox;}?>" old-price="<?php if($_priceBox >$_specialPriceBox) { echo $priceBox;}?>" pro-id="pro<?php echo $_product->getId();?>" large-image="<?php echo $this->helper('catalog/image')->init($group_product, 'small_image'); ?>" title="<?php echo $name; ?>" src="<?php echo $this->helper('catalog/image')->init($group_product, 'small_image')->resize(53,71); ?>" quick-view="<?php echo $this->getAddToCartUrl($group_product);?>" ></div>
+						<div class="databox"><img prod-url="<?php echo $group_product->getProductUrl() ?>" product-price="<?php if($_priceBox == $_specialPriceBox) { echo $priceBox;} else { echo $specialPriceBox;}?>" old-price="<?php if($_priceBox >$_specialPriceBox) { echo $priceBox;}?>" pro-id="pro<?php echo $_product->getId();?>" large-image="<?php echo $this->helper('catalog/image')->init($group_product, 'small_image')->resize(520,544); ?>" title="<?php echo $name; ?>" src="<?php echo $this->helper('catalog/image')->init($group_product, 'small_image')->resize(53,55); ?>" quick-view="<?php echo $this->getAddToCartUrl($group_product);?>" ></div>
                 <?php } ?>
                 </div>
                 <?php endif; ?>
@@ -126,7 +126,7 @@
         <div class="quickview">
 
         <a href="#" class="quickurl" onClick="setLocation('<?php echo $this->getAddToCartUrl($_product);?>')"></a></div>
-            <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>"><img src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(510,680); ?>" alt="Americanswan <?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true).' '.ucfirst($product_category).' For '.$gender ?>" id="pro<?php echo $_product->getId();?>" /></a>
+            <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>"><img src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(520,544); ?>" alt="Americanswan <?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true).' '.ucfirst($product_category).' For '.$gender ?>" id="pro<?php echo $_product->getId();?>" /></a>
             </div>
 
             <div class="productinfo">
@@ -139,7 +139,7 @@
              <span class="old-price"><?php if($_price >$_specialPrice) { echo $price;}?></span>
              <span class="new-price"><?php if($_price ==$_specialPrice) { echo $price;} else { echo $specialPrice;}?></span>
                            </div>
-<div class="defaultvalue" title="<?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?>" data-image="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(510,680); ?>" pro-id="pro<?php echo $_product->getId();?>" old-price="<?php if($price >$specialPrice) { echo $price;}?>" product-price="<?php if($price ==$specialPrice) { echo $price;} else { echo $specialPrice;}?>" prod-url="<?php echo $_product->getProductUrl() ?>" quick-view="<?php echo $this->getAddToCartUrl($_product);?>"></div>
+<div class="defaultvalue" title="<?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?>" data-image="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(520,544); ?>" pro-id="pro<?php echo $_product->getId();?>" old-price="<?php if($price >$specialPrice) { echo $price;}?>" product-price="<?php if($price ==$specialPrice) { echo $price;} else { echo $specialPrice;}?>" prod-url="<?php echo $_product->getProductUrl() ?>" quick-view="<?php echo $this->getAddToCartUrl($_product);?>"></div>
         </div>
     <?php if ($i%$_columnCount==0 || $i==$_collectionSize): ?>
     </div>

@@ -7,7 +7,7 @@ $_helper = $this->helper('catalog/output');
     <ul class="bxslider">
     <?php foreach ($this->getGalleryImages() as $_image): ?>
         <li>
-         <img src="<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'thumbnail', $_image->getFile())->resize(58, 77); ?>" data-larger="<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'thumbnail', $_image->getFile()); ?>" alt="<?php echo $this->htmlEscape($_image->getLabel()) ?>" />
+         <img src="<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'thumbnail', $_image->getFile())->resize(58, 61); ?>" data-larger="<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'thumbnail', $_image->getFile()); ?>" alt="<?php echo $this->htmlEscape($_image->getLabel()) ?>" />
      </li>
     <?php endforeach; ?>        
     </ul>
@@ -15,7 +15,7 @@ $_helper = $this->helper('catalog/output');
 </div>
 
 <div class="mainimage">
-<img src="<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'image', $_image->getFile()); ?>" /> 	
+<img src="<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'image', $_image->getFile())->resize(335, 350); ?>" /> 	
  </div>
 	
 <?php 

@@ -91,8 +91,8 @@
 
 #productdetail #detailright h3 {margin:0px;}
 #productdetail #detailright .addtobag {position:fixed; left:0px; bottom:-1px; padding:0px; z-index:99;}
-#productdetail #detailright .addtobag .add_to_cart {width:100%; padding:18px 32px; background:#101027;}
-
+#productdetail #detailright .addtobag .add_to_cart {width:100%; padding:18px 32px; font-size: 16px; font-size: 600; background: #dc0028;}
+#productdetail #detailright .addtobag .add_to_cart:hover {background:#101027;}
 #productdetail #detailright .prodescription, #productdetail #detailright .clickoffer {display:none;}
 #productdetail #detailright .clickoffer {margin:15px 0px;}
 #productdetail #detailright .productswaches {padding:12px 0px;}

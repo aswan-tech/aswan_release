@@ -71,7 +71,7 @@ box-shadow: 2px 4px 1px #999;
 .color_bucket_brown{ background:#964b00 !important;} /*brown*/
 .color_bucket_green{ background:#3aa03a !important;} /*green*/
 .color_bucket_grey{ background:#686868 !important;} /*gray*/
-.color_bucket_multi{background:url("../images/multicolor-box.jpg") 0 0 no-repeat !important;}
+.color_bucket_multi{background:url("../images/multicolor-box.jpg") !important;}
 
 
 .color_bucket_orange{ background:#fd7222 !important;} /*orange*/
