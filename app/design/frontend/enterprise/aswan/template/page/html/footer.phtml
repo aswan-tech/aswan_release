@@ -124,3 +124,12 @@ else{
 
 <?php } ?>
 <?php echo Mage::helper('common')->getGTMCode(); ?>
+<?php
+if(Mage::getSingleton('customer/session')->isLoggedIn()) {
+?>
+<script>
+    jQuery("#customer-track-myorder").attr('href','<?php echo $this->getBaseUrl() ?>sales/order/history/');
+</script>
+<?php
+}
+?>
