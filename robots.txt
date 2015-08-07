@@ -44,12 +44,11 @@ Disallow: /LICENSE.html
 Disallow: /LICENSE.txt
 Disallow: /LICENSE_AFL.txt
 Disallow: /STATUS.txt
-Disallow: /*.js$
-Disallow: /*.css$
 Disallow: /*.php$
 Disallow: /*?SID=
 Disallow: /common/*
-
+Allow: /skin/*.gif
+Allow: /skin/*.jpg
 
 Sitemap: http://www.americanswan.com/sitemap.xml
 
