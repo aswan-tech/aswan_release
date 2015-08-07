@@ -79,10 +79,18 @@ class Inchoo_GoogleConnect_Helper_Data extends Mage_Core_Helper_Abstract
             $token)
     {
             /*New customer and order set source and campaign*/
+            $scCookies = Mage::getModel( 'nosql/parse_ga' )->getSourceCampaignCookies();
             $gaCookies = Mage::getModel( 'nosql/parse_ga' )->getCookies();
-            $source = strtolower($gaCookies['campaign']['source']);
-            $campaign = strtolower($gaCookies['campaign']['name']);
-                       
+            
+            if(!empty($gaCookies['campaign']['source']) && !empty($gaCookies['campaign']['name'])) {
+				$source = strtolower($gaCookies['campaign']['source']);
+				$campaign = strtolower($gaCookies['campaign']['name']);
+			}
+			else if(!empty($scCookies['source']) && !empty($scCookies['campaign'])) {
+				$source = strtolower($scCookies['source']);
+				$campaign = strtolower($scCookies['campaign']);
+			}
+		               
             $customer->setEmail($email)
                     ->setFirstname($firstName)
                     ->setLastname($lastName)

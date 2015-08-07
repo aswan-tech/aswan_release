@@ -41,6 +41,11 @@ $module = $this->getRequest()->getModuleName();
 <?php echo $this->getIncludes() ?>
 <script type="text/javascript">var pcatid = ''; dataLayer = [{}];</script>
 <?php $gaCookies = Mage::getModel( 'nosql/parse_ga' )->getCookies(); ?>
+<?php 
+$__getParams = Mage::getSingleton('core/app')->getRequest()->getParams();
+$__scCookies = Mage::getModel( 'nosql/parse_ga' )->setSourceCampaignCookies($__getParams);
+?>
+
 <?php $_curUrl = Mage::helper('core/url')->getCurrentUrl();?>
 <?php $_curUrl = str_replace(":8080", "", $_curUrl);?>
 <?php 
