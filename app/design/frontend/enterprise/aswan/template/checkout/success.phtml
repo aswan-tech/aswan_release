@@ -34,32 +34,7 @@ Mage::helper('common')->saveSourceCampaign($order, $customerType);
 
 
 ?><?php  $orderStatus = $order->getStatus();?>
-  <?php if ($payment_method_code == "cashondelivery" && $order->isOtp() && $orderStatus =="COD_Verification_Pending" ) { ?>
-    <div id="varify" class="page-holder">
-		<div id="otpconfirm">
-			<h3>We have received your order.</h3>
-			<h4>&nbsp;</h4>
-			<?php
-			/*
-			<p>One Time Password (OTP) has been sent to your registered Mobile Number</p>
-			<label>Please enter your OTP</label>
-			<div class="input-wrapp" style="float:left;"><input type="text" class="" value="" id="codsuccess" name="codsuccess"></div>
-			<div class="thkreg-txt" id="loading" style="display:none; float:left;"><img src="<?php echo $this->getSkinUrl('images/loader-signup.gif');?>" style="width:20px; height:auto;"  border="0" /></div>
-			<p>If you have not recevied the OTP. Please click to <a href="javascript:void(0)" class="gtm-track" id="otp-regenerate">Regenerate</a></p>
-			<p id="otpmsg" style="display:none; color:#dc0028;"></p>
-			<div class="thkreg-txt"><button name="codbtn" id="otp-confirm-cod" class="thk-btn gtm-track go">Confirm COD</button></div>
-			*/
-        ?>
-        <h5>Your Order: <?php echo $this->getOrderId();?></h5>
-		<p>Your contact number: +91 <?php echo $order->getShippingAddress()->getTelephone(); ?></p>
-        </div>
-    </div>
-    <input type="hidden" value="<?php echo $order->getEntityId();?>" name="codOid" id="codOid">
-    <input type="hidden" value="<?php echo $this->getOrderId();?>" name="incrementId" id="incrementId">
-    <input type="hidden" value="<?php echo $order->getShippingAddress()->getTelephone();?>" name="mobile" id="mobile">
-    
-    <div class="thkreg-txt" id="thanks" style="display:none;">
-
+ 
 <div class="pagename"><h2>Order Success</h2></div>
 <div id="checkoutarea">
 <div id="checkoutleft">
@@ -145,94 +120,6 @@ Payment Type :  <?php  echo $payment = $order->getPayment()->getMethodInstance()
 <div class="clearfloat"></div>
 </div>
 
-    </div>
-    <?php } else { ?>  
-<div class="pagename"><h2>Order Success</h2></div>
-<div id="checkoutarea">
-<div id="checkoutleft">
-<div class="ordersuccess">
-<h3>Congratulation!</h3>
-<p>Your <?php  echo $payment = $order->getPayment()->getMethodInstance()->getTitle();
-?> order has been placed successfully.<br>
-Please make a payment of Rs. <?php echo round($order->getBaseGrandTotal()); ?> at the time of delivery of your order</p>
-<h4>Order Number: <b><?php echo $this->getOrderId();?></b></h4>
-<ul>
-<li class="icon1">You will shortly receive an order verification E-mail and SMS confirming your order details</li>
-<li class="icon2">Once your order is shipped, you will receive an E-mail and SMS with the shipment information</li>
-<li class="icon3">You can track your order status by logging on to www.americanswan.com and clicking on 'my account'</li>
-</ul>
-
-<h6>You can now <span class="icon1">TRACK</span>, <span class="icon2">CANCEL</span> &nbsp; &amp; <span class="icon3">RETURN</span> orderd items from <a href="<?php echo Mage::getBaseUrl()."sales/order/history/";?>">MY ORDERS</a></h6>
-
-<!-- <div class="sharepurchase">
-<h5>Share Your Purchase</h5>
-<ol>
-<li class="facebook"><a href="#"></a></li>
-<li class="pintrest"><a href="#"></a></li>
-<li class="twitter"><a href="#"></a></li>
-</ol>
-</div> -->
-</div>
-
-</div>
-
-<div id="checkoutright">
-<div class="successright">
-<a class="go" href="<?php echo Mage::getBaseUrl();?>">Continue Shopping</a>
-
-<div class="paymenttype">
-Payment Type :  <?php  echo $payment = $order->getPayment()->getMethodInstance()->getTitle();
-?>
-</div>
-
-<h4>Address details</h4>
-    <p><?php  $ship_data = $order->getShippingAddress();
-    echo $ship_data['firstname']." ".$ship_data['lastname'];?><br>
-    <?php $countryCode = $ship_data['country_id'];
-    $country = Mage::app()->getLocale()->getCountryTranslation($countryCode);
-    echo $ship_data['street'].", ".$ship_data['city'].", ".$ship_data['region'].", ".$ship_data['postcode'].", ".$country;?><br>
-    T: <?php echo $ship_data['telephone'];?></p>
-<h4>Order Summary</h4>
-<div class="summryboxs">
-<table cellspacing="0" cellpadding="0" width="100%" border="0">
-  <tbody><tr>
-    <td>Subtotal</td>
-    <td>Rs. <?php echo round($order->getSubtotal()+$order->getTaxAmount()); ?></td>
-  </tr>
-  <tr>
-    <td>Coupon discount</td>
-    <td>Rs . <?php echo round($order->getDiscountAmount());?></td>
-  </tr>
-  <tr>
-    <td>Shipping bag</td>
-    <td><?php $qty =round($order->getData('total_qty_ordered'));
-      if($qty >1 ){
-        echo $qty ." Items";
-      } else {
-        echo $qty . " Item";
-      }
-?></td>
-  </tr>
-  <tr><td>Tax</td>
-  <td>Rs. <?php echo round($order->getTaxAmount());?></td>
-  </tr>
-  <tr>
-    <td>Shipping charges</td>
-    <td>Rs .<?php echo round($order->getShippingAmount());?></td>
-  </tr>
-  <tr class="grandtotal">
-    <td>Total</td>
-    <td>Rs . <?php echo round($order->getGrandTotal()); ?></td>
-  </tr>
-</tbody></table>
-</div>
-</div>
-</div>
-
-<div class="clearfloat"></div>
-</div>
-
- <?php }  ?>  
 <?php /*
 <script>
 var codsuccess = '';
