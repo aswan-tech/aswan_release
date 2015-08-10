@@ -1742,7 +1742,7 @@
 					if ($(e.target).hasClass('fancybox-overlay')) {
 						if (F.isActive) {
 							F.close();
-							$('.sizepopup').hide();
+							$('#quickview .sizepopup').hide();
 							$('#loginpopup .optconfirm').hide();
 							$('#loginpopup .loginregister').show();
 						} else {

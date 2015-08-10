@@ -71,7 +71,7 @@ iCart.updateLinks();
 var qty = "<?php echo $qty; ?>"+' '+'Items',
  qtya = "<?php echo $qty; ?>";
 jQuery('.bagsummary p').html(qty);
-jQuery('#cartcount').html(qtya);
+jQuery('#cartcount, #mobicount').html(qtya);
 iCart.updateLinks();
 
     <?php if($qty>0){ ?>

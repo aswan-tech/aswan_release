@@ -86,4 +86,6 @@ $category_id = Mage::getSingleton('catalog/layer')
 $_category  = Mage::getModel('catalog/category')->load($category_id);
 $_imgUrl = $_category->getImageUrl();
 ?>
+<?php if($_imgUrl){ ?>
 <div class="mobilebanner"><img src="<?php echo $_category->getImageUrl();?>"  title="<?php echo $_category->getName();?>" /></div>
+<?php }?>

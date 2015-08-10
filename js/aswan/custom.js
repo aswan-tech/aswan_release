@@ -36,7 +36,7 @@ jQuery(document).ready(function() {
 		
 		});
 	
-	if(jQuery(window).innerWidth() < 1024){	
+	if(jQuery(window).innerWidth() < 1025){	
 		jQuery('.datalisting .bxslider').bxSlider({
     		auto: false,
 			infiniteLoop: true,
@@ -50,9 +50,9 @@ jQuery(document).ready(function() {
 			 }
 	
 	jQuery(window).resize(function(){
-		if(jQuery(window).innerWidth() < 1024){	
+		if(jQuery(window).innerWidth() < 1025){	
 		jQuery('.datalisting .bxslider').bxSlider({
-    		auto: true,
+    		auto: false,
 			infiniteLoop: true,
     		mode: 'horizontal',
 			slideWidth: 260,
@@ -344,7 +344,7 @@ jQuery('.productswaches.color ul a').mouseleave(function(e){
   		});
 		
 /*****************product page stick column******************/
-if(jQuery(window).innerWidth() > 768){
+if(jQuery(window).innerWidth() > 769){
 var width = jQuery('.stickycol').parent().innerWidth();
 jQuery('.stickycol').width(width - 10);
 
@@ -380,7 +380,7 @@ if (!!jQuery('.stickycol').length) { // make sure "#sticky" element exists
  /*****************product page stick column******************/
  
  /*****************cart page stick column******************/
- if(jQuery(window).innerWidth() > 768){
+ if(jQuery(window).innerWidth() > 769){
 var width = jQuery('.stickycol1').parent().innerWidth();
 jQuery('.stickycol1').width(width);
 
@@ -548,7 +548,7 @@ jQuery('#changedone').click(function(e){
 			jQuery('#'+hideTab).hide();
 		});
 		
-if(jQuery(window).innerWidth() < 768){
+if(jQuery(window).innerWidth() < 769){
 	jQuery('.footerlinks h3').click(function(){
 		jQuery(this).parent().siblings().find('ul').slideUp();
 		jQuery(this).next('ul').slideDown();

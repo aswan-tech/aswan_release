@@ -53,7 +53,15 @@
    
  ?>
 <span class="lable">Bag</span> <span class="icon"></span></li>
-<li class="cartbox" id="mobilecart"><a href="<?php echo Mage::getBaseUrl();?>checkout/cart/"><span class="lable">Bag</span> <span class="icon"></span></a></li>
+<li class="cartbox" id="mobilecart"><a href="<?php echo Mage::getBaseUrl();?>checkout/cart/"><span class="lable">Bag</span> <span class="icon">
+<?php  if($cartQty > 0) {?>
+  <strong id="mobicount"><?php echo $cartQty;?></strong>
+  <?php } else { ?>
+     <strong id="mobicount">0</strong>
+  <?php }
+   
+ ?>
+</span></a></li>
 </ul>
 </div>
 <div class="topsearch">
