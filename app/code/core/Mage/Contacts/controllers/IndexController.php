@@ -61,6 +61,7 @@ class Mage_Contacts_IndexController extends Mage_Core_Controller_Front_Action
 
     public function postAction()
     {
+		
         $post = $this->getRequest()->getPost();
         if ( $post ) {
             $translate = Mage::getSingleton('core/translate');
@@ -110,8 +111,8 @@ class Mage_Contacts_IndexController extends Mage_Core_Controller_Front_Action
                 $translate->setTranslateInline(true);
 
                 Mage::getSingleton('customer/session')->addSuccess(Mage::helper('contacts')->__('Your inquiry was submitted and will be responded to as soon as possible. Thank you for contacting us.'));
-                $this->_redirect('*/*/');
-
+                //$this->_redirect('*/*/');
+				$this->_redirect('help-n-contact/');
                 return;
             } catch (Exception $e) {
                 $translate->setTranslateInline(true);

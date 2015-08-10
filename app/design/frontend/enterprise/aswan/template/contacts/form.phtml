@@ -24,8 +24,8 @@
  * @license     http://www.magentocommerce.com/license/enterprise-edition
  */
 ?>
-<div id="messages_product_view"><?php echo $this->getMessagesBlock()->getGroupedHtml() ?></div>
-<form action="<?php echo $this->getFormAction(); ?>" id="contactForm" method="post">
+<div id="messages_product_view"><?php //echo $this->getMessagesBlock()->getGroupedHtml() ?></div>
+<form action="<?php echo Mage::getUrl(); ?><?php echo $this->getFormAction(); ?>" id="contactForm" method="post">
 <ul>
 	<li>
 		<label for="name" class="required"><em>*</em><?php echo Mage::helper('contacts')->__('Name') ?></label>
