@@ -1225,6 +1225,7 @@ body {font-family: "Gill Sans Roman";}
 #myrefrals .inviteform a.go:hover,
 #myrefrals .inviteform button.go:hover,
 #myrefrals .inviteform input.go:hover {background:#1e0f46;}
+#myrefrals .inviteform .validation-advice {clear:both; font-size:13px; margin:0 0 10px; color:#dc0028; padding:0px;}
 
 #myrefrals .invitesend {width:49%; background:#f9f9f9; padding:10px 15px; float:right; margin:0px 0px 20px 0px; font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-weight:400;}
 #myrefrals .invitesend h3 {margin:0px 0px 10px 0px; font-family:'Trade Gothic Condensed Bold'; font-size:18px; display:block; border-bottom:1px solid #e3e3e3; padding:0px 0px 6px 0px; clear:both;}
