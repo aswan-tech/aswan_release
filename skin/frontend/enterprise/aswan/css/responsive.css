@@ -201,9 +201,14 @@
 #contactus .contactleft .validation-advice {padding: 0px;}
 #testmonials #submittestimonials li input, #testmonials #submittestimonials li textarea {width:52%;}
 #accountright .infoedit ul li label,
-#accountright .infoedit ul li input {width:50%;}
+#accountright .infoedit ul li input,
+#myaddress .infoedit ul li label,
+#myaddress .infoedit ul li input {width:50%;}
 #accountright .infoedit ul li input.small {width:15.5%;}
-	}
+#accountright .infoedit .validation-advice,
+#myaddress .infoedit .validation-advice {padding-left:50%;}
+	
+}
 	
 @media only screen and (max-width:360px){
 #checkoutarea #stepthree .paytypebox ul li label {padding:0px 0px 0px 10px;}
@@ -216,6 +221,10 @@
 #contactus .contactleft, #contactus .contactright {width:100%;}
 #mediapage .mediacontainer .mediabox {width:100%;}
 #accountright .infoedit ul li label,
-#accountright .infoedit ul li input {width:100%;}
+#accountright .infoedit ul li input,
+#myaddress .infoedit ul li label,
+#myaddress .infoedit ul li input {width:100%;}
 #accountright .infoedit ul li input.small {width:32%;}
+#accountright .infoedit .validation-advice,
+#myaddress .infoedit .validation-advice {padding-left:0;}
 	}

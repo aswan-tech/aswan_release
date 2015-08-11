@@ -55,7 +55,7 @@
     </div>*/?>
         <div class="addresscol">
          <?php if($_pAddsses = Mage::getSingleton('customer/session')->getCustomer()->getDefaultShipping()): ?>
-				<ul><li><a href="<?php echo $this->getAddressEditUrl(Mage::getSingleton('customer/session')->getCustomer()->getAddressById($_pAddsses)) ?>">
+				<ul><li><a class="editadd" href="<?php echo $this->getAddressEditUrl(Mage::getSingleton('customer/session')->getCustomer()->getAddressById($_pAddsses)) ?>">
                 <?php echo $this->__('Edit') ?></a></li></ul>
     
                 <p>
@@ -76,9 +76,9 @@
             <?php foreach($_pAddsses as $_address): ?>
             <div class="addresscol">
 				<ul>
-					<li><a href="<?php echo $this->getUrl('customer/address/edit', array('id'=>$_address->getId())) ?>"><?php echo $this->__('Edit') ?></a>
+					<li><a href="<?php echo $this->getUrl('customer/address/edit', array('id'=>$_address->getId())) ?>" class="editadd"><?php echo $this->__('Edit') ?></a>
 					</li>
-					<li><a href="#" class="link-remove" onclick="return deleteAddress('<?php echo $_address->getId() ?>');"><?php echo $this->__('Delete') ?></a>
+					<li><a href="#" onclick="return deleteAddress('<?php echo $_address->getId() ?>');" class="deleteadd"><?php echo $this->__('Delete') ?></a>
 					</li>
 				</ul>
 			

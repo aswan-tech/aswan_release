@@ -77,8 +77,8 @@
 <ul>
 <li>
 	<label>&nbsp;</label>
-	<button type="submit" title="<?php echo $this->__('Save') ?>" class="go"><span><span><?php echo $this->__('Save') ?></span></span></button>
-	<a href="<?php echo $this->escapeUrl($this->getBackUrl()) ?>" class="go"><?php echo $this->__('Back') ?></a>
+	<button type="submit" title="<?php echo $this->__('Save') ?>" class="go"><?php echo $this->__('Save') ?></button>
+	<button type="button" onclick="javascript:history.back()" class="go"><?php echo $this->__('Back') ?></button>
 </li>
 </ul>
 </form>

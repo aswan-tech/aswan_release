@@ -57,7 +57,7 @@
        
     
   
-        <h2 class="legend"><?php echo $this->__('Address') ?></h2>
+      
      
         <?php $_streetValidationClass = $this->helper('customer/address')->getAttributeValidationClass('street'); ?>
             <li>
@@ -111,6 +111,8 @@
                         <input type="text" name="postcode" value="<?php echo $this->escapeHtml($this->getAddress()->getPostcode()) ?>" title="<?php echo $this->__('Zip/Postal Code') ?>" id="zip" class="input-text validate-zip-international <?php echo $this->helper('customer/address')->getAttributeValidationClass('postcode') ?>" />
                     </div>
                 </div>
+                </li>
+                <li>
                 <div class="field">
                     <label for="country" class="required"><em>*</em><?php echo $this->__('Country') ?></label>
                     <div class="input-box">
@@ -144,7 +146,7 @@
 		<li>
 			<label> </label>
 			<button type="submit" title="<?php echo $this->__('Save Address') ?>" class="go"><?php echo $this->__('Save') ?></button>
-			<a href="<?php echo $this->escapeUrl($this->getBackUrl()) ?>" class="go"><?php echo $this->__('Back') ?></a>
+			<button type="button" onclick="javascript:history.back()" class="go"><?php echo $this->__('Back') ?></button>
 		</li>
       </ul>
 </form>
