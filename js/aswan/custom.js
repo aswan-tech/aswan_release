@@ -644,7 +644,20 @@ jQuery('#categoryarea #categoryleft h3').click(function(){
 	});
 	
 /****end media and category js*****/
-	
+	/****enter key press*****/
+	jQuery("#login_pass").keypress(function (e) {
+		  if (e.which == 13) {
+		    jQuery('#gtm-customer-sigin-popup').trigger('click');
+		  }
+ 	});
+ 	jQuery("#mobile_no").keypress(function (e) {
+		  if (e.which == 13) {
+		    jQuery('#gtm-m-register-poup').trigger('click');
+		  }
+ 	});
+
+ 	
+	/****end enter key press*****/
 });
 
 /*Custom 6.3 starts*/
