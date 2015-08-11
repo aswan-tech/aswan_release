@@ -25,7 +25,7 @@
  */
 ?>
 <li>
-<label><?php echo $this->__('Gender') ?><b>*</b></label>
+<label><b>*</b><?php echo $this->__('Gender') ?></label>
     <select id="<?php echo $this->getFieldId('gender')?>" name="<?php echo $this->getFieldName('gender')?>" title="<?php echo $this->__('Gender') ?>"<?php if ($this->isRequired()):?> class="validate-select"<?php endif; ?> <?php echo $this->getFieldParams() ?>>
         <?php $options = Mage::getResourceSingleton('customer/customer')->getAttribute('gender')->getSource()->getAllOptions();?>
         <?php $value = $this->getGender();?>

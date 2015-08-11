@@ -83,7 +83,7 @@
 				</ul>
 			
              <p><?php echo $this->getAddressHtml($_address) ?></p>
-             <div class="setdefult"><a href="#">SET AS Default</a></div>
+             <div class="setdefult"><a href="<?php echo $this->getUrl('customer/address/edit', array('id'=>$_address->getId())) ?>">SET AS Default</a></div>
              </div>
             
 		<?php endforeach; ?>
