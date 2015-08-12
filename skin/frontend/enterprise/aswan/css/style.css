@@ -10,6 +10,7 @@ a {text-decoration:none;}
 *,*:before, *:after {box-sizing:border-box; -moz-box-sizing:border-box;}
 ::selection{background:#dc0028;color:#fff}
 ::-moz-selection{background:#dc0028;color:#fff}
+*:focus {outline:none;}
 .show {display:block!important;}
 .hide {display:none!important;}
 .clearfloat {clear:both; height:1px; overflow:hidden; width:100%;}
@@ -543,7 +544,7 @@ body {font-family: "Gill Sans Roman";}
 #listingright .loadmore {width:100%; float:left; clear:both; padding:20px 0px; text-align:center;}
 #listingright .loadmore a {display:inline-block; padding:7px 18px; position:relative; background:#dc0028; color:#fff; font-size:14px; text-transform:uppercase;}
 
-#quickview {width:100%; position:relative; margin:0 auto; float:left; overflow:hidden;}
+#quickview {width:100%; min-width:750px; max-width:750px; padding:15px; position:relative; margin:0 auto; float:left; overflow:hidden; display:none;}
 #quickview .productprev, #quickview .productnext {display:block; position:absolute; z-index:999; width:16px; height:38px; margin-top:-19px; top:50%; cursor:pointer;}
 #quickview .productprev {background-position:-108px -155px; left:0px;}
 #quickview .productnext {background-position:-129px -155px; right:0px;}
@@ -782,7 +783,7 @@ body {font-family: "Gill Sans Roman";}
 #productdetail #detailright .productswaches .sizeguide {display:block; float:right; font-size:12px; font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-weight: 600; border: 1px solid #d3d4d4; color: #303232; padding:3px 14px; text-transform:uppercase;}
 #productdetail #detailright .productswaches .sizeguide:hover {background:#1e0f46; border:1px solid #505252; color:#fff;}
 #productdetail #detailright .addtobag {padding:12px 0px; text-align:center;}
-#productdetail #detailright .addtobag .add_to_cart {background-color: #1e0f46; border:none; color: #fff; display: block; font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-size: 12px; font-weight: 300; line-height: 13px; margin:0px auto; min-width: 260px; outline:none; padding: 11px 32px; text-align: center; text-transform: uppercase; cursor:pointer;}
+#productdetail #detailright .addtobag .add_to_cart {background-color: #1e0f46; border:none; color: #fff; display: inline-block; font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-size: 12px; font-weight: 300; line-height: 13px; margin:0px auto; min-width: 260px; outline:none; padding: 11px 32px; text-align: center; text-transform: uppercase; cursor:pointer;}
 #productdetail #detailright .addtobag .add_to_cart:hover {background:#dc0028;}
 
 #productdetail #detailright .editqty {width:30px; border: 1px solid #333; float:left; margin: 0px 0px 0px 5px; height: 25px;}
