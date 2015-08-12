@@ -48,7 +48,7 @@
 		<input type="text" name="hideit" id="hideit" value="" style="display:none !important;" />
 		<button type="submit" title="<?php echo Mage::helper('contacts')->__('Submit') ?>" class="go">
 		<?php echo Mage::helper('contacts')->__('Submit') ?></button>
-		<button onclick="history.go(-1);" class="go"><?php echo $this->__('Back') ?></button>
+		<button type="button" onclick="javascript:history.back()" class="go"><?php echo $this->__('Back') ?></button>
 	</li>
 </ul>
     <div class="clearfloat"></div>
