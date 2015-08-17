@@ -55,7 +55,10 @@ try{
 			$_productdata['g:price'] = round(number_format($_product['price'], 2, null, ''));
             $_productdata['g:availability'] = $_product['availability'];
             $_productdata['g:custom_label_0'] = $_product['custom_label_0'];
-                       
+	    $_productdata['g:custom_label_2'] = $_product['custom_label_2'];
+	    $_productdata['g:custom_label_3'] = $_product['custom_label_3'];
+	    $_productdata['g:custom_label_4'] = $_product['custom_label_4'];	    
+		           
             if($attr_bestsellervalue == 'Yes') {
 				$_productdata['g:custom_label_1'] = 'Best Seller';
 			}
