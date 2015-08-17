@@ -1806,9 +1806,7 @@ public function recentlyViewedAction() {
 								else
 									$data = array('email'=>$email,'password'=>$password,'gender'=>$gender,'mobile'=>$mobile,'source'=>$source,'campaign'=>$campaign);	
 								Mage::getSingleton('core/session')->setNewCustData($data);
-								$result = $this->activateNewRegWithoutOtp();
-								$result =true;
-								//$result = $helper->generateOtp($mobile,$email);
+								$result = $helper->generateOtp($mobile,$email);
 								if($result==true)
 									echo 1;
 								else
@@ -1839,72 +1837,6 @@ public function recentlyViewedAction() {
 			echo 'Invalid data';
 		}
         die();
-	}
-
-	public function activateNewRegWithoutOtp(){
-		//$otp = $this->getRequest()->getPost('register_otp');
-		//$session_otp = Mage::getSingleton('core/session')->getRegOtp();
-		if(1){
-			$data = Mage::getSingleton('core/session')->getNewCustData();
-			$email = $data['email'];
-			$password = $data['password'];
-			$mobile = $data['mobile'];
-			$gender = $data['gender'];
-			$source = $data['source'];
-			$campaign = $data['campaign'];
-			$emailArr = explode('@', $email);
-			if($data){
-				$websiteId = Mage::app()->getWebsite()->getId();
-				$store = Mage::app()->getStore();
-				$customer = Mage::getModel('customer/customer')->setId(null);
-				$customer->setWebsiteId($websiteId);
-				$customer = Mage::getModel('customer/customer')->load($cust_session_id);
-				$customer->setWebsiteId($websiteId);
-				$customer->setStore($store);
-				$customer->setEmail($email);
-				$customer->setFirstname($emailArr[0]);
-				$customer->setPassword($password);
-				$customer->setGender($gender);
-				$customer->setSource($source);
-				$customer->setCampaign($campaign);
-				//new lines added for otp generation
-				$customer->setTelephone($mobile);
-				$customer->setIsActive(1);
-				if (isset($data['is_subscribed'])) {
-					$customer->setIsSubscribed(1);
-				}
-				$customer->setConfirmation(null);
-				$customer->save();
-				// send email to customer
-				Mage::dispatchEvent('customer_register_success',
-					array('account_controller' => $this, 'customer' => $customer)
-				);
-				if ($customer->isConfirmationRequired()) {
-					$customer->sendNewAccountEmail(
-						'confirmation',
-						$session->getBeforeAuthUrl(),
-						Mage::app()->getStore()->getId()
-					);
-				}
-				$this->_getSession()->loginById($customer->getId());
-				$this->_welcomeCustomer($customer);
-				if($this->getRequest()->getPost('redirect_url')){
-					$result['url'] = Mage::getBaseUrl();
-					$result['message'] = 1;
-				}
-				else
-					$result['message'] =1;
-			}else
-				$result['message'] =  "Your session has been expired.Try again!";
-			
-		}else
-				$result['message']=  "Please enter the correct OTP.";
-
-		return $result;
-		/*if($this->getRequest()->getPost('redirect_url'))
-			$this->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
-		else
-			echo $result['message'];*/		
 	}
 
 	public function activateNewRegAction(){
