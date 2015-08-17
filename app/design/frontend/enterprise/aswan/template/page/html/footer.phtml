@@ -132,4 +132,13 @@ if(Mage::getSingleton('customer/session')->isLoggedIn()) {
 </script>
 <?php
 }
+else{
+	?>
+	<script>
+		if(screen.width <= 1280 && screen.height <= 800){
+			jQuery(".track-myorder").attr('href','<?php echo $this->getBaseUrl() ?>customer/account/login/');
+		}
+</script>
+<?php 
+}
 ?>
