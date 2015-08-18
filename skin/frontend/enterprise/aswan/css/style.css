@@ -442,13 +442,13 @@ body {font-family: "Gill Sans Roman";}
 #quickview .quickright .clickoffer .offerdetail span {background:#dc0028; margin:0px 5px; color:#fff; padding:2px 8px;}
 #quickview .quickright .productswaches {width:100%; float:left; clear:both; position:relative; border-bottom:1px solid #d3d4d4; padding:10px 0px;}
 #quickview .quickright .productswaches h4 {display:block; clear:both; font-size:13px; font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-weight: 600; margin:0px 0px 10px 0px;}
-#quickview .quickright .productswaches ul li {float:left; margin:0px 10px 0px 0px; font-size:12px; font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-weight:400;}
+#quickview .quickright .productswaches ul li {float:left; margin:0px 10px 10px 0px; font-size:12px; font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-weight:400;}
 #quickview .quickright .productswaches ul li a,
-#quickview .quickright .productswaches ul li span.soldout {display:block; padding:2px; min-width:27px; height:20px; text-align:center; border:1px solid #fff; color:#666;}
-#quickview .quickright .productswaches ul li span.soldout {background-position:-154px -144px; border:1px solid #909090;}
+#quickview .quickright .productswaches ul li span.soldout {display:block; padding:2px; min-width:27px; height:20px; text-align:center; border:1px solid #909090; color:#666;}
+#quickview .quickright .productswaches ul li span.soldout {background-position:-154px -144px;}
 #quickview .quickright .productswaches.color ul li a {border:1px solid #CCC;}
 #quickview .quickright .productswaches ul li a:hover,
-#quickview .quickright .productswaches ul li a.active {border:1px solid #666;}
+#quickview .quickright .productswaches ul li a.active {border:1px solid #dc0028; background:#dc0028; color:#fff;}
 
 #quickview .quickright .productswaches .sizeguide {display:block; position:absolute; right:0px; top:10px; float:right; font-size:12px; font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-weight: 600; border: 1px solid #d3d4d4; color: #303232; padding:3px 14px; text-transform:uppercase;}
 #quickview .quickright .productswaches .sizeguide:hover {background:#1e0f46; border:1px solid #505252; color:#fff;}
@@ -632,20 +632,20 @@ body {font-family: "Gill Sans Roman";}
 #productdetail #detailright .productswaches {border-bottom:1px solid #d3d4d4; padding:20px 0px;}
 #productdetail #detailright .productswaches h4 {display:block; clear:both; font-size:13px; font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-weight: 600; margin:0px 0px 10px 0px;}
 #productdetail #detailright .productswaches ul li,
-#productdetail #detailright .productswaches ol li {float:left; margin:0px 10px 0px 0px; font-size:14px;}
+#productdetail #detailright .productswaches ol li {float:left; margin:0px 10px 10px 0px; font-size:14px;}
 #productdetail #detailright .productswaches ul li a,
-#productdetail #detailright .productswaches ul li span.soldout {display:block; padding:2px; min-width:30px; height:22px; text-align:center; border:1px solid #fff; color:#1e0f46;}
-#productdetail #detailright .productswaches ul li span.soldout {background-position:-154px -144px; border:1px solid #909090;}
+#productdetail #detailright .productswaches ul li span.soldout {display:block; padding:2px; min-width:30px; border:1px solid #909090; height:22px; text-align:center; color:#1e0f46;}
+#productdetail #detailright .productswaches ul li span.soldout {background-position:-154px -144px;}
 #productdetail #detailright .productswaches.color ul li a {border:1px solid #CCC;}
 #productdetail #detailright .productswaches ul li a:hover,
 #productdetail #detailright .productswaches ul li a.select,
 #productdetail #detailright .productswaches ol li a:hover,
-#productdetail #detailright .productswaches ol li a.select {border:1px solid #1e0f46;}
+#productdetail #detailright .productswaches ol li a.select {border:1px solid #dc0028; background: #dc0028; color:#fff;}
 
 #productdetail #detailright .productswaches ol li a {width:70px; float:left; display:block; border:1px solid #fff;}
 #productdetail #detailright .productswaches ol li a img {width:100%; float:left; height:auto;}
 
-#productdetail #detailright .productswaches .sizeguide {display:block; float:right; font-size:12px; font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-weight: 600; border: 1px solid #d3d4d4; color: #303232; padding:3px 14px; text-transform:uppercase;}
+#productdetail #detailright .productswaches .sizeguide {display:block; float:right; font-size:12px; font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-weight: 600; border: 1px solid #d3d4d4; color: #303232; padding:3px 14px; text-transform:uppercase; margin: 0px 0px 10px 0px;}
 #productdetail #detailright .productswaches .sizeguide:hover {background:#1e0f46; border:1px solid #505252; color:#fff;}
 #productdetail #detailright .addtobag {padding:12px 0px; text-align:center;}
 #productdetail #detailright .addtobag .add_to_cart {background-color: #1e0f46; border:none; color: #fff; display: inline-block; font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-size: 12px; font-weight: 300; line-height: 13px; margin:0px auto; min-width: 260px; outline:none; padding: 11px 32px; text-align: center; text-transform: uppercase; cursor:pointer;}
@@ -1341,6 +1341,11 @@ body {font-family: "Gill Sans Roman";}
 #footer .footermid .footerright .footerlinks h3 {font-size:13px; text-transform:uppercase; line-height:18px; margin:0px 0px 6px 0px;}
 #footer .footermid .footerright .footerlinks ul li {text-transform:uppercase; font-size:10px; margin:0px 0px 4px 0px;}
 #footer .footermid .footerright .footerlinks ul li a {color:#333;}
+
+#footer .footermid .footermobile {width:100%; float: left; clear: both; padding:0px 15px; display: none;}
+#footer .footermid .footermobile li {display: block; float: left; width: 50%; font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-weight:400; font-size:13px; padding: 5px;}
+#footer .footermid .footermobile li a {display:block; color: #fff; background: #dc0028; text-align: center; text-transform: uppercase; padding:8px 0px;}
+
 #footer .footermid .paylogos {clear:both; text-align:center; padding:15px 0px;}
 #footer .footermid .paylogos p {margin:0px 0px 5px 0px; font-size:13px; text-transform:uppercase; color:#000;}
 #footer #copyright {text-align:center; padding:10px 0px; clear:both; width:100%;}

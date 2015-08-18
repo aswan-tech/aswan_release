@@ -70,15 +70,9 @@
 
 
 #footer #newsletter, #footer .footermid .paylogos, #footer #copyright,
-#footer .footermid .footerleft, .footersocial {display:none;}
+#footer .footermid .footerleft, #footer .footermid .footerright, .footersocial {display:none;}
+#footer .footermid .footermobile {display: block;}
 #footer {background:#1e0f46;}
-
-#footer .footermid .footerright {width:100%; padding:0px 10px;}
-#footer .footermid .footerright .footerlinks {width:100%; padding:0px; margin:0; border-bottom:none;}
-#footer .footermid .footerright .footerlinks h3,
-#footer .footermid .footerright .footerlinks ul li a {color:#fff;}
-#footer .footermid .footerright .footerlinks h3 {font-size:15px; display:block; border:1px solid #5f5f5f; padding:8px 6px;}
-#footer .footermid .footerright .footerlinks ul {display:none; padding:0px 0px 6px 10px;}
 
 #productlist .productbox .morecolors,
 #productlist .productbox:hover .productimg .quickview,
@@ -164,6 +158,7 @@
 
 @media only screen and (max-width:480px){
 #topright ul li span.lable {display:none;}
+.catbanners h2, .catbanners .bannerbox h3 {font-size: 17px;}
 #cartarea #cartleft table tr:nth-child(odd) {background:#f9f9f9;}
 #cartarea #cartleft table td {display:inline-block; width:100%!important; border:none; padding:5px 10px;}
 #cartarea #cartleft .proimg {width:32%;}

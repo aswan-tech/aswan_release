@@ -2,18 +2,11 @@
     $_value = $this->getTotal()->getValue();
     $_style = $this->getTotal()->getStyle();
 ?>
+
 <?php global $taxIter; $taxIter++; ?>
 <?php if ($this->helper('tax')->displayFullSummary() && $_value!=0): ?>
 <?php $isTop = 1; ?>
-    <?php foreach ($this->getTotal()->getFullInfo() as $info): ?>
-        <?php if (isset($info['hidden']) && $info['hidden']) continue; ?>
-        <?php $percent = $info['percent']; ?>
-        <?php $amount = $info['amount']; ?>
-        <?php $rates = $info['rates']; ?>
-        <?php $isFirst = 1; ?>
-
-        <?php foreach ($rates as $rate): ?>
-            <tr <?php if ($this->helper('tax')->displayFullSummary() && $_value!=0): ?> class="summary-total" onclick="expandDetails(this, '.summary-details-<?php echo $taxIter;?>')"<?php endif; ?>>
+ <tr <?php if ($this->helper('tax')->displayFullSummary() && $_value!=0): ?> class="summary-total" onclick="expandDetails(this, '.summary-details-<?php echo $taxIter;?>')"<?php endif; ?>>
     <td style="<?php echo $_style ?>" class="a-right" colspan="<?php echo $this->getColspan(); ?>">
         <?php if ($this->helper('tax')->displayFullSummary()): ?>
             <div id="showvat" class=""><?php echo $this->helper('tax')->__('VAT & Tax'); ?></div>
@@ -23,6 +16,15 @@
     </td>
     <td style="<?php echo $_style ?>" class="a-right"><?php echo $this->helper('checkout')->formatPrice($_value) ?></td>
 </tr>
+    <?php foreach ($this->getTotal()->getFullInfo() as $info): ?>
+        <?php if (isset($info['hidden']) && $info['hidden']) continue; ?>
+        <?php $percent = $info['percent']; ?>
+        <?php $amount = $info['amount']; ?>
+        <?php $rates = $info['rates']; ?>
+        <?php $isFirst = 1; ?>
+
+        <?php foreach ($rates as $rate): ?>
+           
         <tr class="summary-details-<?php echo $taxIter; ?> summary-details<?php if ($isTop): echo ' summary-details-first'; endif; ?>" style="display:none;">
             <td class="a-right" style="<?php echo $_style ?>" colspan="<?php echo $this->getColspan(); ?>">
                 <?php echo $this->escapeHtml($rate['title']); ?>
