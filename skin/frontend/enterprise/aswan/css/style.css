@@ -230,142 +230,6 @@ body {font-family: "Gill Sans Roman";}
 #newuserpop .rightside .seprater {float:left; width:100%; border-bottom:1px solid #d0d0d0; position:relative; height:1px; clear:both; margin:30px 0px;}
 #newuserpop .rightside .seprater:before {content:'OR'; position:absolute; left:50%; top:0px; font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-weight: 400; background:#fff; font-size:12px; text-transform:uppercase; margin:-13px 0px 0px -15px; display:block; border:1px solid #d0d0d0; padding:5px; border-radius:15px;}
 
-.shake {-webkit-animation: shake .5s ease-in-out;
-  -moz-animation: shake .5s ease-in-out;
-  -ms-animation: shake .5s ease-in-out;
-  -o-animation: shake .5s ease-in-out;
-  animation: shake .5s ease-in-out;}
-
-@-webkit-keyframes shake {
-  0% {
-    -webkit-transform: rotate(0);
-  }
-
-  20% {
-    -webkit-transform: rotate(-1deg);
-  }
-
-  40% {
-    -webkit-transform: rotate(1deg);
-  }
-
-  60% {
-    -webkit-transform: rotate(-1deg);
-  }
-
-  80% {
-    -webkit-transform: rotate(1deg);
-  }
-
-  100% {
-    -webkit-transform: rotate(0);
-  }
-}
-
-@-moz-keyframes shake {
-  0% {
-    -moz-transform: rotate(0);
-  }
-
-  20% {
-    -moz-transform: rotate(-1deg);
-  }
-
-  40% {
-    -moz-transform: rotate(1deg);
-  }
-
-  60% {
-    -moz-transform: rotate(-1deg);
-  }
-
-  80% {
-    -moz-transform: rotate(1deg);
-  }
-
-  100% {
-    -moz-transform: rotate(0);
-  }
-}
-
-@-ms-keyframes shake {
-  0% {
-    -ms-transform: rotate(0);
-  }
-
-  20% {
-    -ms-transform: rotate(-1deg);
-  }
-
-  40% {
-    -ms-transform: rotate(1deg);
-  }
-
-  60% {
-    -ms-transform: rotate(-1deg);
-  }
-
-  80% {
-    -ms-transform: rotate(1deg);
-  }
-
-  100% {
-    -ms-transform: rotate(0);
-  }
-}
-
-@-o-keyframes shake {
-  0% {
-    -o-transform: rotate(0);
-  }
-
-  20% {
-    -o-transform: rotate(-1deg);
-  }
-
-  40% {
-    -o-transform: rotate(1deg);
-  }
-
-  60% {
-    -o-transform: rotate(-1deg);
-  }
-
-  80% {
-    -o-transform: rotate(1deg);
-  }
-
-  100% {
-    -o-transform: rotate(0);
-  }
-}
-
-@keyframes shake {
-  0% {
-    transform: rotate(0);
-  }
-
-  20% {
-    transform: rotate(-1deg);
-  }
-
-  40% {
-    transform: rotate(1deg);
-  }
-
-  60% {
-    transform: rotate(-1deg);
-  }
-
-  80% {
-    transform: rotate(1deg);
-  }
-
-  100% {
-    transform: rotate(0);
-  }
-}
-
 #readreview {background:#fff; border:12px solid #f0f5f5; padding:10px 5px; float:left;}
 #readreview h2 {display:block; border-bottom:1px solid #1e0f46; padding:0px 0px 5px 0px; margin:0px 15px 10px 15px; font-size:18px; font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-weight:400; color:#1e0f46;}
 #readreview .readrow {float:left; clear:both; border-bottom:1px solid #CCC; padding:0px 0px 10px 0px; margin:0px 15px 10px 15px;}
@@ -544,7 +408,7 @@ body {font-family: "Gill Sans Roman";}
 #listingright .loadmore {width:100%; float:left; clear:both; padding:20px 0px; text-align:center;}
 #listingright .loadmore a {display:inline-block; padding:7px 18px; position:relative; background:#dc0028; color:#fff; font-size:14px; text-transform:uppercase;}
 
-#quickview {width:100%; min-width:750px; max-width:750px; padding:15px; position:relative; margin:0 auto; float:left; overflow:hidden; display:none;}
+#quickview {width:100%; position:relative; margin:0 auto; float:left; overflow:hidden;}
 #quickview .productprev, #quickview .productnext {display:block; position:absolute; z-index:999; width:16px; height:38px; margin-top:-19px; top:50%; cursor:pointer;}
 #quickview .productprev {background-position:-108px -155px; left:0px;}
 #quickview .productnext {background-position:-129px -155px; right:0px;}
@@ -618,6 +482,7 @@ body {font-family: "Gill Sans Roman";}
 #productlist .feturebox h2 {font-size:32px; margin:15px 0px 10px 0px; display:block; text-transform:uppercase;}
 #productlist .feturebox p {font-size:14px; margin:0px 15px 15px 15px;}
 #productlist .feturebox h4 {text-transform:uppercase; font-size:13px; display:block; text-align:center; margin:0px 0px 15px 0px;}
+#productlist .products-grid:after { display:block; content:"."; clear:both; font-size:0; line-height:0; height:0; overflow:hidden}
 #productlist .productbox {float:left; width:23%; margin:0 1%; margin-bottom:4%; position:relative; border:1px solid #fff; padding:0px 0px 10px 0px;}
 #productlist .productbox:hover {border:1px solid #CCC;}
 
