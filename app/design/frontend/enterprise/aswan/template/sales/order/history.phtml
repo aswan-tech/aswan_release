@@ -50,12 +50,12 @@ foreach ($_orders as $_order):
 	<div class="orderhead">
 	<table width="100%" border="0" cellspacing="0" cellpadding="0">
 		<tr>
-			<td width="16.66%"><?php echo $_order->getRealOrderId() ?></td>
-			<td width="10.66%">Items: <?php echo round($_order->getTotalQtyOrdered()) ?> Qty</td>
-			<td width="16.66%"><?php echo date("jS M, y", strtotime($_order->getCreatedAtStoreDate())); ?></td>
-			<td width="16.66%">Order Value: <?php echo $_order->formatPrice($_order->getGrandTotal()) ?></td>
-			<td width="22.66%"><?php echo $orderStatus ?></td>
-			<td width="16.66%"><a href="#tab_<?php echo $_order->getId();?>" class="details">Track details</a>
+			<td><?php echo $_order->getRealOrderId() ?></td>
+			<td>Items: <?php echo round($_order->getTotalQtyOrdered()) ?> Qty</td>
+			<td><?php echo date("jS M, y", strtotime($_order->getCreatedAtStoreDate())); ?></td>
+			<td>Order Value: <?php echo $_order->formatPrice($_order->getGrandTotal()) ?></td>
+			<td><?php echo $orderStatus ?></td>
+			<td><a href="#tab_<?php echo $_order->getId();?>" class="details">Track details</a>
 		</tr>
 	  </table>
 	</div>
