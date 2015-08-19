@@ -20,6 +20,7 @@ jQuery(document).ready(function() {
 		
 		jQuery('#mobilemenu').click(function(){
 			jQuery('#mobnavigation').toggle();
+			jQuery('#header .topsearch').hide();
 			});
 	/***Mobile navigation***/
 	
@@ -106,6 +107,7 @@ jQuery(document).ready(function() {
 	
 	jQuery('#topright .search').click(function(){
 		jQuery('#header .topsearch').toggle();
+		jQuery('#mobnavigation').hide();
 		jQuery('#topright .accountlinks').hide();
 		});
 		
@@ -548,14 +550,6 @@ jQuery('#changedone').click(function(e){
 			jQuery('#'+hideTab).hide();
 		});
 		
-if(jQuery(window).innerWidth() < 769){
-	jQuery('.footerlinks h3').click(function(){
-		jQuery(this).parent().siblings().find('ul').slideUp();
-		jQuery(this).next('ul').slideDown();
-		});
-	}else{
-		
-		}
 		
 jQuery('.starrate input').click( function(){
     starvalue = jQuery(this).attr('value');

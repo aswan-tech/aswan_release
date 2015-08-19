@@ -73,7 +73,7 @@ Shop this product for <span><?php echo Mage::helper('core')->currency($discounte
 ?> 
 <li><a data-toggle="tab1" href="#">Fabric/Care</a></li>
 <?php } ?>
-<li><a data-toggle="tab2" href="#">Delivery</a></li>
+<li class="active"><a data-toggle="tab2" href="#">Delivery</a></li>
  
 <li><a data-toggle="tab3" href="#">Return</a></li>
 
@@ -84,7 +84,7 @@ Shop this product for <span><?php echo Mage::helper('core')->currency($discounte
 <?php echo $_product->getInfoCare(); ?>
 </div>
 
-<div id="tab2" class="detail-content">
+<div id="tab2" class="detail-content" style="display:block;">
 <?php echo $this->getLayout()->createBlock('zipcodeimport/zipcodeimport')->setTemplate('zipcodeimport/cod.phtml')->_toHtml(); ?>
 
 </div>
