@@ -40,7 +40,12 @@ $module = $this->getRequest()->getModuleName();
 <?php echo $this->helper('core/js')->getTranslatorScript() ?>
 <?php echo $this->getIncludes() ?>
 <script type="text/javascript">var pcatid = ''; dataLayer = [{}];</script>
-<?php $gaCookies = Mage::getModel( 'nosql/parse_ga' )->getCookies(); ?>
+<?php 
+$gaCookies = Mage::getModel( 'nosql/parse_ga' )->getCookies();
+if(!is_array($gaCookies) || count($gaCookies) <= 0) {
+	$gaCookies = Mage::helper('common')->getCustomCookies();
+}
+?>
 <?php $_curUrl = Mage::helper('core/url')->getCurrentUrl();?>
 <?php $_curUrl = str_replace(":8080", "", $_curUrl);?>
 <?php 

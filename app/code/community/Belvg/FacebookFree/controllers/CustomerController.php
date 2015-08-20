@@ -114,6 +114,9 @@ class Belvg_FacebookFree_CustomerController extends Mage_Core_Controller_Front_A
 		}
         /*New customer and order set source and campaign*/
             $gaCookies = Mage::getModel( 'nosql/parse_ga' )->getCookies();
+            if(!is_array($gaCookies) || count($gaCookies) <= 0) {
+				$gaCookies = Mage::helper('common')->getCustomCookies();
+			}
             $source = strtolower($gaCookies['campaign']['source']);
             $campaign = strtolower($gaCookies['campaign']['name']);
             

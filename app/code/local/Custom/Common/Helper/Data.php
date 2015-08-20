@@ -481,6 +481,9 @@ class Custom_Common_Helper_Data extends Mage_Core_Helper_Abstract{
 		$customer = Mage::getSingleton('customer/session')->getCustomer();
 		
 		$gaCookies = Mage::getModel( 'nosql/parse_ga' )->getCookies();
+		if(!is_array($gaCookies) || count($gaCookies) <= 0) {
+			$gaCookies = $this->getCustomCookies();
+		}
 		$source = strtolower($gaCookies['campaign']['source']);
 		$campaign = strtolower($gaCookies['campaign']['name']);
 	
@@ -504,4 +507,41 @@ class Custom_Common_Helper_Data extends Mage_Core_Helper_Abstract{
 					->setCampaign($campaign);
 		$orderModel->setId($orderId)->save();
 	}
+	
+	/*
+	 * 
+	 */
+	 
+	 public function checkUtmzscCookies(){
+		$getData = Mage::app()->getRequest()->getParams();
+		$utm_source = isset($getData['utm_source']) ? $getData['utm_source'] : '';
+		$utm_medium = isset($getData['utm_medium']) ? $getData['utm_medium'] : '';
+		$utm_campaign = isset($getData['utm_campaign']) ? $getData['utm_campaign'] : '';
+
+		$__utmzsc = Mage::getModel('core/cookie')->get('__utmzsc');
+		$__utmzscVal = '';
+		if(empty($__utmzsc) || strlen($__utmzsc) <= 0 ) {
+			$__utmzscVal =  $utm_source.":".$utm_campaign.":".$utm_medium;
+		}
+		
+		if(!empty($__utmzscVal) && $__utmzscVal != '::') {
+			return $__utmzscVal;
+		}
+	 }
+	 
+	 public function getCustomCookies() {
+		$__utmzsc = Mage::getModel('core/cookie')->get('__utmzsc');
+		
+		if(empty($__utmzsc) || strlen($__utmzsc) <= 0 ) {
+			return false;
+		}
+		else {
+			$__utmzscArr = split('[:]', $__utmzsc);
+			$cookieData = array();
+			$cookieData['campaign']['source'] = $__utmzscArr[0];
+			$cookieData['campaign']['name'] = $__utmzscArr[1];
+			$cookieData['campaign']['medium'] = $__utmzscArr[2];
+		}
+		return $cookieData;
+	}	
 }

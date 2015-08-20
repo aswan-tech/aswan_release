@@ -42,6 +42,9 @@ class Custom_Common_Model_Observer extends Varien_Object
 	      $id = $customer->getId();
 	      if($id){
 	      	$gaCookies = Mage::getModel( 'nosql/parse_ga' )->getCookies();
+	      	if(!is_array($gaCookies) || count($gaCookies) <= 0) {
+				$gaCookies = Mage::helper('common')->getCustomCookies();
+			}
            	$source = strtolower($gaCookies['campaign']['source']);
             $campaign = strtolower($gaCookies['campaign']['name']);
             $customer->setData('campaign', $campaign);

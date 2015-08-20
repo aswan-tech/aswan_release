@@ -1,3 +1,13 @@
+<?php
+// source & campaign start
+$__utmzscVal = Mage::helper('common')->checkUtmzscCookies();
+if(!empty($__utmzscVal)) {
+?>
+<script>setCookie('__utmzsc','<?php echo $__utmzscVal ?>',30);</script>
+<?php
+}
+// source & campaign end
+?>
 <div class="topoffers"><?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('header-top-offer-v3')->toHtml() ?></div>
 <div class=" cust-call pos-r fr">
 <div class="fl f-Proxnova c-fff pl30"><span class="call-icon pos-a"></span> <?php echo Mage::getStoreConfig('general/store_information/phone');     ?>
@@ -330,6 +340,5 @@ echo '<a href="javascript:void(0)" id="register-popup" class="tt-u fs12 c-fff td
         }
         
 	});     
-
 </script>
 </div>

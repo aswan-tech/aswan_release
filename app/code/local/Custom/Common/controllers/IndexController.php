@@ -1776,6 +1776,9 @@ public function recentlyViewedAction() {
 			$mobile = $this->getRequest()->getPost('mobile');
 			
 			$gaCookies = Mage::getModel( 'nosql/parse_ga' )->getCookies();
+			if(!is_array($gaCookies) || count($gaCookies) <= 0) {
+				$gaCookies = Mage::helper('common')->getCustomCookies();
+			}
 			$source = strtolower($gaCookies['campaign']['source']);
 			$campaign = strtolower($gaCookies['campaign']['name']);
 			
