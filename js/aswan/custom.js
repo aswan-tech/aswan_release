@@ -66,7 +66,7 @@ jQuery(document).ready(function() {
 			 }
 		});
 		
-    jQuery('#homeslider .bxslider').bxSlider({
+    jQuery('#homeslider .bxslider, #mobilehomeslider .bxslider').bxSlider({
     auto: true,
 	infiniteLoop: true,
 	controls: true,
@@ -88,7 +88,9 @@ jQuery(document).ready(function() {
 	touchEnabled: true,
 	pager: true
   });
-  
+  if(jQuery(window).innerWidth() < 769){
+   jQuery('#homeslider').remove();
+  }
   
   
   jQuery('.home-page #logo img').css('width','161px');

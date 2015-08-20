@@ -263,6 +263,13 @@ body {font-family: "Gill Sans Roman";}
 #homeslider .bx-wrapper .bx-prev {background:url(../images/sprite.png) -6px -172px no-repeat;}
 #homeslider .bx-wrapper .bx-next {background:url(../images/sprite.png) -42px -172px no-repeat;}
 
+#mobilehomeslider {width:100%; clear:both; height:0px; overflow: hidden;}
+#mobilehomeslider .bx-wrapper .bx-controls-direction a {height:50px!important; opacity:1; width:29px; margin-top:-25px!important;}
+#mobilehomeslider .bx-wrapper .bx-prev {background:url(../images/sprite.png) -6px -172px no-repeat;}
+#mobilehomeslider .bx-wrapper .bx-next {background:url(../images/sprite.png) -42px -172px no-repeat;}
+#mobilehomeslider .bx-wrapper .bx-pager,
+#mobilehomeslider .bx-wrapper .bx-controls-auto {bottom: 10px;}
+
 #middle, .catbanners, #new-arrivals, .footersocial, #footer, #footer #newsletter,
 #footer .footermid, .pagename {width:100%; clear:both; float:left;}
 
@@ -285,6 +292,10 @@ body {font-family: "Gill Sans Roman";}
 #new-arrivals .tabs li a {background:#fff; border:1px solid #000; color:#000; font-size:18px; text-transform:uppercase; display:block; min-width:180px; padding:5px 30px;}
 #new-arrivals .tabs li a:hover,
 #new-arrivals .tabs li a.active {background:#1e0f46; color:#fff;}
+
+#homecontent {width:100%; padding: 20px 0px; float:left; clear: both;}
+#homecontent h2 {font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-weight: 400; margin: 0px 0px 10px 0px; font-size: 18px;}
+#homecontent p {font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; line-height: normal; font-weight: 400; margin: 0px 0px 10px 0px; font-size: 14px;}
 
 #new-arrivals .datatabs .datalisting {height:0px; overflow:hidden;}
 #new-arrivals .datatabs .datalisting.show {height:auto;}
@@ -1341,6 +1352,11 @@ body {font-family: "Gill Sans Roman";}
 #footer .footermid .footerright .footerlinks h3 {font-size:13px; text-transform:uppercase; line-height:18px; margin:0px 0px 6px 0px;}
 #footer .footermid .footerright .footerlinks ul li {text-transform:uppercase; font-size:10px; margin:0px 0px 4px 0px;}
 #footer .footermid .footerright .footerlinks ul li a {color:#333;}
+#footer .footermid .footerright .footerlinks ul li a:hover {color:#dc0028;}
+#footer .footermid .footercategory {float:left; width: 100%; padding: 10px 0px; clear: both; text-align:center;}
+#footer .footermid .footercategory p {margin: 0px; line-height:18px; font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-weight:400; font-size:11px; text-transform:uppercase;}
+#footer .footermid .footercategory p a {color:#333; margin: 0px 1px;}
+#footer .footermid .footercategory p a:hover {color:#dc0028;}
 
 #footer .footermid .footermobile {width:100%; float: left; clear: both; padding:0px 15px; display: none;}
 #footer .footermid .footermobile li {display: block; float: left; width: 50%; font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-weight:400; font-size:13px; padding: 5px;}

@@ -63,7 +63,11 @@ dataLayer.push({'PAGE_TYPE': 'HOMEPAGE'});
 <?php echo Mage::helper('banners')->getBanners();?>
 </ul>
 </div>
-
+<div id="mobilehomeslider">
+<ul class="bxslider">
+	<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('aswan-homepage-mobile-slider')->toHtml(); ?>
+</ul>
+</div>
 <div id="middle">
 	<?php echo $this->getChildHtml('global_messages') ?>
 	<div class="catbanners">
@@ -116,6 +120,11 @@ foreach ($women as $womenData) {
 </div>
 </div>
 <!-- new arrival end -->
+<div id="homecontent">
+<div class="container">
+<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('aswan_homecontent')->toHtml(); ?>
+</div>
+</div>
 <div class="footersocial">
 <div class="holder" id="blogpost">
 <ul class="bxslider">
@@ -130,9 +139,7 @@ foreach ($women as $womenData) {
 <?php } ?>
 </ul>
 </div>
-<!-- Social Icons start block -->
 <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('aswan-social-icons')->toHtml(); ?>
-<!-- Social icons end -->
 </div>
 </div>
 
