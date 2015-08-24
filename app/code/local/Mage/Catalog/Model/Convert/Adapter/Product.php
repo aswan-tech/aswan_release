@@ -27,7 +27,7 @@
 class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_Adapter_Entity {
     const MULTI_DELIMITER = ' , ';
     const ENTITY = 'catalog_product_import';
-
+    protected $_last_config_attributes = '';
     /**
      * Event prefix
      *
@@ -682,7 +682,7 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
             }
         }
 
-        if (!isset($cronName)) {
+        if (!isset($cronName)){
 			$_feilds_left_blank = '';
 			$_Images_not_exist = '';
 			$_productType = $product->getTypeId();
@@ -1065,7 +1065,42 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
                 }
             }
         }
-		
+        // check for attribute set any other than Default
+        $productId = $product->getIdBySku($importData['sku']);
+        $new = true; // fix for duplicating attributes error
+        if ($productId) {
+            $product->load($productId);
+            $new = false; // fix for duplicating attributes error
+        }
+        if (trim($importData[' product_type_id']) == 'configurable') {
+            
+            $product->setCanSaveConfigurableAttributes(true);
+            $configAttributeCodes = $this->userCSVDataAsArray($importData['config_attributes']);
+            $usingAttributeIds = array();
+            foreach ($configAttributeCodes as $attributeCode) {
+                $attribute = $product->getResource()->getAttribute($attributeCode);
+
+                if ($attribute) {
+                    if ($product->getTypeInstance()->canUseAttribute($attribute)) {
+                        if ($new) { // fix for duplicating attributes error
+                            $usingAttributeIds[] = $attribute->getAttributeId();
+                        }
+                    }
+                }
+            }
+
+
+            if (!empty($usingAttributeIds)) {
+                $product->getTypeInstance()->setUsedProductAttributeIds($usingAttributeIds);
+                $product->setConfigurableAttributesData($product->getTypeInstance()->getConfigurableAttributesAsArray());
+                $product->setCanSaveConfigurableAttributes(true);
+                $product->setCanSaveCustomOptions(true);
+            }
+
+            if (isset($importData['associated'])) {
+                $product->setConfigurableProductsData($this->skusToIds($importData['associated'], $product));
+            }
+        }
         // color swatch images
         if (!empty($importData['color_swatch_image']) && file_exists(Mage :: getBaseDir('media') . DS . 'import' . $importData['color_swatch_image'])) {
             $product->addImageToMediaGallery(Mage :: getBaseDir('media') . DS . 'import' . $importData['color_swatch_image'], array('color_swatch_image'), false, true);
@@ -1121,39 +1156,40 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
 		$product->save();
 		
 		if($use_file){
-		
-			$_stockckeck = $product->getStockItem()->getIsInStock();
-			
-			$_productType = $product->getTypeId();
-			
-			if($_productType == 'simple'){
-				$parent_ids = Mage::getModel('catalog/product_type_configurable')->getParentIdsByChild($product->getId());
-				$parent_collection = Mage::getResourceModel('catalog/product_collection')->addFieldToFilter('entity_id', array('in'=>$parent_ids))->addAttributeToSelect('sku');
-				$parentSkus = '';
-				$parent_skus = $parent_collection->getColumnValues('sku');
-				if(is_array($parent_skus) && !empty($parent_skus)){
-					foreach($parent_skus as $skus){
-						$parentSkus .= $skus.',';
-					}
-				}
-				if($parentSkus != ''){
-					$parentSkus = substr($parentSkus,0,strlen($parentSkus)-1);
-				}
-				if($_stockckeck == 1){
-					fputcsv($handle, array($_skuforuse,$_productType,$parentSkus,'In Stock','No Error Occured'));
-				}else{
-					fputcsv($handle, array($_skuforuse,$_productType,$parentSkus,'Out Of Stock','No Error Occured'));
-				}
-			}else{
-				if($_stockckeck == 1){
-					fputcsv($handle, array($_skuforuse,$_productType,$_skuforuse,'In Stock','No Error Occured'));
-				}else{
-					fputcsv($handle, array($_skuforuse,$_productType,$_skuforuse,'Out Of Stock','No Error Occured'));
-				}
-			}
-			
-			fclose($handle);
-			
+                try{
+                    $_stockckeck =  Mage::getModel('cataloginventory/stock_item')->loadByProduct($product)->getIsInStock();
+                }catch(Exception $e){
+                   $_stockckeck =0; 
+                }
+                
+                $_productType = $product->getTypeId();
+                if($_productType == 'simple'){
+                    $parent_ids = Mage::getModel('catalog/product_type_configurable')->getParentIdsByChild($product->getId());
+                    $parent_collection = Mage::getResourceModel('catalog/product_collection')->addFieldToFilter('entity_id', array('in'=>$parent_ids))->addAttributeToSelect('sku');
+                    $parentSkus = '';
+                    $parent_skus = $parent_collection->getColumnValues('sku');
+                    if(is_array($parent_skus) && !empty($parent_skus)){
+                        foreach($parent_skus as $skus){
+                            $parentSkus .= $skus.',';
+                        }
+                    }
+                    if($parentSkus != ''){
+                        $parentSkus = substr($parentSkus,0,strlen($parentSkus)-1);
+                    }
+                    if($_stockckeck == 1){
+                        fputcsv($handle, array($_skuforuse,$_productType,$parentSkus,'In Stock','No Error Occured'));
+                    }else{
+                        fputcsv($handle, array($_skuforuse,$_productType,$parentSkus,'Out Of Stock','No Error Occured'));
+                    }
+                }else{
+                    if($_stockckeck == 1){
+                        fputcsv($handle, array($_skuforuse,$_productType,$_skuforuse,'In Stock','No Error Occured'));
+                    }else{
+                        fputcsv($handle, array($_skuforuse,$_productType,$_skuforuse,'Out Of Stock','No Error Occured'));
+                    }
+                }   
+            
+                fclose($handle);
 		}
 		
         // Store affected products ids
@@ -1184,9 +1220,87 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
 			}
 		/* Section added to position products in various categories programatically */
 
+        // Save custom options prices for configurable product
+        if ($_type == "configurable") {
+            $attribute_price_rows = array();
+            if (isset($importData['config_attribute_values']) && trim($importData['config_attribute_values']) != '') {
+                $attribute_price_rows = array();
+                $main_attributes_sets = explode('|', $importData['config_attribute_values']);
+                $output1 = print_r($main_attributes_sets, true);
+                file_put_contents('/tmp/output.txt','Output1'.$output1,FILE_APPEND);
+                if (!empty($main_attributes_sets)) {
+                    foreach ($main_attributes_sets as $main_attributes_set) {
+
+                        $sub_attributes_sets = explode(':', $main_attributes_set);
+                        if (!empty($sub_attributes_sets) && count($sub_attributes_sets) == 4) {
+                            if ($attribute_id = $this->getProductAttributeId(strtolower(trim($sub_attributes_sets[0])))) {
+                                if ($attribute_option_id = $this->getProductOptionIdFromAttributeId($attribute_id, trim($sub_attributes_sets[1]))) {
+
+                                    $is_percent = (strtolower(trim($sub_attributes_sets[3])) == 'fixed') ? 0 : (strtolower(trim($sub_attributes_sets[3])) == 'percentage') ? 1 : 0;
+                                    $attribute_price_rows[$attribute_id][] = array('attribute_id' => $attribute_id, 'value_index' => $attribute_option_id, 'pricing_value' => trim($sub_attributes_sets[2]), 'is_percent' => $is_percent);
+                                } // END if($attribute_option_id = $this->getProductOptionIdFromAttributeId($attribute_id, trim($sub_attributes_sets[1])))
+                            } // END if($attribute_id = $this->getProductAttributeId(strtolower(trim($sub_attributes_sets[0]))))
+                        } // END if(!empty($sub_attributes_sets))
+                    } // END foreach ($main_attributes_sets as $main_attributes_set)
+                } // END if(!empty($main_attributes_sets))
+            } // END if(isset($importData['config_attribute_values']) && trim($importData['config_attribute_values']) != '')
+
+            if (!empty($attribute_price_rows)) {
+                //print_r($attribute_price_rows);die;
+                foreach ($attribute_price_rows as $attribute_id => $attribute_price_row) {
+                    $read = Mage::getSingleton('core/resource')->getConnection('core_read');
+                    $product_super_attribute_id = $read->fetchOne("SELECT `product_super_attribute_id` FROM catalog_product_super_attribute WHERE product_id = " . $product->getEntityId() . " AND attribute_id = " . $attribute_id);
+                    $insert = Mage::getSingleton('core/resource')->getConnection('core_write');
+                    if ($product_super_attribute_id) {
+
+                        $insert->query("DELETE FROM catalog_product_super_attribute_pricing WHERE `product_super_attribute_id` = {$product_super_attribute_id}");
+
+                        if (!empty($attribute_price_row) && count($attribute_price_row) > 0) {
+                            foreach ($attribute_price_row as $row) {
+                                $insert->query("INSERT INTO `catalog_product_super_attribute_pricing` (`value_id` ,`product_super_attribute_id` ,`value_index` ,`is_percent` ,`pricing_value` ,`website_id`) VALUES ( NULL , '{$product_super_attribute_id}', '" . $row['value_index'] . "', '" . $row['is_percent'] . "', '" . $row['pricing_value'] . "', '0')");
+                            }
+                        }
+                    } // END if($product_super_attribute_id)
+                } // END foreach ($attribute_price_rows as $attribute_id=>$attribute_price_row)
+            } // END if(!empty($attribute_price_rows))
+        }
         return true;
     }
 
+    protected function getProductAttributeId($attribute_code) {
+        Mage::app()->setCurrentStore('default');
+        $attributeId = Mage::getResourceModel('eav/entity_attribute')
+                        ->getIdByCode('catalog_product', $attribute_code);
+        return $attributeId;
+    }
+    protected function getProductOptionIdFromAttributeId($attributeId, $optValue) {
+        Mage::app()->setCurrentStore('default');
+        $attribute = Mage::getModel('catalog/resource_eav_attribute')->load($attributeId);
+
+        $attributeOptions = $attribute->getSource()->getAllOptions();
+
+        foreach ($attributeOptions as $att_opt) {
+            if (strtolower($att_opt['label']) == strtolower($optValue)) {
+                return $att_opt['value'];
+            }
+        }
+    }
+
+
+     protected function userCSVDataAsArray($data) {
+        return explode(',', str_replace(" ", "", $data));
+    }
+
+    protected function skusToIds($userData, $product) {
+        $productIds = array();
+        foreach ($this->userCSVDataAsArray($userData) as $oneSku) {
+            if (( $a_sku = (int) $product->getIdBySku($oneSku) ) > 0) {
+                parse_str("position=", $productIds[$a_sku]);
+            }
+        }
+        //print_r($productIds);exit;
+        return $productIds;
+    }
     /**
      * Silently save product (import)
      *
