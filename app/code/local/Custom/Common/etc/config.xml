@@ -101,15 +101,15 @@
               </custom_common_customer_register_success>
             </observers>
           </customer_register_success>
-          <controller_action_layout_generate_xml_before>
-            <observers>
-                <noindex>
+          <catalog_product_save_commit_after>
+                <observers>
+                  <custom_common_catalog_product_save_after>
                     <type>singleton</type>
-                    <class>common/observer</class>
-                    <method>changeRobots</method>
-                </noindex>
+                    <class>Custom_Common_Model_Observer</class>
+                    <method>productSaveAfter</method>
+                  </custom_common_catalog_product_save_after>
             </observers>
-        </controller_action_layout_generate_xml_before>
+            </catalog_product_save_commit_after>
 </events>
     </global>
 	
