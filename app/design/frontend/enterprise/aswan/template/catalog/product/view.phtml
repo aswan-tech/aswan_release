@@ -300,6 +300,9 @@ function addToCartByAjax(isRedirect) {
               success: function(resultData) {
                   jQuery("#cart-add-to-bag").show();
                   jQuery('#productdetail').prepend('<div id="messages_product_view">'+resultData+'</div>');
+                  jQuery('html, body').animate({
+                        scrollTop: jQuery("#messages_product_view").offset().top - 150
+                    }, 300);
                   jQuery('#ajax-loading').hide();
               }
         });
