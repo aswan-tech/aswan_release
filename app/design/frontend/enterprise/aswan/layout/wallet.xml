@@ -1,0 +1,12 @@
+<layout version="0.1.0">
+  <wallet_transact_failure>
+    <remove name="left"/>
+    <reference name="root">
+      <action method="setTemplate"><template>page/2columns-right.phtml</template></action>
+    </reference>
+    <reference name="content">
+      <block type="core/template" name="wallet_transact_failure" template="wallet/failure.phtml"></block>
+    </reference>
+  </wallet_transact_failure>
+</layout>
+

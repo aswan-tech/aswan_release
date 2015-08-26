@@ -127,7 +127,7 @@ jQuery(document).ready(function() {
 		jQuery('#loginpopup .optconfirm').show();
 		});*/
       
-  jQuery('#filters ul > li > h3').click(function(){
+  jQuery('#filters ul > li > h3, #categoryarea #categoryleft h3').click(function(){
 	  jQuery(this).toggleClass('deactive');
 	  var showoption = jQuery(this).attr('data-accordian');
 	  jQuery('#'+showoption).slideToggle('fast')
@@ -418,6 +418,56 @@ if (!!jQuery('.stickycol1').length) { // make sure "#sticky" element exists
  }else{
 	 }
  /*****************cart page stick column******************/
+
+ /*****************sticky filter******************/
+var sidebarTop = 0;
+var winHeight = jQuery(window).height();
+var height = 0;
+jQuery(function() {
+var a = jQuery.browser == "msie" && jQuery.browser.version < 7;
+if (!a && jQuery("#filterholder").offset() != null && jQuery("#footer").offset().top - jQuery("#filterholder").height() > 200) {
+	
+	 var b = jQuery("#filterholder").offset().top - parseFloat(jQuery("#filterholder").css("margin-top").replace(/auto/, 0)),
+	height = jQuery("#filterholder").height(),
+	     d = 7,
+	     c = 0;
+	jQuery(window).scroll(function() {
+	height = jQuery("#filterholder").height(),
+	     e = jQuery("#footer").offset().top - parseFloat(jQuery("#footer").css("margin-top").replace(/auto/, 0)),
+	     f = jQuery(this).scrollTop();
+	if (f == c) {} else {
+		if (f > c && f > b && jQuery("#footer").offset().top - jQuery("#filterholder").height() > 200) {
+			if (f + winHeight >= b + height + d && f + winHeight <= e) {
+				sidebarTop = winHeight - height - d;
+			if (winHeight > height) {
+				sidebarTop = 0
+			}
+				jQuery("#filterholder").addClass("sticky").css("top", sidebarTop + "px")
+			} else {
+			if (f + winHeight > e) {
+				jQuery("#filterholder").addClass("sticky").css("top", sidebarTop + c - f + "px");
+				sidebarTop = sidebarTop + c - f
+			} else {
+				jQuery("#filterholder").removeClass("sticky").css("top", "0px")
+			}
+			}
+		} else {
+			if (f < c && f > b && jQuery("#footer").offset().top - jQuery("#filterholder").height() > 200) {
+			if (sidebarTop + c - f < 0) {
+				jQuery("#filterholder").css("top", sidebarTop + c - f + "px");
+				sidebarTop = sidebarTop + c - f
+			}
+			} else {
+				jQuery("#filterholder").removeClass("sticky").css("top", "0px")
+			}
+		}
+	}
+	c = f
+	})
+}
+});
+
+ /*****************sticky filter******************/
  
  jQuery(".moreviews img").click(function() {
 	 var scrollPosition = jQuery(this).attr('data-scroll');

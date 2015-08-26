@@ -4,8 +4,14 @@ class FCM_Paymentprovider_Block_Adminhtml_Paymentprovider_Grid_Renderer_Mode ext
 
     public function render(Varien_Object $row) {
         $value = $row->getData($this->getColumn()->getIndex());
-        $value = $value == 'credit_card' ? 'Credit/Debit Card' : 'Net Banking';
-        return $value;
+       	if($value=='credit_card'){
+        	echo 'Credit Card';
+			} elseif ($value=='debit_card') {
+			echo 'Debit Card';
+			} else {
+			echo 'Net Banking';
+			}
+    
     }
 
 }

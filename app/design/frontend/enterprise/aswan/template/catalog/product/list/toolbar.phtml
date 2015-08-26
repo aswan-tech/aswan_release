@@ -44,7 +44,7 @@
             </select> -->
 
 <select onchange="setLocation(this.value)">
-<option value=""><label><?php echo $this->__('Sort by') ?></label></option>
+<!-- <option value=""><label><?php echo $this->__('Sort by') ?></label></option> -->
 <option value="<?php echo $this->getOrderUrl('position', $sort_order_value_for_position) ?>"<?php if(isset($_REQUEST['order']) && $_REQUEST['order']=='position'): ?> selected="selected"<?php endif; ?>>Popularity
 </option>
 <option value="<?php echo $this->getOrderUrl('entity_id', 'desc') ?>"<?php if($this->isOrderCurrent('entity_id') && $this->getCurrentDirection() == 'desc'): ?> selected="selected"<?php endif; ?>>

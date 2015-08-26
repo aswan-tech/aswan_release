@@ -22,6 +22,7 @@
 
 #listingarea {padding-top:5px;}
 #filterholder {width:100%; clear:both; padding:0px 0px 12px 0px;}
+#filterholder.sticky {position:relative; top: 0px!important;}
 #filterholder .mobilefilter {display:block;}
 #filters, #filters ul > li .filteroption, #productlist .feturebox, #listingright .shorting .custom-select {display:none;}
 #listingright .shorting .custom-select {float:none; margin:0 auto; margin-bottom:10px;}

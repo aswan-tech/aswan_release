@@ -161,9 +161,14 @@ if(in_array('giftcard', $itemArr)) {
 	<div class="ckprd-pay-option payoption">
 		<ul id="payment_type">
 		<li id="list_credit_card" class="active">
-			<input type="hidden" name="payment[p_pid]" id="p_pid" value="NULL" />
-			<input onclick="javascript:toggleType('credit_card');" id="p_type_credit_card" value="credit_card" type="hidden" name="payment[type]" title="Credit / Debit Card" class="radio" />
-			<a href="#b" class="active_color" id="anchor_credit_card" onclick="javascript:toggleType('credit_card');">Credit/Debit Cards</a><span class="arrow-pay"></span>
+            <input type="hidden" name="payment[p_pid]" id="p_pid" value="NULL" />
+            <input onclick="javascript:toggleType('credit_card');" id="p_type_credit_card" value="credit_card" type="hidden" name="payment[type]" title="Credit Card" class="radio" />
+            <a href="#b" class="active_color" id="anchor_credit_card" onclick="javascript:toggleType('credit_card');">Credit Cards</a><span class="arrow-pay"></span>
+        </li>
+        <li id="list_debit_card">
+            <input type="hidden" name="payment[p_pid]" id="p_pid" value="NULL" />
+            <input onclick="javascript:toggleType('debit_card');" id="p_type_debit_card" value="debit_card" type="hidden" name="payment[type]" title="Debit Card" class="radio" />
+            <a href="#e" id="anchor_debit_card" onclick="javascript:toggleType('debit_card');">Debit Cards</a><span class="arrow-pay"></span>
         </li>
         <li id="list_net_banking">
 			<input onclick="javascript:toggleType('net_banking');" id="p_type_net_banking" value="net_banking" type="hidden" name="payment[type]" title="Net Banking" class="radio" />
@@ -251,6 +256,26 @@ if(in_array('giftcard', $itemArr)) {
                 <h5>By placing the order, you have read and agree to americanswan.com</h5>
                 <h5><a href="<?php echo Mage::getBaseUrl().'terms-n-conditions/' ?>" target="_blank">Terms of Use</a> and <a href="<?php echo Mage::getBaseUrl().'privacy-policy/' ?>" target="_blank">Privacy Policy.</a></h5>
             </div>
+
+           <div id="e" class="content-tab cc-option paytypebox">
+                <div class="ckpayoption">
+                    <div class="pay-amt mar-t10 paybleamount">Amount Payable <span class="pr-value"><strong><?php echo $this->helper('checkout')->formatPrice($this->getQuote()->getGrandTotal()) ?></strong></span></div>
+                    <?php
+                        $paymentproviderModel = Mage::getModel("paymentprovider/paymentprovider")->getCollection()->addFieldToFilter('payment_method_type', 'debit_card');
+                        $debit_card_data = $paymentproviderModel->getData();
+                        foreach($debit_card_data as $debit_provider){
+                    ?>
+                            <input onclick="javascript:togglePaymentMethods('<?php echo $debit_provider['payment_id']; ?>', '<?php echo $debit_provider['payment_method_type']; ?>', '<?php echo $debit_provider['payment_method_code'] ?>');" id="p_payment_name_<?php echo $debit_provider['payment_id'] ?>" value="<?php echo $debit_provider['payment_method_code'] ?>" type="radio" name="payment[payment_method_type]" title="<?php echo $debit_provider['payment_method_name'] ?>" class="css-checkbox fl" />
+                            <label for="p_payment_name_<?php echo $debit_provider['payment_id'] ?>" id="credit-debit-<?php echo strtolower(str_replace(array(' ', '/'), array('','-'),$debit_provider['payment_method_name'])) ?>" class="css-label mar-t10 gtm-track"><?php echo $debit_provider['payment_method_name'] ?></label>
+                            <div class="clear"></div>
+                    <?php } ?>
+                </div>
+                <button type="button" onClick="javascript:ValidatePayment('e');" class="ckord-now-btn paynow">PAY SECURELY NOW</button>
+                
+                <h5>By placing the order, you have read and agree to americanswan.com</h5>
+                <h5><a href="<?php echo Mage::getBaseUrl().'terms-n-conditions/' ?>" target="_blank">Terms of Use</a> and <a href="<?php echo Mage::getBaseUrl().'privacy-policy/' ?>" target="_blank">Privacy Policy.</a></h5>
+            </div>
+
             
             <div id="c" class="content-tab cc-option paytypebox">
                 <div class="ckpayoption">
@@ -278,7 +303,7 @@ if(in_array('giftcard', $itemArr)) {
 					<div class="wallettabs">
 <ul>
 <li>
-<label for="p_payment_name_MOBKP_N01" id="mobikwik-pay-securely-now" class="css-label mar-t10 gtm-track"><input type="radio" onclick="javascript:togglePaymentMethods('MOBKP_N01', 'mobikwik', 'ccavenuepay');" id="p_payment_name_MOBKP_N01" value="ccavenuepay" name="payment[payment_method_type]" title="Pay By Wallet" class="css-checkbox fl" />
+<label for="p_payment_name_wallet" id="mobikwik-pay-securely-now" class="css-label mar-t10 gtm-track"><input type="radio" onclick="javascript:togglePaymentMethods('wallet', 'wallet', 'wallet');" id="p_payment_name_wallet" value="wallet" name="payment[payment_method_type]" title="Pay By Wallet" class="css-checkbox fl" />
 <img src="<?php echo $this->getSkinUrl('images/wallat2.jpg');?>">
 <?php //echo $this->getLayout()->createBlock('cms/block')->setBlockId('checkout-mobikwik-cashback-v3')->toHtml() ?>
 </label></li>
