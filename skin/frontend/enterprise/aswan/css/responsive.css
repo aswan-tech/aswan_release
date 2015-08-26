@@ -3,6 +3,7 @@
 #topmenu {width:60%;}
 #topright ul li.welcome {display:none;}
 #mediapage .branddetail {width:100%;}
+#productlist .productbox .productinfo span.discount {display: none;}
 	}
 @media only screen and (max-width:920px){
 #wrapper {padding:0px;}
@@ -39,6 +40,7 @@
 #productlist .productbox {width:48%;}
 #productlist.singleview .productbox {width:100%; margin:0; margin-bottom:4%;}
 #productlist .productbox .productinfo h3 {font-size:15px;}
+#productlist .productbox .productinfo span.discount {display: block; right: 0px;}
 
 #categoryarea #categoryleft {width:100%; clear:both; padding:0px 0px 12px 0px;}
 #categoryarea #categoryleft h4 {display:block;}
@@ -163,6 +165,7 @@
 @media only screen and (max-width:480px){
 #topright ul li span.lable {display:none;}
 .catbanners h2, .catbanners .bannerbox h3 {font-size: 17px;}
+#productlist .productbox .productinfo span.discount {display: none;}
 #cartarea #cartleft table tr:nth-child(odd) {background:#f9f9f9;}
 #cartarea #cartleft table td {display:inline-block; width:100%!important; border:none; padding:5px 10px;}
 #cartarea #cartleft .proimg {width:32%;}
