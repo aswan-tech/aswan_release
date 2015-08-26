@@ -165,7 +165,8 @@ jQuery(document).ready(function() {
 			proUrl = jQuery(this).attr('prod-url'),
 			quickUrl = jQuery(this).attr('quick-view'),
 			quickView = 'setLocation("'+quickUrl+'")',
-			loaderIcon = jQuery('#'+proId).parent().next('.prodload')
+			loaderIcon = jQuery('#'+proId).parent().next('.prodload'),
+			disCount = jQuery(this).attr('discount')
 
 		jQuery(loaderIcon).show();
         jQuery('#'+proId).load(function(){
@@ -178,6 +179,7 @@ jQuery(document).ready(function() {
 		//jQuery(this).parent().parent().siblings().find('.sizebar').html(proSize);
 	    jQuery(this).parent().parent().siblings().find('.new-price').html(proPri);
 		jQuery(this).parent().parent().siblings().find('.old-price').html(proOldpri);
+		jQuery(this).parent().parent().siblings().find('.discount').html(disCount);
 		jQuery(this).parent().parent().siblings().find('.quickurl').attr('onclick',quickView);
 		});
 		
@@ -191,7 +193,8 @@ jQuery(document).ready(function() {
 			proUrl = jQuery(defaultSource).attr('prod-url'),
 			quickUrl = jQuery(defaultSource).attr('quick-view'),
 			quickView = 'setLocation("'+quickUrl+'")',
-			loaderIcon = jQuery('#'+proId).parent().next('.prodload')
+			loaderIcon = jQuery('#'+proId).parent().next('.prodload'),
+			disCount = jQuery(defaultSource).attr('discount')
 
 		jQuery(loaderIcon).hide();
 			
@@ -201,6 +204,7 @@ jQuery(document).ready(function() {
 	    //jQuery(this).find('.sizebar').html(proSize);
 		jQuery(this).find('.new-price').html(proPri);
 		jQuery(this).find('.old-price').html(proOldpri);
+		jQuery(this).find('.discount').html(disCount);
 		jQuery(this).find('.quickurl').attr('onclick',quickView);
 		
 		});
