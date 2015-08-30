@@ -516,7 +516,8 @@ class Custom_Common_Helper_Data extends Mage_Core_Helper_Abstract{
 		$getData = Mage::app()->getRequest()->getParams();
 		$_refererUrl = Mage::app()->getRequest()->getServer('HTTP_REFERER');
 		$_refererDomain = str_ireplace('www.', '', parse_url($_refererUrl, PHP_URL_HOST));
-		$utm_source = isset($getData['utm_source']) ? $getData['utm_source'] : (isset($_refererDomain) ? $_refererDomain : '(direct)');
+		$_refererDomain = ($_refererDomain == 'americanswan.com') ? '(direct)' : $_refererDomain;
+		$utm_source = isset($getData['utm_source']) ? $getData['utm_source'] : $_refererDomain;
 		$utm_medium = isset($getData['utm_medium']) ? $getData['utm_medium'] : '';
 		$utm_campaign = isset($getData['utm_campaign']) ? $getData['utm_campaign'] : '';
 

@@ -176,7 +176,7 @@
 				</groups>
 			</scratchcard>
 			<codordervalue translate="label" module="shortlist">
-				<label>COD Order Confirm Amount Setting</label>
+				<label>COD Order Confirmation Amount Setting</label>
 				<tab>customer</tab>
 				<frontend_type>text</frontend_type>
 				<sort_order>926</sort_order>
