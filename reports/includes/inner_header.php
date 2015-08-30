@@ -45,9 +45,9 @@ window.setTimeout("ShowTime()", 1000); // Here 1000(milliseconds) means one 1 Se
 	<ul class="nav">
 		<li><a href="dashboard.php">DASHBOARD</a></li>
 		<!--<li><a href="managecat.php">Manage Category</a></li>
-		<li><a href="addcat.php">Add Category</a></li>
-		<li><a href="managetopic.php">Manage Topic</a></li>
-		<li><a href="addtopic.php">Add Topic</a></li>-->
+		<li><a href="product_import.php">PRODUCT IMPORT</a></li>-->
+		<li><a href="update_order_email.php">UPDATE ORDER EMAIL</a></li>
+		<li><a href="store_credit.php">STORE CREDIT</a></li>
 		<li><a href="order_percolation.php">ORDER PERCOLATION</a></li>
 	</ul>
 </div> 
