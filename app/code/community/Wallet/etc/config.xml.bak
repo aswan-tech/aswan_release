@@ -1,0 +1,100 @@
+<?xml version="1.0"?>
+<config>
+  <modules>
+    <Wallet>
+      <!-- declare module's version information for database updates -->
+      <version>0.1.0</version>
+    </Wallet>
+  </modules>
+  <global>
+    <blocks>
+      <wallet>
+        <class>Wallet_Block</class>
+      </wallet>
+    </blocks>
+    <models>
+      <!-- model group alias to be used in Mage::getModel('newmodule/...') -->
+      <wallet>
+        <!-- base class name for the model group -->
+        <class>Wallet_Model</class>
+      </wallet>
+    </models>
+    <!-- declare resource setup for new module -->
+    <resources>
+      <!-- resource identifier -->
+      <wallet_setup>
+        <!-- specify that this resource is a setup resource and used for upgrades -->
+        <setup>
+          <!-- which module to look for install/upgrade files in -->
+          <module>Wallet</module>
+        </setup>
+        <!-- specify database connection for this resource -->
+        <connection>
+          <!-- do not create new connection, use predefined core setup connection -->
+          <use>core_setup</use>
+        </connection>
+      </wallet_setup>
+      <wallet_write>
+        <connection>
+          <use>core_write</use>
+        </connection>
+      </wallet_write>
+      <wallet_read>
+        <connection>
+          <use>core_read</use>
+        </connection>
+      </wallet_read>
+    </resources>
+  </global>
+  <adminhtml>
+    <!-- Events -->
+    <events>
+      <payment_info_block_prepare_specific_information>
+        <observers>
+          <wallet_payment_info_observer>
+            <type>singleton</type>
+            <class>Wallet_Payment_Info_Observer</class>
+            <method>check_status</method>
+          </wallet_payment_info_observer>
+        </observers>
+      </payment_info_block_prepare_specific_information>
+    </events>
+  </adminhtml>
+  <!-- declare default configuration values for this module -->
+  <default>
+    <!-- 'payment' configuration section (tab) -->
+    <payment>
+      <!-- 'newmodule' configuration group (fieldset) -->
+      <wallet>
+        <!-- by default this payment method is inactive -->
+        <active>0</active>
+        <!-- model to handle logic for this payment method -->
+        <model>Wallet_Model_Transact</model>
+        <!-- order status for new orders paid by this payment method -->
+        <order_status>pending</order_status>
+        <!-- default title for payment checkout page and order view page -->
+        <title>Wallet (Credit/Debit Card)</title>        
+        <cctypes>VI,MC</cctypes>
+        <payment_action>authorize</payment_action>
+      </wallet>
+    </payment>
+  </default>
+  <frontend>
+    <routers>
+      <wallet>
+        <use>standard</use>
+        <args>
+          <module>Wallet</module>
+          <frontName>wallet</frontName>
+        </args>
+      </wallet>
+    </routers>
+    <layout>
+      <updates>
+        <wallet>
+          <file>wallet.xml</file>
+        </wallet>
+      </updates>
+    </layout>
+  </frontend> 
+</config>

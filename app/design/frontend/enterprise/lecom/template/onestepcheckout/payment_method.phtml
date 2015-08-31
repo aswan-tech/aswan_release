@@ -160,8 +160,13 @@ if(in_array('giftcard', $itemArr)) {
 		<ul id="payment_type">
 		<li id="list_credit_card" class="arrow-pay-active">
 			<input type="hidden" name="payment[p_pid]" id="p_pid" value="NULL" />
-			<input onclick="javascript:toggleType('credit_card');" id="p_type_credit_card" value="credit_card" type="hidden" name="payment[type]" title="Credit / Debit Card" class="radio" />
-			<a href="#b" class="active_color" id="anchor_credit_card" onclick="javascript:toggleType('credit_card');">Credit/Debit Cards</a><span class="arrow-pay"></span>
+			<input onclick="javascript:toggleType('credit_card');" id="p_type_credit_card" value="credit_card" type="hidden" name="payment[type]" title="Credit Card" class="radio" />
+			<a href="#b" class="active_color" id="anchor_credit_card" onclick="javascript:toggleType('credit_card');">Credit Cards</a><span class="arrow-pay"></span>
+        </li>
+        <li id="list_debit_card">
+            <input type="hidden" name="payment[p_pid]" id="p_pid" value="NULL" />
+            <input onclick="javascript:toggleType('debit_card');" id="p_type_debit_card" value="debit_card" type="hidden" name="payment[type]" title="Debit Card" class="radio" />
+            <a href="#e"  id="anchor_debit_card" onclick="javascript:toggleType('debit_card');">Debit Cards</a><span class="arrow-pay"></span>
         </li>
         <li id="list_net_banking">
 			<input onclick="javascript:toggleType('net_banking');" id="p_type_net_banking" value="net_banking" type="hidden" name="payment[type]" title="Net Banking" class="radio" />
@@ -202,6 +207,7 @@ if(in_array('giftcard', $itemArr)) {
     
     <input  id="p_method_sel" value="" type="hidden" name="payment[method]" />
     <input  id="p_method_mobikwik" value="" type="hidden" name="payment[mobikwik]" />
+    <input  id="promo-code" value="" type="hidden" name="payment[Promo_Code]" />
     <div class="ckpay-right-wrapp fl">
 	<!--Cod payment option start here-->
     <?php if($is_gift==false && $_codMethodAvailable) { ?>
@@ -249,6 +255,24 @@ if(in_array('giftcard', $itemArr)) {
                 <span class="by-pacing-txt d-block fs14 mt30">By placing the order, you have read and agree to americanswan.com</span>
                 <div><a href="<?php echo Mage::getBaseUrl().'terms-n-conditions/' ?>" target="_blank">Terms of Use</a> and <a href="<?php echo Mage::getBaseUrl().'privacy-policy/' ?>" target="_blank">Privacy Policy.</a></div>
             </div>
+            <div id="e" class="content-tab cc-option">
+                <div class="ckpayoption">
+                    <p class="pay-amt mar-t10">Amount Payable <span class="pr-value"><?php echo $this->helper('checkout')->formatPrice($this->getQuote()->getGrandTotal()) ?></span></p>
+                    <?php
+                        $paymentproviderModel = Mage::getModel("paymentprovider/paymentprovider")->getCollection()->addFieldToFilter('payment_method_type', 'debit_card');
+                        $debit_card_data = $paymentproviderModel->getData();
+                        foreach($debit_card_data as $provider){
+                    ?>
+                            <input onclick="javascript:togglePaymentMethods('<?php echo $provider['payment_id']; ?>', '<?php echo $provider['payment_method_type']; ?>', '<?php echo $provider['payment_method_code'] ?>');" id="p_payment_name_<?php echo $provider['payment_id'] ?>" value="<?php echo $provider['payment_method_code'] ?>" type="radio" name="payment[payment_method_type]" title="<?php echo $provider['payment_method_name'] ?>" class="css-checkbox fl" />
+                            <label for="p_payment_name_<?php echo $provider['payment_id'] ?>" id="debit-<?php echo strtolower(str_replace(array(' ', '/'), array('','-'),$provider['payment_method_name'])) ?>" class="css-label mar-t10 gtm-track"><?php echo $provider['payment_method_name'] ?></label>
+                            <div class="clear"></div>
+                    <?php } ?>
+                </div>
+                <button type="button" onClick="javascript:ValidatePayment('e');" class="ckord-now-btn">PAY SECURELY NOW</button>
+                <div class="clear"></div>
+                <span class="by-pacing-txt d-block fs14 mt30">By placing the order, you have read and agree to americanswan.com</span>
+                <div><a href="<?php echo Mage::getBaseUrl().'terms-n-conditions/' ?>" target="_blank">Terms of Use</a> and <a href="<?php echo Mage::getBaseUrl().'privacy-policy/' ?>" target="_blank">Privacy Policy.</a></div>
+            </div>
             
             <div id="c" class="content-tab cc-option">
                 <div class="ckpayoption">
@@ -274,21 +298,22 @@ if(in_array('giftcard', $itemArr)) {
 					<p class="pay-amt mar-t10">Amount Payable <span class="pr-value"><?php echo $this->helper('checkout')->formatPrice($this->getQuote()->getGrandTotal()) ?></span></p>
 					<div class="clear"></div>
 					
-					<input type="radio" onclick="javascript:togglePaymentMethods('MOBKP_N01', 'mobikwik', 'ccavenuepay');" id="p_payment_name_MOBKP_N01" value="ccavenuepay" name="payment[payment_method_type]" title="Pay By Wallet" class="css-checkbox fl" />
-					<label for="p_payment_name_MOBKP_N01" id="mobikwik-pay-securely-now" class="css-label mar-t10 gtm-track"> MobikWik <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('checkout-mobikwik-cashback-v3')->toHtml() ?></label>
+					<?php /* <input type="radio" onclick="javascript:togglePaymentMethods('MOBKP_N01', 'mobikwik', 'ccavenuepay');" id="p_payment_name_MOBKP_N01" value="ccavenuepay" name="payment[payment_method_type]" title="Pay By Wallet" class="css-checkbox fl" /> */?>
+                    <input type="radio" onclick="javascript:togglePaymentMethods('wallet', 'wallet', 'wallet');" id="p_payment_name_wallet" value="wallet" name="payment[payment_method_type]" title="Pay By Wallet" class="css-checkbox fl" />
+					<label for="p_payment_name_wallet" id="mobikwik-pay-securely-now" class="css-label mar-t10 gtm-track"> MobikWik <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('checkout-mobikwik-cashback-v3')->toHtml() ?></label>
 					<div class="clear"></div>
 					<input type="radio" onclick="javascript:togglePaymentMethods('paytm_cc', 'paytm_cc', 'paytm_cc');" id="p_payment_name_paytm_cc" value="paytm_cc" name="payment[payment_method_type]" title="Pay By Wallet" class="css-checkbox fl" />
 					<label for="p_payment_name_paytm_cc" id="paytm-pay-securely-now" class="css-label mar-t10 gtm-track"> PayTM </label>
 					
 					<div class="clear"></div>
-
+                    <?php /*
                     <input type="radio" onclick="javascript:togglePaymentMethods('payumoney_shared', 'payumoney_shared', 'payumoney_shared');" id="p_payment_name_payumoney_shared" value="payumoney_shared" name="payment[payment_method_type]" title="Pay By Wallet" class="css-checkbox fl" />
                     <label for="p_payment_name_payumoney_shared" id="payumoney_shared-pay-securely-now" class="css-label mar-t10 gtm-track"> PayUmoney </label>				
                     <div class="clear"></div>
                    
                     <!-- <input type="radio" onclick="javascript:togglePaymentMethods('wallet', 'wallet', 'wallet');" id="p_payment_name_wallet" value="payumoney_shared" name="payment[payment_method_type]" title="Pay By Mobiwiki" class="css-checkbox fl" />
                     <label for="p_payment_name_wallet" id="wallet-pay-securely-now" class="css-label mar-t10 gtm-track"> Mobiwiki</label>
-                     <div class="clear"></div> -->
+                     <div class="clear"></div> */?>
 					<button type="button" id="wallet-pay-securely-now" onClick="javascript:ValidatePayment('d');" class="ckord-now-btn gtm-track">PAY SECURELY NOW</button>
 					<div class="clear"></div>
 					<span class="by-pacing-txt d-block fs14 mt30">By placing the order, you have read and agree to americanswan.com</span>
@@ -396,6 +421,7 @@ var checkout = new VarienForm('onestepcheckout-form', true);
         payment.currentType = paymenttype;
         payment.currentMethod = '';
         payment.currentProviderId = '';
+        jQuery("#promo-code").val(null);
         jQuery('div.ckprd-pay-option ul#payment_type li a').removeClass('active_color');
 		jQuery('#anchor_'+paymenttype).addClass('active_color');
 		
@@ -432,6 +458,7 @@ var checkout = new VarienForm('onestepcheckout-form', true);
         payment.currentMethod = paymentmethod;
 
         //change pid hidden feild value
+        jQuery("#promo-code").val(paymenttype);
         jQuery("#p_pid").val(providerid);
 
         // check net banking/ credit card radio button

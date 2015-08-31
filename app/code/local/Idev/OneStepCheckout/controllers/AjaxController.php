@@ -837,7 +837,7 @@ class Idev_OneStepCheckout_AjaxController extends Mage_Core_Controller_Front_Act
              * Update additional data
              */ 
             
-            $additional_data = array('mobikwik'=>$payment['mobikwik']);
+            $additional_data = array('mobikwik'=>$payment['mobikwik'],'Promo_Code'=>$payment['Promo_Code']);
             $helper->savePaymentAdditionalData(serialize($additional_data));
             
         } catch (Exception $e) {

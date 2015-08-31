@@ -139,7 +139,23 @@
 							<show_in_website>1</show_in_website>
 							<show_in_store>0</show_in_store>
 							<frontend_class>validate-number</frontend_class>
-						</sort_order>						
+						</sort_order>
+						<credit_card_promo_code translate="label">
+							<label>Credit card promo code</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>64</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>0</show_in_store>
+						</credit_card_promo_code>
+						<debit_card_promo_code translate="label">
+							<label>Debit card promo code</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>65</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>0</show_in_store>
+						</debit_card_promo_code>						
 					</fields>			
 				</ccavenuepay>
 			</groups>

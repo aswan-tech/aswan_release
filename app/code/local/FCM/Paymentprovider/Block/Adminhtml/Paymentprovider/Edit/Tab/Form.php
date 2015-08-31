@@ -16,7 +16,11 @@ class FCM_Paymentprovider_Block_Adminhtml_Paymentprovider_Edit_Tab_Form extends 
             "values" => array(
                 array(
                     "value" => 'credit_card',
-                    "label" => Mage::helper("paymentprovider")->__("Credit/Debit Card"),
+                    "label" => Mage::helper("paymentprovider")->__("Credit Card"),
+                ),
+                array(
+                    "value" => 'debit_card',
+                    "label" => Mage::helper("paymentprovider")->__("Debit Card"),
                 ),
                 array(
                     "value" => 'net_banking',
