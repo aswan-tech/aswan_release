@@ -318,8 +318,6 @@ class Mage_Ccavenuepay_Model_Method_Ccavenuepay extends Mage_Payment_Model_Metho
 					$data['Promo_Code'] = Mage::getStoreConfig('payment/ccavenuepay/credit_card_promo_code');
 			}
 		}
-
-		var_dump($data);exit();
 		return $data;
 	}
 		 
