@@ -35,18 +35,20 @@ class FCM_LockOrder_Model_Observer {
         $paymenttype = $order->getPayment()->getMethodInstance()->getCode();
         if($paymenttype =='cashondelivery'){
             $total = round($order->getGrandTotal());
-            if($total<=3000){
-                try{
-                    if($order->getStatus()=='COD_Verification_Pending'){
-                        $order->setState('new','COD_Verification_Successful','Less then 3000 condition',true);
-                         $order->sendNewOrderEmail();
-                    }
-                }
-                catch(Exception $e){
-                    file_put_contents('/tmp/payment.txt','in exception:'.$order->getIncrementId()."\n");
-                }
-                
-            }
+            $codOrderAmount = Mage::getStoreConfig('codordervalue/codordervaluesetting/cod_order_amount');
+            if($codOrderAmount) {
+				if($total<=$codOrderAmount){
+					try{
+						if($order->getStatus()=='COD_Verification_Pending'){
+							$order->setState('new','COD_Verification_Successful','Less than '.$codOrderAmount.' condition',true);
+							 $order->sendNewOrderEmail();
+						}
+					}
+					catch(Exception $e){
+						file_put_contents('/tmp/payment.txt','in exception:'.$order->getIncrementId()."\n");
+					}					
+				}
+			}
         }
 
         return;

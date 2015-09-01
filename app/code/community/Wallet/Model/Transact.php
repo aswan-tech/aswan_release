@@ -30,7 +30,7 @@ class Wallet_Model_Transact extends Mage_Payment_Model_Method_Abstract
      */
     public function getWalletTransactAction() 
     {
-       return 'https://test.mobikwik.com/mobikwik/wallet';	   
+       return 'https://test.mobikwik.com/wallet';	   
     }
 
     /**

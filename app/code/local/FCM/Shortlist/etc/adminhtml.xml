@@ -25,6 +25,9 @@
 									<scratchcard translate="title">
 										<title>Scratch Card Settings</title>
 									</scratchcard>
+									<codordervalue translate="title">
+										<title>COD Confirmation Amount</title>
+									</codordervalue>
 									<customcategoryfilter translate="title">
 										<title>Custom Category Filter</title>
 									</customcategoryfilter>	

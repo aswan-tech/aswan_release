@@ -209,7 +209,8 @@ if(in_array('giftcard', $itemArr)) {
     
     <input  id="p_method_sel" value="" type="hidden" name="payment[method]" />
     <input  id="p_method_mobikwik" value="" type="hidden" name="payment[mobikwik]" />
-    <div class="ckpay-right-wrapp fl optionholder">
+	<input  id="promo-code" value="" type="hidden" name="payment[Promo_Code]" />    
+<div class="ckpay-right-wrapp fl optionholder">
 	<!--Cod payment option start here-->
     <?php if($is_gift==false && $_codMethodAvailable) { ?>
 			<div id="a" class="content-tab cod-pay-option paytypebox">
@@ -433,6 +434,7 @@ var checkout = new VarienForm('onestepcheckout-form', true);
         payment.currentType = paymenttype;
         payment.currentMethod = '';
         payment.currentProviderId = '';
+        jQuery("#promo-code").val(null);
         jQuery('div.ckprd-pay-option ul#payment_type li a').removeClass('active_color');
 		jQuery('#anchor_'+paymenttype).addClass('active_color');
 		
@@ -475,6 +477,7 @@ var checkout = new VarienForm('onestepcheckout-form', true);
         payment.currentMethod = paymentmethod;
 
         //change pid hidden feild value
+        jQuery("#promo-code").val(paymenttype);
         jQuery("#p_pid").val(providerid);
 
         // check net banking/ credit card radio button

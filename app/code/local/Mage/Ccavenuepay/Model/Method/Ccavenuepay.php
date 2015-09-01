@@ -310,6 +310,14 @@ class Mage_Ccavenuepay_Model_Method_Ccavenuepay extends Mage_Payment_Model_Metho
 		if(isset($additional_data['mobikwik']) && !empty($additional_data['mobikwik']) == 'MOBKP') {
 				$data['payType'] = $additional_data['mobikwik'];
 		}
+		if(isset($additional_data['Promo_Code'])) {
+			if($additional_data['Promo_Code'] =='debit_card' || $additional_data['Promo_Code']=='credit_card'){
+				if($additional_data['Promo_Code'] =='debit_card')
+					$data['Promo_Code'] = Mage::getStoreConfig('payment/ccavenuepay/debit_card_promo_code');
+				else if($additional_data['Promo_Code'] =='credit_card')
+					$data['Promo_Code'] = Mage::getStoreConfig('payment/ccavenuepay/credit_card_promo_code');
+			}
+		}
 		return $data;
 	}
 		 
