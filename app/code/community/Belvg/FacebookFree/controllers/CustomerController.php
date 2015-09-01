@@ -113,17 +113,12 @@ class Belvg_FacebookFree_CustomerController extends Mage_Core_Controller_Front_A
 			$customer->setData('gender', $gender);
 		}
         /*New customer and order set source and campaign*/
-			$scCookies = Mage::getModel( 'nosql/parse_ga' )->getSourceCampaignCookies();
             $gaCookies = Mage::getModel( 'nosql/parse_ga' )->getCookies();
-            
-            if(!empty($gaCookies['campaign']['source']) && !empty($gaCookies['campaign']['name'])) {
-				$source = strtolower($gaCookies['campaign']['source']);
-				$campaign = strtolower($gaCookies['campaign']['name']);
+            if(!is_array($gaCookies) || count($gaCookies) <= 0) {
+				$gaCookies = Mage::helper('common')->getCustomCookies();
 			}
-			else if(!empty($scCookies['source']) && !empty($scCookies['campaign'])) {
-				$source = strtolower($scCookies['source']);
-				$campaign = strtolower($scCookies['campaign']);
-			}
+            $source = strtolower($gaCookies['campaign']['source']);
+            $campaign = strtolower($gaCookies['campaign']['name']);
             
             $customer->setData('password', md5(time() . $data['id'] . $data['locale']));
         $customer->setData('is_active', 1);

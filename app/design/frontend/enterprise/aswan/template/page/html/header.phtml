@@ -1,3 +1,13 @@
+<?php
+// source & campaign start
+$__utmzscVal = Mage::helper('common')->checkUtmzscCookies();
+if(!empty($__utmzscVal)) {
+?>
+<script>setCookie('__utmzsc','<?php echo $__utmzscVal ?>',30);</script>
+<?php
+}
+// source & campaign end
+?>
 <?php $customerinfo = Mage::getSingleton('customer/session');?>
 <div id="topoffers">
 <div class="container"><h3>

@@ -61,7 +61,6 @@ class Mage_Contacts_IndexController extends Mage_Core_Controller_Front_Action
 
     public function postAction()
     {
-		
         $post = $this->getRequest()->getPost();
         if ( $post ) {
             $translate = Mage::getSingleton('core/translate');

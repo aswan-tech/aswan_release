@@ -469,16 +469,12 @@ class Custom_Common_Helper_Data extends Mage_Core_Helper_Abstract{
 		
 		$customer = Mage::getSingleton('customer/session')->getCustomer();
 		
-		$scCookies = Mage::getModel( 'nosql/parse_ga' )->getSourceCampaignCookies();
 		$gaCookies = Mage::getModel( 'nosql/parse_ga' )->getCookies();
-		if(!empty($gaCookies['campaign']['source']) && !empty($gaCookies['campaign']['name'])) {
-			$source = strtolower($gaCookies['campaign']['source']);
-			$campaign = strtolower($gaCookies['campaign']['name']);
+		if(!is_array($gaCookies) || count($gaCookies) <= 0) {
+			$gaCookies = $this->getCustomCookies();
 		}
-		else if(!empty($scCookies['source']) && !empty($scCookies['campaign'])) {
-			$source = strtolower($scCookies['source']);
-			$campaign = strtolower($scCookies['campaign']);
-		}
+		$source = strtolower($gaCookies['campaign']['source']);
+		$campaign = strtolower($gaCookies['campaign']['name']);
 	
 		/*
 		 * save source & campaign in customer table
@@ -500,12 +496,51 @@ class Custom_Common_Helper_Data extends Mage_Core_Helper_Abstract{
 					->setCampaign($campaign);
 		$orderModel->setId($orderId)->save();
 	}
+	
+	/*
+	 * 
+	 */
+	 
+	 public function checkUtmzscCookies(){
+		$getData = Mage::app()->getRequest()->getParams();
+		$_refererUrl = Mage::app()->getRequest()->getServer('HTTP_REFERER');
+		$_refererDomain = str_ireplace('www.', '', parse_url($_refererUrl, PHP_URL_HOST));
+		$_refererDomain = ($_refererDomain == 'americanswan.com') ? '(direct)' : $_refererDomain;
+		$utm_source = isset($getData['utm_source']) ? $getData['utm_source'] : $_refererDomain;
+		$utm_medium = isset($getData['utm_medium']) ? $getData['utm_medium'] : '';
+		$utm_campaign = isset($getData['utm_campaign']) ? $getData['utm_campaign'] : '';
+
+		$__utmzsc = Mage::getModel('core/cookie')->get('__utmzsc');
+		$__utmzscVal = '';
+		if(empty($__utmzsc) || strlen($__utmzsc) <= 0 ) {
+			$__utmzscVal =  $utm_source.":".$utm_campaign.":".$utm_medium;
+		}
+		
+		if(!empty($__utmzscVal) && $__utmzscVal != '::') {
+			return $__utmzscVal;
+		}
+	 }
+	 
+	 public function getCustomCookies() {
+		$__utmzsc = Mage::getModel('core/cookie')->get('__utmzsc');
+		
+		if(empty($__utmzsc) || strlen($__utmzsc) <= 0 ) {
+			return false;
+		}
+		else {
+			$__utmzscArr = split('[:]', $__utmzsc);
+			$cookieData = array();
+			$cookieData['campaign']['source'] = $__utmzscArr[0];
+			$cookieData['campaign']['name'] = $__utmzscArr[1];
+			$cookieData['campaign']['medium'] = $__utmzscArr[2];
+		}
+		return $cookieData;
+	}
 
 	public function getOrderUrl(){
 		return $this->_getUrl('sales/order/history/');
 	}
 	public function getWalletUrl(){
 		return $this->_getUrl('customer/account/wallet');
-	}
-
+	}	
 }

@@ -72,31 +72,4 @@ class FCM_Nosql_Model_Parse_Ga extends Mage_Core_Model_Abstract
     public function getArrayValue($key, $array) {
         return isset($array[$key]) ? $array[$key] : null;
     }
-    
-    /*
-     * getSourceCampaignCookies() is used to get and set cookie of source & campaign for publisher
-     * @param Null
-     * @return Array
-     */
-     
-     public function getSourceCampaignCookies() {		 
-		 $cookie = Mage::getSingleton('core/cookie');
-		 $__utmscArr = explode(":", base64_decode($cookie->get('__utmsc')));
-		 if(is_array($__utmscArr) && count($__utmscArr) > 0) {
-			return array("source"=>$__utmscArr[0], "campaign"=>$__utmscArr[1]);
-		}
-	 }
-	 
-	 /*
-	  * setSourceCampaignCookies() is used to cookie of source & campaign for publisher
-	  * @param Array
-	  * @return Null
-	  */
-	   
-	 public function setSourceCampaignCookies($params) {
-		 if(is_array($params) && !empty($params['utm_source']) && !empty($params['utm_campaign'])) {
-			$cookie = Mage::getSingleton('core/cookie');
-			$cookie->set('__utmsc', base64_encode($params['utm_source'].":".$params['utm_campaign']) ,time()+3600,'/'); 
-		 }
-	 }  
 }
