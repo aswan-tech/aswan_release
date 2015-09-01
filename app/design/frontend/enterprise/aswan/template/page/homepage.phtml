@@ -137,27 +137,7 @@ foreach ($women as $womenData) {
 <?php } ?>
 </ul>
 </div>
-<script type="application/ld+json">
-{
-  "@context" : "http://schema.org",
-  "@type" : "Organization",
-  "name" : "American Swan",
-  "url" : "<?php echo $this->getBaseUrl();?>
-  "sameAs" : [
-    "https://www.facebook.com/AmericanSwan",
-    "https://twitter.com/AmericanSwan",
-    "https://www.pinterest.com/americanswan/",
-    "https://plus.google.com/u/0/+Americanswan/posts",
-    "https://www.youtube.com/user/AmericanSwanOnline",
-    "https://instagram.com/americanswan/"
-  ]
-}
-</script>
-<div class="holder" itemprop="sameAs" itemtype="https://www.facebook.com/AmericanSwan"><a href="#" itemprop="sameAs"><img src="<?php echo $this->getSkinUrl();?>images/a2.jpg" alt="" /></a></div>
-<div class="holder" itemprop="sameAs" itemtype="https://instagram.com/americanswan/"><a href="#" itemprop="sameAs"><img src="<?php echo $this->getSkinUrl();?>images/a3.jpg" alt="" /></a></div>
-<div class="holder" itemprop="sameAs" itemtype="https://www.youtube.com/user/AmericanSwanOnline"><a href="#" itemprop="sameAs"><img src="<?php echo $this->getSkinUrl();?>images/a4.jpg" alt="" /></a></div>
-
-<?php //echo $this->getLayout()->createBlock('cms/block')->setBlockId('aswan-social-icons')->toHtml(); ?>
+<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('aswan-social-icons')->toHtml(); ?>
 </div>
 </div>
 
