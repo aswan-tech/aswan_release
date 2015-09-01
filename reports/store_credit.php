@@ -25,7 +25,10 @@ if(isset($_POST['btnChangePass'])) {
 					$historyData = $core_read->fetchRow($query);
 					$historyId = $historyData['history_id'];
 					if($historyId) {
-						$success[] = createStoreCreditFile($data[0], $historyId);
+						$result = createStoreCreditFile($data[0], $historyId);
+						if(!empty($result)) {
+							$success[] = $result;
+						}
 					}
 				}
 				else{
@@ -61,7 +64,7 @@ include_once('includes/inner_header.php');
 	
 	function createStoreCreditFile($email, $historyId) {
 		global $core_read, $core_write;
-		$sql = "SELECT customer_entity.entity_id AS customer_id, customer_entity.email, history_id, balance_delta, additional_info, enterprise_customerbalance_history.updated_at FROM enterprise_customerbalance, enterprise_customerbalance_history, customer_entity 
+		$sql = "SELECT customer_entity.entity_id AS customer_id, customer_entity.email, history_id, balance_delta,balance_amount, additional_info, enterprise_customerbalance_history.updated_at FROM enterprise_customerbalance, enterprise_customerbalance_history, customer_entity 
 					WHERE enterprise_customerbalance.balance_id = enterprise_customerbalance_history.balance_id 
 					AND customer_entity.entity_id = enterprise_customerbalance.customer_id
 					AND customer_entity.is_active = 1
@@ -140,7 +143,7 @@ include_once('includes/inner_header.php');
 
 				$dataNode = $doc->createElement( 'Amount' );
 				$StoreCreditNode->appendChild( $dataNode );
-				$value = $doc->createCDATASection($credit['balance_delta']);
+				$value = $doc->createCDATASection($credit['balance_amount']);
 				$dataNode->appendChild( $value );
 
 				$dataNode = $doc->createElement( 'StoreCreditCreated' );
