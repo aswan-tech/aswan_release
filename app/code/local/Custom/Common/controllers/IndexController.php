@@ -1809,9 +1809,9 @@ public function recentlyViewedAction() {
 								else
 									$data = array('email'=>$email,'password'=>$password,'gender'=>$gender,'mobile'=>$mobile,'source'=>$source,'campaign'=>$campaign);	
 								Mage::getSingleton('core/session')->setNewCustData($data);
-								$result = $this->activateNewRegWithoutOtp();
-								$result =true;
-								//$result = $helper->generateOtp($mobile,$email);
+								//$result = $this->activateNewRegWithoutOtp();
+								//$result =true;
+								$result = $helper->generateOtp($mobile,$email);
 								if($result==true)
 									echo 1;
 								else

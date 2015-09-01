@@ -743,22 +743,22 @@ function signup(gender, ajaxUrl) {
 			{
 				jQuery("#ajaxSignupLoding").hide();
 				if(data == '1' || data =='2') {
-					/*jQuery('#login-reg-div').addClass('hide');
+					jQuery('#login-reg-div').addClass('hide');
 					jQuery('.otp-cont').removeClass('hide');
 					jQuery('#reg-mob').html('Your contact number +91'+mobile_no);
 					jQuery("#ajaxOtpResp").html('');
 					jQuery('.loginregister').hide();
-					jQuery('.optconfirm').show();*/
+					jQuery('.optconfirm').show();
 					var ck_reg_up =getCookie('nw_user_reg_up');
                     if(ck_reg_up=='ap56767es'){
                         setCookie('nw_user_reg','ap567es',1);
                         setCookie('nw_user_reg_up','ap56767no',1);
                     }
-                    jQuery("#ajaxSignupResp").removeClass('redcolor').addClass('bluecolor').show();
+                    /*jQuery("#ajaxSignupResp").removeClass('redcolor').addClass('bluecolor').show();
                     jQuery("#ajaxSignupResp").html('You have been logged in successfully. You are being redirected…');
                     window.setTimeout(function () {
                         window.location = '';
-                    }, 2000);
+                    }, 2000);*/
 				}
 				else {
 					jQuery("#ajaxSignupResp").show();
@@ -807,7 +807,6 @@ function customerLogin(ajaxUrl) {
 }
 
 function regenerateOtp(ajaxUrl){
-	
 	jQuery("#otp-ajaxloding").show();
 	jQuery.ajax({
 		url : ajaxUrl,
@@ -815,11 +814,11 @@ function regenerateOtp(ajaxUrl){
 		{
 			jQuery("#otp-ajaxloding").hide();
 			if(data == '1') {
-				jQuery("#ajaxOtpResp").removeClass('redcolor').addClass('bluecolor').show();
+				jQuery("#ajaxOtpResp").removeClass('redmsg').addClass('greenmsg').show();
 				jQuery("#ajaxOtpResp").html('OTP has been sent again.');
 			}
 			else {
-				jQuery("#ajaxOtpResp").show();
+				jQuery("#ajaxOtpResp").addClass('redmsg').removeClass('greenmsg').show();
 				jQuery("#ajaxOtpResp").html(data);
 			}
 		}
@@ -894,10 +893,10 @@ function confirmRegister(ajaxUrl){
 	var register_otp = jQuery('#register-otp').val();
 	jQuery("#ajaxOtpResp").hide();
 	jQuery("#register-otp").removeClass('sign-error');
-	jQuery('#error_register_otp').hide();
+	jQuery('#error_register_otp').addClass('hide').removeClass('show');
 	if(isNaN(register_otp) == true || register_otp.length!=6){
-			jQuery("#register-otp").addClass('sign-error');
-			jQuery('#error_register_otp').show();
+			//jQuery("#register-otp").addClass('sign-error');
+			jQuery('#error_register_otp').addClass('show').removeClass('hide');
 			return false;
 	}
 	jQuery("#otp-ajaxloding").show();
@@ -914,14 +913,14 @@ function confirmRegister(ajaxUrl){
 							setCookie('nw_user_reg','ap567es',1);
 							setCookie('nw_user_reg_up','ap56767no',1);
 					}
-					jQuery("#ajaxOtpResp").removeClass('redcolor').addClass('bluecolor').show();
+					jQuery("#ajaxOtpResp").removeClass('errormsg').addClass('greenmsg').show();
 					jQuery("#ajaxOtpResp").html('You have been logged in successfully. You are being redirected…');
 					window.setTimeout(function () {
 							window.location = '';
 					}, 2000);
 			}
 			else {
-					jQuery("#ajaxOtpResp").show();
+					jQuery("#ajaxOtpResp").removeClass('greenmsg').addClass('redmsg').show();
 					jQuery("#ajaxOtpResp").html(data);
 			}
 		}

@@ -99,18 +99,19 @@ else{
 		<a href="javascript:signup(2,'<?php echo $this->getBaseUrl(); ?>common/index/ajaxsignup')" id="gtm-f-register-poup" class="go">Women</a>
 		</div>
 	</div>
-	<?php /*<div class="optconfirm" id="optconfirm">
+	<div class="optconfirm" id="optconfirm">
 		<input type="hidden" name="mobile" id="regenerate-mob" value="">
 		<h3><strong>Yay!</strong> Your Sweet Code is on the Way!</h3>
 		<p>One Time Password (OTP) has been sent to your mobile number</p>
+		<div id="ajaxOtpResp" style="display:none;" class="fl"></div>
 		<label>Please enter your OTP</label>
 		<div id="otp-ajaxloding" class="redcolor" style="display:none;" ><img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN);?>frontend/enterprise/aswan/images/ajax-loader.gif"></div>
-		<div id="ajaxOtpResp" style="display:none;" class="redcolor fl"></div>
+		
 		<div class="clear"></div>
 		<input name="register_otp" id="register-otp"  type="text" class="sign-text-field" value="" />
-		<div class="sgn-error fl" id="error_register_otp"> 
+		<div class="fl hide" id="error_register_otp"> 
 		<span class="msgtop-arrowred"></span>
-		<span class="fl error-msg-redtxt ">Please enter valid OTP Number.</span>
+		<span class="fl error-msg-redtxt redmsg">Please enter valid OTP Number.</span>
 		</div>
 		<div class="clear"></div>
 		<p><span>If you have not received the OTP. Please click to</span> <a class="gtm-track" id="gtm-otp-regenerate-popup" href="javascript:regenerateOtp('<?php echo $this->getBaseUrl() ?>common/index/regenerateOtp')">Regenerate</a></p>
@@ -119,7 +120,7 @@ else{
 		<a class="go" id="gtm-otp-confim-popup" onclick="confirmRegister('<?php echo $this->getBaseUrl() ?>common/index/activateNewReg')" href="javascript:void(0)">Confirm</a>
 		</div>
 		<p><span id="reg-mob"></span>
-	</div>*/?>
+	</div>
 </div>
 
 <?php } ?>

@@ -16,6 +16,8 @@ a {text-decoration:none;}
 .clearfloat {clear:both; height:1px; overflow:hidden; width:100%;}
 .full-width {width:100%!important;}
 .showonmobile {display:none;}
+.redmsg {color:#dc0028; font-size:13px; display:block; clear:both; margin:0px 0px 10px 0px;}
+.greenmsg {color:#339933; font-size:13px; display:block; clear:both; margin:0px 0px 10px 0px;}
 body {font-family: "Gill Sans Roman";}
 #topright ul li span.icon, #filters ul > li .filteroption ol li:before, #filters ul > li > h3:after,
 #productlist .productbox .productimg .likebox span, #productlist .productbox .productimg .soldoutstrip,
