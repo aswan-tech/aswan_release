@@ -16,6 +16,7 @@ class Idev_OneStepCheckout_IndexController extends Mage_Core_Controller_Front_Ac
 
         if ($this->getRequest()->isPost()) {
             $login = $this->getRequest()->getPost('login');
+            
             if (!empty($login['username']) && !empty($login['password'])) {
                 try {
                     $session->login($login['username'], $login['password']);
@@ -87,25 +88,34 @@ class Idev_OneStepCheckout_IndexController extends Mage_Core_Controller_Front_Ac
     }
     
     public function continueGuestAction(){
+		
+		$connection = Mage::getModel('core/resource')->getConnection('core_read');
         $email_address = (string)$this->getRequest()->getPost('value');
         $customer = Mage::getModel('customer/customer')->setWebsiteId(1)->loadByEmail( $email_address );
+		$sql = "SELECT email FROM email_locks where FIND_IN_SET ('".$email_address."', email)";
+		$email = $connection->fetchRow($sql);
         $_quote = Mage::getSingleton('checkout/session')->getQuote();
-        if( $customer->getId() > 0 ) {
+        
+        if(isset($email['email']) && $email['email']!=''){
+			echo "1";
+		}
+        else if( $customer->getId() > 0 ) {
 	       $_quote->assignCustomer($customer);
 	       Mage::getSingleton('core/session')->setExisingCustomer($email_address);
-        } else {
+        }else {
 			Mage::getSingleton('core/session')->unsExisingCustomer();
             $_quote->setCustomerEmail($email_address)->save();
             $_quote->getBillingAddress()->setEmail($email_address)->save();
             $_quote->getShippingAddress()->setEmail($email_address)->save();
         }
+        
     }
     
     public function validateShippingTabAction(){
         $_quote = Mage::getSingleton('checkout/session')->getQuote();
         $_phoneNumber = $_quote->getShippingAddress()->getTelephone();
-        $_quote->setShippingPassed(true)->save();
-        echo $_phoneNumber;
+		$_quote->setShippingPassed(true)->save();
+		echo $_phoneNumber;
     }
 }
 

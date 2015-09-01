@@ -28,7 +28,8 @@
  * @copyright  Copyright (c) 2010 - 2011 BelVG LLC. (http://www.belvg.com)
  * @license    http://store.belvg.com/BelVG-LICENSE-COMMUNITY.txt
  */
- 
+
+  
 $_customerEmail = Mage::getSingleton("checkout/session")->getQuote()->getCustomerEmail();
 if($_customerEmail == null) {
 	$_customerEmail = Mage::getSingleton('core/session')->getExisingCustomer();
@@ -83,97 +84,104 @@ if($_customerEmail == null) {
 </form>
 
 <script type="text/javascript">
-    jQuery(function(){jQuery(".signInbox input[type=checkbox]").uniform();});
-	jQuery(function(){jQuery(".signInbox input[type=radio]").uniform();});
+jQuery(function(){jQuery(".signInbox input[type=checkbox]").uniform();});
+jQuery(function(){jQuery(".signInbox input[type=radio]").uniform();});
+
+function LoginFunction(){
+
+	var loginform = new VarienForm('login-form', true);	
+	var custemail = jQuery("#cust-email").val();
 	
-	function LoginFunction(){
-	
-		var loginform = new VarienForm('login-form', true);	
-		var custemail = jQuery("#cust-email").val();
-		
-		if(loginform.validator.validate()){
-			var formData = jQuery( "#login-form" ).serialize();
-			jQuery('#login-loader').show();
-			jQuery.ajax({
-						url: "<?php echo $this->getUrl('onestepcheckout/ajax/ajaxlogincheckout/') ?>",
-						data: formData,
-						type:'POST',
-						success: function(data){
-							if(data == '1'){
-								jQuery("#error").show();
-								window.location = "<?php echo $this->getUrl('onestepcheckout/index/') ?>";
-							}
-							else{
-								jQuery("#error").html(data).show();
-							}								
-							jQuery('#login-loader').hide();
-						}
-					});
-		}
-	}
-	
-	jQuery("#cust-email").keypress(function(event){
-		if(event.keyCode == 13){
-			event.preventDefault();
-			guestFunction();
-		}
-	});
-	
-	function guestFunction(){
-		var guestemail = jQuery("#cust-email").val();
-		var guestform = new VarienForm('login-form', true);
-		if(guestform.validator.validate()){
-			var login = jQuery.ajax({
-				url: "<?php echo $this->getUrl('onestepcheckout/index/continueGuest/') ?>",
-				data: 'value='+guestemail,
-				type:'POST',
-				beforeSend: function() {
-					jQuery('#login-loader').show();
-				},
-				success: function(){
-				jQuery("#checkoutleft .pager ul li").removeClass("current");
-				jQuery("#checkoutleft .pager ul li:nth-child(2)").addClass("current");
-				jQuery("#stepone").hide();
-	            jQuery("#steptwo").show();
-				jQuery(".input-email .cutomer-email").val(guestemail);						
-				jQuery('#login-loader').hide();
-				jQuery("#promocode-section").hide();
-				jQuery("#checkout-delivery").removeClass('ck-delivery').addClass('ck-delivery-ac');
-				},
-				error: function(xhr, textStatus, errorThrown){
-					alert('Ajax request failed reloading page');
-					jQuery('#login-loader').hide();
-					window.location.reload();
+	if(loginform.validator.validate()){
+		var formData = jQuery( "#login-form" ).serialize();
+		jQuery('#login-loader').show();
+		jQuery.ajax({
+			url: "<?php echo $this->getUrl('onestepcheckout/ajax/ajaxlogincheckout/') ?>",
+			data: formData,
+			type:'POST',
+			success: function(data){
+				if(data == '1'){
+					jQuery("#error").show();
+					window.location = "<?php echo $this->getUrl('onestepcheckout/index/') ?>";
 				}
-			});
-		}
+				else{
+					jQuery("#error").html(data).show();
+				}								
+				jQuery('#login-loader').hide();
+			}
+		});
 	}
-	
-	function onBlurText(object,value){
-		if(object.value == ''){
-			object.value = value;
-		}
+}
+
+jQuery("#cust-email").keypress(function(event){
+	if(event.keyCode == 13){
+		event.preventDefault();
+		guestFunction();
 	}
-	function onClickText(object,value){
-		if(object.value == value){
-			object.value = '';
-		}
+});
+
+function guestFunction(){
+	var guestemail = jQuery("#cust-email").val();
+	var guestform = new VarienForm('login-form', true);
+	if(guestform.validator.validate()){
+		var login = jQuery.ajax({
+			url: "<?php echo $this->getUrl('onestepcheckout/index/continueGuest/') ?>",
+			data: 'value='+guestemail,
+			type:'POST',
+			beforeSend: function() {
+				jQuery('#login-loader').show();
+			},
+			success: function(data){
+				if(data == '1') {
+					jQuery("#steptwo").hide();
+					jQuery('#login-loader').hide();
+					jQuery("#error").html("Your email id is blocked").show();
+				}
+				else {
+					jQuery("#checkoutleft .pager ul li").removeClass("current");
+					jQuery("#checkoutleft .pager ul li:nth-child(2)").addClass("current");
+					jQuery("#stepone").hide();
+					jQuery("#steptwo").show();
+					jQuery(".input-email .cutomer-email").val(guestemail);						
+					jQuery('#login-loader').hide();
+					jQuery("#promocode-section").hide();
+					jQuery("#checkout-delivery").removeClass('ck-delivery').addClass('ck-delivery-ac');
+				}
+			},
+			error: function(xhr, textStatus, errorThrown){
+				alert('Ajax request failed reloading page');
+				jQuery('#login-loader').hide();
+				window.location.reload();
+			}
+		});
 	}
-	
-	function swithContinue(fldId){
-        var isChecked = jQuery("#"+fldId).val();        
-        jQuery("#"+fldId).attr('checked','checked');
-        if(isChecked == 1) {            
-            jQuery("#pass").removeAttr('disabled');
-            jQuery("#userpass").show();
-            jQuery("#btnSubmit").attr('onclick','LoginFunction();');
-        }
-        else if(isChecked == 2){
-            jQuery("#pass").attr('disabled','disabled');
-            jQuery("#userpass").hide();            
-            jQuery("#btnSubmit").attr('onClick','guestFunction();');
-            jQuery("#login-form").attr('action','#');
-        }
-    }
+}
+
+function onBlurText(object,value){
+	if(object.value == ''){
+		object.value = value;
+	}
+}
+function onClickText(object,value){
+	if(object.value == value){
+		object.value = '';
+	}
+}
+
+function swithContinue(fldId){
+	var isChecked = jQuery("#"+fldId).val();        
+	jQuery("#"+fldId).attr('checked','checked');
+	if(isChecked == 1) {            
+		jQuery("#pass").removeAttr('disabled');
+		jQuery("#userpass").show();
+		jQuery("#btnSubmit").attr('onclick','LoginFunction();');
+	}
+	else if(isChecked == 2){
+		jQuery("#pass").attr('disabled','disabled');
+		jQuery("#userpass").hide();            
+		jQuery("#btnSubmit").attr('onClick','guestFunction();');
+		jQuery("#login-form").attr('action','#');
+	}
+}
 </script>
 <script>swithContinue('checkout-guest-checkout');</script>

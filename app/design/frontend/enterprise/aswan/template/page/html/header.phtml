@@ -9,10 +9,24 @@ if(!empty($__utmzscVal)) {
 // source & campaign end
 ?>
 <?php $customerinfo = Mage::getSingleton('customer/session');?>
+<script type="application/ld+json">// <![CDATA[
+{	
+  "@context" : "http://schema.org",
+  "@type" : "Organization",
+  "url" : "<?php echo Mage::getBaseUrl();?>",
+  "logo" : "<?php echo $this->getSkinUrl();?>images/logo.png",
+  "contactPoint" : [{
+    "@type" : "ContactPoint",
+    "telephone" : "850-648-4200",
+    "contactType" : "customer service",
+    "contactOption" : "TollFree"
+  }],
+}
+// ]]></script>
 <div id="topoffers">
 <div class="container"><h3>
 <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('aswan-top-offer-banner')->toHtml(); ?></h3>
- <h4><?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('aswan-top-customer-care-number')->toHtml(); ?></h4></div>
+ <h4 itemprop="contactPoint" itemtype="http://schema.org/ContactPoint"><p itemprop="telephone"/>850-648-4200 (Mon - Sat 10 am - 7 pm)</p><?php //echo $this->getLayout()->createBlock('cms/block')->setBlockId('aswan-top-customer-care-number')->toHtml(); ?></h4></div>
 </div>
 <div id="quickbag">
 <?php echo $this->getChildHtml('topCart') ?>
@@ -43,13 +57,18 @@ if(!empty($__utmzscVal)) {
 
 <?php 
 
-//if($customerinfo->isLoggedIn()){
+if($customerinfo->isLoggedIn()){
 	$customer = Mage::getSingleton('customer/session')->getCustomer();
 	
 ?>
 <li class="welcome"><?php echo $this->getWelcome();?></li>
 <?php 
-//}
+}
+else{
+?>
+<li class="welcome">Welcome Guest !</li>
+<?php	
+}
 ?>
 
 <li class="search"><span class="icon"></span> <span class="lable">Search</span></li>
