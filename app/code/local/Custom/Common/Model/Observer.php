@@ -20,12 +20,21 @@ class Custom_Common_Model_Observer extends Varien_Object
 			}
 		}
 		public function productSaveAfter(Varien_Event_Observer $observer){
-			
+			$product = $observer->getProduct();
+			$this->setInventoryDate($product);
+		}
+
+		public function inventorySaveAfter($observer){
+				$model = Mage::getModel('catalog/product');
+				$sku = $observer->getSku(); 
+				$_productId = $model->getIdBySku($sku);
+				$product = Mage::getModel('catalog/product')->load($_productId);
+				$this->setInventoryDate($product);
+		}
+		public function setInventoryDate($product){
 			$qty = 0;
 			$log_file = 'inv_date.log';
 			$model = Mage::getModel('catalog/product');
-			$product = $observer->getProduct(); 
-			$product_id=$product->getId(); 
 			if($product->getTypeId()=='simple'){
 			  $stockItem =Mage::getModel('cataloginventory/stock_item');
 			  $stockItem->assignProduct($product);
@@ -66,9 +75,7 @@ class Custom_Common_Model_Observer extends Varien_Object
 			        }
 			        else 
 			        	Mage::log("Already Exists:".$product->getId().":".$inventory_date, null, $log_file);				}
-			}		
-			    
-
+			}
 		}
 	  public function customerRegisterSuccess(Varien_Event_Observer $observer) {
 	      $event = $observer->getEvent();

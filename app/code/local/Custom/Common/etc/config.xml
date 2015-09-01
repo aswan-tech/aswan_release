@@ -101,7 +101,17 @@
               </custom_common_customer_register_success>
             </observers>
           </customer_register_success>
-          <catalog_product_save_commit_after>
+          <custom_cataloginventory_stock_item_save_after>
+            <observers>
+                  <custom_common_catalog_product_inventory_save_after>
+                    <type>singleton</type>
+                    <class>Custom_Common_Model_Observer</class>
+                    <method>inventorySaveAfter</method>
+                  </custom_common_catalog_product_inventory_save_after>
+            </observers>
+          </custom_cataloginventory_stock_item_save_after>  
+
+          <catalog_product_save_after>
                 <observers>
                   <custom_common_catalog_product_save_after>
                     <type>singleton</type>
@@ -109,7 +119,7 @@
                     <method>productSaveAfter</method>
                   </custom_common_catalog_product_save_after>
             </observers>
-            </catalog_product_save_commit_after>
+            </catalog_product_save_after>
 </events>
     </global>
 	

@@ -34,7 +34,7 @@ class FCM_Inventory_Model_Inventory extends Mage_Core_Model_Abstract {
         $this->_init('inventory/inventory');
     }
 
-    /**
+    /*
       Description: Upload inventory/price/image master csv files from FTP location to database by manual click/cron url
       Input/OutPut: NA
      */
@@ -185,6 +185,7 @@ class FCM_Inventory_Model_Inventory extends Mage_Core_Model_Abstract {
 						$product = Mage::helper('itemmaster')->fcmImportData($headersData, $data);
 						try {
 							$dp->ingest($product);
+                            Mage::dispatchEvent('custom_cataloginventory_stock_item_save_after', $product);
 							//echo "<pre>"; print_r($product);
 							$product = null;    //clear memory
 							unset($product);
