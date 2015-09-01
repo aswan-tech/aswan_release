@@ -148,9 +148,9 @@ class Wallet_TransactController extends Mage_Core_Controller_Front_Action
     					$this->set_order_status($postdata['orderid']);
 
     					$order = Mage::getModel('sales/order')->loadByIncrementId($postdata['orderid']);
-
-					$order->setData('state', $state);
-					$order->setStatus($state);
+                        $order->setState('processing','processing','processing after response', true);
+					   //$order->setData('state', $state);
+					   //$order->setStatus($state);
     					// also do something similar to capturing the payment here            
     					$payment = $order->getPayment();
     					$transaction = Mage::getModel('sales/order_payment_transaction');
