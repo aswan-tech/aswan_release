@@ -366,6 +366,7 @@ class Idev_OneStepCheckout_AjaxController extends Mage_Core_Controller_Front_Act
     }
 
     public function save_billingAction() {
+		
 		$helper = Mage::helper('onestepcheckout/checkout');
 		$resource = Mage::getSingleton('core/resource');
         $readConnection = $resource->getConnection('core_read');
@@ -374,6 +375,7 @@ class Idev_OneStepCheckout_AjaxController extends Mage_Core_Controller_Front_Act
 
 		$myarray = array();
 		$_flagshipping	=	false;
+		
 		if($shipping_data['country_id'] == 'IN'){
 			$_flagshipping	=	true;
 		}
@@ -1107,13 +1109,19 @@ class Idev_OneStepCheckout_AjaxController extends Mage_Core_Controller_Front_Act
 	 */
 	 
 	 public function ajaxlogincheckoutAction() {
-		
+		$connection = Mage::getModel('core/resource')->getConnection('core_read');
         $session = Mage::getSingleton('customer/session');
 
         if ($this->getRequest()->isPost()) {
             $login = $this->getRequest()->getPost('login');
-            
-            if (!empty($login['username']) && !empty($login['password'])) {
+			$sql = "SELECT email FROM email_locks where FIND_IN_SET ('".$login['username']."', email)";
+			$email = $connection->fetchRow($sql);
+	
+			if(isset($email['email']) && $email['email'] !=''){
+				
+				echo "Your email id is locked";
+			}
+            else if (!empty($login['username']) && !empty($login['password'])) {
                 try {
                     $session->login($login['username'], $login['password']);
                     Mage::getSingleton('checkout/cart')->save();
