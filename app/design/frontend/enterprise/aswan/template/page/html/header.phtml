@@ -17,7 +17,7 @@ if(!empty($__utmzscVal)) {
   "logo" : "<?php echo $this->getSkinUrl();?>images/logo.png",
   "contactPoint" : [{
     "@type" : "ContactPoint",
-    "telephone" : "850-648-4200",
+    "telephone" : "1800-313-1000",
     "contactType" : "customer service",
     "contactOption" : "TollFree"
   }],
@@ -26,7 +26,7 @@ if(!empty($__utmzscVal)) {
 <div id="topoffers">
 <div class="container"><h3>
 <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('aswan-top-offer-banner')->toHtml(); ?></h3>
- <h4 itemprop="contactPoint" itemtype="http://schema.org/ContactPoint"><p itemprop="telephone"/>850-648-4200 (Mon - Sat 10 am - 7 pm)</p><?php //echo $this->getLayout()->createBlock('cms/block')->setBlockId('aswan-top-customer-care-number')->toHtml(); ?></h4></div>
+ <h4 itemprop="contactPoint" itemtype="http://schema.org/ContactPoint"><?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('aswan-top-customer-care-number')->toHtml(); ?></h4></div>
 </div>
 <div id="quickbag">
 <?php echo $this->getChildHtml('topCart') ?>

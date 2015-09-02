@@ -88,7 +88,7 @@ foreach ($men as $data) {
 	if($data->isInStock()) {
 ?>
        <li><div class="dataimg">
-       <img src="<?php echo $data->getImageUrl();?>" width="320" height="334" /><a href="<?php echo $data->getProducturl();?>"><span>Shop</span></a></div>
+       <img src="<?php echo Mage::getBaseUrl().$data->getSmallImage();?>" width="320" height="334" /><a href="<?php echo $data->getProducturl();?>"><span>Shop</span></a></div>
        <h3><?php echo $data->getName();?></h3></li>
 <?php   
 	}
