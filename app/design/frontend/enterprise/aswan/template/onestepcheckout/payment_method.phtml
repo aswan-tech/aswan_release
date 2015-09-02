@@ -304,7 +304,7 @@ if(in_array('giftcard', $itemArr)) {
 					<div class="wallettabs">
 <ul>
 <li>
-<label for="p_payment_name_wallet" id="mobikwik-pay-securely-now" class="css-label mar-t10 gtm-track"><input type="radio" onclick="javascript:togglePaymentMethods('wallet', 'wallet', 'wallet');" id="p_payment_name_wallet" value="wallet" name="payment[payment_method_type]" title="Pay By Wallet" class="css-checkbox fl" />
+<label for="p_payment_name_wallet" id="mobikwik-pay-securely-now" class="css-label mar-t10 gtm-track"><input type="radio" onclick="javascript:togglePaymentMethods('wallet', 'mobikwik', 'ccavenuepay');" id="p_payment_name_wallet" value="ccavenuepay" name="payment[payment_method_type]" title="Pay By Wallet" class="css-checkbox fl" />
 <img src="<?php echo $this->getSkinUrl('images/wallat2.jpg');?>">
 <?php //echo $this->getLayout()->createBlock('cms/block')->setBlockId('checkout-mobikwik-cashback-v3')->toHtml() ?>
 </label></li>
@@ -457,7 +457,6 @@ var checkout = new VarienForm('onestepcheckout-form', true);
 		else{
 			jQuery("#p_method_mobikwik").val(null);
 		}
-		
 		if(paymenttype == "mobikwik") {
 			jQuery("#p_method_mobikwik").val('MOBKP');
 		}		
