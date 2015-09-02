@@ -5,9 +5,11 @@ class Custom_Banners_Helper_Data extends Mage_Core_Helper_Abstract {
 		$bannerListArr = Mage::getModel('banners/managebanners')->getHomePageBanners();
 		$dataString = '';
 		if(isset($bannerListArr) && count($bannerListArr) > 0) {
+			$dataString = '<ul class="bxslider">';
 			foreach($bannerListArr as $data){
 				$dataString .='<li><a href="'.$data['banner_url'].'" alt="'.$data['banner_title'].'" title="'.$data['banner_title'].'"><img src="'.Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA).'banner/'.$data['banner_path'].'" alt="" /></a></li>';
 			}
+			$dataString .= '</ul>';
 		}
 		
 		/*
@@ -16,7 +18,8 @@ class Custom_Banners_Helper_Data extends Mage_Core_Helper_Abstract {
 		
 		if(empty($dataString) || $dataString == '') {
 			$block = Mage::getModel('cms/block')->setStoreId(Mage::app()->getStore()->getId())->load('aswan-homepage-slider');
-			$dataString = $block->getContent();
+			$filterModel = Mage::getModel('cms/template_filter');
+			$dataString = $filterModel->filter($block->getContent());
 		}
 		
 		return $dataString;
