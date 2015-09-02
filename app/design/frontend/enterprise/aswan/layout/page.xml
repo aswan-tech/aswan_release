@@ -32,48 +32,31 @@
         <block type="page/html" name="root" output="toHtml" template="page/2columns-left.phtml">
             <block type="page/html_breadcrumbs" name="breadcrumbs" as="breadcrumbs"/> 
                 <block type="page/html_head" name="head" as="head">
-                    <action method="addJs"><script>aswan/jquery.min.js</script>
-                    </action>
+                    <action method="addJs"><script>aswan/jquery.min.js</script></action>
                     <action method="addJs"><script>aswan/html5.js</script></action>
-                    <action method="addJs"><script>aswan/jquery.bxslider.js</script></action>
-                    <action method="addJs">
-                        <script>aswan/jquery.mCustomScrollbar.concat.min.js</script></action>
-                    <action method="addJs"><script>aswan/jquery.fancybox.js</script></action>
-                    <action method="addJs"><script>aswan/custom.js</script>
-                    </action>
-                    <!-- <action method="addJs"><script>aswan/custom-6.3.js</script>
-                    </action>  -->
-                    <action method="addJs"><script>aswan/jquery.uniform.min.js</script>
-                    </action>
+                    <action method="addJs"><script>aswan/jquery.bxslider-v9.js</script></action>
+                    <action method="addJs"><script>aswan/jquery.mCustomScrollbar.concat.min-v9.js</script></action>
+                    <action method="addJs"><script>aswan/jquery.fancybox-v9.js</script></action>
+                    <action method="addJs"><script>aswan/custom-v9.js</script></action>
+                    <action method="addJs"><script>aswan/jquery.uniform.min.js</script></action>
                     <action method="addJs"><script>prototype/prototype.js</script></action>
-                    <!-- <action method="addJs"><script>lib/ccard.js</script></action> -->
                     <action method="addJs"><script>prototype/validation.js</script></action>
-                    <!-- <action method="addJs"><script>scriptaculous/builder.js</script></action> -->
                     <action method="addJs"><script>scriptaculous/effects.js</script></action>
-                    <!-- <action method="addJs"><script>scriptaculous/dragdrop.js</script></action>-->
                     <action method="addJs"><script>scriptaculous/controls.js</script></action> 
                     <action method="addJs"><script>varien/js.js</script></action>
                     <action method="addJs"><script>varien/form.js</script></action>
-                    <!-- <action method="addJs"><script>varien/menu.js</script></action> -->
                     <action method="addJs"><script>mage/translate.js</script></action> 
                     <action method="addJs"><script>mage/cookies.js</script></action>
                     <block type="page/js_cookie" name="js_cookies" template="page/js/cookie.phtml"/>
-                    <!-- <action method="addItem"><type>skin_js</type><name>js/scripts.js</name></action>   -->              
                     <action method="addCss"><stylesheet>css/print.css</stylesheet><params>media="print"</params></action>
                 <!-- New Style Add -->
-                    <action method="addCss"><stylesheet>css/fonts.css</stylesheet></action>
-                    <action method="addCss"><stylesheet>css/style.css</stylesheet>
-                    </action>
-                    <action method="addCss"><stylesheet>css/quickview.css</stylesheet>
-                    </action>
-                    <action method="addCss"><stylesheet>css/jquery.mCustomScrollbar.css</stylesheet>
-                    </action>
-                    <action method="addCss"><stylesheet>css/jquery.bxslider.css</stylesheet>
-                    </action>
-                    <action method="addCss"><stylesheet>css/responsive.css</stylesheet>
-                    </action>
-                    <action method="addCss"><stylesheet>css/jquery.fancybox.css</stylesheet>
-                    </action>
+                    <action method="addCss"><stylesheet>css/fonts-v9.css</stylesheet></action>
+                    <action method="addCss"><stylesheet>css/style-v9.css</stylesheet></action>
+                    <action method="addCss"><stylesheet>css/quickview-v9.css</stylesheet></action>
+                    <action method="addCss"><stylesheet>css/jquery.mCustomScrollbar-v9.css</stylesheet></action>
+                    <action method="addCss"><stylesheet>css/jquery.bxslider-v9.css</stylesheet></action>
+                    <action method="addCss"><stylesheet>css/responsive-v9.css</stylesheet></action>
+                    <action method="addCss"><stylesheet>css/jquery.fancybox-v9.css</stylesheet></action>
                 <!-- End  -->
                     <action method="addItem"><type>js</type><name>lib/ds-sleight.js</name><params/><if>lt IE 7</if></action>
                     <action method="addItem"><type>skin_js</type><name>js/iehover-fix.js</name><params/><if>lt IE 7</if></action>
@@ -144,13 +127,11 @@
             <block type="page/html_head" name="head" as="head">
                 <action method="addJs"><script>prototype/prototype.js</script></action>
                 <action method="addJs"><script>mage/translate.js</script></action>
-                <!-- <action method="addJs"><script>lib/ccard.js</script></action> -->
                 <action method="addJs"><script>prototype/validation.js</script></action>
                 <action method="addJs"><script>varien/js.js</script></action>
                 <action method="addItem"><type>skin_js</type><name>js/scripts.js</name></action>
                 <action method="addCss"><stylesheet>css/print.css</stylesheet><params>media="print"</params></action>
                 <action method="addItem"><type>js</type><name>lib/ds-sleight.js</name><params/><if>lt IE 7</if></action>
-               
             </block>
 
             <block type="core/text_list" name="content" as="content" translate="label">

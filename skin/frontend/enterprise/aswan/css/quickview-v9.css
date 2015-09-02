@@ -1,0 +1,75 @@
+#quickview .quickright .productswaches {position: static!important;}
+#quickview .quickright .productswaches h4 {position: relative!important;}
+#quickview .quickright .productswaches .sizeguide {top:0px!important;}
+#quickview .sizepopup h4 { background: #d9d9d9!important; display: block!important; font-family: Lato,"Trebuchet MS",Helvetica,sans-serif!important; font-size: 13px!important; font-weight: 400!important; padding: 3px!important; text-align: center!important; text-transform: uppercase!important; margin: 0!important; }
+#quickview .sizepopup ul li {margin: 0px!important; float: none!important;}
+#MB_overlay { position:absolute; margin:auto; top:0; left:0; width:100%; height:100%; z-index:10010; background: url('../images/fancybox_overlay.png'); }
+#MB_overlay[id] { position:fixed }
+#MB_window[id] { position:fixed!important }
+#MB_frame { position:relative; background:#fff; height:100% }
+#MB_header { margin:0; padding:0 }
+#MB_content { overflow:auto; position:relative; overflow-y:hidden!important; height: auto!important; }
+#MB_caption {display: none;}
+#MB_close { background: url('../images/sprite.png') -156px -33px no-repeat; position: absolute; top: -4px; right: -4px; width: 16px; height: 14px; cursor: pointer; z-index: 8040; }
+#MB_loading { padding:1.5em; text-indent:-10000px; background:transparent url(../images-v3/adj-nav-progress-v1.gif) 50% 0 no-repeat }
+#MB_window { background:#fff; padding:15px; position:absolute; top:14%; border:0 solid; text-align:left; z-index:10020; }
+#MB_window #quickview .quickleft {height: inherit; overflow: hidden!important;}
+
+/***************checkout dropdown start****************/
+.ckprd-shipdet-wrapp { width:100%; margin:0; padding:0;}
+.cksmallfield-mob-wrap { width:100%; overflow:hidden;}
+.ckprd-shipdet-wrapp select {border:1px solid #B1B0B0; color:#1e0f46; height: 26px; left: 0px; top: 0px; position:absolute; width: 100%;}
+.cksmallfield-mob-wrap div {border: 1px solid #CCCCCC; height: 26px; width: 100%;}
+.cksmallfield-mob-wrap .selector{background: url("../images/drop-arrow-icon.jpg") no-repeat scroll right center rgba(0, 0, 0, 0); overflow: hidden; width: 100%; position: relative;}
+.ckprd-shipdet-wrapp span{  display:block; font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-weight:400; font-size:13px; padding:3px; color:#000; margin:0;}
+/***************checkout dropdown close****************/
+
+#mobisize-container{width:100%; margin:0 auto 18px; text-align:center;}
+#mobisize-container .size-top { background: none repeat scroll 0 0 #1e0f46; color: #fff !important; font-size: 14px; margin: 3px auto 0; padding: 5px; text-align: center; width:98%;}
+#mobisize-container .mobi-sizechart .size-info {
+    overflow-x: auto;
+    padding: 0 2px;
+	display:block;
+}
+#mobisize-container .mobi-sizechart .size-info table {
+    margin: 0 auto;
+    min-width: 100%;
+	font:normal 12px/14px "Lato-Regular";
+}
+#mobisize-container .mobi-sizechart .size-info table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+#mobisize-container .mobi-sizechart .size-info table tr th.size {
+    padding-bottom: 15px;
+	vertical-align: middle;
+}
+#mobisize-container .mobi-sizechart .size-info table tr th {
+    text-transform: uppercase;
+	font:normal 12px/14px "Lato-Regular";
+	background:#f1f0ee;
+	color:#666666;
+	padding: 2px 5px!important;
+}
+#mobisize-container .mobi-sizechart .size-info table tr td, #mobisize-container .mobi-sizechart .size-info table tr th {
+    border: 1px solid #ccc;
+    padding: 5px 3px;
+    text-align: center;
+}
+#mobisize-container .mobi-sizechart .size-info table caption, table th, table td {
+    text-align: left;
+}
+#mobisize-container .mobi-sizechart .size-info table tr th .unit {
+    font-size: 9px!important;
+}
+#mobisize-container .mobi-sizechart .size-info table tr th p {
+    font-weight: 500;
+	margin-bottom:8px;
+	color:#666666!important;
+	font-size:12px!important;
+	margin:3px 0 2px!important;
+	line-height:16px;
+	border:none;
+	padding:0;
+} 
