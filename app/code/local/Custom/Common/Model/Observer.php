@@ -19,11 +19,26 @@ class Custom_Common_Model_Observer extends Varien_Object
 				}
 			}
 		}
+		public function changeRobots($observer)
+		{
+		    if($observer->getEvent()->getAction()->getFullActionName() == 'catalog_category_view')
+		    {
+		        $uri = $observer->getEvent()->getAction()->getRequest()->getRequestUri();
+		        if(stristr($uri,"?")): // looking for a ?
+		            $layout       = $observer->getEvent()->getLayout();
+		            $product_info = $layout->getBlock('head');
+		            $layout->getUpdate()->addUpdate('<reference name="head"><action method="setRobots"><value>NOINDEX,NOFOLLOW</value></action></reference>');
+		            $layout->generateXml();
+		        endif;
+		    }
+		    return $this;
+		}
 		public function productSaveAfter(Varien_Event_Observer $observer){
 			$product = $observer->getProduct();
 			$this->setInventoryDate($product);
 		}
-
+		
+	
 		public function inventorySaveAfter($observer){
 				$model = Mage::getModel('catalog/product');
 				$sku = $observer->getSku(); 
@@ -96,6 +111,7 @@ class Custom_Common_Model_Observer extends Varien_Object
 	      
 	      if($email){
 	      		Mage::getModel('core/cookie')->set('nw_omgpm','yes',3600,'/',null,null,false);
+	      		Mage::getSingleton('core/session')->setNewRegistrationUser('complete');
 	      }
 	  }	
 	
