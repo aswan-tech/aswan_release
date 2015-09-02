@@ -97,6 +97,10 @@ body {font-family: "Gill Sans Roman";}
 #topmenu ul li .menudropdown h3 {font-family: "oswaldregular",sans-serif; font-size: 14px; font-weight: normal; letter-spacing: 2px; text-transform: uppercase; color:#000; margin:0px 0px 10px 0px;}
 #topmenu ul li .menudropdown li {letter-spacing:normal; display:block; float:none; clear:both; padding:0px; margin:0px 0px 5px 0px;}
 #topmenu ul li .menudropdown li a {color:#000;}
+
+#topmenu ul li.salemenu {position: relative;}
+#topmenu ul li.salemenu .menudropdown {top:50px; white-space: nowrap; width: auto;}
+
 #header .topsearch {position:absolute; top:78px; right:10px; background:#fff; padding:5px; display:none; z-index:1;}
 #header.bagopen .topsearch {top:295px;}
 #header .topsearch input {width:220px; border:1px solid #1e0f46; float:left; margin:0px 0px 0px 3px; height:25px; line-height:25px; padding:0px 5px; border-radius:3px;}
@@ -736,7 +740,7 @@ body.catalog-product-view {padding:0 0 21px 0px;}
 #cartarea #cartright .summryboxs {width:100%; float:left; clear:both; background:#fff; padding:10px; margin:0px 0px 10px 0px;}
 #cartarea #cartright .summryboxs h3 {font-size:20px; display:block; font-family:'Trade Gothic Condensed Bold'; clear:both; margin:0px 0px 8px 0px; text-transform:uppercase; border-bottom:1px solid #e6e6e6; padding:0px 0px 6px 0px;}
 #cartarea #cartright .summryboxs table td {padding:6px 0px; font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-size:13px; font-weight:400;}
-#cartarea #cartright .summryboxs table tr td:last-child {text-align:right;}
+#cartarea #cartright .summryboxs table tr td:last-child {text-align:right; white-space: nowrap;}
 #cartarea #cartright .summryboxs table .grandtotal td {border-top:1px solid #dfdfdf; font-weight:600;}
 
 .summryboxs table #showvat {cursor:pointer; position:relative; display:inline-block; padding:0px 0px 0px 18px;}
@@ -1013,6 +1017,10 @@ body.catalog-product-view {padding:0 0 21px 0px;}
 #orderlist .orderhead td {font-size:13px;}
 #orderlist .orderhead td h5 {font-size:11px; text-transform:uppercase;}
 #orderlist .orderhead td h5 a {display:inline-block; color:#fff; background:#1e0f46; padding:3px 5px; margin:0px 2px;}
+#orderlist .orderhead td:first-child {width:25%;}
+#orderlist .orderhead td:nth-child(2n),
+#orderlist .orderhead td:nth-child(3n) {width:13%;}
+#orderlist .orderhead td:nth-child(4n) {width:20%;}
 #orderlist .orderhead td:last-child {width:10%;}
 #orderlist .orderhead td a.details {color:#dc0028; position:relative;}
 #orderlist .orderhead td a.details:before {position:absolute; content:'+'; left:-10px;}
