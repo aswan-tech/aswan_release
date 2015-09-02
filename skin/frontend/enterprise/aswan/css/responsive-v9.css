@@ -126,7 +126,7 @@
 #accountleft .accountlinks ul li a:hover, #accountleft .accountlinks ul li a.active {background:#d7172f; color:#fff;}
 #accountright .infobox {width:100%; padding:0px 0px 18px 0px;}
 
-#orderlist .orderhead td {display:block; padding:3px;}
+#orderlist .orderhead td {display:block; padding:3px; width:auto!important;}
 #orderlist .orderhead td:last-child {width:auto;}
 #orderlist .orderhead td a.details {position:absolute; top:14px; right:10px;}
 

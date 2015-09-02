@@ -45,19 +45,19 @@
 
 <select onchange="setLocation(this.value)">
 <!-- <option value=""><label><?php echo $this->__('Sort by') ?></label></option> -->
-<option value="<?php echo $this->getOrderUrl('position', $sort_order_value_for_position) ?>"<?php if(isset($_REQUEST['order']) && $_REQUEST['order']=='position'): ?> selected="selected"<?php endif; ?>>Popularity
+<option value="<?php echo $this->getOrderUrl('position', $sort_order_value_for_position) ?>"<?php if(isset($_REQUEST['order'])  && $_REQUEST['order']=='position'): ?> selected="selected"<?php endif; ?>>Popularity
 </option>
-<option value="<?php echo $this->getOrderUrl('entity_id', 'desc') ?>"<?php if($this->isOrderCurrent('entity_id') && $this->getCurrentDirection() == 'desc'): ?> selected="selected"<?php endif; ?>>
+<option value="<?php echo $this->getOrderUrl('entity_id', 'desc') ?>"<?php if(isset($_REQUEST['order'])  && $_REQUEST['order']=='entity_id'): ?> selected="selected"<?php endif; ?>>
 New Arrival
 </option>
 
 <option value="<?php echo $this->getOrderUrl('discount', $sort_order_value_for_discount) ?>"<?php if(isset($_REQUEST['order']) && $_REQUEST['order']=='discount'): ?> selected="selected"<?php endif; ?>>
 Discount
 </option>
-<option value="<?php echo $this->getOrderUrl('price', 'asc') ?>"<?php if($this->isOrderCurrent('price') && $this->getCurrentDirection() == 'asc'): ?> selected="selected"<?php endif; ?>>
+<option value="<?php echo $this->getOrderUrl('price', 'asc') ?>"<?php if(isset($_REQUEST['order'])  && $_REQUEST['order']=='price' && $_REQUEST['dir']=='asc'): ?> selected="selected"<?php endif; ?>>
 Price - Low to High
 </option>
-<option value="<?php echo $this->getOrderUrl('price', 'desc') ?>"<?php if($this->isOrderCurrent('price') && $this->getCurrentDirection() == 'desc'): ?> selected="selected"<?php endif; ?>>
+<option value="<?php echo $this->getOrderUrl('price', 'desc') ?>"<?php if(isset($_REQUEST['order'])  && $_REQUEST['order']=='price' && $_REQUEST['dir']=='desc'): ?> selected="selected"<?php endif; ?>>
 Price - High to Low
 </option>
 
