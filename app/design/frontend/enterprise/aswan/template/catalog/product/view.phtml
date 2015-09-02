@@ -304,6 +304,9 @@ function addToCartByAjax(isRedirect) {
                         scrollTop: jQuery("#messages_product_view").offset().top - 150
                     }, 300);
                   jQuery('#ajax-loading').hide();
+                   valOpt = 0;
+                  jQuery('.productswaches ul li a.select').removeClass('select');
+                  jQuery('.productswaches ul li a.active').removeClass('active');
               }
         });
         saveData.error(function() { 
