@@ -59,9 +59,7 @@ dataLayer.push({'PAGE_TYPE': 'HOMEPAGE'});
 </header> 
 
 <div id="homeslider">
-<ul class="bxslider">
 <?php echo Mage::helper('banners')->getBanners();?>
-</ul>
 </div>
 <div id="mobilehomeslider">
 	<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('aswan-homepage-mobile-slider')->toHtml(); ?>
