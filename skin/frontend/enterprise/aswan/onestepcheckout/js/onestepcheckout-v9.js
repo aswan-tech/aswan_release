@@ -220,8 +220,7 @@ var OneStepCheckoutLoginPopup = Class.create({
         this.popup = new Control.Modal(this.popup_container, {
             overlayOpacity: 0.65,
             fade: true,
-            fadeDuration: 0.3,
-            position: 'center_once'
+            fadeDuration: 0.3
         });
     }
 });
@@ -278,7 +277,6 @@ function get_save_methods_function(url, update_payments)
         var update_payments = false;
     }
     return function(e)    {
-
         if(typeof e != 'undefined')    {
             var element = e.element();
 
@@ -303,7 +301,6 @@ function get_save_methods_function(url, update_payments)
                 shipping_method: shipping_method,
                 payment_method: payment_method
         }
-
         /* Find payment parameters and include */
         var items = $$('input[name^=payment]').concat($$('select[name^=payment]'));
         var names = items.pluck('name');
@@ -314,22 +311,25 @@ function get_save_methods_function(url, update_payments)
                 parameters[names[x]] = values[x];
             }
         }
-
         new Ajax.Request(url, {
             method: 'post',
             onSuccess: function(transport)    {
             if(transport.status == 200)    {
                 var data = transport.responseText.evalJSON();
+				
+				if(typeof(data.session_error) != 'undefined'){
+					alert(data.session_error);
+					window.location.reload();
+				}
 
                 totals.update(data.summary);
 
                 if(update_payments)    {
-
                     payment_methods.replace(data.payment_method);
 
-                    $$('div.payment-methods input[name="payment\[method\]"]').invoke('observe', 'click', get_separate_save_methods_function(url));
+                    $$('div.payment-methods input[name^=payment\[method\]]').invoke('observe', 'click', get_separate_save_methods_function(url));
 
-                    $$('div.payment-methods input[name="payment\[method\]"]').invoke('observe', 'click', function() {
+                    $$('div.payment-methods input[name^=payment\[method\]]').invoke('observe', 'click', function() {
                         $$('div.onestepcheckout-payment-method-error').each(function(item) {
                             new Effect.Fade(item);
                         });
@@ -371,12 +371,11 @@ function exclude_unchecked_checkboxes(data)
     return items;
 }
 
-function get_save_billing_function(url, set_methods_url, update_payments, triggered)
+function get_save_billing_function(url, set_methods_url, update_payments, triggered, obj)
 {
     if(typeof update_payments == 'undefined')    {
         var update_payments = false;
     }
-
     if(typeof triggered == 'undefined')    {
         var triggered = true;
     }
@@ -387,50 +386,47 @@ function get_save_billing_function(url, set_methods_url, update_payments, trigge
 
     return function()    {
         var form = $('onestepcheckout-form');
-        var items = exclude_unchecked_checkboxes($$('input[name^=billing]').concat($$('select[name^=billing]')));
-        var names = items.pluck('name');
-        var values = items.pluck('value');
+        var items = exclude_unchecked_checkboxes($$('input[name^=shipping]').concat($$('select[name^=shipping]')));
+        var shipping_names = items.pluck('name');
+        var shipping_values = items.pluck('value');
         var parameters = {
                 shipping_method: $RF(form, 'shipping_method')
         };
 
 
         var street_count = 0;
-        for(var x=0; x < names.length; x++)    {
-            if(names[x] != 'payment[method]')    {
+        for(var x=0; x < shipping_names.length; x++)    {
+            if(shipping_names[x] != 'shipping_method')    {
 
-                var current_name = names[x];
+                var current_name = shipping_names[x];
 
-                if(names[x] == 'billing[street][]')    {
-                    current_name = 'billing[street][' + street_count + ']';
+                if(shipping_names[x] == 'shipping[street][]')    {
+                    current_name = 'shipping[street][' + street_count + ']';
                     street_count = street_count + 1;
                 }
 
-                parameters[current_name] = values[x];
+                parameters[current_name] = shipping_values[x];
+				
             }
         }
-
-        var use_for_shipping = $('billing:use_for_shipping_yes');
-
+        var use_for_billing = $('shipping:use_for_billing_yes');
 
 
-
-        if(use_for_shipping && use_for_shipping.getValue() != '1')    {
-            var items = $$('input[name^=shipping]').concat($$('select[name^=shipping]'));
-            var shipping_names = items.pluck('name');
-            var shipping_values = items.pluck('value');
-            var shipping_parameters = {};
+        if(use_for_billing && use_for_billing.getValue() != '1')    {
+            var items = $$('input[name^=billing]').concat($$('select[name^=billing]'));
+            var names = items.pluck('name');
+            var values = items.pluck('value');
             var street_count = 0;
 
-            for(var x=0; x < shipping_names.length; x++)    {
-                if(shipping_names[x] != 'shipping_method')    {
-                    var current_name = shipping_names[x];
-                    if(shipping_names[x] == 'shipping[street][]')    {
-                        current_name = 'shipping[street][' + street_count + ']';
+            for(var x=0; x < names.length; x++)    {
+                if(names[x] != 'payment[method]')    {
+                    var current_name = names[x];
+                    if(names[x] == 'billing[street][]')    {
+                        current_name = 'billing[street][' + street_count + ']';
                         street_count = street_count + 1;
                     }
 
-                    parameters[current_name] = shipping_values[x];
+                    parameters[current_name] = values[x];
                 }
             }
         }
@@ -441,49 +437,177 @@ function get_save_billing_function(url, set_methods_url, update_payments, trigge
         if(typeof shipment_methods != 'undefined') {
             shipment_methods_found = true;
         }
-
+		
         if(shipment_methods_found)  {
-            shipment_methods.update('<div class="loading-ajax">&nbsp;</div>');
+            shipment_methods.update('<div class="loading-ajax-shipment-methods">&nbsp;</div>');
         }
 
         var payment_method = $RF(form, 'payment[method]');
         parameters['payment_method'] = payment_method;
         parameters['payment[method]'] = payment_method;
+	
 
-        if(update_payments){
-            var payment_methods = $$('div.payment-methods')[0];
-            payment_methods.update('<div class="loading-ajax">&nbsp;</div>');
-        }
+        var payment_methods = $$('div.payment-methods')[0];
+        payment_methods.update('<div class="clear"></div><div class="amsloader ta-c pt30 pb30 fs42"></div>');
 
         var totals = get_totals_element();
         totals.update('<div class="loading-ajax">&nbsp;</div>');
-
-
+        
         new Ajax.Request(url, {
             method: 'post',
+            options: { asynchronous: false },
+			onLoading: function(){
+				jQuery('#delivery-loader').show();
+			},
             onSuccess: function(transport)    {
+			
             if(transport.status == 200)    {
-
                 var data = transport.responseText.evalJSON();
-
+				if(typeof(data.session_error) != 'undefined'){
+					alert(data.session_error);
+					window.location.reload();
+				}
+				
+				jQuery('#delivery-loader').hide();
+				
+				/* Custom code custom JS call to populate city and state */
+				if(typeof(data.billing) != 'undefined'){
+					if(data.billing.statetext == ''){
+						data.billing.statetext = "-- Select state --";
+					}
+					
+					if(jQuery("select[name='billing[country_id]'] option:selected").val() == 'IN'){
+						jQuery('#billing_address_list div.input-city input').val(data.billing.city);
+						jQuery('#billing_address_list div.input-region input').val(data.billing.statetext);
+					}
+					
+					jQuery("#billing_address_list div.input-region select option").each(function() {
+						if(jQuery(this).attr('selected')){
+							jQuery(this).attr('selected', false);
+						}
+					});
+					jQuery("#billing_address_list div.input-region select option").filter(function() {
+						return jQuery(this).val() == data.billing.state;
+					}).attr('selected', true);
+					
+					if(jQuery("select[name='billing[country_id]'] option:selected").val() == 'IN'){
+						jQuery('#billing_address_list div.input-region select').attr('defaultvalue',data.billing.state);
+						jQuery('#billing_address_list div.input-region .selector > span').text(data.billing.statetext);
+					}
+				}
+				
+				if(typeof(data.shipping) != 'undefined'){
+					if(data.shipping.statetext == ''){
+						data.shipping.statetext = "-- Select state --";
+					}
+					
+					if(jQuery("select[name='shipping[country_id]'] option:selected").val() == 'IN'){
+						jQuery('#shipping_address_list div.input-city input').val(data.shipping.city);
+						jQuery('#shipping_address_list div.input-region input').val(data.shipping.statetext);
+					}
+					
+					jQuery("#shipping_address_list div.input-region select option").each(function() {
+						if(jQuery(this).attr('selected')){
+							jQuery(this).attr('selected', false);
+						}
+					});
+					
+					jQuery("#shipping_address_list div.input-region select option").filter(function() {
+						return jQuery(this).val() == data.shipping.state;
+					}).attr('selected', true);
+					
+					if(jQuery("select[name='shipping[country_id]'] option:selected").val() == 'IN'){
+						jQuery('#shipping_address_list div.input-region select').attr('defaultvalue',data.shipping.state);
+						jQuery('#shipping_address_list div.input-region .selector > span').text(data.shipping.statetext);
+					}
+				}
+				
+				if(typeof(data.shipping) != 'undefined'){
+					if(data.shipping.postcode != '' && data.shipping.postcode != '-' && data.shipping.cod != '1'){
+						if(jQuery("#shipping_address_list .input-postcode .post-code-error").length == 0){
+								jQuery('#shipping_address_list .input-postcode input').after('<p class="post-code-error">Cash On Delivery not valid for this pincode. Please choose other payment option in PAYMENT tab.</p>');
+						}
+					}
+					if(data.shipping.postcode != '' && data.shipping.postcode != '-' && data.shipping.cod == '1'){
+						if(jQuery("#shipping_address_list .input-postcode .post-code-error").length > 0){
+								jQuery('#shipping_address_list .input-postcode .post-code-error').remove();
+						}
+					}
+				}else{
+					if(jQuery("#shipping_address_list .input-postcode .post-code-error").length > 0){
+						jQuery('#shipping_address_list .input-postcode .post-code-error').remove();
+					}
+				}
+				
+				if(typeof(data.shipping) != 'undefined'){
+					if(typeof(data.shipping.country) != 'undefined' && data.shipping.country != 'IN'){
+						if(jQuery('#shipping_address_list .input-telephone input').hasClass('validate-mobile')){
+							jQuery('#shipping_address_list .input-telephone input').removeClass('validate-mobile');
+						}
+						if(jQuery('#shipping_address_list .input-telephone div.validation-advice').length >0 ){
+							jQuery('#shipping_address_list .input-telephone div.validation-advice').remove();
+						}
+					}else{
+						if(!jQuery('#shipping_address_list .input-telephone input').hasClass('validate-mobile')){
+							jQuery('#shipping_address_list .input-telephone input').addClass('validate-mobile');
+						}
+					}
+				}else{
+					if(jQuery('#shipping_address_list .input-telephone input').hasClass('validate-mobile')){
+						jQuery('#shipping_address_list .input-telephone input').removeClass('validate-mobile');
+					}
+					if(jQuery('#shipping_address_list .input-telephone div.validation-advice').length >0 ){
+						jQuery('#shipping_address_list .input-telephone div.validation-advice').remove();
+					}
+				}
+				
+				if(typeof(data.billing) != 'undefined'){
+					if(typeof(data.billing.country) != 'undefined' && data.billing.country != 'IN'){
+						if(jQuery('#billing_address_list .input-telephone input').hasClass('validate-mobile')){
+							jQuery('#billing_address_list .input-telephone input').removeClass('validate-mobile');
+						}
+						if(jQuery('#billing_address_list .input-telephone div.validation-advice').length >0 ){
+							jQuery('#billing_address_list .input-telephone div.validation-advice').remove();
+						}
+					}else{
+						if(!jQuery('#billing_address_list .input-telephone input').hasClass('validate-mobile')){
+							jQuery('#billing_address_list .input-telephone input').addClass('validate-mobile');
+						}
+					}
+				}else{
+					if(jQuery('#billing_address_list .input-telephone input').hasClass('validate-mobile')){
+						jQuery('#billing_address_list .input-telephone input').removeClass('validate-mobile');
+					}
+					if(jQuery('#billing_address_list .input-telephone div.validation-advice').length >0 ){
+							jQuery('#billing_address_list .input-telephone div.validation-advice').remove();
+						}
+				}
+			
+				/* Custom js call ends */
+				
                 // Update shipment methods
                 if(shipment_methods_found)  {
                     shipment_methods.update(data.shipping_method);
                 }
 
-                if(update_payments){
-                    payment_methods.replace(data.payment_method);
-                }
-
+                payment_methods.update(data.payment_method);
                 totals.update(data.summary);
 
+                // Add new event handlers
 
-            }
-        },
-        onComplete: function(transport){
-            if(transport.status == 200)    {
                 if(shipment_methods_found)  {
                     $$('dl.shipment-methods input').invoke('observe', 'click', get_separate_save_methods_function(set_methods_url, update_payments));
+                }
+
+                $$('div.payment-methods input[name^=payment\[method\]]').invoke('observe', 'click', get_separate_save_methods_function(set_methods_url));
+
+                $$('div.payment-methods input[name^=payment\[method\]]').invoke('observe', 'click', function() {
+                    $$('div.onestepcheckout-payment-method-error').each(function(item) {
+                        new Effect.Fade(item);
+                    });
+                });
+
+                if(shipment_methods_found)  {
                     $$('dl.shipment-methods input').invoke('observe', 'click', function() {
                         $$('div.onestepcheckout-shipment-method-error').each(function(item) {
                             new Effect.Fade(item);
@@ -491,30 +615,27 @@ function get_save_billing_function(url, set_methods_url, update_payments, trigge
                     });
                 }
 
-                if(update_payments){
-                    $$('div.payment-methods input[name="payment\[method\]"]').invoke('observe', 'click', get_separate_save_methods_function(set_methods_url));
+                if($RF(form, 'payment[method]') != null)    {
+                    try    {
+                        var payment_method = $RF(form, 'payment[method]');
+                        $('container_payment_method_' + payment_method).show();
+                        $('payment_form_' + payment_method).show();
+                    } catch(err)    {
 
-                    $$('div.payment-methods input[name="payment\[method\]"]').invoke('observe', 'click', function() {
-                        $$('div.onestepcheckout-payment-method-error').each(function(item) {
-                            new Effect.Fade(item);
-                        });
-                    });
-
-                    if($RF(form, 'payment[method]') != null)    {
-                        try    {
-                            var payment_method = $RF(form, 'payment[method]');
-                            $('container_payment_method_' + payment_method).show();
-                            $('payment_form_' + payment_method).show();
-                        } catch(err)    {
-
-                        }
                     }
                 }
-            }
+				
+				//code to focus the current element in concern (not to let the form jump up) starts
+				var thiscntrl = jQuery(obj).attr('id');
+				//$(thiscntrl).focus();
+				//code to focus the current element in concern (not to let the form jump up) ends
+				
+			/* hide show handeled in case of multiple javascript calls */
+			}
         },
         parameters: parameters
         });
-
+	
     }
 }
 
@@ -535,16 +656,40 @@ function get_separate_save_methods_function(url, update_payments)
 
         var form = $('onestepcheckout-form');
         var shipping_method = $RF(form, 'shipping_method');
-        var payment_method = $RF(form, 'payment[method]');
-        var totals = get_totals_element();
+        //var payment_method = $RF(form, 'payment[method]');
+		var payment_method = jQuery("#p_method_sel").val();
 
+        var payment_type = '';
+        var p_pid = '';
+        var payment_Pg = '';
+        var bankcode = '';
+        
+        var ccnum = '';
+        var ccname = '';
+        var ccvv = '';
+        var ccexpmon = '';
+        var ccexpyr = '';
+
+        if(payment_method != "cashondelivery"){
+            payment_type = $RF(form, 'payment[type]');
+            payment_Pg = $RF(form, 'payment[Pg]');
+            bankcode = $RF(form, 'payment[Bankcode]');            
+            ccnum = jQuery("#ccnum").val();
+            ccname = jQuery("#ccname").val();
+            ccvv = jQuery("#ccvv").val();
+            ccexpmon = jQuery("#ccexpmon").val();
+            ccexpyr = jQuery("#ccexpyr").val();
+            p_pid =  jQuery("#p_pid").val();
+        }
+        
+        var totals = get_totals_element();
         var freeMethod = $('p_method_free');
         if(freeMethod){
             payment.reloadcallback = true;
             payment.countreload = 1;
         }
-
-        totals.update('<div class="loading-ajax">&nbsp;</div>');
+		
+		totals.update('<div class="loading-ajax">&nbsp;</div>');
 
         if(update_payments)    {
             var payment_methods = $$('div.payment-methods')[0];
@@ -553,7 +698,16 @@ function get_separate_save_methods_function(url, update_payments)
 
         var parameters = {
                 shipping_method: shipping_method,
-                payment_method: payment_method
+                payment_method: payment_method,
+                payment_type: payment_type,
+                payment_Pg: payment_Pg,
+                bankcode: bankcode,
+                ccnum: ccnum,
+                ccname: ccname,
+                ccvv: ccvv,
+                ccexpmon: ccexpmon,
+                ccexpyr: ccexpyr,
+                p_pid: p_pid
         }
 
         /* Find payment parameters and include */
@@ -566,22 +720,34 @@ function get_separate_save_methods_function(url, update_payments)
                 parameters[names[x]] = values[x];
             }
         }
-
         new Ajax.Request(url, {
             method: 'post',
+			onLoading: function(){
+				jQuery('#delivery-loader').show();
+			},
             onSuccess: function(transport)    {
             if(transport.status == 200)    {
                 var data = transport.responseText.evalJSON();
+				if(typeof(data.session_error) != 'undefined'){
+					alert(data.session_error);
+					window.location.reload();
+				}
+				jQuery('#delivery-loader').hide();
                 var form = $('onestepcheckout-form');
 
                 totals.update(data.summary);
+
+                payment.currentType = data.payment_type;
+                payment.currentMethod = data.payment_method_val;
+                payment.currentProviderId = data.p_pid;
+                               
 
                 if(update_payments)    {
 
                     payment_methods.replace(data.payment_method);
 
-                    $$('div.payment-methods input[name="payment\[method\]"]').invoke('observe', 'click', get_separate_save_methods_function(url));
-                    $$('div.payment-methods input[name="payment\[method\]"]').invoke('observe', 'click', function() {
+                    $$('div.payment-methods input[name^=payment\[method\]]').invoke('observe', 'click', get_separate_save_methods_function(url));
+                    $$('div.payment-methods input[name^=payment\[method\]]').invoke('observe', 'click', function() {
                         $$('div.onestepcheckout-payment-method-error').each(function(item) {
                             new Effect.Fade(item);
                         });
@@ -612,10 +778,14 @@ function paymentrefresh(url) {
         onSuccess: function(transport){
             if(transport.status == 200)    {
                     var data = transport.responseText.evalJSON();
+					if(typeof(data.session_error) != 'undefined'){
+						alert(data.session_error);
+						window.location.reload();
+					}
                     payment_methods.replace(data.payment_method);
 
-                    $$('div.payment-methods input[name="payment\[method\]"]', 'div.payment-methods input[name="payment\[useProfile\]"]').invoke('observe', 'click', get_separate_save_methods_function(url));
-                    $$('div.payment-methods input[name="payment\[method\]"]', 'div.payment-methods input[name="payment\[useProfile\]"]').invoke('observe', 'click', function() {
+                    $$('div.payment-methods input[name^=payment\[method\]]', 'div.payment-methods input[name^=payment[useProfile]]').invoke('observe', 'click', get_separate_save_methods_function(url));
+                    $$('div.payment-methods input[name^=payment\[method\]]', 'div.payment-methods input[name^=payment[useProfile]]').invoke('observe', 'click', function() {
                         $$('div.onestepcheckout-payment-method-error').each(function(item) {
                             new Effect.Fade(item);
                         });
@@ -651,9 +821,8 @@ function addressPreview(templates, target) {
               } else {
                   value = s.getValue();
               }
-              if(value){
-                  value = '<span class="' + s.id.replace(':','-') + '">' + value.escapeHTML() + '</span>';
-              }
+              value = '<span class="' + s.id.replace(':','-') + '">' + value + '</span>';
+
               if(s.id == 'billing:region_id'){
                   bparams['billing:region'] = value;
               } else {
@@ -679,9 +848,9 @@ function addressPreview(templates, target) {
                 } else {
                     value = s.getValue();
                 }
-                if(value){
-                    value = '<span class="' + s.id.replace(':','-') + '">' + value.escapeHTML() + '</span>';
-                }
+
+                value = '<span class="' + s.id.replace(':','-') + '">' + value + '</span>';
+
                 if(s.id == 'shipping:region_id'){
                     sparams['shipping:region'] = value;
                 } else {
@@ -696,8 +865,8 @@ function addressPreview(templates, target) {
 
     var shipping_method = $RF(form, 'shipping_method');
     if(shipping_method){
-        var shipping_label = $('s_method_' + shipping_method).up('dt').down('label').innerHTML.stripScripts();
-        var shipping_title = $('s_method_' + shipping_method).up('dt').previous('dd').innerHTML.stripScripts();
+        var shipping_label = $('s_method_' + shipping_method).up('dt').down('label').innerHTML;
+        var shipping_title = $('s_method_' + shipping_method).up('dt').previous().innerHTML;
         var shipping_row = shipping_title + ' - ' + shipping_label
     }
 
@@ -713,7 +882,7 @@ function addressPreview(templates, target) {
     var payment_method = payment.currentMethod;
 
     if(payment_method){
-        var payment_label = $('p_method_'+payment_method).up('dt').down('label').innerHTML.stripScripts();
+        var payment_label = $('p_method_'+payment_method).up('dt').down('label').innerHTML;
     }
 
     var targetelem = $(target + '_billinga').childElements()[1];
@@ -787,12 +956,10 @@ Billing.prototype = {
 
     newAddress: function(isNew){
         if (isNew) {
-            //this.resetSelectedAddress();
+            this.resetSelectedAddress();
             Element.show('billing_address_list');
-            if($('billing:use_for_shipping_yes').getValue() != "1" && $('shipping-address-select').getValue() == ''){
-                Element.show('shipping_address_list');
-            }
-
+			jQuery("#billing_address .input-region .selector span").html("-- Select state --");
+			jQuery("#billing_address_list li.control .shipping_save_address").val('1');
         } else {
             Element.hide('billing_address_list');
         }
@@ -806,7 +973,7 @@ Billing.prototype = {
     },
 
     resetSelectedAddress: function(){
-        var selectElement = $('shipping-address-select')
+        var selectElement = $('billing-address-select')
         if (selectElement) {
             selectElement.value='';
         }
@@ -836,7 +1003,7 @@ Billing.prototype = {
 //shipping
 var Shipping = Class.create();
     Shipping.prototype = {
-            initialize: function(form){
+            initialize: function(form, addressUrl, saveUrl){
         this.form = form;
     },
 
@@ -848,6 +1015,12 @@ var Shipping = Class.create();
         if (isNew) {
             this.resetSelectedAddress();
             Element.show('shipping_address_list');
+			jQuery("#shipping_address_list .input-region .selector span").html("-- Select state --");
+			if($('shipping:use_for_billing_yes').getValue() != "1" && $('billing-address-select').getValue() == ''){
+                Element.show('billing_address_list');
+				jQuery(".billing_address_list .input-region .selector span").html("-- Select state --");
+            }
+			jQuery("#shipping_address_list li.control .shipping_save_address").val('1');
         } else {
             Element.hide('shipping_address_list');
         }
@@ -874,7 +1047,7 @@ var Shipping = Class.create();
     },
 
     setSameAsBilling: function(flag) {
-
+		
     },
 
     syncWithBilling: function () {
@@ -983,3 +1156,8 @@ var Payment = Class.create();
         });
     }
 };
+
+/*******************************************************/
+
+	
+/*******************************************************/
