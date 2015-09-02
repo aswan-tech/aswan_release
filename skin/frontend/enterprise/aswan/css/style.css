@@ -135,7 +135,7 @@ body {font-family: "Gill Sans Roman";}
 #mobnavigation ul li a {color:#333; display:block; padding:12px; line-height:18px; position:relative;}
 #mobnavigation ul li ol {display:block; padding:0px 15px 20px 15px; float:left; width:100%; display:none;}
 #mobnavigation ul li li {line-height:14px; font-size:12px; border:none;}
-#mobnavigation ul li li a {padding:6px;}
+#mobnavigation ul li li a {padding:9px 6px;}
 
 #quickbag {width:100%; float:left; padding:0px 20px; background:#f5f5f5; display:none; position:relative; z-index:9;}
 #quickbag .productslide {width:70%; height:210px; overflow:hidden; float:left; margin:3px 0px;}
@@ -422,7 +422,7 @@ body {font-family: "Gill Sans Roman";}
 #listingright .loadmore {width:100%; float:left; clear:both; padding:20px 0px; text-align:center;}
 #listingright .loadmore a {display:inline-block; padding:7px 18px; position:relative; background:#dc0028; color:#fff; font-size:14px; text-transform:uppercase;}
 
-#quickview {width:100%; position:relative; margin:0 auto; float:left; overflow:hidden;}
+#quickview {width:100%; min-width:750px; max-width:750px; padding:15px; position:relative; margin:0 auto; float:left; overflow:hidden; display:none;}
 #quickview .productprev, #quickview .productnext {display:block; position:absolute; z-index:999; width:16px; height:38px; margin-top:-19px; top:50%; cursor:pointer;}
 #quickview .productprev {background-position:-108px -155px; left:0px;}
 #quickview .productnext {background-position:-129px -155px; right:0px;}
@@ -537,6 +537,7 @@ body {font-family: "Gill Sans Roman";}
 /***********product listing close***********/
 
 /***********category page start*************/
+body.catalog-product-view {padding:0 0 21px 0px;}
 #categoryarea {width:100%; float:left; clear:both; position:relative; padding:20px; min-height:300px;}
 #categoryarea #categoryleft {float:left; width:15%;}
 #categoryarea #categoryleft h3 {display:block; cursor: pointer; position: relative; font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-weight: 400; font-size:13px; text-transform:uppercase; margin:0px 0px 10px 0px; padding:0px 0px 10px 0px; border-bottom:1px solid #eaeaea;}
@@ -1367,7 +1368,7 @@ body {font-family: "Gill Sans Roman";}
 
 #footer .footermid .footermobile {width:100%; float: left; clear: both; padding:0px 15px; display: none;}
 #footer .footermid .footermobile li {display: block; float: left; width: 50%; font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-weight:400; font-size:13px; padding: 5px;}
-#footer .footermid .footermobile li a {display:block; color: #fff; background: #dc0028; text-align: center; text-transform: uppercase; padding:8px 0px;}
+#footer .footermid .footermobile li a {display:block; color: #000; border: 1px solid #202020; text-align: center; text-transform: uppercase; padding:8px 0px;}
 
 #footer .footermid .paylogos {clear:both; text-align:center; padding:15px 0px;}
 #footer .footermid .paylogos p {margin:0px 0px 5px 0px; font-size:13px; text-transform:uppercase; color:#000;}
