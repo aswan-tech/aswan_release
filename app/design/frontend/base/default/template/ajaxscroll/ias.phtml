@@ -46,46 +46,89 @@ jQuery.ias({
 	history: <?php echo ($this->getIasHistory()) ? 'true' : 'false'; ?>,
 	onRenderComplete: function(){
 
-jQuery('.productbox .morecolors .databox img').mouseover(function(){
-		var proId = jQuery(this).attr('pro-id'),
-		    proName = jQuery(this).attr('title'),
-			proImg = jQuery(this).attr('large-image'),
-			//proSize = jQuery(this).next('ul').clone(),
-			proPri = jQuery(this).attr('product-price'),
-			proOldpri = jQuery(this).attr('old-price'),
-			proUrl = jQuery(this).attr('prod-url'),
-			quickUrl = jQuery(this).attr('quick-view'),
-			quickView = 'setLocation("'+quickUrl+'")'
-		
-		jQuery('#'+proId).attr('src',proImg);
-		jQuery('#'+proId).parent().attr('href',proUrl);
-		jQuery(this).parent().parent().siblings().find('h3').html(proName);
-		//jQuery(this).parent().parent().siblings().find('.sizebar').html(proSize);
-	    jQuery(this).parent().parent().siblings().find('.new-price').html(proPri);
-		jQuery(this).parent().parent().siblings().find('.old-price').html(proOldpri);
-		jQuery(this).parent().parent().siblings().find('.quickurl').attr('onclick',quickView);
-		});
-		
-	jQuery('#productlist .productbox').mouseleave(function(){
-		var defaultSource = jQuery(this).find('.defaultvalue'),
-		    proId = jQuery(defaultSource).attr('pro-id'),
-		    proName = jQuery(defaultSource).attr('title'),
-			proImg = jQuery(defaultSource).attr('data-image'),
-			proPri = jQuery(defaultSource).attr('product-price'),
-			proOldpri = jQuery(defaultSource).attr('old-price'),
-			proUrl = jQuery(defaultSource).attr('prod-url'),
-			quickUrl = jQuery(defaultSource).attr('quick-view'),
-			quickView = 'setLocation("'+quickUrl+'")'
-			
-		jQuery('#'+proId).attr('src',proImg);
-		jQuery('#'+proId).parent().attr('href',proUrl);
-		jQuery(this).find('h3').html(proName);
-	    //jQuery(this).find('.sizebar').html(proSize);
-		jQuery(this).find('.new-price').html(proPri);
-		jQuery(this).find('.old-price').html(proOldpri);
-		jQuery(this).find('.quickurl').attr('onclick',quickView);
-		
-		});
+		jQuery('.productbox > .productimg').mouseenter(function(){
+    var prod = jQuery(this).attr('product-id');
+
+    if (screen.width < 1024) {
+        return;
+    }
+
+       
+       var context = jQuery(this);
+       if(context.parent('.productbox').children('.morecolors').length > 0){
+            //no need to do anyting
+       }else {
+            jQuery(this).children('.prodload').show();
+            jQuery.ajax({
+            url:"<?php echo Mage::getBaseUrl(); ?>catalogproduct/index/product_options/prodId/"+prod,
+            beforeSend: function() {
+                context.children('.prodload').show();
+            },
+            success:function(result){
+                 context.parent('.productbox').prepend(result);
+                 context.children('.prodload').hide();
+    jQuery('.productbox .morecolors .databox img').bind('mouseover',function(){
+        var proId = jQuery(this).attr('pro-id'),
+            proName = jQuery(this).attr('title'),
+            proImg = jQuery(this).attr('large-image'),
+            //proSize = jQuery(this).next('ul').clone(),
+            proPri = jQuery(this).attr('product-price'),
+            proOldpri = jQuery(this).attr('old-price'),
+            proUrl = jQuery(this).attr('prod-url'),
+            quickUrl = jQuery(this).attr('quick-view'),
+            quickView = 'setLocation("'+quickUrl+'")',
+            loaderIcon = jQuery('#'+proId).parent().next('.prodload'),
+            disCount = jQuery(this).attr('discount')
+
+        jQuery(loaderIcon).show();
+        jQuery('#'+proId).load(function(){
+         jQuery(loaderIcon).hide();
+        });
+        
+        jQuery('#'+proId).attr('src',proImg);
+        jQuery('#'+proId).parent().attr('href',proUrl);
+        jQuery(this).parent().parent().siblings().find('h3').html(proName);
+        //jQuery(this).parent().parent().siblings().find('.sizebar').html(proSize);
+        jQuery(this).parent().parent().siblings().find('.new-price').html(proPri);
+        jQuery(this).parent().parent().siblings().find('.old-price').html(proOldpri);
+        jQuery(this).parent().parent().siblings().find('.discount').html(disCount);
+        jQuery(this).parent().parent().siblings().find('.quickurl').attr('onclick',quickView);
+        });
+        
+    jQuery('#productlist .productbox').bind('mouseleave',function(){
+        var defaultSource = jQuery(this).find('.defaultvalue'),
+            proId = jQuery(defaultSource).attr('pro-id'),
+            proName = jQuery(defaultSource).attr('title'),
+            proImg = jQuery(defaultSource).attr('data-image'),
+            proPri = jQuery(defaultSource).attr('product-price'),
+            proOldpri = jQuery(defaultSource).attr('old-price'),
+            proUrl = jQuery(defaultSource).attr('prod-url'),
+            quickUrl = jQuery(defaultSource).attr('quick-view'),
+            quickView = 'setLocation("'+quickUrl+'")',
+            loaderIcon = jQuery('#'+proId).parent().next('.prodload'),
+            disCount = jQuery(defaultSource).attr('discount')
+
+        jQuery(loaderIcon).hide();
+            
+        jQuery('#'+proId).attr('src',proImg);
+        jQuery('#'+proId).parent().attr('href',proUrl);
+        jQuery(this).find('h3').html(proName);
+        //jQuery(this).find('.sizebar').html(proSize);
+        jQuery(this).find('.new-price').html(proPri);
+        jQuery(this).find('.old-price').html(proOldpri);
+        jQuery(this).find('.discount').html(disCount);
+        jQuery(this).find('.quickurl').attr('onclick',quickView);
+        
+        });
+               
+            },
+            error: function (request, status, error) {
+               context.children('.prodload').hide();
+            }
+            });
+       }
+        
+});
 	}
  });
 <?php endif; ?>

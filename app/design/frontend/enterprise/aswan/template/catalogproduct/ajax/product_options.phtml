@@ -1,0 +1,86 @@
+<?php
+function getAddToCartUrl($product, $additional = array()) {
+    if (Mage::helper('icart')->isEnabled()) {
+        return Mage::helper('icart')->getAddUrl($product, $additional);
+    } else {
+        return parent::getAddToCartUrl($product, $additional);
+    }
+}
+$collection = $this->getCollection();
+$productId = $this->getProductid();
+$flag = 0;
+if (isset($_SERVER['REQUEST_URI'])) {
+    $_tempVar = $_SERVER['REQUEST_URI'];
+    if (strpos($_tempVar, "q=439ed537979d8e831561964dbbbd7413")) {
+        $flag = 1;
+    }
+}
+if (count($collection) > 0):
+?>
+<?php
+                $total_options = count($collection);
+                $pc = 0;
+                 $pSizes = array();
+                $products = array();
+                /*$product_style = $_product->getStyle();
+                $product_category = str_replace(" ", "", strtolower($_product->getAttributeText('product_category')));
+                if($gender =='Unisex')
+                    $gender = 'Men and Women';
+                $gender = $_product->getAttributeText('gender');
+                $collection = Mage::getModel('catalog/product')->getCollection()
+                ->addAttributeToSelect('*')
+                ->addFieldToFilter(array(array('attribute'=>'style','eq'=>$product_style)))
+                ->addFieldToFilter(array(array('attribute'=>'visibility','neq'=>'1')))
+                ->addFieldToFilter(array(array('attribute'=>'status','eq'=>'1')));
+                $collection->getSelect()->limit(5);*/
+                $group_products = array();
+                    foreach ($collection as $group_product):
+                        $pSizes[$group_product->getData('entity_id')] = array();
+                        if($group_product->getTypeId() == "configurable"):
+                             $conf = Mage::getModel('catalog/product_type_configurable')->setProduct($group_product);
+                             $simple_collection = $conf->getUsedProductCollection()->addAttributeToSelect('*')->addFilterByRequiredOptions();
+                             foreach($simple_collection as $simple_product):
+                                 $stock = Mage::getModel('cataloginventory/stock_item')->loadByProduct($simple_product);
+                                 if($stock->getQty() <= 0) continue;
+                                 $pSizes[$group_product->getData('entity_id')][] = $simple_product->getAttributeText('size');
+                             endforeach;
+                             if (count($pSizes[$group_product->getData('entity_id')]) <= 0) {
+                                 continue;
+                             }
+                             $group_products[] = $group_product;
+                         endif;
+                     endforeach;
+                     if (count($group_products) > 0):
+                ?>
+                
+                <?php if (count($group_products) > 1) : ?>
+                <div class="morecolors">
+                <?php foreach ($group_products as $group_product) {
+                    /*if($flag == 1):
+                        $url = $group_product->getProductUrl().'?sale=true';
+                    else:
+                        $url = $group_product->getProductUrl();
+                    endif;*/
+
+                        $name = $group_product->getName();
+                        $url = $group_product->getUrlPath();
+                        $img = $group_product->getImage();
+                        $priceBox = Mage::helper('core')->currency($group_product->getPrice(),true,false);
+                        $specialPriceBox = Mage::helper('core')->currency($group_product->getFinalPrice(),true,false);
+                        $_priceBox = Mage::helper('core')->currency($group_product->getPrice(),false,false);
+                        $_specialPriceBox = Mage::helper('core')->currency($group_product->getFinalPrice(),false,false);
+                ?>
+                        <div class="databox"><img prod-url="<?php echo $group_product->getProductUrl() ?>" product-price="<?php if($_priceBox == $_specialPriceBox) { echo $priceBox;} else { echo $specialPriceBox;}?>" discount="<?php if($_priceBox > $_specialPriceBox){
+                    $discountbox = 100-(round (($_specialPriceBox / $_priceBox) * 100));
+                    echo $discountbox.'% off'; } ?>" old-price="<?php if($_priceBox >$_specialPriceBox) { echo $priceBox;}?>" pro-id="pro<?php echo $productId;?>" large-image="<?php echo $this->helper('catalog/image')->init($group_product, 'small_image')->resize(520,544); ?>" title="<?php echo $name; ?>" src="<?php echo $this->helper('catalog/image')->init($group_product, 'small_image')->resize(53,55); ?>" quick-view="<?php echo getAddToCartUrl($group_product);?>" ></div>
+                <?php } ?>
+                </div>
+                <?php endif; ?>
+                <?php 
+                endif; ?>
+<?php endif; ?>
+
+
+
+
+

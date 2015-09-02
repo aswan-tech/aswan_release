@@ -154,60 +154,6 @@ jQuery(document).ready(function() {
 	 jQuery('#filters').hide(); 
 	 });
   
-	  
-	jQuery('.productbox .morecolors .databox img').mouseover(function(){
-		var proId = jQuery(this).attr('pro-id'),
-		    proName = jQuery(this).attr('title'),
-			proImg = jQuery(this).attr('large-image'),
-			//proSize = jQuery(this).next('ul').clone(),
-			proPri = jQuery(this).attr('product-price'),
-			proOldpri = jQuery(this).attr('old-price'),
-			proUrl = jQuery(this).attr('prod-url'),
-			quickUrl = jQuery(this).attr('quick-view'),
-			quickView = 'setLocation("'+quickUrl+'")',
-			loaderIcon = jQuery('#'+proId).parent().next('.prodload'),
-			disCount = jQuery(this).attr('discount')
-
-		jQuery(loaderIcon).show();
-        jQuery('#'+proId).load(function(){
-         jQuery(loaderIcon).hide();
-        });
-		
-		jQuery('#'+proId).attr('src',proImg);
-		jQuery('#'+proId).parent().attr('href',proUrl);
-		jQuery(this).parent().parent().siblings().find('h3').html(proName);
-		//jQuery(this).parent().parent().siblings().find('.sizebar').html(proSize);
-	    jQuery(this).parent().parent().siblings().find('.new-price').html(proPri);
-		jQuery(this).parent().parent().siblings().find('.old-price').html(proOldpri);
-		jQuery(this).parent().parent().siblings().find('.discount').html(disCount);
-		jQuery(this).parent().parent().siblings().find('.quickurl').attr('onclick',quickView);
-		});
-		
-	jQuery('#productlist .productbox').mouseleave(function(){
-		var defaultSource = jQuery(this).find('.defaultvalue'),
-		    proId = jQuery(defaultSource).attr('pro-id'),
-		    proName = jQuery(defaultSource).attr('title'),
-			proImg = jQuery(defaultSource).attr('data-image'),
-			proPri = jQuery(defaultSource).attr('product-price'),
-			proOldpri = jQuery(defaultSource).attr('old-price'),
-			proUrl = jQuery(defaultSource).attr('prod-url'),
-			quickUrl = jQuery(defaultSource).attr('quick-view'),
-			quickView = 'setLocation("'+quickUrl+'")',
-			loaderIcon = jQuery('#'+proId).parent().next('.prodload'),
-			disCount = jQuery(defaultSource).attr('discount')
-
-		jQuery(loaderIcon).hide();
-			
-		jQuery('#'+proId).attr('src',proImg);
-		jQuery('#'+proId).parent().attr('href',proUrl);
-		jQuery(this).find('h3').html(proName);
-	    //jQuery(this).find('.sizebar').html(proSize);
-		jQuery(this).find('.new-price').html(proPri);
-		jQuery(this).find('.old-price').html(proOldpri);
-		jQuery(this).find('.discount').html(disCount);
-		jQuery(this).find('.quickurl').attr('onclick',quickView);
-		
-		});
 
 /*****for quickview*****/	
 var quickSlider = jQuery('.quickslide .bxslider').bxSlider({
