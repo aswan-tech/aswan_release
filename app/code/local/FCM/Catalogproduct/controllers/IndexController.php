@@ -12,13 +12,11 @@ class FCM_Catalogproduct_IndexController extends Mage_Core_Controller_Front_Acti
         $collection->addFieldToFilter(array(array('attribute'=>'style','eq'=>$product_style)));
         $collection->addFieldToFilter(array(array('attribute'=>'visibility','neq'=>'1')));
         $collection->addFieldToFilter(array(array('attribute'=>'status','eq'=>'1')));
-        $collection->getSelect()->limit(10);
+        $collection->getSelect()->limit(5);
         
         $block = $this->getLayout()->createBlock('core/template')
                                    ->setTemplate('catalogproduct/ajax/product_options.phtml');
         $block->setData(array('productid' => $product_id, 'collection' => $collection));
-        $this->getResponse()->setBody(
-            $block->toHtml()
-        );
+        $this->getResponse()->setBody($block->toHtml());
     }
 }
