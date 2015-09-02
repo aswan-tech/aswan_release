@@ -36,7 +36,7 @@
         <?php for($_j=0;$_j<$this->getColumnCount();$_j++): ?>
             <?php if($_link=$this->getIterableItem()): ?>
             <li>
-                <a href="<?php echo $_link->getProductUrl() ?>"><img src="<?php echo $this->helper('catalog/image')->init($_link, 'image')->resize(123 ,128) ?>"  alt="<?php echo $this->escapeHtml($_link->getName()) ?>" title="<?php echo $this->escapeHtml($_link->getName()) ?>" /></a>
+                <a href="<?php echo $_link->getProductUrl() ?>"><img src="<?php echo $this->helper('catalog/image')->init($_link, 'small')->resize(123 ,128) ?>"  alt="<?php echo $this->escapeHtml($_link->getName()) ?>" title="<?php echo $this->escapeHtml($_link->getName()) ?>" /></a>
                 
                 <?php echo $this->getReviewsSummaryHtml($_link) ?>
                 <?php echo $this->getPriceHtml($_link, true, '-upsell') ?>

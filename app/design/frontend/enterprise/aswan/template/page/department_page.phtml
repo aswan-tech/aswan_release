@@ -47,7 +47,8 @@
 foreach ($men as $data) { 
 ?>
        <li><div class="dataimg">
-       <img src="<?php echo $data->getImageUrl();?>" width="320" height="334" /><a href="<?php echo $data->getProducturl();?>"><span>Shop</span></a></div>
+       <img src="<?php echo Mage::getModel('catalog/product_media_config')
+        ->getMediaUrl($data->getSmallImage());?>" width="320" height="334" /><a href="<?php echo $data->getProducturl();?>"><span>Shop</span></a></div>
        <h3><?php echo $data->getName();?></h3></li>
 <?php   
 }
