@@ -88,8 +88,7 @@ foreach ($men as $data) {
 	if($data->isInStock()) {
 ?>
        <li><div class="dataimg">
-       <img src="<?php echo Mage::getModel('catalog/product_media_config')
-        ->getMediaUrl($data->getSmallImage());?>" width="320" height="334" /><a href="<?php echo $data->getProducturl();?>"><span>Shop</span></a></div>
+       <img src="<?php echo $this->helper('catalog/image')->init($data, 'small_image')->resize(320,334);?>" width="320" height="334" /><a href="<?php echo $data->getProducturl();?>"><span>Shop</span></a></div>
        <h3><?php echo $data->getName();?></h3></li>
 <?php   
 	}
@@ -103,11 +102,10 @@ foreach ($men as $data) {
 <?php 
 $women = Mage::getModel('newarrival/managenewarrival')->getProductByCatId(8);  
 foreach ($women as $womenData) {
-	if($data->isInStock()) { 
+	if($womenData->isInStock()) { 
 ?>
        <li><div class="dataimg">
-       <img src="<?php echo Mage::getModel('catalog/product_media_config')
-        ->getMediaUrl($womenData->getSmallImage());?>" width="320" height="334" /><a href="<?php echo $womenData->getProducturl();?>"><span>Shop</span></a></div>
+       <img src="<?php echo $this->helper('catalog/image')->init($womenData, 'small_image')->resize(320,334);?>" width="320" height="334" /><a href="<?php echo $womenData->getProducturl();?>"><span>Shop</span></a></div>
        <h3><?php echo $womenData->getName();?></h3></li>
 <?php
 	}	
