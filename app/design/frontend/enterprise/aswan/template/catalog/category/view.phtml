@@ -61,11 +61,15 @@ dataLayer.push(
 <?php echo $this->getMessagesBlock()->toHtml() ?>
     
     <h1>
-        <?php
+        <?php $catids = array("6","8");
         if($_category->getCategoryContentHeading()){
             echo $_category->getCategoryContentHeading();
         }else{
-            echo ucfirst($_category->getName());
+            if (in_array($_category->getparentCategory()->getId(), $catids)){ 
+                echo ucfirst($_category->getName()).' For '.ucfirst(strtolower($_category->getparentCategory()->getName())); 
+            }else{ 
+                echo ucfirst($_category->getName());
+            } 
         } 
         
         ?>
