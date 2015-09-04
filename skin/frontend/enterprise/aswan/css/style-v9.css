@@ -373,7 +373,7 @@ body {font-family: "Gill Sans Roman";}
 #filters ul > li .filteroption dl dt a.color_yellow {background:#FC0;}
 
 #listingright {float:right; width:83%;}
-#listingright h1 {font-size:13px; display:block; text-align:center; margin:0px 0px 10px 10px; font-family: Lato,"Trebuchet MS",Helvetica,sans-serif;}
+#listingright h1 {font-size:20px; display:block; text-align:center; margin:0px 0px 10px 10px; font-family: Lato,"Trebuchet MS",Helvetica,sans-serif;}
 #listingright .shorting {float:right; padding-right:1%;}
 #listingright .shorting .custom-select {border:1px solid #e7e8ea; background:url(../images/bottom-arrow.png) 124px 12px no-repeat #fff; width:140px; overflow:hidden; float:left; margin:0px 10px 0px 0px;}
 #listingright .shorting .custom-select select {width:180px; font-size:13px; height:30px; line-height:30px; background:none; border:none;}

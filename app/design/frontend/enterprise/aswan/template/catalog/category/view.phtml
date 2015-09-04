@@ -59,17 +59,15 @@ dataLayer.push(
 );
 </script>
 <?php echo $this->getMessagesBlock()->toHtml() ?>
+    
     <h1>
-        <?php 
+        <?php
         if($_category->getCategoryContentHeading()){
             echo $_category->getCategoryContentHeading();
         }else{
-            if (in_array($_category->getparentCategory()->getId(), $catids)){ 
-                echo $_category->getName().' For '.$_category->getparentCategory()->getName(); 
-            }else{ 
-                echo $_category->getName();
-            } 
-        }
+            echo ucfirst($_category->getName());
+        } 
+        
         ?>
         </h1>
     <?php if($_imgUrl): ?>
