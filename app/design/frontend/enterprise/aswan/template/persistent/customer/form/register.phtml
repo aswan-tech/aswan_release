@@ -12,20 +12,43 @@
 <div class="userform" id="regpan" style="display: block;">
 <div class="leftside">
 <h3>Sign up</h3>
-<div id="ajaxSignupLoding" style="display:none;" class="redcolor"><img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN);?>frontend/enterprise/aswan/images/ajax-loader.gif"></div>
-<div id="ajaxSignupResp"  style="display:none;" class="redcolor fl errorm"></div>
-<div class="error_mgs"></div>
-<label>Email Address*</label> <input name="email" id="reg_email" type="text" class="sign-text-field textfield" value="" />
-<span id="error_reg_email"  class="errorm" style="display:none;">Please enter valid email address.</span>
-<label>Password*</label> <input name="password" id="reg_pass" type="password" class="sign-text-field textfield" value="" />
-        <span id="error_reg_pass"  class="errorm" style="display:none;">Valid Password is 6 digit.</span>
-<label>Mobile*</label> <input name="mobile_no" id="mobile_no" type="text" class="sign-text-field textfield" value="" />
-        <span id="error_mobile_no"  class="errorm" style="display:none;">Valid Mobile no is 10 digit.</span> 
-<label for="email"><input type="checkbox" name="is_subscribed" id="is_subscribed" checked="checked" class="fl mar-r10 auto" /> I would like to receive emails and updates.</label>
+    <div class="loginregister">
+        <div id="ajaxSignupLoding" style="display:none;" class="redcolor"><img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN);?>frontend/enterprise/aswan/images/ajax-loader.gif"></div>
+        <div id="ajaxSignupResp"  style="display:none;" class="redcolor fl errorm"></div>
+        <div class="error_mgs"></div>
+        <label>Email Address*</label> <input name="email" id="reg_email" type="text" class="sign-text-field textfield" value="" />
+        <span id="error_reg_email"  class="errorm" style="display:none;">Please enter valid email address.</span>
+        <label>Password*</label> <input name="password" id="reg_pass" type="password" class="sign-text-field textfield" value="" />
+                <span id="error_reg_pass"  class="errorm" style="display:none;">Valid Password is 6 digit.</span>
+        <label>Mobile*</label> <input name="mobile_no" id="mobile_no" type="text" class="sign-text-field textfield" value="" />
+                <span id="error_mobile_no"  class="errorm" style="display:none;">Valid Mobile no is 10 digit.</span> 
+        <label for="email"><input type="checkbox" name="is_subscribed" id="is_subscribed" checked="checked" class="fl mar-r10 auto" /> I would like to receive emails and updates.</label>
 
-<a href="javascript:signup(1,'<?php echo $this->getBaseUrl(); ?>common/index/ajaxsignup')" id="gtm-m-register-poup" class="go">Men</a>
-        <a href="javascript:signup(2,'<?php echo $this->getBaseUrl(); ?>common/index/ajaxsignup')" id="gtm-f-register-poup" class="go">Women</a>
-
+        <a href="javascript:signup(1,'<?php echo $this->getBaseUrl(); ?>common/index/ajaxsignup')" id="gtm-m-register-poup" class="go">Men</a>
+                <a href="javascript:signup(2,'<?php echo $this->getBaseUrl(); ?>common/index/ajaxsignup')" id="gtm-f-register-poup" class="go">Women</a>
+    </div>
+    <div class="optconfirm" style="display:none" id="optconfirm">
+        <input type="hidden" name="mobile" id="regenerate-mob" value="">
+        <h3><strong>Yay!</strong> Your Sweet Code is on the Way!</h3>
+        <p>One Time Password (OTP) has been sent to your mobile number</p>
+        <div id="ajaxOtpResp" style="display:none;" class="fl"></div>
+        <label>Please enter your OTP</label>
+        <div id="otp-ajaxloding" class="redcolor" style="display:none;" ><img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN);?>frontend/enterprise/aswan/images/ajax-loader.gif"></div>
+        
+        <div class="clear"></div>
+        <input name="register_otp" id="register-otp"  type="text" class="sign-text-field" value="" />
+        <div class="fl hide" id="error_register_otp"> 
+        <span class="msgtop-arrowred"></span>
+        <span class="fl error-msg-redtxt redmsg">Please enter valid OTP Number.</span>
+        </div>
+        <div class="clear"></div>
+        <p><span>If you have not received the OTP. Please click to</span> <a class="gtm-track" id="gtm-otp-regenerate-popup" href="javascript:regenerateOtp('<?php echo $this->getBaseUrl() ?>common/index/regenerateOtp')">Regenerate</a></p>
+        <div class="clear"></div>
+        <div class="otp-btn-box">
+        <a class="go" id="gtm-otp-confim-popup" onclick="confirmRegister('<?php echo $this->getBaseUrl() ?>common/index/activateNewReg')" href="javascript:void(0)">Confirm</a>
+        </div>
+        <p><span id="reg-mob"></span>
+    </div>
 </div>
 
 <div class="rightside">
