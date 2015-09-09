@@ -63,5 +63,44 @@
 
 </div>
 <?php echo $this->getAbsoluteFooter() ?>
+<script type="text/javascript">
+jQuery(window).load(function(){
+
+if(jQuery(window).innerWidth() > 769){
+var width = jQuery('.stickycol').parent().innerWidth();
+jQuery('.stickycol').width(width - 10);
+
+jQuery(window).resize(function(){
+var width = jQuery('.stickycol').parent().innerWidth();
+jQuery('.stickycol').width(width - 10); 
+    });
+
+if (!!jQuery('.stickycol').length) { // make sure "#sticky" element exists
+      var el = jQuery('.stickycol');
+      var stickyTop = jQuery('.stickycol').offset().top + 440; // returns number
+      var footerTop = jQuery('#footer').offset().top + 400; // returns number
+      var stickyHeight = jQuery('.stickycol').height();
+      var limit = footerTop - stickyHeight - 20;
+      jQuery(window).scroll(function(){ // scroll event
+          var windowTop = jQuery(window).scrollTop(); // returns number
+            
+          if (stickyTop < windowTop){
+             el.css({ position: 'fixed', top: 42 });
+          }
+          else {
+             el.css('position','static');
+          }
+            
+          if (limit < windowTop) {
+          var diff = limit - windowTop;
+          el.css({top: diff});
+          }     
+        });
+   }
+}else{
+    }
+
+});
+</script>
 </body>
 </html>

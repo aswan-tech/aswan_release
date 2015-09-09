@@ -71,6 +71,22 @@
         <a href="#" class="quickurl" onClick="setLocation('<?php echo $this->getAddToCartUrl($_product);?>')"></a></div>
             <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>"><img src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(520,544); ?>" alt="Americanswan <?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true).' '.ucfirst($product_category).' For '.$gender ?>" id="pro<?php echo $_product->getId();?>" /></a>
             <div class="prodload"></div>
+            <?php 
+        $productSizes = Mage::helper('nosql/product')->getProductAllSizes(array($_product->getId()));
+       if ($_product->getTypeId() == 'configurable'): ?>
+               <div class="sizebar">
+                <?php if (isset($productSizes['sizes']) && is_array($productSizes['sizes'])): ?>
+                    <?php foreach($productSizes['sizes'] as $sizes): ?>
+                    <ul>
+                    <?php foreach($sizes as $size): ?>
+                      <li><a href="<?php echo $_product->getProductUrl(); ?>"><?php echo $size ?></a></li>
+                    <?php endforeach; ?>
+                    </ul>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+                </div>
+                <?php endif; ?>
+                  
             </div>
 
             <div class="productinfo">
@@ -87,7 +103,18 @@
                     echo '<span class="discount">'.$discount.'% off</span>'; 
             endif; ?>
                            </div>
-<div class="defaultvalue" title="<?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?>" data-image="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(520,544); ?>" pro-id="pro<?php echo $_product->getId();?>" old-price="<?php if($_price >$_specialPrice) { echo $price;}?>" discount="<?php if($_price > $_specialPrice){ $discount = 100-(round (($_specialPrice / $_price) * 100)); echo $discount.'% off'; } ?>" product-price="<?php if($_price ==$_specialPrice) { echo $price;} else { echo $specialPrice;}?>" prod-url="<?php echo $_product->getProductUrl() ?>" quick-view="<?php echo $this->getAddToCartUrl($_product);?>"></div>
+<div class="defaultvalue" title="<?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?>" data-image="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(520,544); ?>" pro-id="pro<?php echo $_product->getId();?>" old-price="<?php if($_price >$_specialPrice) { echo $price;}?>" discount="<?php if($_price > $_specialPrice){ $discount = 100-(round (($_specialPrice / $_price) * 100)); echo $discount.'% off'; } ?>" product-price="<?php if($_price ==$_specialPrice) { echo $price;} else { echo $specialPrice;}?>" prod-url="<?php echo $_product->getProductUrl() ?>" quick-view="<?php echo $this->getAddToCartUrl($_product);?>">
+                <?php if (isset($productSizes['sizes']) && is_array($productSizes['sizes'])): ?>
+                    <?php foreach($productSizes['sizes'] as $sizes): ?>
+                <ul>
+                <?php foreach($sizes as $size): ?>
+                    <li><a href="<?php echo $_product->getProductUrl(); ?>"><?php echo $size ?></a></li>
+                <?php endforeach; ?>
+                </ul>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+                
+</div>
         </div>
     <?php if ($i%$_columnCount==0 || $i==$_collectionSize): ?>
     </div>
@@ -133,7 +160,7 @@ jQuery('.productbox > .productimg').mouseenter(function(){
         var proId = jQuery(this).attr('pro-id'),
             proName = jQuery(this).attr('title'),
             proImg = jQuery(this).attr('large-image'),
-            //proSize = jQuery(this).next('ul').clone(),
+            proSize = jQuery(this).next('ul').clone(),
             proPri = jQuery(this).attr('product-price'),
             proOldpri = jQuery(this).attr('old-price'),
             proUrl = jQuery(this).attr('prod-url'),
@@ -150,7 +177,7 @@ jQuery('.productbox > .productimg').mouseenter(function(){
         jQuery('#'+proId).attr('src',proImg);
         jQuery('#'+proId).parent().attr('href',proUrl);
         jQuery(this).parent().parent().siblings().find('h3').html(proName);
-        //jQuery(this).parent().parent().siblings().find('.sizebar').html(proSize);
+        jQuery(this).parent().parent().siblings().find('.sizebar').html(proSize);
         jQuery(this).parent().parent().siblings().find('.new-price').html(proPri);
         jQuery(this).parent().parent().siblings().find('.old-price').html(proOldpri);
         jQuery(this).parent().parent().siblings().find('.discount').html(disCount);
@@ -162,6 +189,7 @@ jQuery('.productbox > .productimg').mouseenter(function(){
             proId = jQuery(defaultSource).attr('pro-id'),
             proName = jQuery(defaultSource).attr('title'),
             proImg = jQuery(defaultSource).attr('data-image'),
+            proSize = jQuery(defaultSource).children('ul').clone(),
             proPri = jQuery(defaultSource).attr('product-price'),
             proOldpri = jQuery(defaultSource).attr('old-price'),
             proUrl = jQuery(defaultSource).attr('prod-url'),
@@ -175,7 +203,7 @@ jQuery('.productbox > .productimg').mouseenter(function(){
         jQuery('#'+proId).attr('src',proImg);
         jQuery('#'+proId).parent().attr('href',proUrl);
         jQuery(this).find('h3').html(proName);
-        //jQuery(this).find('.sizebar').html(proSize);
+        jQuery(this).find('.sizebar').html(proSize);
         jQuery(this).find('.new-price').html(proPri);
         jQuery(this).find('.old-price').html(proOldpri);
         jQuery(this).find('.discount').html(disCount);
@@ -199,6 +227,6 @@ jQuery('.productbox > .productimg').mouseenter(function(){
 <?php endif; ?>
 
 <div class="toolbar-bottom">
-     <a style="display: none; cursor: pointer;" id="view_more_items" class="normal-text viewmore-Btn" onclick=" return adj_nav_page_more_autoload();">View more products <span id="view_more_items_count"></span></a>
+     <a style="display: none; cursor: pointer;" id="view_more_items" class="normal-text viewmore-Btn" onclick=" return adj_nav_page_more_autoload();">View more products<span id="view_more_items_count"></span></a>
 </div>
 <?php endif; ?>

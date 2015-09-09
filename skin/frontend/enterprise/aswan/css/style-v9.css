@@ -373,7 +373,7 @@ body {font-family: "Gill Sans Roman";}
 #filters ul > li .filteroption dl dt a.color_yellow {background:#FC0;}
 
 #listingright {float:right; width:83%;}
-#listingright h1 {font-size:20px; display:block; text-align:center; margin:0px 0px 10px 10px; font-family: Lato,"Trebuchet MS",Helvetica,sans-serif;}
+#listingright h1 {font-size:13px; display:block; text-align:center; margin:0px 0px 10px 10px; font-family: Lato,"Trebuchet MS",Helvetica,sans-serif;}
 #listingright .shorting {float:right; padding-right:1%;}
 #listingright .shorting .custom-select {border:1px solid #e7e8ea; background:url(../images/bottom-arrow.png) 124px 12px no-repeat #fff; width:140px; overflow:hidden; float:left; margin:0px 10px 0px 0px;}
 #listingright .shorting .custom-select select {width:180px; font-size:13px; height:30px; line-height:30px; background:none; border:none;}
@@ -401,8 +401,8 @@ body {font-family: "Gill Sans Roman";}
 #listingright .bannercolumn.column-2 .banner {width:50%; padding:0 .2%; float:left;}
 #listingright .bannercolumn.column-1 .banner {width:100%; padding:0 .2%; float:left;}
 
-#listingright .categorybanner, #listingright .mobilebanner {float:left; width:100%; clear:both; padding:0 1%; padding-bottom:10px; position:relative;}
-#listingright .categorybanner img, #listingright .mobilebanner img {width:100%;}
+#listingright .categorybanner, #listingright .mobilebanner {float:left; width:100%; clear:both; padding:0 1%; padding-bottom:10px; position:relative; text-align: center;}
+#listingright .categorybanner img, #listingright .mobilebanner img {max-width:100%;}
 #listingright .mobilebanner {padding:10px 1%; display:none;}
 #listingright .categorybanner .countholder {position:absolute; z-index:9; width:100%; top:50%; height:50%; text-align:center;}
 #listingright .categorybanner .countholder .countbox {text-align:center; margin-top:-50px;}
@@ -426,7 +426,7 @@ body {font-family: "Gill Sans Roman";}
 #listingright .loadmore {width:100%; float:left; clear:both; padding:20px 0px; text-align:center;}
 #listingright .loadmore a {display:inline-block; padding:7px 18px; position:relative; background:#dc0028; color:#fff; font-size:14px; text-transform:uppercase;}
 
-#quickview {width:100%; position:relative; margin:0 auto; float:left; overflow:hidden;}
+#quickview {position:relative; margin:0 auto; float:left; overflow:hidden;}
 #quickview .productprev, #quickview .productnext {display:block; position:absolute; z-index:999; width:16px; height:38px; margin-top:-19px; top:50%; cursor:pointer;}
 #quickview .productprev {background-position:-108px -155px; left:0px;}
 #quickview .productnext {background-position:-129px -155px; right:0px;}
@@ -503,7 +503,7 @@ body {font-family: "Gill Sans Roman";}
 #productlist .products-grid:after { display:block; content:"."; clear:both; font-size:0; line-height:0; height:0; overflow:hidden}
 #productlist .productbox {float:left; width:23%; margin:0 1%; margin-bottom:4%; position:relative; border:1px solid #fff; padding:0px 0px 10px 0px;}
 #productlist .productbox:hover {border:1px solid #CCC;}
-
+#productlist .productbox:hover .productimg .sizebar {display:block;}
 #productlist .productbox .morecolors {position:absolute; z-index:9; top:-1px; left:0px; width:60px; background:#fff; padding:2px; border:1px solid #ccc; border-right:none; filter:alpha(opacity=0); opacity:0; -webkit-transition: all 0.3s ease-out;
        -moz-transition: all 0.3s ease-out;
         -ms-transition: all 0.3s ease-out;
@@ -513,8 +513,16 @@ body {font-family: "Gill Sans Roman";}
 #productlist .productbox .morecolors img {width:100%; cursor:pointer; height:auto; border:1px solid #fff;}
 #productlist .productbox .morecolors img:hover {border:1px solid #dc0028;}
 
+#productlist .productbox .morecolors .databox ul {display: none;}
+
 #productlist .productbox .productimg {width:100%; margin:0px 0px 12px 0px; background: url(../images/loader-signup.gif) #fff center center no-repeat; min-height: 135px; position:relative;}
 #productlist .productbox .productimg img {width:100%; height:auto;}
+
+#productlist .productbox .productimg .sizebar {position:absolute; padding: 0 40px; display:none; width:100%; left:0px; bottom:0px; z-index:1; background:url(../images/blank1.png); text-align:center;}
+#productlist .productbox .productimg .sizebar ul li {display:inline-block; margin:4px 0px;}
+#productlist .productbox .productimg .sizebar ul li a {display:block; background:#fff; color:#000; border:1px solid #e5e5e5; padding:3px 5px; font-size:12px;}
+#productlist .productbox .productimg .sizebar ul li a:hover {color:#d7172f; border:1px solid #d7172f;}
+#productlist .productbox .productinfo {text-align:center;}
 
 #productlist .productbox .productimg .soldoutstrip {position:absolute; z-index:9; right:0px; top:0px; width:18px; height:101px; background-position:-279px -126px;}
 
@@ -528,7 +536,7 @@ body {font-family: "Gill Sans Roman";}
 #productlist .productbox .productinfo h3 {text-align:center; width:98%; margin:0 auto; margin-bottom:5px; display:block; clear:both; white-space:nowrap; font-size:13px; text-transform:uppercase; overflow:hidden; text-overflow:ellipsis;}
 #productlist .productbox .productinfo h3 a {color:#000;}
 #productlist .productbox .productinfo span.old-price,
-#productlist .productbox .productinfo span.new-price {display:inline-block; margin:0px 5px; text-transform:uppercase; font-size:13px;}
+#productlist .productbox .productinfo span.new-price {display:inline-block; margin:0px 5px; font-size:13px;}
 #productlist .productbox .productinfo span.old-price {text-decoration:line-through; color:#666;}
 #productlist .productbox .productinfo span.new-price {color:#dc0028;}
 #productlist .productbox .productinfo span.discount {display:inline-block; position: absolute; bottom:0px; right: 10px; font-size: 11px; background: #19b9af; color:#fff; padding:2px 5px; font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-weight:400; font-size:12px;}
@@ -602,6 +610,7 @@ body.catalog-product-view {padding:0 0 21px 0px;}
 
 
 #productdetail #detailright {width:39%; float:right; padding:0px 10px 0px 0px;}
+#productdetail #detailright.sticky {position:fixed; right: 0px;}
 #productdetail #detailright .productreview {float:left; clear:both; margin:0px 0px 10px 0px; width:200px;}
 #productdetail #detailright .productreview span {display:block; float:left; width:15px; height:15px; margin:0px 4px 0px 0px; background-position:-257px -147px;}
 #productdetail #detailright .productreview span.active {background-position:-235px -147px;}

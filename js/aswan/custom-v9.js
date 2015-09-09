@@ -404,7 +404,7 @@ if (!a && jQuery("#filterholder").offset() != null && jQuery("#footer").offset()
 		} else {
 			if (f < c && f > b && jQuery("#footer").offset().top - jQuery("#filterholder").height() > 200) {
 			if (sidebarTop + c - f < 0) {
-				jQuery("#filterholder").css("top", sidebarTop + c - f + "px");
+				jQuery("#filterholder").css("top", sidebarTop + c - f + 150 + "px");
 				sidebarTop = sidebarTop + c - f
 			}
 			} else {

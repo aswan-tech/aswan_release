@@ -19,7 +19,7 @@ class FCM_Nosql_Helper_Product extends Mage_Core_Helper_Abstract {
             $sizes[$option['entity_id']]= $option['value'];
         }
         foreach( $sizes as $key => $val ) {
-            $return['sizes'][$parent[$key]][] = '<a href="javascript:void(0)">'.$val.'</a>';
+            $return['sizes'][$parent[$key]][] = $val;
         }
         return count($return) > 0 ? $return : false;
     }
