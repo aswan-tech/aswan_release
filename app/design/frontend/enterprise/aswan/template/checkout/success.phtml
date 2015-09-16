@@ -42,7 +42,7 @@ Mage::helper('common')->saveSourceCampaign($order, $customerType);
 <h3>Congratulation!</h3>
 <p>Your <?php  echo $payment = $order->getPayment()->getMethodInstance()->getTitle();
 ?> order has been placed successfully.<br>
-Please make a payment of Rs. <?php echo round($order->getBaseGrandTotal()); ?> at the time of delivery of your order</p>
+<?php if ($payment_method_code == "cashondelivery"){ ?>Please make a payment of Rs. <?php echo round($order->getBaseGrandTotal()); ?> at the time of delivery of your order<?php } ?></p>
 <h4>Order Number: <b><?php echo $this->getOrderId();?></b></h4>
 <ul>
 <li class="icon1">You will shortly receive an order verification E-mail and SMS confirming your order details</li>

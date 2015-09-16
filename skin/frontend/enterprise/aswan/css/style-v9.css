@@ -426,7 +426,7 @@ body {font-family: "Gill Sans Roman";}
 #listingright .loadmore {width:100%; float:left; clear:both; padding:20px 0px; text-align:center;}
 #listingright .loadmore a {display:inline-block; padding:7px 18px; position:relative; background:#dc0028; color:#fff; font-size:14px; text-transform:uppercase;}
 
-#quickview {position:relative; margin:0 auto; float:left; overflow:hidden;}
+#quickview {width:100%; position:relative; margin:0 auto; float:left; overflow:hidden;}
 #quickview .productprev, #quickview .productnext {display:block; position:absolute; z-index:999; width:16px; height:38px; margin-top:-19px; top:50%; cursor:pointer;}
 #quickview .productprev {background-position:-108px -155px; left:0px;}
 #quickview .productnext {background-position:-129px -155px; right:0px;}
@@ -743,7 +743,9 @@ body.catalog-product-view {padding:0 0 21px 0px;}
 #cartarea #cartleft .prodetail .qtyexceed {color:#dc0028; font-size:12px; line-height: 16px;}
 /*#cartarea #cartleft .prodetail h4 a:before {position:absolute; width:15px; height:14px; content:''; left:-18px; background-position:-108px -72px;}
 #cartarea #cartleft .prodetail h4 a:hover:before {background-position:-163px -72px;}*/
-
+#cartarea #cartleft .continueshop {float:right; padding:10px 0px;}
+#cartarea #cartleft .continueshop a {font-weight:400; font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-size: 13px; text-transform:uppercase; background: #1e0f46; color:#fff; padding:8px 12px;}
+#cartarea #cartleft .continueshop a:hover {background:#dc0028;}
 
 #cartarea #cartright {width:30%; float:right;}
 #cartarea #cartright .summryboxs {width:100%; float:left; clear:both; background:#fff; padding:10px; margin:0px 0px 10px 0px;}

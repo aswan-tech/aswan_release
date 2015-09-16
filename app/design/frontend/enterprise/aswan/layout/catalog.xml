@@ -142,11 +142,14 @@ Product view
         </reference>
         <reference name="head">
                     <action method="addJs"><script>varien/configurable.js</script></action>
+                    <action method="addJs"><script>aswan/photoswipe.min.js</script></action>
+                    <action method="addJs"><script>aswan/photoswipe-ui-default.min.js</script></action>
          <!--    <action method="addItem"><type>skin_js</type><name>js/jqzoom/jquery-1.3.1.min.js</name></action>
             <action method="addItem"><type>skin_js</type><name>js/jqzoom/jquery.jqzoom1.0.1.js</name></action> -->
             <action method="addItem"><type>js_css</type><name>calendar/calendar-win2k-1.css</name><params/><!--<if/><condition>can_load_calendar_js</condition>--></action>
             <action method="addItem"><type>js</type><name>calendar/calendar.js</name><!--<params/><if/><condition>can_load_calendar_js</condition>--></action>
             <action method="addItem"><type>js</type><name>calendar/calendar-setup.js</name><!--<params/><if/><condition>can_load_calendar_js</condition>--></action>
+             <action method="addCss"><stylesheet>css/photoswipe.css</stylesheet></action>
         </reference>
         <reference name="content">
             <block type="catalog/product_view" name="product.info" template="catalog/product/view.phtml">
