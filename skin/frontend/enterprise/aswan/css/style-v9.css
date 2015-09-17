@@ -37,7 +37,7 @@ body {font-family: "Gill Sans Roman";}
 #mobnavigation h3 a:before, #productdetail #detailright .productreview span, #writereview .starrate label,
 #orderlist .orderdetail td h4 a.trackdata:before, #orderlist .orderdetail td h4 a.cancleord:before,
 #checkoutarea .ordersuccess h6 span:before, #testmonials .testimonialbox:before, #testmonials .testimonialbox:after,
-#categoryarea #categoryleft h4:after {background:url(../images/sprite.png) no-repeat;}
+#categoryarea #categoryleft h4:after, #filters ul > li .filteroption ol li.category h4:before {background:url(../images/sprite.png) no-repeat;}
 
 #wrapper, #header {width:100%; clear:both;}
 #wrapper {padding:76px 0px 0px 0px;}
@@ -300,8 +300,9 @@ body {font-family: "Gill Sans Roman";}
 #new-arrivals .tabs li a.active {background:#1e0f46; color:#fff;}
 
 #homecontent {width:100%; padding: 20px 0px; float:left; clear: both;}
-#homecontent h2 {font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-weight: 400; margin: 0px 0px 10px 0px; font-size: 18px;}
-#homecontent p {font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; line-height: normal; font-weight: 400; margin: 0px 0px 10px 0px; font-size: 14px;}
+#homecontent h1 {margin: 0px 0px 10px 0px; font-size: 24px;}
+#homecontent h2, #homecontent h3 {margin: 0px 0px 10px 0px; font-size: 18px;}
+#homecontent p {line-height: normal; margin: 0px 0px 10px 0px; font-size: 14px;}
 
 #new-arrivals .datatabs .datalisting {height:0px; overflow:hidden;}
 #new-arrivals .datatabs .datalisting.show {height:auto;}
@@ -356,7 +357,9 @@ body {font-family: "Gill Sans Roman";}
 #filters ul > li .filteroption ol li:hover:before, #filters ul > li .filteroption ol li.active:before {background-position:-136px -10px;}
 #filters ul > li .filteroption ol li a {color:#333;}
 
-#filters ul > li .filteroption ol li.category h4 {font-size:11px; margin:0px 0px 4px 0px; display:block; color:#333; cursor:pointer;}
+#filters ul > li .filteroption ol li.category h4 {font-size:11px; margin:0px 0px 4px 0px; display:block; color:#333; cursor:pointer; position:relative; padding: 0px 0px 0px 14px;}
+#filters ul > li .filteroption ol li.category h4:before {border:1px solid #333; content:'+'; width:10px; height: 12px; display:block; position:absolute; left:0px; top: 0px; line-height: 9px; text-align:center;}
+#filters ul > li .filteroption ol li.category h4.active:before {content:'-';}
 #filters ul > li .filteroption ol li.category ol {display:none;}
 
 #filters ul > li .filteroption dl {display:block; margin:0px;}
@@ -517,11 +520,15 @@ body {font-family: "Gill Sans Roman";}
 
 #productlist .productbox .productimg {width:100%; margin:0px 0px 12px 0px; background: url(../images/loader-signup.gif) #fff center center no-repeat; min-height: 135px; position:relative;}
 #productlist .productbox .productimg img {width:100%; height:auto;}
+#productlist .productbox .productimg img.hoverimg {display:none;}
+#productlist .productbox .productimg:hover img.hoverimg {display:block;}
+#productlist .productbox .productimg:hover img.mainimg {display:none;}
 
 #productlist .productbox .productimg .sizebar {position:absolute; padding: 0 40px; display:none; width:100%; left:0px; bottom:0px; z-index:1; background:url(../images/blank1.png); text-align:center;}
 #productlist .productbox .productimg .sizebar ul li {display:inline-block; margin:4px 0px;}
 #productlist .productbox .productimg .sizebar ul li a {display:block; background:#fff; color:#000; border:1px solid #e5e5e5; padding:3px 5px; font-size:12px;}
 #productlist .productbox .productimg .sizebar ul li a:hover {color:#d7172f; border:1px solid #d7172f;}
+#productlist .productbox .productimg span.discount {display:block; position: absolute; top:5px; right: 5px; font-size: 11px; background: #19b9af; color:#fff; width:35px; line-height: 12px; padding: 4px 0px; border-radius:25px; text-align: center; font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-weight:400; font-size:12px;}
 #productlist .productbox .productinfo {text-align:center;}
 
 #productlist .productbox .productimg .soldoutstrip {position:absolute; z-index:9; right:0px; top:0px; width:18px; height:101px; background-position:-279px -126px;}
@@ -539,7 +546,6 @@ body {font-family: "Gill Sans Roman";}
 #productlist .productbox .productinfo span.new-price {display:inline-block; margin:0px 5px; font-size:13px;}
 #productlist .productbox .productinfo span.old-price {text-decoration:line-through; color:#666;}
 #productlist .productbox .productinfo span.new-price {color:#dc0028;}
-#productlist .productbox .productinfo span.discount {display:inline-block; position: absolute; bottom:0px; right: 10px; font-size: 11px; background: #19b9af; color:#fff; padding:2px 5px; font-family: Lato,"Trebuchet MS",Helvetica,sans-serif; font-weight:400; font-size:12px;}
 #productlist .productbox .defaultvalue {display:none;}
 #productlist .category-description {width:100%; clear:both; float:left; padding:15px 0px;}
 

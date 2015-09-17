@@ -66,6 +66,15 @@
     <?php endif ?>
         <div class="productbox" >
         <div class="productimg" product-id="<?php echo $_product->getId();?>">
+        <?php $price = Mage::helper('core')->currency($_product->getPrice(),true,false);
+            $specialPrice = Mage::helper('core')->currency($_product->getFinalPrice(),true,false);
+            $_price = Mage::helper('core')->currency($_product->getPrice(),false,false);
+            $_specialPrice = Mage::helper('core')->currency($_product->getFinalPrice(),false,false);
+            ?>
+            <?php if($_price > $_specialPrice):
+                    $discount = 100-(round (($_specialPrice / $_price) * 100));
+                    echo '<span class="discount">'.$discount.'% off</span>'; 
+            endif; ?>
         <div class="quickview">
 
         <a href="#" class="quickurl" onClick="setLocation('<?php echo $this->getAddToCartUrl($_product);?>')"></a></div>
@@ -91,18 +100,10 @@
 
             <div class="productinfo">
             <h3><a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($_product->getName(), null, true) ?>"><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></a></h3>
-     <?php $price = Mage::helper('core')->currency($_product->getPrice(),true,false);
-            $specialPrice = Mage::helper('core')->currency($_product->getFinalPrice(),true,false);
-            $_price = Mage::helper('core')->currency($_product->getPrice(),false,false);
-            $_specialPrice = Mage::helper('core')->currency($_product->getFinalPrice(),false,false);
-            ?>
+     
              <span class="old-price"><?php if($_price >$_specialPrice) { echo $price;}?></span>
              <span class="new-price"><?php if($_price ==$_specialPrice) { echo $price;} else { echo $specialPrice;}?></span>
-             <?php if($_price > $_specialPrice):
-                    $discount = 100-(round (($_specialPrice / $_price) * 100));
-                    echo '<span class="discount">'.$discount.'% off</span>'; 
-            endif; ?>
-                           </div>
+               </div>
 <div class="defaultvalue" title="<?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?>" data-image="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(520,544); ?>" pro-id="pro<?php echo $_product->getId();?>" old-price="<?php if($_price >$_specialPrice) { echo $price;}?>" discount="<?php if($_price > $_specialPrice){ $discount = 100-(round (($_specialPrice / $_price) * 100)); echo $discount.'% off'; } ?>" product-price="<?php if($_price ==$_specialPrice) { echo $price;} else { echo $specialPrice;}?>" prod-url="<?php echo $_product->getProductUrl() ?>" quick-view="<?php echo $this->getAddToCartUrl($_product);?>">
                 <?php if (isset($productSizes['sizes']) && is_array($productSizes['sizes'])): ?>
                     <?php foreach($productSizes['sizes'] as $sizes): ?>

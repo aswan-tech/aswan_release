@@ -5,6 +5,13 @@
  * @see Mage_Checkout_Block_Cart
  */
 ?>
+<?php
+       $lastProductAddedToCartId = Mage::getSingleton('checkout/session')->getLastAddedProductId();
+       if($lastProductAddedToCartId) {
+        $productCategoryIdsArray = Mage::getModel('catalog/product')->load($lastProductAddedToCartId)->getCategoryIds();
+               $continueShoppingCategoryUrl = Mage::getModel('catalog/category')->load($productCategoryIdsArray['0'])->getUrl();
+       }
+?>
 <?php $itemArr = Mage::helper('common')->getItemByType(); ?>
 <div class="pagename"><h2><?php echo $this->__('My Shopping Bag');?></h2>
 <?php echo $this->getMessagesBlock()->getGroupedHtml(); ?>
@@ -17,6 +24,9 @@
 				<?php echo $this->getItemHtml($_item); ?>
 		 <?php endforeach; ?>
 		</form>
+		<div class="continueshop">
+                       <a href="javascript:void(0)" title="Continue Shopping" onclick="setLocation('<?php echo (isset($continueShoppingCategoryUrl)) ? $continueShoppingCategoryUrl : $this->getContinueShoppingUrl(); ?>')">+ Continue Shopping</a>
+               </div>
 	</div>
 <div id="cartright">
 	<div class="stickycol1">

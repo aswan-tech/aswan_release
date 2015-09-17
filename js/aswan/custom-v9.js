@@ -134,6 +134,8 @@ jQuery(document).ready(function() {
 	  });
 	  
   jQuery('.filteroption li.category h4').click(function(){
+  	jQuery(this).parent().siblings().find('.active').removeClass('active');
+  	  jQuery(this).toggleClass('active');
 	  jQuery(this).parent().siblings().find('ol').slideUp();
 	  jQuery(this).next('ol').slideToggle();
 	  });
