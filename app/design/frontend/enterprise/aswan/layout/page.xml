@@ -37,7 +37,7 @@
                     <action method="addJs"><script>aswan/jquery.bxslider-v9.js</script></action>
                     <action method="addJs"><script>aswan/jquery.mCustomScrollbar.concat.min-v9.js</script></action>
                     <action method="addJs"><script>aswan/jquery.fancybox-v9.js</script></action>
-                    <action method="addJs"><script>aswan/custom-v9.js</script></action>
+                    <action method="addJs"><script>aswan/custom-v10.js</script></action>
                     <action method="addJs"><script>aswan/jquery.uniform.min.js</script></action>
                     <action method="addJs"><script>prototype/prototype.js</script></action>
                     <action method="addJs"><script>prototype/validation.js</script></action>
@@ -51,11 +51,11 @@
                     <action method="addCss"><stylesheet>css/print.css</stylesheet><params>media="print"</params></action>
                 <!-- New Style Add -->
                     <action method="addCss"><stylesheet>css/fonts-v9.css</stylesheet></action>
-                    <action method="addCss"><stylesheet>css/style-v9.css</stylesheet></action>
+                    <action method="addCss"><stylesheet>css/style-v10.css</stylesheet></action>
                     <action method="addCss"><stylesheet>css/quickview-v9.css</stylesheet></action>
                     <action method="addCss"><stylesheet>css/jquery.mCustomScrollbar-v9.css</stylesheet></action>
                     <action method="addCss"><stylesheet>css/jquery.bxslider-v9.css</stylesheet></action>
-                    <action method="addCss"><stylesheet>css/responsive-v9.css</stylesheet></action>
+                    <action method="addCss"><stylesheet>css/responsive-v10.css</stylesheet></action>
                     <action method="addCss"><stylesheet>css/jquery.fancybox-v9.css</stylesheet></action>
                 <!-- End  -->
                     <action method="addItem"><type>js</type><name>lib/ds-sleight.js</name><params/><if>lt IE 7</if></action>
