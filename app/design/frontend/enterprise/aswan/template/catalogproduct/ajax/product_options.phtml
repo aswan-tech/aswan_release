@@ -70,9 +70,9 @@ if (count($collection) > 0):
                         $_priceBox = Mage::helper('core')->currency($group_product->getPrice(),false,false);
                         $_specialPriceBox = Mage::helper('core')->currency($group_product->getFinalPrice(),false,false);
                 ?>
-                        <div class="databox"><img prod-url="<?php echo $group_product->getProductUrl() ?>" product-price="<?php if($_priceBox == $_specialPriceBox) { echo $priceBox;} else { echo $specialPriceBox;}?>" discount="<?php if($_priceBox > $_specialPriceBox){
-                    $discountbox = 100-(round (($_specialPriceBox / $_priceBox) * 100));
-                    echo $discountbox.'% off'; } ?>" old-price="<?php if($_priceBox >$_specialPriceBox) { echo $priceBox;}?>" pro-id="pro<?php echo $productId;?>" large-image="<?php echo $this->helper('catalog/image')->init($group_product, 'small_image')->resize(520,544); ?>" title="<?php echo $name; ?>" src="<?php echo $this->helper('catalog/image')->init($group_product, 'small_image')->resize(53,55); ?>" quick-view="<?php echo getAddToCartUrl($group_product);?>" >
+            <div class="databox"><img prod-url="<?php echo $group_product->getProductUrl() ?>" product-price="<?php if($_priceBox == $_specialPriceBox) { echo $priceBox;} else { echo $specialPriceBox;}?>" discount="<?php if($_priceBox > $_specialPriceBox){
+        $discountbox = 100-(round (($_specialPriceBox / $_priceBox) * 100));
+        echo '<strong>'.$discountbox.'% off'.'</strong>'; } ?>" old-price="<?php if($_priceBox >$_specialPriceBox) { echo $priceBox;}?>" pro-id="pro<?php echo $productId;?>" large-image="<?php echo $this->helper('catalog/image')->init($group_product, 'small_image')->resize(520,544); ?>" title="<?php echo $name; ?>" src="<?php echo $this->helper('catalog/image')->init($group_product, 'small_image')->resize(53,55); ?>" quick-view="<?php echo getAddToCartUrl($group_product);?>" >
  <?php 
         $productSizes = Mage::helper('nosql/product')->getProductAllSizes(array($group_product->getId()));
        if ($group_product->getTypeId() == 'configurable'): ?>

@@ -73,7 +73,7 @@
             ?>
             <?php if($_price > $_specialPrice):
                     $discount = 100-(round (($_specialPrice / $_price) * 100));
-                    echo '<span class="discount">'.$discount.'% off</span>'; 
+                    echo '<span class="discount"><strong>'.$discount.'% off</strong></span>'; 
             endif; ?>
         <div class="quickview">
 
@@ -104,7 +104,7 @@
              <span class="old-price"><?php if($_price >$_specialPrice) { echo $price;}?></span>
              <span class="new-price"><?php if($_price ==$_specialPrice) { echo $price;} else { echo $specialPrice;}?></span>
                </div>
-<div class="defaultvalue" title="<?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?>" data-image="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(520,544); ?>" pro-id="pro<?php echo $_product->getId();?>" old-price="<?php if($_price >$_specialPrice) { echo $price;}?>" discount="<?php if($_price > $_specialPrice){ $discount = 100-(round (($_specialPrice / $_price) * 100)); echo $discount.'% off'; } ?>" product-price="<?php if($_price ==$_specialPrice) { echo $price;} else { echo $specialPrice;}?>" prod-url="<?php echo $_product->getProductUrl() ?>" quick-view="<?php echo $this->getAddToCartUrl($_product);?>">
+<div class="defaultvalue" title="<?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?>" data-image="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(520,544); ?>" pro-id="pro<?php echo $_product->getId();?>" old-price="<?php if($_price >$_specialPrice) { echo $price;}?>" discount="<?php if($_price > $_specialPrice){ $discount = 100-(round (($_specialPrice / $_price) * 100)); echo '<strong>'.$discount.'% off'.'</strong>'; } ?>" product-price="<?php if($_price ==$_specialPrice) { echo $price;} else { echo $specialPrice;}?>" prod-url="<?php echo $_product->getProductUrl() ?>" quick-view="<?php echo $this->getAddToCartUrl($_product);?>">
                 <?php if (isset($productSizes['sizes']) && is_array($productSizes['sizes'])): ?>
                     <?php foreach($productSizes['sizes'] as $sizes): ?>
                 <ul>
