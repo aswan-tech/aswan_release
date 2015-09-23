@@ -135,8 +135,10 @@ class Mage_Ccavenuepay_Model_Config
 	public function getCcavenuepayServerUrl()
 	{
 	   
-	     $url	= 'https://secure.ccavenue.com/transaction/transaction.do?command=initiateTransaction';
-         return $url;
+	 /*    $url	= 'https://secure.ccavenue.com/transaction/transaction.do?command=initiateTransaction'; */
+         $url	= 'https://test.ccavenue.com/transaction/transaction.do?command=initiateTransaction';
+
+		 return $url;
 	}
 	
 	public function getCcavenuepayRedirecturl()

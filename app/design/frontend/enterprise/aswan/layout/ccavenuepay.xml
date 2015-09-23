@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+
+<layout version="1.2.0">
+	<ccavenuepay_ccavenuepay_redirect>
+		<reference name="root">
+			<action method="setTemplate"><template>page/1column.phtml</template></action>
+		</reference>
+		<reference name="content">
+			<block type="core/template" template="ccavenuepay/iframe.phtml" name="ccavenuepay.iframe" />
+		</reference>
+	</ccavenuepay_ccavenuepay_redirect>
+</layout>

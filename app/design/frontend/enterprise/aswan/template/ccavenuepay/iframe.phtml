@@ -1,0 +1,23 @@
+<?php
+
+	$ccavenuepay = Mage::getModel('ccavenuepay/method_ccavenuepay');
+	$url=$ccavenuepay->getCcavenuepayUrl();
+       foreach ($ccavenuepay->getStandardCheckoutFormFields('redirect') as $field=>$value) {
+           if($field=='encRequest')
+			   $encryptedrequest=$value;
+		   if($field=='access_code')
+			   $accesscode=$value;
+        }
+
+$production_url = $url . '&encRequest=' . $encryptedrequest . '&access_code=' . $accesscode;
+?>
+
+	<iframe src="<?php echo $production_url; ?>" id="ccavenuepay-frame" width="700" height="600" frameborder="0" scrolling="No" style="display: block; margin: 0 auto;"></iframe>
+
+	<script type="text/javascript">
+	document.observe( 'dom:loaded', function() {
+		window.addEventListener( 'message' , function( e ) {
+			$( 'ccavenuepay-frame' ).setStyle( { height: e.data['newHeight'] + 'px' } );
+		}, false );
+	});
+	</script>
