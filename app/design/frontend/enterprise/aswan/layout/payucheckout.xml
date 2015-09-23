@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+
+<layout version="0.1.0">
+<!-- Payucgeckout Failure Response Review -->
+<payucheckout_shared_failure>
+    <reference name="root">
+        <action method="setTemplate"><template>page/2columns-right.phtml</template></action>
+    </reference>
+    <reference name="content">
+        <block type="payucheckout/shared_failure" name="payucheckout_shared_failure" template="payucheckout/shared/failure.phtml">
+        </block>
+		
+    </reference>
+	<reference name="content">
+        
+    </reference>
+</payucheckout_shared_failure>
+
+
+<!-- Payucgeckout Cancel Response Review -->
+<payucheckout_shared_canceled>
+    <reference name="root">
+        <action method="setTemplate"><template>page/2columns-right.phtml</template></action>
+    </reference>
+    <reference name="content">
+       <block type="payucheckout/shared_canceled" name="payucheckout_shared_canceled"
+		 template="payucheckout/shared/canceled.phtml">
+        </block>
+		
+    </reference>
+	<reference name="content">
+        
+    </reference>
+</payucheckout_shared_canceled>
+
+
+
+
+</layout>
+
+
+
+
